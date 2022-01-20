@@ -7,6 +7,13 @@ class User {
         }
     }
 
+    /**
+     * @static
+     * @async
+     * @param {string} email
+     * @throws {Error}
+     */
+
     static async findOne(email) {
         try {
             const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1', [email]);
