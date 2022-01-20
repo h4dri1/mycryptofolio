@@ -6,16 +6,12 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import logo from 'src/assets/logo/logo_MyCryptoFolio.png';
+import Logo from 'src/components/Navbar/Logo';
+import Button from '@mui/material/Button';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -120,11 +116,6 @@ export default function PrimarySearchAppBar() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
         </Menu>
     );
 
@@ -135,12 +126,12 @@ export default function PrimarySearchAppBar() {
                     disableGutters='true'
 
                 >
-                    <img src={logo} alt="logo MyCryptoFolio" />
+                    <Logo />
                     <Typography
                         variant="h4"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{ display: { xs: 'none', sm: 'flex' } }}
                     >
                         MyCryptoFolio
 
@@ -176,7 +167,8 @@ export default function PrimarySearchAppBar() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle />
+                            {/* <AccountCircle /> */}
+                            <Button variant="contained">Mon compte</Button>
                         </IconButton>
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

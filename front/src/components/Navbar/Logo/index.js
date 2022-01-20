@@ -1,12 +1,14 @@
-<ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-    {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-            <img
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
+import logo from 'src/assets/logo/logo_MyCryptoFolio.png';
+
+export default function Logo() {
+    return (
+        <>
+            <img src={logo} alt="logo MyCryptoFolio"
+                sx={{ width: 500, height: 450 }}
+                variant="quilted"
+                cols={4}
+                rowHeight={121}
             />
-        </ImageListItem>
-    ))}
-</ImageList>
+        </>
+    );
+}
