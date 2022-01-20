@@ -1,0 +1,25 @@
+const db = require('../database');
+
+class User {
+    constructor(obj={}) {
+        for (const propname in obj) {
+            this[propname] = obj[propname];
+        }
+    }
+
+    static async findOne(email) {
+        try {
+            const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1', [email]);
+            if (rows[0]) {
+                return new User(rows[0]);
+            }
+        } catch (error) {
+           if (error.detail) {
+              throw new Error(error.detail);
+           }
+           throw error;
+        }
+    }
+};
+
+module.exports = User;
