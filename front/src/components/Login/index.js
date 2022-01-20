@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-import { changeField } from 'src/actions/user';
+import { changeField, login } from 'src/actions/user';
 
 import {
   Button,
@@ -41,6 +41,10 @@ export default function Login() {
     dispatch(changeField(e.target.type, e.target.value))
   }
 
+  const handleSubmit = () => {
+    dispatch(login())
+  }
+
   return (
     <>
       <Button onClick={handleOpen} variant='outlined'>Mon compte</Button>
@@ -74,7 +78,7 @@ export default function Login() {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>S'inscrire</Button>
-            <Button onClick={handleClose} variant='contained'>Se connecter</Button>
+            <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
           </DialogActions>
         </Dialog>
     </>
