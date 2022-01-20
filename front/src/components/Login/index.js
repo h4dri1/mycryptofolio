@@ -1,3 +1,9 @@
+// import
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+
+import { changeField } from 'src/actions/user';
+
 import {
   Button,
   Dialog,
@@ -8,28 +14,33 @@ import {
   TextField,
 } from '@mui/material';
 
-import { makeStyles } from '@mui/styles';
-import { useState } from 'react';
-
-// const style = makeStyles({
-//   width: 300,
-//   height: 300,
-//   backgroundColor: 'primary.dark',
-//   '&:hover': {
-//     backgroundColor: 'primary.main',
-//     opacity: [0.9, 0.8, 0.7],
-//   },
-// })
-
 export default function Login() {
+
+  // get the user state
+  const {
+    email,
+    password,
+  } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  // Temporary useState hook to test modal opening and closing
+  // It'll be superseded by useSelector to get state from reducers
   const [open, setOpen] = useState(false)
-  console.log(open)
+  
+  // handle to open and close login modal
   const handleOpen = () => {
     setOpen(true);
   }
   const handleClose = () => {
     setOpen(false);
   }
+
+  // Update state on change of fields value 
+  const handleChange = (e) => {
+    dispatch(changeField(e.target.type, e.target.value))
+  }
+
   return (
     <>
       <Button onClick={handleOpen} variant='outlined'>Mon compte</Button>
@@ -47,6 +58,8 @@ export default function Login() {
               type="email"
               fullWidth
               variant="outlined"
+              value={email}
+              onChange={handleChange}
             />
             <TextField
               margin="dense"
@@ -55,6 +68,8 @@ export default function Login() {
               type="password"
               fullWidth
               variant="outlined"
+              value={password}
+              onChange={handleChange}
             />
           </DialogContent>
           <DialogActions>
