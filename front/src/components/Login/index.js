@@ -1,5 +1,25 @@
-import { Modal, Button, Box, Typography } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  TextField,
+} from '@mui/material';
+
+import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
+
+const style = makeStyles({
+  width: 300,
+  height: 300,
+  backgroundColor: 'primary.dark',
+  '&:hover': {
+    backgroundColor: 'primary.main',
+    opacity: [0.9, 0.8, 0.7],
+  },
+})
 
 export default function Login() {
   const [open, setOpen] = useState(false)
@@ -12,22 +32,29 @@ export default function Login() {
   }
   return (
     <>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
+      <Button onClick={handleOpen}>Open dialog</Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To subscribe to this website, please enter your email address here. We
+              will send updates occasionally.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+              variant="standard"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleClose}>Subscribe</Button>
+          </DialogActions>
+        </Dialog>
     </>
   );
 }
