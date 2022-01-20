@@ -11,15 +11,15 @@ import {
 import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
 
-const style = makeStyles({
-  width: 300,
-  height: 300,
-  backgroundColor: 'primary.dark',
-  '&:hover': {
-    backgroundColor: 'primary.main',
-    opacity: [0.9, 0.8, 0.7],
-  },
-})
+// const style = makeStyles({
+//   width: 300,
+//   height: 300,
+//   backgroundColor: 'primary.dark',
+//   '&:hover': {
+//     backgroundColor: 'primary.main',
+//     opacity: [0.9, 0.8, 0.7],
+//   },
+// })
 
 export default function Login() {
   const [open, setOpen] = useState(false)
@@ -32,27 +32,34 @@ export default function Login() {
   }
   return (
     <>
-      <Button onClick={handleOpen}>Open dialog</Button>
+      <Button onClick={handleOpen} variant='outlined'>Mon compte</Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Connexion</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address here. We
-              will send updates occasionally.
+              Pour accéder au fonctionnalités avancées, il faut vous connecter.
             </DialogContentText>
             <TextField
-              autoFocus
+              // autoFocus
               margin="dense"
-              id="name"
+              id="email"
               label="Email Address"
               type="email"
               fullWidth
-              variant="standard"
+              variant="outlined"
+            />
+            <TextField
+              margin="dense"
+              id="password"
+              label="Mot de passe"
+              type="password"
+              fullWidth
+              variant="outlined"
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Subscribe</Button>
+            <Button onClick={handleClose}>S'inscrire</Button>
+            <Button onClick={handleClose} variant='contained'>Se connecter</Button>
           </DialogActions>
         </Dialog>
     </>
