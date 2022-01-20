@@ -4,6 +4,8 @@
   "description": "Ce sous-dépôt est destiné à l'API de MyCryptoFolio.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "node-dev index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
