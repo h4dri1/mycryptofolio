@@ -1,10 +1,5 @@
-export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
-export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
+export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL';
 
-export const increment = () => ({
-  type: INCREMENT_COUNTER,
-});
-
-export const decrement = () => ({
-  type: DECREMENT_COUNTER,
+export const toggleLoginModal = () => ({
+  type: TOGGLE_LOGIN_MODAL,
 });
