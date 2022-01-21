@@ -21,13 +21,6 @@ const useStyles = makeStyles({
     }
 });
 
-const headCells = [
-    {
-        id: 'rank',
-        label: '#'
-    }
-]
-
 const CryptoList = () => {
     const classes = useStyles();
 
@@ -66,7 +59,7 @@ const CryptoList = () => {
                 </TableBody>
             </Table>
 
-            <Button href="" variant="outlined">Charger plus de cryptos</Button>
+            <Button href="" variant="outlined" onClick={() => console.log("button clicked")}>Charger plus de cryptos</Button>
         </>
     );
 }
