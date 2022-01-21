@@ -13,5 +13,3 @@ export default function Logo() {
         </>
     );
 }
-
-{/* <img src={logo} alt="logo MyCryptoFolio" */ }

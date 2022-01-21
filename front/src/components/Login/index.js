@@ -29,7 +29,7 @@ export default function Login() {
   console.log(loginIsOpen);
 
   const dispatch = useDispatch();
-  
+
   // handle to open and close login modal
   // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
   const handleToggleLoginModal = () => {
@@ -47,40 +47,40 @@ export default function Login() {
 
   return (
     <>
-      <Button onClick={handleToggleLoginModal} variant='outlined'>Mon compte</Button>
+      <Button onClick={handleToggleLoginModal} variant='contained'>Mon compte</Button>
       <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
         <DialogTitle>Connexion</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Pour accéder aux fonctionnalités avancées, il faut vous connecter.
-            </DialogContentText>
-            <TextField
-              // autoFocus
-              margin="dense"
-              id="email"
-              label="Email Address"
-              type="email"
-              fullWidth
-              variant="outlined"
-              value={email}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              id="password"
-              label="Mot de passe"
-              type="password"
-              fullWidth
-              variant="outlined"
-              value={password}
-              onChange={handleChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleToggleLoginModal}>S'inscrire</Button>
-            <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
-          </DialogActions>
-        </Dialog>
+        <DialogContent>
+          <DialogContentText>
+            Pour accéder aux fonctionnalités avancées, il faut vous connecter.
+          </DialogContentText>
+          <TextField
+            // autoFocus
+            margin="dense"
+            id="email"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="outlined"
+            value={email}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            id="password"
+            label="Mot de passe"
+            type="password"
+            fullWidth
+            variant="outlined"
+            value={password}
+            onChange={handleChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleToggleLoginModal}>S'inscrire</Button>
+          <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
