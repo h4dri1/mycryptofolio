@@ -11,8 +11,11 @@ import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 
 import { makeStyles } from '@mui/styles';
+import { useDispatch } from 'react-redux';
 
 import cryptos from './cryptos';
+
+import { getCryptoList } from 'src/actions/cryptos';
 
 const useStyles = makeStyles({
     table: {
@@ -23,6 +26,8 @@ const useStyles = makeStyles({
 
 const CryptoList = () => {
     const classes = useStyles();
+
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -59,7 +64,7 @@ const CryptoList = () => {
                 </TableBody>
             </Table>
 
-            <Button href="" variant="outlined" onClick={() => console.log("button clicked")}>Charger plus de cryptos</Button>
+            <Button href="" variant="outlined" onClick={() => dispatch(getCryptoList())}>Charger plus de cryptos</Button>
         </>
     );
 }
