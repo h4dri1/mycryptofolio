@@ -1,10 +1,15 @@
 // == Import
+import Home from 'src/pages/Home';
+import Login from 'src/components/Login';
+import Footer from 'src/components/Footer';
 
+const loginDisplay = true;
 
 // == Composant
 const App = () => (
   <div className="app">
-    <h1>Composant : App</h1>
+    <Home />
+    {loginDisplay && <Login />}
   </div>
 );
 
