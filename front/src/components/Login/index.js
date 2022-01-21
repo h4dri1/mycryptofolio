@@ -1,8 +1,8 @@
 // import
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 
 import { changeField, login } from 'src/actions/user';
+import { toggleLoginModal } from '../../actions';
 
 import {
   Button,
@@ -28,12 +28,19 @@ export default function Login() {
     password,
   } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch();
+  // get the main state
+  const {
+    loginIsOpen
+  } = useSelector((state) => state.main);
+  console.log(loginIsOpen);
 
-  // Temporary useState hook to test modal opening and closing
-  // It'll be superseded by useSelector to get state from reducers
-  const [displayModal, setDisplayModal] = useState(false)
-  const [displaySnackBar, setDisplaySnackBar] = useState(false)
+  const dispatch = useDispatch();
+  
+  // handle to open and close login modal
+  // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
+  const handleToggleLoginModal = () => {
+    dispatch(toggleLoginModal());
+  }
 
   // Update state on change of fields value 
   const handleChange = (e) => {
@@ -46,12 +53,12 @@ export default function Login() {
 
   return (
     <>
-      <Button onClick={() => setDisplayModal(true)} variant='outlined'>Mon compte</Button>
-      <Dialog open={displayModal} onClose={() => setDisplayModal(false)}>
+      <Button onClick={handleToggleLoginModal} variant='outlined'>Mon compte</Button>
+      <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
         <DialogTitle>Connexion</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Pour accéder au fonctionnalités avancées, il faut vous connecter.
+              Pour accéder aux fonctionnalités avancées, il faut vous connecter.
             </DialogContentText>
             <TextField
               // autoFocus
@@ -81,7 +88,7 @@ export default function Login() {
             </Alert>
           </Snackbar>
           <DialogActions>
-            <Button onClick={() => setDisplaySnackBar(true)}>S'inscrire</Button>
+            <Button onClick={handleToggleLoginModal}>S'inscrire</Button>
             <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
           </DialogActions>
         </Dialog>
