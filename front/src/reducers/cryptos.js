@@ -1,4 +1,4 @@
-import { UPDATE_CRYPTO_LIST } from 'src/actions/cryptos';
+import { UPDATE_CRYPTO_LIST, UPDATE_CRYPTO_QUANTITY } from 'src/actions/cryptos';
 
 const initialState = {
     cryptoList: {
@@ -10,14 +10,21 @@ const initialState = {
 const cryptos = (state = initialState, action = {}) => {
     switch (action.type) {
         case UPDATE_CRYPTO_LIST:
-            console.log("and here");
             return {
                 ...state,
                 cryptoList: {
-                    ...cryptoList,
+                    ...state.cryptoList,
                     list: action.payload 
                 },
             };
+        case UPDATE_CRYPTO_QUANTITY:
+            return {
+                ...state,
+                cryptoList: {
+                    ...state.cryptoList,
+                    quantity: state.cryptoList.quantity + 10,
+                }, 
+            }
         default:
             return state;
     }
