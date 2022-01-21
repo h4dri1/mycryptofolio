@@ -2,7 +2,7 @@ const jwt = require('../services/jwt');
 
 module.exports = (req, res, next) => {
     try {
-        let token = req.headers['authorization'];
+        const token = req.headers['authorization'];
         console.log(token);
         if (!token) {
             return res.status(401).json('Invalid token');
@@ -12,9 +12,12 @@ module.exports = (req, res, next) => {
         if (!payload.data) {
             return res.status(401).json('Invalid token');
         }
+        req.userId = payload.data;
         next();
     } catch(error) {
-        console.log(error);
-        res.status(401).json(error.message);
-    }
-}
+        if (error.detail) {
+            throw new Error(error.detail);
+        }
+        throw error;
+    };
+};
