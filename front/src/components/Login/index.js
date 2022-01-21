@@ -1,8 +1,8 @@
 // import
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 
 import { changeField, login } from 'src/actions/user';
+import { toggleLoginModal } from '../../actions';
 
 import {
   Button,
@@ -28,7 +28,11 @@ export default function Login() {
     password,
   } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch();
+  // get the main state
+  const {
+    loginIsOpen
+  } = useSelector((state) => state.main);
+  console.log(loginIsOpen);
 
   // Temporary useState hook to test modal opening and closing
   // It'll be superseded by useSelector to get state from reducers
@@ -51,7 +55,7 @@ export default function Login() {
         <DialogTitle>Connexion</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Pour accéder au fonctionnalités avancées, il faut vous connecter.
+              Pour accéder aux fonctionnalités avancées, il faut vous connecter.
             </DialogContentText>
             <TextField
               // autoFocus
