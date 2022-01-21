@@ -46,7 +46,7 @@ export default function Login() {
 
   return (
     <>
-      <Button onClick={() => setDisplayModal(true)} variant='outlined'>Mon compte</Button>
+      <Button onClick={() => setDisplayModal(true)} variant='contained'>Mon compte</Button>
       <Dialog open={displayModal} onClose={() => setDisplayModal(false)}>
         <DialogTitle>Connexion</DialogTitle>
         <DialogContent>
