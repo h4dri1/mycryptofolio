@@ -1,5 +1,6 @@
 // import
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import { changeField, login } from 'src/actions/user';
 import { toggleLoginModal } from '../../actions';
@@ -27,6 +28,8 @@ export default function Login() {
     email,
     password,
   } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   // get the main state
   const {
