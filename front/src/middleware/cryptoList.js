@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-import { GET_CRYPTO_LIST, updateCryptoList } from 'src/actions/cryptos';
+import { GET_CRYPTO_LIST, updateCryptoList, GET_MORE_CRYPTOS, updateCryptoQuantity, getCryptoList } from 'src/actions/cryptos';
 import cryptos from 'src/components/CryptoList/cryptos.json';
 
 const cryptoList = (store) => (next) => (action) => {
     switch (action.type) {
         case GET_CRYPTO_LIST:
-            console.log("here");
             store.dispatch(updateCryptoList(cryptos));
 
             // const { cryptoList } = store.getState().cryptos;
@@ -28,8 +27,11 @@ const cryptoList = (store) => (next) => (action) => {
             //     })
 
             break
-    
+        case GET_MORE_CRYPTOS:
+            store.dispatch(updateCryptoQuantity());
+            store.dispatch(getCryptoList());
         default:
+            next(action);
             break;
     }
 };
