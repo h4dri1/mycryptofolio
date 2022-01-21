@@ -4,6 +4,10 @@ const router = Router();
 
 const userController = require('./controllers/userController');
 
+const tokenController = require('./controllers/tokenController')
+
+const jwtMW = require('./middlewares/jwtMW');
+
 /**
 * @typedef {Object} UserPost
 * @property {string} email
@@ -19,5 +23,9 @@ const userController = require('./controllers/userController');
  */
 
 router.post('/login', userController.validLogin);
+
+router.post('/jwt/refresh/:token', tokenController.refresh)
+
+router.get('/secret', jwtMW, userController.getSecret);
 
 module.exports = router;

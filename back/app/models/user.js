@@ -14,7 +14,7 @@ class User {
      * @throws {Error}
      */
 
-    static async findOne(email) {
+    static async doLogin(email) {
         try {
             const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1', [email]);
             if (rows[0]) {
