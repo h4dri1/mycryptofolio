@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Logo from 'src/components/Navbar/Logo';
-import Login from 'src/components/Login';
+import MyAccount from 'src/components/Navbar/MyAccount';
+
+import {
+    AppBar,
+    Box,
+    Toolbar,
+    Typography,
+    InputBase,
+    MenuItem,
+    Menu,
+} from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -92,6 +95,7 @@ export default function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
+            {/* Once connected to MyCryptoFolio:*/}
             <MenuItem onClick={handleMenuClose}>Portfolio</MenuItem>
             <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
         </Menu>
@@ -150,8 +154,8 @@ export default function PrimarySearchAppBar() {
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
-                    <Login />
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}></Box>
+                    {/* <Box sx={{ display: { xs: 'flex', md: 'none' } }}></Box> */}
+                    <MyAccount />
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
