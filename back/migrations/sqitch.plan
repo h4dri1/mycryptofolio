@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=mycryptofolio
+
+init 2022-01-20T13:15:40Z h4dri1 <hadrien.vuillaume@gmail.com> # creation des tables
+testuser 2022-01-20T14:07:29Z h4dri1 <hadrien.vuillaume@gmail.com> # ajouter un utilisateur de test
