@@ -27,3 +27,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFp
 
 GET http://localhost:8888/v1/jwt/refresh/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6InRlc3QyQHRlc3QuZnIiLCJuaWNrbmFtZSI6InRlc3QyIiwicGljdHVyZSI6Imh0dHBzOi8vY2RuLmljb24taWNvbnMuY29tL2ljb25zMi8xMzcxL1BORy81MTIvcm9ib3QwM185MDgzMy5wbmcifSwiaWF0IjoxNjQyODA5MTExLCJleHAiOjE2NDU0MDExMTF9.VhQCSCHJEHW6qldQNzsOh1Kr93ERySGgBw2DX9AKaxM HTTP/1.1
 content-type: application/json
+
+###4
+
+GET http://localhost:8888/v1/cryptos/usd/10
+Content-Type: application/json
