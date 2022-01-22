@@ -7,11 +7,11 @@ module.exports = {
         try {
             const user = await User.doLogin(req.body.email);
             if (!user) {
-                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect')
+                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
             }
-            const isPwdValid = await bcrypt.compare(req.body.password, user.password)
+            const isPwdValid = await bcrypt.compare(req.body.password, user.password);
             if (isPwdValid === false) {
-                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect')
+                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
             }
             delete user.password;
             const token = jwt.makeToken(user);
@@ -27,26 +27,26 @@ module.exports = {
                throw new Error(error.detail);
             }
             throw error;
-        }
+        };
     },
 
     validLogin: async (req, res) => {
         try {
             const user = await User.doLogin(req.body.email);
             if (!user) {
-                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect')
+                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
             }
-            const isPwdValid = await bcrypt.compare(req.body.password, user.password)
+            const isPwdValid = await bcrypt.compare(req.body.password, user.password);
             if (isPwdValid === false) {
-                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect')
+                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
             }
-            res.status(200).json(`Bienvenue ${user.nickname}`)
+            res.status(200).json(`Bienvenue ${user.nickname}`);
         } catch (error) {
             if (error.detail) {
                throw new Error(error.detail);
-            }
+            };
             throw error;
-        }
+        };
     },
 
     getSecret: (req, res) => {
@@ -57,8 +57,10 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(infos);
         } catch (error) {
-            console.log(error);
-            response.status(500).json(error.message);
-        } 
+            if (error.detail) {
+                throw new Error(error.detail);
+            };
+            throw error;
+        };
     }
-}
+};
