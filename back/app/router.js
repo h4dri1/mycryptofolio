@@ -2,15 +2,11 @@ const  {Router} = require('express');
 
 const router = Router();
 
-const userController = require('./controllers/userController');
-
-const tokenController = require('./controllers/tokenController')
+const {userController, tokenController, fetchCryptoController} = require('./controllers');
 
 const jwtMW = require('./middlewares/jwtMW');
 
-const {loginErr} = require('./middlewares/errMW');
-
-const {jwtErr} = require('./middlewares/errMW');
+const {loginErr, jwtErr} = require('./middlewares/errMW');
 
 /**
 * @typedef {Object} User_Login
@@ -22,6 +18,35 @@ const {jwtErr} = require('./middlewares/errMW');
  * @typedef {Object} Response_Login
  * @property {string} status 
  * @property {string} refreshtoken 
+ */
+
+/**
+ * @typedef {Object} Cryptos
+ * @property {string} id 
+ * @property {string} symbol
+ * @property {string} name
+ * @property {string} image
+ * @property {number} current_price 
+ * @property {number} market_cap
+ * @property {number} fully_diluted_valuation
+ * @property {number} total_volume
+ * @property {number} high_24h
+ * @property {number} low_24h
+ * @property {number} price_change_24h 
+ * @property {number} price_change_percentage_24h
+ * @property {number} market_cap_change_24h 
+ * @property {number} market_cap_change_percentage_24h
+ * @property {number} circulating_supply
+ * @property {number} total_supply
+ * @property {number} max_supply 
+ * @property {number} ath
+ * @property {number} ath_change_percentage
+ * @property {number} ath_date
+ * @property {number} atl
+ * @property {number} atl_change_pourcentage
+ * @property {number} atl_date
+ * @property {number} roi
+ * @property {string} last_update
  */
 
 /**
@@ -54,6 +79,18 @@ router.post('/jwt/login', loginErr, userController.validLoginJwt);
  */
 
 router.get('/jwt/refresh/:token', jwtErr, tokenController.refresh);
+
+/**
+ * GET /v1/cryptos/{vs}/{nb}
+ * @summary Crypto
+ * @route GET /v1/cryptos/{vs}/{nb}
+ * @param {string} vs.path.required
+ * @param {number} nb.path.required
+ * @returns {Cryptos} 200 - Crypto object
+ * @returns {object} 500 - An error message
+ */
+
+router.get('/cryptos/:vs/:nb(\\d+)', fetchCryptoController.getTopCryptoPrice);
 
 router.get('/secret', jwtMW, userController.getSecret);
 
