@@ -8,7 +8,9 @@ const tokenController = require('./controllers/tokenController')
 
 const jwtMW = require('./middlewares/jwtMW');
 
-const loginErr = require('./middlewares/loginErr');
+const {loginErr} = require('./middlewares/errMW');
+
+const {jwtErr} = require('./middlewares/errMW');
 
 /**
 * @typedef {Object} User_Login
@@ -40,7 +42,7 @@ router.post('/login', loginErr, userController.validLogin);
  * @returns {object} 500 - An error message
  */
 
-router.post('/jwt/login', loginErr, userController.validLoginJwt)
+router.post('/jwt/login', loginErr, userController.validLoginJwt);
 
 /**
  * POST /v1/jwt/refresh/{token}
@@ -51,7 +53,7 @@ router.post('/jwt/login', loginErr, userController.validLoginJwt)
  * @returns {object} 500 - An error message
  */
 
-router.post('/jwt/refresh/:token', tokenController.refresh);
+router.get('/jwt/refresh/:token', jwtErr, tokenController.refresh);
 
 router.get('/secret', jwtMW, userController.getSecret);
 

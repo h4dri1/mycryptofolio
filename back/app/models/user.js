@@ -23,10 +23,10 @@ class User {
         } catch (error) {
            if (error.detail) {
               throw new Error(error.detail);
-           }
+           };
            throw error;
-        }
-    }
+        };
+    };
 };
 
 module.exports = User;
