@@ -21,10 +21,8 @@ class User {
                 return new User(rows[0]);
             }
         } catch (error) {
-           if (error.detail) {
-              throw new Error(error.detail);
-           };
-           throw error;
+            console.log(error);
+            throw error.name;
         };
     };
 };

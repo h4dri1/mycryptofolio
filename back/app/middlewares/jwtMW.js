@@ -15,9 +15,7 @@ module.exports = (req, res, next) => {
         req.userId = payload.data;
         next();
     } catch(error) {
-        if (error.detail) {
-            throw new Error(error.detail);
-        };
-        throw error;
+        console.log(error);
+        throw error.name;
     };
 };

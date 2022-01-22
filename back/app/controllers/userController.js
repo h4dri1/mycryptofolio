@@ -23,10 +23,8 @@ module.exports = {
             res.setHeader('Authorization', token);
             res.status(200).json(response);
         } catch (error) {
-            if (error.detail) {
-               throw new Error(error.detail);
-            }
-            throw error;
+            console.log(error);
+            throw error.name;
         };
     },
 
@@ -42,10 +40,8 @@ module.exports = {
             }
             res.status(200).json(`Bienvenue ${user.nickname}`);
         } catch (error) {
-            if (error.detail) {
-               throw new Error(error.detail);
-            };
-            throw error;
+            console.log(error);
+            throw error.name;
         };
     },
 
@@ -57,10 +53,8 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(infos);
         } catch (error) {
-            if (error.detail) {
-                throw new Error(error.detail);
-            };
-            throw error;
+            console.log(error);
+            throw error.name;
         };
     }
 };
