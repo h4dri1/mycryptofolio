@@ -11,7 +11,7 @@ module.exports = {
             next();
         } catch(error) {
             console.log(error);
-            throw error.name;
+            res.status(400).json(error.name);
         };
     },
 
@@ -23,7 +23,7 @@ module.exports = {
             next();
         } catch (error) {
             console.log(error);
-            throw error.name;
+            res.status(401).json(error.name);
         };
     }
 };

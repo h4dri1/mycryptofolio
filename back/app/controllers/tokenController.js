@@ -13,7 +13,7 @@ module.exports = {
             res.status(200).json('token refresh ok');
         } catch (error) {
             console.log(error);
-            throw error.name;
+            res.status(401).json(error.name);
         };
     }
 };

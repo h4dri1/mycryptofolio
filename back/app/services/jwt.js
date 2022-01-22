@@ -14,7 +14,8 @@ module.exports = {
                 }
             );
         } catch(error) {
-             throw error.name;
+            console.log(error);
+            throw error.name;
         }
     },
 
@@ -31,6 +32,7 @@ module.exports = {
                 }
             );
         } catch(error) {
+            console.log(error);
             throw error.name;
         }
     },
@@ -45,6 +47,7 @@ module.exports = {
                 }
             );
         } catch(error) {
+            console.log(error);
             throw error.name;
         }
     },
@@ -59,6 +62,7 @@ module.exports = {
                 }
             );
         } catch(error) {
+            console.log(error);
             throw error.name;
         }
     }
