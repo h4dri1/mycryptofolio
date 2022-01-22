@@ -22,7 +22,7 @@ class User {
             }
         } catch (error) {
             console.log(error);
-            throw error.name;
+            throw error;
         };
     };
 };

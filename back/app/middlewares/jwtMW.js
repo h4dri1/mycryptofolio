@@ -14,7 +14,6 @@ module.exports = (req, res, next) => {
         req.userId = payload.data;
         next();
     } catch(error) {
-        console.log(error);
-        res.status(401).json(error.name);
+        return res.status(401).json(error.message);
     };
 };
