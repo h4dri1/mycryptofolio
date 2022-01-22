@@ -2,16 +2,12 @@ module.exports = {
 
     loginErr: (req, res, next) => {
         try {
-            if (!req.body.password) {
-                return res.status(400).json('Veuillez renseigner un mot de passe !');
-            }
-            if (!req.body.email) {
-                return res.status(400).json(`Veuillez renseigner un nom d'utilisateur !`);
+            if (!req.body.password | !req.body.email) {
+                return res.status(400).json('Veuillez renseigner vos informations de connexion !');
             }
             next();
         } catch(error) {
-            console.log(error);
-            res.status(400).json(error.name);
+            return res.status(400).json(error.message);
         };
     },
 
@@ -23,7 +19,7 @@ module.exports = {
             next();
         } catch (error) {
             console.log(error);
-            res.status(401).json(error.name);
+            return res.status(401).json(error.message);
         };
     }
 };
