@@ -45,9 +45,9 @@ router.post('/login', loginErr, userController.validLogin);
 router.post('/jwt/login', loginErr, userController.validLoginJwt);
 
 /**
- * POST /v1/jwt/refresh/{token}
+ * GET /v1/jwt/refresh/{token}
  * @summary Login
- * @route POST /v1/jwt/{token}
+ * @route GET /v1/jwt/{token}
  * @param {string} token.path.required
  * @returns {object} 200 - Token refresh ok
  * @returns {object} 500 - An error message
