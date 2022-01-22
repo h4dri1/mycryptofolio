@@ -12,10 +12,8 @@ module.exports = {
             res.setHeader('Authorization', token);
             res.status(200).json('token refresh ok');
         } catch (error) {
-            if (error.detail) {
-                throw new Error(error.detail);
-            };
-            throw error;
+            console.log(error);
+            throw error.name;
         };
     }
 };

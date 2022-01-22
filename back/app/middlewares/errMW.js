@@ -10,10 +10,8 @@ module.exports = {
             }
             next();
         } catch(error) {
-            if (error.detail) {
-                throw new Error(error.detail);
-            };
-            throw error;
+            console.log(error);
+            throw error.name;
         };
     },
 
@@ -24,10 +22,8 @@ module.exports = {
             }
             next();
         } catch (error) {
-            if (error.detail) {
-                throw new Error(error.detail);
-            };
-            throw error;
+            console.log(error);
+            throw error.name;
         };
     }
 };
