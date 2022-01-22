@@ -24,7 +24,7 @@ module.exports = {
             res.status(200).json(response);
         } catch (error) {
             console.log(error);
-            throw error.name;
+            res.status(401).json(error.name);
         };
     },
 
@@ -41,7 +41,7 @@ module.exports = {
             res.status(200).json(`Bienvenue ${user.nickname}`);
         } catch (error) {
             console.log(error);
-            throw error.name;
+            res.status(401).json(error.name);
         };
     },
 
@@ -54,7 +54,7 @@ module.exports = {
             res.status(200).json(infos);
         } catch (error) {
             console.log(error);
-            throw error.name;
+            res.status(401).json(error.name);
         };
     }
 };

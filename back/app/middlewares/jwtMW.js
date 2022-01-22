@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
             return res.status(401).json('Invalid token');
         }
         const payload = jwt.validateToken(token);
-        console.log(payload);
         if (!payload.data) {
             return res.status(401).json('Invalid token');
         }
@@ -16,6 +15,6 @@ module.exports = (req, res, next) => {
         next();
     } catch(error) {
         console.log(error);
-        throw error.name;
+        res.status(401).send(error.name);
     };
 };
