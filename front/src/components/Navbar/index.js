@@ -12,6 +12,7 @@ import {
     InputBase,
     MenuItem,
     Menu,
+    Link,
 } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
@@ -133,16 +134,19 @@ export default function PrimarySearchAppBar() {
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'flex' } }}
-                    >
-                        MyCryptoFolio
+                    >MyCryptoFolio
                     </Typography>
                     <Typography
                         variant="h7"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{ ml: 3 }}
                     >
-                        Portfolio
+                        <Link
+                            href="Portfolio"
+                            sx={{ color: "white" }}
+                        >Portfolio</Link>
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
@@ -154,7 +158,6 @@ export default function PrimarySearchAppBar() {
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
-                    {/* <Box sx={{ display: { xs: 'flex', md: 'none' } }}></Box> */}
                     <MyAccount />
                 </Toolbar>
             </AppBar>
