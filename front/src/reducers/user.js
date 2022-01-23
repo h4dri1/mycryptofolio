@@ -1,7 +1,8 @@
 import {
   CHANGE_FIELD,
   LOGIN,
-  SAVE_USER
+  SAVE_USER,
+  LOGOUT
 } from '../actions/user'
 
 export const initialState = {
@@ -36,7 +37,17 @@ const reducer = (state = initialState, action = {}) => {
         logged: true,
       })
     }
-    
+
+    case LOGOUT: {
+      return ({
+        ...state,
+        logged: false,
+        email: '',
+        nickname: '',
+        avatar: '',
+      })
+    }
+
     default:
       return state;
   }

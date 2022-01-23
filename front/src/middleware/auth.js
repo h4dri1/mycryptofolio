@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN, saveUser } from "../actions/user";
+import { LOGIN, LOGOUT, saveUser } from "../actions/user";
 import { toggleLoginModal } from "../actions";
 import parseJwt from 'src/services/parseJwt';
 
@@ -24,8 +24,8 @@ const auth = (store) => (next) => (action) => {
          store.dispatch(toggleLoginModal())
          
          // store tokens
-         localStorage.setItem('refresh', res.data.refreshToken);
-         localStorage.setItem('access', res.headers['authorization']);
+         localStorage.setItem('refreshToken', res.data.refreshToken);
+         localStorage.setItem('accessToken', res.headers['authorization']);
 
          // Save user details
          const { data } = parseJwt(res.headers['authorization']);
@@ -39,8 +39,6 @@ const auth = (store) => (next) => (action) => {
          console.log(user);
          store.dispatch(saveUser(user));
        }
-      next(action);
-
      })
      .catch((err) => {
         console.log(err.response.data)
@@ -48,6 +46,12 @@ const auth = (store) => (next) => (action) => {
       });
       next(action);
       break;
+
+    case LOGOUT:
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('accessToken');
+      next(action);
+      break
   
     default:
       next(action);
