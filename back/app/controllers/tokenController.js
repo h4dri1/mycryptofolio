@@ -9,6 +9,7 @@ module.exports = {
                 return res.status(401).json('Token Invalide !');
             }
             const token = jwt.makeToken(refreshPayload.data);
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', token);
             res.status(200).json('token refresh ok');
         } catch (error) {
