@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { LOGIN } from "../actions/user";
+import { toggleLoginModal } from "../actions";
 
 const auth = (store) => (next) => (action) => {
   switch (action.type) {
@@ -14,11 +15,14 @@ const auth = (store) => (next) => (action) => {
         }
       )
      .then((res) => {
-       console.log(res.status)
-       alert(`${res.data}, vous êtes bien connecté`)
+       if (res.status === 200) {
+         alert(`${res.data}, vous êtes bien connecté`)
+         store.dispatch(toggleLoginModal())
+       }
      })
      .catch((err) => {
         console.log(err.response.data)
+        alert(`${err.response.data}`)
       });
       next(action);
       break;
