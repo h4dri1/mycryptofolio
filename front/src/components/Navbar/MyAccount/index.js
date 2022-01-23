@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import * as React from 'react';
 import Login from 'src/components/Login';
-import TestAvatar from './TestAvatar';
+import AvatarIcon from './AvatarIcon';
 
 export default function MyAccount() {
 
@@ -18,7 +18,7 @@ export default function MyAccount() {
         // If NOT connected = display the button MON COMPTE to access LOGIN
         <div>
             {!logged && <Login />}
-            {logged && <TestAvatar />}
+            {logged && <AvatarIcon />}
         </div>
     );
 }
