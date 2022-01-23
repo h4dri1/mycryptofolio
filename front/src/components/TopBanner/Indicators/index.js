@@ -12,6 +12,7 @@ const Indicators = () => {
                     display: "flex",
                     justifyContent: "flex-start",
                     alignItems: "center",
+                    ml: 1,
                 }}>
                 <Typography
                     variant="subtitle"
@@ -34,6 +35,7 @@ const Indicators = () => {
                         // p: 1,
                         fontSize: '0.8rem',
                         fontWeight: 'normal',
+                        color: "black",
                     }}
                 >
                     $2,007,030,607,506
@@ -60,6 +62,7 @@ const Indicators = () => {
                         // p: 1,
                         fontSize: '0.8rem',
                         fontWeight: 'normal',
+                        color: "black",
                     }}
                 >
                     $51,271,689,599
@@ -86,6 +89,7 @@ const Indicators = () => {
                         // p: 1,
                         fontSize: '0.8rem',
                         fontWeight: 'normal',
+                        color: "black",
                     }}
                 >
                     BTC: 40.2%

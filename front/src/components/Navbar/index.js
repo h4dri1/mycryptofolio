@@ -133,7 +133,7 @@ export default function PrimarySearchAppBar() {
                         variant="h5"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'flex' } }}
+                        sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
                     >MyCryptoFolio
                     </Typography>
                     <Typography

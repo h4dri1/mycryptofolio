@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import Avatar from '@mui/material/Avatar';
+import { Container } from "@mui/material";
 
 export default function TestAvatar() {
     const [open, setOpen] = React.useState(false);
@@ -44,59 +45,60 @@ export default function TestAvatar() {
     }, [open]);
 
     return (
-        <Stack
-            direction="row" spacing={2}
-            sx={{
-                display: "flex",
-                alignItems: "center",
-                // justifyContent: "space-evenly",
-            }}
-        >
-            Bienvenue
-            <div>
-                <Avatar
-                    src="/broken-image.jpg"
-                    ref={anchorRef}
-                    id="composition-button"
-                    aria-controls={open ? "composition-menu" : undefined}
-                    aria-expanded={open ? "true" : undefined}
-                    aria-haspopup="true"
-                    onClick={handleToggle}
-                    sx={{ ml: 1.5, mr: 3 }}
-                ></Avatar>
-                <Popper
-                    open={open}
-                    anchorEl={anchorRef.current}
-                    role={undefined}
-                    placement="bottom-end"
-                    transition
-                    disablePortal
-                >
-                    {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            style={{
-                                transformOrigin:
-                                    placement === "bottom-start" ? "left top" : "left bottom"
-                            }}
-                        >
-                            <Paper>
-                                <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList
-                                        autoFocusItem={open}
-                                        id="composition-menu"
-                                        aria-labelledby="composition-button"
-                                        onKeyDown={handleListKeyDown}
-                                    >
-                                        <MenuItem onClick={handleClose}>Portfolio</MenuItem>
-                                        <MenuItem onClick={handleClose}>Logout</MenuItem>
-                                    </MenuList>
-                                </ClickAwayListener>
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
-            </div>
-        </Stack>
+        <Container>
+            <Stack
+                direction="row" spacing={2}
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                }}
+            >
+                Bienvenue
+                <div>
+                    <Avatar
+                        src="/broken-image.jpg"
+                        ref={anchorRef}
+                        id="composition-button"
+                        aria-controls={open ? "composition-menu" : undefined}
+                        aria-expanded={open ? "true" : undefined}
+                        aria-haspopup="true"
+                        onClick={handleToggle}
+                        sx={{ ml: 1.5 }}
+                    ></Avatar>
+                    <Popper
+                        open={open}
+                        anchorEl={anchorRef.current}
+                        role={undefined}
+                        placement="bottom-end"
+                        transition
+                        disablePortal
+                    >
+                        {({ TransitionProps, placement }) => (
+                            <Grow
+                                {...TransitionProps}
+                                style={{
+                                    transformOrigin:
+                                        placement === "bottom-start" ? "left top" : "left bottom"
+                                }}
+                            >
+                                <Paper>
+                                    <ClickAwayListener onClickAway={handleClose}>
+                                        <MenuList
+                                            autoFocusItem={open}
+                                            id="composition-menu"
+                                            aria-labelledby="composition-button"
+                                            onKeyDown={handleListKeyDown}
+                                        >
+                                            <MenuItem onClick={handleClose}>Portfolio</MenuItem>
+                                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                        </MenuList>
+                                    </ClickAwayListener>
+                                </Paper>
+                            </Grow>
+                        )}
+                    </Popper>
+                </div>
+            </Stack >
+        </Container>
     );
 }
