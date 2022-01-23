@@ -8,12 +8,12 @@ module.exports = {
             const cryptos = await Crypto.findAll();
             console.log('Appel de response.json');
             if (!cryptos) {
-                return res.status(500);
+                return null;
             };
             return res.status(200).json(cryptos);
         } catch (error) {
             console.log(error);
-            return res.status(500);
+            return null;
         }
     }
 };
