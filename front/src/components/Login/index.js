@@ -48,8 +48,6 @@ export default function Login() {
   } = useSelector((state) => state.main);
   console.log(loginIsOpen);
 
-  const dispatch = useDispatch();
-  
   // handle to open and close login modal
   // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
   const handleToggleLoginModal = () => {
