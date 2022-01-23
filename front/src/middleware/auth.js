@@ -16,7 +16,9 @@ const auth = (store) => (next) => (action) => {
       )
      .then((res) => {
        if (res.status === 200) {
+         // TODO: alert should be superseded by opening AlertMessage component (src/common)
          alert(`${res.data}, vous êtes bien connecté`)
+         // close the Login modal
          store.dispatch(toggleLoginModal())
        }
      })

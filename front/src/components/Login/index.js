@@ -42,18 +42,6 @@ export default function Login() {
     dispatch(toggleLoginModal());
   }
 
-  // get the main state
-  const {
-    loginIsOpen
-  } = useSelector((state) => state.main);
-  console.log(loginIsOpen);
-
-  // handle to open and close login modal
-  // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
-  const handleToggleLoginModal = () => {
-    dispatch(toggleLoginModal());
-  }
-
   // Update state on change of fields value 
   const handleChange = (e) => {
     dispatch(changeField(e.target.type, e.target.value))
