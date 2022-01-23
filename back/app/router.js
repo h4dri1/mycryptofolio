@@ -102,7 +102,7 @@ router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptos/:vs/:nb(\\d+)', fetchCryptoController.getTopCryptoPrice);
+router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCryptoPrice);
 
 /**
  * GET /v1/cryptos

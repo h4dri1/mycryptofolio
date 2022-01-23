@@ -1,15 +1,21 @@
+const { time } = require('console');
 const {createClient} = require('redis');
 const db = createClient();
 db.connect();
 
 const prefix = 'mycryptofolio:';
-const timeout = 60 * 5;
+let timeout = 60 * 5;
 
 let key;
 
 const keys = [];
 
 const cache = async (req, res, next) => {
+    console.log(req.url.length);
+    if (req.url.length > 8) {
+        timeout = 60;
+    }
+    console.log(timeout);
     const key = `${prefix}${req.url}`;
     console.log(key);
 
