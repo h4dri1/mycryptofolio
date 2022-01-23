@@ -15,6 +15,7 @@ export default function RefCurrency() {
         <div>
             <FormControl sx={{ m: 1, minWidth: 70 }}>
                 <Select
+                    component='div'
                     labelId="demo-simple-select-autowidth-label"
                     id="demo-simple-select-autowidth"
                     value={cur}
