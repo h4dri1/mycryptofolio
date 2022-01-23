@@ -1,9 +1,7 @@
-import Login from 'src/components/Login';
 import { useSelector } from 'react-redux';
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-import { ThemeProvider } from '@mui/material';
+import Login from 'src/components/Login';
+import TestAvatar from './TestAvatar';
 
 export default function MyAccount() {
 
@@ -15,20 +13,12 @@ export default function MyAccount() {
 
     const logged = useSelector((state) => state.user.logged);
 
-    // TODO Greg: faire une ternaire en fonction du state connecté ou pas
-    const isLogged = logged ? 'avatar-visible' : 'avatar-hidden';;
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(login());
-    };
-
     return (
         // If connected = display the avatar
         // If NOT connected = display the button MON COMPTE to access LOGIN
         <div>
             {!logged && <Login />}
-            {logged && <><Avatar src="/broken-image.jpg" />Bienvenue</>}
+            {logged && <TestAvatar />}
         </div>
     );
 }
