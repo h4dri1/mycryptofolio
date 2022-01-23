@@ -1,6 +1,5 @@
 // import
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 
 import { changeField, login } from 'src/actions/user';
 import { toggleLoginModal } from '../../actions';
@@ -29,7 +28,19 @@ export default function Login() {
     password,
   } = useSelector((state) => state.user);
 
+  // get the main state
+  const {
+    loginIsOpen
+  } = useSelector((state) => state.main);
+  console.log(loginIsOpen);
+
   const dispatch = useDispatch();
+  
+  // handle to open and close login modal
+  // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
+  const handleToggleLoginModal = () => {
+    dispatch(toggleLoginModal());
+  }
 
   // get the main state
   const {
