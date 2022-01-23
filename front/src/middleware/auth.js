@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { LOGIN } from "../actions/user";
 import { toggleLoginModal } from "../actions";
+import parseJwt from 'src/services/parseJwt';
 
 const auth = (store) => (next) => (action) => {
   switch (action.type) {
@@ -14,6 +15,7 @@ const auth = (store) => (next) => (action) => {
         // password: "#0clock$0087",
       })
      .then((res) => {
+       console.log(res.status)
        if (res.status === 200) {
          // TODO: alert should be superseded by opening AlertMessage component (src/common)
          alert(`${res.data.status}, vous êtes bien connecté`)
@@ -24,6 +26,18 @@ const auth = (store) => (next) => (action) => {
          // store tokens
          localStorage.setItem('refresh', res.data.refreshToken);
          localStorage.setItem('access', res.headers['authorization']);
+
+         // Save user details
+         const { data } = parseJwt(res.headers['authorization'])
+         const { email, nickname, picture } = data;
+         const user = {
+           email,
+           nickname,
+           avatar: picture,
+         }
+
+         console.log(user);
+        //  store.dispatch(saveUser(res.data.user))
        }
      })
      .catch((err) => {
