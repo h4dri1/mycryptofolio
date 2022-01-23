@@ -1,13 +1,15 @@
 import {
   CHANGE_FIELD,
   LOGIN,
+  SAVE_USER
 } from '../actions/user'
 
 export const initialState = {
   logged: false,
   email: '',
   password: '',
-  pseudo: 'Toto'
+  nickname: '',
+  avatar: ''
 }
 
 const reducer = (state = initialState, action = {}) => {
@@ -27,6 +29,14 @@ const reducer = (state = initialState, action = {}) => {
       })
     }
   
+    case SAVE_USER: {
+      return ({
+        ...state,
+        ...action.payload,
+        logged: true,
+      })
+    }
+    
     default:
       return state;
   }

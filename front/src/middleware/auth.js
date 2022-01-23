@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN } from "../actions/user";
+import { LOGIN, saveUser } from "../actions/user";
 import { toggleLoginModal } from "../actions";
 import parseJwt from 'src/services/parseJwt';
 
@@ -28,17 +28,19 @@ const auth = (store) => (next) => (action) => {
          localStorage.setItem('access', res.headers['authorization']);
 
          // Save user details
-         const { data } = parseJwt(res.headers['authorization'])
+         const { data } = parseJwt(res.headers['authorization']);
          const { email, nickname, picture } = data;
          const user = {
            email,
            nickname,
            avatar: picture,
-         }
+         };
 
          console.log(user);
-        //  store.dispatch(saveUser(res.data.user))
+         store.dispatch(saveUser(user));
        }
+      next(action);
+
      })
      .catch((err) => {
         console.log(err.response.data)
