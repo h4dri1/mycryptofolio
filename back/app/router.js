@@ -2,11 +2,15 @@ const  {Router} = require('express');
 
 const router = Router();
 
-const {userController, tokenController, fetchCryptoController} = require('./controllers');
+const {userController, tokenController, fetchCryptoController, cryptoController} = require('./controllers');
+
+const loginSchema = require('./schemas/loginSchema');
+
+const {validateBody, validateJWT} = require('./middlewares/validator');
 
 const jwtMW = require('./middlewares/jwtMW');
 
-const {loginErr, jwtErr} = require('./middlewares/errMW');
+const {cache, flush} = require('./services/cache');
 
 /**
 * @typedef {Object} User_Login
@@ -57,7 +61,7 @@ const {loginErr, jwtErr} = require('./middlewares/errMW');
  * @returns {object} 500 - An error message
  */
 
-router.post('/login', loginErr, userController.validLogin);
+router.post('/login', validateBody(loginSchema), userController.validLogin);
 
 /**
  * POST /v1/jwt/login
@@ -67,7 +71,7 @@ router.post('/login', loginErr, userController.validLogin);
  * @returns {object} 500 - An error message
  */
 
-router.post('/jwt/login', loginErr, userController.validLoginJwt);
+router.post('/jwt/login', validateBody(loginSchema), userController.validLoginJwt);
 
 /**
  * GET /v1/jwt/refresh/{token}
@@ -78,7 +82,7 @@ router.post('/jwt/login', loginErr, userController.validLoginJwt);
  * @returns {object} 500 - An error message
  */
 
-router.get('/jwt/refresh/:token', jwtErr, tokenController.refresh);
+router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
 
 /**
  * GET /v1/cryptos/{vs}/{nb}
@@ -92,6 +96,10 @@ router.get('/jwt/refresh/:token', jwtErr, tokenController.refresh);
 
 router.get('/cryptos/:vs/:nb(\\d+)', fetchCryptoController.getTopCryptoPrice);
 
+router.get('/cryptos', cache, cryptoController.getAllCryptos);
+
 router.get('/secret', jwtMW, userController.getSecret);
+
+router.get('/flush', jwtMW, flush);
 
 module.exports = router;
