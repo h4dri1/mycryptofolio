@@ -53,12 +53,19 @@ const {cache, flush} = require('./services/cache');
  * @property {string} last_update
  */
 
+
 /**
  * @typedef {Object} AllCryptos
  * @property {number} id
  * @property {string} coin_id
  * @property {string} symbol
  * @property {string} logo
+ */
+
+/**
+ * @typedef {Object} Price
+ * @property {string} id
+ * @property {string} usd
  */
 
 /**
@@ -102,7 +109,30 @@ router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCryptoPrice);
+router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCrypto);
+
+/**
+ * GET /v1/crypto/{id}
+ * @summary Crypto
+ * @route GET /v1/crypto/{id}
+ * @param {string} id.path.required
+ * @returns {object} 200 - Crypto object
+ * @returns {object} 500 - An error message
+ */
+
+ router.get('/crypto/:id', cache, fetchCryptoController.getOneCrypto);
+
+ /**
+ * GET /v1/cryptoprice/{id}/{vs}
+ * @summary Crypto
+ * @route GET /v1/cryptoprice/{id}/{vs}
+ * @param {string} id.path.required
+ * @param {string} vs.path.required
+ * @returns {Price} 200 - Crypto object
+ * @returns {object} 500 - An error message
+ */
+
+  router.get('/cryptoprice/:id/:vs', cache, fetchCryptoController.getOnePrice);
 
 /**
  * GET /v1/cryptos

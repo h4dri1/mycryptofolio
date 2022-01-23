@@ -37,3 +37,12 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/cryptos
 Content-Type: application/json
+
+###
+
+GET http://localhost:8888/v1/crypto/bitcoin
+Content-Type: application/json
+###
+
+GET http://localhost:8888/v1/cryptoprice/bitcoin/usd
+Content-Type: application/json
