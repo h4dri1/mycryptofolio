@@ -20,6 +20,7 @@ module.exports = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
                 "refreshToken": refreshToken
             };
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization')
             res.setHeader('Authorization', token);
             res.status(200).json(response);
         } catch (error) {
@@ -48,6 +49,7 @@ module.exports = {
             const infos = {
                 message: 'Ceci est un message obtenu après vérif de qui a fait la requête'
             };
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization')
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(infos);
         } catch (error) {
