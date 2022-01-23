@@ -54,6 +54,14 @@ const {cache, flush} = require('./services/cache');
  */
 
 /**
+ * @typedef {Object} AllCryptos
+ * @property {number} id
+ * @property {string} coin_id
+ * @property {string} symbol
+ * @property {string} logo
+ */
+
+/**
  * POST /v1/login
  * @summary Login
  * @param {User_Login} request.body.required User Object from login
@@ -95,6 +103,14 @@ router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
  */
 
 router.get('/cryptos/:vs/:nb(\\d+)', fetchCryptoController.getTopCryptoPrice);
+
+/**
+ * GET /v1/cryptos
+ * @summary Crypto
+ * @route GET /v1/cryptos
+ * @returns {AllCryptos} 200 - Crypto object
+ * @returns {object} 500 - An error message
+ */
 
 router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
