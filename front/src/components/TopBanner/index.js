@@ -9,7 +9,7 @@ import RefCurrency from './RefCurrency';
 const TopBanner = () => {
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" >
             <Toolbar disableGutters>
                 <Indicators />
                 <Container
@@ -20,7 +20,6 @@ const TopBanner = () => {
                         justifyContent: "flex-end",
                         alignItems: "center",
                     }}
-
                 >
                     <RefCurrency />
                     <ToggleMode />
