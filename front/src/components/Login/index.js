@@ -82,11 +82,6 @@ export default function Login() {
               onChange={handleChange}
             />
           </DialogContent>
-          <Snackbar open={displaySnackBar} autoHideDuration={6000}>
-            <Alert severity="success" onClose={() => setDisplaySnackBar(false)}>
-              This is a success message!
-            </Alert>
-          </Snackbar>
           <DialogActions>
             <Button onClick={handleToggleLoginModal}>S'inscrire</Button>
             <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
