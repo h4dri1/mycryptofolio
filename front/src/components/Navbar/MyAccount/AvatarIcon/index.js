@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import Avatar from '@mui/material/Avatar';
-import { Container } from "@mui/material";
+import { Container, Link } from "@mui/material";
 
 export default function TestAvatar() {
     const [open, setOpen] = React.useState(false);
@@ -89,7 +89,14 @@ export default function TestAvatar() {
                                             aria-labelledby="composition-button"
                                             onKeyDown={handleListKeyDown}
                                         >
-                                            <MenuItem onClick={handleClose}>Portfolio</MenuItem>
+                                            <MenuItem onClick={handleClose}>
+                                                <Link
+                                                    href="portfolio"
+                                                    sx={{ color: "white" }}
+                                                >
+                                                    Portfolio
+                                                </Link>
+                                            </MenuItem>
                                             <MenuItem onClick={handleClose}>Logout</MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
