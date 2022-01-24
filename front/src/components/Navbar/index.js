@@ -126,7 +126,7 @@ export default function PrimarySearchAppBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar
-                    disableGutters='true'
+                    disableGutters
                 >
                     <Logo />
                     <Typography
