@@ -8,14 +8,14 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import Avatar from '@mui/material/Avatar';
 import { Container, Link } from "@mui/material";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../../../actions/user";
 
 
 export default function TestAvatar() {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-    
+    const { nickname } = useSelector((state) => state.user)
     
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -58,7 +58,7 @@ export default function TestAvatar() {
                     alignItems: "center",
                 }}
             >
-                Bienvenue
+                Bienvenue {nickname}
                 <div>
                     <Avatar
                         src="/broken-image.jpg"
