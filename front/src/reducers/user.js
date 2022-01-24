@@ -7,8 +7,8 @@ import {
 
 export const initialState = {
   logged: false,
-  email: '',
-  password: '',
+  email: 'test@test.fr',
+  password: '#0clock$0087',
   nickname: '',
   avatar: '',
 };
