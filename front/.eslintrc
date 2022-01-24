@@ -1,11 +1,19 @@
 {
   "extends": "airbnb",
   "parser": "@babel/eslint-parser",
+  // [START] config for windows
+  "parserOptions": {
+    "babelOptions": { 
+      "configFile": "./front/.babelrc"
+    }
+  },
+  // [END] config for windows
   "env": {
     "browser": true
   },
   "rules": {
     "brace-style": ["error", "stroustrup"],
+    "linebreak-style": 0, // added config for windows
     "no-param-reassign": [
       "error",
       {
@@ -42,8 +50,8 @@
       "alias": {
         "extensions": [".js"],
         "map": [
-          ["src", "./src"],
-          ["app", "./src"]
+          ["src", "./front/src"], // config for windows previous: ["src", "./src"]
+          ["app", "./front/src"]  // config for windows previous: ["app", "./src"]
         ]
       }
     }
