@@ -14,22 +14,22 @@ const useStyles = makeStyles({
         height: '100%',
     },
     gridItem: {
-      borderStyle: 'solid',
-      minHeight: '50vh',
-      margin: '5px'
+        borderStyle: 'solid',
+        minHeight: '50vh',
+        margin: '5px'
     },
     gridSubItem: {
         border: 'solid 2px gold',
         height: '100%',
     }
-  });
+});
 
 const Dashboard = () => {
     const classes = useStyles();
 
     return (
         <div className="">
-            <Grid container rowSpacing={{xs: 1, md: 2}} justifyContent="space-evenly" className={classes.grid}>
+            <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
                 <Grid item xs={11} md={5.5} className={classes.gridItem}>
                     <Grid container>
                         <Grid item xs={11} md={6} className={classes.gridSubItem}>
