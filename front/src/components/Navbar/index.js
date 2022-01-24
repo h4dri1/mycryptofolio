@@ -16,7 +16,7 @@ import {
     Link,
     Button,
 } from '@mui/material';
-import { refreshToken } from '../../actions/user';
+import { checkToken } from '../../actions/user';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -165,7 +165,7 @@ export default function PrimarySearchAppBar() {
                     <Box sx={{ flexGrow: 1 }} />
                     <MyAccount />
                     <Button
-                        onClick={() => dispatch(refreshToken())}
+                        onClick={() => dispatch(checkToken())}
                         color='warning'
                     >
                         Refresh
