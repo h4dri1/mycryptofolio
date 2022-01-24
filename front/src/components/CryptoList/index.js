@@ -68,6 +68,7 @@ const CryptoList = () => {
             <Grid item>
                 <LoadingButton
                     variant="outlined"
+                    sx={{ mb: 9 }}
                     loading={cryptoListLoading}
                     onClick={() => dispatch(getMoreCryptos())}
                 >
