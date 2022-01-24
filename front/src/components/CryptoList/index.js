@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+// import Container from '@mui/material/Container';
 
 import { useMediaQuery } from '@mui/material';
 
@@ -30,7 +31,7 @@ const CryptoList = () => {
     }, []);
 
     return (
-        <Grid container justifyContent="center" spacing={{xs: 2, sm: 4}}>
+        <Grid container justifyContent="center" spacing={{ xs: 2, sm: 4 }}>
             <Grid item xs={12}>
                 <Table>
                     <TableHead>
@@ -38,9 +39,9 @@ const CryptoList = () => {
                             <TableCell align="center"><TableSortLabel />#</TableCell>
                             <TableCell>Name</TableCell>
                             <TableCell align="right">24h %</TableCell>
-                            <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' }}}>Market Cap</TableCell>
-                            <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }}}>Volume 24h</TableCell>
-                            <TableCell align="right"  sx={{ display: { xs: 'none', md: 'table-cell' }}}>Circulating supply</TableCell>
+                            <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Market Cap</TableCell>
+                            <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Volume 24h</TableCell>
+                            <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Circulating supply</TableCell>
                             <TableCell align="center">Price</TableCell>
                         </TableRow>
                     </TableHead>
@@ -51,14 +52,14 @@ const CryptoList = () => {
                                 <TableCell>
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
-                                        <Link underline="hover" variant="body1" sx={{ mr: 1}}>{crypto.name}</Link>
-                                        <Typography sx={{display: { xs: 'none', sm: 'block'}}}>{crypto.symbol.toUpperCase()}</Typography>
+                                        <Link underline="hover" variant="body1" sx={{ mr: 1 }}>{crypto.name}</Link>
+                                        <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
                                     </Box>
                                 </TableCell>
                                 <TableCell align="right">{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
-                                <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' }}}>{'$' + crypto.market_cap.toLocaleString()}</TableCell>
-                                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }}}>{'$' + crypto.total_volume.toLocaleString()}</TableCell>
-                                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }}}>{'$' + crypto.circulating_supply.toLocaleString()}</TableCell>
+                                <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{'$' + crypto.market_cap.toLocaleString()}</TableCell>
+                                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{'$' + crypto.total_volume.toLocaleString()}</TableCell>
+                                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{'$' + crypto.circulating_supply.toLocaleString()}</TableCell>
                                 <TableCell align="center">{'$' + crypto.current_price.toLocaleString()}</TableCell>
                             </TableRow>
                         ))}
@@ -67,7 +68,12 @@ const CryptoList = () => {
             </Grid>
 
             <Grid item>
-                <Button href="" variant="outlined" onClick={() => dispatch(getMoreCryptos())}>Charger plus de cryptos</Button>
+                {/* <Container> */}
+                <Button
+                    href="" variant="outlined"
+                    sx={{ mb: 9 }}
+                    onClick={() => dispatch(getMoreCryptos())}>Charger plus de cryptos</Button>
+                {/* </Container> */}
             </Grid>
         </Grid>
     );
