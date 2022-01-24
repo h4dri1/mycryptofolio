@@ -91,13 +91,21 @@ export default function TestAvatar() {
                                         >
                                             <MenuItem onClick={handleClose}>
                                                 <Link
-                                                    href="portfolio"
-                                                    sx={{ color: "white" }}
+                                                    href="portfolio" underline="none" // Route to Portfolio
+                                                    sx={{ color: "black" }}
                                                 >
                                                     Portfolio
                                                 </Link>
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                            <MenuItem onClick={handleClose}>
+                                                <Link
+                                                    href="/" underline="none" // redirection to HOME when click on LOGOUT
+                                                    sx={{ color: "black" }}
+                                                >
+                                                    Logout
+                                                </Link>
+
+                                            </MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
                                 </Paper>

@@ -14,6 +14,7 @@ import {
   TextField,
   Snackbar,
   Alert,
+  Container,
 } from '@mui/material';
 
 // const Alert = React.forwardRef(function Alert(props, ref) {
@@ -46,7 +47,10 @@ export default function Login() {
 
   return (
     <>
-      <Button onClick={() => setDisplayModal(true)} variant='contained'>Mon compte</Button>
+      <Container>
+        <Button onClick={() => setDisplayModal(true)} variant='contained'>Mon compte</Button>
+      </Container>
+
       <Dialog open={displayModal} onClose={() => setDisplayModal(false)}>
         <DialogTitle>Connexion</DialogTitle>
         <DialogContent>
