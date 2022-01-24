@@ -3,18 +3,16 @@ import { TOGGLE_LOGIN_MODAL, SAVE_USER } from '../actions';
 import userReducer from './user';
 import cryptos from './cryptos';
 
-
 export const initialState = {
   loginIsOpen: false,
 };
 
 const mainReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-
     case TOGGLE_LOGIN_MODAL: {
       return ({
         ...state,
-        loginIsOpen: !state.loginIsOpen
+        loginIsOpen: !state.loginIsOpen,
       });
     }
 
@@ -28,8 +26,7 @@ const mainReducer = (state = initialState, action = {}) => {
     default:
       return state;
   }
-}
-
+};
 
 export default combineReducers({
   main: mainReducer,

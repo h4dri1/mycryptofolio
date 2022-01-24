@@ -1,4 +1,6 @@
 // == Import
+import { useDispatch } from 'react-redux';
+import { logout } from '../../actions/user';
 import Home from 'src/pages/Home';
 import Portfolio from 'src/pages/Portfolio';
 import Login from 'src/components/Login';
