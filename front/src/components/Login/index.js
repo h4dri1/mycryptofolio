@@ -46,45 +46,45 @@ export default function Login() {
 
   return (
     <>
-      <Button onClick={() => setDisplayModal(true)} variant='outlined'>Mon compte</Button>
+      <Button onClick={() => setDisplayModal(true)} variant='contained'>Mon compte</Button>
       <Dialog open={displayModal} onClose={() => setDisplayModal(false)}>
         <DialogTitle>Connexion</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Pour accéder au fonctionnalités avancées, il faut vous connecter.
-            </DialogContentText>
-            <TextField
-              // autoFocus
-              margin="dense"
-              id="email"
-              label="Email Address"
-              type="email"
-              fullWidth
-              variant="outlined"
-              value={email}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              id="password"
-              label="Mot de passe"
-              type="password"
-              fullWidth
-              variant="outlined"
-              value={password}
-              onChange={handleChange}
-            />
-          </DialogContent>
-          <Snackbar open={displaySnackBar} autoHideDuration={6000}>
-            <Alert severity="success" onClose={() => setDisplaySnackBar(false)}>
-              This is a success message!
-            </Alert>
-          </Snackbar>
-          <DialogActions>
-            <Button onClick={() => setDisplaySnackBar(true)}>S'inscrire</Button>
-            <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
-          </DialogActions>
-        </Dialog>
+        <DialogContent>
+          <DialogContentText>
+            Pour accéder au fonctionnalités avancées, il faut vous connecter.
+          </DialogContentText>
+          <TextField
+            // autoFocus
+            margin="dense"
+            id="email"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="outlined"
+            value={email}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            id="password"
+            label="Mot de passe"
+            type="password"
+            fullWidth
+            variant="outlined"
+            value={password}
+            onChange={handleChange}
+          />
+        </DialogContent>
+        <Snackbar open={displaySnackBar} autoHideDuration={6000}>
+          <Alert severity="success" onClose={() => setDisplaySnackBar(false)}>
+            This is a success message!
+          </Alert>
+        </Snackbar>
+        <DialogActions>
+          <Button onClick={() => setDisplaySnackBar(true)}>S'inscrire</Button>
+          <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
