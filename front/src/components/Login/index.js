@@ -8,6 +8,7 @@ import {
   DialogContentText,
   TextField,
   IconButton,
+  Container,
 } from '@mui/material';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
@@ -51,7 +52,9 @@ export default function Login() {
 
   return (
     <>
-      <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
+      <Container>
+        <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
+      </Container>
       <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
           Connexion
