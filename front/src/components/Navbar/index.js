@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import Logo from 'src/components/Navbar/Logo';
-import Button from '@mui/material/Button';
+import MyAccount from 'src/components/Navbar/MyAccount';
+
+import {
+    AppBar,
+    Box,
+    Toolbar,
+    Typography,
+    InputBase,
+    MenuItem,
+    Menu,
+    Link,
+} from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -94,6 +96,7 @@ export default function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
+            {/* Once connected to MyCryptoFolio:*/}
             <MenuItem onClick={handleMenuClose}>Portfolio</MenuItem>
             <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
         </Menu>
@@ -124,27 +127,27 @@ export default function PrimarySearchAppBar() {
             <AppBar position="static">
                 <Toolbar
                     disableGutters='true'
-
                 >
                     <Logo />
                     <Typography
-                        variant="h4"
+                        variant="h5"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'flex' } }}
-                    >
-                        MyCryptoFolio
-
+                        sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
+                    >MyCryptoFolio
                     </Typography>
                     <Typography
-                        variant="h6"
+                        variant="h7"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{ ml: 3 }}
                     >
-                        Portfolio
+                        <Link
+                            href="Portfolio"
+                            sx={{ color: "white" }}
+                        >Portfolio</Link>
                     </Typography>
-
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -155,34 +158,7 @@ export default function PrimarySearchAppBar() {
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            {/* <AccountCircle /> */}
-                            <Button variant="contained">Mon compte</Button>
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </Box>
+                    <MyAccount />
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
