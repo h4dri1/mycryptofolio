@@ -2,14 +2,18 @@
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/user';
 import Home from 'src/pages/Home';
+import Portfolio from 'src/pages/Portfolio';
 import Login from 'src/components/Login';
 import Footer from 'src/components/Footer';
-import { Button } from '@mui/material'
+import { Routes, Route } from 'react-router-dom';
 
 // == Composant
 const App = () => (
   <div className="app">
-    <Home />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/portfolio" element={<Portfolio />} />
+    </Routes>
   </div>
 );
 

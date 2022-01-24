@@ -144,7 +144,7 @@ export default function PrimarySearchAppBar() {
                         sx={{ ml: 3 }}
                     >
                         <Link
-                            href="Portfolio"
+                            href="portfolio"
                             sx={{ color: "white" }}
                         >Portfolio</Link>
                     </Typography>
