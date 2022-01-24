@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useMediaQuery } from '@mui/material';
 
@@ -23,7 +24,7 @@ const CryptoList = () => {
 
     const dispatch = useDispatch();
 
-    const cryptos = useSelector((state) => state.cryptos.cryptoList.list);
+    const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
 
     useEffect(() => {
         dispatch(getCryptoList());
@@ -67,7 +68,13 @@ const CryptoList = () => {
             </Grid>
 
             <Grid item>
-                <Button href="" variant="outlined" onClick={() => dispatch(getMoreCryptos())}>Charger plus de cryptos</Button>
+                <LoadingButton
+                    variant="outlined"
+                    loading={cryptoListLoading}
+                    onClick={() => dispatch(getMoreCryptos())}
+                >
+                    Charger plus de cryptos
+                </LoadingButton>
             </Grid>
         </Grid>
     );
