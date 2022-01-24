@@ -12,7 +12,13 @@ import {
   DialogContent,
   DialogContentText,
   TextField,
+  Snackbar,
+  Alert,
 } from '@mui/material';
+
+// const Alert = React.forwardRef(function Alert(props, ref) {
+//   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+// });
 
 export default function Login() {
 
@@ -26,15 +32,8 @@ export default function Login() {
 
   // Temporary useState hook to test modal opening and closing
   // It'll be superseded by useSelector to get state from reducers
-  const [open, setOpen] = useState(false)
-  
-  // handle to open and close login modal
-  const handleOpen = () => {
-    setOpen(true);
-  }
-  const handleClose = () => {
-    setOpen(false);
-  }
+  const [displayModal, setDisplayModal] = useState(false)
+  const [displaySnackBar, setDisplaySnackBar] = useState(false)
 
   // Update state on change of fields value 
   const handleChange = (e) => {
@@ -47,8 +46,8 @@ export default function Login() {
 
   return (
     <>
-      <Button onClick={handleOpen} variant='outlined'>Mon compte</Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Button onClick={() => setDisplayModal(true)} variant='outlined'>Mon compte</Button>
+      <Dialog open={displayModal} onClose={() => setDisplayModal(false)}>
         <DialogTitle>Connexion</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -76,8 +75,13 @@ export default function Login() {
               onChange={handleChange}
             />
           </DialogContent>
+          <Snackbar open={displaySnackBar} autoHideDuration={6000}>
+            <Alert severity="success" onClose={() => setDisplaySnackBar(false)}>
+              This is a success message!
+            </Alert>
+          </Snackbar>
           <DialogActions>
-            <Button onClick={handleClose}>S'inscrire</Button>
+            <Button onClick={() => setDisplaySnackBar(true)}>S'inscrire</Button>
             <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
           </DialogActions>
         </Dialog>

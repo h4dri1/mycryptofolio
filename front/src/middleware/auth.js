@@ -5,7 +5,7 @@ const auth = (store) => (next) => (action) => {
   switch (action.type) {
     case LOGIN:
       const state = store.getState();
-      console.log(state)
+      // TODO: ajouter la fonction cleanObject de DOM-Purify pour nettoyer les valeurs des champs
       axios.post('https://dev.mycryptofolio.fr/v1/login', {
           email: state.user.email,
           password:state.user.password,
@@ -14,10 +14,13 @@ const auth = (store) => (next) => (action) => {
         }
       )
      .then((res) => {
+       console.log(res.status)
        alert(`${res.data}, vous êtes bien connecté`)
      })
-     .catch((err) => console.log(err));
-      
+     .catch((err) => {
+        console.log(err.response.data)
+      });
+      next(action);
       break;
   
     default:
