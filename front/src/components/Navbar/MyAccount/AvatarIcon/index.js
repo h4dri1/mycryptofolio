@@ -8,20 +8,25 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import Avatar from '@mui/material/Avatar';
 import { Container, Link } from "@mui/material";
+import { useDispatch } from 'react-redux';
+import { logout } from "../../../../actions/user";
+
 
 export default function TestAvatar() {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-
+    
+    
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
     };
-
+    
+    const dispatch = useDispatch();
     const handleClose = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
-
+        dispatch(logout());
         setOpen(false);
     };
 
