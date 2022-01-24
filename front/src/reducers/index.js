@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import { TOGGLE_LOGIN_MODAL } from '../actions';
+import { TOGGLE_LOGIN_MODAL, SAVE_USER } from '../actions';
 import userReducer from './user';
+import cryptos from './cryptos';
 
 
 export const initialState = {
@@ -16,7 +17,14 @@ const mainReducer = (state = initialState, action = {}) => {
         loginIsOpen: !state.loginIsOpen
       });
     }
-  
+
+    case SAVE_USER: {
+      return {
+        ...state,
+        user: action.payload.pseudo,
+      };
+    }
+
     default:
       return state;
   }
@@ -26,4 +34,5 @@ const mainReducer = (state = initialState, action = {}) => {
 export default combineReducers({
   main: mainReducer,
   user: userReducer,
+  cryptos,
 });

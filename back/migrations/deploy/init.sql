@@ -19,8 +19,8 @@ CREATE TABLE wallet(
 CREATE TABLE crypto (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     coin_id TEXT NOT NULL UNIQUE,
-    symbol TEXT NOT NULL UNIQUE,
-    logo TEXT NOT NULL
+    symbol TEXT NOT NULL,
+    logo TEXT
 );
 
 CREATE TABLE transaction (

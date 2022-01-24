@@ -1,8 +1,8 @@
 // import
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import { changeField, login } from 'src/actions/user';
-import { toggleLoginModal } from '../../actions';
 
 import {
   Button,
