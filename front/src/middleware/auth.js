@@ -2,6 +2,7 @@ import axios from 'axios';
 import { LOGIN, LOGOUT, saveUser } from 'src/actions/user';
 import { toggleLoginModal } from 'src/actions';
 import parseJwt from 'src/services/parseJwt';
+import { getNewAccessToken } from 'src/services/getNewAccessToken';
 import { logout, CHECK_TOKEN } from '../actions/user';
 
 const auth = (store) => (next) => (action) => {
@@ -58,19 +59,19 @@ const auth = (store) => (next) => (action) => {
       const tokenIsExpired = exp < Date.now(). // Check if it's expired
       console.log(exp, Date.now());
 
-      const getAccessToken = async (token) => {
-        try {
-          const response = await axios(`https://dev.mycryptofolio.fr/v1/jwt/refresh/${token}`)
-          console.log(response.status, response.data, response.headers.authorization)
-          if (response.status === 200){
-            console.log('i save accessToken')
-            localStorage.setItem('accessToken', response.headers.authorization);
-          }
-        } catch (error) {
-        console.log(error.response)
-        dispatch(logout())
-        }
-      };
+      // const getNewAccessToken = async (token) => {
+      //   try {
+      //     const response = await axios(`https://dev.mycryptofolio.fr/v1/jwt/refresh/${token}`)
+      //     console.log(response.status, response.data, response.headers.authorization)
+      //     if (response.status === 200){
+      //       console.log('New AccessToken')
+      //       localStorage.setItem('accessToken', response.headers.authorization);
+      //     }
+      //   } catch (error) {
+      //   console.log(error.response)
+      //   dispatch(logout())
+      //   }
+      // };
 
       if (tokenIsExpired) {
         const refreshToken = localStorage.getItem('refreshToken');
