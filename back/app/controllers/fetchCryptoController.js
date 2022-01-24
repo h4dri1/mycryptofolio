@@ -45,5 +45,17 @@ module.exports = {
             console.log(error);
             return res.status(500).json(error.message, true);
         }
+    },
+
+    getTrendingCryptos: async (req, res, next) => {
+        try {
+            const coins = await fetch(`//api.coingecko.com/api/v3/search/trending`);
+            const data = await coins.json();
+            console.log(data);
+            res.status(200).json(data);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
     }
 }
