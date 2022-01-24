@@ -129,6 +129,8 @@ router.get('/crypto/:id', cache, fetchCryptoController.getOneCrypto);
  * @param {string} vs.path.required
  * @param {boolean} include_market_cap.path
  * @param {boolean} include_24hr_vol.path
+ * @param {boolean} include_24hr_range.path
+ * @param {boolean} include_last_updated_at.path
  * @returns {Price} 200 - Crypto object
  * @returns {object} 500 - An error message
  */
@@ -144,6 +146,8 @@ router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:includ
  */
 
 router.get('/cryptos', cache, cryptoController.getAllCryptos);
+
+router.get('/trending', cache, fetchCryptoController.getTrendingCryptos);
 
 router.get('/secret', jwtMW, userController.getSecret);
 

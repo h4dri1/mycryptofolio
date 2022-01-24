@@ -46,3 +46,7 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/cryptoprice/bitcoin/usd/include_market_cap=true/include_last_updated_at=true
 Content-Type: application/json
+###
+
+GET http://localhost:8888/v1/trending
+Content-Type: application/json
