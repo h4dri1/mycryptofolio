@@ -2,6 +2,8 @@ import axios from 'axios';
 import { LOGIN, LOGOUT, saveUser } from 'src/actions/user';
 import { toggleLoginModal } from 'src/actions';
 import parseJwt from 'src/services/parseJwt';
+import { logout, REFRESH_TOKEN } from '../actions/user';
+import { requirePropFactory } from '@mui/material';
 
 const auth = (store) => (next) => (action) => {
   const state = store.getState();
@@ -48,6 +50,34 @@ const auth = (store) => (next) => (action) => {
     case LOGOUT:
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('accessToken');
+      next(action);
+      break;
+    
+    case REFRESH_TOKEN:
+      const accessToken = localStorage.getItem('accessToken');
+      const { exp } = parseJwt(accessToken); // Get expiration date of accessToken
+      const tokenIsExpired = exp < Date.now(). // Check if it's expired
+      console.log(exp, Date.now());
+
+      const getAccessToken = async (token) => {
+        try {
+          const response = await axios(`https://dev.mycryptofolio.fr/v1/jwt/refresh/${token}`)
+          console.log(response.status, response.data, response.headers.authorization)
+          if (response.status === 200){
+            console.log('i save accessToken')
+            localStorage.setItem('accessToken', response.headers.authorization);
+          }
+        } catch (error) {
+        console.log(error.response)
+        dispatch(logout())
+        }
+      };
+
+      if (tokenIsExpired) {
+        const refreshToken = localStorage.getItem('refreshToken');
+        getAccessToken(refreshToken);
+      }
+
       next(action);
       break;
 

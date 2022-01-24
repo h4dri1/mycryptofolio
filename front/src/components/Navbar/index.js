@@ -3,6 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
+import { useDispatch } from 'react-redux';
 
 import {
     AppBar,
@@ -13,7 +14,9 @@ import {
     MenuItem,
     Menu,
     Link,
+    Button,
 } from '@mui/material';
+import { refreshToken } from '../../actions/user';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -61,6 +64,8 @@ export default function PrimarySearchAppBar() {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const dispatch = useDispatch();
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -159,6 +164,12 @@ export default function PrimarySearchAppBar() {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <MyAccount />
+                    <Button
+                        onClick={() => dispatch(refreshToken())}
+                        color='warning'
+                    >
+                        Refresh
+                    </Button>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
