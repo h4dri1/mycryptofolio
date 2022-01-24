@@ -120,7 +120,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCrypto);
  * @returns {object} 500 - An error message
  */
 
- router.get('/crypto/:id', cache, fetchCryptoController.getOneCrypto);
+router.get('/crypto/:id', cache, fetchCryptoController.getOneCrypto);
 
  /**
  * GET /v1/cryptoprice/{id}/{vs}
@@ -132,7 +132,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCrypto);
  * @returns {object} 500 - An error message
  */
 
-  router.get('/cryptoprice/:id/:vs', cache, fetchCryptoController.getOnePrice);
+router.get('/cryptoprice/:id/:vs', cache, fetchCryptoController.getOnePrice);
 
 /**
  * GET /v1/cryptos
@@ -145,7 +145,5 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCrypto);
 router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
 router.get('/secret', jwtMW, userController.getSecret);
-
-router.get('/flush', jwtMW, flush);
 
 module.exports = router;
