@@ -1,9 +1,4 @@
 // import
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-
-import { changeField, login } from 'src/actions/user';
-
 import {
   Button,
   Dialog,
@@ -12,50 +7,61 @@ import {
   DialogContent,
   DialogContentText,
   TextField,
-  Snackbar,
-  Alert,
-  Container,
+  IconButton,
 } from '@mui/material';
+
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { changeField, login } from 'src/actions/user';
+import { toggleLoginModal } from 'src/actions';
 
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
 
 export default function Login() {
-
   // get the user state
   const {
     email,
     password,
   } = useSelector((state) => state.user);
 
+  // get the main state
+  const {
+    loginIsOpen,
+  } = useSelector((state) => state.main);
+
   const dispatch = useDispatch();
 
-  // Temporary useState hook to test modal opening and closing
-  // It'll be superseded by useSelector to get state from reducers
-  const [displayModal, setDisplayModal] = useState(false)
-  const [displaySnackBar, setDisplaySnackBar] = useState(false)
+  // handle to open and close login modal
+  // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
+  const handleToggleLoginModal = () => {
+    dispatch(toggleLoginModal());
+  };
 
-  // Update state on change of fields value 
+  // Update state on change of fields value
   const handleChange = (e) => {
-    dispatch(changeField(e.target.type, e.target.value))
-  }
+    dispatch(changeField(e.target.type, e.target.value));
+  };
 
   const handleSubmit = () => {
-    dispatch(login())
-  }
+    dispatch(login());
+  };
 
   return (
     <>
-      <Container>
-        <Button onClick={() => setDisplayModal(true)} variant='contained'>Mon compte</Button>
-      </Container>
-
-      <Dialog open={displayModal} onClose={() => setDisplayModal(false)}>
-        <DialogTitle>Connexion</DialogTitle>
+      <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
+      <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          Connexion
+          <IconButton edge="end" aria-label="Fermer" onClick={handleToggleLoginModal}>
+            <CloseRoundedIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Pour accéder au fonctionnalités avancées, il faut vous connecter.
+            Pour accéder aux fonctionnalités avancées, il faut vous connecter.
           </DialogContentText>
           <TextField
             // autoFocus
@@ -79,14 +85,9 @@ export default function Login() {
             onChange={handleChange}
           />
         </DialogContent>
-        <Snackbar open={displaySnackBar} autoHideDuration={6000}>
-          <Alert severity="success" onClose={() => setDisplaySnackBar(false)}>
-            This is a success message!
-          </Alert>
-        </Snackbar>
         <DialogActions>
-          <Button onClick={() => setDisplaySnackBar(true)}>S'inscrire</Button>
-          <Button onClick={handleSubmit} variant='contained'>Se connecter</Button>
+          <Button onClick={() => console.log('Coder la fonction d\'inscription')}>S'inscrire</Button>
+          <Button onClick={handleSubmit} variant="contained">Se connecter</Button>
         </DialogActions>
       </Dialog>
     </>
