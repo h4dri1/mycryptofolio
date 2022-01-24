@@ -2,7 +2,7 @@ export const CHANGE_FIELD = 'CHANGE_FIELD';
 export const LOGIN = 'LOGIN';
 export const SAVE_USER = 'SAVE_USER';
 export const LOGOUT = 'LOGOUT';
-export const REFRESH_TOKEN = 'REFRESH_TOKEN';
+export const CHECK_TOKEN = 'CHECK_TOKEN';
 
 export const changeField = (key, value) => ({
   type: CHANGE_FIELD,
@@ -25,6 +25,6 @@ export const logout = () => ({
   type: LOGOUT,
 });
 
-export const refreshToken = () => ({
-  type: REFRESH_TOKEN,
+export const checkToken = () => ({
+  type: CHECK_TOKEN,
 });

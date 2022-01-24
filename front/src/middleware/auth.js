@@ -2,8 +2,7 @@ import axios from 'axios';
 import { LOGIN, LOGOUT, saveUser } from 'src/actions/user';
 import { toggleLoginModal } from 'src/actions';
 import parseJwt from 'src/services/parseJwt';
-import { logout, REFRESH_TOKEN } from '../actions/user';
-import { requirePropFactory } from '@mui/material';
+import { logout, CHECK_TOKEN } from '../actions/user';
 
 const auth = (store) => (next) => (action) => {
   const state = store.getState();
@@ -53,7 +52,7 @@ const auth = (store) => (next) => (action) => {
       next(action);
       break;
     
-    case REFRESH_TOKEN:
+    case CHECK_TOKEN:
       const accessToken = localStorage.getItem('accessToken');
       const { exp } = parseJwt(accessToken); // Get expiration date of accessToken
       const tokenIsExpired = exp < Date.now(). // Check if it's expired
