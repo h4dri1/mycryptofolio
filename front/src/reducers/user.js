@@ -1,5 +1,6 @@
 import {
-  CHANGE_FIELD
+  CHANGE_FIELD,
+  LOGIN,
 } from '../actions/user'
 
 export const initialState = {
@@ -17,6 +18,13 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         [action.payload.key]: action.payload.value 
       });
+    }
+
+    case LOGIN: {
+      return ({
+        ...state,
+        password: ''
+      })
     }
   
     default:
