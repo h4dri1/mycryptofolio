@@ -91,7 +91,7 @@ export default function TestAvatar() {
                                         >
                                             <MenuItem onClick={handleClose}>
                                                 <Link
-                                                    href="portfolio" underline="none"
+                                                    href="portfolio" underline="none" // Route to Portfolio
                                                     sx={{ color: "black" }}
                                                 >
                                                     Portfolio
@@ -99,7 +99,7 @@ export default function TestAvatar() {
                                             </MenuItem>
                                             <MenuItem onClick={handleClose}>
                                                 <Link
-                                                    href="/" underline="none"
+                                                    href="/" underline="none" // redirection to HOME when click on LOGOUT
                                                     sx={{ color: "black" }}
                                                 >
                                                     Logout
