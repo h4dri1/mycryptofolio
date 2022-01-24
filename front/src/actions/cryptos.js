@@ -4,24 +4,23 @@ export const GET_MORE_CRYPTOS = 'GET_MORE_CRYPTOS';
 export const GET_MORE_CRYPTOS_LOADING = 'GET_MORE_CRYPTOS_LOADING';
 export const UPDATE_CRYPTO_QUANTITY = 'UPDATE_CRYPTO_QUANTITY';
 
-
 export const getCryptoList = () => ({
-    type: GET_CRYPTO_LIST,
+  type: GET_CRYPTO_LIST,
 });
 
 export const updateCryptoList = (payload) => ({
-    type: UPDATE_CRYPTO_LIST,
-    payload,
+  type: UPDATE_CRYPTO_LIST,
+  payload,
 });
 
 export const getMoreCryptos = () => ({
-    type: GET_MORE_CRYPTOS,
+  type: GET_MORE_CRYPTOS,
 });
 
 export const getMoreCryptosLoading = () => ({
-    type: GET_MORE_CRYPTOS_LOADING,
+  type: GET_MORE_CRYPTOS_LOADING,
 });
 
 export const updateCryptoQuantity = () => ({
-    type: UPDATE_CRYPTO_QUANTITY,
+  type: UPDATE_CRYPTO_QUANTITY,
 });
