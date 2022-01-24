@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 // import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline';
 // import theme from 'src/themes/darkTheme';
+import { BrowserRouter } from 'react-router-dom';
 
 
 // == Import : local
@@ -17,12 +18,14 @@ import store from './store';
 //    => crée une structure d'objets imbriqués (DOM virtuel)
 const rootReactElement = (
   <StrictMode>
-    <Provider store={store}>
-          {/* <ThemeProvider theme={theme}> */}
-            <CssBaseline />
-            <App />
-          {/* </ThemeProvider> */}
-        </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        {/* <ThemeProvider theme={theme}> */}
+        <CssBaseline />
+        <App />
+        {/* </ThemeProvider> */}
+      </Provider>
+    </BrowserRouter>
   </StrictMode>
 )
 // 2. La cible du DOM (là où la structure doit prendre vie dans le DOM)

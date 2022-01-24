@@ -4,7 +4,7 @@ import {
 } from '../actions/user'
 
 export const initialState = {
-  logged: false,
+  logged: true,
   email: '',
   password: '',
   pseudo: 'Toto'
