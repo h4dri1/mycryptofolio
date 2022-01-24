@@ -19,7 +19,7 @@ const reducer = (state = initialState, action = {}) => {
     case CHANGE_FIELD: {
       return ({
         ...state,
-        [action.payload.key]: action.payload.value 
+        [action.payload.key]: action.payload.value
       });
     }
 
