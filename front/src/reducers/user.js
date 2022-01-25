@@ -11,6 +11,7 @@ export const initialState = {
   password: '',
   nickname: '',
   avatar: '',
+  accessToken: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -44,6 +45,7 @@ const reducer = (state = initialState, action = {}) => {
         email: '',
         nickname: '',
         avatar: '',
+        accessToken: '',
       });
     }
 
