@@ -1,35 +1,51 @@
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
 
 const Performance = () => (
-  <Grid container sx={{ height: '100%' }}>
-    <Grid item xs={12} sx={{ height: '15%' }}>
-      <Typography variant="h6">Performance</Typography>
+  <Grid container>
+    <Grid item xs={12}>
+      <Typography variant="h6" align="center">Performance</Typography>
     </Grid>
     <Grid item xs={12} sm={6}>
-      <Card>
-        <Typography>Investissement</Typography>
-        <Typography>Valeur actuelle</Typography>
-        <Typography>PnL</Typography>
-      </Card>
+      <Box sx={{
+        display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', height: '100%',
+      }}
+      >
+        <Typography>Investissement : $500</Typography>
+        <Typography>Valeur actuelle : $1,000</Typography>
+        <Typography>PnL : $500</Typography>
+      </Box>
     </Grid>
     <Grid
       item
       xs={12}
       sm={6}
       sx={{
-        height: '85%', display: 'flex', justifyContent: 'center', alignItems: 'center',
+        display: 'flex', justifyContent: 'center', alignItems: 'center',
       }}
     >
       <Box
         component="span"
-        sx={{
-          height: '200px', width: '200px', borderRadius: '50%', border: 'solid 1px grey',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}
-      ><Typography>+50%</Typography>
+        sx={[{
+          margin: '10px',
+          width: '70%',
+          maxWidth: '40vw',
+          borderRadius: '50%',
+          border: 'solid 3px #1976D2',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        {
+          '::after': {
+            display: 'block',
+            paddingBottom: '100%',
+            content: '""',
+          },
+        },
+        ]}
+      ><Typography variant="h4" color="green">+50%</Typography>
       </Box>
     </Grid>
   </Grid>
