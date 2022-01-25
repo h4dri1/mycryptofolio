@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
   gridItem: {
     borderStyle: 'solid',
-    // minHeight: '50vh',
+    minHeight: '50vh',
     margin: '5px',
   },
   gridSubItem: {

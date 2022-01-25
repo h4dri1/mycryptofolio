@@ -3,6 +3,8 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
+import { useDispatch } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 
 import {
     AppBar,
@@ -13,7 +15,9 @@ import {
     MenuItem,
     Menu,
     Link,
+    Button,
 } from '@mui/material';
+import { checkToken } from '../../actions/user';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -61,6 +65,8 @@ export default function PrimarySearchAppBar() {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const dispatch = useDispatch();
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -128,14 +134,20 @@ export default function PrimarySearchAppBar() {
                 <Toolbar
                     disableGutters
                 >
-                    <Logo />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
-                    >MyCryptoFolio
-                    </Typography>
+                    <Link component={RouterLink} to="/">
+                        <Logo />
+                    </Link>
+
+                    <Link component={RouterLink} to="/">
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            color='white'
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
+                        >MyCryptoFolio
+                        </Typography>
+                    </Link>
                     <Typography
                         variant="h7"
                         noWrap
@@ -143,8 +155,7 @@ export default function PrimarySearchAppBar() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                         sx={{ ml: 3 }}
                     >
-                        <Link
-                            href="portfolio"
+                        <Link component={RouterLink} to="/portfolio"
                             sx={{ color: "white", ml: 10 }}
                         >Portfolio</Link>
                     </Typography>
@@ -159,6 +170,12 @@ export default function PrimarySearchAppBar() {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <MyAccount />
+                    <Button
+                        onClick={() => dispatch(checkToken())}
+                        color='warning'
+                    >
+                        Refresh
+                    </Button>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}

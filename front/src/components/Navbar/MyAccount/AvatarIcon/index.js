@@ -8,25 +8,24 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import Avatar from '@mui/material/Avatar';
 import { Container, Link } from "@mui/material";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../../../actions/user";
+import { Link as RouterLink } from 'react-router-dom';
 
 
 export default function TestAvatar() {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-    
+    const { nickname, avatar } = useSelector((state) => state.user)
     
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
     };
-    
-    const dispatch = useDispatch();
+
     const handleClose = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
-        dispatch(logout());
         setOpen(false);
     };
 
@@ -58,10 +57,11 @@ export default function TestAvatar() {
                     alignItems: "center",
                 }}
             >
-                Bienvenue
+                Bienvenue {nickname}
                 <div>
                     <Avatar
-                        src="/broken-image.jpg"
+                        src={avatar}
+                        alt={nickname}
                         ref={anchorRef}
                         id="composition-button"
                         aria-controls={open ? "composition-menu" : undefined}
@@ -94,17 +94,19 @@ export default function TestAvatar() {
                                             aria-labelledby="composition-button"
                                             onKeyDown={handleListKeyDown}
                                         >
-                                            <MenuItem onClick={handleClose}>
-                                                <Link
-                                                    href="portfolio" underline="none" // Route to Portfolio
+                                            <MenuItem
+                                            // onClick={handleToggle}
+                                            >
+                                                <Link component={RouterLink} to="/portfolio"
                                                     sx={{ color: "black" }}
                                                 >
                                                     Portfolio
                                                 </Link>
+
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <Link
-                                                    href="/" underline="none" // redirection to HOME when click on LOGOUT
+                                            <MenuItem >
+                                                <Link onClick={handleClose}
+                                                    component={RouterLink} to="/" underline="none" // redirection to HOME when click on LOGOUT
                                                     sx={{ color: "black" }}
                                                 >
                                                     Logout
