@@ -14,6 +14,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 
 export default function TestAvatar() {
+    const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
     const { nickname, avatar } = useSelector((state) => state.user)
@@ -28,6 +29,10 @@ export default function TestAvatar() {
         }
         setOpen(false);
     };
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
 
     function handleListKeyDown(event) {
         if (event.key === "Tab") {
@@ -105,7 +110,7 @@ export default function TestAvatar() {
 
                                             </MenuItem>
                                             <MenuItem >
-                                                <Link onClick={handleClose}
+                                                <Link onClick={handleLogout}
                                                     component={RouterLink} to="/" underline="none" // redirection to HOME when click on LOGOUT
                                                     sx={{ color: "black" }}
                                                 >
