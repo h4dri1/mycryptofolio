@@ -2,7 +2,7 @@
 
 BEGIN;
 
-CREATE FUNCTION wallet_invest(view_transaction) RETURNS numeric AS $$
+CREATE FUNCTION wallet_invest(view_transaction) RETURNS double precision AS $$
 	SELECT $1.price * $1.quantity AS invest;
 	$$ LANGUAGE SQL;
 	
