@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import { Container, Link } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../../../actions/user";
+import { Link as RouterLink } from 'react-router-dom';
 
 
 export default function TestAvatar() {
@@ -20,13 +21,11 @@ export default function TestAvatar() {
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
     };
-    
-    const dispatch = useDispatch();
+
     const handleClose = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
-        // dispatch(logout());
         setOpen(false);
     };
 
@@ -95,16 +94,18 @@ export default function TestAvatar() {
                                             aria-labelledby="composition-button"
                                             onKeyDown={handleListKeyDown}
                                         >
-                                            <MenuItem onClick={handleClose}>
-                                                <Link
-                                                    href="portfolio" underline="none" // Route to Portfolio
+                                            <MenuItem
+                                            // onClick={handleToggle}
+                                            >
+                                                <Link component={RouterLink} to="/portfolio"
                                                     sx={{ color: "black" }}
                                                 >
                                                     Portfolio
                                                 </Link>
+
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <Link
+                                            <MenuItem >
+                                                <Link onClick={handleClose}
                                                     href="/" underline="none" // redirection to HOME when click on LOGOUT
                                                     sx={{ color: "black" }}
                                                 >
