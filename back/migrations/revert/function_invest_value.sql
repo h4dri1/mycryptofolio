@@ -2,6 +2,7 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+DROP FUNCTION wallet_value;
+DROP FUNCTION wallet_invest;
 
 COMMIT;
