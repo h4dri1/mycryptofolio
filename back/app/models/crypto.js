@@ -19,39 +19,6 @@ class Crypto {
             throw error;
         }
     }
-
-    static async findOne(id) {
-        try {
-
-        } catch (error) {
-            if (error.detail) {
-                throw new Error(error.detail);
-            }
-            throw error;
-        }
-    }
-
-    async save() {
-        try {
-
-        } catch (error) {
-            if (error.detail) {
-                throw new Error(error.detail);
-            }
-            throw error;
-        }
-    }
-
-    async delete(id) {
-        try {
-
-        } catch (error) {
-            if (error.detail) {
-                throw new Error(error.detail);
-            }
-            throw error;
-        }
-    }
 }
 
 module.exports = Crypto;
