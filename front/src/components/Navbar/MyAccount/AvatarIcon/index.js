@@ -15,7 +15,7 @@ import { logout } from "../../../../actions/user";
 export default function TestAvatar() {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-    const { nickname } = useSelector((state) => state.user)
+    const { nickname, avatar } = useSelector((state) => state.user)
     
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -26,7 +26,7 @@ export default function TestAvatar() {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
-        dispatch(logout());
+        // dispatch(logout());
         setOpen(false);
     };
 
@@ -61,7 +61,8 @@ export default function TestAvatar() {
                 Bienvenue {nickname}
                 <div>
                     <Avatar
-                        src="/broken-image.jpg"
+                        src={avatar}
+                        alt={nickname}
                         ref={anchorRef}
                         id="composition-button"
                         aria-controls={open ? "composition-menu" : undefined}
