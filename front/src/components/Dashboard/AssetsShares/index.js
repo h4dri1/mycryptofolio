@@ -10,6 +10,7 @@ import TableCell from '@mui/material/TableCell';
 import Divider from '@mui/material/Divider';
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -66,11 +67,8 @@ export default function AssetsShares() {
     return (
         <>
             <Container disableGutters sx={{ border: 1, borderColor: 'grey' }}>
-                <ListItem>
-                    <ListItemText primary="Répartition de vos actifs" sx={{ textAlign: "center" }} />
-                </ListItem>
+                <Typography variant="h6" align="center">Répartition de vos actifs</Typography>
                 <Divider sx={{ width: "100%" }}></Divider>
-
                 <Container
                     sx={{ width: '40%', height: '40%', mt: 1 }}>
                     <Pie data={data} options={options} />
