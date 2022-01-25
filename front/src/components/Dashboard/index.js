@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         margin: '5px',
     },
     gridSubItem: {
-        border: 'solid 2px gold',
+        border: 'solid 1px gold',
         height: '100%',
     },
 });
