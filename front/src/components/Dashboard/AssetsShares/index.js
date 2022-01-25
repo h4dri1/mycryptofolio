@@ -65,7 +65,7 @@ export default function AssetsShares() {
 
     return (
         <>
-            <Container disableGutters sx={{ border: 1, borderColor: 'grey', maxHeight: '50%' }}>
+            <Container disableGutters sx={{ border: 1, borderColor: 'grey' }}>
                 <ListItem>
                     <ListItemText primary="Répartition de vos actifs" sx={{ textAlign: "center" }} />
                 </ListItem>
@@ -75,7 +75,9 @@ export default function AssetsShares() {
                     sx={{ width: '40%', height: '40%', mt: 1 }}>
                     <Pie data={data} options={options} />
                 </Container>
-                <Container>
+                <Container sx={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '30vh', overflowY: 'auto',
+                }}>
                     <Table stickyHeader sx={{ maxWidth: '100%' }}>
                         <TableHead align="left">
                             <TableRow align='left'>
