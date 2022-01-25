@@ -52,30 +52,25 @@ const auth = (store) => (next) => (action) => {
       localStorage.removeItem('accessToken');
       next(action);
       break;
-    
+      
     case CHECK_TOKEN:
+        
+      const refreshToken = localStorage.getItem('refreshToken');
+      // ! accessToken to be moved in user.state
       const accessToken = localStorage.getItem('accessToken');
-      const { exp } = parseJwt(accessToken); // Get expiration date of accessToken
-      const tokenIsExpired = exp < Date.now(). // Check if it's expired
-      console.log(exp, Date.now());
+      
+      const { exp } = accessToken ? parseJwt(accessToken) : { exp: 0 } ; // extract expiration date from the paylod of jwt, if accessToken is missing exp = 0
+      console.log(exp)
 
-      // const getNewAccessToken = async (token) => {
-      //   try {
-      //     const response = await axios(`https://dev.mycryptofolio.fr/v1/jwt/refresh/${token}`)
-      //     console.log(response.status, response.data, response.headers.authorization)
-      //     if (response.status === 200){
-      //       console.log('New AccessToken')
-      //       localStorage.setItem('accessToken', response.headers.authorization);
-      //     }
-      //   } catch (error) {
-      //   console.log(error.response)
-      //   dispatch(logout())
-      //   }
-      // };
+      const tokenIsExpired = (exp * 1000) < (Date.now() - 2000 ) // Check if it's expired  // * with an advance of 2 sec in case of high latence
+      console.log(tokenIsExpired)
+      console.log(`Still ${parseInt((((exp * 1000) - Date.now() + 2000) * 0.001))} s before next refresh`);
 
-      if (tokenIsExpired) {
-        const refreshToken = localStorage.getItem('refreshToken');
-        getAccessToken(refreshToken);
+      if (tokenIsExpired && refreshToken) {
+        getNewAccessToken(refreshToken);
+      } else if(tokenIsExpired && !refreshToken) {
+        store.dispatch(logout());
+        store.dispatch(toggleLoginModal());
       }
 
       next(action);
