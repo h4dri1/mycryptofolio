@@ -107,7 +107,7 @@ export default function TestAvatar() {
                                             </MenuItem>
                                             <MenuItem >
                                                 <Link onClick={handleClose}
-                                                    href="/" underline="none" // redirection to HOME when click on LOGOUT
+                                                    component={RouterLink} to="/" underline="none" // redirection to HOME when click on LOGOUT
                                                     sx={{ color: "black" }}
                                                 >
                                                     Logout
