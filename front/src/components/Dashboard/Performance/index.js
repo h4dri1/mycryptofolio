@@ -1,11 +1,13 @@
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 
 const Performance = () => (
-  <Grid container>
+  <Grid container rowSpacing={3}>
     <Grid item xs={12}>
       <Typography variant="h6" align="center">Performance</Typography>
+      <Divider sx={{ width: '100%' }} />
     </Grid>
     <Grid item xs={12} sm={6}>
       <Box sx={{
@@ -28,7 +30,7 @@ const Performance = () => (
       <Box
         component="span"
         sx={[{
-          margin: '10px',
+          marginBottom: '15px',
           width: '70%',
           maxWidth: '40vw',
           borderRadius: '50%',

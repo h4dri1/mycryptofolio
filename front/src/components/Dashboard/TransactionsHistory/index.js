@@ -5,6 +5,7 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import Divider from '@mui/material/Divider';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +27,7 @@ const TransactionsHistory = () => {
     }}
     >
       <Typography variant="h6">Historique des transactions</Typography>
+      <Divider sx={{ width: '100%' }} />
       <Table stickyHeader sx={{ maxWidth: '90%' }}>
         <TableHead>
           <TableRow>
