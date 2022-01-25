@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Mon graph</title>
+
+
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <canvas id="monGraph" width="400" height="400"></canvas>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+            let ctx = document.querySelector('#monGraph')
+            let graph = new Chart(ctx, {
+                type:"pie",
+                data:{
+                    labels: ['Rouge', 'Bleu', 'Jaune', 'Vert'],
+                    datasets:[{
+                        label:'Portefeuille',
+                        data:[12,19,3,5],
+                        backgroundColor:['red','blue','yellow', 'green']
+                    }]
+                },
+                // options:{
+
+                // }
+            })
+        </script>
+    </body>
+</html>
