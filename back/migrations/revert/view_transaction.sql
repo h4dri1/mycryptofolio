@@ -2,6 +2,6 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+DROP VIEW view_transaction CASCADE;
 
 COMMIT;
