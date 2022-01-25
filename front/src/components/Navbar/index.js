@@ -134,14 +134,20 @@ export default function PrimarySearchAppBar() {
                 <Toolbar
                     disableGutters
                 >
-                    <Logo />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
-                    >MyCryptoFolio
-                    </Typography>
+                    <Link component={RouterLink} to="/">
+                        <Logo />
+                    </Link>
+
+                    <Link component={RouterLink} to="/">
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            color='white'
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
+                        >MyCryptoFolio
+                        </Typography>
+                    </Link>
                     <Typography
                         variant="h7"
                         noWrap
