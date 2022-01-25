@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
 import { useDispatch } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 
 import {
     AppBar,
@@ -148,8 +149,7 @@ export default function PrimarySearchAppBar() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                         sx={{ ml: 3 }}
                     >
-                        <Link
-                            href="portfolio"
+                        <Link component={RouterLink} to="/portfolio"
                             sx={{ color: "white", ml: 10 }}
                         >Portfolio</Link>
                     </Typography>
