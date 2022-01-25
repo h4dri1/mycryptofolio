@@ -26,7 +26,7 @@ module.exports = {
                 return res.status(500).json(error.message, true);
             };
             portfolio.Transactions = transactions;
-            console.log(portfolio);
+            res.status(200).json(portfolio);
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
