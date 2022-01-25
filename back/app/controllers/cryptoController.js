@@ -1,4 +1,4 @@
-const Crypto = require('../models/crypto');
+const { Crypto } = require('../models');
 const cache = require('../services/cache');
 
 module.exports = {

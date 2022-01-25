@@ -2,7 +2,13 @@ const  {Router} = require('express');
 
 const router = Router();
 
-const {userController, tokenController, fetchCryptoController, cryptoController} = require('./controllers');
+const {
+    userController,
+    tokenController,
+    fetchCryptoController,
+    cryptoController,
+    transactionController
+} = require('./controllers');
 
 const loginSchema = require('./schemas/loginSchema');
 
@@ -10,7 +16,10 @@ const {validateBody, validateJWT} = require('./middlewares/validator');
 
 const jwtMW = require('./middlewares/jwtMW');
 
+const fetchMW = require('./middlewares/fetchMW');
+
 const {cache, flush} = require('./services/cache');
+const { Transaction } = require('./models');
 
 /**
 * @typedef {Object} User_Login
@@ -148,6 +157,8 @@ router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:includ
 router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
 router.get('/trending', cache, fetchCryptoController.getTrendingCryptos);
+
+router.get('/portfolio/:id(\\d+)', fetchMW, transactionController.getPortfolio);
 
 router.get('/secret', jwtMW, userController.getSecret);
 
