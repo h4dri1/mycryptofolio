@@ -90,7 +90,7 @@ export default function AssetsShares() {
                         <TableBody align="left">
                             {transactionsList.map((transaction) => (
                                 <TableRow key={transaction.id}>
-                                    <TableCell>{transaction.coinId}</TableCell>
+                                    <TableCell>{transaction.crypto_id}</TableCell>
                                     <TableCell>{transaction.quantity}</TableCell>
                                     <TableCell>{transaction.price}</TableCell>
                                     <TableCell>{transaction.rentability}%</TableCell>
