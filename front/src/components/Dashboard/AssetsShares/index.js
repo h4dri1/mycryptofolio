@@ -65,7 +65,7 @@ export default function AssetsShares() {
 
     return (
         <>
-            <Container disableGutters>
+            <Container disableGutters sx={{ border: 1, borderColor: 'grey', maxHeight: '50%' }}>
                 <ListItem>
                     <ListItemText primary="Répartition de vos actifs" sx={{ textAlign: "center" }} />
                 </ListItem>
@@ -76,23 +76,22 @@ export default function AssetsShares() {
                     <Pie data={data} options={options} />
                 </Container>
                 <Container>
-                    <Table stickyHeader sx={{ maxWidth: '90%' }}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="left">Devise</TableCell>
-                                <TableCell align="center">Quantité</TableCell>
-                                <TableCell align="center">Total $</TableCell>
-                                <TableCell align="center">répartition</TableCell>
+                    <Table stickyHeader sx={{ maxWidth: '100%' }}>
+                        <TableHead align="left">
+                            <TableRow align='left'>
+                                <TableCell>Devise</TableCell>
+                                <TableCell>Quantité</TableCell>
+                                <TableCell>Total $</TableCell>
+                                <TableCell>répartition</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody align="left">
                             {transactionsList.map((transaction) => (
                                 <TableRow key={transaction.id}>
-                                    <TableCell align="left">{transaction.coinId}</TableCell>
-
-                                    <TableCell align="center">{transaction.quantity}</TableCell>
-
-                                    <TableCell align="right">{transaction.rentability}%</TableCell>
+                                    <TableCell>{transaction.coinId}</TableCell>
+                                    <TableCell>{transaction.quantity}</TableCell>
+                                    <TableCell>{transaction.price}</TableCell>
+                                    <TableCell>{transaction.rentability}%</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
