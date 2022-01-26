@@ -11,24 +11,36 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MobileDatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 const TransactionCreator = () => {
   // State for Autocomplete -BEGIN
-  const [value, setValue] = useState(null);
-  const [inputValue, setInputValue] = useState('');
-  const [options, setOptions] = useState([{ description: 'ETH' }, { description: 'BTC' }]);
+  // const [value, setValue] = useState(null);
+  // const [inputValue, setInputValue] = useState('');
+  // const options = ['ETH', 'BTC'];
   // State for Autocomplete -END
-  const [cryptoCurrency, setCryptoCurrency] = useState('');
+
+  // Get all 20k cryptos
+  const allCryptos = useSelector((state) => state.cryptos.allCryptos);
+  // ! //  If needed filter only the X first ones (ex: 5000)
+  const someCryptos = allCryptos.filter((_, index) => {
+    if (index < 6000) {
+      return true;
+    }
+    return false;
+  });
+
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(32000);
   const [dateValue, setDateValue] = useState(Date.now());
   const [refCurrency, setRefCurrency] = useState('USD');
 
-  // const handleSubmit = () => alert(`Votre achat de ${quantity} ${cryptoCurrency} à ${price} ${refCurrency} pour un montant total de ${Math.floor(quantity * price)} a bien été enregistré`)
-  const handleSubmit = () => console.log(`Votre achat de ${quantity} ${cryptoCurrency} à ${price} ${refCurrency} pour un montant total de ${Math.floor(quantity * price)} a bien été enregistré`);
+  const handleSubmit = () => {
+    console.log(`Votre achat de ${quantity} ${cryptoCurrency} à ${price} ${refCurrency} pour un montant total de ${Math.floor(quantity * price)} a bien été enregistré`);
+  };
 
+  // ! Do not remove next commented code, may be useful later
   // useEffect(() => {
   //   let active = true;
 
@@ -84,17 +96,30 @@ const TransactionCreator = () => {
 
         <Divider sx={{ width: '100%' }} />
 
-        <Grid container gap={2} xs={12} mt={3}>
+        <Grid container gap={2} mt={3}>
           <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              name="cryptoCurrency"
-              label="Crypto-monnaie"
-              type="text"
+            <Autocomplete
+              disablePortal
               id="cryptoCurrency"
-              value={cryptoCurrency}
-              onChange={(e) => setCryptoCurrency(e.target.value)}
+              options={someCryptos}
+              getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.coin_id}`}
+              // ! For later, to enhance list aspect
+              // renderOption={(props, option) => (
+              //   <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+              //     <img
+              //       loading="lazy"
+              //       width="20"
+              //       src={`https://assets.coingecko.com/coins/images/1/small/${option.coin_id}.png`}
+              //       srcSet={`https://assets.coingecko.com/coins/images/1/small/${option.coin_id}.png 2x`}
+              //       alt=""
+              //     />
+              //     {option.symbol.toUpperCase()} - {option.coin_id}
+              //   </Box>
+              // )}
+              renderInput={(params) => <TextField {...params} label="Crypto-monnaies" />}
+              selectOnFocus
+              clearOnBlur
+              handleHomeEndKeys
             />
             {/* <Autocomplete
               id="currency"
