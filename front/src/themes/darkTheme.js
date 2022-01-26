@@ -8,15 +8,17 @@ const theme = createTheme({
     }
   },
   palette: {
-        mode: "dark",
-        primary: {
-            main: "#3A0CA3",
-            dark: "#3F37C9",
-        },
-        secondary: {
-            main: orange[600],
-        },
+    mode: "dark",
+    primary: {
+      main: "#3A0CA3",
+      dark: "#3F37C9",
     },
+    secondary: {
+      main: orange[600],
+    },
+  },
 });
 
-export default theme; 
+export default theme;
+
+

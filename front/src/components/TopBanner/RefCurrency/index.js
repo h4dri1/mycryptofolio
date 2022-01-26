@@ -12,7 +12,7 @@ export default function RefCurrency() {
 
     return (
         <div>
-            <Select sx={{ m: 1, border: 0 }}
+            <Select sx={{ m: 1, border: 0, color: "secondary.main" }}
                 component='div'
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
