@@ -12,7 +12,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MobileDatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const TransactionCreator = () => {
   // State for Autocomplete -BEGIN
@@ -36,9 +36,8 @@ const TransactionCreator = () => {
   const [dateValue, setDateValue] = useState(Date.now());
   const [refCurrency, setRefCurrency] = useState('USD');
 
-  const handleSubmit = () => {
-    console.log(`Votre achat de ${quantity} ${cryptoCurrency} à ${price} ${refCurrency} pour un montant total de ${Math.floor(quantity * price)} a bien été enregistré`);
-  };
+  // const handleSubmit = () => {
+  // };
 
   // ! Do not remove next commented code, may be useful later
   // useEffect(() => {
@@ -121,6 +120,7 @@ const TransactionCreator = () => {
               clearOnBlur
               handleHomeEndKeys
             />
+            {/* ! For later, to enhance list perf */}
             {/* <Autocomplete
               id="currency"
               getOptionLabel={(option) => typeof option === 'string' ? option : option.description}
@@ -181,7 +181,8 @@ const TransactionCreator = () => {
           <Grid container item xs={12} spacing={2}>
             <Grid item container xs={5}>
               <Grid
-                item xs={12}
+                item
+                xs={12}
               >
                 <MobileDatePicker
                   disableFuture
@@ -211,7 +212,6 @@ const TransactionCreator = () => {
                   <Button
                     variant="contained"
                     type="submit"
-                    onSubmit={handleSubmit}
                   >
                     Ajouter
                   </Button>
