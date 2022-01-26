@@ -44,10 +44,10 @@ const TransactionsHistory = () => {
             <TableRow key={transaction.id}>
               <TableCell align="left">{transaction.crypto_id}</TableCell>
               {transaction.buy
-                ? <TableCell align="center">{`$${transaction.price}`}</TableCell>
+                ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
                 : <TableCell align="center">-</TableCell>}
               {!transaction.buy
-                ? <TableCell align="center">{`$${transaction.price}`}</TableCell>
+                ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
                 : <TableCell align="center">-</TableCell>}
               <TableCell align="center">{transaction.quantity}</TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
