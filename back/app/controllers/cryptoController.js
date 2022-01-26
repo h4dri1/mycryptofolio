@@ -50,7 +50,7 @@ module.exports = {
             if (req.params.include_last_updated_at) {
                 link = link + '&include_last_updated_at=true';
             }
-            const data = await service_fetch(`//api.coingecko.com/api/v3/simple/price?ids=${link}&vs_currencies=usd`);
+            const data = await service_fetch(link);
             res.status(200).json(data);
         } catch (error) {
             console.log(error);
