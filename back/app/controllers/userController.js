@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Wallet } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('../services/jwt');
 
@@ -14,8 +14,9 @@ module.exports = {
                 return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
             }
             delete user.password;
-            const token = jwt.makeToken(user);
-            const refreshToken = jwt.makeRefreshToken(user);
+            const wallet = await Wallet.findWalletByUser(user.id);
+            const token = jwt.makeToken(user, wallet);
+            const refreshToken = jwt.makeRefreshToken(user, wallet);
             const response = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
                 "refreshToken": refreshToken
