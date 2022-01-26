@@ -1,8 +1,12 @@
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import IconButton from '@mui/material/IconButton';
+
+import AddPortfolio from './AddPortfolio';
 
 const portfolios = [
   {
@@ -33,76 +37,82 @@ const portfolios = [
   },
 ];
 
-const TestWalletsNav = () => (
-  <Box sx={{
-    display: 'flex', flexDirection: 'column', margin: 'auto',
-  }}
-  >
-    <ListItemButton sx={{ flex: '1' }}>
-      <Box
-        component="span"
-        sx={[{
-          width: '40%',
-          maxWidth: '40vw',
-          borderRadius: '60%',
-          border: 'solid 2px #1976D2',
-          background: '#1976D2',
-          color: 'white',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-        {
-          '::after': {
-            display: 'block',
-            paddingBottom: '100%',
-            content: '""',
-          },
-        },
-        ]}
-      ><Typography>$52,637.35</Typography>
-      </Box>
-    </ListItemButton>
-    <List sx={{ overflowY: 'auto', flex: '2', maxHeight: '30vh' }}>
-      {
-        portfolios.map((portfolio) => (
-          <ListItemButton key={portfolio.name}>
-            <Box sx={{
-              display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
-            }}
-            >
-              <Box
-                component="span"
-                sx={[{
-                  width: '30%',
-                  maxWidth: '40vw',
-                  borderRadius: '50%',
-                  border: 'solid 2px #1976D2',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginRight: '10px',
-                },
-                {
-                  '::after': {
-                    display: 'block',
-                    paddingBottom: '100%',
-                    content: '""',
-                  },
-                },
-                ]}
-              ><Typography variant="body2">{`$${portfolio.holdings}`}</Typography>
-              </Box>
-              <Typography>{portfolio.name}</Typography>
-            </Box>
-          </ListItemButton>
-        ))
-      }
-    </List>
-    <Box sx={{ flex: '1' }}>
-      <AddCircleIcon sx={{ color: '#1976D2', marginLeft: '25px' }} fontSize="large" />
-    </Box>
-  </Box>
+const WalletsNav = () => (
+  <>
+    <Grid container columns={12} justifyContent="space-between">
+      <Grid item xs={12}>
+        <ListItemButton>
+          <Box
+            component="span"
+            sx={[{
+              width: '40%',
+              maxWidth: '40vw',
+              borderRadius: '60%',
+              border: 'solid 2px #1976D2',
+              background: '#1976D2',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+            {
+              '::after': {
+                display: 'block',
+                paddingBottom: '100%',
+                content: '""',
+              },
+            },
+            ]}
+          ><Typography>$52,637.35</Typography>
+          </Box>
+        </ListItemButton>
+      </Grid>
+      <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '35vh' }}>
+        <List>
+          {
+            portfolios.map((portfolio) => (
+              <ListItemButton key={portfolio.name}>
+                <Box sx={{
+                  display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
+                }}
+                >
+                  <Box
+                    component="span"
+                    sx={[{
+                      width: '30%',
+                      maxWidth: '40vw',
+                      borderRadius: '50%',
+                      border: 'solid 2px #1976D2',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginRight: '10px',
+                    },
+                    {
+                      '::after': {
+                        display: 'block',
+                        paddingBottom: '100%',
+                        content: '""',
+                      },
+                    },
+                    ]}
+                  ><Typography variant="body2">{`$${portfolio.holdings}`}</Typography>
+                  </Box>
+                  <Typography>{portfolio.name}</Typography>
+                </Box>
+              </ListItemButton>
+            ))
+          }
+        </List>
+      </Grid>
+      <Grid item xs={12}>
+        <IconButton>
+          <AddCircleIcon sx={{ color: '#1976D2' }} fontSize="large" />
+        </IconButton>
+      </Grid>
+    </Grid>
+    <AddPortfolio />
+  </>
 );
 
-export default TestWalletsNav;
+export default WalletsNav;
