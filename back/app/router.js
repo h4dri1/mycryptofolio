@@ -158,7 +158,7 @@ router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
 router.get('/trending', cache, fetchCryptoController.getTrendingCryptos);
 
-router.get('/portfolio/:id(\\d+)', fetchMW, transactionController.getPortfolio);
+router.get('/portfolio/:id(\\d+)', cache, fetchMW, transactionController.getPortfolio);
 
 router.get('/secret', jwtMW, userController.getSecret);
 
