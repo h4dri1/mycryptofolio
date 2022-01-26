@@ -23,9 +23,10 @@ const TransactionCreator = () => {
 
   // Get all 20k cryptos
   const allCryptos = useSelector((state) => state.cryptos.allCryptos);
+
   // ! //  If needed filter only the X first ones (ex: 5000)
   const someCryptos = allCryptos.filter((_, index) => {
-    if (index < 6000) {
+    if (index < 200) {
       return true;
     }
     return false;
@@ -101,21 +102,21 @@ const TransactionCreator = () => {
               disablePortal
               id="cryptoCurrency"
               options={someCryptos}
-              getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.coin_id}`}
+              getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
               // ! For later, to enhance list aspect
-              // renderOption={(props, option) => (
-              //   <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-              //     <img
-              //       loading="lazy"
-              //       width="20"
-              //       src={`https://assets.coingecko.com/coins/images/1/small/${option.coin_id}.png`}
-              //       srcSet={`https://assets.coingecko.com/coins/images/1/small/${option.coin_id}.png 2x`}
-              //       alt=""
-              //     />
-              //     {option.symbol.toUpperCase()} - {option.coin_id}
-              //   </Box>
-              // )}
-              renderInput={(params) => <TextField {...params} label="Crypto-monnaies" />}
+              renderOption={(props, option) => (
+                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                  <img
+                    loading="lazy"
+                    width="20"
+                    src={option.image}
+                    // srcSet={`${option.image} 2x`}
+                    alt=""
+                  />
+                  {option.symbol.toUpperCase()} : {option.name}
+                </Box>
+              )}
+              renderInput={(params) => <TextField {...params} label="Crypto-devise achetée" />}
               selectOnFocus
               clearOnBlur
               handleHomeEndKeys
