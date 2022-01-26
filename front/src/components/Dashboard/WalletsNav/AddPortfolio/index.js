@@ -8,25 +8,31 @@ import DialogActions from '@mui/material/DialogActions';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import TextField from '@mui/material/TextField';
 
+import { useSelector, useDispatch } from 'react-redux';
+
+import { toggleCreatePortfolioModal } from 'src/actions/portfolio';
+
 const AddPortfolio = () => {
-  console.log('toto');
+  const { createPortfolioToggle } = useSelector((state) => state.portfolio);
+
+  const dispatch = useDispatch();
 
   return (
-    <Dialog open>  {/* open={loginIsOpen} onClose={handleToggleLoginModal} */}
+    <Dialog open={createPortfolioToggle} onClose={() => dispatch(toggleCreatePortfolioModal())}>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
         Créer un portfolio
-        <IconButton edge="end" aria-label="Fermer"> {/* onClick={handleToggleLoginModal} */}
+        <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleCreatePortfolioModal())}>
           <CloseRoundedIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Nom du portfolio
+          Nom
         </DialogContentText>
         <TextField
           margin="dense"
             // id="nom"
-          label="Nom"
+          label="Nom du portfolio"
             // type="nom"
           fullWidth
           variant="outlined"
