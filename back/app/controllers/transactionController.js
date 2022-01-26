@@ -1,13 +1,11 @@
 const { Transaction } = require('../models');
-const fetch = require('cross-fetch');
+const service_fetch = require('../services/fetch');
 
 module.exports = {
     getPortfolio: async (req, res) => {
         let portfolio = {};
         let repartition = {};
         let objRepartition = {};
-        let data;
-        let searched_coins;
         let sumValue = 0;
 
         try {
@@ -15,19 +13,8 @@ module.exports = {
             if (!transactions) {
                 return res.status(500).json(error.message, true);
             };
-            const cryptos = res.locals.data;
-            const strCryptos = cryptos.map((crypto) => {
-                return crypto['coin_id']
-            });
-            searched_coins = strCryptos.toString();
-            try {
-                let link = `//api.coingecko.com/api/v3/simple/price?ids=${searched_coins}&vs_currencies=usd`
-                const coins = await fetch(link);
-                data = await coins.json();
-            } catch (error) {
-                console.log(error);
-                return res.status(500).json(error.message, true);
-            };
+            const cryptos = res.locals.cryptos;
+            const data = res.locals.price
             portfolio.Transactions = transactions;
             console.log(cryptos);
             console.log(data);
@@ -47,6 +34,7 @@ module.exports = {
             }
             console.log(sumValue)
             portfolio.Distribution = [objRepartition];
+            
             res.status(200).json(portfolio);
         } catch (error) {
             console.log(error);
