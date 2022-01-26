@@ -32,6 +32,19 @@ class Transaction {
             throw error;
         }
     }
+
+    static async getUserTransactionByWallet(user_id, wallet_id) {
+        try {
+            const {rows} = await db.query('SELECT symbol, buy, price, quantity, buy_date \
+            FROM view_transaction WHERE user_id=$1 ORDER BY buy_date DESC;', [user_id]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = Transaction;
