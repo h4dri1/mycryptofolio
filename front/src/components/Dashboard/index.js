@@ -8,7 +8,7 @@ import TransactionCreator from './TransactionCreator';
 
 const useStyles = makeStyles({
   grid: {
-    border: 'solid 2px red',
+    // border: 'solid 2px red',
     marginTop: '10px',
     height: '100%',
   },
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     margin: '5px',
   },
   gridSubItem: {
-    border: 'solid 2px gold',
+    // border: 'solid 2px gold',
     // height: '100%',
   },
 });
