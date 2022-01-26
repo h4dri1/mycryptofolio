@@ -1,4 +1,4 @@
-const Crypto = require('../models/crypto');
+const { Crypto } = require('../models');
 const cache = require('../services/cache');
 
 module.exports = {
@@ -8,12 +8,12 @@ module.exports = {
             const cryptos = await Crypto.findAll();
             console.log('Appel de response.json');
             if (!cryptos) {
-                return null;
+                return res.status(500).json(error.message, true);
             };
             return res.status(200).json(cryptos);
         } catch (error) {
             console.log(error);
-            return null;
+            return res.status(500).json(error.message, true);
         }
     }
 };

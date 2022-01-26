@@ -52,7 +52,7 @@ const WalletsNav = () => {
             <Box
               component="span"
               sx={[{
-                width: '40%',
+                width: '30%',
                 maxWidth: '40vw',
                 borderRadius: '60%',
                 border: 'solid 2px #1976D2',
@@ -74,7 +74,7 @@ const WalletsNav = () => {
             </Box>
           </ListItemButton>
         </Grid>
-        <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '35vh' }}>
+        <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '30vh' }}>
           <List>
             {
               portfolios.map((portfolio) => (
@@ -86,7 +86,7 @@ const WalletsNav = () => {
                     <Box
                       component="span"
                       sx={[{
-                        width: '30%',
+                        width: '20%',
                         maxWidth: '40vw',
                         borderRadius: '50%',
                         border: 'solid 2px #1976D2',

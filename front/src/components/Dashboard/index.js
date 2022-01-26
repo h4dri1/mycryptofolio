@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
   gridItem: {
     borderStyle: 'solid',
-    // maxHeight: '50vh',
+    // minHeight: '50vh',
     margin: '5px',
   },
   gridSubItem: {
@@ -31,10 +31,10 @@ const Dashboard = () => {
       <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
         <Grid item xs={11} md={5.5} className={classes.gridItem}>
           <Grid container>
-            <Grid item xs={11} md={5} className={classes.gridSubItem}>
+            <Grid item xs={11} md={6} className={classes.gridSubItem}>
               <WalletsNav />
             </Grid>
-            <Grid item xs={11} md={7} className={classes.gridSubItem}>
+            <Grid item xs={11} md={6} className={classes.gridSubItem}>
               <AssetsShares />
             </Grid>
           </Grid>
