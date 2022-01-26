@@ -2,7 +2,13 @@ const  {Router} = require('express');
 
 const router = Router();
 
-const {userController, tokenController, fetchCryptoController, cryptoController} = require('./controllers');
+const {
+    userController,
+    tokenController,
+    fetchCryptoController,
+    cryptoController,
+    transactionController
+} = require('./controllers');
 
 const loginSchema = require('./schemas/loginSchema');
 
@@ -10,7 +16,10 @@ const {validateBody, validateJWT} = require('./middlewares/validator');
 
 const jwtMW = require('./middlewares/jwtMW');
 
+const fetchMW = require('./middlewares/fetchMW');
+
 const {cache, flush} = require('./services/cache');
+const { Transaction } = require('./models');
 
 /**
 * @typedef {Object} User_Login
@@ -52,7 +61,6 @@ const {cache, flush} = require('./services/cache');
  * @property {number} roi
  * @property {string} last_update
  */
-
 
 /**
  * @typedef {Object} AllCryptos
@@ -123,16 +131,20 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCrypto);
 router.get('/crypto/:id', cache, fetchCryptoController.getOneCrypto);
 
  /**
- * GET /v1/cryptoprice/{id}/{vs}
+ * GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
  * @summary Crypto
- * @route GET /v1/cryptoprice/{id}/{vs}
+ * @route GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
  * @param {string} id.path.required
  * @param {string} vs.path.required
+ * @param {boolean} include_market_cap.path
+ * @param {boolean} include_24hr_vol.path
+ * @param {boolean} include_24hr_range.path
+ * @param {boolean} include_last_updated_at.path
  * @returns {Price} 200 - Crypto object
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptoprice/:id/:vs', cache, fetchCryptoController.getOnePrice);
+router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', cache, fetchCryptoController.getOnePrice);
 
 /**
  * GET /v1/cryptos
@@ -143,6 +155,10 @@ router.get('/cryptoprice/:id/:vs', cache, fetchCryptoController.getOnePrice);
  */
 
 router.get('/cryptos', cache, cryptoController.getAllCryptos);
+
+router.get('/trending', cache, fetchCryptoController.getTrendingCryptos);
+
+router.get('/portfolio/:id(\\d+)', fetchMW, transactionController.getPortfolio);
 
 router.get('/secret', jwtMW, userController.getSecret);
 
