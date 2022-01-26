@@ -20,11 +20,12 @@ module.exports = {
         }
     },
 
-    makeRefreshToken: userId => {
+    makeRefreshToken: (userId, walletId) => {
         try {
             return JWT.sign(
                 {
-                    data: userId
+                    user: userId,
+                    wallet: walletId
                 },
                 process.env.JWT_SECRET_REFRESH,
                 {

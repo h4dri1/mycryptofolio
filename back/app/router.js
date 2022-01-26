@@ -159,6 +159,8 @@ router.get('/trending', cache, cryptoController.getTrendingCryptos);
 
 router.get('/portfolio/:id(\\d+)', cache, fetchMW, transactionController.getPortfolio);
 
+router.get('/portfolio/:id(\\d+)/wallet/:id(\\d+)', cache, fetchMW, transactionController.getPortfolioByWallet);
+
 router.get('/secret', jwtMW, userController.getSecret);
 
 module.exports = router;
