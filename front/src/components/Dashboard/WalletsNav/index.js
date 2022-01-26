@@ -46,9 +46,9 @@ const WalletsNav = () => {
 
   return (
     <>
-      <Grid container columns={12} justifyContent="space-between">
+      <Grid container>
         <Grid item xs={12}>
-          <ListItemButton>
+          <ListItemButton sx={{ paddingBottom: '0px' }}>
             <Box
               component="span"
               sx={[{
@@ -90,9 +90,11 @@ const WalletsNav = () => {
                         maxWidth: '40vw',
                         borderRadius: '50%',
                         border: 'solid 2px #1976D2',
+                        background: 'white',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        marginLeft: '5%',
                         marginRight: '10px',
                       },
                       {
@@ -100,6 +102,17 @@ const WalletsNav = () => {
                           display: 'block',
                           paddingBottom: '100%',
                           content: '""',
+                        },
+                      },
+                      {
+                        '::before': {
+                          display: 'block',
+                          borderLeft: '2px solid #1976D2',
+                          position: 'absolute',
+                          top: '-50%',
+                          zIndex: '-1',
+                          height: '50%',
+                          content: "''",
                         },
                       },
                       ]}
@@ -113,7 +126,7 @@ const WalletsNav = () => {
           </List>
         </Grid>
         <Grid item xs={12}>
-          <IconButton onClick={() => dispatch(toggleCreatePortfolioModal())}>
+          <IconButton sx={{ marginLeft: '12%', padding: '1%' }} onClick={() => dispatch(toggleCreatePortfolioModal())}>
             <AddCircleIcon sx={{ color: '#1976D2' }} fontSize="large" />
           </IconButton>
         </Grid>
