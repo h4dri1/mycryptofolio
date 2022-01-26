@@ -1,7 +1,10 @@
-import { UPDATE_TRANSACTIONS_HIST, TOGGLE_CREATE_PORTFOLIO_MODAL } from 'src/actions/portfolio';
+import { UPDATE_TRANSACTIONS_HIST, TOGGLE_CREATE_PORTFOLIO_MODAL, UPDATE_CREATE_PORTFOLIO_INPUT } from 'src/actions/portfolio';
 
 const initialState = {
-  createPortfolioToggle: false,
+  createPortfolio: {
+    toggle: false,
+    inputText: '',
+  },
   transactionsList: [],
 };
 
@@ -15,7 +18,18 @@ const portfolioReducer = (state = initialState, action = {}) => {
     case TOGGLE_CREATE_PORTFOLIO_MODAL:
       return {
         ...state,
-        createPortfolioToggle: !state.createPortfolioToggle,
+        createPortfolio: {
+          inputText: '',
+          toggle: !state.createPortfolio.toggle,
+        },
+      };
+    case UPDATE_CREATE_PORTFOLIO_INPUT:
+      return {
+        ...state,
+        createPortfolio: {
+          ...state.createPortfolio,
+          inputText: action.payload,
+        },
       };
     default:
       return state;
