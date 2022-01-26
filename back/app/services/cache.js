@@ -29,12 +29,14 @@ const cache = async (req, res, next) => {
     const originalResponseJson = res.json.bind(res);
 
     console.log('Redéfinition de response.json');
-    res.json = async (data) => {
-        console.log('Mise en cache des data');
-        const str = JSON.stringify(data);
-        keys.push(key);
-        await db.set(key, str, {EX: timeout, NX: true});
-        console.log('Envoie');
+    res.json = async (data, err) => {
+        if (!err) {
+            console.log('Mise en cache des data');
+            const str = JSON.stringify(data);
+            keys.push(key);
+            await db.set(key, str, {EX: timeout, NX: true});
+            console.log('Envoie');
+        }
         originalResponseJson(data);
     }
     next();

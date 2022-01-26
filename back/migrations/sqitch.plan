@@ -3,3 +3,7 @@
 
 init 2022-01-20T13:15:40Z h4dri1 <hadrien.vuillaume@gmail.com> # creation des tables
 testuser 2022-01-20T14:07:29Z h4dri1 <hadrien.vuillaume@gmail.com> # ajouter un utilisateur de test
+testTransaction 2022-01-25T10:45:57Z h4dri1 <hadrien.vuillaume@gmail.com> # ajouter des transactions de test
+
+view_transaction 2022-01-25T22:09:27Z h4dri1 <hadrien.vuillaume@gmail.com> # création de la vue transaction
+function_invest_value 2022-01-25T22:11:46Z h4dri1 <hadrien.vuillaume@gmail.com> # création des functions invest et value
