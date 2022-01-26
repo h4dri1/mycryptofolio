@@ -5,7 +5,6 @@ const router = Router();
 const {
     userController,
     tokenController,
-    fetchCryptoController,
     cryptoController,
     transactionController
 } = require('./controllers');
@@ -117,7 +116,7 @@ router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCrypto);
+router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
 
 /**
  * GET /v1/crypto/{id}
@@ -128,7 +127,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, fetchCryptoController.getTopCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/crypto/:id', cache, fetchCryptoController.getOneCrypto);
+router.get('/crypto/:id', cache, cryptoController.getOneCrypto);
 
  /**
  * GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
@@ -144,7 +143,7 @@ router.get('/crypto/:id', cache, fetchCryptoController.getOneCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', cache, fetchCryptoController.getOnePrice);
+router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', cache, cryptoController.getOnePrice);
 
 /**
  * GET /v1/cryptos
@@ -156,9 +155,11 @@ router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:includ
 
 router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
-router.get('/trending', cache, fetchCryptoController.getTrendingCryptos);
+router.get('/trending', cache, cryptoController.getTrendingCryptos);
 
 router.get('/portfolio/:id(\\d+)', fetchMW, transactionController.getPortfolio);
+
+router.get('/portfolio/:id(\\d+)/wallet/:wallet_id(\\d+)', fetchMW, transactionController.getPortfolio);
 
 router.get('/secret', jwtMW, userController.getSecret);
 
