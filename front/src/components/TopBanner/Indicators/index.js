@@ -35,13 +35,14 @@ const Indicators = () => {
                         // p: 1,
                         fontSize: '0.8rem',
                         fontWeight: 'normal',
-                        color: "black",
+                        color: "secondary.main",
                     }}
                 >
                     $2,007,030,607,506
                 </Typography>
 
                 <Typography
+
                     variant="subtitle"
                     component="div"
                     sx={{
@@ -62,7 +63,7 @@ const Indicators = () => {
                         // p: 1,
                         fontSize: '0.8rem',
                         fontWeight: 'normal',
-                        color: "black",
+                        color: "secondary.main",
                     }}
                 >
                     $51,271,689,599
@@ -89,7 +90,7 @@ const Indicators = () => {
                         // p: 1,
                         fontSize: '0.8rem',
                         fontWeight: 'normal',
-                        color: "black",
+                        color: "secondary.main",
                     }}
                 >
                     BTC: 40.2%
