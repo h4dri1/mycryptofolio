@@ -6,6 +6,7 @@ module.exports = {
             const cryptos = res.locals.cryptos;
             const price = res.locals.price
 
+            let objTransactions;
             let portfolio = {};
             let value = {};
             let buy = {}
@@ -14,7 +15,12 @@ module.exports = {
             let sumValue = 0;
             let sumBuy = 0;
 
-            const objTransactions = await Transaction.getUserTransaction(req.params.id);
+            if (req.params.wallet_id) {
+                objTransactions = await Transaction.getUserTransactionByWallet(req.params.id, req.params.wallet_id);
+            } else {
+                objTransactions = await Transaction.getUserTransaction(req.params.id);
+            }
+
             if (!objTransactions) {
                 return res.status(500).json(error.message, true);
             };
@@ -55,9 +61,5 @@ module.exports = {
             console.log(error);
             return res.status(500).json(error.message, true);
         }
-    },
-
-    getPortfolioByWallet: async (req, res) => {
-        
     }
 };

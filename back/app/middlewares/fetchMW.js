@@ -3,7 +3,12 @@ const service_fetch = require('../services/fetch');
 
 module.exports = async (req, res, next) => {
     try {
-        const cryptos = await Transaction.getUserCrypto(req.params.id);
+        let cryptos;
+        if (req.params.wallet_id) {
+            cryptos = await Transaction.getUserCryptoByWallet(req.params.id, req.params.wallet_id);
+        } else {
+            cryptos = await Transaction.getUserCrypto(req.params.id);
+        }
         if (!cryptos) {
             return res.status(500).json(error.message, true);
         };
