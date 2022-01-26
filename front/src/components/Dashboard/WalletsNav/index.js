@@ -121,7 +121,6 @@ const WalletsNav = () => {
       <AddPortfolio />
     </>
   );
-}
-
+};
 
 export default WalletsNav;

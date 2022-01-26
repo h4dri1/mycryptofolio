@@ -10,15 +10,15 @@ import TextField from '@mui/material/TextField';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { toggleCreatePortfolioModal } from 'src/actions/portfolio';
+import { toggleCreatePortfolioModal, updateCreatePortfolioInput, createNewPortfolio } from 'src/actions/portfolio';
 
 const AddPortfolio = () => {
-  const { createPortfolioToggle } = useSelector((state) => state.portfolio);
+  const { toggle, inputText } = useSelector((state) => state.portfolio.createPortfolio);
 
   const dispatch = useDispatch();
 
   return (
-    <Dialog open={createPortfolioToggle} onClose={() => dispatch(toggleCreatePortfolioModal())}>
+    <Dialog open={toggle} onClose={() => dispatch(toggleCreatePortfolioModal())}>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
         Créer un portfolio
         <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleCreatePortfolioModal())}>
@@ -36,10 +36,13 @@ const AddPortfolio = () => {
             // type="nom"
           fullWidth
           variant="outlined"
+          value={inputText}
+          onChange={(e) => dispatch(updateCreatePortfolioInput(e.target.value))}
         />
       </DialogContent>
       <DialogActions>
-        <Button variant="contained">Créer</Button> {/* onClick={handleSubmit} */}
+        <Button variant="contained" onClick={() => dispatch(createNewPortfolio())}>Créer</Button>
+        <Button variant="contained" onClick={() => dispatch(toggleCreatePortfolioModal())}>Annuler</Button>
       </DialogActions>
     </Dialog>
   );
