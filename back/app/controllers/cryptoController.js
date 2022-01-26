@@ -57,7 +57,7 @@ module.exports = {
             return res.status(500).json(error.message, true);
         }
     },
-
+ 
     getTrendingCryptos: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
