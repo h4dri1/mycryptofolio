@@ -8,8 +8,8 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Divider from '@mui/material/Divider';
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+import Typography from '@mui/material/Typography';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -21,11 +21,9 @@ import axios from 'axios';
 const options = {
     plugins: {
         legend: {
-            display: true,
-            position: "left",
+            display: false,
         }
     },
-
 };
 
 const data = {
@@ -129,17 +127,14 @@ export default function AssetsShares() {
     return (
         <>
             <Container disableGutters sx={{ border: 1, borderColor: 'grey' }}>
-                <ListItem>
-                    <ListItemText primary="Répartition de vos actifs" sx={{ textAlign: "center" }} />
-                </ListItem>
+                <Typography variant="h6" align="center">Répartition de vos actifs</Typography>
                 <Divider sx={{ width: "100%" }}></Divider>
-
                 <Container
-                    sx={{ width: '60%', height: '25%', mt: 1 }}>
+                    sx={{ width: '40%', height: '40%', mt: 1 }}>
                     <Pie data={data} options={options} />
                 </Container>
                 <Container sx={{
-                    display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '25vh', overflowY: 'auto',
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '30vh', overflowY: 'auto',
                 }}>
                     <Table stickyHeader sx={{ maxWidth: '100%' }}>
                         <TableHead align="left">
@@ -147,13 +142,13 @@ export default function AssetsShares() {
                                 <TableCell>Devise</TableCell>
                                 <TableCell>Quantité</TableCell>
                                 <TableCell>Total $</TableCell>
-                                <TableCell>Répartition</TableCell>
+                                <TableCell>répartition</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody align="left">
                             {transactionsList.map((transaction) => (
                                 <TableRow key={transaction.id}>
-                                    <TableCell>{transaction.coinId}</TableCell>
+                                    <TableCell>{transaction.crypto_id}</TableCell>
                                     <TableCell>{transaction.quantity}</TableCell>
                                     <TableCell>{transaction.price}</TableCell>
                                     <TableCell>{transaction.rentability}%</TableCell>
