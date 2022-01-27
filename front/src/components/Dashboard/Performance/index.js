@@ -2,11 +2,12 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Container from '@mui/material/Container';
 
 const Performance = () => (
   <Grid container rowSpacing={3}>
     <Grid item xs={12}>
-      <Typography variant="h6" align="center">Performance</Typography>
+      <Typography color="primary.main" variant="h6" align="center">Performance</Typography>
       <Divider sx={{ width: '100%' }} />
     </Grid>
     <Grid item xs={12} sm={6}>
@@ -14,9 +15,9 @@ const Performance = () => (
         display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', height: '100%',
       }}
       >
-        <Typography>Investissement : $500</Typography>
-        <Typography>Valeur actuelle : $1,000</Typography>
-        <Typography>PnL : $500</Typography>
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Typography>Investissement :</Typography><Typography color="secondary.dark">$500</Typography></Container>
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Typography>Valeur actuelle :</Typography><Typography color="secondary.dark">$1000</Typography></Container>
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Typography>PNL :</Typography><Typography color="secondary.dark">$500</Typography></Container>
       </Box>
     </Grid>
     <Grid
@@ -34,7 +35,8 @@ const Performance = () => (
           width: '70%',
           maxWidth: '40vw',
           borderRadius: '50%',
-          border: 'solid 3px #1976D2',
+          border: 'solid 3px',
+          borderColor: "primary.dark",
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

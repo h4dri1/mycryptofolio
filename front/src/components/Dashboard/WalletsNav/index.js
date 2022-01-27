@@ -64,8 +64,8 @@ const WalletsNav = () => {
                   width: '30%',
                   maxWidth: '40vw',
                   borderRadius: '60%',
-                  border: 'solid 2px #0e497c',
-                  background: '#0e497c',
+                  border: 'solid 2px primary.main',
+                  bgcolor: "primary.main",
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',
@@ -100,11 +100,12 @@ const WalletsNav = () => {
                           width: '20%',
                           maxWidth: '40vw',
                           borderRadius: '50%',
-                          border: 'solid 2px #1976D2',
+                          border: 'solid 2px',
+                          borderColor: 'primary.light',
                           background: 'white',
                           marginLeft: '5%',
                           ...(portfolio.name === selectedPortfolio && {
-                            background: '#1976D2', color: 'white', width: '25%', marginLeft: '2.5%', fontWeight: 'bold',
+                            bgcolor: 'primary.light', color: 'white', width: '25%', marginLeft: '2.5%', fontWeight: 'bold'
                           }),
                           display: 'flex',
                           alignItems: 'center',
@@ -121,7 +122,8 @@ const WalletsNav = () => {
                         {
                           '::before': {
                             display: 'block',
-                            borderLeft: '2px solid #1976D2',
+                            borderLeft: '2px solid',
+                            borderColor: 'primary.light',
                             position: 'absolute',
                             top: '-50%',
                             zIndex: '-1',
@@ -142,7 +144,7 @@ const WalletsNav = () => {
         </Grid>
         <Grid item xs={12}>
           <IconButton sx={{ marginLeft: '12%', padding: '1%' }} onClick={() => dispatch(toggleCreatePortfolioModal())}>
-            <AddCircleIcon sx={{ color: '#1976D2' }} fontSize="large" />
+            <AddCircleIcon sx={{ color: "primary.main" }} fontSize="large" />
           </IconButton>
         </Grid>
       </Grid>
