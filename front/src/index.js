@@ -17,18 +17,20 @@ import store from './store';
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#613cb5',
+      light: '#aa90d7',
       main: '#3A0CA3',
       dark: '#280872',
       contrastText: 'white',
     },
     secondary: {
-      light: '#c345b1',
+      light: '#fafafa',
       main: '#B5179E',
       dark: '#7e106e',
       contrastText: 'white',
     },
   },
+
+
 });
 
 // == Render
