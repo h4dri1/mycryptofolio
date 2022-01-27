@@ -15,11 +15,12 @@ module.exports = {
             }
             delete user.password;
             const wallet = await Wallet.findWalletByUser(user.id);
-            const token = jwt.makeToken(user, [wallet]);
-            const refreshToken = jwt.makeRefreshToken(user, wallet);
+            const token = jwt.makeToken(user);
+            const refreshToken = jwt.makeRefreshToken(user);
             const response = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
-                "refreshToken": refreshToken
+                "refreshToken": refreshToken,
+                "wallet": wallet
             };
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', token);
