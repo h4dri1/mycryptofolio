@@ -8,27 +8,28 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Palette from 'src/themes/lightTheme';
 import { BrowserRouter } from 'react-router-dom';
 
-
 // == Import : local
 // Composants
 import App from 'src/components/App';
 import store from './store';
 
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#3A0CA3",
-      dark: "#3F37C9",
-      light: "#4361EE"
+      light: '#613cb5',
+      main: '#3A0CA3',
+      dark: '#280872',
+      contrastText: 'white',
     },
     secondary: {
-      main: '#F72585',
-      dark: '#F72585',
-      light: "#7209B7"
+      light: '#c345b1',
+      main: '#B5179E',
+      dark: '#7e106e',
+      contrastText: 'white',
     },
   },
 });
-
 
 // == Render
 // 1. Élément React racine (celui qui contient l'ensemble de l'app)
