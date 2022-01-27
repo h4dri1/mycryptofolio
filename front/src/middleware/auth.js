@@ -35,15 +35,15 @@ const auth = (store) => (next) => async (action) => {
             const newAccessToken = res.headers.authorization;
 
             // Save user details
-            const { data } = parseJwt(res.headers.authorization);
-            const { email, nickname, picture } = data;
-            const user = {
+            const { user } = parseJwt(res.headers.authorization);
+            const { email, nickname, picture } = user;
+            const userObj = {
               email,
               nickname,
               avatar: picture,
               accessToken: newAccessToken,
             };
-            store.dispatch(saveUser(user));
+            store.dispatch(saveUser(userObj));
             // TODO: alert should be superseded by opening AlertMessage component (src/common)
             alert(`Bonjour ${nickname}, vous êtes bien connecté`);
           }
@@ -65,15 +65,15 @@ const auth = (store) => (next) => async (action) => {
       // console.log('isTokenExpired', isTokenExpired());
       if (isTokenExpired(accessToken) && refreshToken) {
         const newAccessToken = await getNewAccessToken(refreshToken);
-        const { data } = parseJwt(newAccessToken);
-        const { email, nickname, picture } = data;
-        const user = {
+        const { user } = parseJwt(newAccessToken);
+        const { email, nickname, picture } = user;
+        const userObj = {
           email,
           nickname,
           avatar: picture,
           accessToken: newAccessToken,
         };
-        store.dispatch(saveUser(user));
+        store.dispatch(saveUser(userObj));
       }
       else if (isTokenExpired(accessToken) && !refreshToken) {
         store.dispatch(logout());
