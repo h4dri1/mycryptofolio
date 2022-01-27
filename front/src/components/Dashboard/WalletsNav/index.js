@@ -6,9 +6,11 @@ import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
 
-import { useDispatch } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { toggleCreatePortfolioModal } from 'src/actions/portfolio';
+import { toggleCreatePortfolioModal, updateSelectedPortfolio } from 'src/actions/portfolio';
 
 import AddPortfolio from './AddPortfolio';
 
@@ -43,77 +45,103 @@ const portfolios = [
 
 const WalletsNav = () => {
   const dispatch = useDispatch();
+  const { portfolioName } = useParams();
+  const { selectedPortfolio } = useSelector((state) => state.portfolio);
+
+  useEffect(() => {
+    dispatch(updateSelectedPortfolio(portfolioName));
+  }, [portfolioName]);
 
   return (
     <>
-      <Grid container columns={12} justifyContent="space-between">
+      <Grid container>
         <Grid item xs={12}>
-          <ListItemButton>
-            <Box
-              component="span"
-              sx={[{
-                width: '30%',
-                maxWidth: '40vw',
-                borderRadius: '60%',
-                border: 'solid 2px #1976D2',
-                background: '#1976D2',
-                color: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              {
-                '::after': {
-                  display: 'block',
-                  paddingBottom: '100%',
-                  content: '""',
+          <Link to="/portfolio" style={{ textDecoration: 'none' }}>
+            <ListItemButton sx={{ paddingBottom: '0px' }}>
+              <Box
+                component="span"
+                sx={[{
+                  width: '30%',
+                  maxWidth: '40vw',
+                  borderRadius: '60%',
+                  border: 'solid 2px #0e497c',
+                  background: '#0e497c',
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 },
-              },
-              ]}
-            ><Typography>$52,637.35</Typography>
-            </Box>
-          </ListItemButton>
+                {
+                  '::after': {
+                    display: 'block',
+                    paddingBottom: '100%',
+                    content: '""',
+                  },
+                },
+                ]}
+              ><Typography>$52,637.35</Typography>
+              </Box>
+            </ListItemButton>
+          </Link>
         </Grid>
         <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '30vh' }}>
           <List>
             {
               portfolios.map((portfolio) => (
-                <ListItemButton key={portfolio.name}>
-                  <Box sx={{
-                    display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
-                  }}
-                  >
-                    <Box
-                      component="span"
-                      sx={[{
-                        width: '20%',
-                        maxWidth: '40vw',
-                        borderRadius: '50%',
-                        border: 'solid 2px #1976D2',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginRight: '10px',
-                      },
-                      {
-                        '::after': {
-                          display: 'block',
-                          paddingBottom: '100%',
-                          content: '""',
+                <Link key={portfolio.name} to={portfolio.name} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <ListItemButton>
+                    <Box sx={{
+                      display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
+                    }}
+                    >
+                      <Box
+                        component="span"
+                        sx={[{
+                          width: '20%',
+                          maxWidth: '40vw',
+                          borderRadius: '50%',
+                          border: 'solid 2px #1976D2',
+                          background: 'white',
+                          marginLeft: '5%',
+                          ...(portfolio.name === selectedPortfolio && {
+                            background: '#1976D2', color: 'white', width: '25%', marginLeft: '2.5%', fontWeight: 'bold',
+                          }),
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginRight: '10px',
                         },
-                      },
-                      ]}
-                    ><Typography variant="body2">{`$${portfolio.holdings}`}</Typography>
+                        {
+                          '::after': {
+                            display: 'block',
+                            paddingBottom: '100%',
+                            content: '""',
+                          },
+                        },
+                        {
+                          '::before': {
+                            display: 'block',
+                            borderLeft: '2px solid #1976D2',
+                            position: 'absolute',
+                            top: '-50%',
+                            zIndex: '-1',
+                            height: '50%',
+                            content: "''",
+                          },
+                        },
+                        ]}
+                      ><Typography variant="body2">{`$${portfolio.holdings}`}</Typography>
+                      </Box>
+                      <Typography>{portfolio.name}</Typography>
                     </Box>
-                    <Typography>{portfolio.name}</Typography>
-                  </Box>
-                </ListItemButton>
+                  </ListItemButton>
+                </Link>
               ))
             }
           </List>
         </Grid>
         <Grid item xs={12}>
-          <IconButton onClick={() => dispatch(toggleCreatePortfolioModal())}>
+          <IconButton sx={{ marginLeft: '12%', padding: '1%' }} onClick={() => dispatch(toggleCreatePortfolioModal())}>
             <AddCircleIcon sx={{ color: '#1976D2' }} fontSize="large" />
           </IconButton>
         </Grid>
