@@ -1,4 +1,4 @@
-const { port } = require('pg/lib/defaults');
+const jwt = require('../services/jwt')
 const { Transaction, Wallet } = require('../models');
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
             let sumValue = 0;
             let sumBuy = 0;
 
-            const wallet = await Wallet.findWalletByUser(req.userId.id);
+            let wallet = await Wallet.findWalletByUser(req.userId.id);
 
             if (req.params.wallet_id) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
@@ -51,6 +51,8 @@ module.exports = {
 
             const pnl = sumValue - sumBuy;
 
+            //wallet.push({sumValue})
+
             objPerformance.investment = sumBuy;
             objPerformance.actual_value = sumValue;
             objPerformance.pnl = pnl;
@@ -60,6 +62,10 @@ module.exports = {
             portfolio.performance = [objPerformance];
             portfolio.wallet = wallet;
 
+            //console.log(portfolio)
+
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
         } catch (error) {
             console.log(error);
