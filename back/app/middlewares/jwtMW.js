@@ -11,9 +11,6 @@ module.exports = (req, res, next) => {
             return res.status(401).json('Invalid token');
         }
         req.userId = payload.user;
-        for (const wallet in payload.wallet) {
-            console.log(wallet)
-        }
         next();
     } catch(error) {
         return res.status(401).json(error.message);
