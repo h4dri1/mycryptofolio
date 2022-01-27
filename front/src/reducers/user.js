@@ -3,12 +3,13 @@ import {
   LOGIN,
   SAVE_USER,
   LOGOUT,
+  SAVE_NEW_TOKEN,
 } from '../actions/user';
 
 export const initialState = {
   logged: false,
-  email: '',
-  password: '',
+  email: 'test@test.fr',
+  password: '#0clock$0087',
   nickname: '',
   avatar: '',
   accessToken: '',
@@ -46,6 +47,13 @@ const reducer = (state = initialState, action = {}) => {
         nickname: '',
         avatar: '',
         accessToken: '',
+      });
+    }
+
+    case SAVE_NEW_TOKEN: {
+      return ({
+        ...state,
+        accessToken: action.payload,
       });
     }
 

@@ -3,6 +3,7 @@ export const LOGIN = 'LOGIN';
 export const SAVE_USER = 'SAVE_USER';
 export const LOGOUT = 'LOGOUT';
 export const CHECK_TOKEN = 'CHECK_TOKEN';
+export const SAVE_NEW_TOKEN = 'SAVE_NEW_TOKEN';
 
 export const changeField = (key, value) => ({
   type: CHANGE_FIELD,
@@ -27,4 +28,9 @@ export const logout = () => ({
 
 export const checkToken = () => ({
   type: CHECK_TOKEN,
+});
+
+export const saveNewToken = (payload) => ({
+  type: SAVE_NEW_TOKEN,
+  payload,
 });

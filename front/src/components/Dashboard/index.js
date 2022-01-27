@@ -1,5 +1,8 @@
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchPortfolio } from 'src/actions/portfolio';
 import WalletsNav from './WalletsNav';
 import AssetsShares from './AssetsShares';
 import Performance from './Performance';
@@ -25,6 +28,11 @@ const useStyles = makeStyles({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPortfolio());
+  }, []);
 
   return (
     <div className="">
