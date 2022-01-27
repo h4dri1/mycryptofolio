@@ -125,7 +125,7 @@ export default function AssetsShares() {
 
     return (
         <>
-            <Container disableGutters sx={{ border: 1, borderColor: 'grey' }}>
+            <Container disableGutters sx={{ border: 0, borderColor: 'grey' }}>
                 <Typography variant="h6" align="center">Répartition de vos actifs</Typography>
                 <Divider sx={{ width: "100%" }}></Divider>
                 <Container
