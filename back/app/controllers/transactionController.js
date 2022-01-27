@@ -16,9 +16,9 @@ module.exports = {
             let sumBuy = 0;
 
             if (req.params.wallet_id) {
-                objTransactions = await Transaction.getUserTransactionByWallet(req.params.id, req.params.wallet_id);
+                objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
             } else {
-                objTransactions = await Transaction.getUserTransaction(req.params.id);
+                objTransactions = await Transaction.getUserTransaction(req.userId.id);
             }
 
             if (!objTransactions) {
