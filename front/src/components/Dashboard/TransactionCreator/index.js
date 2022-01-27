@@ -32,13 +32,19 @@ const TransactionCreator = () => {
     return false;
   });
 
-  const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(32000);
+  const [quantity, setQuantity] = useState(0);
+  const [price, setPrice] = useState(0);
   const [dateValue, setDateValue] = useState(Date.now());
   const [refCurrency, setRefCurrency] = useState('USD');
 
   // const handleSubmit = () => {
   // };
+
+  const handleCancel = () => {
+    setQuantity(0);
+    setPrice(0);
+    setDateValue(Date.now());
+  };
 
   // ! Do not remove next commented code, may be useful later
   // useEffect(() => {
@@ -205,7 +211,10 @@ const TransactionCreator = () => {
                 xs={12}
               >
                 <Grid item xs={6}>
-                  <Button variant="outlined">
+                  <Button
+                    variant="outlined"
+                    onClick={handleCancel}
+                  >
                     Annuler
                   </Button>
                 </Grid>
