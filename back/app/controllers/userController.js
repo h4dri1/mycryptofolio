@@ -20,7 +20,7 @@ module.exports = {
             const response = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
                 "refreshToken": refreshToken,
-                "wallet": wallet
+                "wallet": [wallet]
             };
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', token);
