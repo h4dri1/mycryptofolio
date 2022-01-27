@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
     try {
         let cryptos;
         if (req.params.wallet_id) {
-            cryptos = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wallet_id);
+            cryptos = await Transaction.getUserCryptoByWallet(req.userId.id);
         } else {
             cryptos = await Transaction.getUserCrypto(req.userId.id);
         }
