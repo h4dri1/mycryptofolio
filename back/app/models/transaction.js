@@ -36,10 +36,10 @@ class Transaction {
 
     static async getUserTransaction(user_id) {
         try {
-            const {rows} = await db.query('SELECT symbol, buy, price, quantity, buy_date \
+            const {rows} = await db.query('SELECT id, symbol, buy, price, quantity, buy_date \
             FROM view_transaction WHERE user_id=$1 ORDER BY buy_date DESC;', [user_id]);
             if (rows) {
-                return rows.map(row => new Transaction(row));
+                return new Transaction(rows);
             }
         } catch (error) {
             console.log(error);
@@ -49,7 +49,7 @@ class Transaction {
 
     static async getUserTransactionByWallet(user_id, wallet_id) {
         try {
-            const {rows} = await db.query('SELECT symbol, buy, price, quantity, buy_date \
+            const {rows} = await db.query('SELECT id, symbol, buy, price, quantity, buy_date \
             FROM view_transaction WHERE user_id=$1 AND wallet_id=$2 ORDER BY buy_date DESC;', [user_id, wallet_id]);
             if (rows) {
                 return rows.map(row => new Transaction(row));
