@@ -14,7 +14,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTransactionsHist } from 'src/actions/portfolio';
+// import { getTransactionsHist } from 'src/actions/portfolio';
 import axios from 'axios';
 
 const options = {
@@ -113,13 +113,13 @@ export default function AssetsShares() {
     // ---------------------------------------------------
     // TODO: A RETIRER, ne sera plus nécessaire une fois l'API branchée
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const { transactionsList } = useSelector((state) => state.portfolio);
 
-    useEffect(() => {
-        dispatch(getTransactionsHist());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(getTransactionsHist());
+    // }, []);
 
     // ----------------------------------------------------
 
