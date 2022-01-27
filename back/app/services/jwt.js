@@ -1,12 +1,11 @@
 const JWT = require('jsonwebtoken');
 
 module.exports = {
-    makeToken: (userId, walletId) => {
+    makeToken: (user) => {
         try {
             return JWT.sign(
                 {
-                    user: userId,
-                    wallet: walletId
+                    user
                 },
                 process.env.JWT_SECRET,
                 {
@@ -20,12 +19,11 @@ module.exports = {
         }
     },
 
-    makeRefreshToken: (userId, walletId) => {
+    makeRefreshToken: (user) => {
         try {
             return JWT.sign(
                 {
-                    user: userId,
-                    wallet: walletId
+                    user
                 },
                 process.env.JWT_SECRET_REFRESH,
                 {

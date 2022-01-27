@@ -157,9 +157,9 @@ router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
 router.get('/trending', cache, cryptoController.getTrendingCryptos);
 
-router.get('/portfolio/:id(\\d+)', fetchMW, transactionController.getPortfolio);
+router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
 
-router.get('/portfolio/:id(\\d+)/wallet/:wallet_id(\\d+)', fetchMW, transactionController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, fetchMW, transactionController.getPortfolio);
 
 router.get('/secret', jwtMW, userController.getSecret);
 
