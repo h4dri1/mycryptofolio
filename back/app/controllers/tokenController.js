@@ -4,7 +4,6 @@ module.exports = {
     refresh: (req, res) => {
         try {
             const refreshPayload = jwt.validateRefreshToken(req.params.token);
-            console.log(refreshPayload);
             if (!refreshPayload.data) {
                 return res.status(401).json('Token Invalide !');
             }

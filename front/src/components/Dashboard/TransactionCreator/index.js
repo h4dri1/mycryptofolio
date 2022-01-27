@@ -11,19 +11,36 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MobileDatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 const TransactionCreator = () => {
   // State for Autocomplete -BEGIN
-  const [value, setValue] = useState(null);
-  const [inputValue, setInputValue] = useState('');
-  const [options, setOptions] = useState([{ description: 'ETH' }, { description: 'BTC' }]);
+  // const [value, setValue] = useState(null);
+  // const [inputValue, setInputValue] = useState('');
+  // const options = ['ETH', 'BTC'];
   // State for Autocomplete -END
+
+  // Get all 20k cryptos
+  const allCryptos = useSelector((state) => state.cryptos.allCryptos);
+
+  // ! //  If needed filter only the X first ones (ex: 5000)
+  const someCryptos = allCryptos.filter((_, index) => {
+    if (index < 200) {
+      return true;
+    }
+    return false;
+  });
+
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(32000);
   const [dateValue, setDateValue] = useState(Date.now());
+  const [refCurrency, setRefCurrency] = useState('USD');
 
+  // const handleSubmit = () => {
+  // };
+
+  // ! Do not remove next commented code, may be useful later
   // useEffect(() => {
   //   let active = true;
 
@@ -64,33 +81,47 @@ const TransactionCreator = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Box
-        rowGap={2}
         sx={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          maxHeight: '50vh',
+          overflowY: 'auto',
+          padding: '0 2em',
         }}
       >
-        <Typography
-          variant="h6"
-          component="h2"
-        >
+        <Typography variant="h6" component="h2">
           Enregistrer une transaction
         </Typography>
+
         <Divider sx={{ width: '100%' }} />
-        <Grid
-          container
-          spacing={2}
-          xs={12}
-        >
-          <Grid item xs={12}>  
-            <TextField
-                required
-                fullWidth
-                name="price"
-                label="Crypto-monnaie"
-                type="text"
-                id="price"
-                value="BTC - Bitcoin"
-              />
+
+        <Grid container gap={2} mt={3}>
+          <Grid item xs={12}>
+            <Autocomplete
+              disablePortal
+              id="cryptoCurrency"
+              options={someCryptos}
+              getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
+              // ! For later, to enhance list aspect
+              renderOption={(props, option) => (
+                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                  <img
+                    loading="lazy"
+                    width="20"
+                    src={option.image}
+                    // srcSet={`${option.image} 2x`}
+                    alt=""
+                  />
+                  {option.symbol.toUpperCase()} : {option.name}
+                </Box>
+              )}
+              renderInput={(params) => <TextField {...params} label="Crypto-devise achetée" />}
+              selectOnFocus
+              clearOnBlur
+              handleHomeEndKeys
+            />
+            {/* ! For later, to enhance list perf */}
             {/* <Autocomplete
               id="currency"
               getOptionLabel={(option) => typeof option === 'string' ? option : option.description}
@@ -115,74 +146,97 @@ const TransactionCreator = () => {
               value={value}
             /> */}
           </Grid>
-        </Grid>
-        <Grid container spacing={2} xs={12}>
-          <Grid item xs={6} className="transaction__field">
-            <TextField
-              required
-              fullWidth
-              name="quatity"
-              label="Quantité"
-              type="number"
-              id="quatity"
-              value={quantity}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              required
-              fullWidth
-              name="price"
-              label="Prix"
-              type="number"
-              id="price"
-              value={price}
-            />
-          </Grid>
-        </Grid>
-        <Grid container spacing={2} sp xs={12}>
-          <Grid item container xs={6}>
-            <Grid item xs={12}>
-              <MobileDatePicker
-                disableFuture
-                label="Date d'achat"
-                openTo="year"
-                view="day"
-                views={['year', 'month', 'day']}
-                value={dateValue}
-                onChange={(newValue) => {
-                  setDateValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
+          <Grid container item xs={12} spacing={2}>
+            <Grid
+              item
+              xs={6}
+              className="transaction__field"
+            >
+              <TextField
+                required
+                fullWidth
+                name="quatity"
+                label="Quantité"
+                type="number"
+                id="quatity"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
               />
             </Grid>
-            <Grid item container xs={12}>
-              <Grid item xs={6}>
-                <Button variant="contained">
-                  Ajouter
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button variant="outlined">
-                  Annuler
-                </Button>
-              </Grid>
+            <Grid
+              item
+              xs={6}
+            >
+              <TextField
+                required
+                fullWidth
+                name="price"
+                label="Prix"
+                type="number"
+                id="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </Grid>
           </Grid>
-          <Grid
-            item
-            container
-            xs={6}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              textAlign: 'center',
-            }}
-          >
-            <Grid item xs={12}>
-              <Typography variant="h5">
-                Valeur: $ 2503.60
-              </Typography>
+          <Grid container item xs={12} spacing={2}>
+            <Grid item container xs={5}>
+              <Grid
+                item
+                xs={12}
+              >
+                <MobileDatePicker
+                  disableFuture
+                  label="Date d'achat"
+                  openTo="year"
+                  view="day"
+                  views={['year', 'month', 'day']}
+                  value={dateValue}
+                  onChange={(newValue) => {
+                    setDateValue(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </Grid>
+              <Grid
+                item
+                container
+                spacing={2}
+                xs={12}
+              >
+                <Grid item xs={6}>
+                  <Button variant="outlined">
+                    Annuler
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                  >
+                    Ajouter
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              container
+              xs={7}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
+            >
+              <Grid item xs={12} p={0.5} sx={{ border: 'solid 1px grey', borderRadius: '1em' }}>
+                <Typography variant="h6">
+                  Montant de la transaction
+                </Typography>
+                <Typography variant="overline" fontSize={25}>
+                  {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * price)}
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

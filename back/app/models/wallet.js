@@ -8,41 +8,17 @@ class Wallet {
         }
     }
 
-    static async findAll() {
+    static async findWalletByUser(id) {
         try {
-
+            const {rows} = await db.query('SELECT id, label FROM wallet WHERE user_id=$1 GROUP BY id, label;', [id]);
+            if (rows) {
+                return new Wallet(rows);
+            }
         } catch (error) {
             console.log(error);
             throw error;
-        }
-    }
-
-    static async findOne(id) {
-        try {
-
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
-    }
-
-    async save() {
-        try {
-
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
-    }
-
-    async delete(id) {
-        try {
-
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
-    }
+        };
+    };
 }
 
 module.exports = Wallet;
