@@ -1,5 +1,5 @@
 import {
-  UPDATE_TRANSACTIONS_HIST, TOGGLE_CREATE_PORTFOLIO_MODAL, UPDATE_CREATE_PORTFOLIO_INPUT,
+  TOGGLE_CREATE_PORTFOLIO_MODAL, UPDATE_CREATE_PORTFOLIO_INPUT,
   UPDATE_SELECTED_PORTFOLIO, FETCH_PORTFOLIO_SUCCESS,
 } from 'src/actions/portfolio';
 
@@ -18,11 +18,6 @@ const initialState = {
 
 const portfolioReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case UPDATE_TRANSACTIONS_HIST:
-      return {
-        ...state,
-        transactionsList: action.payload,
-      };
     case TOGGLE_CREATE_PORTFOLIO_MODAL:
       return {
         ...state,

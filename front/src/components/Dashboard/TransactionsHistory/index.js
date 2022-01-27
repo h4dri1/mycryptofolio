@@ -7,19 +7,10 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Divider from '@mui/material/Divider';
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { getTransactionsHist } from 'src/actions/portfolio';
+import { useSelector } from 'react-redux';
 
 const TransactionsHistory = () => {
-  const dispatch = useDispatch();
-
-  const { transactionsList } = useSelector((state) => state.portfolio);
-
-  useEffect(() => {
-    dispatch(getTransactionsHist());
-  }, []);
+  const { transactions } = useSelector((state) => state.portfolio);
 
   return (
     <Box sx={{
@@ -40,9 +31,9 @@ const TransactionsHistory = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {transactionsList.map((transaction) => (
+          {transactions.map((transaction) => (
             <TableRow key={transaction.id}>
-              <TableCell align="left">{transaction.crypto_id}</TableCell>
+              <TableCell align="left">{transaction.symbol}</TableCell>
               {transaction.buy
                 ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
                 : <TableCell align="center">-</TableCell>}

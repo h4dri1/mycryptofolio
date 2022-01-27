@@ -2,30 +2,14 @@
 import axios from 'axios';
 
 import {
-  GET_TRANSACTIONS_HIST, updateTransactionsHist, CREATE_NEW_PORTFOLIO, toggleCreatePortfolioModal,
+  CREATE_NEW_PORTFOLIO, toggleCreatePortfolioModal,
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
 
-import transactionList from 'src/components/Dashboard/TransactionsHistory/data.json';
-
 const portfolio = (store) => (next) => (action) => {
   switch (action.type) {
-    case GET_TRANSACTIONS_HIST:
-      store.dispatch(updateTransactionsHist(transactionList));
-
-      // axios({
-      //   method: 'get',
-      //   url: `https://dev.mycryptofolio.fr/v1/portfolio/${portfolioId}`,
-      // })
-      //   .then((res) => {
-      //     store.dispatch(updateTransactionsHist(res.data));
-      //   })
-      //   .catch((err) => console.log(err));
-
-      next(action);
-      break;
     case CREATE_NEW_PORTFOLIO:
       const { inputText } = store.getState().portfolio.createPortfolio;
 
