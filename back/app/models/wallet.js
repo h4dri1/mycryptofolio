@@ -12,7 +12,7 @@ class Wallet {
         try {
             const {rows} = await db.query('SELECT id, label FROM wallet WHERE user_id=$1 GROUP BY id, label;', [id]);
             if (rows) {
-                return new Wallet(rows);
+                return rows.map(row => new Wallet(row));
             }
         } catch (error) {
             console.log(error);

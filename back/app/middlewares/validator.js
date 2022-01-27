@@ -29,6 +29,7 @@ const validator = {
     validateJWT: (req, res, next) => {
         try {
             if (!req.params.token) {
+                console.log('validateJWT')
                 return res.status(401).json('Token Invalide !');
             }
             next();
