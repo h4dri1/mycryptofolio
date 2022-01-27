@@ -1,4 +1,5 @@
-const { Transaction } = require('../models');
+const { port } = require('pg/lib/defaults');
+const { Transaction, Wallet } = require('../models');
 
 module.exports = {
     getPortfolio: async (req, res) => {
@@ -14,6 +15,8 @@ module.exports = {
             let objPerformance = {};
             let sumValue = 0;
             let sumBuy = 0;
+
+            const wallet = await Wallet.findWalletByUser(req.userId.id);
 
             if (req.params.wallet_id) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
@@ -55,6 +58,7 @@ module.exports = {
             portfolio.transactions = objTransactions;
             portfolio.distribution = [objRepartition];
             portfolio.performance = [objPerformance];
+            portfolio.wallet = [wallet];
 
             res.status(200).json(portfolio);
         } catch (error) {
