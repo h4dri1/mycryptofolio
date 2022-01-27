@@ -1,4 +1,5 @@
-const { Transaction } = require('../models');
+const jwt = require('../services/jwt')
+const { Transaction, Wallet } = require('../models');
 
 module.exports = {
     getPortfolio: async (req, res) => {
@@ -16,9 +17,9 @@ module.exports = {
             let sumBuy = 0;
 
             if (req.params.wallet_id) {
-                objTransactions = await Transaction.getUserTransactionByWallet(req.params.id, req.params.wallet_id);
+                objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
             } else {
-                objTransactions = await Transaction.getUserTransaction(req.params.id);
+                objTransactions = await Transaction.getUserTransaction(req.userId.id);
             }
 
             if (!objTransactions) {
@@ -56,6 +57,30 @@ module.exports = {
             portfolio.distribution = [objRepartition];
             portfolio.performance = [objPerformance];
 
+            //if (!req.params.wallet_id) {
+            //    let value_wallet = {}
+            //    let objWallet = await Wallet.findWalletByUser(req.userId.id);
+            //    if (!objWallet) {
+            //        return res.status(500).json(error.message, true);
+            //    }
+            //    for (const val of cryptos) {
+            //        value_wallet[val.coin_id] = val.total * price[val.coin_id].usd
+            //        
+            //    }
+            //    console.log(value_wallet)
+            //    objWallet.push(sumValue)
+            //    portfolio.wallet = objWallet;
+            //}
+            
+            //console.log(portfolio)
+            let objWallet = await Wallet.findWalletByUser(req.userId.id);
+                if (!objWallet) {
+                    return res.status(500).json(error.message, true);
+                }
+            portfolio.wallet = objWallet
+
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
         } catch (error) {
             console.log(error);
