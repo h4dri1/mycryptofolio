@@ -16,8 +16,6 @@ module.exports = {
             let sumValue = 0;
             let sumBuy = 0;
 
-            let wallet = await Wallet.findWalletByUser(req.userId.id);
-
             if (req.params.wallet_id) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
             } else {
@@ -51,8 +49,6 @@ module.exports = {
 
             const pnl = sumValue - sumBuy;
 
-            //wallet.push({sumValue})
-
             objPerformance.investment = sumBuy;
             objPerformance.actual_value = sumValue;
             objPerformance.pnl = pnl;
@@ -60,9 +56,28 @@ module.exports = {
             portfolio.transactions = objTransactions;
             portfolio.distribution = [objRepartition];
             portfolio.performance = [objPerformance];
-            portfolio.wallet = wallet;
 
+            //if (!req.params.wallet_id) {
+            //    let value_wallet = {}
+            //    let objWallet = await Wallet.findWalletByUser(req.userId.id);
+            //    if (!objWallet) {
+            //        return res.status(500).json(error.message, true);
+            //    }
+            //    for (const val of cryptos) {
+            //        value_wallet[val.coin_id] = val.total * price[val.coin_id].usd
+            //        
+            //    }
+            //    console.log(value_wallet)
+            //    objWallet.push(sumValue)
+            //    portfolio.wallet = objWallet;
+            //}
+            
             //console.log(portfolio)
+            let objWallet = await Wallet.findWalletByUser(req.userId.id);
+                if (!objWallet) {
+                    return res.status(500).json(error.message, true);
+                }
+            portfolio.wallet = objWallet
 
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(req.userId));
