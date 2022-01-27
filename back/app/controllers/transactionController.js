@@ -58,7 +58,7 @@ module.exports = {
             portfolio.transactions = objTransactions;
             portfolio.distribution = [objRepartition];
             portfolio.performance = [objPerformance];
-            portfolio.wallet = [wallet];
+            portfolio.wallet = wallet;
 
             res.status(200).json(portfolio);
         } catch (error) {
