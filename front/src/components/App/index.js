@@ -24,7 +24,25 @@ const App = () => {
   const theme = createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
+      primary: {
+        light: '#aa90d7',
+        main: '#3A0CA3',
+        dark: '#280872',
+        contrastText: 'white',
+      },
+      secondary: {
+        light: '#fafafa',
+        grey: '',
+        main: '#B5179E',
+        dark: '#7e106e',
+        contrastText: 'white',
+      },
+      neutral: {
+        main: '#64748B',
+        contrastText: '#fff',
+      },
     },
+
   });
 
   const dispatch = useDispatch();
