@@ -2,39 +2,12 @@
 import { StrictMode, useState } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
 
 // == Import : local
 // Composants
 import App from 'src/components/App';
 import store from './store';
-
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#aa90d7',
-      main: '#3A0CA3',
-      dark: '#280872',
-      contrastText: 'white',
-    },
-    secondary: {
-      light: '#fafafa',
-      grey: '',
-      main: '#B5179E',
-      dark: '#7e106e',
-      contrastText: 'white',
-    },
-    neutral: {
-      main: '#64748B',
-      contrastText: '#fff',
-    },
-  }
-
-});
-
 
 // == Render
 // 1. Élément React racine (celui qui contient l'ensemble de l'app)
@@ -43,10 +16,7 @@ const rootReactElement = (
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
+        <App />
       </Provider>
     </BrowserRouter>
   </StrictMode>
