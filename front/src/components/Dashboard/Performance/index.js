@@ -13,8 +13,6 @@ const Performance = () => {
       (performance.actual_value - performance.investment) / performance.investment) * 100
   ).toFixed(2);
 
-  console.log(perfPercentage);
-
   return (
     <Grid container rowSpacing={3}>
       <Grid item xs={12}>

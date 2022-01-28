@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 import {
-  CREATE_NEW_PORTFOLIO, toggleCreatePortfolioModal,
+  CREATE_NEW_WALLET, toggleCreateWalletModal,
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
 } from 'src/actions/portfolio';
 
@@ -10,10 +10,10 @@ import { checkToken, saveNewToken } from 'src/actions/user';
 
 const portfolio = (store) => (next) => (action) => {
   switch (action.type) {
-    case CREATE_NEW_PORTFOLIO:
-      const { inputText } = store.getState().portfolio.createPortfolio;
+    case CREATE_NEW_WALLET:
+      const { inputText } = store.getState().portfolio.createWallet;
 
-      store.dispatch(toggleCreatePortfolioModal());
+      store.dispatch(toggleCreateWalletModal());
       alert(`Le portefeuille ${inputText} a bien été créé.`);
 
       // axios({
@@ -27,7 +27,7 @@ const portfolio = (store) => (next) => (action) => {
       //     /*
       //       Créer une nouvelle action pour mettre à jour la liste des portfolio du client
       //       store.dispatch(nouvelleAction(res.data))
-      //       store.dispatch(toggleCreatePortfolioModal())
+      //       store.dispatch(toggleCreateWalletModal())
       //     */
       //   })
       //   .catch((err) => {

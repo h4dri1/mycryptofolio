@@ -10,47 +10,18 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { toggleCreatePortfolioModal, updateSelectedPortfolio } from 'src/actions/portfolio';
+import { toggleCreateWalletModal, updateSelectedWallet } from 'src/actions/portfolio';
 
-import AddPortfolio from './AddPortfolio';
-
-const portfolios = [
-  {
-    name: 'Daily trading',
-    holdings: '7830',
-  },
-  {
-    name: 'HODL',
-    holdings: '23968',
-  },
-  {
-    name: 'Long term',
-    holdings: '2892',
-  },
-  {
-    name: 'Mid term',
-    holdings: '1000',
-  }, {
-    name: 'Savings 1',
-    holdings: '7810',
-  },
-  {
-    name: 'Savings 2',
-    holdings: '5000',
-  }, {
-    name: 'Savings 3',
-    holdings: '250',
-  },
-];
+import AddWallet from './AddWallet';
 
 const WalletsNav = () => {
   const dispatch = useDispatch();
-  const { portfolioName } = useParams();
-  const { selectedPortfolio } = useSelector((state) => state.portfolio);
+  const { walletName } = useParams();
+  const { wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
 
   useEffect(() => {
-    dispatch(updateSelectedPortfolio(portfolioName));
-  }, [portfolioName]);
+    dispatch(updateSelectedWallet(walletName));
+  }, [walletName]);
 
   return (
     <>
@@ -65,7 +36,7 @@ const WalletsNav = () => {
                   maxWidth: '40vw',
                   borderRadius: '60%',
                   border: 'solid 2px primary.main',
-                  bgcolor: "primary.main",
+                  bgcolor: 'primary.main',
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',
@@ -87,8 +58,8 @@ const WalletsNav = () => {
         <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '30vh' }}>
           <List>
             {
-              portfolios.map((portfolio) => (
-                <Link key={portfolio.name} to={portfolio.name} style={{ textDecoration: 'none', color: 'black' }}>
+              wallets.map((wallet) => (
+                <Link key={wallet.id} to={wallet.label} style={{ textDecoration: 'none', color: 'black' }}>
                   <ListItemButton>
                     <Box sx={{
                       display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
@@ -104,7 +75,7 @@ const WalletsNav = () => {
                           borderColor: 'primary.light',
                           background: 'white',
                           marginLeft: '5%',
-                          ...(portfolio.name === selectedPortfolio && {
+                          ...(wallet.label === selectedWallet && {
                             bgcolor: 'primary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold'
                           }),
                           display: 'flex',
@@ -132,9 +103,9 @@ const WalletsNav = () => {
                           },
                         },
                         ]}
-                      ><Typography variant="body2">{`$${portfolio.holdings}`}</Typography>
+                      ><Typography variant="body2">{`$${Math.round(wallet.sum)}`}</Typography>
                       </Box>
-                      <Typography sx={{ color: 'neutral.main' }}>{portfolio.name}</Typography>
+                      <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
                   </ListItemButton>
                 </Link>
@@ -143,12 +114,12 @@ const WalletsNav = () => {
           </List>
         </Grid>
         <Grid item xs={12}>
-          <IconButton sx={{ marginLeft: '12%', padding: '1%' }} onClick={() => dispatch(toggleCreatePortfolioModal())}>
+          <IconButton sx={{ marginLeft: '12%', padding: '1%' }} onClick={() => dispatch(toggleCreateWalletModal())}>
             <AddCircleIcon sx={{ color: "primary.main" }} fontSize="large" />
           </IconButton>
         </Grid>
       </Grid>
-      <AddPortfolio />
+      <AddWallet />
     </>
   );
 };

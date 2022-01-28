@@ -1,26 +1,26 @@
-export const TOGGLE_CREATE_PORTFOLIO_MODAL = 'TOGGLE_CREATE_PORTFOLIO_MODAL';
-export const UPDATE_CREATE_PORTFOLIO_INPUT = 'UPDATE_CREATE_PORTFOLIO_INPUT';
-export const CREATE_NEW_PORTFOLIO = 'CREATE_NEW_PORTFOLIO';
-export const UPDATE_SELECTED_PORTFOLIO = 'UPDATE_SELECTED_PORTFOLIO';
+export const TOGGLE_CREATE_WALLET_MODAL = 'TOGGLE_CREATE_WALLET_MODAL';
+export const UPDATE_CREATE_WALLET_INPUT = 'UPDATE_CREATE_WALLET_INPUT';
+export const CREATE_NEW_WALLET = 'CREATE_NEW_WALLET';
+export const UPDATE_SELECTED_WALLET = 'UPDATE_SELECTED_WALLET';
 // get portfolion data
 export const FETCH_PORTFOLIO = 'FETCH_PORTFOLIO';
 export const FETCH_PORTFOLIO_SUCCESS = 'FETCH_PORTFOLIO_SUCCESS';
 
-export const toggleCreatePortfolioModal = () => ({
-  type: TOGGLE_CREATE_PORTFOLIO_MODAL,
+export const toggleCreateWalletModal = () => ({
+  type: TOGGLE_CREATE_WALLET_MODAL,
 });
 
-export const updateCreatePortfolioInput = (payload) => ({
-  type: UPDATE_CREATE_PORTFOLIO_INPUT,
+export const updateCreateWalletInput = (payload) => ({
+  type: UPDATE_CREATE_WALLET_INPUT,
   payload,
 });
 
-export const createNewPortfolio = () => ({
-  type: CREATE_NEW_PORTFOLIO,
+export const createNewWallet = () => ({
+  type: CREATE_NEW_WALLET,
 });
 
-export const updateSelectedPortfolio = (payload) => ({
-  type: UPDATE_SELECTED_PORTFOLIO,
+export const updateSelectedWallet = (payload) => ({
+  type: UPDATE_SELECTED_WALLET,
   payload,
 });
 

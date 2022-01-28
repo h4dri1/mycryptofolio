@@ -1,14 +1,14 @@
 import {
-  TOGGLE_CREATE_PORTFOLIO_MODAL, UPDATE_CREATE_PORTFOLIO_INPUT,
-  UPDATE_SELECTED_PORTFOLIO, FETCH_PORTFOLIO_SUCCESS,
+  TOGGLE_CREATE_WALLET_MODAL, UPDATE_CREATE_WALLET_INPUT,
+  UPDATE_SELECTED_WALLET, FETCH_PORTFOLIO_SUCCESS,
 } from 'src/actions/portfolio';
 
 const initialState = {
-  createPortfolio: {
+  createWallet: {
     toggle: false,
     inputText: '',
   },
-  selectedPortfolio: '',
+  selectedWallet: '',
   transactionsList: [],
   distribution: [],
   performance: [],
@@ -18,26 +18,26 @@ const initialState = {
 
 const portfolioReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case TOGGLE_CREATE_PORTFOLIO_MODAL:
+    case TOGGLE_CREATE_WALLET_MODAL:
       return {
         ...state,
-        createPortfolio: {
+        createWallet: {
           inputText: '',
-          toggle: !state.createPortfolio.toggle,
+          toggle: !state.createWallet.toggle,
         },
       };
-    case UPDATE_CREATE_PORTFOLIO_INPUT:
+    case UPDATE_CREATE_WALLET_INPUT:
       return {
         ...state,
-        createPortfolio: {
-          ...state.createPortfolio,
+        createWallet: {
+          ...state.createWallet,
           inputText: action.payload,
         },
       };
-    case UPDATE_SELECTED_PORTFOLIO:
+    case UPDATE_SELECTED_WALLET:
       return {
         ...state,
-        selectedPortfolio: action.payload ? action.payload : '',
+        selectedWallet: action.payload ? action.payload : '',
       };
     case FETCH_PORTFOLIO_SUCCESS:
       return {
