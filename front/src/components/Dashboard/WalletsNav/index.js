@@ -88,7 +88,7 @@ const WalletsNav = () => {
           <List>
             {
               portfolios.map((portfolio) => (
-                <Link key={portfolio.name} to={portfolio.name} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link key={portfolio.name} to={portfolio.name} style={{ textDecoration: 'none', color: 'black' }}>
                   <ListItemButton>
                     <Box sx={{
                       display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
@@ -105,7 +105,7 @@ const WalletsNav = () => {
                           background: 'white',
                           marginLeft: '5%',
                           ...(portfolio.name === selectedPortfolio && {
-                            bgcolor: 'primary.light', color: 'white', width: '25%', marginLeft: '2.5%', fontWeight: 'bold'
+                            bgcolor: 'primary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold'
                           }),
                           display: 'flex',
                           alignItems: 'center',
@@ -134,7 +134,7 @@ const WalletsNav = () => {
                         ]}
                       ><Typography variant="body2">{`$${portfolio.holdings}`}</Typography>
                       </Box>
-                      <Typography>{portfolio.name}</Typography>
+                      <Typography sx={{ color: 'neutral.main' }}>{portfolio.name}</Typography>
                     </Box>
                   </ListItemButton>
                 </Link>

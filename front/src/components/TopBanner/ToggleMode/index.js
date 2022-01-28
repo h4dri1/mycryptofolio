@@ -61,7 +61,6 @@ export default function ToggleMode() {
     const { darkMode } = useSelector(state => state.settings);
 
     return (
-        // <ThemeProvider theme={theme}>
         <FormGroup>
             <FormControlLabel
                 control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
@@ -69,6 +68,5 @@ export default function ToggleMode() {
                 checked={darkMode} onChange={() => dispatch(toggleDarkMode())}
             />
         </FormGroup>
-        // </ThemeProvider>
     );
 }

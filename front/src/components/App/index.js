@@ -7,20 +7,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
 import { getAllCryptos } from 'src/actions/cryptos';
-import { toggleDarkMode } from 'src/actions';
-import React, { useState } from "react";
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Switch, Paper } from '@mui/material';
-// import ThemeProvider from 'src/components/TopBanner/ToggleMode';
+import { Paper } from '@mui/material';
 
 // == Composant
 
 const App = () => {
 
-  // // DARK MODE
+  // DARK MODE
   const { darkMode } = useSelector((state) => state.settings)
 
+  // COLOR PALETTE for LIGHT & DARK modes
   const theme = createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
@@ -32,15 +31,20 @@ const App = () => {
       },
       secondary: {
         light: '#fafafa',
-        grey: '',
         main: '#B5179E',
         dark: '#7e106e',
         contrastText: 'white',
       },
       neutral: {
-        main: '#64748B',
-        contrastText: '#fff',
+        main: '#a9b0ba',
+        contrastText: 'white',
       },
+
+      // contrastThreshold: 3,
+      // // Used by the functions below to shift a color's luminance by approximately
+      // // two indexes within its tonal palette.
+      // // E.g., shift from Red 500 to Red 300 or Red 700.
+      // tonalOffset: 0.2,
     },
 
   });
@@ -50,8 +54,6 @@ const App = () => {
   useEffect(() => {
     dispatch(getAllCryptos());
   }, []);
-
-
 
 
   return (
