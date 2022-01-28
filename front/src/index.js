@@ -1,12 +1,8 @@
 // == Import : npm
-import { StrictMode } from 'react';
+import { StrictMode, useState } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-// import { ThemeProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline';
-// import theme from 'src/themes/darkTheme';
 import { BrowserRouter } from 'react-router-dom';
-
 
 // == Import : local
 // Composants
@@ -20,10 +16,7 @@ const rootReactElement = (
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        {/* <ThemeProvider theme={theme}> */}
-        <CssBaseline />
         <App />
-        {/* </ThemeProvider> */}
       </Provider>
     </BrowserRouter>
   </StrictMode>

@@ -90,7 +90,7 @@ const TransactionCreator = () => {
           padding: '0 2em',
         }}
       >
-        <Typography variant="h6" component="h2">
+        <Typography color="primary.main" variant="h6" component="h2">
           Enregistrer une transaction
         </Typography>
 
