@@ -15,7 +15,6 @@ module.exports = {
             let buy = {}
             let objRepartition = {};
             let objPerformance = {};
-            let objWallet = {};
             let sumValue = 0;
             let sumBuy = 0;
 
@@ -64,7 +63,8 @@ module.exports = {
             portfolio.performance = objPerformance;
 
             if (!req.params.wallet_id) {
-                let newObj = []
+                let objWallet = [];
+                let newObj = [];
                 let sum = 0;
                 let id = 0;
                 let id2 = 1;
@@ -81,13 +81,13 @@ module.exports = {
                     }
                 }
 
-                const objWallet = newObj.filter((v) => {
+                objWallet = newObj.filter((v) => {
                     return this[v.id]?
                       !Object.assign(this[v.id], v):
                       (this[v.id] = v);
                 }, {});
 
-                portfolio.wallet = objWallet;
+                portfolio.wallet = this;
             }
 
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
