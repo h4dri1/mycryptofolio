@@ -63,6 +63,7 @@ const CryptoList = () => {
       </Grid>
       <Grid item>
         <LoadingButton
+
           variant="outlined"
           sx={{ mb: 9 }}
           loading={cryptoListLoading}
