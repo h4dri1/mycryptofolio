@@ -4,6 +4,7 @@ BEGIN;
 
 CREATE VIEW view_transaction AS
 SELECT
+	transaction.id,
 	buy_date,
 	buy,
 	price,
