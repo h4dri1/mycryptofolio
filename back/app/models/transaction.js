@@ -10,8 +10,8 @@ class Transaction {
 
     static async getUserCrypto(user_id) {
         try {
-            const {rows} = await db.query('SELECT wallet_id, coin_id, symbol, AVG(price) as buy_price, SUM (quantity) AS total \
-            FROM view_transaction WHERE user_id=$1 AND buy=true GROUP BY symbol, wallet_id, coin_id;', [user_id]);
+            const {rows} = await db.query('SELECT wallet_id, wallet_label, coin_id, symbol, AVG(price) as buy_price, SUM (quantity) AS total \
+            FROM view_transaction WHERE user_id=$1 AND buy=true GROUP BY symbol, wallet_id, wallet_label, coin_id;', [user_id]);
             if (rows) {
                 return rows.map(row => new Transaction(row));
             }
