@@ -7,7 +7,6 @@ module.exports = {
             if (!refreshPayload) {
                 return res.status(401).json('Token Invalide !');
             }
-            console.log(refreshPayload)
             const token = jwt.makeToken(refreshPayload.user, refreshPayload.wallet);
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', token);

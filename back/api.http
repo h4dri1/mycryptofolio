@@ -14,7 +14,7 @@ POST http://localhost:8888/v1/jwt/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "test@test.fr",
+    "email": "test2@test.fr",
     "password": "#0clock$0087"
 }
 
@@ -55,4 +55,4 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzMxNzQyOSwiZXhwIjoxNjQzMzE3NzI5fQ.lHNXPPPANDS1my6dmCUv7Bw2180RvjqzE3XHw3jVD30
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzM4MjgyOCwiZXhwIjoxNjQzMzgzMTI4fQ.gK8AGJ1ndPP8zmCbwHVUa0-QrptvpDSPtgvxVR58iBE

@@ -1,5 +1,7 @@
 const jwt = require('../services/jwt')
 const { Transaction, Wallet } = require('../models');
+const { id } = require('../schemas/loginSchema');
+const createApplication = require('express/lib/express');
 
 module.exports = {
     getPortfolio: async (req, res) => {
@@ -13,6 +15,7 @@ module.exports = {
             let buy = {}
             let objRepartition = {};
             let objPerformance = {};
+            let objWallet = {};
             let sumValue = 0;
             let sumBuy = 0;
 
@@ -54,24 +57,36 @@ module.exports = {
             objPerformance.pnl = pnl;
 
             const newObjTransactions = Object.values(objTransactions);
-            const newObjRepartition = Object.values(objRepartition)
+            const newObjRepartition = Object.values(objRepartition);
 
             portfolio.transactions = newObjTransactions;
             portfolio.distribution = newObjRepartition;
             portfolio.performance = objPerformance;
 
             if (!req.params.wallet_id) {
-                let value_wallet = {}
-                let objWallet = await Wallet.findWalletByUser(req.userId.id);
-                if (!objWallet) {
-                    return res.status(500).json(error.message, true);
+                let newObj = []
+                let sum = 0;
+                let id = 0;
+                let id2 = 1;
+
+                for (const coin of cryptos) {
+                    sum = sum + coin.total * price[coin.coin_id].usd
+                    id = coin.wallet_id
+                    if (id === id2) {
+                        newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
+                    } else {
+                        sum = coin.total * price[coin.coin_id].usd;
+                        newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
+                        id2 = coin.wallet_id
+                    }
                 }
-                for (const val of cryptos) {
-                    value_wallet[val.coin_id] = val.total * price[val.coin_id].usd
-                    
-                }
-                //console.log(value_wallet)
-                objWallet.push(sumValue)
+
+                const objWallet = newObj.filter((v) => {
+                    return this[v.id]?
+                      !Object.assign(this[v.id], v):
+                      (this[v.id] = v);
+                }, {});
+
                 portfolio.wallet = objWallet;
             }
 
