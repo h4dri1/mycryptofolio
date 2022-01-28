@@ -53,31 +53,27 @@ module.exports = {
             objPerformance.actual_value = sumValue;
             objPerformance.pnl = pnl;
 
-            portfolio.transactions = objTransactions;
-            portfolio.distribution = [objRepartition];
-            portfolio.performance = [objPerformance];
+            const newObjTransactions = Object.values(objTransactions);
+            const newObjRepartition = Object.values(objRepartition)
 
-            //if (!req.params.wallet_id) {
-            //    let value_wallet = {}
-            //    let objWallet = await Wallet.findWalletByUser(req.userId.id);
-            //    if (!objWallet) {
-            //        return res.status(500).json(error.message, true);
-            //    }
-            //    for (const val of cryptos) {
-            //        value_wallet[val.coin_id] = val.total * price[val.coin_id].usd
-            //        
-            //    }
-            //    console.log(value_wallet)
-            //    objWallet.push(sumValue)
-            //    portfolio.wallet = objWallet;
-            //}
-            
-            //console.log(portfolio)
-            let objWallet = await Wallet.findWalletByUser(req.userId.id);
+            portfolio.transactions = newObjTransactions;
+            portfolio.distribution = newObjRepartition;
+            portfolio.performance = objPerformance;
+
+            if (!req.params.wallet_id) {
+                let value_wallet = {}
+                let objWallet = await Wallet.findWalletByUser(req.userId.id);
                 if (!objWallet) {
                     return res.status(500).json(error.message, true);
                 }
-            portfolio.wallet = objWallet
+                for (const val of cryptos) {
+                    value_wallet[val.coin_id] = val.total * price[val.coin_id].usd
+                    
+                }
+                //console.log(value_wallet)
+                objWallet.push(sumValue)
+                portfolio.wallet = objWallet;
+            }
 
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(req.userId));
