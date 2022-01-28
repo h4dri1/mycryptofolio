@@ -1,11 +1,9 @@
 // == Import : npm
-import { StrictMode } from 'react';
+import { StrictMode, useState } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-// import theme from 'src/themes/darkTheme';
-import Palette from 'src/themes/lightTheme';
 import { BrowserRouter } from 'react-router-dom';
 
 // == Import : local
@@ -24,14 +22,19 @@ const theme = createTheme({
     },
     secondary: {
       light: '#fafafa',
+      grey: '',
       main: '#B5179E',
       dark: '#7e106e',
       contrastText: 'white',
     },
-  },
-
+    neutral: {
+      main: '#64748B',
+      contrastText: '#fff',
+    },
+  }
 
 });
+
 
 // == Render
 // 1. Élément React racine (celui qui contient l'ensemble de l'app)

@@ -138,9 +138,9 @@ export default function AssetsShares() {
                     <Table stickyHeader sx={{ maxWidth: '100%' }}>
                         <TableHead align="left">
                             <TableRow align='left'>
-                                <TableCell></TableCell>
+                                <TableCell>Devise</TableCell>
                                 <TableCell>Quantité</TableCell>
-                                <TableCell>Total $Devise</TableCell>
+                                <TableCell>Total $</TableCell>
                                 <TableCell>répartition</TableCell>
                             </TableRow>
                         </TableHead>
