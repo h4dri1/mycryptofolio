@@ -10,18 +10,18 @@ import TextField from '@mui/material/TextField';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { toggleCreatePortfolioModal, updateCreatePortfolioInput, createNewPortfolio } from 'src/actions/portfolio';
+import { toggleCreateWalletModal, updateCreateWalletInput, createNewWallet } from 'src/actions/portfolio';
 
-const AddPortfolio = () => {
-  const { toggle, inputText } = useSelector((state) => state.portfolio.createPortfolio);
+const AddWallet = () => {
+  const { toggle, inputText } = useSelector((state) => state.portfolio.createWallet);
 
   const dispatch = useDispatch();
 
   return (
-    <Dialog open={toggle} onClose={() => dispatch(toggleCreatePortfolioModal())}>
+    <Dialog open={toggle} onClose={() => dispatch(toggleCreateWalletModal())}>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: "primary.main" }}>
-        Créer un portfolio
-        <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleCreatePortfolioModal())}>
+        Créer un wallet
+        <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleCreateWalletModal())}>
           <CloseRoundedIcon />
         </IconButton>
       </DialogTitle>
@@ -32,20 +32,20 @@ const AddPortfolio = () => {
         <TextField
           margin="dense"
           // id="nom"
-          label="Nom du portfolio"
+          label="Nom du wallet"
           // type="nom"
           fullWidth
           variant="outlined"
           value={inputText}
-          onChange={(e) => dispatch(updateCreatePortfolioInput(e.target.value))}
+          onChange={(e) => dispatch(updateCreateWalletInput(e.target.value))}
         />
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={() => dispatch(createNewPortfolio())}>Créer</Button>
-        <Button variant="contained" onClick={() => dispatch(toggleCreatePortfolioModal())}>Annuler</Button>
+        <Button variant="contained" onClick={() => dispatch(createNewWallet())}>Créer</Button>
+        <Button variant="contained" onClick={() => dispatch(toggleCreateWalletModal())}>Annuler</Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default AddPortfolio;
+export default AddWallet;

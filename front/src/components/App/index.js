@@ -64,7 +64,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/portfolio" element={<Portfolio />}>
-              <Route path="/portfolio/:portfolioName" element={<Portfolio />} />
+              <Route path="/portfolio/:walletName" element={<Portfolio />} />
             </Route>
           </Routes>
         </Paper>
