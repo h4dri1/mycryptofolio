@@ -87,7 +87,9 @@ module.exports = {
                       (this[v.id] = v);
                 }, {});
 
-                portfolio.wallet = this;
+                const newObjWallet = Object.values(this);
+
+                portfolio.wallet = newObjWallet;
             }
 
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
