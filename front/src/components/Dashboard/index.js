@@ -8,11 +8,12 @@ import AssetsShares from './AssetsShares';
 import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
+import Container from '@mui/material/Container';
 
 const useStyles = makeStyles({
   grid: {
     // border: 'solid 2px red',
-    marginTop: '10px',
+    marginTop: '0.1px',
     height: '100%',
   },
   gridItem: {
@@ -38,14 +39,16 @@ const Dashboard = () => {
     <div className="">
       <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
         <Grid item xs={11} md={5.5} className={classes.gridItem}>
-          <Grid container>
-            <Grid item xs={11} md={6} className={classes.gridSubItem}>
-              <WalletsNav />
+          <Container >
+            <Grid container >
+              <Grid item xs={11} md={6} className={classes.gridSubItem}>
+                <WalletsNav />
+              </Grid>
+              <Grid item xs={11} md={6} className={classes.gridSubItem}>
+                <AssetsShares />
+              </Grid>
             </Grid>
-            <Grid item xs={11} md={6} className={classes.gridSubItem}>
-              <AssetsShares />
-            </Grid>
-          </Grid>
+          </Container>
         </Grid>
         <Grid item xs={11} md={5.5} className={classes.gridItem}>
           <Performance />

@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import { useDispatch, useSelector } from "react-redux";
+import { toggleDarkMode } from "src/actions";
+
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -51,29 +54,18 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
-const AntSwitch = styled(Switch)(({ theme }) => ({
-    width: 28,
-    height: 16,
-    padding: 0,
-    display: 'flex',
+export default function ToggleMode() {
 
-    '&:active': {
-        '& .MuiSwitch-thumb': {
-            width: 15,
-        },
-        '& .MuiSwitch-switchBase.Mui-checked': {
-            transform: 'translateX(9px)',
-        },
-    },
+    const dispatch = useDispatch();
 
-}));
+    const { darkMode } = useSelector(state => state.settings);
 
-export default function CustomizedSwitches() {
     return (
         <FormGroup>
             <FormControlLabel
-                control={<MaterialUISwitch sx={{ m: 0 }} defaultChecked />}
+                control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
                 label=""
+                checked={darkMode} onChange={() => dispatch(toggleDarkMode())}
             />
         </FormGroup>
     );

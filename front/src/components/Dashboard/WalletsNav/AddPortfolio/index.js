@@ -19,7 +19,7 @@ const AddPortfolio = () => {
 
   return (
     <Dialog open={toggle} onClose={() => dispatch(toggleCreatePortfolioModal())}>
-      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: "primary.main" }}>
         Créer un portfolio
         <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleCreatePortfolioModal())}>
           <CloseRoundedIcon />
@@ -31,9 +31,9 @@ const AddPortfolio = () => {
         </DialogContentText>
         <TextField
           margin="dense"
-            // id="nom"
+          // id="nom"
           label="Nom du portfolio"
-            // type="nom"
+          // type="nom"
           fullWidth
           variant="outlined"
           value={inputText}
