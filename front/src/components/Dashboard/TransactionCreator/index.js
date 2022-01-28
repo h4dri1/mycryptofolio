@@ -32,13 +32,25 @@ const TransactionCreator = () => {
     return false;
   });
 
+  const [currency, setCurrency] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
-  const [dateValue, setDateValue] = useState(Date.now());
+  const [dateValue, setDateValue] = useState(Date(Date.now().toString));
   const [refCurrency, setRefCurrency] = useState('USD');
 
-  // const handleSubmit = () => {
-  // };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const newTransaction = {
+      coin_id: currency.id,
+      symbol: currency.symbol,
+      buy: true,
+      price,
+      quantity,
+      buy_date: dateValue.toString(),
+    };
+    console.log(newTransaction);
+  };
 
   const handleCancel = () => {
     setQuantity(0);
@@ -102,7 +114,7 @@ const TransactionCreator = () => {
 
         <Divider sx={{ width: '100%' }} />
 
-        <Grid container gap={2} mt={3}>
+        <Grid component="form" onSubmit={handleSubmit} container gap={2} mt={3}>
           <Grid item xs={12}>
             <Autocomplete
               disablePortal
@@ -126,6 +138,8 @@ const TransactionCreator = () => {
               selectOnFocus
               clearOnBlur
               handleHomeEndKeys
+              required
+              onChange={(_, value) => setCurrency(value)}
             />
             {/* ! For later, to enhance list perf */}
             {/* <Autocomplete
@@ -166,7 +180,10 @@ const TransactionCreator = () => {
                 type="number"
                 id="quatity"
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) => {
+                  setQuantity(e.target.value);
+                  console.log('quantity', quantity);
+                }}
               />
             </Grid>
             <Grid
@@ -222,6 +239,7 @@ const TransactionCreator = () => {
                   <Button
                     variant="contained"
                     type="submit"
+                    onSubmit={handleSubmit}
                   >
                     Ajouter
                   </Button>
