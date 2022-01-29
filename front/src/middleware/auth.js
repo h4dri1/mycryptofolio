@@ -6,7 +6,7 @@ import {
   saveUser,
   CHECK_TOKEN,
 } from 'src/actions/user';
-import { toggleLoginModal } from 'src/actions';
+import { toggleLoginModal } from 'src/actions/settings';
 import parseJwt from 'src/services/parseJwt';
 import getNewAccessToken from 'src/services/getNewAccessToken';
 import isTokenExpired from 'src/services/isTokenExpired';

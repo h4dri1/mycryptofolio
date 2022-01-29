@@ -1,7 +1,7 @@
 import {
   TOGGLE_DARK_MODE,
   TOGGLE_LOGIN_MODAL,
-} from 'src/actions';
+} from 'src/actions/settings';
 
 export const initialState = {
   darkMode: false,
