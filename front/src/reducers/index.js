@@ -18,14 +18,6 @@ const mainReducer = (state = initialState, action = {}) => {
       });
     }
 
-    // TODO : A supprimer après vérification, potentiel doublon avec reducer -> user ???
-    case SAVE_USER: {
-      return {
-        ...state,
-        user: action.payload.pseudo,
-      };
-    }
-
     default:
       return state;
   }
