@@ -15,7 +15,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, login } from 'src/actions/user';
-import { toggleLoginModal } from 'src/actions';
+import { toggleLoginModal } from 'src/actions/settings';
 
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
