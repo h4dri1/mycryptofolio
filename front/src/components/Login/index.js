@@ -31,7 +31,7 @@ export default function Login() {
   // get the main state
   const {
     loginIsOpen,
-  } = useSelector((state) => state.main);
+  } = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
 
