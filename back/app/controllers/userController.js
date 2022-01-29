@@ -28,5 +28,26 @@ module.exports = {
         };
     },
 
-    
+    addUser: async (req, res) => {
+        try {
+            const instance = new User(req.body);
+            const user = await User.findOne(instance.email);
+            if (user) {
+                return res.status(401).json('email already used');
+            }
+            if (instance.password !== instance.passwordCheck) {
+                return res.status(401).json('email already used');
+            }
+            instance.password = await bcrypt.hash(instance.password, 10);
+            delete instance.passwordCheck;
+            const newUser = await instance.save();
+            if (newUser) {
+                return res.status(201).json(newUser);
+            }
+            res.status(204).json(newUser);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    }
 };
