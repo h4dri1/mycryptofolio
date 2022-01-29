@@ -6,7 +6,8 @@ const {
     userController,
     tokenController,
     cryptoController,
-    transactionController
+    transactionController,
+    walletController
 } = require('./controllers');
 
 const loginSchema = require('./schemas/loginSchema');
@@ -18,7 +19,6 @@ const jwtMW = require('./middlewares/jwtMW');
 const fetchMW = require('./middlewares/fetchMW');
 
 const {cache, flush} = require('./services/cache');
-const { Transaction } = require('./models');
 
 /**
 * @typedef {Object} User_Login
@@ -74,16 +74,6 @@ const { Transaction } = require('./models');
  * @property {string} id
  * @property {string} usd
  */
-
-/**
- * POST /v1/login
- * @summary Login
- * @param {User_Login} request.body.required User Object from login
- * @returns {object} 200 - User connected 
- * @returns {object} 500 - An error message
- */
-
-router.post('/login', validateBody(loginSchema), userController.validLogin);
 
 /**
  * POST /v1/jwt/login
@@ -155,12 +145,30 @@ router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:includ
 
 router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
+/**
+ * GET /v1/cryptos
+ * @summary Crypto
+ * @route GET /v1/cryptos
+ * @returns {AllCryptos} 200 - Crypto object
+ * @returns {object} 500 - An error message
+ */
+
 router.get('/trending', cache, cryptoController.getTrendingCryptos);
+
+/**
+ * GET /v1/portfolio
+ * @summary Crypto
+ * @route GET /v1/portfolio
+ * @returns {object} 200 - Crypto object
+ * @returns {object} 500 - An error message
+ */
 
 router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
 
 router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, fetchMW, transactionController.getPortfolio);
 
-router.get('/secret', jwtMW, userController.getSecret);
+router.post('/portfolio/wallet/:wid/transaction', jwtMW, transactionController.addTransaction);
+
+router.post('/portfolio/wallet', jwtMW, walletController.addWallet);
 
 module.exports = router;

@@ -59,6 +59,24 @@ class Transaction {
             throw error;
         }
     }
+
+    async save() {
+        try {
+            console.log(this)
+            if(this.id) {
+                await db.query('SELECT * FROM update_transaction($1)', [this])
+            } else {
+                const {rows} = await db.query('SELECT * FROM add_transaction($1)', [this]);
+                if (rows) {
+                    this.id = rows[0].id;
+                    return this;
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = Transaction;

@@ -6,7 +6,7 @@ class Wallet {
         for (const propName in obj) {
             this[propName] = obj[propName];
         }
-    }
+    };
 
     static async findWalletByUser(id) {
         try {
@@ -19,6 +19,24 @@ class Wallet {
             throw error;
         };
     };
+
+    async save() {
+        try {
+            console.log(this)
+            if(this.id) {
+                await db.query('SELECT * FROM update_wallet($1)', [this])
+            } else {
+                const {rows} = await db.query('SELECT * FROM add_wallet($1)', [this]);
+                if (rows) {
+                    this.id = rows[0].id;
+                    return this;
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = Wallet;

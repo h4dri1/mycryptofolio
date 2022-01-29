@@ -1,7 +1,5 @@
-const jwt = require('../services/jwt')
-const { Transaction, Wallet } = require('../models');
-const { id } = require('../schemas/loginSchema');
-const createApplication = require('express/lib/express');
+const jwt = require('../services/jwt');
+const { Transaction, Crypto } = require('../models');
 
 module.exports = {
     getPortfolio: async (req, res) => {
@@ -92,9 +90,30 @@ module.exports = {
                 portfolio.wallet = newObjWallet;
             }
 
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    },
+
+    addTransaction: async (req, res) => {
+        try {
+            const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
+            const instance = new Transaction(req.body);
+            delete instance.coin_id;
+            delete instance.symbol;
+            instance.wallet_id = req.params.wid;
+            instance.crypto_id = crypto_id[0].id;
+            const transaction = await instance.save();
+            if (transaction) {
+                return res.status(201).json(transaction);
+            }
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
+            res.setHeader('Authorization', jwt.makeToken(req.userId));
+            res.status(204).json('Update ok')
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
