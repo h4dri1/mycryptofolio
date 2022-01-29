@@ -83,3 +83,27 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFp
   "id": 5,
   "label": "test wallet cooler"
 }
+
+###
+
+POST http://localhost:8888/v1/sign HTTP/1.1
+content-type: application/json
+
+{
+  "id": "3",
+  "email": "hadri1@hadri1.fr",
+  "nickname": "hadri",
+  "password": "cool",
+  "passwordCheck": "cool",
+  "picture": "pic"
+}
+
+###
+
+POST http://localhost:8888/v1/jwt/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test2@test.fr",
+    "password": "#0clock$0087"
+}

@@ -171,4 +171,6 @@ router.post('/portfolio/wallet/:wid/transaction', jwtMW, transactionController.a
 
 router.post('/portfolio/wallet', jwtMW, walletController.addWallet);
 
+router.post('/sign', userController.addUser);
+
 module.exports = router;
