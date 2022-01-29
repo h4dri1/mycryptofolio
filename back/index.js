@@ -10,6 +10,8 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
+const bodyParser = require('body-parser');
+
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 const options = {
@@ -22,9 +24,11 @@ const options = {
       },
     },
     security: {
-      BasicAuth: {
-        type: 'http',
-        scheme: 'basic',
+      bearerAuth: {
+        type: 'apiKey',
+        name: 'access_token',
+        scheme: 'bearer',
+        in: 'header',
       },
     },
     baseDir: __dirname,
@@ -38,6 +42,8 @@ const options = {
 };
   
 expressJSDocSwagger(app)(options);
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
