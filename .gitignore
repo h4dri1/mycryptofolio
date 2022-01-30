@@ -2,7 +2,8 @@ node_modules
 .env
 
 # back
-sqitch.conf
+back/sqitch.conf
+back/data/bloc_note.sql
 
 # production
 build
