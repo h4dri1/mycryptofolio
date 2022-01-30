@@ -10,7 +10,7 @@ const {
     walletController
 } = require('./controllers');
 
-const loginSchema = require('./schemas/loginSchema');
+const { loginSchema, signupSchema, transactionSchema, walletSchema } = require('./schemas');
 
 const {validateBody, validateJWT} = require('./middlewares/validator');
 
@@ -167,10 +167,10 @@ router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
 
 router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, fetchMW, transactionController.getPortfolio);
 
-router.post('/portfolio/wallet/:wid/transaction', jwtMW, transactionController.addTransaction);
+router.post('/portfolio/wallet/:wid/transaction', jwtMW, validateBody(transactionSchema), transactionController.addTransaction);
 
-router.post('/portfolio/wallet', jwtMW, walletController.addWallet);
+router.post('/portfolio/wallet', jwtMW, validateBody(walletSchema), walletController.addWallet);
 
-router.post('/sign', userController.addUser);
+router.post('/signup', validateBody(signupSchema), userController.addUser);
 
 module.exports = router;
