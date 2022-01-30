@@ -41,6 +41,7 @@ module.exports = {
             instance.password = await bcrypt.hash(instance.password, 10);
             delete instance.passwordCheck;
             const newUser = await instance.save();
+            delete newUser.password;
             if (newUser) {
                 return res.status(201).json(newUser);
             }
