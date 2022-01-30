@@ -19,6 +19,11 @@ const WalletsNav = () => {
   const { walletName } = useParams();
   const { wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
 
+  const data = 'Portefeuille 1';
+
+  const walletSlug = data.split(' ').join('-').toLowerCase();
+  console.log(walletSlug);
+
   useEffect(() => {
     dispatch(updateSelectedWallet(walletName));
   }, [walletName]);
@@ -59,7 +64,7 @@ const WalletsNav = () => {
           <List>
             {
               wallets.map((wallet) => (
-                <Link key={wallet.id} to={wallet.label} style={{ textDecoration: 'none', color: 'black' }}>
+                <Link key={wallet.id} to={wallet.label.split(' ').join('-').toLowerCase()} style={{ textDecoration: 'none', color: 'black' }}>
                   <ListItemButton>
                     <Box sx={{
                       display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
