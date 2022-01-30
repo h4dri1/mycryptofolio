@@ -61,10 +61,9 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFp
 
 POST http://localhost:8888/v1/portfolio/wallet/1/transaction/ HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFpbCI6InRlc3QyQHRlc3QuZnIiLCJuaWNrbmFtZSI6InRlc3QyIiwicGljdHVyZSI6Imh0dHBzOi8vY2RuLmljb24taWNvbnMuY29tL2ljb25zMi8xMzcxL1BORy81MTIvcm9ib3QwM185MDgzMy5wbmcifSwiaWF0IjoxNjQzNDk1MzEzLCJleHAiOjE2NDM0OTU2MTN9.-knn9C1I7DGH0VIBEtGqX6vvExaWKuwBnZjYfszKhpA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFpbCI6InRlc3QyQHRlc3QuZnIiLCJuaWNrbmFtZSI6InRlc3QyIiwicGljdHVyZSI6Imh0dHBzOi8vY2RuLmljb24taWNvbnMuY29tL2ljb25zMi8xMzcxL1BORy81MTIvcm9ib3QwM185MDgzMy5wbmcifSwiaWF0IjoxNjQzNTAzMzUyLCJleHAiOjE2NDM1MDM2NTJ9.EJK8pKWms3jcQA5w4-Ang-R5XAtFtlkI9fd2Vp4Oh14
 
 {
-  "id":24,
   "buy": true,
   "buy_date": "Fri Jan 28 2022 15:20:46 GMT+0100",
   "coin_id": "compound-ether",
@@ -77,24 +76,22 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFp
 
 POST http://localhost:8888/v1/portfolio/wallet HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFpbCI6InRlc3QyQHRlc3QuZnIiLCJuaWNrbmFtZSI6InRlc3QyIiwicGljdHVyZSI6Imh0dHBzOi8vY2RuLmljb24taWNvbnMuY29tL2ljb25zMi8xMzcxL1BORy81MTIvcm9ib3QwM185MDgzMy5wbmcifSwiaWF0IjoxNjQzNDk1MzEzLCJleHAiOjE2NDM0OTU2MTN9.-knn9C1I7DGH0VIBEtGqX6vvExaWKuwBnZjYfszKhpA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFpbCI6InRlc3QyQHRlc3QuZnIiLCJuaWNrbmFtZSI6InRlc3QyIiwicGljdHVyZSI6Imh0dHBzOi8vY2RuLmljb24taWNvbnMuY29tL2ljb25zMi8xMzcxL1BORy81MTIvcm9ib3QwM185MDgzMy5wbmcifSwiaWF0IjoxNjQzNTAzMzUyLCJleHAiOjE2NDM1MDM2NTJ9.EJK8pKWms3jcQA5w4-Ang-R5XAtFtlkI9fd2Vp4Oh14
 
 {
-  "id": 5,
   "label": "test wallet cooler"
 }
 
 ###
 
-POST http://localhost:8888/v1/sign HTTP/1.1
+POST http://localhost:8888/v1/signup HTTP/1.1
 content-type: application/json
 
 {
-  "id": "3",
-  "email": "hadri1@hadri1.fr",
-  "nickname": "hadri",
-  "password": "cool",
-  "passwordCheck": "cool",
+  "email": "hadri1hadri1.fr",
+  "nickname": "hadri0N#",
+  "password": "hadri0N#",
+  "passwordCheck": "hadri0N#",
   "picture": "pic"
 }
 
