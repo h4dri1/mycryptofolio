@@ -1,5 +1,9 @@
 import {
-  UPDATE_CRYPTO_LIST, UPDATE_CRYPTO_QUANTITY, GET_MORE_CRYPTOS_LOADING, UPDATE_ALL_CRYPTOS,
+  UPDATE_CRYPTO_LIST,
+  UPDATE_CRYPTO_QUANTITY,
+  GET_MORE_CRYPTOS_LOADING,
+  UPDATE_ALL_CRYPTOS,
+  SET_PRICE,
 } from 'src/actions/cryptos';
 
 const initialState = {
@@ -10,6 +14,7 @@ const initialState = {
     cryptoListLoading: false,
     list: [],
   },
+  currentPrice: 0,
 };
 
 const cryptosReducer = (state = initialState, action = {}) => {
@@ -42,6 +47,11 @@ const cryptosReducer = (state = initialState, action = {}) => {
           ...state.cryptoList,
           quantity: state.cryptoList.quantity + 10,
         },
+      };
+    case SET_PRICE:
+      return {
+        ...state,
+        ...action.payload,
       };
     default:
       return state;
