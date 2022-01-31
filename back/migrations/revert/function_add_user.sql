@@ -2,6 +2,7 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+DROP FUNCTION add_user;
+DROP FUNCTION update_user;
 
 COMMIT;

@@ -5,7 +5,7 @@ const jwt = require('../services/jwt');
 module.exports = {
     validLoginJwt: async (req, res) => {
         try {
-            const user = await User.doLogin(req.body.email);
+            const user = await User.findOne(req.body.email);
             if (!user) {
                 return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
             }

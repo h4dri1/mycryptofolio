@@ -10,7 +10,7 @@ class Wallet {
 
     static async findWalletByUser(id) {
         try {
-            const {rows} = await db.query('SELECT id, label FROM wallet WHERE user_id=$1 GROUP BY id, label;', [id]);
+            const {rows} = await db.query('SELECT id, user_id FROM wallet WHERE user_id=$1;', [id]);
             if (rows) {
                 return rows.map(row => new Wallet(row));
             }
@@ -22,7 +22,6 @@ class Wallet {
 
     async save() {
         try {
-            console.log(this)
             if(this.id) {
                 await db.query('SELECT * FROM update_wallet($1)', [this])
             } else {
@@ -36,7 +35,16 @@ class Wallet {
             console.log(error);
             throw error;
         }
-    }
+    };
+
+    static async delete(id) {
+        try {
+            await db.query('DELETE FROM wallet WHERE id=$1;', [id]);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    };
 }
 
 module.exports = Wallet;

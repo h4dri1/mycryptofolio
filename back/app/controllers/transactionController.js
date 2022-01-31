@@ -1,5 +1,5 @@
 const jwt = require('../services/jwt');
-const { Transaction, Crypto } = require('../models');
+const { Transaction, Crypto, Wallet } = require('../models');
 
 module.exports = {
     getPortfolio: async (req, res) => {
@@ -101,6 +101,7 @@ module.exports = {
 
     addTransaction: async (req, res) => {
         try {
+            
             const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
             const instance = new Transaction(req.body);
             delete instance.coin_id;
@@ -114,6 +115,24 @@ module.exports = {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(204).json('Update ok')
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    },
+
+    deleteTransaction: async (req, res) => {
+        try {
+            const is_owning_wallet = await Transaction.getWalletIdByTransaction(req.params.tid);
+            if (!is_owning_wallet) {
+                return res.status(500).json(`You doesn't own this transaction`);
+            } else {
+                if (req.userId.id !== is_owning_wallet[0].user_id) {
+                    return res.status(500).json(`You doesn't own this wallet`); 
+                }
+                await Transaction.delete(req.params.tid);
+                res.status(204)
+            }
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);

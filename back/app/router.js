@@ -177,4 +177,8 @@ router.post('/portfolio/wallet', flush,  jwtMW, validateBody(walletSchema), wall
 
 router.post('/signup', flush,  validateBody(signupSchema), userController.addUser);
 
+router.delete('/portfolio/transaction/:tid', flush, jwtMW, transactionController.deleteTransaction);
+
+router.delete('/portfolio/wallet/:wid', flush, jwtMW, walletController.deleteWallet);
+
 module.exports = router;
