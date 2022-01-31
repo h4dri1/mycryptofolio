@@ -2,7 +2,7 @@
 
 BEGIN;
 
+DROP FUNCTION wallet_invest CASCADE;
 DROP FUNCTION wallet_value;
-DROP FUNCTION wallet_invest;
 
 COMMIT;
