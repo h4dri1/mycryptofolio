@@ -7,6 +7,41 @@ class Transaction {
             this[propName] = obj[propName];
         }
     }
+    static async getTransactionByPk(tid) {
+        try {
+            const {rows} = await db.query('SELECT * FROM transaction WHERE id=$1;', [tid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    static async getTransactionByWallet(wid) {
+        try {
+            const {rows} = await db.query('SELECT transaction_id FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    static async getWalletIdByTransaction(tid) {
+        try {
+            const {rows} = await db.query('SELECT * FROM view_wallet_user_transaction WHERE transaction_id=$1;', [tid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 
     static async getUserCrypto(user_id) {
         try {
@@ -54,6 +89,32 @@ class Transaction {
             if (rows) {
                 return rows.map(row => new Transaction(row));
             }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async save() {
+        try {
+            if(this.id) {
+                const test = await db.query('SELECT * FROM update_transaction($1)', [this]);
+            } else {
+                const {rows} = await db.query('SELECT * FROM add_transaction($1)', [this]);
+                if (rows) {
+                    this.id = rows[0].id;
+                    return this;
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    static async delete(id) {
+        try {
+            await db.query('DELETE FROM transaction WHERE id=$1;', [id]);
         } catch (error) {
             console.log(error);
             throw error;

@@ -10,6 +10,10 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
+const bodyParser = require('body-parser');
+
+const helmet = require('helmet');
+
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 const options = {
@@ -22,9 +26,11 @@ const options = {
       },
     },
     security: {
-      BasicAuth: {
-        type: 'http',
-        scheme: 'basic',
+      bearerAuth: {
+        type: 'apiKey',
+        name: 'access_token',
+        scheme: 'bearer',
+        in: 'header',
       },
     },
     baseDir: __dirname,
@@ -38,6 +44,16 @@ const options = {
 };
   
 expressJSDocSwagger(app)(options);
+
+app.disable('x-powered-by');
+
+app.use(helmet.xssFilter());
+
+app.use(helmet.frameguard({ action: 'deny' }));
+
+app.use(helmet.noSniff());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 

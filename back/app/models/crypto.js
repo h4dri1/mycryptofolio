@@ -19,6 +19,18 @@ class Crypto {
             throw error;
         }
     }
+
+    static async findOneCrypto(coin_id, symbol) {
+        try {
+            const {rows} = await db.query('SELECT id FROM crypto WHERE coin_id=$1 and symbol=$2;', [coin_id, symbol]);
+            if (rows) {
+                return rows.map(row => new Crypto(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = Crypto;
