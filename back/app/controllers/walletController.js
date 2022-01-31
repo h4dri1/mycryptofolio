@@ -23,8 +23,8 @@ module.exports = {
         try {
             let own_wallet = false;
             const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
-            if (!is_owning_wallet) {
-                return res.status(500).json(`No wallet with this id`);
+            if (is_owning_wallet.length === 0) {
+                return res.status(500).json(`You have no wallet`);
             } else {
                 for (const own of is_owning_wallet) {
                     if (Number(req.params.wid) === own.id) {
@@ -40,7 +40,9 @@ module.exports = {
                 await Transaction.delete(transaction.transaction_id)
             }
             await Wallet.delete(req.params.wid);
-            return res.status(204).json()
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
+            res.setHeader('Authorization', jwt.makeToken(req.userId));
+            return res.status(204).json();
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
