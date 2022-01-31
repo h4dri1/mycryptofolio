@@ -103,8 +103,8 @@ module.exports = {
         try {
             let own_wallet = false;
             const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
-            if (!is_owning_wallet) {
-                return res.status(500).json(`No wallet with this id`);
+            if (is_owning_wallet.length === 0) {
+                return res.status(500).json(`You have no wallet create one before add transaction`);
             } else {
                 for (const own of is_owning_wallet) {
                     if (Number(req.params.wid) === own.id) {
@@ -137,13 +137,15 @@ module.exports = {
     deleteTransaction: async (req, res) => {
         try {
             const is_owning_wallet = await Transaction.getWalletIdByTransaction(req.params.tid);
-            if (!is_owning_wallet) {
+            if (is_owning_wallet.length === 0) {
                 return res.status(500).json(`No transaction with this id`);
             } else {
                 if (req.userId.id !== is_owning_wallet[0].user_id) {
                     return res.status(500).json(`You doesn't own this wallet`); 
                 }
                 await Transaction.delete(req.params.tid);
+                res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
+                res.setHeader('Authorization', jwt.makeToken(req.userId));
                 res.status(204)
             }
         } catch (error) {
