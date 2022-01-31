@@ -167,7 +167,7 @@ router.get('/trending', cache, cryptoController.getTrendingCryptos);
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio', cache, jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
 
 router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, fetchMW, transactionController.getPortfolio);
 
