@@ -35,7 +35,7 @@ const TransactionCreator = () => {
   const [currency, setCurrency] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
-  const [dateValue, setDateValue] = useState(Date(Date.now().toString));
+  const [dateValue, setDateValue] = useState(new Date());
   const [refCurrency, setRefCurrency] = useState('USD');
 
   const handleSubmit = (event) => {
@@ -47,7 +47,7 @@ const TransactionCreator = () => {
       buy: true,
       price,
       quantity,
-      buy_date: dateValue.toString(),
+      buy_date: dateValue.toISOString(),
     };
     console.log(newTransaction);
   };
