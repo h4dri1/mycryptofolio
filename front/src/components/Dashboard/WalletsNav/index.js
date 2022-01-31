@@ -6,8 +6,7 @@ import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
 
-import { Link, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
@@ -17,13 +16,12 @@ import AddWallet from './AddWallet';
 
 const WalletsNav = ({ wallets, selectedWallet }) => {
   const dispatch = useDispatch();
-  const { walletName } = useParams();
 
   const toSlug = (walletFullName) => walletFullName.split(' ').join('-').toLowerCase();
 
-  useEffect(() => {
-    dispatch(updateSelectedWallet(walletName));
-  }, [walletName]);
+  const handleLinkClick = (walletId) => {
+    dispatch(updateSelectedWallet(walletId));
+  };
 
   return (
     <>
@@ -61,7 +59,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
           <List>
             {
               wallets.map((wallet) => (
-                <Link key={wallet.id} to={toSlug(wallet.label)} style={{ textDecoration: 'none', color: 'black' }}>
+                <Link key={wallet.id} to={toSlug(wallet.label)} style={{ textDecoration: 'none', color: 'black' }} onClick={() => handleLinkClick(wallet.id)}>
                   <ListItemButton>
                     <Box sx={{
                       display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
@@ -77,7 +75,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                           borderColor: 'primary.light',
                           backgroundColor: 'white',
                           marginLeft: '5%',
-                          ...(toSlug(wallet.label) === selectedWallet && {
+                          ...(wallet.id === selectedWallet && {
                             backgroundColor: 'primary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold',
                           }),
                           display: 'flex',
@@ -128,7 +126,9 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
 
 WalletsNav.propTypes = {
   wallets: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedWallet: PropTypes.string.isRequired,
+  selectedWallet: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number]).isRequired,
 };
 
 export default WalletsNav;
