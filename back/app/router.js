@@ -171,14 +171,14 @@ router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfol
 
 router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
-router.post('/portfolio/wallet/:wid/transaction',flush, jwtMW, validateBody(transactionSchema), transactionController.addTransaction);
+router.post('/portfolio/wallet/:wid(\\d+)/transaction',flush, jwtMW, validateBody(transactionSchema), transactionController.addTransaction);
 
 router.post('/portfolio/wallet', flush, jwtMW, validateBody(walletSchema), walletController.addWallet);
 
 router.post('/signup', flush, validateBody(signupSchema), userController.addUser);
 
-router.delete('/portfolio/transaction/:tid', flush, jwtMW, transactionController.deleteTransaction);
+router.delete('/portfolio/transaction/:tid(\\d+)', flush, jwtMW, transactionController.deleteTransaction);
 
-router.delete('/portfolio/wallet/:wid', flush, jwtMW, walletController.deleteWallet);
+router.delete('/portfolio/wallet/:wid(\\d+)', flush, jwtMW, walletController.deleteWallet);
 
 module.exports = router;
