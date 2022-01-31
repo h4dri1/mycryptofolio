@@ -11,10 +11,12 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MobileDatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 
 const TransactionCreator = () => {
+  const dispatch = useDispatch();
   // State for Autocomplete -BEGIN
   // const [value, setValue] = useState(null);
   // const [inputValue, setInputValue] = useState('');
@@ -32,13 +34,41 @@ const TransactionCreator = () => {
     return false;
   });
 
-  const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(32000);
-  const [dateValue, setDateValue] = useState(Date.now());
-  const [refCurrency, setRefCurrency] = useState('USD');
+  const { currentPrice } = useSelector((state) => state.cryptos);
 
-  // const handleSubmit = () => {
-  // };
+  const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
+  const [quantity, setQuantity] = useState(null);
+  const [dateValue, setDateValue] = useState(new Date());
+  // eslint-disable-next-line max-len
+  const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const newTransaction = {
+      coin_id: currency.id,
+      symbol: currency.symbol,
+      buy: true,
+      price: currentPrice,
+      ref_currency: refCurrency.toLowerCase(),
+      quantity,
+      buy_date: dateValue.toISOString(),
+    };
+    // TODO: Replace console log by a dispatch of an action to send a transaction to API
+    console.log('newTransaction', newTransaction);
+  };
+
+  const handleCancel = () => {
+    setQuantity(0);
+    setPrice(0);
+    setDateValue(Date.now());
+  };
+
+  useEffect(() => dispatch(getCurrentPrice({
+    coinId: currency.id,
+    dateValue,
+    refCurrency,
+  })), [currency, dateValue]);
 
   // ! Do not remove next commented code, may be useful later
   // useEffect(() => {
@@ -96,7 +126,7 @@ const TransactionCreator = () => {
 
         <Divider sx={{ width: '100%' }} />
 
-        <Grid container gap={2} mt={3}>
+        <Grid component="form" onSubmit={handleSubmit} container gap={2} mt={3}>
           <Grid item xs={12}>
             <Autocomplete
               disablePortal
@@ -120,6 +150,8 @@ const TransactionCreator = () => {
               selectOnFocus
               clearOnBlur
               handleHomeEndKeys
+              required
+              onChange={(_, value) => setCurrency(value)}
             />
             {/* ! For later, to enhance list perf */}
             {/* <Autocomplete
@@ -160,7 +192,9 @@ const TransactionCreator = () => {
                 type="number"
                 id="quatity"
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) => {
+                  setQuantity(e.target.value);
+                }}
               />
             </Grid>
             <Grid
@@ -171,10 +205,10 @@ const TransactionCreator = () => {
                 required
                 fullWidth
                 name="price"
-                label="Prix"
+                label={`Prix (${refCurrency.toUpperCase()})`}
                 type="number"
                 id="price"
-                value={price}
+                value={currentPrice}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Grid>
@@ -205,7 +239,10 @@ const TransactionCreator = () => {
                 xs={12}
               >
                 <Grid item xs={6}>
-                  <Button variant="outlined">
+                  <Button
+                    variant="outlined"
+                    onClick={handleCancel}
+                  >
                     Annuler
                   </Button>
                 </Grid>
@@ -213,6 +250,7 @@ const TransactionCreator = () => {
                   <Button
                     variant="contained"
                     type="submit"
+                    onSubmit={handleSubmit}
                   >
                     Ajouter
                   </Button>
@@ -234,7 +272,7 @@ const TransactionCreator = () => {
                   Montant de la transaction
                 </Typography>
                 <Typography variant="overline" fontSize={25}>
-                  {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * price)}
+                  {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * currentPrice)}
                 </Typography>
               </Grid>
             </Grid>
