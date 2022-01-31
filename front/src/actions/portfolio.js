@@ -9,6 +9,7 @@ export const FETCH_PORTFOLIO_SUCCESS = 'FETCH_PORTFOLIO_SUCCESS';
 export const FETCH_SPECIFIC_PORTFOLIO = 'FETCH_SPECIFIC_PORTFOLIO';
 export const FETCH_SPECIFIC_PORTFOLIO_SUCCESS = 'FETCH_SPECIFIC_PORTFOLIO_SUCCESS';
 // export const GET_ASSETS = 'GET_ASSETS';
+export const SAVE_TRANSACTION = 'SAVE_TRANSACTION';
 
 export const toggleCreateWalletModal = () => ({
   type: TOGGLE_CREATE_WALLET_MODAL,
@@ -55,4 +56,9 @@ export const fetchSpecificPortfolioSuccess = (payload) => ({
 
 // export const getAssets = () => ({
 //   type: GET_ASSETS,
-// })
+// });
+
+export const saveTransaction = (payload) => ({
+  type: SAVE_TRANSACTION,
+  payload,
+});

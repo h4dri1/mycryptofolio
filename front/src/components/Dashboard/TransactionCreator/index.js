@@ -14,6 +14,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
+import { saveTransaction } from 'src/actions/portfolio';
 
 const TransactionCreator = () => {
   const dispatch = useDispatch();
@@ -52,10 +53,10 @@ const TransactionCreator = () => {
       price: currentPrice,
       ref_currency: refCurrency.toLowerCase(),
       quantity,
-      buy_date: dateValue.toISOString(),
+      buy_date: dateValue.toUTCString(),
     };
     // TODO: Replace console log by a dispatch of an action to send a transaction to API
-    console.log('newTransaction', newTransaction);
+    dispatch(saveTransaction(newTransaction));
   };
 
   const handleCancel = () => {
