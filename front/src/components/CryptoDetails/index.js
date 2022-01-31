@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolio } from 'src/actions/portfolio';
 import Converter from './Converter';
@@ -31,11 +32,9 @@ const CryptoDetails = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    //   const { distribution } = useSelector((state) => state.portfolio);
-
-    // useEffect(() => {
-    //     dispatch(fetchPortfolio());
-    // }, []);
+    // const { slug } = useParams();
+    // const crypto = useSelector((state) => state.cryptoDetails, slug);
+    // console.log(crypto);
 
     return (
         <div className="">
@@ -43,13 +42,16 @@ const CryptoDetails = () => {
                 <Container sx={{ display: 'flex', gridAutoFlow: 'row' }}>
                     <Grid item xs={8} className={classes.gridItem}>
                         <Grid item xs={11} md={6} className={classes.gridSubItem}>
-                            <Description sx={{ gridAutoRows: '100px' }} />
+                            <Description sx={{ gridAutoRows: '100px' }}
+                                description={crypto.description}
+                            />
                         </Grid>
                     </Grid>
                     <Container className={classes.gridItem}>
                         <Grid item xs={4} className={classes.gridSubItem}>
                             <Indicators
-                            // distribution={distribution} 
+                                symbol={crypto.symbol}
+                                name={crypto.name}
                             />
                         </Grid>
                         <Divider sx={{ width: "100%" }}></Divider>

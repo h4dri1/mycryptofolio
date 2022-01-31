@@ -64,7 +64,7 @@ const App = () => {
           <CssBaseline />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/crypto-details" element={<CryptoPage />} />
+            <Route path="/crypto-details/:slug" element={<CryptoPage />} />
             <Route path="/portfolio" element={<Portfolio />}>
               <Route path="/portfolio/:portfolioName" element={<Portfolio />} />
             </Route>
