@@ -4,6 +4,7 @@ import axios from 'axios';
 import {
   CREATE_NEW_WALLET, toggleCreateWalletModal,
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
+  FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
@@ -47,6 +48,22 @@ const portfolio = (store) => (next) => (action) => {
       })
         .then((res) => {
           store.dispatch(fetchPortfolioSuccess(res.data));
+          const newAccessToken = res.headers.authorization;
+          store.dispatch(saveNewToken(newAccessToken));
+        })
+        .catch((err) => console.log(err));
+      next(action);
+      break;
+    case FETCH_SPECIFIC_PORTFOLIO:
+      axios({
+        method: 'get',
+        url: `https://dev.mycryptofolio.fr/v1/portfolio/wallet/${action.payload}`,
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+      })
+        .then((res) => {
+          store.dispatch(fetchSpecificPortfolioSuccess(res.data));
           const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
