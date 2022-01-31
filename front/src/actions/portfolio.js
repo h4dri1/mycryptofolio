@@ -1,6 +1,7 @@
 export const TOGGLE_CREATE_WALLET_MODAL = 'TOGGLE_CREATE_WALLET_MODAL';
 export const UPDATE_CREATE_WALLET_INPUT = 'UPDATE_CREATE_WALLET_INPUT';
 export const CREATE_NEW_WALLET = 'CREATE_NEW_WALLET';
+export const UPDATE_WALLET_LIST = 'UPDATE_WALLET_LIST';
 export const UPDATE_SELECTED_WALLET = 'UPDATE_SELECTED_WALLET';
 // get portfolion data
 export const FETCH_PORTFOLIO = 'FETCH_PORTFOLIO';
@@ -20,6 +21,11 @@ export const updateCreateWalletInput = (payload) => ({
 
 export const createNewWallet = () => ({
   type: CREATE_NEW_WALLET,
+});
+
+export const updateWalletList = (payload) => ({
+  type: UPDATE_WALLET_LIST,
+  payload,
 });
 
 export const updateSelectedWallet = (payload) => ({

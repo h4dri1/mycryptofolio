@@ -19,7 +19,7 @@ const AddWallet = () => {
 
   return (
     <Dialog open={toggle} onClose={() => dispatch(toggleCreateWalletModal())}>
-      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: "primary.main" }}>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: 'primary.main' }}>
         Créer un wallet
         <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleCreateWalletModal())}>
           <CloseRoundedIcon />

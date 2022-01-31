@@ -5,6 +5,7 @@ import {
   CREATE_NEW_WALLET, toggleCreateWalletModal,
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
   FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
+  updateWalletList,
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
@@ -14,26 +15,25 @@ const portfolio = (store) => (next) => (action) => {
     case CREATE_NEW_WALLET:
       const { inputText } = store.getState().portfolio.createWallet;
 
-      store.dispatch(toggleCreateWalletModal());
-      alert(`Le portefeuille ${inputText} a bien été créé.`);
-
-      // axios({
-      //   method: 'post',
-      //   url: 'https://dev.mycryptofolio.fr/v1/portfolio',
-      //   data: {
-      //     name: inputText,
-      //   },
-      // })
-      //   .then((res) => {
-      //     /*
-      //       Créer une nouvelle action pour mettre à jour la liste des portfolio du client
-      //       store.dispatch(nouvelleAction(res.data))
-      //       store.dispatch(toggleCreateWalletModal())
-      //     */
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      axios({
+        method: 'post',
+        url: 'https://dev.mycryptofolio.fr/v1/portfolio/wallet',
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+        data: {
+          label: inputText,
+        },
+      })
+        .then((res) => {
+          store.dispatch(updateWalletList(res.data));
+          const newAccessToken = res.headers.authorization;
+          store.dispatch(saveNewToken(newAccessToken));
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => store.dispatch(toggleCreateWalletModal()));
       next(action);
       break;
     case FETCH_PORTFOLIO:
