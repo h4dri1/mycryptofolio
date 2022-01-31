@@ -7,6 +7,17 @@ class Transaction {
             this[propName] = obj[propName];
         }
     }
+    static async getTransactionByPk(tid) {
+        try {
+            const {rows} = await db.query('SELECT * FROM transaction WHERE id=$1;', [tid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 
     static async getTransactionByWallet(wid) {
         try {
@@ -15,7 +26,8 @@ class Transaction {
                 return rows.map(row => new Transaction(row));
             }
         } catch (error) {
-            
+            console.log(error);
+            throw error;
         }
     }
 
@@ -86,7 +98,7 @@ class Transaction {
     async save() {
         try {
             if(this.id) {
-                await db.query('SELECT * FROM update_transaction($1)', [this])
+                const test = await db.query('SELECT * FROM update_transaction($1)', [this]);
             } else {
                 const {rows} = await db.query('SELECT * FROM add_transaction($1)', [this]);
                 if (rows) {

@@ -102,6 +102,12 @@ module.exports = {
     addTransaction: async (req, res) => {
         try {
             let own_wallet = false;
+            if (req.body.id) {
+                const is_transaction = await Transaction.getTransactionByPk(req.body.id);
+                if (is_transaction.length === 0) {
+                    return res.status(500).json('No transaction with this id')
+                }
+            }
             const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
             if (is_owning_wallet.length === 0) {
                 return res.status(500).json(`You have no wallet create one before add transaction`);
