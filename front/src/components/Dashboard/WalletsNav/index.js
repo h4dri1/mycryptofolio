@@ -10,7 +10,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-import { toggleCreateWalletModal, updateSelectedWallet, fetchSpecificPortfolio } from 'src/actions/portfolio';
+import {
+  toggleCreateWalletModal, updateSelectedWallet, fetchSpecificPortfolio, fetchPortfolio,
+} from 'src/actions/portfolio';
 
 import AddWallet from './AddWallet';
 
@@ -24,11 +26,16 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
     dispatch(fetchSpecificPortfolio(walletId));
   };
 
+  const handleMainLinkClick = () => {
+    dispatch(updateSelectedWallet(''));
+    dispatch(fetchPortfolio());
+  };
+
   return (
     <>
       <Grid container>
         <Grid item xs={12}>
-          <Link to="/portfolio" style={{ textDecoration: 'none' }}>
+          <Link to="/portfolio" style={{ textDecoration: 'none' }} onClick={() => handleMainLinkClick()}>
             <ListItemButton sx={{ paddingBottom: '0px' }}>
               <Box
                 component="span"
