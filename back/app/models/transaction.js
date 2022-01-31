@@ -8,6 +8,29 @@ class Transaction {
         }
     }
 
+    static async getTransactionByWallet(wid) {
+        try {
+            const {rows} = await db.query('SELECT transaction_id FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    static async getWalletIdByTransaction(tid) {
+        try {
+            const {rows} = await db.query('SELECT * FROM view_wallet_user_transaction WHERE transaction_id=$1;', [tid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
     static async getUserCrypto(user_id) {
         try {
             const {rows} = await db.query('SELECT wallet_id, wallet_label, coin_id, symbol, AVG(price) as buy_price, SUM (quantity) AS total \
@@ -62,7 +85,6 @@ class Transaction {
 
     async save() {
         try {
-            console.log(this)
             if(this.id) {
                 await db.query('SELECT * FROM update_transaction($1)', [this])
             } else {
@@ -72,6 +94,15 @@ class Transaction {
                     return this;
                 }
             }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    static async delete(id) {
+        try {
+            await db.query('DELETE FROM transaction WHERE id=$1;', [id]);
         } catch (error) {
             console.log(error);
             throw error;

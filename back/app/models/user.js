@@ -14,21 +14,20 @@ class User {
      * @throws {Error}
      */
 
-    static async doLogin(email) {
+     static async findOne(email) {
         try {
-            const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1', [email]);
+            const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1;', [email]);
             if (rows[0]) {
                 return new User(rows[0]);
             }
         } catch (error) {
             console.log(error);
-            throw error;
-        };
-    };
+            throw error; 
+        }
+    }
 
     async save() {
         try {
-            console.log(this)
             if(this.id) {
                 await db.query('SELECT * FROM update_user($1)', [this])
             } else {
@@ -41,18 +40,6 @@ class User {
         } catch (error) {
             console.log(error);
             throw error;
-        }
-    }
-
-    static async findOne(email) {
-        try {
-            const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1;', [email]);
-            if (rows[0]) {
-                return new User(rows[0]);
-            }
-        } catch (error) {
-            console.log(error);
-            throw error; 
         }
     }
 };
