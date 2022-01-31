@@ -88,7 +88,9 @@ module.exports = {
                 }, {});
 
                 if (empty) {
-                    objWallet.push({'id':empty[0].id, 'label':empty[0].label});
+                    for (const emp of empty) {
+                        objWallet.push({'id':emp.id, 'label':emp.label});
+                    }
                 }
 
                 portfolio.wallet = Object.values(objWallet);
