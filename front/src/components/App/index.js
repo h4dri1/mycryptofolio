@@ -59,7 +59,7 @@ const App = () => {
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
-        <Paper>
+        {/* <Paper> */}
           <CssBaseline />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -67,7 +67,7 @@ const App = () => {
               <Route path="/portfolio/:walletName" element={<Portfolio />} />
             </Route>
           </Routes>
-        </Paper>
+        {/* </Paper> */}
       </ThemeProvider>
     </div>
   );

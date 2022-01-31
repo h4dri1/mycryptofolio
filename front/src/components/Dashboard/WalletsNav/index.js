@@ -8,21 +8,18 @@ import IconButton from '@mui/material/IconButton';
 
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 import { toggleCreateWalletModal, updateSelectedWallet } from 'src/actions/portfolio';
 
 import AddWallet from './AddWallet';
 
-const WalletsNav = () => {
+const WalletsNav = ({ wallets, selectedWallet }) => {
   const dispatch = useDispatch();
   const { walletName } = useParams();
-  const { wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
 
-  const data = 'Portefeuille 1';
-
-  const walletSlug = data.split(' ').join('-').toLowerCase();
-  console.log(walletSlug);
+  const toSlug = (walletFullName) => walletFullName.split(' ').join('-').toLowerCase();
 
   useEffect(() => {
     dispatch(updateSelectedWallet(walletName));
@@ -64,7 +61,7 @@ const WalletsNav = () => {
           <List>
             {
               wallets.map((wallet) => (
-                <Link key={wallet.id} to={wallet.label.split(' ').join('-').toLowerCase()} style={{ textDecoration: 'none', color: 'black' }}>
+                <Link key={wallet.id} to={toSlug(wallet.label)} style={{ textDecoration: 'none', color: 'black' }}>
                   <ListItemButton>
                     <Box sx={{
                       display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
@@ -78,10 +75,10 @@ const WalletsNav = () => {
                           borderRadius: '50%',
                           border: 'solid 2px',
                           borderColor: 'primary.light',
-                          background: 'white',
+                          backgroundColor: 'white',
                           marginLeft: '5%',
-                          ...(wallet.label === selectedWallet && {
-                            bgcolor: 'primary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold'
+                          ...(toSlug(wallet.label) === selectedWallet && {
+                            backgroundColor: 'primary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold',
                           }),
                           display: 'flex',
                           alignItems: 'center',
@@ -119,14 +116,19 @@ const WalletsNav = () => {
           </List>
         </Grid>
         <Grid item xs={12}>
-          <IconButton sx={{ marginLeft: '12%', padding: '1%' }} onClick={() => dispatch(toggleCreateWalletModal())}>
-            <AddCircleIcon sx={{ color: "primary.main" }} fontSize="large" />
+          <IconButton sx={{ marginLeft: '11.5%', padding: '1%' }} onClick={() => dispatch(toggleCreateWalletModal())}>
+            <AddCircleIcon sx={{ color: 'primary.main' }} fontSize="large" />
           </IconButton>
         </Grid>
       </Grid>
       <AddWallet />
     </>
   );
+};
+
+WalletsNav.propTypes = {
+  wallets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedWallet: PropTypes.string.isRequired,
 };
 
 export default WalletsNav;

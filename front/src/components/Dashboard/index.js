@@ -1,14 +1,14 @@
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolio } from 'src/actions/portfolio';
+import Container from '@mui/material/Container';
 import WalletsNav from './WalletsNav';
 import AssetsShares from './AssetsShares';
 import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
-import Container from '@mui/material/Container';
 
 const useStyles = makeStyles({
   grid: {
@@ -31,6 +31,8 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const { wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
+
   useEffect(() => {
     dispatch(fetchPortfolio());
   }, []);
@@ -39,10 +41,10 @@ const Dashboard = () => {
     <div className="">
       <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
         <Grid item xs={11} md={5.5} className={classes.gridItem}>
-          <Container >
-            <Grid container >
+          <Container>
+            <Grid container>
               <Grid item xs={11} md={6} className={classes.gridSubItem}>
-                <WalletsNav />
+                <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />
               </Grid>
               <Grid item xs={11} md={6} className={classes.gridSubItem}>
                 <AssetsShares />
