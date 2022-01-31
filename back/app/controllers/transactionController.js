@@ -101,7 +101,20 @@ module.exports = {
 
     addTransaction: async (req, res) => {
         try {
-            
+            let own_wallet = false;
+            const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
+            if (!is_owning_wallet) {
+                return res.status(500).json(`No wallet with this id`);
+            } else {
+                for (const own of is_owning_wallet) {
+                    if (Number(req.params.wid) === own.id) {
+                        own_wallet = true;
+                    }
+                }
+                if (!own_wallet) {
+                    return res.status(500).json(`You doesn't own this wallet`)
+                }
+            }
             const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
             const instance = new Transaction(req.body);
             delete instance.coin_id;
@@ -125,7 +138,7 @@ module.exports = {
         try {
             const is_owning_wallet = await Transaction.getWalletIdByTransaction(req.params.tid);
             if (!is_owning_wallet) {
-                return res.status(500).json(`You doesn't own this transaction`);
+                return res.status(500).json(`No transaction with this id`);
             } else {
                 if (req.userId.id !== is_owning_wallet[0].user_id) {
                     return res.status(500).json(`You doesn't own this wallet`); 
