@@ -8,6 +8,7 @@ import Description from './Description';
 import Graph from './Graph';
 import Indicators from './Indicators';
 import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 
 const useStyles = makeStyles({
     grid: {
@@ -39,26 +40,43 @@ const CryptoDetails = () => {
     return (
         <div className="">
             <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-                <Grid item xs={11} md={5.5} className={classes.gridItem}>
-                    <Grid item xs={11} md={6} className={classes.gridSubItem}>
-                        <Description />
-                    </Grid>
-                </Grid>
-                <Container >
-                    <Grid container >
+                <Container sx={{
+                    display: 'flex',
+                    gridAutoFlow: 'row',
+                }}>
+                    <Grid item xs={8} className={classes.gridItem}>
                         <Grid item xs={11} md={6} className={classes.gridSubItem}>
+                            <Description sx={{
+                                // display: 'flex',
+                                // gridAutoFlow: 'row',
+                                // gridTemplateColumns: 'repeat(5, 1fr)',
+                                // gridTemplateRows: 'repeat(2, 200px)',
+                                // gap: 1,
+                                gridAutoRows: '100px'
+                            }}
+                            />
+                        </Grid>
+
+                    </Grid>
+                    <Container className={classes.gridItem}>
+                        {/* <Grid container > */}
+                        <Grid item xs={4} className={classes.gridSubItem}>
                             <Indicators
                             // distribution={distribution} 
                             />
                         </Grid>
-                        <Grid item xs={11} md={5.5} className={classes.gridItem}>
+                        <Divider sx={{ width: "100%" }}></Divider>
+                        <Grid item xs={4} md={5.5} className={classes.gridSubItem}>
                             <Converter />
                         </Grid>
+                    </Container>
+                    {/* </Grid> */}
+                </Container>
+                <Container >
+                    <Grid item xs={12} md={12} className={classes.gridItem}>
+                        <Graph sx={{ width: "100%" }} />
                     </Grid>
                 </Container>
-                <Grid item xs={11} md={5.5} className={classes.gridItem}>
-                    <Graph />
-                </Grid>
             </Grid>
         </div>
     );
