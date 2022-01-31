@@ -47,6 +47,7 @@ const portfolioReducer = (state = initialState, action = {}) => {
         transactions: action.payload.transactions,
         wallet: action.payload.wallet,
       };
+
     default:
       return state;
   }

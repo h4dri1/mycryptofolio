@@ -31,7 +31,7 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
+  const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
 
   useEffect(() => {
     dispatch(fetchPortfolio());
@@ -47,7 +47,7 @@ const Dashboard = () => {
                 <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />
               </Grid>
               <Grid item xs={11} md={6} className={classes.gridSubItem}>
-                <AssetsShares />
+                <AssetsShares distribution={distribution} />
               </Grid>
             </Grid>
           </Container>

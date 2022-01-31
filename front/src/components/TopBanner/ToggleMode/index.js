@@ -63,7 +63,7 @@ export default function ToggleMode() {
     return (
         <FormGroup>
             <FormControlLabel
-                control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+                control={<MaterialUISwitch sx={{ m: 1 }} />}
                 label=""
                 checked={darkMode} onChange={() => dispatch(toggleDarkMode())}
             />
