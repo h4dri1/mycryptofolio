@@ -3,15 +3,15 @@ const db = createClient();
 db.connect();
 
 const prefix = 'mycryptofolio:';
-let timeout = 60 * 5;
+let timeout = 60;
 
 let key;
 
 const keys = [];
 
 const cache = async (req, res, next) => {
-    if (req.url.length > 8) {
-        timeout = 60;
+    if (req.url === '/cryptos') {
+        timeout = 60 * 5;
     };
     const key = `${prefix}${req.url}`;
 
