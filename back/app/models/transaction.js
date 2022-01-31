@@ -98,7 +98,7 @@ class Transaction {
     async save() {
         try {
             if(this.id) {
-                const test = await db.query('SELECT * FROM update_transaction($1)', [this]);
+                await db.query('SELECT * FROM update_transaction($1)', [this]);
             } else {
                 const {rows} = await db.query('SELECT * FROM add_transaction($1)', [this]);
                 if (rows) {

@@ -67,6 +67,8 @@ module.exports = {
                 let id = 0;
                 let id2 = 1;
 
+                const empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
+
                 for (const coin of cryptos) {
                     sum = sum + coin.total * price[coin.coin_id].usd
                     id = coin.wallet_id
@@ -84,6 +86,10 @@ module.exports = {
                       !Object.assign(objWallet[v.id], v):
                       (objWallet[v.id] = v);
                 }, {});
+
+                if (empty) {
+                    objWallet.push({'id':empty[0].id, 'label':empty[0].label});
+                }
 
                 portfolio.wallet = Object.values(objWallet);
             }
@@ -127,6 +133,8 @@ module.exports = {
             instance.crypto_id = crypto_id[0].id;
             const transaction = await instance.save();
             if (transaction) {
+                res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
+                res.setHeader('Authorization', jwt.makeToken(req.userId));
                 return res.status(201).json(transaction);
             }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
@@ -134,7 +142,7 @@ module.exports = {
             res.status(204).json('Update ok')
         } catch (error) {
             console.log(error);
-            return res.status(500).json(error.message, true);
+            return res.status(500).json(error.message);
         }
     },
 
@@ -142,10 +150,10 @@ module.exports = {
         try {
             const is_owning_wallet = await Transaction.getWalletIdByTransaction(req.params.tid);
             if (is_owning_wallet.length === 0) {
-                return res.status(500).json(`No transaction with this id`);
+                return res.status(500).json(`No transaction with this id`, true);
             } else {
                 if (req.userId.id !== is_owning_wallet[0].user_id) {
-                    return res.status(500).json(`You doesn't own this wallet`); 
+                    return res.status(500).json(`You doesn't own this wallet`, true); 
                 }
                 await Transaction.delete(req.params.tid);
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
@@ -154,7 +162,7 @@ module.exports = {
             }
         } catch (error) {
             console.log(error);
-            return res.status(500).json(error.message, true);
+            return res.status(500).json(error.message);
         }
     }
 };
