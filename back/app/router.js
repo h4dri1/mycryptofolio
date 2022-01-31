@@ -169,16 +169,16 @@ router.get('/trending', cache, cryptoController.getTrendingCryptos);
 
 router.get('/portfolio', cache, jwtMW, fetchMW, transactionController.getPortfolio);
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', cache, jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, fetchMW, transactionController.getPortfolio);
 
-router.post('/portfolio/wallet/:wid/transaction', flush, jwtMW, validateBody(transactionSchema), transactionController.addTransaction);
+router.post('/portfolio/wallet/:wid/transaction', jwtMW, validateBody(transactionSchema), transactionController.addTransaction);
 
-router.post('/portfolio/wallet', flush,  jwtMW, validateBody(walletSchema), walletController.addWallet);
+router.post('/portfolio/wallet',  jwtMW, validateBody(walletSchema), walletController.addWallet);
 
-router.post('/signup', flush,  validateBody(signupSchema), userController.addUser);
+router.post('/signup',  validateBody(signupSchema), userController.addUser);
 
-router.delete('/portfolio/transaction/:tid', flush, jwtMW, transactionController.deleteTransaction);
+router.delete('/portfolio/transaction/:tid', jwtMW, transactionController.deleteTransaction);
 
-router.delete('/portfolio/wallet/:wid', flush, jwtMW, walletController.deleteWallet);
+router.delete('/portfolio/wallet/:wid', jwtMW, walletController.deleteWallet);
 
 module.exports = router;
