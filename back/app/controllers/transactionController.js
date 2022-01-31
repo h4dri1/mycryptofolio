@@ -79,15 +79,13 @@ module.exports = {
                     }
                 }
 
-                objWallet = newObj.filter((v) => {
+                newObj.filter((v) => {
                     return this[v.id]?
-                      !Object.assign(this[v.id], v):
-                      (this[v.id] = v);
+                      !Object.assign(objWallet[v.id], v):
+                      (objWallet[v.id] = v);
                 }, {});
 
-                const newObjWallet = Object.values(this);
-
-                portfolio.wallet = newObjWallet;
+                portfolio.wallet = Object.values(objWallet);
             }
 
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
