@@ -11,10 +11,12 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MobileDatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 
 const TransactionCreator = () => {
+  const dispatch = useDispatch();
   // State for Autocomplete -BEGIN
   // const [value, setValue] = useState(null);
   // const [inputValue, setInputValue] = useState('');
@@ -32,11 +34,13 @@ const TransactionCreator = () => {
     return false;
   });
 
-  const [currency, setCurrency] = useState('');
-  const [quantity, setQuantity] = useState(0);
-  const [price, setPrice] = useState(0);
+  const { currentPrice } = useSelector((state) => state.cryptos);
+
+  const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
+  const [quantity, setQuantity] = useState(null);
   const [dateValue, setDateValue] = useState(new Date());
-  const [refCurrency, setRefCurrency] = useState('USD');
+  // eslint-disable-next-line max-len
+  const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,11 +49,13 @@ const TransactionCreator = () => {
       coin_id: currency.id,
       symbol: currency.symbol,
       buy: true,
-      price,
+      price: currentPrice,
+      ref_currency: refCurrency.toLowerCase(),
       quantity,
       buy_date: dateValue.toISOString(),
     };
-    console.log(newTransaction);
+    // TODO: Replace console log by a dispatch of an action to send a transaction to API
+    console.log('newTransaction', newTransaction);
   };
 
   const handleCancel = () => {
@@ -57,6 +63,12 @@ const TransactionCreator = () => {
     setPrice(0);
     setDateValue(Date.now());
   };
+
+  useEffect(() => dispatch(getCurrentPrice({
+    coinId: currency.id,
+    dateValue,
+    refCurrency,
+  })), [currency, dateValue]);
 
   // ! Do not remove next commented code, may be useful later
   // useEffect(() => {
@@ -182,7 +194,6 @@ const TransactionCreator = () => {
                 value={quantity}
                 onChange={(e) => {
                   setQuantity(e.target.value);
-                  console.log('quantity', quantity);
                 }}
               />
             </Grid>
@@ -194,10 +205,10 @@ const TransactionCreator = () => {
                 required
                 fullWidth
                 name="price"
-                label="Prix"
+                label={`Prix (${refCurrency.toUpperCase()})`}
                 type="number"
                 id="price"
-                value={price}
+                value={currentPrice}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Grid>
@@ -261,7 +272,7 @@ const TransactionCreator = () => {
                   Montant de la transaction
                 </Typography>
                 <Typography variant="overline" fontSize={25}>
-                  {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * price)}
+                  {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * currentPrice)}
                 </Typography>
               </Grid>
             </Grid>
