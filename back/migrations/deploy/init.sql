@@ -29,6 +29,7 @@ CREATE TABLE transaction (
     buy BOOLEAN NOT NULL,
     price DOUBLE PRECISION NOT NULL,
     quantity REAL NOT NULL,
+    actual_value DOUBLE PRECISION,
     wallet_id INT REFERENCES wallet(id),
     crypto_id INT REFERENCES crypto(id)
 );
