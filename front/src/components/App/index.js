@@ -1,6 +1,7 @@
 // == Import
 import Home from 'src/pages/Home';
 import Portfolio from 'src/pages/Portfolio';
+import CryptoPage from 'src/pages/CryptoPage';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,6 +64,7 @@ const App = () => {
           <CssBaseline />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/crypto-details" element={<CryptoPage />} />
             <Route path="/portfolio" element={<Portfolio />}>
               <Route path="/portfolio/:portfolioName" element={<Portfolio />} />
             </Route>
