@@ -55,7 +55,6 @@ const App = () => {
     dispatch(getAllCryptos());
   }, []);
 
-
   return (
     <div className="app">
       <ThemeProvider theme={theme}>

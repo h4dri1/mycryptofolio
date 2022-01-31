@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-import { toggleCreateWalletModal, updateSelectedWallet } from 'src/actions/portfolio';
+import { toggleCreateWalletModal, updateSelectedWallet, fetchSpecificPortfolio } from 'src/actions/portfolio';
 
 import AddWallet from './AddWallet';
 
@@ -21,6 +21,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
 
   const handleLinkClick = (walletId) => {
     dispatch(updateSelectedWallet(walletId));
+    dispatch(fetchSpecificPortfolio(walletId));
   };
 
   return (
@@ -50,7 +51,11 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                   },
                 },
                 ]}
-              ><Typography>$52,637.35</Typography>
+              >
+                <Typography>{wallets.length > 0
+                  && `$${Math.round(wallets.reduce((total, wallet) => total + wallet.sum, 0))
+                    .toLocaleString()}`}
+                </Typography>
               </Box>
             </ListItemButton>
           </Link>
@@ -103,7 +108,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                           },
                         },
                         ]}
-                      ><Typography variant="body2">{`$${Math.round(wallet.sum)}`}</Typography>
+                      ><Typography variant="body2">{`$${Math.round(wallet.sum).toLocaleString()}`}</Typography>
                       </Box>
                       <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
