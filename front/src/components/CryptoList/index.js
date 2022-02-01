@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -29,7 +30,7 @@ const CryptoList = () => {
     <Grid container justifyContent="center" spacing={{ xs: 2, sm: 4 }}>
       <Grid item xs={12}>
         <Table>
-          <TableHead>
+          <TableHead sx={{ fontWeight: 'bold', }}>
             <TableRow>
               <TableCell align="center"><TableSortLabel />#</TableCell>
               <TableCell>Name</TableCell>
@@ -45,12 +46,16 @@ const CryptoList = () => {
               <TableRow key={crypto.id} hover>
                 <TableCell align="center">{crypto.market_cap_rank}</TableCell>
                 <TableCell>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box component={RouterLink} to={`/crypto-details/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center' }}>
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
-                    <Link underline="hover" variant="body1" sx={{ mr: 1 }}>{crypto.name}</Link>
-                    <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
+                    <Typography
+                      // component={RouterLink} to={`/crypto-details/${crypto.id}`}
+                      underline="none" variant="body1"
+                      sx={{ mr: 1 }}>{crypto.name}
+                    </Typography>
+                    <Typography underline="none" sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
-                </TableCell>
+                </TableCell >
                 <TableCell align="right">{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`$${crypto.market_cap.toLocaleString()}`}</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`$${crypto.total_volume.toLocaleString()}`}</TableCell>
