@@ -10,6 +10,7 @@ import Graph from './Graph';
 import Indicators from './Indicators';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
     grid: {
@@ -28,13 +29,10 @@ const useStyles = makeStyles({
     },
 });
 
-const CryptoDetails = () => {
+const CryptoDetails = ({ symbol, name, description, }) => {
+
     const classes = useStyles();
     const dispatch = useDispatch();
-
-    // const { slug } = useParams();
-    // const crypto = useSelector((state) => state.cryptoDetails, slug);
-    // console.log(crypto);
 
     return (
         <div className="">
@@ -68,6 +66,15 @@ const CryptoDetails = () => {
             </Grid>
         </div>
     );
+};
+
+CryptoDetails.propTypes = {
+    cryptoDetails: PropTypes.arrayOf(PropTypes.shape({
+        description: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        symbol: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+    })).isRequired,
 };
 
 export default CryptoDetails;

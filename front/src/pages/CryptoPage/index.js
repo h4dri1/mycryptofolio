@@ -8,18 +8,25 @@ import { useSelector } from 'react-redux';
 export default function CryptoPage() {
 
     const { slug } = useParams();
+    const params = useParams();
+    console.log(params);
+
     // const crypto = useSelector((state) => state.cryptoDetails, slug);
-    const crypto = useSelector((state) => cryptoDetails(state.cryptoDetails, slug));
+    // const crypto = useSelector((state) => getDescription(state.cryptoDetails, slug));
+    const { crypto } = useSelector((state) => state.cryptoDetails);
     console.log(crypto);
+    console.log(slug);
 
     return (
         <div className="">
             <TopBanner />
             <Navbar />
             <CryptoDetails
+                key={crypto.id}
                 description={crypto.description}
                 symbol={crypto.symbol}
                 name={crypto.name}
+                slug={crypto.id}
             />
         </div>
     );

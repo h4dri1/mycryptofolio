@@ -14,11 +14,10 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 
-const CryptoList = ({ slug }) => {
+const CryptoList = () => {
   const dispatch = useDispatch();
 
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
@@ -47,13 +46,13 @@ const CryptoList = ({ slug }) => {
               <TableRow key={crypto.id} hover>
                 <TableCell align="center">{crypto.market_cap_rank}</TableCell>
                 <TableCell>
-                  <Box component={RouterLink} to={`/crypto-details/${slug}`} sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box component={RouterLink} to={`/crypto-details/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center' }}>
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
-                    <Link
-                      component={RouterLink} to={`/crypto-details/${slug}`}
+                    <Typography
+                      // component={RouterLink} to={`/crypto-details/${crypto.id}`}
                       underline="none" variant="body1"
                       sx={{ mr: 1 }}>{crypto.name}
-                    </Link>
+                    </Typography>
                     <Typography underline="none" sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell >
@@ -80,12 +79,6 @@ const CryptoList = ({ slug }) => {
       </Grid>
     </Grid>
   );
-};
-
-CryptoList.propTypes = {
-  distribution: PropTypes.arrayOf(PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  })).isRequired,
 };
 
 export default CryptoList;
