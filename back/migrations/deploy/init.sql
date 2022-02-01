@@ -27,7 +27,7 @@ CREATE TABLE transaction (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     buy_date TIMESTAMPTZ NOT NULL,
     buy BOOLEAN NOT NULL,
-    price DOUBLE PRECISION NOT NULL,
+    price DECIMAL NOT NULL,
     quantity REAL NOT NULL,
     actual_value DOUBLE PRECISION,
     wallet_id INT REFERENCES wallet(id),

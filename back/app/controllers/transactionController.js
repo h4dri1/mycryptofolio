@@ -27,7 +27,7 @@ module.exports = {
                 return res.status(500).json(error.message, true);
             };
 
-            for (const val of cryptos) {
+            for (const val of cryptos) {              
                 if (!value[val.coin_id]) {
                     value[val.coin_id] = (val.total * price[val.coin_id].usd)
                     buy[val.coin_id] =  val.total * val.buy_price
