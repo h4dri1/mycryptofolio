@@ -51,7 +51,7 @@ const TransactionCreator = () => {
       symbol: currency.symbol,
       buy: true,
       price: currentPrice,
-      ref_currency: refCurrency.toLowerCase(),
+      // ref_currency: refCurrency.toLowerCase(),
       quantity,
       buy_date: dateValue.toUTCString(),
     };
