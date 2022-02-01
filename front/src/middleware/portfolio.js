@@ -100,6 +100,8 @@ const portfolio = (store) => (next) => (action) => {
       // * Pour éviter d'envoyer une transaction orpheline à l'API
       if (!walletId) {
         alert('Veuillez selectionner un portefeuille pour votre transaction');
+        next(action);
+        break;
       }
       const config = {
         method: 'post',
