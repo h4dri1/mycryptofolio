@@ -28,7 +28,8 @@ module.exports = {
     getOneCrypto: async (req, res) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}`);
-            const superObj = [{
+            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=30&interval=daily`);
+            const superObj = {'data': {
                 'id': data.id,
                 'symbol': data.symbol,
                 'name': data.name,
@@ -45,7 +46,9 @@ module.exports = {
                 'usd': data.market_data.total_volume.usd},  'market_cap_rank': data.market_data.market_cap_rank, 
                 'market_cap_change_percentage_24h': data.market_data.market_cap_change_percentage_24h, 'total_supply': data.market_data.total_supply, 
                 'max_supply': data.market_data.max_supply, 'circulating_supply': data.market_data.circulating_supply, 'last_updated': data.market_data.last_updated}
-            }]
+            },
+                chart
+            }
             res.status(200).json(superObj);
         } catch (error) {
             console.log(error);
