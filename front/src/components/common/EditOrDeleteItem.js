@@ -10,7 +10,9 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-const EditOrDeleteItem = ({ editItem, deleteItem, itemId }) => {
+const EditOrDeleteItem = ({
+  editItem, deleteItem, itemId, positionAbsolute,
+}) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef();
   const dispatch = useDispatch();
@@ -32,7 +34,7 @@ const EditOrDeleteItem = ({ editItem, deleteItem, itemId }) => {
   };
 
   return (
-    <Box sx={{ position: 'absolute', right: '0' }}>
+    <Box sx={{ ...(positionAbsolute && { position: 'absolute' }), right: '0' }}>
       <Button ref={anchorRef} onClick={handleButtonToggle}>
         <ExpandMoreIcon />
       </Button>
@@ -56,6 +58,7 @@ EditOrDeleteItem.propTypes = {
   editItem: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
   itemId: PropTypes.number,
+  positionAbsolute: PropTypes.bool.isRequired,
 };
 
 export default EditOrDeleteItem;

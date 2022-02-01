@@ -7,10 +7,18 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Divider from '@mui/material/Divider';
 
+import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
+
 import { useSelector } from 'react-redux';
+
+import { deleteTransaction } from 'src/actions/portfolio';
 
 const TransactionsHistory = () => {
   const { transactions } = useSelector((state) => state.portfolio);
+
+  const handleEditTransaction = () => {
+    console.log('Edit transaction');
+  };
 
   return (
     <Box sx={{
@@ -28,6 +36,7 @@ const TransactionsHistory = () => {
             <TableCell align="center">Quantité</TableCell>
             <TableCell align="center">Date</TableCell>
             <TableCell align="right">%</TableCell>
+            <TableCell align="right" />
           </TableRow>
         </TableHead>
         <TableBody>
@@ -43,6 +52,14 @@ const TransactionsHistory = () => {
               <TableCell align="center">{transaction.quantity}</TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
               <TableCell align="right">{transaction.rentability}%</TableCell>
+              <TableCell align="right">
+                <EditOrDeleteItem
+                  positionAbsolute={false}
+                  editItem={handleEditTransaction}
+                  deleteItem={deleteTransaction}
+                  itemId={transaction.id}
+                />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

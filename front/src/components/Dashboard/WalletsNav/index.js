@@ -126,6 +126,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                       <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
                     <EditOrDeleteItem
+                      positionAbsolute
                       editItem={handleEditWallet}
                       deleteItem={deleteWallet}
                       itemId={wallet.id}
