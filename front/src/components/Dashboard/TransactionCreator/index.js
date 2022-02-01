@@ -194,7 +194,7 @@ const TransactionCreator = () => {
                 id="quatity"
                 value={quantity}
                 onChange={(e) => {
-                  setQuantity(e.target.value);
+                  setQuantity(Number(e.target.value));
                 }}
               />
             </Grid>
