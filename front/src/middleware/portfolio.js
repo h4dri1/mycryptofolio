@@ -7,6 +7,7 @@ import {
   FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
   SAVE_TRANSACTION, fetchPortfolio, DELETE_TRANSACTION,
+  UPDATE_WALLET, toggleUpdateWalletModal,
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
@@ -35,6 +36,37 @@ const portfolio = (store) => (next) => (action) => {
           console.log(err);
         })
         .finally(() => store.dispatch(toggleCreateWalletModal()));
+      next(action);
+      break;
+    case UPDATE_WALLET:
+      const { inputText: newWalletName } = store.getState().portfolio.editWallet;
+
+      axios({
+        method: 'post',
+        url: 'https://dev.mycryptofolio.fr/v1/portfolio/wallet',
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+        data: {
+          id: action.payload,
+          label: newWalletName,
+        },
+      })
+        .then((res) => {
+          const { wallet: wallets } = store.getState().portfolio;
+          wallets.forEach((wallet) => {
+            if (wallet.id === action.payload) wallet.label = newWalletName;
+          });
+
+          store.dispatch(deleteOrUpdateWalletSuccess(wallets));
+
+          const newAccessToken = res.headers.authorization;
+          store.dispatch(saveNewToken(newAccessToken));
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => store.dispatch(toggleUpdateWalletModal()));
       next(action);
       break;
     case DELETE_WALLET:
@@ -133,9 +165,11 @@ const portfolio = (store) => (next) => (action) => {
           },
         })
           .then((res) => {
-            store.dispatch(fetchPortfolio());
-            const newAccessToken = res.headers.authorization;
-            store.dispatch(saveNewToken(newAccessToken));
+            if (res.status === 204) {
+              store.dispatch(fetchPortfolio());
+              const newAccessToken = res.headers.authorization;
+              store.dispatch(saveNewToken(newAccessToken));
+            }
           })
           .catch((err) => console.log(err));
       }
