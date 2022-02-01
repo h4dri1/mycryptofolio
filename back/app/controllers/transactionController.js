@@ -165,10 +165,10 @@ module.exports = {
                 if (req.userId.id !== is_owning_wallet[0].user_id) {
                     return res.status(500).json(`You doesn't own this wallet`, true); 
                 }
-                await Transaction.delete(req.params.tid);
+                const suppr = await Transaction.delete(req.params.tid);
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
                 res.setHeader('Authorization', jwt.makeToken(req.userId));
-                res.status(204)
+                res.status(204).json('delete ok')
             }
         } catch (error) {
             console.log(error);
