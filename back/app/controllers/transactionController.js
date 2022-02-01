@@ -5,7 +5,7 @@ module.exports = {
     getPortfolio: async (req, res) => {
         try {
             const cryptos = res.locals.cryptos;
-            const price = res.locals.price
+            const price = res.locals.price;
 
             let objTransactions;
             let portfolio = {};
@@ -15,6 +15,7 @@ module.exports = {
             let objPerformance = {};
             let sumValue = 0;
             let sumBuy = 0;
+            let total = {};
 
             if (req.params.wallet_id) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
@@ -27,8 +28,15 @@ module.exports = {
             };
 
             for (const val of cryptos) {
-                value[val.coin_id] = val.total * price[val.coin_id].usd
-                buy[val.coin_id] =  val.total * val.buy_price
+                if (!value[val.coin_id]) {
+                    value[val.coin_id] = (val.total * price[val.coin_id].usd)
+                    buy[val.coin_id] =  val.total * val.buy_price
+                    total[val.coin_id] = val.total
+                } else {
+                    value[val.coin_id] = value[val.coin_id] + (val.total * price[val.coin_id].usd)
+                    buy[val.coin_id] =  buy[val.coin_id] + (val.total * val.buy_price)
+                    total[val.coin_id] = total[val.coin_id] + val.total
+                }
             }
 
             for (const key in value) {
@@ -42,7 +50,7 @@ module.exports = {
             for (const crypto of cryptos) {
                 objRepartition[crypto.coin_id] = {}
                 objRepartition[crypto.coin_id].name = crypto.symbol
-                objRepartition[crypto.coin_id].quantity = crypto.total
+                objRepartition[crypto.coin_id].quantity = total[crypto.coin_id]
                 objRepartition[crypto.coin_id].value = value[crypto.coin_id]
                 objRepartition[crypto.coin_id].distribution = (100 * value[crypto.coin_id])/sumValue;
             }
