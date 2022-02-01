@@ -65,7 +65,8 @@ const cryptoList = (store) => (next) => (action) => {
       axios(requestUrl)
         .then((res) => {
           const currentPrice = res.data.market_data.current_price[refCurrency.toLowerCase()];
-          store.dispatch(setPrice((Math.ceil(currentPrice * 100) / 100)));
+          // store.dispatch(setPrice((Math.ceil(currentPrice * 100) / 100)));
+          store.dispatch(setPrice(Math.ceil(currentPrice)));
         })
         .catch((err) => {
           console.log(err.response);
