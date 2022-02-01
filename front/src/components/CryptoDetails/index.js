@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     },
 });
 
-const CryptoDetails = ({ symbol, name, description, }) => {
+const CryptoDetails = ({ }) => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -68,13 +68,13 @@ const CryptoDetails = ({ symbol, name, description, }) => {
     );
 };
 
-CryptoDetails.propTypes = {
-    cryptoDetails: PropTypes.arrayOf(PropTypes.shape({
-        description: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        symbol: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-    })).isRequired,
-};
+// CryptoDetails.propTypes = {
+//     crypto: PropTypes.arrayOf(PropTypes.shape({
+//         description: PropTypes.string.isRequired,
+//         name: PropTypes.string.isRequired,
+//         symbol: PropTypes.string.isRequired,
+//         id: PropTypes.number.isRequired,
+//     })).isRequired,
+// };
 
 export default CryptoDetails;
