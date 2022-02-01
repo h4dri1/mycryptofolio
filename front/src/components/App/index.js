@@ -2,11 +2,8 @@
 import Home from 'src/pages/Home';
 import Portfolio from 'src/pages/Portfolio';
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-
-import { getAllCryptos } from 'src/actions/cryptos';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -48,12 +45,6 @@ const App = () => {
     },
 
   });
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllCryptos());
-  }, []);
 
   return (
     <div className="app">
