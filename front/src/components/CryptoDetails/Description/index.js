@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // import PropTypes from 'prop-types';
 import { getCryptoDescription } from 'src/actions/cryptoDetails';
 
+import { Box } from '@mui/system';
+
 export default function Description({ }) {
 
     const dispatch = useDispatch();
@@ -16,8 +18,10 @@ export default function Description({ }) {
 
     return (
         <div className="">
-            <p>{crypto.description.en}</p>
-        </div>
+            <Box sx={{ gridRow: '1', color: 'text.secondary', fontSize: 12, fontWeight: 'small' }}>
+                <p>{crypto.description.en}</p>
+            </Box>
+        </div >
     );
 }
 
