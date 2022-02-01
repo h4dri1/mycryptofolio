@@ -5,7 +5,7 @@ import {
   CREATE_NEW_WALLET, toggleCreateWalletModal,
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
   FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
-  updateWalletList,
+  updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
@@ -34,6 +34,28 @@ const portfolio = (store) => (next) => (action) => {
           console.log(err);
         })
         .finally(() => store.dispatch(toggleCreateWalletModal()));
+      next(action);
+      break;
+    case DELETE_WALLET:
+      if (action.payload !== undefined) {
+        axios({
+          method: 'delete',
+          url: `https://dev.mycryptofolio.fr/v1/portfolio/wallet/${action.payload}`,
+          headers: {
+            Authorization: store.getState().user.accessToken,
+          },
+        })
+          .then((res) => {
+            if (res.status === 204) {
+              const { wallet: wallets } = store.getState().portfolio;
+              const updatedWalletList = wallets.filter((wallet) => wallet.id !== action.payload);
+              store.dispatch(deleteOrUpdateWalletSuccess(updatedWalletList));
+              const newAccessToken = res.headers.authorization;
+              store.dispatch(saveNewToken(newAccessToken));
+            }
+          })
+          .catch((err) => console.log(err));
+      }
       next(action);
       break;
     case FETCH_PORTFOLIO:
