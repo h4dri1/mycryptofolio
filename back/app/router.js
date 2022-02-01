@@ -121,7 +121,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/crypto/:id', cache, cryptoController.getOneCrypto);
+router.get('/crypto/:id', cryptoController.getOneCrypto);
 
  /**
  * GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
