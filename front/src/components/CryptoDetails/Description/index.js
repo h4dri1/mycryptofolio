@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export default function Description({ crypto }) {
+export default function Description({ }) {
 
     const dispatch = useDispatch();
 
@@ -16,8 +16,8 @@ export default function Description({ crypto }) {
     );
 }
 
-Description.propTypes = {
-    crypto: PropTypes.arrayOf(PropTypes.shape({
-        description: PropTypes.string.isRequired,
-    })).isRequired,
-};
+// Description.propTypes = {
+//     crypto: PropTypes.arrayOf(PropTypes.shape({
+//         description: PropTypes.string.isRequired,
+//     })).isRequired,
+// };
