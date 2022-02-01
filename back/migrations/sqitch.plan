@@ -11,3 +11,4 @@ function_add_transaction 2022-01-29T20:49:57Z h4dri1 <hadrien.vuillaume@gmail.co
 function_add_wallet 2022-01-29T21:59:51Z h4dri1 <hadrien.vuillaume@gmail.com> # add function to add a wallet
 function_add_user 2022-01-29T22:58:58Z h4dri1 <hadrien.vuillaume@gmail.com> # add function to add a user
 view_wallet_by_transaction 2022-01-31T11:04:02Z h4dri1 <hadrien.vuillaume@gmail.com> # add view with transaction id/wallet id/user_id
+alter_crypto 2022-01-31T23:18:12Z h4dri1 <hadrien.vuillaume@gmail.com> # add column price
