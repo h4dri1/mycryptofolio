@@ -18,7 +18,7 @@ export default function TestAvatar() {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
     const { nickname, avatar } = useSelector((state) => state.user)
-    
+
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
     };
