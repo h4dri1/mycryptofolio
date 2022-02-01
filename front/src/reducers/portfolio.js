@@ -1,7 +1,7 @@
 import {
   TOGGLE_CREATE_WALLET_MODAL, UPDATE_CREATE_WALLET_INPUT,
   UPDATE_SELECTED_WALLET, FETCH_PORTFOLIO_SUCCESS, FETCH_SPECIFIC_PORTFOLIO_SUCCESS,
-  UPDATE_WALLET_LIST, DELETE_OR_UPDATE_WALLET_SUCCESS,
+  UPDATE_WALLET_LIST, DELETE_OR_UPDATE_WALLET_SUCCESS, DELETE_OR_UPDATE_TRANSACTION_SUCCESS,
 } from 'src/actions/portfolio';
 
 const initialState = {
@@ -10,7 +10,6 @@ const initialState = {
     inputText: '',
   },
   selectedWallet: '',
-  transactionsList: [],
   distribution: [],
   performance: [],
   transactions: [],
