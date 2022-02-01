@@ -1,5 +1,5 @@
 import {
-    GET_DESCRIPTION
+    GET_CRYPTO_DESCRIPTION, GET_INDICATORS,
 } from 'src/actions/cryptoDetails';
 
 const initialState = {
@@ -57,11 +57,18 @@ const initialState = {
 
 const cryptoDetails = (state = initialState, action = {}) => {
     switch (action.type) {
-        case GET_DESCRIPTION:
+        case GET_CRYPTO_DESCRIPTION:
             return {
                 ...state,
                 description: action.payload,
             };
+        case GET_INDICATORS:
+            return {
+                ...state,
+                market_data: action.payload,
+            };
+
+
         default:
             return state;
     }
