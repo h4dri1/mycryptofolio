@@ -96,7 +96,11 @@ const portfolio = (store) => (next) => (action) => {
 
     case SAVE_TRANSACTION:
       const walletId = store.getState().portfolio.selectedWallet;
-      // const walletId = 1;
+
+      // * Pour éviter d'envoyer une transaction orpheline à l'API
+      if (!walletId) {
+        alert('Veuillez selectionner un portefeuille pour votre transaction');
+      }
       const config = {
         method: 'post',
         baseURL: 'https://dev.mycryptofolio.fr/v1',
@@ -106,7 +110,9 @@ const portfolio = (store) => (next) => (action) => {
         },
         data: { ...action.payload },
       };
-      console.log(config);
+
+      console.log('config axios: ', config);
+
       axios.request(config)
         .then((res) => {
           console.log(res);
