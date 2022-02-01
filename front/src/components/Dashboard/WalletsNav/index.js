@@ -12,11 +12,12 @@ import { PropTypes } from 'prop-types';
 
 import {
   toggleCreateWalletModal, updateSelectedWallet, fetchSpecificPortfolio, fetchPortfolio,
-  deleteWallet,
+  deleteWallet, toggleUpdateWalletModal,
 } from 'src/actions/portfolio';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 import AddWallet from './AddWallet';
+import EditWallet from './EditWallet';
 
 const WalletsNav = ({ wallets, selectedWallet }) => {
   const dispatch = useDispatch();
@@ -31,10 +32,6 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
   const handleMainLinkClick = () => {
     dispatch(updateSelectedWallet(''));
     dispatch(fetchPortfolio());
-  };
-
-  const handleEditWallet = () => {
-    console.log('Edit wallet');
   };
 
   return (
@@ -127,7 +124,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                     </Box>
                     <EditOrDeleteItem
                       positionAbsolute
-                      editItem={handleEditWallet}
+                      editItem={toggleUpdateWalletModal}
                       deleteItem={deleteWallet}
                       itemId={wallet.id}
                     />
@@ -144,6 +141,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
         </Grid>
       </Grid>
       <AddWallet />
+      <EditWallet />
     </>
   );
 };
