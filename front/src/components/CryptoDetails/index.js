@@ -17,6 +17,7 @@ const useStyles = makeStyles({
         // border: 'solid 2px red',
         marginTop: '0.1px',
         height: '100%',
+        // maxWidth: '100%',
     },
     gridItem: {
         borderStyle: 'solid',
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
     gridSubItem: {
         // border: 'solid 2px gold',
         // height: '100%',
+        maxWidth: '100%',
     },
 });
 
@@ -38,7 +40,7 @@ const CryptoDetails = ({ }) => {
         <div className="">
             <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
                 <Container sx={{ display: 'flex', gridAutoFlow: 'row' }}>
-                    <Grid item xs={8} className={classes.gridItem}>
+                    <Grid item xs={12} className={classes.gridItem}>
                         <Grid item xs={11} md={6} className={classes.gridSubItem}>
                             <Description sx={{ gridAutoRows: '100px' }}
                                 description={crypto.description}
@@ -52,7 +54,7 @@ const CryptoDetails = ({ }) => {
                                 name={crypto.name}
                             />
                         </Grid>
-                        <Divider sx={{ width: "100%" }}></Divider>
+                        <Divider sx={{ width: "100%", mt: 2, mb: 2 }}></Divider>
                         <Grid item xs={4} md={5.5} className={classes.gridSubItem}>
                             <Converter />
                         </Grid>

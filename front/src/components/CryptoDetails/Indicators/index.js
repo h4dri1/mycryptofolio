@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIndicators } from 'src/actions/cryptoDetails';
 
+import { Box, Typography } from '@mui/material';
+
 export default function Indicators() {
 
     const dispatch = useDispatch();
@@ -14,16 +16,76 @@ export default function Indicators() {
     // console.log(market_data);
 
     return (
-        <div className="">
-            {/* <p>Prix actuel:{market_data.current_price.`${slug}`}</p> */}
-            {/* <p>Market cap.:{market_data.market_cap.`${slug}`}</p> */}
-            {/* <p>Total volume:{market_data.total_volume.`${slug}`}</p> */}
-            <p>Rang Market cap.:{market_data.market_cap_rank}</p>
-            <p>% market cap. 24h:{market_data.market_cap_change_percentage_24h}</p>
-            <p>Total supply: {market_data.total_supply}</p>
-            <p>Max supply: {market_data.max_supply}</p>
-            <p>Circulating supply:{market_data.circulating_supply}</p>
-            <p>Dernière mise à jour:{market_data.last_updated}</p>
-        </div >
+        <>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', mt: 2 }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Rang Market cap.:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {market_data.market_cap_rank}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Prix actuel:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {/* {market_data.current_price.`${slug}`} */}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Market cap.:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {/* { market_data.market_cap.`${slug}` } */}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Total volume:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {/* { market_data.total_volume.`${slug}` } */}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Total volume:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {/* { market_data.total_volume.`${slug}` } */}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    % market cap. 24h:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {market_data.market_cap_change_percentage_24h}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Total supply:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {market_data.total_supply}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Max supply:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {market_data.max_supply}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Circulating supply:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {market_data.circulating_supply}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
+                    Dernière mise à jour:</Typography>
+                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
+                    {market_data.last_updated}</Typography>
+            </Box>
+        </>
     );
 }
