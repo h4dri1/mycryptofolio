@@ -49,12 +49,16 @@ const TransactionCreator = () => {
     const newTransaction = {
       coin_id: currency.id,
       symbol: currency.symbol,
-      buy: true,
+      buy: false,
       price: currentPrice,
-      ref_currency: refCurrency.toLowerCase(),
+      // ref_currency: refCurrency.toLowerCase(),
       quantity,
       buy_date: dateValue.toUTCString(),
     };
+    // change sign of quantity in case of selling transaction
+    if (!newTransaction.buy) {
+      newTransaction.quantity *= (-1);
+    }
     // TODO: Replace console log by a dispatch of an action to send a transaction to API
     dispatch(saveTransaction(newTransaction));
   };
@@ -194,7 +198,7 @@ const TransactionCreator = () => {
                 id="quatity"
                 value={quantity}
                 onChange={(e) => {
-                  setQuantity(e.target.value);
+                  setQuantity(Number(e.target.value));
                 }}
               />
             </Grid>
