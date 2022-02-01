@@ -156,7 +156,14 @@ const TransactionCreator = () => {
               clearOnBlur
               handleHomeEndKeys
               required
-              onChange={(_, value) => setCurrency(value)}
+              onChange={(_, value) => {
+                if (!value) {
+                  setCurrency({ id: '', symbol: '' });
+                }
+                else {
+                  setCurrency(value);
+                }
+              }}
             />
             {/* ! For later, to enhance list perf */}
             {/* <Autocomplete
