@@ -6,6 +6,7 @@ import {
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
   FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
+  SAVE_TRANSACTION, fetchPortfolio,
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
@@ -92,6 +93,29 @@ const portfolio = (store) => (next) => (action) => {
         .catch((err) => console.log(err));
       next(action);
       break;
+
+    case SAVE_TRANSACTION:
+      const walletId = store.getState().portfolio.selectedWallet;
+      // const walletId = 1;
+      const config = {
+        method: 'post',
+        baseURL: 'https://dev.mycryptofolio.fr/v1',
+        url: `/portfolio/wallet/${walletId}/transaction`,
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+        data: { ...action.payload },
+      };
+      console.log(config);
+      axios.request(config)
+        .then((res) => {
+          console.log(res);
+          store.dispatch(fetchPortfolio());
+        })
+        .catch((err) => console.log(err.response));
+      next(action);
+      break;
+
     default:
       next(action);
       break;

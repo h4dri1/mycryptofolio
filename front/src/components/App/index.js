@@ -1,12 +1,10 @@
 // == Import
 import Home from 'src/pages/Home';
 import Portfolio from 'src/pages/Portfolio';
+import CryptoPage from 'src/pages/CryptoPage';
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-
-import { getAllCryptos } from 'src/actions/cryptos';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -49,12 +47,6 @@ const App = () => {
 
   });
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllCryptos());
-  }, []);
-
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
@@ -62,6 +54,7 @@ const App = () => {
           <CssBaseline />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/crypto-details/:slug" element={<CryptoPage />} />
             <Route path="/portfolio" element={<Portfolio />}>
               <Route path="/portfolio/:walletName" element={<Portfolio />} />
             </Route>
