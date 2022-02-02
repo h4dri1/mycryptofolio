@@ -163,13 +163,11 @@ module.exports = {
             instance.wallet_id = req.params.wid;
             instance.crypto_id = crypto_id[0].id;
             const transaction = await instance.save();
-            if (transaction) {
-                res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
-                res.setHeader('Authorization', jwt.makeToken(req.userId));
-                return res.status(201).json(transaction);
-            }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
+            if (transaction) {
+                return res.status(201).json(transaction);
+            }
             res.status(204).json('Update ok')
         } catch (error) {
             console.log(error);
@@ -186,7 +184,7 @@ module.exports = {
                 if (req.userId.id !== is_owning_wallet[0].user_id) {
                     return res.status(500).json(`You doesn't own this wallet`, true); 
                 }
-                const suppr = await Transaction.delete(req.params.tid);
+                await Transaction.delete(req.params.tid);
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
                 res.setHeader('Authorization', jwt.makeToken(req.userId));
                 res.status(204).json('delete ok')
