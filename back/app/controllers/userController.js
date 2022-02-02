@@ -43,8 +43,12 @@ module.exports = {
             const newUser = await instance.save();
             delete newUser.password;
             if (newUser) {
+                res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+                res.setHeader('Authorization', newUser);
                 return res.status(201).json(newUser);
             }
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Authorization', newUser);
             res.status(204).json(newUser);
         } catch (error) {
             console.log(error);
