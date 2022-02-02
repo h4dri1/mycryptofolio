@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 
 import { Box } from '@mui/system';
-import { Typography } from '@mui/material';
 
 export default function Description({ data }) {
 
@@ -14,7 +13,7 @@ export default function Description({ data }) {
     return (
         <div className="">
             <Box sx={{ flexDirection: 'row', mx: 1, gridRow: '1', color: 'text.secondary', fontSize: 12, fontWeight: 'small' }}>
-                <Box sx={{ flexDirection: 'row', alignItems: 'center', mt: 2, }}>
+                <Box sx={{ textAlign: 'center', flexDirection: 'row', alignItems: 'center', mt: 2, }}>
                     <img
                         src={`${data.image.small}?w=248&fit=crop&auto=format`}
                         srcSet={`${data.image.thumb}?w=248&fit=crop&auto=format&dpr=2 2x`}

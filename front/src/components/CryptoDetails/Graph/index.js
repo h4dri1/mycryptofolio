@@ -13,6 +13,7 @@ import { Line } from 'react-chartjs-2';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { red } from '@mui/material/colors';
 
 ChartJS.register(
     CategoryScale,
@@ -37,7 +38,8 @@ export default function Graph({ data, chart }) {
             },
             title: {
                 display: true,
-                text: cryptoName
+                text: cryptoName,
+                color: '#B5179E'
             },
         },
     };
@@ -64,7 +66,7 @@ export default function Graph({ data, chart }) {
         labels: dataDays,
         datasets: [
             {
-                label: 'cours actuel',
+                label: 'Cours actuel',
                 data: dataPrices,
                 borderColor: ['rgb(244, 67, 54)'],
                 backgroundColor: ['rgb(244, 67, 54)'],
@@ -84,7 +86,7 @@ export default function Graph({ data, chart }) {
         ],
     };
 
-    return <Line options={options} data={graphData} height={50} />;
+    return <Line options={options} data={graphData} height={70} />;
 }
 
 Graph.propTypes = {
