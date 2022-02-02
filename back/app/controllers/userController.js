@@ -45,7 +45,7 @@ module.exports = {
             if (newUser) {
                 const refreshToken = jwt.makeRefreshToken(newUser);
                 const response = {
-                    "status": `(JWT) Bienvenue ${user.nickname}`,
+                    "status": `(JWT) Bienvenue ${newUser.nickname}`,
                     "refreshToken": refreshToken
                 };                
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
@@ -54,7 +54,7 @@ module.exports = {
             }
             const refreshToken = jwt.makeRefreshToken(newUser);
             const response = {
-                "status": `(JWT) Bienvenue ${user.nickname}`,
+                "status": `(JWT) Bienvenue ${newUser.nickname}`,
                 "refreshToken": refreshToken
             };                
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
