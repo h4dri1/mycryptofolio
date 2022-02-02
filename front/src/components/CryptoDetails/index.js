@@ -1,4 +1,5 @@
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Indicators from './Indicators';
 import Container from '@mui/material/Container';
@@ -21,7 +22,9 @@ const useStyles = makeStyles({
         // maxWidth: '100%',
     },
     gridItem: {
-        borderStyle: 'solid',
+        // borderStyle: 'solid',
+        borderColor: '#E7EBF0',
+        borderRadius: 2,
         // minHeight: '50vh',
         margin: '5px',
     },
@@ -41,7 +44,6 @@ const CryptoDetails = () => {
     const { slug } = useParams();
 
     useEffect(() => {
-
         dispatch(fetchCryptoData(slug));
     }, []);
 
@@ -49,16 +51,18 @@ const CryptoDetails = () => {
         <>
             {!loading && (
                 <div className="">
-                    <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
+                    <Box
+                        sx={{ p: 1, m: 1, borderRadius: 5, textAlign: 'justify', fontSize: '0.875rem', fontWeight: '700' }}
+                        container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
                         <Container maxWidth={'100%'} sx={{ display: 'flex', gridAutoFlow: 'row' }}>
-                            <Grid item xs={12} className={classes.gridItem}>
+                            <Grid sx={{ boxShadow: 4 }} item xs={12} className={classes.gridItem}>
                                 <Grid item xs={11} md={6} className={classes.gridSubItem}>
                                     <Description sx={{ gridAutoRows: '100px' }}
                                         data={data}
                                     />
                                 </Grid>
                             </Grid >
-                            <Container sx={{ width: "30%" }} className={classes.gridItem}>
+                            <Container sx={{ boxShadow: 4, width: "30%" }} className={classes.gridItem}>
                                 <Grid item xs={4} className={classes.gridSubItem}>
                                     <Indicators
                                         data={data}
@@ -70,15 +74,15 @@ const CryptoDetails = () => {
                                 </Grid>
                             </Container>
                         </Container>
-                        <Container >
+                        <Container sx={{ display: 'flex' }} >
                             <Grid item xs={12} md={12} className={classes.gridItem}>
-                                <Graph sx={{ width: "100%" }}
+                                <Graph sx={{ display: 'flex', width: "100%" }}
                                     chart={chart}
                                     data={data}
                                 />
                             </Grid>
                         </Container>
-                    </Grid>
+                    </Box>
                 </div>
             )}
         </>
