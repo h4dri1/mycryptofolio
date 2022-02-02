@@ -1,27 +1,29 @@
-import { PropTypes } from 'prop-types';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
-export default function AlertMsg( { open, severity, message }) {
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setDisplaySnackBar } from 'src/actions/settings';
+
+export default function AlertMsg() {
+  const dispatch = useDispatch();
+  const { open, severity, message } = useSelector((state) => state.settings.alert);
+
   return (
     <div>
       <Snackbar
-            anchorOrigin={{
-              vertical : 'top',
-              horizontal: 'center'
-            }}
-            open={open}
-            autoHideDuration={6000}
-            onClose={() => setDisplaySnackBar(false)}
-          >
-            <Alert severity={severity} onClose={() => setDisplaySnackBar(false)}>
-              {message}
-            </Alert>
-          </Snackbar>
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => dispatch(setDisplaySnackBar())}
+      >
+        <Alert severity={severity} onClose={() => dispatch(setDisplaySnackBar())}>
+          {message}
+        </Alert>
+      </Snackbar>
     </div>
   );
-};
-
-AlertMsg.propTypes = {
-  open: PropTypes.bool.isRequired,
-  severity: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
-};
+}

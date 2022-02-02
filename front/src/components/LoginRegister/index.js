@@ -13,25 +13,26 @@ import {
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
+import { PropTypes } from 'prop-types';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, login } from 'src/actions/user';
-import { toggleLoginModal } from 'src/actions/settings';
+import { changeField, existingUserToggle } from 'src/actions/user';
+import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
 
-export default function Login() {
+import AlertMsg from 'src/components/common/AlertMessage';
+
+export default function LoginRegister({ type, handleFormSubmit }) {
   // get the user state
   const {
-    email,
-    password,
+    nickname, email, password, passwordCheck,
   } = useSelector((state) => state.user);
 
   // get the main state
-  const {
-    loginIsOpen,
-  } = useSelector((state) => state.settings);
+  const { loginIsOpen } = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
 
@@ -40,32 +41,52 @@ export default function Login() {
   const handleToggleLoginModal = () => {
     dispatch(toggleLoginModal());
   };
-
   // Update state on change of fields value
   const handleChange = (e) => {
-    dispatch(changeField(e.target.type, e.target.value));
+    dispatch(changeField(e.target.id, e.target.value));
   };
 
   const handleSubmit = () => {
-    dispatch(login());
+    if (type === 'register') {
+      if (password !== passwordCheck) {
+        dispatch(setDisplaySnackBar({ severity: 'error', message: 'Les mots de passe saisis ne sont pas identiques' }));
+        return;
+      }
+    }
+    dispatch(handleFormSubmit());
   };
 
   return (
     <>
+      <AlertMsg />
       <Container>
         <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
       </Container>
       <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          Connexion
+          { type === 'login' ? 'Connexion' : 'S\'inscrire' }
           <IconButton edge="end" aria-label="Fermer" onClick={handleToggleLoginModal}>
             <CloseRoundedIcon />
           </IconButton>
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Pour accéder aux fonctionnalités avancées, il faut vous connecter.
+            Pour accéder aux fonctionnalités avancées,
+            { type === 'login' ? ' il faut vous connecter.' : ' il faut vous créer un compte et vous connecter.' }
           </DialogContentText>
+          {type === 'register' && (
+            <TextField
+              // autoFocus
+              margin="dense"
+              id="nickname"
+              label="Pseudo"
+              type="text"
+              fullWidth
+              variant="outlined"
+              value={nickname}
+              onChange={handleChange}
+            />
+          )}
           <TextField
             // autoFocus
             margin="dense"
@@ -87,12 +108,29 @@ export default function Login() {
             value={password}
             onChange={handleChange}
           />
+          {type === 'register' && (
+            <TextField
+              margin="dense"
+              id="passwordCheck"
+              label="Confirmer le mot de passe"
+              type="password"
+              fullWidth
+              variant="outlined"
+              value={passwordCheck}
+              onChange={handleChange}
+            />
+          )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => console.log('Coder la fonction d\'inscription')}>S'inscrire</Button>
-          <Button onClick={handleSubmit} variant="contained">Se connecter</Button>
+          <Button onClick={() => dispatch(existingUserToggle())}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Button>
+          <Button onClick={handleSubmit} variant="contained">{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }</Button>
         </DialogActions>
       </Dialog>
     </>
   );
 }
+
+LoginRegister.propTypes = {
+  type: PropTypes.string.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+};
