@@ -20,7 +20,7 @@ export default function AlertMsg() {
         autoHideDuration={6000}
         onClose={() => dispatch(setDisplaySnackBar())}
       >
-        <Alert severity={severity} onClose={() => dispatch(setDisplaySnackBar())}>
+        <Alert severity={severity}>
           {message}
         </Alert>
       </Snackbar>
