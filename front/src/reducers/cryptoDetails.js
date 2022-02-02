@@ -5,9 +5,9 @@ import {
 const initialState = {
     loading: true,
     data: {
+        name: "",
     },
-    chart: {
-    }
+    chart: {}
 }
 
 const cryptoDetailsReducer = (state = initialState, action = {}) => {

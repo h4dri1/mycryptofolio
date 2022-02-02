@@ -2,12 +2,13 @@ import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 
 import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
 
 export default function Description({ data }) {
 
     // SANITIZE the HTML crypto description
-    const createMarkup = () => ({
-        __html: DOMPurify.sanitize(data.description, { ALLOWED_TAGS: [] }),
+    const createMarkup = (textBrut) => ({
+        __html: DOMPurify.sanitize(textBrut, { ALLOWED_TAGS: [] }),
     });
 
     return (
@@ -21,11 +22,8 @@ export default function Description({ data }) {
                         loading="lazy"
                     />
                 </Box>
-                <Box>
-                    {/* <p  */}
-                    {data.description}
-                    {/* dangerouslySetInnerHTML={createMarkup()}  */}
-                    {/* /> */}
+                <Box dangerouslySetInnerHTML={createMarkup(data.description)} >
+
                 </Box>
             </Box>
         </div >

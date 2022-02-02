@@ -40,6 +40,7 @@ const CryptoDetails = () => {
     const { data, chart, loading } = useSelector((state) => state.cryptoDetails);
     const { slug } = useParams();
 
+    console.log(data);
     useEffect(() => {
 
         dispatch(fetchCryptoData(slug));
@@ -58,7 +59,7 @@ const CryptoDetails = () => {
                                     />
                                 </Grid>
                             </Grid >
-                            <Container className={classes.gridItem}>
+                            <Container sx={{ width: "30%" }} className={classes.gridItem}>
                                 <Grid item xs={4} className={classes.gridSubItem}>
                                     <Indicators
                                         data={data}
@@ -70,13 +71,14 @@ const CryptoDetails = () => {
                                 </Grid>
                             </Container>
                         </Container>
-                        {/* <Container >
+                        <Container >
                             <Grid item xs={12} md={12} className={classes.gridItem}>
                                 <Graph sx={{ width: "100%" }}
                                     chart={chart}
+                                    data={data}
                                 />
                             </Grid>
-                        </Container> */}
+                        </Container>
                     </Grid>
                 </div>
             )}
