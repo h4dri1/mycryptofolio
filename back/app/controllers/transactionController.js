@@ -10,7 +10,7 @@ module.exports = {
             let objTransactions;
             let portfolio = {};
             let value = {};
-            let buy = {}
+            let buy = {};
             let objRepartition = {};
             let objPerformance = {};
             let sumValue = 0;
@@ -49,17 +49,30 @@ module.exports = {
 
             for (const crypto of cryptos) {
                 objRepartition[crypto.coin_id] = {}
-                objRepartition[crypto.coin_id].name = crypto.symbol
-                objRepartition[crypto.coin_id].quantity = total[crypto.coin_id]
-                objRepartition[crypto.coin_id].value = value[crypto.coin_id]
-                objRepartition[crypto.coin_id].distribution = (100 * value[crypto.coin_id])/sumValue;
+                if (!value[crypto.coin_id]) {
+                    objRepartition[crypto.coin_id].name = "";
+                    objRepartition[crypto.coin_id].quantity = "";
+                    objRepartition[crypto.coin_id].value = "";              
+                    objRepartition[crypto.coin_id].distribution = "";
+                } else {
+                    objRepartition[crypto.coin_id].name = crypto.symbol
+                    objRepartition[crypto.coin_id].quantity = total[crypto.coin_id]
+                    objRepartition[crypto.coin_id].value = value[crypto.coin_id]
+                    objRepartition[crypto.coin_id].distribution = (100 * value[crypto.coin_id])/sumValue;
+                }   
             }
 
             const pnl = sumValue - sumBuy;
 
-            objPerformance.investment = sumBuy;
-            objPerformance.actual_value = sumValue;
-            objPerformance.pnl = pnl;
+            if (pnl === 0 | pnl < 0) {
+                objPerformance.investment = "";
+                objPerformance.actual_value = "";
+                objPerformance.pnl = "";
+            } else {
+                objPerformance.investment = sumBuy;
+                objPerformance.actual_value = sumValue;
+                objPerformance.pnl = pnl;
+            }
 
             const newObjTransactions = Object.values(objTransactions);
             const newObjRepartition = Object.values(objRepartition);
