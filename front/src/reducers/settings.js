@@ -1,11 +1,17 @@
 import {
   TOGGLE_DARK_MODE,
   TOGGLE_LOGIN_MODAL,
+  SET_DISPLAY_SNACK_BAR,
 } from 'src/actions/settings';
 
 export const initialState = {
   darkMode: false,
   loginIsOpen: false,
+  alert: {
+    open: false,
+    severity: 'success',
+    message: '',
+  },
 };
 
 const settings = (state = initialState, action = {}) => {
@@ -24,6 +30,16 @@ const settings = (state = initialState, action = {}) => {
       });
     }
 
+    case SET_DISPLAY_SNACK_BAR: {
+      return ({
+        ...state,
+        alert: {
+          severity: action.payload ? action.payload.severity : 'success',
+          message: action.payload ? action.payload.message : '',
+          open: !state.alert.open,
+        },
+      });
+    }
     default:
       return state;
   }

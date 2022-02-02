@@ -4,13 +4,16 @@ import {
   SAVE_USER,
   LOGOUT,
   SAVE_NEW_TOKEN,
+  EXISTING_USER_TOGGLE,
 } from '../actions/user';
 
 export const initialState = {
   logged: false,
+  existingUser: true,
   email: 'test@test.fr',
   password: '#0clock$0087',
   nickname: '',
+  passwordCheck: '',
   avatar: '',
   accessToken: '',
 };
@@ -57,6 +60,12 @@ const reducer = (state = initialState, action = {}) => {
       });
     }
 
+    case EXISTING_USER_TOGGLE: {
+      return ({
+        ...state,
+        existingUser: !state.existingUser,
+      });
+    }
     default:
       return state;
   }

@@ -5,6 +5,7 @@ import {
   logout,
   saveUser,
   CHECK_TOKEN,
+  REGISTER,
 } from 'src/actions/user';
 import { toggleLoginModal } from 'src/actions/settings';
 import parseJwt from 'src/services/parseJwt';
@@ -60,6 +61,10 @@ const auth = (store) => (next) => async (action) => {
       next(action);
       break;
 
+    case REGISTER:
+      console.log('here');
+      next(action);
+      break;
     case CHECK_TOKEN:
 
       // console.log('isTokenExpired', isTokenExpired());
