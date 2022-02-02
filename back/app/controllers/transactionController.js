@@ -144,7 +144,7 @@ module.exports = {
                 if (req.body.quantity > 0) {
                     return res.status(500).json('Quantity of sell must be a negative number')
                 }
-                const wallet = cryptos.find(element => element.wallet_id === Number(req.params.wid & element.coin_id === req.body.coin_id));
+                const wallet = cryptos.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
                 if (wallet === undefined) {
                     return res.status(500).json('You are trying to sell coins that are not present in this wallet')
                 }
