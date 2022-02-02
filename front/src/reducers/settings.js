@@ -34,7 +34,7 @@ const settings = (state = initialState, action = {}) => {
       return ({
         ...state,
         alert: {
-          severity: action.payload ? action.payload.severity : 'success',
+          severity: action.payload ? action.payload.severity : state.alert.severity,
           message: action.payload ? action.payload.message : '',
           open: !state.alert.open,
         },

@@ -23,8 +23,6 @@ import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
 
-import AlertMsg from 'src/components/common/AlertMessage';
-
 export default function LoginRegister({ type, handleFormSubmit }) {
   // get the user state
   const {
@@ -47,9 +45,15 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   };
 
   const handleSubmit = () => {
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
     if (type === 'register') {
       if (password !== passwordCheck) {
         dispatch(setDisplaySnackBar({ severity: 'error', message: 'Les mots de passe saisis ne sont pas identiques' }));
+        return;
+      }
+      // eslint-disable-next-line no-else-return
+      else if (!regex.test(password)) {
+        dispatch(setDisplaySnackBar({ severity: 'error', message: 'Votre mot de passe doit avoir une taille d\'au moins 8 charactères et contenir: une lettre majuscule, une lettre minuscule, un chiffre et un charactère spécial' }));
         return;
       }
     }
@@ -58,7 +62,6 @@ export default function LoginRegister({ type, handleFormSubmit }) {
 
   return (
     <>
-      <AlertMsg />
       <Container>
         <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
       </Container>

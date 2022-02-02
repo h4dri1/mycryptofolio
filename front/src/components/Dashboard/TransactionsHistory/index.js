@@ -49,7 +49,7 @@ const TransactionsHistory = () => {
               {!transaction.buy
                 ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
                 : <TableCell align="center">-</TableCell>}
-              <TableCell align="center">{transaction.quantity}</TableCell>
+              <TableCell align="center">{transaction.buy ? transaction.quantity : transaction.quantity * -1}</TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
               <TableCell align="right">{transaction.rentability}%</TableCell>
               <TableCell align="right">

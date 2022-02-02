@@ -10,17 +10,18 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Paper } from '@mui/material';
 
+import AlertMsg from 'src/components/common/AlertMessage';
+
 // == Composant
 
 const App = () => {
-
   // DARK MODE
-  const { darkMode } = useSelector((state) => state.settings)
+  const { darkMode } = useSelector((state) => state.settings);
 
   // COLOR PALETTE for LIGHT & DARK modes
   const theme = createTheme({
     palette: {
-      mode: darkMode ? "dark" : "light",
+      mode: darkMode ? 'dark' : 'light',
       primary: {
         light: '#aa90d7',
         main: '#3A0CA3',
@@ -51,14 +52,15 @@ const App = () => {
     <div className="app">
       <ThemeProvider theme={theme}>
         {/* <Paper> */}
-          <CssBaseline />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/crypto-details/:slug" element={<CryptoPage />} />
-            <Route path="/portfolio" element={<Portfolio />}>
-              <Route path="/portfolio/:walletName" element={<Portfolio />} />
-            </Route>
-          </Routes>
+        <CssBaseline />
+        <AlertMsg />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/crypto-details/:slug" element={<CryptoPage />} />
+          <Route path="/portfolio" element={<Portfolio />}>
+            <Route path="/portfolio/:walletName" element={<Portfolio />} />
+          </Route>
+        </Routes>
         {/* </Paper> */}
       </ThemeProvider>
     </div>

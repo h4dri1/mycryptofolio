@@ -11,6 +11,7 @@ import {
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
+import { setDisplaySnackBar } from 'src/actions/settings';
 
 const portfolio = (store) => (next) => (action) => {
   switch (action.type) {
@@ -131,7 +132,7 @@ const portfolio = (store) => (next) => (action) => {
 
       // * Pour éviter d'envoyer une transaction orpheline à l'API
       if (!walletId) {
-        alert('Veuillez selectionner un portefeuille pour votre transaction');
+        store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez selectionner un portefeuille pour votre transaction' }));
         next(action);
         break;
       }
