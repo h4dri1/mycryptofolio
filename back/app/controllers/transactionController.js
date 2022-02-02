@@ -144,18 +144,14 @@ module.exports = {
                 if (req.body.quantity > 0) {
                     return res.status(500).json('Quantity of sell must be a negative number')
                 }
-                for (const crypto of cryptos) {
-                    if (crypto.wallet_id === Number(req.params.wid)) {
-                        if (crypto.coin_id === req.body.coin_id) {
-                            if ((crypto.total + req.body.quantity) < 0) {
-                                return res.status(500).json('You trying to sell more coin than you have')
-                            }
-                        } else {
-                            return res.status(500).json('You are trying to sell coins that are not present in this wallet')
-                        }
-                    }
-                }                
-            }
+                const wallet = cryptos.find(element => element.wallet_id === Number(req.params.wid & element.coin_id === req.body.coin_id));
+                if (wallet === undefined) {
+                    return res.status(500).json('You are trying to sell coins that are not present in this wallet')
+                }
+                if ((wallet.total + req.body.quantity) < 0) {
+                    return res.status(500).json('You trying to sell more coin than you have')
+                }                   
+            }             
             const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
             const instance = new Transaction(req.body);
             delete instance.coin_id;
