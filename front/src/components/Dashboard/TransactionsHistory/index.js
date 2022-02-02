@@ -7,19 +7,18 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Divider from '@mui/material/Divider';
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 
-import { getTransactionsHist } from 'src/actions/portfolio';
+import { useSelector } from 'react-redux';
+
+import { deleteTransaction } from 'src/actions/portfolio';
 
 const TransactionsHistory = () => {
-  const dispatch = useDispatch();
+  const { transactions } = useSelector((state) => state.portfolio);
 
-  const { transactionsList } = useSelector((state) => state.portfolio);
-
-  useEffect(() => {
-    dispatch(getTransactionsHist());
-  }, []);
+  const handleEditTransaction = () => {
+    console.log('Edit transaction');
+  };
 
   return (
     <Box sx={{
@@ -37,12 +36,13 @@ const TransactionsHistory = () => {
             <TableCell align="center">Quantité</TableCell>
             <TableCell align="center">Date</TableCell>
             <TableCell align="right">%</TableCell>
+            <TableCell align="right" />
           </TableRow>
         </TableHead>
         <TableBody>
-          {transactionsList.map((transaction) => (
+          {transactions.map((transaction) => (
             <TableRow key={transaction.id}>
-              <TableCell align="left">{transaction.crypto_id}</TableCell>
+              <TableCell align="left">{transaction.symbol}</TableCell>
               {transaction.buy
                 ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
                 : <TableCell align="center">-</TableCell>}
@@ -52,6 +52,14 @@ const TransactionsHistory = () => {
               <TableCell align="center">{transaction.quantity}</TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
               <TableCell align="right">{transaction.rentability}%</TableCell>
+              <TableCell align="right">
+                <EditOrDeleteItem
+                  positionAbsolute={false}
+                  editItem={handleEditTransaction}
+                  deleteItem={deleteTransaction}
+                  itemId={transaction.id}
+                />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
