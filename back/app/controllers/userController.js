@@ -51,7 +51,7 @@ module.exports = {
                 };                
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
                 res.setHeader('Authorization', token);
-                res.status(201).json(response);
+                return res.status(201).json(response);
             }
             const token = jwt.makeToken(user);
             const refreshToken = jwt.makeRefreshToken(newUser);
@@ -61,7 +61,7 @@ module.exports = {
             };                
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', token);
-            res.status(204).json(response);
+            return res.status(204).json(response);
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message);
