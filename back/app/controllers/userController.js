@@ -50,7 +50,7 @@ module.exports = {
                 };                
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
                 res.setHeader('Authorization', newUser);
-                res.status(201).json(response);
+                res.status(200).json(response);
             }
             const refreshToken = jwt.makeRefreshToken(newUser);
             const response = {
