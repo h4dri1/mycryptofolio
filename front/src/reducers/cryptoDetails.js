@@ -1,14 +1,14 @@
 import {
-    GET_CRYPTO_DESCRIPTION, GET_INDICATORS, GET_CRYPTO_DATA
+    GET_CRYPTO_DESCRIPTION, GET_INDICATORS, FETCH_CRYPTO_DATA
 } from 'src/actions/cryptoDetails';
 
 const initialState = {
     data: {
-        id: null,
-        symbol: "",
-        name: "",
+        id: "Bitcoin",
+        symbol: "BTC",
+        name: "Bitcoin",
         description: {
-            en: ""
+            en: "test"
         },
         links: {
             homepage: []
@@ -64,7 +64,7 @@ const initialState = {
     }
 }
 
-const cryptoDetails = (state = initialState, action = {}) => {
+const cryptoDetailsReducer = (state = initialState, action = {}) => {
     switch (action.type) {
         case GET_CRYPTO_DESCRIPTION:
             return {
@@ -76,10 +76,11 @@ const cryptoDetails = (state = initialState, action = {}) => {
                 ...state,
                 market_data: action.payload,
             };
-        case GET_CRYPTO_DATA:
+        case FETCH_CRYPTO_DATA:
             return {
                 ...state,
-                chart: action.payload,
+                id: action.payload
+
             };
 
         default:
@@ -87,4 +88,4 @@ const cryptoDetails = (state = initialState, action = {}) => {
     }
 };
 
-export default cryptoDetails;
+export default cryptoDetailsReducer;

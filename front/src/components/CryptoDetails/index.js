@@ -1,15 +1,16 @@
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
-import Converter from './Converter';
-import Description from './Description';
-import Graph from './Graph';
 import Indicators from './Indicators';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
+
+import Converter from './Converter';
+import Description from './Description';
+import Graph from './Graph';
 // import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCryptoData } from 'src/actions/cryptoDetails';
+import { fetchCryptoData } from 'src/actions/cryptoDetails';
 
 const useStyles = makeStyles({
     grid: {
@@ -35,9 +36,12 @@ const CryptoDetails = ({ }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    const { data } = useSelector((state) => state.cryptoDetails);
+
     useEffect(() => {
-        dispatch(getCryptoData());
+        dispatch(fetchCryptoData());
     }, []);
+
 
     return (
         <div className="">
@@ -46,7 +50,7 @@ const CryptoDetails = ({ }) => {
                     <Grid item xs={12} className={classes.gridItem}>
                         <Grid item xs={11} md={6} className={classes.gridSubItem}>
                             <Description sx={{ gridAutoRows: '100px' }}
-                                description={data.description}
+                                description={data.description.en}
                             />
                         </Grid>
                     </Grid>

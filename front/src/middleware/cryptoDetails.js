@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-import { GET_CRYPTO_DATA } from 'src/actions/cryptoDetails';
+import { FETCH_CRYPTO_DATA, fetchCryptoData } from 'src/actions/cryptoDetails';
 // import { getCryptoData } from '../actions/cryptoDetails';
 
 const cryptoDetails = (store) => (next) => (action) => {
     switch (action.type) {
-        case GET_CRYPTO_DATA:
-            store.dispatch(getCryptoData());
-            console.log(getCryptoData);
+        case FETCH_CRYPTO_DATA:
+            store.dispatch(fetchCryptoData());
+            console.log(fetchCryptoData);
 
             axios({
                 method: 'get',
-                url: 'https://dev.mycryptofolio.fr/v1/crypto/Ethereum',
+                url: `https://dev.mycryptofolio.fr/v1/crypto/${slug}`,
             })
                 .then((res) => {
-                    store.dispatch(getCryptoData(res.data));
+                    store.dispatch(fetchCryptoData(res.data));
                 })
                 .catch((err) => console.log(err));
 
