@@ -24,3 +24,5 @@ CREATE FUNCTION update_user(json) RETURNS "user" AS $$
 $$ LANGUAGE SQL STRICT;
 
 COMMIT;
+
+

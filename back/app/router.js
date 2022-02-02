@@ -167,18 +167,26 @@ router.get('/trending', cache, cryptoController.getTrendingCryptos);
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio', cache, jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', cache, jwtMW, fetchMW, transactionController.getPortfolio);
+/**
+ * GET /v1/portfolio/wallet/{wallet_id}
+ * @summary Crypto
+ * @route GET /v1/portfolio/wallet/{wallet_id}
+ * @returns {object} 200 - Crypto object
+ * @returns {object} 500 - An error message
+ */
 
-router.post('/portfolio/wallet/:wid/transaction', flush, jwtMW, validateBody(transactionSchema), transactionController.addTransaction);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
-router.post('/portfolio/wallet', flush,  jwtMW, validateBody(walletSchema), walletController.addWallet);
+router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), transactionController.addTransaction);
 
-router.post('/signup', flush,  validateBody(signupSchema), userController.addUser);
+router.post('/portfolio/wallet', jwtMW, flush, validateBody(walletSchema), walletController.addWallet);
 
-router.delete('/portfolio/transaction/:tid', flush, jwtMW, transactionController.deleteTransaction);
+router.post('/signup', flush, validateBody(signupSchema), userController.addUser);
 
-router.delete('/portfolio/wallet/:wid', flush, jwtMW, walletController.deleteWallet);
+router.delete('/portfolio/transaction/:tid(\\d+)', jwtMW, flush, transactionController.deleteTransaction);
+
+router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, flush, walletController.deleteWallet);
 
 module.exports = router;
