@@ -152,7 +152,10 @@ const portfolio = (store) => (next) => (action) => {
           console.log(res);
           store.dispatch(fetchPortfolio());
         })
-        .catch((err) => console.log(err.response));
+        .catch((err) => {
+          console.log(err.response);
+          alert(err.response.data);
+        });
       next(action);
       break;
     case DELETE_TRANSACTION:
