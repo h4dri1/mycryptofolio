@@ -94,7 +94,7 @@ POST http://localhost:8888/v1/signup HTTP/1.1
 content-type: application/json
 
 {
-  "email": "test3@test.fr",
+  "email": "test10@test.fr",
   "nickname": "test3",
   "password": "#Cafard0087",
   "passwordCheck": "#Cafard0087",

@@ -7,14 +7,12 @@ module.exports = {
             const instance = new Wallet(req.body);
             instance.user_id = req.userId.id;
             const wallet = await instance.save();
-            if (wallet) {
-                wallet.sum = 0;
-                res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
-                res.setHeader('Authorization', jwt.makeToken(req.userId));
-                return res.status(201).json(wallet);
-            }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
+            if (wallet) {
+                wallet.sum = 0;
+                return res.status(201).json(wallet);
+            }
             res.status(204).json(wallet);
         } catch (error) {
             console.log(error);
