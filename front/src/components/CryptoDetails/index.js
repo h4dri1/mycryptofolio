@@ -50,14 +50,14 @@ const CryptoDetails = () => {
             {!loading && (
                 <div className="">
                     <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-                        <Container sx={{ display: 'flex', gridAutoFlow: 'row' }}>
+                        <Container maxWidth={'100%'} sx={{ display: 'flex', gridAutoFlow: 'row' }}>
                             <Grid item xs={12} className={classes.gridItem}>
                                 <Grid item xs={11} md={6} className={classes.gridSubItem}>
                                     <Description sx={{ gridAutoRows: '100px' }}
                                         data={data}
                                     />
                                 </Grid>
-                            </Grid>
+                            </Grid >
                             <Container className={classes.gridItem}>
                                 <Grid item xs={4} className={classes.gridSubItem}>
                                     <Indicators

@@ -7,7 +7,7 @@ export default function Description({ data }) {
 
     // SANITIZE the HTML crypto description
     const createMarkup = () => ({
-        __html: DOMPurify.sanitize(data.description.en, { ALLOWED_TAGS: [] }),
+        __html: DOMPurify.sanitize(data.description, { ALLOWED_TAGS: [] }),
     });
 
     return (
@@ -21,7 +21,12 @@ export default function Description({ data }) {
                         loading="lazy"
                     />
                 </Box>
-                <p>{data.description.en}</p> {/* dangerouslySetInnerHTML={createMarkup()} */}
+                <Box>
+                    {/* <p  */}
+                    {data.description}
+                    {/* dangerouslySetInnerHTML={createMarkup()}  */}
+                    {/* /> */}
+                </Box>
             </Box>
         </div >
     );
