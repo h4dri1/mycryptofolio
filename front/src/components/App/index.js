@@ -51,14 +51,14 @@ const App = () => {
     <div className="app">
       <ThemeProvider theme={theme}>
         {/* <Paper> */}
-          <CssBaseline />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/crypto-details/:slug" element={<CryptoPage />} />
-            <Route path="/portfolio" element={<Portfolio />}>
-              <Route path="/portfolio/:walletName" element={<Portfolio />} />
-            </Route>
-          </Routes>
+        <CssBaseline />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/crypto/:slug" element={<CryptoPage />} />
+          <Route path="/portfolio" element={<Portfolio />}>
+            <Route path="/portfolio/:walletName" element={<Portfolio />} />
+          </Route>
+        </Routes>
         {/* </Paper> */}
       </ThemeProvider>
     </div>

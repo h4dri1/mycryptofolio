@@ -1,18 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIndicators } from 'src/actions/cryptoDetails';
+// import { getIndicators } from 'src/actions/cryptoDetails';
+import PropTypes from 'prop-types';
 
 import { Box, Typography } from '@mui/material';
 
-export default function Indicators() {
+export default function Indicators({ data }) {
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getIndicators());
-    }, []);
-
-    const { data } = useSelector((state) => state.cryptoDetails);
 
     return (
         <>
@@ -109,3 +104,7 @@ export default function Indicators() {
         </>
     );
 }
+
+Indicators.propTypes = {
+    data: PropTypes.object.isRequired,
+};

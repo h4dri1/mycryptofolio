@@ -1,26 +1,14 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import PropTypes from 'prop-types';
-import { getCryptoDescription } from 'src/actions/cryptoDetails';
+import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 
 import { Box } from '@mui/system';
 
-export default function Description({ }) {
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getCryptoDescription());
-    }, []);
+export default function Description({ data }) {
 
     // SANITIZE the HTML crypto description
     const createMarkup = () => ({
         __html: DOMPurify.sanitize(data.description.en, { ALLOWED_TAGS: [] }),
     });
-
-    const { data } = useSelector((state) => state.cryptoDetails);
-    // console.log(data.description.en);
 
     return (
         <div className="">
@@ -33,14 +21,12 @@ export default function Description({ }) {
                         loading="lazy"
                     />
                 </Box>
-                <p {...data.description.en} dangerouslySetInnerHTML={createMarkup()} />
+                <p>{data.description.en}</p> {/* dangerouslySetInnerHTML={createMarkup()} */}
             </Box>
         </div >
     );
 }
 
-// Description.propTypes = {
-//     crypto: PropTypes.arrayOf(PropTypes.shape({
-//         description: PropTypes.string.isRequired,
-//     })).isRequired,
-// };
+Description.propTypes = {
+    data: PropTypes.object.isRequired,
+};
