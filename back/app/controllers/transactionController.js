@@ -153,7 +153,7 @@ module.exports = {
                 }                   
             } else {
                 if (req.body.quantity < 0) {
-                    return res.status(500).json('Quantity of sell must be a positive number')
+                    return res.status(500).json('Quantity of buy must be a positive number')
                 }
             }           
             const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
