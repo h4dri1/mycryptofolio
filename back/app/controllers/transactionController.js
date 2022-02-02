@@ -151,7 +151,11 @@ module.exports = {
                 if ((wallet.total + req.body.quantity) < 0) {
                     return res.status(500).json('You trying to sell more coin than you have')
                 }                   
-            }             
+            } else {
+                if (req.body.quantity < 0) {
+                    return res.status(500).json('Quantity of sell must be a positive number')
+                }
+            }           
             const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
             const instance = new Transaction(req.body);
             delete instance.coin_id;
