@@ -141,6 +141,9 @@ module.exports = {
             }
             const cryptos = await Transaction.getUserCrypto(req.userId.id);
             if (!req.body.buy) {
+                if (req.body.quantity > 0) {
+                    return res.status(500).json('Quantity of sell must be a negative number')
+                }
                 for (const crypto of cryptos) {
                     if (crypto.wallet_id === Number(req.params.wid)) {
                         if (crypto.coin_id === req.body.coin_id) {
