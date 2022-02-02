@@ -1,16 +1,15 @@
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio } from 'src/actions/portfolio';
 import Converter from './Converter';
 import Description from './Description';
 import Graph from './Graph';
 import Indicators from './Indicators';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCryptoData } from 'src/actions/cryptoDetails';
 
 const useStyles = makeStyles({
     grid: {
@@ -34,7 +33,11 @@ const useStyles = makeStyles({
 const CryptoDetails = ({ }) => {
 
     const classes = useStyles();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCryptoData());
+    }, []);
 
     return (
         <div className="">
@@ -43,15 +46,15 @@ const CryptoDetails = ({ }) => {
                     <Grid item xs={12} className={classes.gridItem}>
                         <Grid item xs={11} md={6} className={classes.gridSubItem}>
                             <Description sx={{ gridAutoRows: '100px' }}
-                                description={crypto.description}
+                                description={data.description}
                             />
                         </Grid>
                     </Grid>
                     <Container className={classes.gridItem}>
                         <Grid item xs={4} className={classes.gridSubItem}>
                             <Indicators
-                                symbol={crypto.symbol}
-                                name={crypto.name}
+                                symbol={data.symbol}
+                                name={data.name}
                             />
                         </Grid>
                         <Divider sx={{ width: "100%", mt: 2, mb: 2 }}></Divider>
