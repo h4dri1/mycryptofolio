@@ -34,7 +34,7 @@ const TransactionCreatorForm = ({ buy }) => {
   const { currentPrice } = useSelector((state) => state.cryptos);
 
   const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
-  const [quantity, setQuantity] = useState(null);
+  const [quantity, setQuantity] = useState('');
   const [dateValue, setDateValue] = useState(new Date());
   // eslint-disable-next-line max-len
   const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
