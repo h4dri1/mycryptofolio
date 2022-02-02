@@ -8,6 +8,7 @@ module.exports = {
             instance.user_id = req.userId.id;
             const wallet = await instance.save();
             if (wallet) {
+                wallet.sum = 0;
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
                 res.setHeader('Authorization', jwt.makeToken(req.userId));
                 return res.status(201).json(wallet);
