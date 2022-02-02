@@ -43,13 +43,23 @@ module.exports = {
             const newUser = await instance.save();
             delete newUser.password;
             if (newUser) {
+                const refreshToken = jwt.makeRefreshToken(newUser);
+                const response = {
+                    "status": `(JWT) Bienvenue ${user.nickname}`,
+                    "refreshToken": refreshToken
+                };                
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
                 res.setHeader('Authorization', newUser);
-                return res.status(201).json(newUser);
+                return res.status(201).json(response);
             }
+            const refreshToken = jwt.makeRefreshToken(newUser);
+            const response = {
+                "status": `(JWT) Bienvenue ${user.nickname}`,
+                "refreshToken": refreshToken
+            };                
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', newUser);
-            res.status(204).json(newUser);
+            return res.status(204).json(response);
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message);
