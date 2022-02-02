@@ -6,6 +6,7 @@ import rootReducer from 'src/reducers';
 import auth from '../middleware/auth';
 import cryptoList from '../middleware/cryptoList';
 import portfolio from '../middleware/portfolio';
+import cryptoDetails from '../middleware/cryptoDetails';
 
 // == Enhancers
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -15,6 +16,7 @@ const enhancers = composeEnhancers(
     auth,
     cryptoList,
     portfolio,
+    cryptoDetails,
   ),
 );
 
