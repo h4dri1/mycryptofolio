@@ -11,6 +11,7 @@ import {
 } from 'chart.js';
 
 import { Line } from 'react-chartjs-2';
+import { fetchCryptoData } from 'src/actions/cryptoDetails';
 
 // import PropTypes from 'prop-types';
 import { useEffect } from 'react';
@@ -39,29 +40,29 @@ const options = {
         },
     },
 };
-// console.log(cryptoDetails.id);
+// console.log(cryptoDetails);
 
-// const dataDays = ['Jan 05', 'Jan 09', 'Jan 13', 'Jan 17', 'Jan 21', 'Jan 25', 'Jan 29'];
+const dataDays = ['Jan 05', 'Jan 09', 'Jan 13', 'Jan 17', 'Jan 21', 'Jan 25', 'Jan 29'];
 
 // mapper sur les jours 
-const dataDays = chart.prices[0].map((item) => (
-    item.prices
-));
+// const dataDays = cryptoDetails.chart.prices[0].map((item) => (
+//     item.prices
+// ));
 
 // mapper sur les cours
-const dataPrices = chart.prices[1].map((item) => (
-    item.prices
-));
+// const dataPrices = chart.prices[1].map((item) => (
+//     item.prices
+// ));
 
-console.log(data.chart.prices);
+// console.log(crypto.id);
 
 const data = {
     labels: dataDays,
     datasets: [
         {
             label: 'Dataset 1',
-            // data: ['38096', '37112', '37166', '36998', '32204', '33320', '33851'],
-            data: dataPrices,
+            data: ['38096', '37112', '37166', '36998', '32204', '33320', '33851'],
+            // data: dataPrices,
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
         },
@@ -71,13 +72,11 @@ const data = {
 export default function Graph({ }) {
     const dispatch = useDispatch();
 
-    const { data, chart } = useSelector((state) => state);
-    // const { prices } = useSelector((state) => state.cryptoDetails.chart);
+    const selectedData = useSelector((state) => state.cryptoDetails.data);
 
-    console.log(data, cryptoDetails, chart);
-    useEffect(() => {
-        dispatch(getCryptoData());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(fetchCryptoData());
+    // }, []);
 
 
     return <Line options={options} data={data} height={50} />;
