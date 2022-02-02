@@ -64,15 +64,9 @@ module.exports = {
 
             const pnl = sumValue - sumBuy;
 
-            if (pnl === 0 | pnl < 0) {
-                objPerformance.investment = "";
-                objPerformance.actual_value = "";
-                objPerformance.pnl = "";
-            } else {
-                objPerformance.investment = sumBuy;
-                objPerformance.actual_value = sumValue;
-                objPerformance.pnl = pnl;
-            }
+            objPerformance.investment = sumBuy;
+            objPerformance.actual_value = sumValue;
+            objPerformance.pnl = pnl;
 
             const newObjTransactions = Object.values(objTransactions);
             const newObjRepartition = Object.values(objRepartition);
