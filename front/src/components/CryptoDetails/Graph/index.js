@@ -59,22 +59,33 @@ export default function Graph({ data, chart }) {
                 label: 'cours actuel',
                 // data: ['38096', '37112', '37166', '36998', '32204', '33320', '33851'],
                 data: dataPrices,
-                borderColor: 'rgb(255, 99, 132)',
+                borderColor: [
+                    'rgb(244, 67, 54)',
+                ],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    // 'rgba(54, 162, 235, 0.2)',
-                    // 'rgba(255, 206, 86, 0.2)',
+                    'rgb(244, 67, 54)',
                 ],
             },
             {
                 label: 'Market cap.',
                 data: ['38096', '37112', '37166', '36998', '32204', '33320', '33851'],
                 // data: dataPrices,
-                borderColor: 'rgb(255, 99, 132)',
+                borderColor: [
+                    'rgb(170, 144, 215)'
+                ],
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    // 'rgba(153, 102, 255, 0.2)',
-                    // 'rgba(255, 159, 64, 0.2)',
+                    'rgb(170, 144, 215)'
+                ],
+            },
+            {
+                label: 'Market vol.',
+                data: ['38096', '37112', '37166', '36998', '32204', '33320', '33851'],
+                // data: dataPrices,
+                borderColor: [
+                    'rgb(67, 97, 238)'
+                ],
+                backgroundColor: [
+                    'rgb(67, 97, 238)'
                 ],
             },
         ],
