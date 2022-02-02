@@ -15,7 +15,7 @@ export default function Indicators({ data }) {
 
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary' }}>
                 <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
-                    Prix actuel:</Typography>
+                    Contrevaleur:</Typography>
                 <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold', color: 'text.secondary' }}>
                     {/* {data.market_data.current_price.`${slug}`} */}</Typography>
             </Box>
@@ -27,18 +27,16 @@ export default function Indicators({ data }) {
                     {/* {data.market_data.market_cap.`${slug}` } */}</Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', color: 'text.secondary' }}>
                 <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
                     Total volume:</Typography>
-                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
-                    {/* {data.market_data.total_volume.`${slug}` } */}</Typography>
-            </Box>
+                <Typography sx={{ mx: 1, fontSize: 10.8 }} >BTC:</Typography>
+                <Typography sx={{ fontWeight: 'normal', fontSize: 10.8, color: "secondary.main", fontWeight: 'bold' }}>
+                    {data.market_data.total_volume.btc}</Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary' }}>
-                <Typography sx={{ fontWeight: 'bold', fontSize: 14 }}>
-                    Total volume:</Typography>
-                <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 12, color: "secondary.main", fontWeight: 'bold' }}>
-                    {/* {data.market_data.total_volume.`${slug}` } */}</Typography>
+                <Typography sx={{ mx: 1, fontSize: 10.8 }}>ETH:</Typography>
+                <Typography sx={{ mx: 1, fontSize: 10.8 }}>EUR:</Typography><Typography sx={{ mx: 1, fontSize: 10.8 }}>USD:</Typography>
+
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary' }}>
