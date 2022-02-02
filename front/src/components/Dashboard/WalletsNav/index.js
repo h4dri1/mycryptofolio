@@ -6,57 +6,39 @@ import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
 
-import { Link, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
-import { toggleCreatePortfolioModal, updateSelectedPortfolio } from 'src/actions/portfolio';
+import {
+  toggleCreateWalletModal, updateSelectedWallet, fetchSpecificPortfolio, fetchPortfolio,
+  deleteWallet, toggleUpdateWalletModal,
+} from 'src/actions/portfolio';
 
-import AddPortfolio from './AddPortfolio';
+import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
+import AddWallet from './AddWallet';
+import EditWallet from './EditWallet';
 
-const portfolios = [
-  {
-    name: 'Daily trading',
-    holdings: '7830',
-  },
-  {
-    name: 'HODL',
-    holdings: '23968',
-  },
-  {
-    name: 'Long term',
-    holdings: '2892',
-  },
-  {
-    name: 'Mid term',
-    holdings: '1000',
-  }, {
-    name: 'Savings 1',
-    holdings: '7810',
-  },
-  {
-    name: 'Savings 2',
-    holdings: '5000',
-  }, {
-    name: 'Savings 3',
-    holdings: '250',
-  },
-];
-
-const WalletsNav = () => {
+const WalletsNav = ({ wallets, selectedWallet }) => {
   const dispatch = useDispatch();
-  const { portfolioName } = useParams();
-  const { selectedPortfolio } = useSelector((state) => state.portfolio);
 
-  useEffect(() => {
-    dispatch(updateSelectedPortfolio(portfolioName));
-  }, [portfolioName]);
+  const toSlug = (walletFullName) => walletFullName.split(' ').join('-').toLowerCase();
+
+  const handleLinkClick = (walletId) => {
+    dispatch(updateSelectedWallet(walletId));
+    dispatch(fetchSpecificPortfolio(walletId));
+  };
+
+  const handleMainLinkClick = () => {
+    dispatch(updateSelectedWallet(''));
+    dispatch(fetchPortfolio());
+  };
 
   return (
     <>
       <Grid container>
         <Grid item xs={12}>
-          <Link to="/portfolio" style={{ textDecoration: 'none' }}>
+          <Link to="/portfolio" style={{ textDecoration: 'none' }} onClick={() => handleMainLinkClick()}>
             <ListItemButton sx={{ paddingBottom: '0px' }}>
               <Box
                 component="span"
@@ -65,7 +47,7 @@ const WalletsNav = () => {
                   maxWidth: '40vw',
                   borderRadius: '60%',
                   border: 'solid 2px primary.main',
-                  bgcolor: "primary.main",
+                  bgcolor: 'primary.main',
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',
@@ -79,7 +61,11 @@ const WalletsNav = () => {
                   },
                 },
                 ]}
-              ><Typography>$52,637.35</Typography>
+              >
+                <Typography>{wallets.length > 0
+                  && `$${Math.round(wallets.reduce((total, wallet) => total + wallet.sum, 0))
+                    .toLocaleString()}`}
+                </Typography>
               </Box>
             </ListItemButton>
           </Link>
@@ -87,8 +73,8 @@ const WalletsNav = () => {
         <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '30vh' }}>
           <List>
             {
-              portfolios.map((portfolio) => (
-                <Link key={portfolio.name} to={portfolio.name} style={{ textDecoration: 'none', color: 'black' }}>
+              wallets.map((wallet) => (
+                <Link key={wallet.id} to={toSlug(wallet.label)} style={{ textDecoration: 'none', color: 'black' }} onClick={() => handleLinkClick(wallet.id)}>
                   <ListItemButton>
                     <Box sx={{
                       display: 'flex', width: '100%', alignItems: 'center', position: 'relative',
@@ -102,10 +88,10 @@ const WalletsNav = () => {
                           borderRadius: '50%',
                           border: 'solid 2px',
                           borderColor: 'primary.light',
-                          background: 'white',
+                          backgroundColor: 'white',
                           marginLeft: '5%',
-                          ...(portfolio.name === selectedPortfolio && {
-                            bgcolor: 'primary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold'
+                          ...(wallet.id === selectedWallet && {
+                            backgroundColor: 'primary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold',
                           }),
                           display: 'flex',
                           alignItems: 'center',
@@ -132,10 +118,16 @@ const WalletsNav = () => {
                           },
                         },
                         ]}
-                      ><Typography variant="body2">{`$${portfolio.holdings}`}</Typography>
+                      ><Typography variant="body2">{`$${Math.round(wallet.sum).toLocaleString()}`}</Typography>
                       </Box>
-                      <Typography sx={{ color: 'neutral.main' }}>{portfolio.name}</Typography>
+                      <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
+                    <EditOrDeleteItem
+                      positionAbsolute
+                      editItem={toggleUpdateWalletModal}
+                      deleteItem={deleteWallet}
+                      itemId={wallet.id}
+                    />
                   </ListItemButton>
                 </Link>
               ))
@@ -143,14 +135,22 @@ const WalletsNav = () => {
           </List>
         </Grid>
         <Grid item xs={12}>
-          <IconButton sx={{ marginLeft: '12%', padding: '1%' }} onClick={() => dispatch(toggleCreatePortfolioModal())}>
-            <AddCircleIcon sx={{ color: "primary.main" }} fontSize="large" />
+          <IconButton sx={{ marginLeft: '11.5%', padding: '1%' }} onClick={() => dispatch(toggleCreateWalletModal())}>
+            <AddCircleIcon sx={{ color: 'primary.main' }} fontSize="large" />
           </IconButton>
         </Grid>
       </Grid>
-      <AddPortfolio />
+      <AddWallet />
+      <EditWallet />
     </>
   );
+};
+
+WalletsNav.propTypes = {
+  wallets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedWallet: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number]).isRequired,
 };
 
 export default WalletsNav;

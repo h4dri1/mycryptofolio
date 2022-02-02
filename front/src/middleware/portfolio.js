@@ -2,53 +2,93 @@
 import axios from 'axios';
 
 import {
-  GET_TRANSACTIONS_HIST, updateTransactionsHist, CREATE_NEW_PORTFOLIO, toggleCreatePortfolioModal,
+  CREATE_NEW_WALLET, toggleCreateWalletModal,
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
+  FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
+  updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
+  SAVE_TRANSACTION, fetchPortfolio, DELETE_TRANSACTION,
+  UPDATE_WALLET, toggleUpdateWalletModal,
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
 
-import transactionList from 'src/components/Dashboard/TransactionsHistory/data.json';
-
 const portfolio = (store) => (next) => (action) => {
   switch (action.type) {
-    case GET_TRANSACTIONS_HIST:
-      store.dispatch(updateTransactionsHist(transactionList));
+    case CREATE_NEW_WALLET:
+      const { inputText } = store.getState().portfolio.createWallet;
 
-      // axios({
-      //   method: 'get',
-      //   url: `https://dev.mycryptofolio.fr/v1/portfolio/${portfolioId}`,
-      // })
-      //   .then((res) => {
-      //     store.dispatch(updateTransactionsHist(res.data));
-      //   })
-      //   .catch((err) => console.log(err));
-
+      axios({
+        method: 'post',
+        url: 'https://dev.mycryptofolio.fr/v1/portfolio/wallet',
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+        data: {
+          label: inputText,
+        },
+      })
+        .then((res) => {
+          store.dispatch(updateWalletList(res.data));
+          const newAccessToken = res.headers.authorization;
+          store.dispatch(saveNewToken(newAccessToken));
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => store.dispatch(toggleCreateWalletModal()));
       next(action);
       break;
-    case CREATE_NEW_PORTFOLIO:
-      const { inputText } = store.getState().portfolio.createPortfolio;
+    case UPDATE_WALLET:
+      const { inputText: newWalletName } = store.getState().portfolio.editWallet;
 
-      store.dispatch(toggleCreatePortfolioModal());
-      alert(`Le portefeuille ${inputText} a bien été créé.`);
+      axios({
+        method: 'post',
+        url: 'https://dev.mycryptofolio.fr/v1/portfolio/wallet',
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+        data: {
+          id: action.payload,
+          label: newWalletName,
+        },
+      })
+        .then((res) => {
+          const { wallet: wallets } = store.getState().portfolio;
+          wallets.forEach((wallet) => {
+            if (wallet.id === action.payload) wallet.label = newWalletName;
+          });
 
-      // axios({
-      //   method: 'post',
-      //   url: 'https://dev.mycryptofolio.fr/v1/portfolio',
-      //   data: {
-      //     name: inputText,
-      //   },
-      // })
-      //   .then((res) => {
-      //     /*
-      //       Créer une nouvelle action pour mettre à jour la liste des portfolio du client
-      //       store.dispatch(nouvelleAction(res.data))
-      //       store.dispatch(toggleCreatePortfolioModal())
-      //     */
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+          store.dispatch(deleteOrUpdateWalletSuccess(wallets));
+
+          const newAccessToken = res.headers.authorization;
+          store.dispatch(saveNewToken(newAccessToken));
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => store.dispatch(toggleUpdateWalletModal()));
+      next(action);
+      break;
+    case DELETE_WALLET:
+      if (action.payload !== undefined) {
+        axios({
+          method: 'delete',
+          url: `https://dev.mycryptofolio.fr/v1/portfolio/wallet/${action.payload}`,
+          headers: {
+            Authorization: store.getState().user.accessToken,
+          },
+        })
+          .then((res) => {
+            if (res.status === 204) {
+              const { wallet: wallets } = store.getState().portfolio;
+              const updatedWalletList = wallets.filter((wallet) => wallet.id !== action.payload);
+              store.dispatch(deleteOrUpdateWalletSuccess(updatedWalletList));
+              const newAccessToken = res.headers.authorization;
+              store.dispatch(saveNewToken(newAccessToken));
+            }
+          })
+          .catch((err) => console.log(err));
+      }
       next(action);
       break;
     case FETCH_PORTFOLIO:
@@ -67,6 +107,72 @@ const portfolio = (store) => (next) => (action) => {
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => console.log(err));
+      next(action);
+      break;
+    case FETCH_SPECIFIC_PORTFOLIO:
+      axios({
+        method: 'get',
+        url: `https://dev.mycryptofolio.fr/v1/portfolio/wallet/${action.payload}`,
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+      })
+        .then((res) => {
+          store.dispatch(fetchSpecificPortfolioSuccess(res.data));
+          const newAccessToken = res.headers.authorization;
+          store.dispatch(saveNewToken(newAccessToken));
+        })
+        .catch((err) => console.log(err));
+      next(action);
+      break;
+
+    case SAVE_TRANSACTION:
+      const walletId = store.getState().portfolio.selectedWallet;
+
+      // * Pour éviter d'envoyer une transaction orpheline à l'API
+      if (!walletId) {
+        alert('Veuillez selectionner un portefeuille pour votre transaction');
+        next(action);
+        break;
+      }
+      const config = {
+        method: 'post',
+        baseURL: 'https://dev.mycryptofolio.fr/v1',
+        url: `/portfolio/wallet/${walletId}/transaction`,
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+        data: { ...action.payload },
+      };
+
+      console.log('config axios: ', config);
+
+      axios.request(config)
+        .then((res) => {
+          console.log(res);
+          store.dispatch(fetchPortfolio());
+        })
+        .catch((err) => console.log(err.response));
+      next(action);
+      break;
+    case DELETE_TRANSACTION:
+      if (action.payload !== undefined) {
+        axios({
+          method: 'delete',
+          url: `https://dev.mycryptofolio.fr/v1/portfolio/transaction/${action.payload}`,
+          headers: {
+            Authorization: store.getState().user.accessToken,
+          },
+        })
+          .then((res) => {
+            if (res.status === 204) {
+              store.dispatch(fetchPortfolio());
+              const newAccessToken = res.headers.authorization;
+              store.dispatch(saveNewToken(newAccessToken));
+            }
+          })
+          .catch((err) => console.log(err));
+      }
       next(action);
       break;
     default:

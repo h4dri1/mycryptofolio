@@ -1,7 +1,5 @@
-const jwt = require('../services/jwt')
-const { Transaction, Wallet } = require('../models');
-const { id } = require('../schemas/loginSchema');
-const createApplication = require('express/lib/express');
+const jwt = require('../services/jwt');
+const { Transaction, Crypto, Wallet } = require('../models');
 
 module.exports = {
     getPortfolio: async (req, res) => {
@@ -92,9 +90,70 @@ module.exports = {
                 portfolio.wallet = newObjWallet;
             }
 
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    },
+
+    addTransaction: async (req, res) => {
+        try {
+            let own_wallet = false;
+            if (req.body.id) {
+                const is_transaction = await Transaction.getTransactionByPk(req.body.id);
+                if (is_transaction.length === 0) {
+                    return res.status(500).json('No transaction with this id')
+                }
+            }
+            const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
+            if (is_owning_wallet.length === 0) {
+                return res.status(500).json(`You have no wallet create one before add transaction`);
+            } else {
+                for (const own of is_owning_wallet) {
+                    if (Number(req.params.wid) === own.id) {
+                        own_wallet = true;
+                    }
+                }
+                if (!own_wallet) {
+                    return res.status(500).json(`You doesn't own this wallet`)
+                }
+            }
+            const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
+            const instance = new Transaction(req.body);
+            delete instance.coin_id;
+            delete instance.symbol;
+            instance.wallet_id = req.params.wid;
+            instance.crypto_id = crypto_id[0].id;
+            const transaction = await instance.save();
+            if (transaction) {
+                return res.status(201).json(transaction);
+            }
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
+            res.setHeader('Authorization', jwt.makeToken(req.userId));
+            res.status(204).json('Update ok')
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    },
+
+    deleteTransaction: async (req, res) => {
+        try {
+            const is_owning_wallet = await Transaction.getWalletIdByTransaction(req.params.tid);
+            if (is_owning_wallet.length === 0) {
+                return res.status(500).json(`No transaction with this id`);
+            } else {
+                if (req.userId.id !== is_owning_wallet[0].user_id) {
+                    return res.status(500).json(`You doesn't own this wallet`); 
+                }
+                await Transaction.delete(req.params.tid);
+                res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
+                res.setHeader('Authorization', jwt.makeToken(req.userId));
+                res.status(204)
+            }
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);

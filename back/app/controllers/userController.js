@@ -5,7 +5,7 @@ const jwt = require('../services/jwt');
 module.exports = {
     validLoginJwt: async (req, res) => {
         try {
-            const user = await User.doLogin(req.body.email);
+            const user = await User.findOne(req.body.email);
             if (!user) {
                 return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
             }
@@ -28,32 +28,27 @@ module.exports = {
         };
     },
 
-    validLogin: async (req, res) => {
+    addUser: async (req, res) => {
         try {
-            const user = await User.doLogin(req.body.email);
-            if (!user) {
-                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
+            const instance = new User(req.body);
+            const user = await User.findOne(instance.email);
+            if (user) {
+                return res.status(401).json('email already used');
             }
-            const isPwdValid = await bcrypt.compare(req.body.password, user.password);
-            if (isPwdValid === false) {
-                return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
+            if (instance.password !== instance.passwordCheck) {
+                return res.status(401).json('email already used');
             }
-            res.status(200).json(`Bienvenue ${user.nickname}`);
+            instance.password = await bcrypt.hash(instance.password, 10);
+            delete instance.passwordCheck;
+            const newUser = await instance.save();
+            delete newUser.password;
+            if (newUser) {
+                return res.status(201).json(newUser);
+            }
+            res.status(204).json(newUser);
         } catch (error) {
-            return res.status(401).json(error.message);
-        };
-    },
-
-    getSecret: (req, res) => {
-        try {
-            const infos = {
-                message: 'Ceci est un message obtenu après vérif de qui a fait la requête'
-            };
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            res.setHeader('Authorization', jwt.makeToken(req.userId));
-            res.status(200).json(infos);
-        } catch (error) {
-            return res.status(401).json(error.message);
-        };
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
     }
 };

@@ -7,3 +7,7 @@ testTransaction 2022-01-25T10:45:57Z h4dri1 <hadrien.vuillaume@gmail.com> # ajou
 
 view_transaction 2022-01-25T22:09:27Z h4dri1 <hadrien.vuillaume@gmail.com> # création de la vue transaction
 function_invest_value 2022-01-25T22:11:46Z h4dri1 <hadrien.vuillaume@gmail.com> # création des functions invest et value
+function_add_transaction 2022-01-29T20:49:57Z h4dri1 <hadrien.vuillaume@gmail.com> # add function to add a transaction
+function_add_wallet 2022-01-29T21:59:51Z h4dri1 <hadrien.vuillaume@gmail.com> # add function to add a wallet
+function_add_user 2022-01-29T22:58:58Z h4dri1 <hadrien.vuillaume@gmail.com> # add function to add a user
+view_wallet_by_transaction 2022-01-31T11:04:02Z h4dri1 <hadrien.vuillaume@gmail.com> # add view with transaction id/wallet id/user_id
