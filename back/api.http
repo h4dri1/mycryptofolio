@@ -55,7 +55,7 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzgwNjgzNSwiZXhwIjoxNjQzODA3MTM1fQ.yCO7llu1wloh4kJFKoqMdXr6kpDe0Ut1bls3Vh7FIcQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzgxMjY3MywiZXhwIjoxNjQzODEyOTczfQ.1EESGAS2OWj80RQm5r6-K3PRJMRTrW-mYruGHYAi1eE
 
 ###
 
@@ -65,17 +65,17 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFp
 
 ### ATTENTION LA ROUTE ADD TRANSACTION EST ACCESSIBLE A UN USER CONNECTE AVEC UN MAUVAIS WALLET
 
-POST http://localhost:8888/v1/portfolio/wallet/2/transaction/ HTTP/1.1
+POST http://localhost:8888/v1/portfolio/wallet/1/transaction/ HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzgwODMyOSwiZXhwIjoxNjQzODA4NjI5fQ.zv8rfjzwezSzGYqeGVNhlg0og-pzlZK5iNQU3dYqfEs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzgxMjY3MywiZXhwIjoxNjQzODEyOTczfQ.1EESGAS2OWj80RQm5r6-K3PRJMRTrW-mYruGHYAi1eE
 
 {
   "buy": false,
   "buy_date": "Fri Jan 28 2022 15:20:46 GMT+0100",
-  "coin_id": "ethereum",
+  "coin_id": "golem",
   "price": 1000,
-  "quantity": 10,
-  "symbol": "eth"
+  "quantity": -100,
+  "symbol": "glm"
 }
 
 ### 
