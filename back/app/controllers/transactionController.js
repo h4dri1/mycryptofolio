@@ -24,19 +24,17 @@ module.exports = {
                 return res.status(500).json(error.message, true);
             };
 
-            const test = cryptos.map(x => {
+            const cryptosMap = cryptos.map(x => {
                 x.value = Number(x.total) * price[x.coin_id].usd
                 return x
             });
 
-            console.log(test)
-
-            for (const key of test) {
+            for (const key of cryptosMap) {
                 sumValue += parseInt(key.value);
                 sumBuy += parseInt(key.investment);
             };
 
-            for (const crypto of test) {
+            for (const crypto of cryptosMap) {
                 if (Number(crypto.total !== 0)) {
                     if (!objRepartition[crypto.coin_id]) {
                         objRepartition[crypto.coin_id] = {}
@@ -49,9 +47,7 @@ module.exports = {
                         objRepartition[crypto.coin_id].quantity = crypto.total + objRepartition[crypto.coin_id].quantity
                         objRepartition[crypto.coin_id].value = crypto.value + objRepartition[crypto.coin_id].value
                         objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
-                    }
-                    
-                    
+                    }                 
                 }
             };
         
@@ -131,7 +127,7 @@ module.exports = {
                     return res.status(500).json(`You doesn't own this wallet`)
                 };
             };
-            const cryptos = await Transaction.getUserCrypto(req.userId.id);
+            const cryptos = await Transaction.getUserCrypt(req.userId.id);
             if (!req.body.buy) {
                 if (req.body.quantity > 0) {
                     return res.status(500).json('Selling quantity must be a negative number');
