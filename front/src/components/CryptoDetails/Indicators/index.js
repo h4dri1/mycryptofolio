@@ -4,6 +4,8 @@ import { Box, Typography } from '@mui/material';
 
 export default function Indicators({ data }) {
 
+    const lastUpdateDate = new Date(data.market_data.last_updated);
+
     return (
         <>
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', mt: 2, color: 'text.secondary' }}>
@@ -17,7 +19,7 @@ export default function Indicators({ data }) {
                 <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
                     Contrevaleur:</Typography>
 
-                <Typography sx={{ mx: 1.2, fontSize: 10.8 }} >BTC:</Typography>
+                <Typography sx={{ mx: 0.5, fontSize: 10.8 }} >BTC:</Typography>
                 <Typography sx={{ fontWeight: 'normal', fontSize: 10.8, color: "secondary.main", fontWeight: 'bold' }}>
                     {data.market_data.current_price.btc}</Typography>
 
@@ -38,7 +40,7 @@ export default function Indicators({ data }) {
                 <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
                     Market cap.:</Typography>
 
-                <Typography sx={{ ml: 1.2, fontSize: 10.8 }} >BTC:</Typography>
+                <Typography sx={{ mx: 0.5, fontSize: 10.8 }} >BTC:</Typography>
                 <Typography sx={{ fontWeight: 'normal', fontSize: 10.8, color: "secondary.main", fontWeight: 'bold' }}>
                     {data.market_data.market_cap.btc}</Typography>
 
@@ -59,7 +61,7 @@ export default function Indicators({ data }) {
                 <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
                     Total volume:</Typography>
 
-                <Typography sx={{ ml: 1.2, fontSize: 10.8 }} >BTC:</Typography>
+                <Typography sx={{ mx: 0.5, fontSize: 10.8 }} >BTC:</Typography>
                 <Typography sx={{ fontWeight: 'normal', fontSize: 10.8, color: "secondary.main", fontWeight: 'bold' }}>
                     {data.market_data.total_volume.btc}</Typography>
 
@@ -108,7 +110,7 @@ export default function Indicators({ data }) {
                 <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
                     Dernière mise à jour:</Typography>
                 <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 10.8, color: "secondary.main", fontWeight: 'bold' }}>
-                    {data.market_data.last_updated}</Typography>
+                    {`${lastUpdateDate.getDate()}/${(lastUpdateDate.getMonth() + 1)}/${lastUpdateDate.getFullYear()}`} </Typography>
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary' }}>

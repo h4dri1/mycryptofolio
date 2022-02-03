@@ -41,89 +41,28 @@ export default function Graph({ data, chart }) {
                 color: '#B5179E'
             },
         },
-
-        // scales: {
-
-        //     xAxes: [
-        //         {
-        //             display: true,
-        //             gridLines: {
-        //                 display: false
-        //             },
-
-        //             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        //         }
-        //     ],
-        //     yAxes: [
-        //         {
-        //             type: 'linear',
-        //             display: true,
-        //             position: 'left',
-        //             id: 'y-axis-1',
-        //             gridLines: {
-        //                 display: false
-        //             },
-        //             labels: {
-        //                 show: true
-        //             }
-        //         },
-        //         // {
-        //         //     type: 'linear',
-        //         //     display: true,
-        //         //     position: 'right',
-        //         //     id: 'y-axis-2',
-        //         //     gridLines: {
-        //         //         display: false
-        //         //     },
-        //         //     labels: {
-        //         //         show: true
-        //         //     }
-        //         // }
-        //     ]
-        // }
     };
-
-
-
-    // TODO: faire une conversion de format des dates reçues par chart.prices avant le MAP
-
-    // const dataDays = chart.prices.map((element) => {
-    //     return `${element}`
-    // });
-    // const dataPrices = chart.prices.map((element) => {
-    //     return `${element}`
-    // });
-
-    // const marketCapPrices = chart.market_caps.map((element) => {
-    //     return `${element}`
-    // });
-
-    // const marketVolumes = chart.total_volumes.map((element) => {
-    //     return `${element}`
-    // });
 
     const dataDays = (chart.prices.map((element) => {
         const date = new Date(element[0])
         return `${date.getDate()}/${(date.getMonth() + 1)}`
     }));
 
+    // 3 lines of the GRAPH from API
     const dataPrices = (chart.prices.map((element) => ((element[1]).toFixed(0))));
     const marketCapPrices = (chart.market_caps.map((element) => ((element[1]).toFixed(0))));
     const marketVolumes = (chart.total_volumes.map((element) => ((element[1]).toFixed(0))));
 
-    // console.log(dataDays);
-
 
     const graphData = {
 
-        // jours en abcisses
+        // days in x 
         labels: dataDays,
         datasets: [
             {
                 label: 'Cours actuel',
-                // cours en ordonnés
+                // prices in y
                 data: dataPrices,
-                // data: [100, 51, 65, 40, 49, 60, 37, 40],
                 borderColor: ['rgb(244, 67, 54)'],
                 backgroundColor: ['rgb(244, 67, 54)'],
             },

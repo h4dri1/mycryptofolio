@@ -12,12 +12,6 @@ const initialState = {
         market_caps: [],
         total_volumes: [],
     },
-
-    // chart: {
-    //     prices:{},
-    //     market_caps: {},
-    //     total_volumes: {}
-    // }
 }
 
 const cryptoDetailsReducer = (state = initialState, action = {}) => {
