@@ -48,15 +48,13 @@ module.exports = {
             }
 
             for (const crypto of cryptos) {
-                objRepartition[crypto.coin_id] = {}
                 if (value[crypto.coin_id]) {
+                    objRepartition[crypto.coin_id] = {}
                     objRepartition[crypto.coin_id].name = crypto.symbol
                     objRepartition[crypto.coin_id].quantity = total[crypto.coin_id]
                     objRepartition[crypto.coin_id].value = value[crypto.coin_id]
                     objRepartition[crypto.coin_id].distribution = (100 * value[crypto.coin_id])/sumValue;
-                } else {
-                    objRepartition = []
-                }   
+                }
             }
 
             const pnl = sumValue - sumBuy;
@@ -142,7 +140,7 @@ module.exports = {
             const cryptos = await Transaction.getUserCrypto(req.userId.id);
             if (!req.body.buy) {
                 if (req.body.quantity > 0) {
-                    return res.status(500).json('Quantity of sell must be a negative number')
+                    return res.status(500).json('Selling quantity must be a negative number')
                 }
                 const wallet = cryptos.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
                 if (wallet === undefined) {
@@ -153,7 +151,7 @@ module.exports = {
                 }                   
             } else {
                 if (req.body.quantity < 0) {
-                    return res.status(500).json('Quantity of buy must be a positive number')
+                    return res.status(500).json('Buy quantity must be a positive number')
                 }
             }           
             const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
@@ -187,7 +185,7 @@ module.exports = {
                 await Transaction.delete(req.params.tid);
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
                 res.setHeader('Authorization', jwt.makeToken(req.userId));
-                res.status(204).json('delete ok')
+                res.status(204).json('delete ok');
             }
         } catch (error) {
             console.log(error);
