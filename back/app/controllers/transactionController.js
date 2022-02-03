@@ -86,7 +86,7 @@ module.exports = {
 
                 portfolio.wallet = objWallet;
             }
-
+            
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
