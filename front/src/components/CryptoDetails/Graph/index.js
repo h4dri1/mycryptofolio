@@ -45,41 +45,54 @@ export default function Graph({ data, chart }) {
     };
 
     // TODO: faire une conversion de format des dates reçues par chart.prices avant le MAP
-    const dataDays = chart.prices.map((element) => {
-        return `${element}`
-    });
-    const dataPrices = chart.prices.map((element) => {
-        return `${element}`
-    });
+    // const dataDays = chart.prices.map((element) => {
+    //     return `${element}`
+    // });
+    // const dataPrices = chart.prices.map((element) => {
+    //     return `${element}`
+    // });
 
-    const marketCapPrices = chart.market_caps.map((element) => {
-        return `${element}`
-    });
+    // const marketCapPrices = chart.market_caps.map((element) => {
+    //     return `${element}`
+    // });
 
-    const marketVolumes = chart.total_volumes.map((element) => {
-        return `${element}`
-    });
+    // const marketVolumes = chart.total_volumes.map((element) => {
+    //     return `${element}`
+    // });
 
-    console.log(dataDays, dataPrices, marketCapPrices, marketVolumes);
+    // const dataDays = chart.prices[0][0].map((element) => {
+    //     return `${element}`
+    // });
+
+    // const dataPrices = chart.prices[0][1].map((element) => {
+    //     return `${element}`
+    // });
+
+    // const dataDays = chart.prices[0][0];
+    // const dataPrices = chart.prices[0][1];
+    // console.log(dataDays);
+    // console.log(dataPrices);
+
+    // console.log(dataDays);
 
     const graphData = {
-        labels: dataDays,
+        // labels: dataDays,
         datasets: [
             {
                 label: 'Cours actuel',
-                data: dataPrices,
+                // data: dataPrices,
                 borderColor: ['rgb(244, 67, 54)'],
                 backgroundColor: ['rgb(244, 67, 54)'],
             },
             {
                 label: 'Market cap.',
-                data: marketCapPrices,
+                // data: marketCapPrices,
                 borderColor: ['rgb(170, 144, 215)'],
                 backgroundColor: ['rgb(170, 144, 215)'],
             },
             {
                 label: 'Market vol.',
-                data: marketVolumes,
+                // data: marketVolumes,
                 borderColor: ['rgb(67, 97, 238)'],
                 backgroundColor: ['rgb(67, 97, 238)'],
             },
