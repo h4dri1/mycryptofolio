@@ -8,9 +8,9 @@ const initialState = {
         name: "",
     },
     chart: {
-        prices: [
-
-        ]
+        prices: [],
+        market_caps: [],
+        total_volumes: [],
     },
 
     // chart: {
