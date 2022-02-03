@@ -137,7 +137,7 @@ module.exports = {
                     return res.status(500).json('You are trying to sell coins that are not present in this wallet');
                 }
                 if (bodyId) {
-                    const cryptos2 = await Transaction.getUserCrypto(req.userId.id);
+                    const cryptos2 = await Transaction.getUserCryptoByWallet(req.userId.id);
                     const wallet2 = cryptos2.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
                     if (wallet2.total <= req.body.quantity + wallet2.total) {
                         return res.status(500).json('You trying to sell more coin than you have');
