@@ -6,7 +6,7 @@ import CryptoPage from 'src/pages/CryptoPage';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Paper } from '@mui/material';
 
@@ -19,7 +19,7 @@ const App = () => {
   const { darkMode } = useSelector((state) => state.settings);
 
   // COLOR PALETTE for LIGHT & DARK modes
-  const theme = createTheme({
+  let theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
       primary: {
@@ -48,6 +48,8 @@ const App = () => {
 
   });
 
+  // theme = responsiveFontSizes(theme, { breakpoints: ['sm', 'md', 'lg'] });
+
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
@@ -56,6 +58,7 @@ const App = () => {
         <AlertMsg />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Home displayLogin />} />
           <Route path="/crypto-details/:slug" element={<CryptoPage />} />
           <Route path="/portfolio" element={<Portfolio />}>
             <Route path="/portfolio/:walletName" element={<Portfolio />} />

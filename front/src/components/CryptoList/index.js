@@ -29,7 +29,7 @@ const CryptoList = () => {
     <Grid container justifyContent="center" spacing={{ xs: 2, sm: 4 }}>
       <Grid item xs={12}>
         <Table>
-          <TableHead sx={{ fontWeight: 'bold', }}>
+          <TableHead sx={{ fontWeight: 'bold' }}>
             <TableRow>
               <TableCell align="center"><TableSortLabel />#</TableCell>
               <TableCell>Name</TableCell>
@@ -49,13 +49,15 @@ const CryptoList = () => {
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
                       // component={RouterLink} to={`/crypto-details/${crypto.id}`}
-                      underline="none" variant="body1"
-                      sx={{ mr: 1 }}>{crypto.name}
+                      underline="none"
+                      variant="body1"
+                      sx={{ mr: 1 }}
+                    >{crypto.name}
                     </Typography>
                     <Typography underline="none" sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
-                </TableCell >
-                <TableCell align="right">{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
+                </TableCell>
+                <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: 'green' } : { color: 'red' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`$${crypto.market_cap.toLocaleString()}`}</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`$${crypto.total_volume.toLocaleString()}`}</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`$${crypto.circulating_supply.toLocaleString()}`}</TableCell>
