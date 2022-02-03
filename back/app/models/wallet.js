@@ -10,7 +10,7 @@ class Wallet {
 
     static async findWalletByUser(id) {
         try {
-            const {rows} = await db.query('SELECT id, user_id FROM wallet WHERE user_id=$1;', [id]);
+            const {rows} = await db.query('SELECT id, label, user_id FROM wallet WHERE user_id=$1;', [id]);
             if (rows) {
                 return rows.map(row => new Wallet(row));
             }
@@ -30,6 +30,18 @@ class Wallet {
                     this.id = rows[0].id;
                     return this;
                 }
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    };
+
+    static async findWalletWithNoTransaction(id) {
+        try {
+            const {rows} = await db.query('SELECT * FROM wallet WHERE user_id=$1 AND id NOT IN (SELECT DISTINCT wallet_id FROM transaction);', [id]);
+            if (rows) {
+                return rows.map(row => new Wallet(row));
             }
         } catch (error) {
             console.log(error);

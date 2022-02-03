@@ -14,14 +14,12 @@ module.exports = {
                 return res.status(401).json('Combinaison mot de passe / utilisateur incorrect');
             }
             delete user.password;
-            const token = jwt.makeToken(user);
-            const refreshToken = jwt.makeRefreshToken(user);
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Authorization', jwt.makeToken(user));
             const response = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
-                "refreshToken": refreshToken
+                "refreshToken": jwt.makeRefreshToken(user)
             };
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            res.setHeader('Authorization', token);
             res.status(200).json(response);
         } catch (error) {
             return res.status(401).json(error.message);
@@ -42,13 +40,19 @@ module.exports = {
             delete instance.passwordCheck;
             const newUser = await instance.save();
             delete newUser.password;
-            if (newUser) {
-                return res.status(201).json(newUser);
-            }
-            res.status(204).json(newUser);
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Authorization', jwt.makeToken(newUser));
+            const response = {
+                "status": `Bienvenue ${newUser.nickname}`,
+                "refreshToken": jwt.makeRefreshToken(newUser)
+            };     
+            if (newUser) {           
+                return res.status(201).json(response);
+            }             
+            //return res.status(204).json('update ok');
         } catch (error) {
             console.log(error);
-            return res.status(500).json(error.message, true);
+            return res.status(500).json(error.message);
         }
     }
 };

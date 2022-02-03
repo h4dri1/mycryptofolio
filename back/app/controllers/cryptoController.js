@@ -17,7 +17,7 @@ module.exports = {
 
     getTopCrypto: async (req, res) => {
         try {
-            const data = await service_fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);
+            const data = await service_fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);           
             res.status(200).json(data);
         } catch (error) {
             console.log(error);
@@ -28,7 +28,35 @@ module.exports = {
     getOneCrypto: async (req, res) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}`);
-            res.status(200).json(data);
+            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=30&interval=daily`);
+            //const bigChart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=30&interval=daily`);
+            //const chart = Object.values(bigChart.prices);
+            //const prices = Object.assign(...chart.map(([k, v]) => ({[k]: v})))
+            //const mc = Object.values(bigChart.market_caps);
+            //const market_caps = Object.assign(...mc.map(([k, v]) => ({[k]: v})))
+            //const market_vol = Object.values(bigChart.total_volumes);
+            //const total_volumes = Object.assign(...market_vol.map(([k, v]) => ({[k]: v})))
+            const superObj = {'data': {
+                'id': data.id,
+                'symbol': data.symbol,
+                'name': data.name,
+                'description': data.description.en,
+                'links': data.links.homepage[0],
+                'repos_url': data.links.repos_url.github,
+                'image': {'thumb': [data.image.thumb][0], 'small': [data.image.small][0], 'large': [data.image.large][0]},
+                'market_data': {'current_price': {'btc': data.market_data.current_price.btc, 
+                'eth': data.market_data.current_price.eth, 'eur': data.market_data.current_price.eur,
+                'usd': data.market_data.current_price.usd}, 'market_cap': {'btc': data.market_data.market_cap.btc, 
+                'eth': data.market_data.market_cap.eth, 'eur': data.market_data.market_cap.eur,
+                'usd': data.market_data.market_cap.usd}, 'total_volume': {'btc': data.market_data.total_volume.btc, 
+                'eth': data.market_data.total_volume.eth, 'eur': data.market_data.total_volume.eur,
+                'usd': data.market_data.total_volume.usd},  'market_cap_rank': data.market_data.market_cap_rank, 
+                'market_cap_change_percentage_24h': data.market_data.market_cap_change_percentage_24h, 'total_supply': data.market_data.total_supply, 
+                'max_supply': data.market_data.max_supply, 'circulating_supply': data.market_data.circulating_supply, 'last_updated': data.market_data.last_updated}
+            },
+                chart
+            }
+            res.status(200).json(superObj);
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
