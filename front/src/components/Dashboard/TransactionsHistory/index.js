@@ -6,18 +6,40 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Divider from '@mui/material/Divider';
+import Modal from '@mui/material/Modal';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
+import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteTransaction } from 'src/actions/portfolio';
+import { toggleTransactionEditor } from 'src/actions/settings';
+import { useState } from 'react';
+
+const modalBoxStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  maxWidth: 800,
+  bgcolor: 'background.paper',
+  // border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const TransactionsHistory = () => {
+  const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.portfolio);
+  const { transactionEditorIsOpen } = useSelector((state) => state.settings);
 
-  const handleEditTransaction = () => {
-    console.log('Edit transaction');
+  const [selectedTransaction, setSelectedTransaction] = useState(undefined);
+
+  const handleEditTransaction = (id) => {
+    console.log('Edit transaction #', id);
+    setSelectedTransaction(id);
+    dispatch(toggleTransactionEditor());
   };
 
   return (
@@ -64,6 +86,11 @@ const TransactionsHistory = () => {
           ))}
         </TableBody>
       </Table>
+      <Modal open={transactionEditorIsOpen} onClose={() => dispatch(toggleTransactionEditor())}>
+        <Box sx={modalBoxStyle}>
+          <TransactionCreator id={selectedTransaction} />
+        </Box>
+      </Modal>
     </Box>
   );
 };
