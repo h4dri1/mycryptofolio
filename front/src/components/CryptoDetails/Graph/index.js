@@ -60,7 +60,7 @@ export default function Graph({ data, chart }) {
         return `${element}`
     });
 
-    // console.log(dataDays, dataPrices, marketCapPrices, marketVolumes);
+    console.log(dataDays, dataPrices, marketCapPrices, marketVolumes);
 
     const graphData = {
         labels: dataDays,
