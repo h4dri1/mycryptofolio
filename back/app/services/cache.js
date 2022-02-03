@@ -1,3 +1,4 @@
+const jwt = require('../services/jwt');
 const {createClient} = require('redis');
 const db = createClient();
 db.connect();
