@@ -22,7 +22,6 @@ export default function Description({ data }) {
                     />
                 </Box>
                 <Box dangerouslySetInnerHTML={createMarkup(data.description)} >
-
                 </Box>
             </Box>
         </div >
