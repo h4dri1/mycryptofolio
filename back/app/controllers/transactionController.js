@@ -29,6 +29,8 @@ module.exports = {
                 return x
             });
 
+            console.log(test)
+
             for (const key of test) {
                 sumValue += parseInt(key.value);
                 sumBuy += parseInt(key.investment);
@@ -36,11 +38,20 @@ module.exports = {
 
             for (const crypto of test) {
                 if (Number(crypto.total !== 0)) {
-                    objRepartition[crypto.coin_id] = {}
-                    objRepartition[crypto.coin_id].name = crypto.symbol
-                    objRepartition[crypto.coin_id].quantity = crypto.total
-                    objRepartition[crypto.coin_id].value = crypto.value
-                    objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
+                    if (!objRepartition[crypto.coin_id]) {
+                        objRepartition[crypto.coin_id] = {}
+                        objRepartition[crypto.coin_id].name = crypto.symbol
+                        objRepartition[crypto.coin_id].quantity = crypto.total
+                        objRepartition[crypto.coin_id].value = crypto.value
+                        objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
+                    } else {
+                        objRepartition[crypto.coin_id].name = crypto.symbol
+                        objRepartition[crypto.coin_id].quantity = crypto.total + objRepartition[crypto.coin_id].quantity
+                        objRepartition[crypto.coin_id].value = crypto.value + objRepartition[crypto.coin_id].value
+                        objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
+                    }
+                    
+                    
                 }
             };
         
