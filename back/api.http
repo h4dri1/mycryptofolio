@@ -55,7 +55,7 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkwMzYxMCwiZXhwIjoxNjQzOTAzOTEwfQ.oKTn-hF57kn6mcB662ZecLkvgMNWj2S8d1NvbdxYPUc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkwNDc2OCwiZXhwIjoxNjQzOTA1MDY4fQ.3PahQc41LiuRdD0nkino3FVg9Mi9qPfclB3k4Spt2_M
 
 ###
 
@@ -65,27 +65,27 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFp
 
 ### ATTENTION LA ROUTE ADD TRANSACTION EST ACCESSIBLE A UN USER CONNECTE AVEC UN MAUVAIS WALLET
 
-POST http://localhost:8888/v1/portfolio/wallet/10/transaction/ HTTP/1.1
+POST http://localhost:8888/v1/portfolio/wallet/12/transaction/ HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzg5ODE0NywiZXhwIjoxNjQzODk4NDQ3fQ.ZZOUk7uAcM93gZMEOXeHJEcQdM1IgRLOjOWC4XiJSNw
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkwNDg0MiwiZXhwIjoxNjQzOTA1MTQyfQ.Q-um-UCOzYgCnxzbHacG3DOA3OC29ejlq3HsQEH6aS4
 
 {
-  "buy": true,
+  "buy": false,
   "buy_date": "Fri Jan 28 2022 15:20:46 GMT+0100",
-  "coin_id": "binancecoin",
+  "coin_id": "ethereum",
   "price": 1000,
-  "quantity": 10,
-  "symbol": "bnb"
+  "quantity": -10,
+  "symbol": "eth"
 }
 
 ### 
 
 POST http://localhost:8888/v1/portfolio/wallet HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzg5OTQ4NiwiZXhwIjoxNjQzODk5Nzg2fQ.Wfm685SKIJi0fullEhwnM4zThqdrbVoo5nNSK8MIkRA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkwNDc2OCwiZXhwIjoxNjQzOTA1MDY4fQ.3PahQc41LiuRdD0nkino3FVg9Mi9qPfclB3k4Spt2_M
 
 {
-  "label": "test3"
+  "label": "test2"
 }
 
 ###
@@ -119,6 +119,6 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFp
 
 ### 
 
-DELETE http://localhost:8888/v1/portfolio/wallet/8 HTTP/1.1
+DELETE http://localhost:8888/v1/portfolio/wallet/11 HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzg5NjAyNywiZXhwIjoxNjQzODk2MzI3fQ.LicCyjDioYVJUfsQB1yEHSLQtxqyEXuKa1qIUdCd8-Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkwNDc2OCwiZXhwIjoxNjQzOTA1MDY4fQ.3PahQc41LiuRdD0nkino3FVg9Mi9qPfclB3k4Spt2_M
