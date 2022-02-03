@@ -1,8 +1,11 @@
-import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
+
 import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
+import SearchCrypto from 'src/components/Navbar/SearchBar/SearchCrypto';
+
+import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -162,7 +165,12 @@ export default function PrimarySearchAppBar() {
             >Portfolio
             </Link>
           </Typography>
-          <Search>
+
+          <SearchCrypto sx={{ color: 'white', ml: 10, width: "100%" }}
+            size="200"
+          />
+
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -170,7 +178,8 @@ export default function PrimarySearchAppBar() {
               placeholder="Rechercher une crypto"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
+
           <Box sx={{ flexGrow: 1 }} />
           <MyAccount />
           <Button
