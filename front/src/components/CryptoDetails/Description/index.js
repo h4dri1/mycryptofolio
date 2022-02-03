@@ -12,7 +12,7 @@ export default function Description({ data }) {
 
     return (
         <div className="">
-            <Box sx={{ flexDirection: 'row', mx: 1, gridRow: '1', color: 'text.secondary', fontSize: 12, fontWeight: 'small' }}>
+            <Box sx={{ flexDirection: 'row', mx: 2.5, gridRow: '1', color: 'text.secondary', fontSize: 12, fontWeight: 'small' }}>
                 <Box sx={{ textAlign: 'center', flexDirection: 'row', alignItems: 'center', mt: 2, }}>
                     <img
                         src={`${data.image.small}?w=248&fit=crop&auto=format`}
