@@ -54,6 +54,8 @@ module.exports = {
                     objRepartition[crypto.coin_id].quantity = total[crypto.coin_id]
                     objRepartition[crypto.coin_id].value = value[crypto.coin_id]
                     objRepartition[crypto.coin_id].distribution = (100 * value[crypto.coin_id])/sumValue;
+                } else {
+                    objRepartition = []
                 }   
             }
 
