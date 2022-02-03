@@ -35,11 +35,13 @@ module.exports = {
             };
 
             for (const crypto of test) {
-                objRepartition[crypto.coin_id] = {}
-                objRepartition[crypto.coin_id].name = crypto.symbol
-                objRepartition[crypto.coin_id].quantity = crypto.total
-                objRepartition[crypto.coin_id].value = crypto.value
-                objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
+                if (Number(crypto.total !== 0)) {
+                    objRepartition[crypto.coin_id] = {}
+                    objRepartition[crypto.coin_id].name = crypto.symbol
+                    objRepartition[crypto.coin_id].quantity = crypto.total
+                    objRepartition[crypto.coin_id].value = crypto.value
+                    objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
+                }
             };
         
             const pnl = sumValue - sumBuy;
