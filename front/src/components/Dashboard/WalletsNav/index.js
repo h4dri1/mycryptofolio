@@ -15,6 +15,8 @@ import {
   deleteWallet, toggleUpdateWalletModal,
 } from 'src/actions/portfolio';
 
+import { toggleConfirmDelete } from 'src/actions/settings';
+
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 import AddWallet from './AddWallet';
 import EditWallet from './EditWallet';
@@ -125,8 +127,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                     <EditOrDeleteItem
                       positionAbsolute
                       editItem={toggleUpdateWalletModal}
-                      deleteItem={deleteWallet}
-                      itemId={wallet.id}
+                      deleteItem={() => toggleConfirmDelete({ type: 'wallet', itemId: wallet.id })}
                     />
                   </ListItemButton>
                 </Link>
