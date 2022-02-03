@@ -43,10 +43,9 @@ module.exports = {
                         objRepartition[crypto.coin_id].value = crypto.value
                         objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
                     } else {
-                        objRepartition[crypto.coin_id].name = crypto.symbol
                         objRepartition[crypto.coin_id].quantity = crypto.total + objRepartition[crypto.coin_id].quantity
                         objRepartition[crypto.coin_id].value = crypto.value + objRepartition[crypto.coin_id].value
-                        objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
+                        objRepartition[crypto.coin_id].distribution = ((100 * crypto.value)/sumValue) + (objRepartition[crypto.coin_id].distribution)
                     }                 
                 }
             };
@@ -137,9 +136,10 @@ module.exports = {
                     return res.status(500).json('You are trying to sell coins that are not present in this wallet');
                 }
                 if (bodyId) {
-                    const cryptos2 = await Transaction.getUserCryptoByWallet(req.userId.id);
+                    const cryptos2 = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
+                    console.log(cryptos2)
                     const wallet2 = cryptos2.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
-                    if (wallet2.total <= req.body.quantity + wallet2.total) {
+                    if (wallet2.total >= req.body.quantity) {
                         return res.status(500).json('You trying to sell more coin than you have');
                     }  
                 } else {
