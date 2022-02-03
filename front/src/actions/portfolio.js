@@ -8,12 +8,11 @@ export const UPDATE_WALLET = 'UPDATE_WALLET';
 export const DELETE_WALLET = 'DELETE_WALLET';
 export const DELETE_OR_UPDATE_WALLET_SUCCESS = 'DELETE_OR_UPDATE_WALLET_SUCCESS';
 export const UPDATE_SELECTED_WALLET = 'UPDATE_SELECTED_WALLET';
-// get portfolion data
+// get portfolio data
 export const FETCH_PORTFOLIO = 'FETCH_PORTFOLIO';
 export const FETCH_PORTFOLIO_SUCCESS = 'FETCH_PORTFOLIO_SUCCESS';
 export const FETCH_SPECIFIC_PORTFOLIO = 'FETCH_SPECIFIC_PORTFOLIO';
 export const FETCH_SPECIFIC_PORTFOLIO_SUCCESS = 'FETCH_SPECIFIC_PORTFOLIO_SUCCESS';
-// export const GET_ASSETS = 'GET_ASSETS';
 export const SAVE_TRANSACTION = 'SAVE_TRANSACTION';
 export const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
 
@@ -83,10 +82,6 @@ export const fetchSpecificPortfolioSuccess = (payload) => ({
   type: FETCH_SPECIFIC_PORTFOLIO_SUCCESS,
   payload,
 });
-
-// export const getAssets = () => ({
-//   type: GET_ASSETS,
-// });
 
 export const saveTransaction = (payload) => ({
   type: SAVE_TRANSACTION,

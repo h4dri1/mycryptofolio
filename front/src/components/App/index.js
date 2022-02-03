@@ -39,6 +39,7 @@ const App = () => {
         contrastText: 'white',
       },
 
+
       // contrastThreshold: 3,
       // // Used by the functions below to shift a color's luminance by approximately
       // // two indexes within its tonal palette.
@@ -56,7 +57,7 @@ const App = () => {
         <AlertMsg />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/crypto-details/:slug" element={<CryptoPage />} />
+          <Route path="/crypto/:slug" element={<CryptoPage />} />
           <Route path="/portfolio" element={<Portfolio />}>
             <Route path="/portfolio/:walletName" element={<Portfolio />} />
           </Route>

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -12,6 +11,10 @@ import {
 
 import { Line } from 'react-chartjs-2';
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import { red } from '@mui/material/colors';
+
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -22,40 +25,71 @@ ChartJS.register(
     Legend
 );
 
-const options = {
-    responsive: true,
-    plugins: {
-        legend: {
-            display: false,
-            position: 'top',
+export default function Graph({ data, chart }) {
+
+    const cryptoName = data.name;
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: cryptoName,
+                color: '#B5179E'
+            },
         },
-        title: {
-            display: true,
-            text: 'cours BTC',
-        },
-    },
-};
+    };
 
-const days = ['Jan 05', 'Jan 09', 'Jan 13', 'Jan 17', 'Jan 21', 'Jan 25', 'Jan 29'];
+    // TODO: faire une conversion de format des dates reçues par chart.prices avant le MAP
+    const dataDays = chart.prices.map((element) => {
+        return `${element}`
+    });
+    const dataPrices = chart.prices.map((element) => {
+        return `${element}`
+    });
 
-// mapper sur les jours 
-// const days = distribution.map((item) => (
-//     item.day
-// ));
+    const marketCapPrices = chart.market_caps.map((element) => {
+        return `${element}`
+    });
 
-const data = {
-    labels: days,
-    datasets: [
-        {
-            label: 'Dataset 1',
-            // data: days.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            data: ['38096', '37112', '37166', '36998', '32204', '33320', '33851'],
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
-    ],
-};
+    const marketVolumes = chart.total_volumes.map((element) => {
+        return `${element}`
+    });
 
-export default function Graph() {
-    return <Line options={options} data={data} height={50} />;
+    // console.log(dataDays, dataPrices, marketCapPrices, marketVolumes);
+
+    const graphData = {
+        labels: dataDays,
+        datasets: [
+            {
+                label: 'Cours actuel',
+                data: dataPrices,
+                borderColor: ['rgb(244, 67, 54)'],
+                backgroundColor: ['rgb(244, 67, 54)'],
+            },
+            {
+                label: 'Market cap.',
+                data: marketCapPrices,
+                borderColor: ['rgb(170, 144, 215)'],
+                backgroundColor: ['rgb(170, 144, 215)'],
+            },
+            {
+                label: 'Market vol.',
+                data: marketVolumes,
+                borderColor: ['rgb(67, 97, 238)'],
+                backgroundColor: ['rgb(67, 97, 238)'],
+            },
+        ],
+    };
+
+    return <Line options={options} data={graphData} height={70} />;
 }
+
+Graph.propTypes = {
+    data: PropTypes.object.isRequired,
+    chart: PropTypes.object.isRequired,
+};

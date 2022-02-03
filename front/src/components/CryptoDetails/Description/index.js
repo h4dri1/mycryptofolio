@@ -1,23 +1,34 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import DOMPurify from 'dompurify';
 
-export default function Description({ }) {
+import { Box } from '@mui/system';
 
-    const dispatch = useDispatch();
+export default function Description({ data }) {
 
-    // useEffect(() => {
-    //     dispatch(getDescription());
-    // }, []);
-
+    // SANITIZE the HTML crypto description
+    const createMarkup = (textBrut) => ({
+        __html: DOMPurify.sanitize(textBrut, { ALLOWED_TAGS: [] }),
+    });
 
     return (
-        <div className="">Description</div>
+        <div className="">
+            <Box sx={{ flexDirection: 'row', mx: 1, gridRow: '1', color: 'text.secondary', fontSize: 12, fontWeight: 'small' }}>
+                <Box sx={{ textAlign: 'center', flexDirection: 'row', alignItems: 'center', mt: 2, }}>
+                    <img
+                        src={`${data.image.small}?w=248&fit=crop&auto=format`}
+                        srcSet={`${data.image.thumb}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={`logo ${data.id}`}
+                        loading="lazy"
+                    />
+                </Box>
+                <Box dangerouslySetInnerHTML={createMarkup(data.description)} >
+
+                </Box>
+            </Box>
+        </div >
     );
 }
 
-// Description.propTypes = {
-//     crypto: PropTypes.arrayOf(PropTypes.shape({
-//         description: PropTypes.string.isRequired,
-//     })).isRequired,
-// };
+Description.propTypes = {
+    data: PropTypes.object.isRequired,
+};
