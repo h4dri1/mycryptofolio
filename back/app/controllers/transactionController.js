@@ -27,7 +27,7 @@ module.exports = {
                 return res.status(500).json(error.message, true);
             };
 
-            for (const val of cryptos) {              
+            for (const val of cryptos) {          
                 if (!value[val.coin_id]) {
                     value[val.coin_id] = (val.total * price[val.coin_id].usd)
                     buy[val.coin_id] =  val.total * val.buy_price
@@ -80,8 +80,8 @@ module.exports = {
                 const empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
 
                 for (const coin of cryptos) {
-                    sum = sum + coin.total * price[coin.coin_id].usd
-                    id = coin.wallet_id
+                    sum = sum + (coin.total * price[coin.coin_id].usd)
+                    id = coin.wallet_id            
                     if (id === id2) {
                         newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
                     } else {
@@ -91,10 +91,13 @@ module.exports = {
                     }
                 }
 
-                newObj.filter((v) => {
-                    return this[v.id]?
-                      !Object.assign(objWallet[v.id], v):
-                      (objWallet[v.id] = v);
+                newObj.reduce((key, value) => {
+                if (!key[value.id]) {
+                    key[value.id] = { id: value.id, sum: 0, label: value.label };
+                    objWallet.push(key[value.id])
+                }
+                key[value.id].sum += value.sum;
+                return key;
                 }, {});
 
                 if (empty) {
@@ -103,7 +106,7 @@ module.exports = {
                     }
                 }
 
-                portfolio.wallet = Object.values(objWallet);
+                portfolio.wallet = objWallet;
             }
 
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
