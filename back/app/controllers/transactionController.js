@@ -99,13 +99,13 @@ module.exports = {
     addTransaction: async (req, res) => {
         try {
             let own_wallet = false;
-            let bodyId = 0;
+            let bodyId = false;
             if (req.body.id) {
                 const is_transaction = await Transaction.getTransactionByPk(req.body.id);
                 if (is_transaction.length === 0) {
                     return res.status(500).json('No transaction with this id');
                 }
-                bodyId = 1
+                bodyId = true;
             };
             const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
             if (is_owning_wallet.length === 0) {
@@ -129,10 +129,15 @@ module.exports = {
                 if (wallet === undefined) {
                     return res.status(500).json('You are trying to sell coins that are not present in this wallet');
                 }
-
-                if ((wallet.total + req.body.quantity) < bodyId) {
-                    return res.status(500).json('You trying to sell more coin than you have');
-                }                   
+                if (bodyId) {
+                    if (wallet.total < req.body.quantity) {
+                        return res.status(500).json('You trying to sell more coin than you have');
+                    }  
+                } else {
+                    if ((wallet.total + req.body.quantity) < bodyId) {
+                        return res.status(500).json('You trying to sell more coin than you have');
+                    }    
+                }
             } else {
                 if (req.body.quantity < 0) {
                     return res.status(500).json('Buy quantity must be a positive number');
