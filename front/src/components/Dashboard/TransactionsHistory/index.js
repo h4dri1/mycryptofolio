@@ -11,7 +11,7 @@ import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 
 import { useSelector } from 'react-redux';
 
-import { deleteTransaction } from 'src/actions/portfolio';
+import { toggleConfirmDelete } from 'src/actions/settings';
 
 const TransactionsHistory = () => {
   const { transactions } = useSelector((state) => state.portfolio);
@@ -56,8 +56,7 @@ const TransactionsHistory = () => {
                 <EditOrDeleteItem
                   positionAbsolute={false}
                   editItem={handleEditTransaction}
-                  deleteItem={deleteTransaction}
-                  itemId={transaction.id}
+                  deleteItem={() => toggleConfirmDelete({ type: 'transaction', itemId: transaction.id })}
                 />
               </TableCell>
             </TableRow>

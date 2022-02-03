@@ -11,7 +11,7 @@ import {
 } from 'src/actions/portfolio';
 
 import { checkToken, saveNewToken } from 'src/actions/user';
-import { setDisplaySnackBar } from 'src/actions/settings';
+import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
 
 const portfolio = (store) => (next) => (action) => {
   switch (action.type) {
@@ -84,6 +84,7 @@ const portfolio = (store) => (next) => (action) => {
               const { wallet: wallets } = store.getState().portfolio;
               const updatedWalletList = wallets.filter((wallet) => wallet.id !== action.payload);
               store.dispatch(deleteOrUpdateWalletSuccess(updatedWalletList));
+              store.dispatch(toggleConfirmDelete());
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
             }
@@ -171,6 +172,7 @@ const portfolio = (store) => (next) => (action) => {
           .then((res) => {
             if (res.status === 204) {
               store.dispatch(fetchPortfolio());
+              store.dispatch(toggleConfirmDelete());
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
             }
