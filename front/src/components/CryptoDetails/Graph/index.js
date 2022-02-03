@@ -13,7 +13,6 @@ import { Line } from 'react-chartjs-2';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { red } from '@mui/material/colors';
 
 ChartJS.register(
     CategoryScale,
@@ -44,29 +43,25 @@ export default function Graph({ data, chart }) {
         },
     };
 
-    // TODO: faire une conversion de format des dates reçues par chart.prices avant le MAP
-    const dataDays = chart.prices.map((element) => {
-        return `${element}`
-    });
-    const dataPrices = chart.prices.map((element) => {
-        return `${element}`
-    });
+    const dataDays = (chart.prices.map((element) => {
+        const date = new Date(element[0])
+        return `${date.getDate()}/${(date.getMonth() + 1)}`
+    }));
 
-    const marketCapPrices = chart.market_caps.map((element) => {
-        return `${element}`
-    });
+    // 3 lines of the GRAPH from API
+    const dataPrices = (chart.prices.map((element) => ((element[1]).toFixed(0))));
+    const marketCapPrices = (chart.market_caps.map((element) => ((element[1]).toFixed(0))));
+    const marketVolumes = (chart.total_volumes.map((element) => ((element[1]).toFixed(0))));
 
-    const marketVolumes = chart.total_volumes.map((element) => {
-        return `${element}`
-    });
-
-    // console.log(dataDays, dataPrices, marketCapPrices, marketVolumes);
 
     const graphData = {
+
+        // days in x 
         labels: dataDays,
         datasets: [
             {
                 label: 'Cours actuel',
+                // prices in y
                 data: dataPrices,
                 borderColor: ['rgb(244, 67, 54)'],
                 backgroundColor: ['rgb(244, 67, 54)'],
@@ -83,6 +78,7 @@ export default function Graph({ data, chart }) {
                 borderColor: ['rgb(67, 97, 238)'],
                 backgroundColor: ['rgb(67, 97, 238)'],
             },
+
         ],
     };
 
