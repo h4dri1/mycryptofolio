@@ -7,7 +7,7 @@ ALTER TABLE wallet
     DROP COLUMN user_id CASCADE;
 
 ALTER TABLE transaction
-    DROP COLUMN buy_date,
+    DROP COLUMN buy_date CASCADE,
     DROP COLUMN buy,
     DROP COLUMN price,
     DROP COLUMN quantity,

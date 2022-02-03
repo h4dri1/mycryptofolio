@@ -55,31 +55,37 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzYzNzg4NCwiZXhwIjoxNjQzNjM4MTg0fQ.qOngsT4p4Xo73W_UTBq9DSbLPj3Iqgu69Km6AZzpPfU
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzg5MTc0OCwiZXhwIjoxNjQzODkyMDQ4fQ.D6EUK6fn0yV3dfK0vk046bSmI9ThM60RUtvGeM8oJL8
+
+###
+
+GET http://localhost:8888/v1/portfolio/wallet/5
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzc5Mjc4MiwiZXhwIjoxNjQzNzkzMDgyfQ.9ULEQfPOMydJiLPJjKFNnK3abuHybiRQfxo8bkmbkIw
 
 ### ATTENTION LA ROUTE ADD TRANSACTION EST ACCESSIBLE A UN USER CONNECTE AVEC UN MAUVAIS WALLET
 
-POST http://localhost:8888/v1/portfolio/wallet/5/transaction/ HTTP/1.1
+POST http://localhost:8888/v1/portfolio/wallet/6/transaction/ HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzYzNzg4NCwiZXhwIjoxNjQzNjM4MTg0fQ.qOngsT4p4Xo73W_UTBq9DSbLPj3Iqgu69Km6AZzpPfU
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzg5MTc0OCwiZXhwIjoxNjQzODkyMDQ4fQ.D6EUK6fn0yV3dfK0vk046bSmI9ThM60RUtvGeM8oJL8
 
 {
-  "buy": true,
+  "buy": false,
   "buy_date": "Fri Jan 28 2022 15:20:46 GMT+0100",
-  "coin_id": "compound-ether",
-  "price": 999,
-  "quantity": 10,
-  "symbol": "ceth"
+  "coin_id": "bitcoin",
+  "price": 1000,
+  "quantity": -10,
+  "symbol": "btc"
 }
 
 ### 
 
 POST http://localhost:8888/v1/portfolio/wallet HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzYzNzY5OCwiZXhwIjoxNjQzNjM3OTk4fQ.w5XOVyWpVEOQCRaN6QCUEiGQsTs-4w7VMr6HBElvRbA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzg5MTg2MywiZXhwIjoxNjQzODkyMTYzfQ.AHItnP-hqRHAWFe0x1bqjpC1h01_f_XAU2vGmgYoNhE
 
 {
-  "label": "testt wallet"
+  "label": "test2"
 }
 
 ###
@@ -88,7 +94,7 @@ POST http://localhost:8888/v1/signup HTTP/1.1
 content-type: application/json
 
 {
-  "email": "test3@test.fr",
+  "email": "test10@test.fr",
   "nickname": "test3",
   "password": "#Cafard0087",
   "passwordCheck": "#Cafard0087",
@@ -107,13 +113,12 @@ content-type: application/json
 
 ### 
 
-DELETE http://localhost:8888/v1/portfolio/transaction/6 HTTP/1.1
+DELETE http://localhost:8888/v1/portfolio/transaction/1 HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzYyNjcxNCwiZXhwIjoxNjQzNjI3MDE0fQ.9fe7N5DOt1OsfU3izhMvNBhXbPaMV8zt1mG-Kx5MQ_k
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzc0MjQzMCwiZXhwIjoxNjQzNzQyNzMwfQ.bsoKIznVugJszpK_rMOqpIX0ZJ4yKjJ7G0Wai54scVo
 
 ### 
 
-DELETE http://localhost:8888/v1/portfolio/wallet/10 HTTP/1.1
+DELETE http://localhost:8888/v1/portfolio/wallet/2 HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzYzMDM4NywiZXhwIjoxNjQzNjMwNjg3fQ.FpX5niLylRNfOL1E7IHwMhgop1Is98uz_iZDO-iA684
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzg5MTc0OCwiZXhwIjoxNjQzODkyMDQ4fQ.D6EUK6fn0yV3dfK0vk046bSmI9ThM60RUtvGeM8oJL8

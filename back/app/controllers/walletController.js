@@ -5,17 +5,18 @@ module.exports = {
     addWallet: async (req, res) => {
         try {
             const instance = new Wallet(req.body);
-            instance.user_id = req.userId.id
+            instance.user_id = req.userId.id;
             const wallet = await instance.save();
-            if (wallet) {
-                return res.status(201).json(wallet);
-            }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
-            res.status(204).json(wallet)
+            if (wallet) {
+                wallet.sum = 0;
+                return res.status(201).json(wallet);
+            }
+            res.status(204).json(wallet);
         } catch (error) {
             console.log(error);
-            return res.status(500).json(error.message, true);
+            return res.status(500).json(error.message);
         }
     },
 
@@ -37,7 +38,7 @@ module.exports = {
             }
             const transactions = await Transaction.getTransactionByWallet(req.params.wid);
             for (const transaction of transactions) {
-                await Transaction.delete(transaction.transaction_id)
+                await Transaction.delete(transaction.transaction_id);
             }
             await Wallet.delete(req.params.wid);
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
@@ -45,7 +46,7 @@ module.exports = {
             return res.status(204).json();
         } catch (error) {
             console.log(error);
-            return res.status(500).json(error.message, true);
+            return res.status(500).json(error.message);
         }
     }
 };

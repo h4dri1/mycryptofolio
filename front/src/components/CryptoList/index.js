@@ -45,7 +45,7 @@ const CryptoList = () => {
               <TableRow key={crypto.id} hover>
                 <TableCell align="center">{crypto.market_cap_rank}</TableCell>
                 <TableCell>
-                  <Box component={RouterLink} to={`/crypto-details/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center' }}>
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
                       // component={RouterLink} to={`/crypto-details/${crypto.id}`}
