@@ -126,9 +126,9 @@ module.exports = {
                 if (!own_wallet) {
                     return res.status(500).json(`You doesn't own this wallet`)
                 };
-            };
-            const cryptos = await Transaction.getUserCrypt(req.userId.id);
+            };    
             if (!req.body.buy) {
+                const cryptos = await Transaction.getUserCrypto(req.userId.id);
                 if (req.body.quantity > 0) {
                     return res.status(500).json('Selling quantity must be a negative number');
                 }
