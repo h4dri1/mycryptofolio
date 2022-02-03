@@ -7,7 +7,11 @@ const initialState = {
     data: {
         name: "",
     },
-    chart: {}
+    chart: {
+        prices: [],
+        market_caps: [],
+        total_volumes: [],
+    },
 }
 
 const cryptoDetailsReducer = (state = initialState, action = {}) => {

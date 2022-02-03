@@ -62,7 +62,7 @@ const CryptoDetails = () => {
                                     />
                                 </Grid>
                             </Grid >
-                            <Container sx={{ boxShadow: 4, width: "30%" }} className={classes.gridItem}>
+                            <Container sx={{ boxShadow: 4, width: "40%" }} className={classes.gridItem}>
                                 <Grid item xs={4} className={classes.gridSubItem}>
                                     <Indicators
                                         data={data}
