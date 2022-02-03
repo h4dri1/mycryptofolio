@@ -91,7 +91,7 @@ module.exports = {
                     }
                 }
 
-                newObj.reduce(function(key, value) {
+                newObj.reduce((key, value) => {
                 if (!key[value.id]) {
                     key[value.id] = { id: value.id, sum: 0, label: value.label };
                     objWallet.push(key[value.id])
