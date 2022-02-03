@@ -55,7 +55,7 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkyMTk3MiwiZXhwIjoxNjQzOTIyMjcyfQ.8aqJpE83v_CJmenhzKoDqmmURRPaaSSSCe5FSYo7WmA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkyMzI3MSwiZXhwIjoxNjQzOTIzNTcxfQ.zZal83K3XlVjNnpjtrCyhS0XjaUBLBpttE_KM2h6b8Y
 
 ###
 
@@ -67,15 +67,16 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFp
 
 POST http://localhost:8888/v1/portfolio/wallet/13/transaction/ HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkxMjEzNywiZXhwIjoxNjQzOTEyNDM3fQ.yRABczcW-rYSEC3Vb8CPYwtpuQlGCJtYi-yq8oxpas8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkyMzI3MSwiZXhwIjoxNjQzOTIzNTcxfQ.zZal83K3XlVjNnpjtrCyhS0XjaUBLBpttE_KM2h6b8Y
 
 {
+  "id": 46,
   "buy": true,
   "buy_date": "Fri Jan 28 2022 15:20:46 GMT+0100",
-  "coin_id": "chainlink",
+  "coin_id": "bitcoin",
   "price": 1000,
-  "quantity": 10,
-  "symbol": "link"
+  "quantity": 100,
+  "symbol": "btc"
 }
 
 ### 
