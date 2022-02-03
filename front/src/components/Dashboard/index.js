@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolio } from 'src/actions/portfolio';
 import Container from '@mui/material/Container';
+import { PropTypes } from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import WalletsNav from './WalletsNav';
 import AssetsShares from './AssetsShares';
 import Performance from './Performance';
@@ -27,14 +29,20 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard = () => {
+const Dashboard = ({ logged }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
 
   useEffect(() => {
-    dispatch(fetchPortfolio());
+    if (!logged) {
+      navigate('/login?continue=/portfolio');
+    }
+    else {
+      dispatch(fetchPortfolio());
+    }
   }, []);
 
   return (
@@ -64,6 +72,10 @@ const Dashboard = () => {
       </Grid>
     </div>
   );
+};
+
+Dashboard.propTypes = {
+  logged: PropTypes.bool.isRequired,
 };
 
 export default Dashboard;
