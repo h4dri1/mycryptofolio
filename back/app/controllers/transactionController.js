@@ -130,11 +130,11 @@ module.exports = {
                     return res.status(500).json('You are trying to sell coins that are not present in this wallet');
                 }
                 if (bodyId) {
-                    if (wallet.total < req.body.quantity) {
+                    if (wallet.total <= req.body.quantity + wallet.total) {
                         return res.status(500).json('You trying to sell more coin than you have');
                     }  
                 } else {
-                    if ((wallet.total + req.body.quantity) < bodyId) {
+                    if ((wallet.total + req.body.quantity) < 0) {
                         return res.status(500).json('You trying to sell more coin than you have');
                     }    
                 }
