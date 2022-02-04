@@ -159,6 +159,8 @@ router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
 router.get('/trending', cache, cryptoController.getTrendingCryptos);
 
+router.get('/global', cache, cryptoController.getGlobalData);
+
 /**
  * GET /v1/portfolio
  * @summary Crypto
