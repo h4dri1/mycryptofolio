@@ -79,6 +79,7 @@ const TransactionsHistory = () => {
                   positionAbsolute={false}
                   editItem={handleEditTransaction}
                   deleteItem={() => toggleConfirmDelete({ type: 'transaction', itemId: transaction.id })}
+                  itemId={transaction.id}
                 />
               </TableCell>
             </TableRow>

@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 const EditOrDeleteItem = ({
-  editItem, deleteItem, positionAbsolute,
+  editItem, deleteItem, positionAbsolute, itemId,
 }) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef();
@@ -54,6 +54,11 @@ EditOrDeleteItem.propTypes = {
   editItem: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
   positionAbsolute: PropTypes.bool.isRequired,
+  itemId: PropTypes.number,
+};
+
+EditOrDeleteItem.defaultProps = {
+  itemId: null,
 };
 
 export default EditOrDeleteItem;
