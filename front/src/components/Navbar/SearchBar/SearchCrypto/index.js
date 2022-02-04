@@ -1,14 +1,14 @@
 import * as React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate, useLocation, useMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import TextField from '@mui/material/TextField';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import {
     Autocomplete,
     Box,
-    Button,
-    Divider,
-    Grid,
+    Link,
     TextField,
-    Typography,
 } from '@mui/material';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,17 +29,36 @@ export default function SearchCrypto() {
         return false;
     });
 
-    const filterOptions = createFilterOptions({
-        matchFrom: 'start',
-        stringify: (option) => option.title,
-    });
+
+    // const filterOptions = createFilterOptions({
+    //     matchFrom: 'start',
+    //     stringify: (option) => option.title,
+    // });
+
+    // const match = useMatch(`/crypto/${slug}`);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { slug } = useParams();
+    console.log(location);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        location.pathname
+        // navigate(`../crypto/${currency.id}`, { replace: true })
+        slug ? navigate(`/crypto/${currency.id}`, { replace: true }) : navigate(`/crypto/${currency.id}`, { replace: true });
+
+
+
+        // console.log(currency.id);
+    }
+
+    // const handleClick = useEffect(() => {
+    //       navigate(`/crypto/${slug}`);
+    //     }
+    //   }, []);
 
     return (
-
-
-        <Box component="form" item xs={12} borderRadius='3'
-            // onSubmit={handleSubmit} 
-            // sx={{ display: 'flex', bgcolor: '#6C49BA' }}
+        <Box component="form" onSubmit={handleSubmit} item xs={12} borderRadius='3'
             container gap={2} ml={3}
             size='small'
             height='50px'
@@ -52,17 +71,15 @@ export default function SearchCrypto() {
                     textColor: 'white',
                     size: 'small'
                 },
-
             }}
         >
-
-
-
-
             <Autocomplete
+                // onSubmit={() => navigate(`/crypto/${slug}`)}
+
                 disablePortal
                 id="cryptoCurrency"
                 options={someCryptos}
+                // getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
                 getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
                 // ! For later, to enhance list aspect
                 renderOption={(props, option) => (
@@ -75,6 +92,7 @@ export default function SearchCrypto() {
                             alt=""
                         />
                         {option.symbol.toUpperCase()} : {option.name}
+
                     </Box>
                 )}
                 renderInput={(params) => <TextField {...params}
@@ -92,8 +110,6 @@ export default function SearchCrypto() {
                     }
                 }}
             />
-
-
         </Box >
 
     );
