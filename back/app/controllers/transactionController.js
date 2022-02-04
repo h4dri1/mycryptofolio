@@ -139,7 +139,7 @@ module.exports = {
                     const cryptos2 = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
                     console.log(cryptos2)
                     const wallet2 = cryptos2.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
-                    if ((wallet2.total + req.body.quantity) - wallet2.total > 0) {
+                    if ((wallet2.total + req.body.quantity) - wallet2.total > wallet.total) {
                         return res.status(500).json('You trying to sell more coin than you have');
                     }  
                 } else {
