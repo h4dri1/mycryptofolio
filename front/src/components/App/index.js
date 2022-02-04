@@ -14,6 +14,7 @@ import { Paper } from '@mui/material';
 import AlertMsg from 'src/components/common/AlertMessage';
 
 import { checkToken } from 'src/actions/user';
+import { getAllCryptos } from 'src/actions/cryptos';
 
 // == Composant
 
@@ -57,6 +58,7 @@ const App = () => {
 
   useEffect(async () => {
     await dispatch(checkToken());
+    dispatch(getAllCryptos());
   }, []);
 
   return (
