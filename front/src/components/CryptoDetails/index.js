@@ -43,6 +43,8 @@ const CryptoDetails = () => {
     const { data, chart, loading } = useSelector((state) => state.cryptoDetails);
     const { slug } = useParams();
 
+    console.log(slug);
+
     useEffect(() => {
         dispatch(fetchCryptoData(slug));
     }, []);
