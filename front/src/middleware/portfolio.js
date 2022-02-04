@@ -7,7 +7,7 @@ import {
   FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
   SAVE_TRANSACTION, fetchPortfolio, DELETE_TRANSACTION,
-  UPDATE_WALLET, toggleUpdateWalletModal,
+  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificPortfolio
 } from 'src/actions/portfolio';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
@@ -182,7 +182,7 @@ const portfolio = (store) => (next) => async (action) => {
       axios.request(config)
         .then((res) => {
           console.log(res);
-          store.dispatch(fetchPortfolio());
+          store.dispatch(fetchSpecificPortfolio(walletId));
         })
         .catch((err) => {
           console.log(err.response);

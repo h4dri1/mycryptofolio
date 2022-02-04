@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio } from 'src/actions/portfolio';
+import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
 import Container from '@mui/material/Container';
 import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +12,6 @@ import AssetsShares from './AssetsShares';
 import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
-
-import { checkToken } from 'src/actions/user';
 
 const useStyles = makeStyles({
   grid: {
@@ -39,8 +37,7 @@ const Dashboard = ({ logged }) => {
 
   const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
 
-  useEffect(async () => {
-    await dispatch(checkToken());
+  useEffect(() => {
     if (!logged) {
       navigate('/login?continue=/portfolio');
     }
