@@ -10,7 +10,7 @@ module.exports = {
                 process.env.JWT_SECRET,
                 {
                     algorithm: 'HS256',
-                    expiresIn: '15s'
+                    expiresIn: '5min'
                 }
             );
         } catch(error) {
