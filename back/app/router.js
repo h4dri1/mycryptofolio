@@ -121,7 +121,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/crypto/:id', cryptoController.getOneCrypto);
+router.get('/crypto/:id', cache, cryptoController.getOneCrypto);
 
  /**
  * GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
@@ -159,6 +159,10 @@ router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
 router.get('/trending', cache, cryptoController.getTrendingCryptos);
 
+router.get('/global', cache, cryptoController.getGlobalData);
+
+router.get('/history/:coinId/:day-:month-:year', cache, cryptoController.getHistoricalData);
+
 /**
  * GET /v1/portfolio
  * @summary Crypto
@@ -167,7 +171,7 @@ router.get('/trending', cache, cryptoController.getTrendingCryptos);
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
 /**
  * GET /v1/portfolio/wallet/{wallet_id}
@@ -177,7 +181,7 @@ router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
 router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), transactionController.addTransaction);
 

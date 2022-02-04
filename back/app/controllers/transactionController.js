@@ -9,54 +9,47 @@ module.exports = {
 
             let objTransactions;
             let portfolio = {};
-            let value = {};
-            let buy = {};
             let objRepartition = {};
             let objPerformance = {};
             let sumValue = 0;
             let sumBuy = 0;
-            let total = {};
 
             if (req.params.wallet_id) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
             } else {
                 objTransactions = await Transaction.getUserTransaction(req.userId.id);
-            }
+            };
 
             if (!objTransactions) {
                 return res.status(500).json(error.message, true);
             };
 
-            for (const val of cryptos) {              
-                if (!value[val.coin_id]) {
-                    value[val.coin_id] = (val.total * price[val.coin_id].usd)
-                    buy[val.coin_id] =  val.total * val.buy_price
-                    total[val.coin_id] = val.total
-                } else {
-                    value[val.coin_id] = value[val.coin_id] + (val.total * price[val.coin_id].usd)
-                    buy[val.coin_id] =  buy[val.coin_id] + (val.total * val.buy_price)
-                    total[val.coin_id] = total[val.coin_id] + val.total
+            const cryptosMap = cryptos.map(x => {
+                x.value = Number(x.total) * price[x.coin_id].usd
+                return x
+            });
+
+            for (const key of cryptosMap) {
+                sumValue += parseInt(key.value);
+                sumBuy += parseInt(key.investment);
+            };
+
+            for (const crypto of cryptosMap) {
+                if (Number(crypto.total !== 0)) {
+                    if (!objRepartition[crypto.coin_id]) {
+                        objRepartition[crypto.coin_id] = {}
+                        objRepartition[crypto.coin_id].name = crypto.symbol
+                        objRepartition[crypto.coin_id].quantity = crypto.total
+                        objRepartition[crypto.coin_id].value = crypto.value
+                        objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
+                    } else {
+                        objRepartition[crypto.coin_id].quantity = crypto.total + objRepartition[crypto.coin_id].quantity
+                        objRepartition[crypto.coin_id].value = crypto.value + objRepartition[crypto.coin_id].value
+                        objRepartition[crypto.coin_id].distribution = ((100 * crypto.value)/sumValue) + (objRepartition[crypto.coin_id].distribution)
+                    }                 
                 }
-            }
-
-            for (const key in value) {
-                sumValue += parseInt(value[key])
-            }
-
-            for (const key in buy) {
-                sumBuy += parseInt(buy[key])
-            }
-
-            for (const crypto of cryptos) {
-                if (value[crypto.coin_id]) {
-                    objRepartition[crypto.coin_id] = {}
-                    objRepartition[crypto.coin_id].name = crypto.symbol
-                    objRepartition[crypto.coin_id].quantity = total[crypto.coin_id]
-                    objRepartition[crypto.coin_id].value = value[crypto.coin_id]
-                    objRepartition[crypto.coin_id].distribution = (100 * value[crypto.coin_id])/sumValue;
-                }
-            }
-
+            };
+        
             const pnl = sumValue - sumBuy;
 
             objPerformance.investment = sumBuy;
@@ -74,38 +67,32 @@ module.exports = {
                 let objWallet = [];
                 let newObj = [];
                 let sum = 0;
-                let id = 0;
-                let id2 = 1;
 
                 const empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
 
                 for (const coin of cryptos) {
-                    sum = sum + coin.total * price[coin.coin_id].usd
-                    id = coin.wallet_id
-                    if (id === id2) {
-                        newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
-                    } else {
-                        sum = coin.total * price[coin.coin_id].usd;
-                        newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
-                        id2 = coin.wallet_id
-                    }
-                }
+                    sum = (coin.total * price[coin.coin_id].usd);
+                    newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
+                };
 
-                newObj.filter((v) => {
-                    return this[v.id]?
-                      !Object.assign(objWallet[v.id], v):
-                      (objWallet[v.id] = v);
+                newObj.reduce((key, value) => {
+                if (!key[value.id]) {
+                    key[value.id] = { id: value.id, sum: 0, label: value.label };
+                    objWallet.push(key[value.id]);
+                }
+                key[value.id].sum += value.sum;
+                return key;
                 }, {});
 
                 if (empty) {
                     for (const emp of empty) {
                         objWallet.push({'id':emp.id, 'sum':'0', 'label':emp.label});
                     }
-                }
+                };
 
-                portfolio.wallet = Object.values(objWallet);
+                portfolio.wallet = objWallet;
             }
-
+            
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
@@ -118,12 +105,14 @@ module.exports = {
     addTransaction: async (req, res) => {
         try {
             let own_wallet = false;
+            let bodyId = false;
             if (req.body.id) {
                 const is_transaction = await Transaction.getTransactionByPk(req.body.id);
                 if (is_transaction.length === 0) {
-                    return res.status(500).json('No transaction with this id')
+                    return res.status(500).json('No transaction with this id');
                 }
-            }
+                bodyId = true;
+            };
             const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
             if (is_owning_wallet.length === 0) {
                 return res.status(500).json(`You have no wallet create one before add transaction`);
@@ -132,26 +121,35 @@ module.exports = {
                     if (Number(req.params.wid) === own.id) {
                         own_wallet = true;
                     }
-                }
+                };
                 if (!own_wallet) {
                     return res.status(500).json(`You doesn't own this wallet`)
-                }
-            }
-            const cryptos = await Transaction.getUserCrypto(req.userId.id);
+                };
+            };    
             if (!req.body.buy) {
+                const cryptos = await Transaction.getUserCrypto(req.userId.id);
                 if (req.body.quantity > 0) {
-                    return res.status(500).json('Selling quantity must be a negative number')
+                    return res.status(500).json('Selling quantity must be a negative number');
                 }
                 const wallet = cryptos.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
                 if (wallet === undefined) {
-                    return res.status(500).json('You are trying to sell coins that are not present in this wallet')
+                    return res.status(500).json('You are trying to sell coins that are not present in this wallet');
                 }
-                if ((wallet.total + req.body.quantity) < 0) {
-                    return res.status(500).json('You trying to sell more coin than you have')
-                }                   
+                if (bodyId) {
+                    const cryptos2 = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
+                    console.log(cryptos2)
+                    const wallet2 = cryptos2.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
+                    if ((wallet2.total + req.body.quantity) - wallet2.total > wallet.total) {
+                        return res.status(500).json('You trying to sell more coin than you have');
+                    }  
+                } else {
+                    if ((wallet.total + req.body.quantity) < 0) {
+                        return res.status(500).json('You trying to sell more coin than you have');
+                    }    
+                }
             } else {
                 if (req.body.quantity < 0) {
-                    return res.status(500).json('Buy quantity must be a positive number')
+                    return res.status(500).json('Buy quantity must be a positive number');
                 }
             }           
             const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);

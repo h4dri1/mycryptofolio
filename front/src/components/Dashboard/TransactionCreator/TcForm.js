@@ -16,8 +16,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 import { saveTransaction } from 'src/actions/portfolio';
+import { toggleTransactionEditor } from 'src/actions/settings';
 
-const TransactionCreatorForm = ({ buy }) => {
+const TransactionCreatorForm = ({ buy, id }) => {
   const dispatch = useDispatch();
 
   // Get all 20k cryptos
@@ -32,6 +33,7 @@ const TransactionCreatorForm = ({ buy }) => {
   });
 
   const { currentPrice } = useSelector((state) => state.cryptos);
+  const { transactionEditorIsOpen } = useSelector((state) => state.settings);
 
   const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
   const [quantity, setQuantity] = useState('');
@@ -55,14 +57,24 @@ const TransactionCreatorForm = ({ buy }) => {
     if (!newTransaction.buy) {
       newTransaction.quantity *= (-1);
     }
-    // TODO: Replace console log by a dispatch of an action to send a transaction to API
+    if (id) {
+      newTransaction.id = id;
+    }
+    // DONE: Replace console log by a dispatch of an action to send a transaction to API
     dispatch(saveTransaction(newTransaction));
+
+    if (transactionEditorIsOpen) {
+      dispatch(toggleTransactionEditor());
+    }
   };
 
   const handleCancel = () => {
     setQuantity(0);
     setPrice(0);
     setDateValue(Date.now());
+    if (transactionEditorIsOpen) {
+      dispatch(toggleTransactionEditor());
+    }
   };
 
   useEffect(() => dispatch(getCurrentPrice({
@@ -284,4 +296,9 @@ export default TransactionCreatorForm;
 
 TransactionCreatorForm.propTypes = {
   buy: PropTypes.bool.isRequired,
+  id: PropTypes.number,
+};
+
+TransactionCreatorForm.defaultProps = {
+  id: undefined,
 };

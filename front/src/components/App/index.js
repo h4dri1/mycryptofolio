@@ -3,7 +3,8 @@ import Home from 'src/pages/Home';
 import Portfolio from 'src/pages/Portfolio';
 import CryptoPage from 'src/pages/CryptoPage';
 
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
@@ -12,9 +13,13 @@ import { Paper } from '@mui/material';
 
 import AlertMsg from 'src/components/common/AlertMessage';
 
+import { checkToken } from 'src/actions/user';
+import { getAllCryptos } from 'src/actions/cryptos';
+
 // == Composant
 
 const App = () => {
+  const dispatch = useDispatch();
   // DARK MODE
   const { darkMode } = useSelector((state) => state.settings);
 
@@ -50,6 +55,11 @@ const App = () => {
   });
 
   // theme = responsiveFontSizes(theme, { breakpoints: ['sm', 'md', 'lg'] });
+
+  useEffect(async () => {
+    await dispatch(checkToken());
+    dispatch(getAllCryptos());
+  }, []);
 
   return (
     <div className="app">

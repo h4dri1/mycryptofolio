@@ -11,8 +11,8 @@ export const UPDATE_SELECTED_WALLET = 'UPDATE_SELECTED_WALLET';
 // get portfolio data
 export const FETCH_PORTFOLIO = 'FETCH_PORTFOLIO';
 export const FETCH_PORTFOLIO_SUCCESS = 'FETCH_PORTFOLIO_SUCCESS';
-export const FETCH_SPECIFIC_PORTFOLIO = 'FETCH_SPECIFIC_PORTFOLIO';
-export const FETCH_SPECIFIC_PORTFOLIO_SUCCESS = 'FETCH_SPECIFIC_PORTFOLIO_SUCCESS';
+export const FETCH_SPECIFIC_WALLET = 'FETCH_SPECIFIC_WALLET';
+export const FETCH_SPECIFIC_WALLET_SUCCESS = 'FETCH_SPECIFIC_WALLET_SUCCESS';
 export const SAVE_TRANSACTION = 'SAVE_TRANSACTION';
 export const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
 
@@ -73,13 +73,13 @@ export const fetchPortfolioSuccess = (payload) => ({
   payload,
 });
 
-export const fetchSpecificPortfolio = (payload) => ({
-  type: FETCH_SPECIFIC_PORTFOLIO,
+export const fetchSpecificWallet = (payload) => ({
+  type: FETCH_SPECIFIC_WALLET,
   payload,
 });
 
-export const fetchSpecificPortfolioSuccess = (payload) => ({
-  type: FETCH_SPECIFIC_PORTFOLIO_SUCCESS,
+export const fetchSpecificWalletSuccess = (payload) => ({
+  type: FETCH_SPECIFIC_WALLET_SUCCESS,
   payload,
 });
 

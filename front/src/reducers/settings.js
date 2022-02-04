@@ -2,16 +2,24 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_LOGIN_MODAL,
   SET_DISPLAY_SNACK_BAR,
+  TOGGLE_CONFIRM_DELETE,
+  TOGGLE_TRANSACTION_EDITOR,
 } from 'src/actions/settings';
 
 export const initialState = {
   darkMode: false,
   loginIsOpen: false,
+  deleteItem: {
+    toggle: false,
+    type: '',
+    itemId: null,
+  },
   alert: {
     open: false,
     severity: 'success',
     message: '',
   },
+  transactionEditorIsOpen: false,
 };
 
 const settings = (state = initialState, action = {}) => {
@@ -40,6 +48,24 @@ const settings = (state = initialState, action = {}) => {
         },
       });
     }
+
+    case TOGGLE_CONFIRM_DELETE:
+      return {
+        ...state,
+        deleteItem: {
+          toggle: !state.deleteItem.toggle,
+          type: action.payload ? action.payload.type : '',
+          itemId: action.payload ? action.payload.itemId : null,
+        },
+      };
+
+    case TOGGLE_TRANSACTION_EDITOR: {
+      return ({
+        ...state,
+        transactionEditorIsOpen: !state.transactionEditorIsOpen,
+      });
+    }
+
     default:
       return state;
   }

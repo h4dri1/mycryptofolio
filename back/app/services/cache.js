@@ -1,3 +1,4 @@
+const jwt = require('../services/jwt');
 const {createClient} = require('redis');
 const db = createClient();
 db.connect();
@@ -13,11 +14,20 @@ const cache = async (req, res, next) => {
     if (req.url === '/cryptos') {
         timeout = 60 * 5;
     };
-    const key = `${prefix}${req.url}`;
+
+    if (req.userId) {
+        key = `${prefix}${req.url}:${req.userId.id}`;
+    } else {
+        key = `${prefix}${req.url}`;
+    }
 
     if (await db.exists(key)) {
         const cachedString = await db.get(key);
         const cachedValue = JSON.parse(cachedString);
+        if (req.userId) {
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Authorization', jwt.makeToken(req.userId));
+        }
         return res.json(cachedValue);
     };
 
