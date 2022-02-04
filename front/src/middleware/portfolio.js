@@ -6,8 +6,8 @@ import {
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
   FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
-  SAVE_TRANSACTION, fetchPortfolio, DELETE_TRANSACTION,
-  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificPortfolio
+  SAVE_TRANSACTION, DELETE_TRANSACTION,
+  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificPortfolio,
 } from 'src/actions/portfolio';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
@@ -22,7 +22,6 @@ import getNewAccessToken from 'src/services/getNewAccessToken';
 const portfolio = (store) => (next) => async (action) => {
   const privateRoute = axios.create({
     baseURL: 'https://dev.mycryptofolio.fr/v1',
-    headers: '',
   });
 
   privateRoute.interceptors.request.use(async (req) => {
@@ -42,7 +41,7 @@ const portfolio = (store) => (next) => async (action) => {
         accessToken: newAccessToken,
       };
       store.dispatch(saveUser(userObj));
-      
+
       return req;
     }
     return req;
@@ -52,9 +51,9 @@ const portfolio = (store) => (next) => async (action) => {
     case CREATE_NEW_WALLET:
       const { inputText } = store.getState().portfolio.createWallet;
 
-      axios({
+      privateRoute({
         method: 'post',
-        url: 'https://dev.mycryptofolio.fr/v1/portfolio/wallet',
+        url: '/portfolio/wallet',
         headers: {
           Authorization: store.getState().user.accessToken,
         },
@@ -76,9 +75,9 @@ const portfolio = (store) => (next) => async (action) => {
     case UPDATE_WALLET:
       const { inputText: newWalletName } = store.getState().portfolio.editWallet;
 
-      axios({
+      privateRoute({
         method: 'post',
-        url: 'https://dev.mycryptofolio.fr/v1/portfolio/wallet',
+        url: '/portfolio/wallet',
         headers: {
           Authorization: store.getState().user.accessToken,
         },
@@ -106,9 +105,9 @@ const portfolio = (store) => (next) => async (action) => {
       break;
     case DELETE_WALLET:
       if (action.payload !== undefined) {
-        axios({
+        privateRoute({
           method: 'delete',
-          url: `https://dev.mycryptofolio.fr/v1/portfolio/wallet/${action.payload}`,
+          url: `/portfolio/wallet/${action.payload}`,
           headers: {
             Authorization: store.getState().user.accessToken,
           },
@@ -142,9 +141,9 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case FETCH_SPECIFIC_PORTFOLIO:
-      axios({
+      privateRoute({
         method: 'get',
-        url: `https://dev.mycryptofolio.fr/v1/portfolio/wallet/${action.payload}`,
+        url: `/portfolio/wallet/${action.payload}`,
         headers: {
           Authorization: store.getState().user.accessToken,
         },
@@ -169,7 +168,6 @@ const portfolio = (store) => (next) => async (action) => {
       }
       const config = {
         method: 'post',
-        baseURL: 'https://dev.mycryptofolio.fr/v1',
         url: `/portfolio/wallet/${walletId}/transaction`,
         headers: {
           Authorization: store.getState().user.accessToken,
@@ -179,7 +177,7 @@ const portfolio = (store) => (next) => async (action) => {
 
       console.log('config axios: ', config);
 
-      axios.request(config)
+      privateRoute.request(config)
         .then((res) => {
           console.log(res);
           store.dispatch(fetchSpecificPortfolio(walletId));
@@ -191,17 +189,19 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case DELETE_TRANSACTION:
+      const { selectedWallet } = store.getState().portfolio;
+
       if (action.payload !== undefined) {
-        axios({
+        privateRoute({
           method: 'delete',
-          url: `https://dev.mycryptofolio.fr/v1/portfolio/transaction/${action.payload}`,
+          url: `/portfolio/transaction/${action.payload}`,
           headers: {
             Authorization: store.getState().user.accessToken,
           },
         })
           .then((res) => {
             if (res.status === 204) {
-              store.dispatch(fetchPortfolio());
+              store.dispatch(fetchSpecificPortfolio(selectedWallet));
               store.dispatch(toggleConfirmDelete());
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
