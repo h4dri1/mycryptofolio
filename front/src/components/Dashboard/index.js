@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio } from 'src/actions/portfolio';
+import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
 import Container from '@mui/material/Container';
 import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';

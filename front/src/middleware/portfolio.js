@@ -4,23 +4,56 @@ import axios from 'axios';
 import {
   CREATE_NEW_WALLET, toggleCreateWalletModal,
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
-  FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
+  FETCH_SPECIFIC_WALLET, fetchSpecificWalletSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
-  SAVE_TRANSACTION, fetchPortfolio, DELETE_TRANSACTION,
-  UPDATE_WALLET, toggleUpdateWalletModal,
+  SAVE_TRANSACTION, DELETE_TRANSACTION,
+  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet,
 } from 'src/actions/portfolio';
 
-import { checkToken, saveNewToken } from 'src/actions/user';
+import { saveNewToken, saveUser } from 'src/actions/user';
 import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
 
-const portfolio = (store) => (next) => (action) => {
+import parseJwt from 'src/services/parseJwt';
+import isTokenExpired from 'src/services/isTokenExpired';
+import getNewAccessToken from 'src/services/getNewAccessToken';
+
+// import privateRoute from 'src/services/privateRoute';
+
+const portfolio = (store) => (next) => async (action) => {
+  const privateRoute = axios.create({
+    baseURL: 'https://dev.mycryptofolio.fr/v1',
+  });
+
+  privateRoute.interceptors.request.use(async (req) => {
+    const accessToken = req.headers.Authorization;
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (isTokenExpired(accessToken) && refreshToken) {
+      const newAccessToken = await getNewAccessToken(refreshToken);
+      req.headers.Authorization = newAccessToken;
+
+      const { user } = parseJwt(newAccessToken);
+      const { email, nickname, picture } = user;
+      const userObj = {
+        email,
+        nickname,
+        avatar: picture,
+        accessToken: newAccessToken,
+      };
+      store.dispatch(saveUser(userObj));
+
+      return req;
+    }
+    return req;
+  });
+
   switch (action.type) {
     case CREATE_NEW_WALLET:
       const { inputText } = store.getState().portfolio.createWallet;
 
-      axios({
+      privateRoute({
         method: 'post',
-        url: 'https://dev.mycryptofolio.fr/v1/portfolio/wallet',
+        url: '/portfolio/wallet',
         headers: {
           Authorization: store.getState().user.accessToken,
         },
@@ -42,9 +75,9 @@ const portfolio = (store) => (next) => (action) => {
     case UPDATE_WALLET:
       const { inputText: newWalletName } = store.getState().portfolio.editWallet;
 
-      axios({
+      privateRoute({
         method: 'post',
-        url: 'https://dev.mycryptofolio.fr/v1/portfolio/wallet',
+        url: '/portfolio/wallet',
         headers: {
           Authorization: store.getState().user.accessToken,
         },
@@ -72,9 +105,9 @@ const portfolio = (store) => (next) => (action) => {
       break;
     case DELETE_WALLET:
       if (action.payload !== undefined) {
-        axios({
+        privateRoute({
           method: 'delete',
-          url: `https://dev.mycryptofolio.fr/v1/portfolio/wallet/${action.payload}`,
+          url: `/portfolio/wallet/${action.payload}`,
           headers: {
             Authorization: store.getState().user.accessToken,
           },
@@ -94,14 +127,10 @@ const portfolio = (store) => (next) => (action) => {
       next(action);
       break;
     case FETCH_PORTFOLIO:
-      // store.dispatch(checkToken());
-
-      axios({
+      privateRoute({
         method: 'get',
-        url: 'https://dev.mycryptofolio.fr/v1/portfolio',
-        headers: {
-          Authorization: store.getState().user.accessToken,
-        },
+        url: '/portfolio',
+        headers: { Authorization: store.getState().user.accessToken },
       })
         .then((res) => {
           store.dispatch(fetchPortfolioSuccess(res.data));
@@ -111,16 +140,16 @@ const portfolio = (store) => (next) => (action) => {
         .catch((err) => console.log(err));
       next(action);
       break;
-    case FETCH_SPECIFIC_PORTFOLIO:
-      axios({
+    case FETCH_SPECIFIC_WALLET:
+      privateRoute({
         method: 'get',
-        url: `https://dev.mycryptofolio.fr/v1/portfolio/wallet/${action.payload}`,
+        url: `/portfolio/wallet/${action.payload}`,
         headers: {
           Authorization: store.getState().user.accessToken,
         },
       })
         .then((res) => {
-          store.dispatch(fetchSpecificPortfolioSuccess(res.data));
+          store.dispatch(fetchSpecificWalletSuccess(res.data));
           const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
@@ -139,7 +168,6 @@ const portfolio = (store) => (next) => (action) => {
       }
       const config = {
         method: 'post',
-        baseURL: 'https://dev.mycryptofolio.fr/v1',
         url: `/portfolio/wallet/${walletId}/transaction`,
         headers: {
           Authorization: store.getState().user.accessToken,
@@ -149,10 +177,10 @@ const portfolio = (store) => (next) => (action) => {
 
       console.log('config axios: ', config);
 
-      axios.request(config)
+      privateRoute.request(config)
         .then((res) => {
           console.log(res);
-          store.dispatch(fetchPortfolio());
+          store.dispatch(fetchSpecificWallet(walletId));
         })
         .catch((err) => {
           console.log(err.response);
@@ -161,17 +189,19 @@ const portfolio = (store) => (next) => (action) => {
       next(action);
       break;
     case DELETE_TRANSACTION:
+      const { selectedWallet } = store.getState().portfolio;
+
       if (action.payload !== undefined) {
-        axios({
+        privateRoute({
           method: 'delete',
-          url: `https://dev.mycryptofolio.fr/v1/portfolio/transaction/${action.payload}`,
+          url: `/portfolio/transaction/${action.payload}`,
           headers: {
             Authorization: store.getState().user.accessToken,
           },
         })
           .then((res) => {
             if (res.status === 204) {
-              store.dispatch(fetchPortfolio());
+              store.dispatch(fetchSpecificWallet(selectedWallet));
               store.dispatch(toggleConfirmDelete());
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
