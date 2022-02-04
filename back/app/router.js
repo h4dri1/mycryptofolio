@@ -161,6 +161,8 @@ router.get('/trending', cache, cryptoController.getTrendingCryptos);
 
 router.get('/global', cache, cryptoController.getGlobalData);
 
+router.get('/history/:coinId/:day-:month-:year', cache, cryptoController.getHistoricalData);
+
 /**
  * GET /v1/portfolio
  * @summary Crypto
