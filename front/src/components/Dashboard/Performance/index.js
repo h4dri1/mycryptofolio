@@ -60,7 +60,7 @@ const Performance = () => {
             },
           },
           ]}
-        ><Typography variant="h4" color={perfPercentage > 0 ? 'green' : 'red'}>{perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}</Typography>
+        ><Typography variant="h4" color={perfPercentage >= 0 ? 'green' : 'red'}>{perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}</Typography>
         </Box>
       </Grid>
     </Grid>
