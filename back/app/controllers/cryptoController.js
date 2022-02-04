@@ -29,13 +29,6 @@ module.exports = {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}`);
             const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=30&interval=daily`);
-            //const bigChart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=30&interval=daily`);
-            //const chart = Object.values(bigChart.prices);
-            //const prices = Object.assign(...chart.map(([k, v]) => ({[k]: v})))
-            //const mc = Object.values(bigChart.market_caps);
-            //const market_caps = Object.assign(...mc.map(([k, v]) => ({[k]: v})))
-            //const market_vol = Object.values(bigChart.total_volumes);
-            //const total_volumes = Object.assign(...market_vol.map(([k, v]) => ({[k]: v})))
             const superObj = {'data': {
                 'id': data.id,
                 'symbol': data.symbol,
@@ -86,9 +79,29 @@ module.exports = {
         }
     },
  
-    getTrendingCryptos: async (req, res, next) => {
+    getTrendingCryptos: async (req, res) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
+            res.status(200).json(data);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    },
+
+    getGlobalData: async (req, res) => {
+        try {
+            const data = await service_fetch(`//api.coingecko.com/api/v3/global`);
+            res.status(200).json(data);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    },
+
+    getHistoricalData: async (req, res) => {
+        try {
+            const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
             res.status(200).json(data);
         } catch (error) {
             console.log(error);

@@ -26,7 +26,7 @@ const EditOrDeleteItem = ({
   };
 
   const handleEditItem = () => {
-    dispatch(editItem());
+    dispatch(editItem(itemId));
   };
 
   const displayConfirmDelete = () => {
