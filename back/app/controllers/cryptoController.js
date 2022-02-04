@@ -79,9 +79,19 @@ module.exports = {
         }
     },
  
-    getTrendingCryptos: async (req, res, next) => {
+    getTrendingCryptos: async (req, res) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
+            res.status(200).json(data);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    },
+
+    getGlobalData: async (req, res) => {
+        try {
+            const data = await service_fetch(`//api.coingecko.com/api/v3/global`);
             res.status(200).json(data);
         } catch (error) {
             console.log(error);
