@@ -4,10 +4,10 @@ import axios from 'axios';
 import {
   CREATE_NEW_WALLET, toggleCreateWalletModal,
   FETCH_PORTFOLIO, fetchPortfolioSuccess,
-  FETCH_SPECIFIC_PORTFOLIO, fetchSpecificPortfolioSuccess,
+  FETCH_SPECIFIC_WALLET, fetchSpecificWalletSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
   SAVE_TRANSACTION, DELETE_TRANSACTION,
-  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificPortfolio,
+  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet,
 } from 'src/actions/portfolio';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
@@ -140,7 +140,7 @@ const portfolio = (store) => (next) => async (action) => {
         .catch((err) => console.log(err));
       next(action);
       break;
-    case FETCH_SPECIFIC_PORTFOLIO:
+    case FETCH_SPECIFIC_WALLET:
       privateRoute({
         method: 'get',
         url: `/portfolio/wallet/${action.payload}`,
@@ -149,7 +149,7 @@ const portfolio = (store) => (next) => async (action) => {
         },
       })
         .then((res) => {
-          store.dispatch(fetchSpecificPortfolioSuccess(res.data));
+          store.dispatch(fetchSpecificWalletSuccess(res.data));
           const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
@@ -180,7 +180,7 @@ const portfolio = (store) => (next) => async (action) => {
       privateRoute.request(config)
         .then((res) => {
           console.log(res);
-          store.dispatch(fetchSpecificPortfolio(walletId));
+          store.dispatch(fetchSpecificWallet(walletId));
         })
         .catch((err) => {
           console.log(err.response);
@@ -201,7 +201,7 @@ const portfolio = (store) => (next) => async (action) => {
         })
           .then((res) => {
             if (res.status === 204) {
-              store.dispatch(fetchSpecificPortfolio(selectedWallet));
+              store.dispatch(fetchSpecificWallet(selectedWallet));
               store.dispatch(toggleConfirmDelete());
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
