@@ -14,7 +14,7 @@ import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteTransaction } from 'src/actions/portfolio';
-import { toggleTransactionEditor } from 'src/actions/settings';
+import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settings';
 import { useState } from 'react';
 
 const modalBoxStyle = {
@@ -78,8 +78,7 @@ const TransactionsHistory = () => {
                 <EditOrDeleteItem
                   positionAbsolute={false}
                   editItem={handleEditTransaction}
-                  deleteItem={deleteTransaction}
-                  itemId={transaction.id}
+                  deleteItem={() => toggleConfirmDelete({ type: 'transaction', itemId: transaction.id })}
                 />
               </TableCell>
             </TableRow>
