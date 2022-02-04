@@ -1,6 +1,6 @@
 import {
   TOGGLE_CREATE_WALLET_MODAL, UPDATE_CREATE_WALLET_INPUT,
-  UPDATE_SELECTED_WALLET, FETCH_PORTFOLIO_SUCCESS, FETCH_SPECIFIC_PORTFOLIO_SUCCESS,
+  UPDATE_SELECTED_WALLET, FETCH_PORTFOLIO_SUCCESS, FETCH_SPECIFIC_WALLET_SUCCESS,
   UPDATE_WALLET_LIST, DELETE_OR_UPDATE_WALLET_SUCCESS, TOGGLE_UPDATE_WALLET_MODAL,
   UPDATE_UPDATE_WALLET_INPUT,
 } from 'src/actions/portfolio';
@@ -78,7 +78,7 @@ const portfolioReducer = (state = initialState, action = {}) => {
         transactions: action.payload.transactions,
         wallet: action.payload.wallet,
       };
-    case FETCH_SPECIFIC_PORTFOLIO_SUCCESS:
+    case FETCH_SPECIFIC_WALLET_SUCCESS:
       return {
         ...state,
         distribution: action.payload.distribution,
