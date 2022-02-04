@@ -10,10 +10,12 @@ import {
   UPDATE_WALLET, toggleUpdateWalletModal,
 } from 'src/actions/portfolio';
 
-import { checkToken, saveNewToken } from 'src/actions/user';
+import { saveNewToken } from 'src/actions/user';
 import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
 
-const portfolio = (store) => (next) => (action) => {
+import privateRoute from 'src/services/privateRoute';
+
+const portfolio = (store) => (next) => async (action) => {
   switch (action.type) {
     case CREATE_NEW_WALLET:
       const { inputText } = store.getState().portfolio.createWallet;
@@ -94,14 +96,10 @@ const portfolio = (store) => (next) => (action) => {
       next(action);
       break;
     case FETCH_PORTFOLIO:
-      // store.dispatch(checkToken());
-
-      axios({
+      privateRoute({
         method: 'get',
-        url: 'https://dev.mycryptofolio.fr/v1/portfolio',
-        headers: {
-          Authorization: store.getState().user.accessToken,
-        },
+        url: '/portfolio',
+        headers: { Authorization: store.getState().user.accessToken },
       })
         .then((res) => {
           store.dispatch(fetchPortfolioSuccess(res.data));
@@ -109,6 +107,19 @@ const portfolio = (store) => (next) => (action) => {
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => console.log(err));
+      // axios({
+      //   method: 'get',
+      //   url: 'https://dev.mycryptofolio.fr/v1/portfolio',
+      //   headers: {
+      //     Authorization: store.getState().user.accessToken,
+      //   },
+      // })
+      // .then((res) => {
+      //   store.dispatch(fetchPortfolioSuccess(res.data));
+      //   const newAccessToken = res.headers.authorization;
+      //   store.dispatch(saveNewToken(newAccessToken));
+      // })
+      // .catch((err) => console.log(err));
       next(action);
       break;
     case FETCH_SPECIFIC_PORTFOLIO:
