@@ -171,7 +171,7 @@ router.get('/history/:coinId/:day-:month-:year', cache, cryptoController.getHist
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
 /**
  * GET /v1/portfolio/wallet/{wallet_id}
@@ -181,7 +181,7 @@ router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
 router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), transactionController.addTransaction);
 

@@ -65,7 +65,7 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0MzkyOTI0MCwiZXhwIjoxNjQzOTI5NTQwfQ.2ZbqcOLwFUuVW2igvrz-0MOjKiiT5gYijJPdt_WvPgk
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0Mzk2NTg0NiwiZXhwIjoxNjQzOTY2MTQ2fQ.rbPQ0UUBafo1hBUDuD9bfajTc_RqBOGZbPE4jfrzMNE
 
 ###
 
@@ -118,7 +118,7 @@ POST http://localhost:8888/v1/jwt/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "test@test.fr",
+    "email": "test2@test.fr",
     "password": "#0clock$0087"
 }
 
