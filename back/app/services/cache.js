@@ -14,7 +14,12 @@ const cache = async (req, res, next) => {
     if (req.url === '/cryptos') {
         timeout = 60 * 5;
     };
-    const key = `${prefix}${req.url}`;
+
+    if (req.userId) {
+        key = `${prefix}${req.url}:${req.userId.id}`;
+    } else {
+        key = `${prefix}${req.url}`;
+    }
 
     if (await db.exists(key)) {
         const cachedString = await db.get(key);
