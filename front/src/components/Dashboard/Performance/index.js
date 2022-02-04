@@ -8,10 +8,12 @@ import { useSelector } from 'react-redux';
 const Performance = () => {
   const { performance } = useSelector((state) => state.portfolio);
 
-  const perfPercentage = (
+  let perfPercentage = (
     (
       (performance.actual_value - performance.investment) / performance.investment) * 100
   ).toFixed(2);
+
+  isNaN(perfPercentage) ? perfPercentage = 0 : perfPercentage;
 
   return (
     <Grid container rowSpacing={3}>
