@@ -11,9 +11,11 @@ import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 import {
-  toggleCreateWalletModal, updateSelectedWallet, fetchSpecificPortfolio, fetchPortfolio,
-  deleteWallet, toggleUpdateWalletModal,
+  toggleCreateWalletModal, updateSelectedWallet, fetchSpecificWallet, fetchPortfolio,
+  toggleUpdateWalletModal,
 } from 'src/actions/portfolio';
+
+import { toggleConfirmDelete } from 'src/actions/settings';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 import AddWallet from './AddWallet';
@@ -26,7 +28,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
 
   const handleLinkClick = (walletId) => {
     dispatch(updateSelectedWallet(walletId));
-    dispatch(fetchSpecificPortfolio(walletId));
+    dispatch(fetchSpecificWallet(walletId));
   };
 
   const handleMainLinkClick = () => {
@@ -125,8 +127,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                     <EditOrDeleteItem
                       positionAbsolute
                       editItem={toggleUpdateWalletModal}
-                      deleteItem={deleteWallet}
-                      itemId={wallet.id}
+                      deleteItem={() => toggleConfirmDelete({ type: 'wallet', itemId: wallet.id })}
                     />
                   </ListItemButton>
                 </Link>

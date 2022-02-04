@@ -5,7 +5,7 @@ const isTokenExpired = (token) => {
   const { exp } = !token ? { exp: 0 } : parseJwt(token);
   // Check if it's expired  // * with an advance of 2 sec in case of high latence
   console.log(`Still ${((exp * 1000) - Date.now()) * 0.001} s before next refresh`);
-  return (exp * 1000) < (Date.now() - 2000);
+  return (exp * 1000) < (Date.now() + 5000);
 };
 
 export default isTokenExpired;

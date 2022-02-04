@@ -2,10 +2,11 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio } from 'src/actions/portfolio';
+import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
 import Container from '@mui/material/Container';
 import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import ConfirmDelete from 'src/components/common/ConfirmDelete';
 import WalletsNav from './WalletsNav';
 import AssetsShares from './AssetsShares';
 import Performance from './Performance';
@@ -47,6 +48,7 @@ const Dashboard = ({ logged }) => {
 
   return (
     <div className="">
+      <ConfirmDelete />
       <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
         <Grid item xs={11} md={5.5} className={classes.gridItem}>
           <Container>

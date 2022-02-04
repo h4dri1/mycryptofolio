@@ -2,7 +2,6 @@ import { PropTypes } from 'prop-types';
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllCryptos } from 'src/actions/cryptos';
 
 import { toggleLoginModal } from 'src/actions/settings';
 
@@ -17,7 +16,6 @@ export default function Home({ displayLogin }) {
   const { logged } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getAllCryptos());
     if (displayLogin) dispatch(toggleLoginModal());
   }, []);
 

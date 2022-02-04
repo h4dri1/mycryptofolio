@@ -53,7 +53,7 @@ function Props(index) {
   };
 }
 
-const TransactionCreator = () => {
+const TransactionCreator = (props) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (_, newValue) => {
@@ -78,13 +78,21 @@ const TransactionCreator = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <TcForm buy={value === 0} />
+        <TcForm buy={value === 0} {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TcForm buy={value === 0} />
+        <TcForm buy={value === 0} {...props} />
       </TabPanel>
     </Box>
   );
 };
 
 export default TransactionCreator;
+
+TransactionCreator.propTypes = {
+  props: PropTypes.object,
+};
+
+TransactionCreator.defaultProps = {
+  props: {},
+};

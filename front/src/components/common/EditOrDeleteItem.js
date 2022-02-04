@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 const EditOrDeleteItem = ({
-  editItem, deleteItem, itemId, positionAbsolute,
+  editItem, deleteItem, positionAbsolute, itemId,
 }) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef();
@@ -26,11 +26,11 @@ const EditOrDeleteItem = ({
   };
 
   const handleEditItem = () => {
-    dispatch(editItem());
+    dispatch(editItem(itemId));
   };
 
-  const handleDeleteItem = () => {
-    dispatch(deleteItem(itemId));
+  const displayConfirmDelete = () => {
+    dispatch(deleteItem());
   };
 
   return (
@@ -42,7 +42,7 @@ const EditOrDeleteItem = ({
         <ClickAwayListener onClickAway={handleClose}>
           <Paper>
             <ListItemButton onClick={handleEditItem}>Modifier</ListItemButton>
-            <ListItemButton onClick={handleDeleteItem}>Supprimer</ListItemButton>
+            <ListItemButton onClick={displayConfirmDelete}>Supprimer</ListItemButton>
           </Paper>
         </ClickAwayListener>
       </Popper>
@@ -50,15 +50,15 @@ const EditOrDeleteItem = ({
   );
 };
 
-EditOrDeleteItem.defaultProps = {
-  itemId: undefined,
-};
-
 EditOrDeleteItem.propTypes = {
   editItem: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
-  itemId: PropTypes.number,
   positionAbsolute: PropTypes.bool.isRequired,
+  itemId: PropTypes.number,
+};
+
+EditOrDeleteItem.defaultProps = {
+  itemId: null,
 };
 
 export default EditOrDeleteItem;
