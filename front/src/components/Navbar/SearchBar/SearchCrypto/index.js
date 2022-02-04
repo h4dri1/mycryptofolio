@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useNavigate, useLocation, useMatch } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 // import TextField from '@mui/material/TextField';
 import { createFilterOptions } from '@mui/material/Autocomplete';
+import { fetchCryptoData } from 'src/actions/cryptoDetails';
+
 import {
     Autocomplete,
     Box,
@@ -38,27 +40,15 @@ export default function SearchCrypto() {
     // const match = useMatch(`/crypto/${slug}`);
     const location = useLocation();
     const navigate = useNavigate();
-    const { slug } = useParams();
-    console.log(location);
+    const dispatch = useDispatch();
+    const slug = useParams();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        location.pathname
-        // navigate(`../crypto/${currency.id}`, { replace: true })
-        slug ? navigate(`/crypto/${currency.id}`, { replace: true }) : navigate(`/crypto/${currency.id}`, { replace: true });
-
-
-
-        // console.log(currency.id);
-    }
-
-    // const handleClick = useEffect(() => {
-    //       navigate(`/crypto/${slug}`);
-    //     }
-    //   }, []);
+    console.log(slug);
 
     return (
-        <Box component="form" onSubmit={handleSubmit} item xs={12} borderRadius='3'
+        <Box component="form"
+
+            item xs={12} borderRadius='3'
             container gap={2} ml={3}
             size='small'
             height='50px'
@@ -74,27 +64,32 @@ export default function SearchCrypto() {
             }}
         >
             <Autocomplete
-                // onSubmit={() => navigate(`/crypto/${slug}`)}
-
                 disablePortal
                 id="cryptoCurrency"
                 options={someCryptos}
-                // getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
                 getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
                 // ! For later, to enhance list aspect
-                renderOption={(props, option) => (
-                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                        <img
-                            loading="lazy"
-                            width="20"
-                            src={option.image}
-                            // srcSet={`${option.image} 2x`}
-                            alt=""
-                        />
-                        {option.symbol.toUpperCase()} : {option.name}
 
-                    </Box>
-                )}
+                renderOption={(props, option) => (
+                    <Link
+                        onClick={() => dispatch(fetchCryptoData(option.id))}
+                        key={option.id}
+                        component={RouterLink}
+                        to={`/crypto/${option.id}`}
+                    >
+                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                            <img
+                                loading="lazy"
+                                width="20"
+                                src={option.image}
+                                // srcSet={`${option.image} 2x`}
+                                alt=""
+                            />
+                            {option.symbol.toUpperCase()} : {option.name}
+                        </Box>
+                    </Link>
+                )
+                }
                 renderInput={(params) => <TextField {...params}
                     label={'Rechercher une crypto'} />}
                 selectOnFocus
