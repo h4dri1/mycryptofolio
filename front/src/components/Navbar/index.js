@@ -15,10 +15,7 @@ import {
   MenuItem,
   Menu,
   Link,
-  Button,
 } from '@mui/material';
-
-import { checkToken } from '../../actions/user';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -173,12 +170,6 @@ export default function PrimarySearchAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <MyAccount />
-          <Button
-            onClick={() => dispatch(checkToken())}
-            color="warning"
-          >
-            Refresh
-          </Button>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
