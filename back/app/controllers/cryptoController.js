@@ -97,5 +97,15 @@ module.exports = {
             console.log(error);
             return res.status(500).json(error.message, true);
         }
+    },
+
+    getHistoricalData: async (req, res) => {
+        try {
+            const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
+            res.status(200).json(data);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
     }
 };
