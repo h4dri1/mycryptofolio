@@ -10,12 +10,44 @@ import {
   UPDATE_WALLET, toggleUpdateWalletModal,
 } from 'src/actions/portfolio';
 
-import { saveNewToken } from 'src/actions/user';
+import { saveNewToken, saveUser } from 'src/actions/user';
 import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
 
-import privateRoute from 'src/services/privateRoute';
+import parseJwt from 'src/services/parseJwt';
+import isTokenExpired from 'src/services/isTokenExpired';
+import getNewAccessToken from 'src/services/getNewAccessToken';
+
+// import privateRoute from 'src/services/privateRoute';
 
 const portfolio = (store) => (next) => async (action) => {
+  const privateRoute = axios.create({
+    baseURL: 'https://dev.mycryptofolio.fr/v1',
+    headers: '',
+  });
+
+  privateRoute.interceptors.request.use(async (req) => {
+    const accessToken = req.headers.Authorization;
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (isTokenExpired(accessToken) && refreshToken) {
+      const newAccessToken = await getNewAccessToken(refreshToken);
+      req.headers.Authorization = newAccessToken;
+
+      const { user } = parseJwt(newAccessToken);
+      const { email, nickname, picture } = user;
+      const userObj = {
+        email,
+        nickname,
+        avatar: picture,
+        accessToken: newAccessToken,
+      };
+      store.dispatch(saveUser(userObj));
+      
+      return req;
+    }
+    return req;
+  });
+
   switch (action.type) {
     case CREATE_NEW_WALLET:
       const { inputText } = store.getState().portfolio.createWallet;
@@ -107,19 +139,6 @@ const portfolio = (store) => (next) => async (action) => {
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => console.log(err));
-      // axios({
-      //   method: 'get',
-      //   url: 'https://dev.mycryptofolio.fr/v1/portfolio',
-      //   headers: {
-      //     Authorization: store.getState().user.accessToken,
-      //   },
-      // })
-      // .then((res) => {
-      //   store.dispatch(fetchPortfolioSuccess(res.data));
-      //   const newAccessToken = res.headers.authorization;
-      //   store.dispatch(saveNewToken(newAccessToken));
-      // })
-      // .catch((err) => console.log(err));
       next(action);
       break;
     case FETCH_SPECIFIC_PORTFOLIO:

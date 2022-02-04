@@ -13,6 +13,8 @@ import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
 
+import { checkToken } from 'src/actions/user';
+
 const useStyles = makeStyles({
   grid: {
     // border: 'solid 2px red',
@@ -37,7 +39,8 @@ const Dashboard = ({ logged }) => {
 
   const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
 
-  useEffect(() => {
+  useEffect(async () => {
+    await dispatch(checkToken());
     if (!logged) {
       navigate('/login?continue=/portfolio');
     }
