@@ -167,7 +167,6 @@ export default function PrimarySearchAppBar() {
           </Typography>
 
           <SearchCrypto sx={{ color: 'white', ml: 10, width: "100%" }}
-            size="200"
           />
 
           {/* <Search>
