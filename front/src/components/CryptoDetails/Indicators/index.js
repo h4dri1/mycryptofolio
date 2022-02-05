@@ -120,16 +120,11 @@ export default function Indicators({ data }) {
                     {data.links.homepage}</Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary' }}>
+            <Box sx={{ mb: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary' }}>
                 <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
                     Repos:</Typography>
                 <Typography sx={{ fontWeight: 'normal', mx: 1, fontSize: 10.8, color: "secondary.main", fontWeight: 'bold' }}>
-                    {/* {data.repos_url.github.map((item) => (
-                        <>
-                            {item.repos_url.github} */}
-                    {/* key = {repo.id} */}
-                    {/* </>
-                    ))} */}
+                    {data.repos_url.github}
                 </Typography>
             </Box>
         </>

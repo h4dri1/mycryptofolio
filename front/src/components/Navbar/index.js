@@ -162,20 +162,7 @@ export default function PrimarySearchAppBar() {
             >Portfolio
             </Link>
           </Typography>
-
-          <SearchCrypto sx={{ color: 'white', ml: 10, width: "100%" }}
-          />
-
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Rechercher une crypto"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search> */}
-
+          <SearchCrypto sx={{ color: 'white', ml: 10 }} />
           <Box sx={{ flexGrow: 1 }} />
           <MyAccount />
         </Toolbar>
