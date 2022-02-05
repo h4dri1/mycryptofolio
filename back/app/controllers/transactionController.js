@@ -4,15 +4,8 @@ const { Transaction, Crypto, Wallet } = require('../models');
 module.exports = {
     getPortfolio: async (req, res) => {
         try {
-            const cryptos = res.locals.cryptos;
-            const price = res.locals.price;
-
+            /////////////////////////////////////////////////////////////////////////////////
             let objTransactions;
-            let portfolio = {};
-            let objRepartition = {};
-            let objPerformance = {};
-            let sumValue = 0;
-            let sumBuy = 0;
 
             if (req.params.wallet_id) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
@@ -23,56 +16,37 @@ module.exports = {
             if (!objTransactions) {
                 return res.status(500).json(error.message, true);
             };
+            /////////////////////////////////////////////////////////////////////////////////
+            const newObj = [];
+            const cryptos = res.locals.cryptos;
 
-            const cryptosMap = cryptos.map(x => {
-                x.value = Number(x.total) * price[x.coin_id].usd
-                return x
-            });
+            let sumValue = 0;
+            let sumBuy = 0;
 
-            for (const key of cryptosMap) {
-                sumValue += parseInt(key.value);
-                sumBuy += parseInt(key.investment);
-            };
-
-            for (const crypto of cryptosMap) {
-                if (Number(crypto.total !== 0)) {
-                    if (!objRepartition[crypto.coin_id]) {
-                        objRepartition[crypto.coin_id] = {}
-                        objRepartition[crypto.coin_id].name = crypto.symbol
-                        objRepartition[crypto.coin_id].quantity = crypto.total
-                        objRepartition[crypto.coin_id].value = crypto.value
-                        objRepartition[crypto.coin_id].distribution = (100 * crypto.value)/sumValue;
-                    } else {
-                        objRepartition[crypto.coin_id].quantity = crypto.total + objRepartition[crypto.coin_id].quantity
-                        objRepartition[crypto.coin_id].value = crypto.value + objRepartition[crypto.coin_id].value
-                        objRepartition[crypto.coin_id].distribution = ((100 * crypto.value)/sumValue) + (objRepartition[crypto.coin_id].distribution)
-                    }                 
-                }
-            };
-        
+            for (const transac of cryptos) {
+                sumValue += parseInt(transac.value);
+                sumBuy += parseInt(transac.investment);
+                newObj.push({'id':transac.wallet_id, 'sum':transac.value, 'label':transac.wallet_label});
+            }
+            /////////////////////////////////////////////////////////////////////////////////
+            const objRepartition = []
+            const distribution = await Transaction.getDistribution(req.userId.id)
+            
+            for (const distrib of distribution) {
+                delete distrib.user_id
+                objRepartition[distrib.name] = {...distrib}
+                objRepartition[distrib.name].distribution = (100 * distrib.value)/sumValue
+            }
+            /////////////////////////////////////////////////////////////////////////////////
+            const objPerformance = {};
             const pnl = sumValue - sumBuy;
 
             objPerformance.investment = sumBuy;
             objPerformance.actual_value = sumValue;
             objPerformance.pnl = pnl;
-
-            const newObjTransactions = Object.values(objTransactions);
-            const newObjRepartition = Object.values(objRepartition);
-
-            portfolio.transactions = newObjTransactions;
-            portfolio.distribution = newObjRepartition;
-            portfolio.performance = objPerformance;
-
-            let objWallet = [];
-            let newObj = [];
-            let sum = 0;
-
+            /////////////////////////////////////////////////////////////////////////////////
+            const objWallet = [];
             const empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
-
-            for (const coin of cryptos) {
-                sum = (coin.total * price[coin.coin_id].usd);
-                newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
-            };
 
             newObj.reduce((key, value) => {
             if (!key[value.id]) {
@@ -85,12 +59,17 @@ module.exports = {
 
             if (empty) {
                 for (const emp of empty) {
-                    objWallet.push({'id':emp.id, 'sum':'0', 'label':emp.label});
+                    objWallet.push({'id':emp.id, 'sum': 0, 'label':emp.label});
                 }
             };
+            /////////////////////////////////////////////////////////////////////////////////
+            const portfolio = {};
 
+            portfolio.transactions = Object.values(objTransactions);
+            portfolio.distribution = Object.values(objRepartition);
+            portfolio.performance = objPerformance;
             portfolio.wallet = objWallet;
-            
+            /////////////////////////////////////////////////////////////////////////////////
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
