@@ -24,7 +24,6 @@ module.exports = async (req, res, next) => {
             JSON.stringify(newData)
             await Crypto.updatePrice(newData);
         }
-        res.locals.cryptos = cryptos;
         next();
     } catch (error) {
         console.log(error);

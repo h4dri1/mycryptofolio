@@ -8,6 +8,32 @@ class Wallet {
         }
     };
 
+    static async findSumWallet(id) {
+        try {
+            const {rows} = await db.query('SELECT wallet_id AS id, SUM (value) as "sum", wallet_label AS label FROM \
+            coins_value_wallet WHERE coins_value_wallet.user_id=$1 GROUP BY wallet_label, wallet_id;', [id]);
+            if (rows) {
+                return rows.map(row => new Wallet(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        };
+    }
+    
+    static async findSumWalletByWallet(id, wid) {
+        try {
+            const {rows} = await db.query('SELECT wallet_id AS id, SUM (value) as "sum", wallet_label AS label FROM \
+            coins_value_wallet WHERE coins_value_wallet.user_id=$1 AND wallet_id=$2 GROUP BY wallet_label, wallet_id;', [id, wid]);
+            if (rows) {
+                return rows.map(row => new Wallet(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        };
+    }
+
     static async findWalletByUser(id) {
         try {
             const {rows} = await db.query('SELECT id, label, user_id FROM wallet WHERE user_id=$1;', [id]);

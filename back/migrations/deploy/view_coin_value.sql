@@ -7,6 +7,7 @@ SELECT
 	user_id,
 	symbol AS name,
 	SUM (quantity) AS quantity,
+	AVG(view_transaction.price) * SUM (quantity) AS investment,
 	SUM (quantity * (SELECT price FROM crypto WHERE crypto.coin_id=view_transaction.coin_id)) AS value
 FROM 
 	view_transaction
@@ -24,6 +25,7 @@ SELECT
 	user_id,
 	symbol AS name,
 	SUM (quantity) AS quantity,
+	AVG(view_transaction.price) * SUM (quantity) AS investment,
 	SUM (quantity * (SELECT price FROM crypto WHERE crypto.coin_id=view_transaction.coin_id)) AS value
 FROM 
 	view_transaction
