@@ -20,6 +20,18 @@ class Transaction {
         }
     }
 
+    static async getDistributionByWallet(id, wid) {
+        try {
+            const {rows} = await db.query('SELECT * FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2;', [id, wid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
     static async getTransactionByPk(tid) {
         try {
             const {rows} = await db.query('SELECT * FROM transaction WHERE id=$1;', [tid]);

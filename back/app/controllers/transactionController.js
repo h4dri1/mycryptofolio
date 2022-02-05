@@ -5,47 +5,56 @@ module.exports = {
     getPortfolio: async (req, res) => {
         try {
             /////////////////////////////////////////////////////////////////////////////////
-            let objTransactions;
+            const cryptos = res.locals.cryptos;
 
+            let distribution;
+            let objTransactions;
+            let newObj = [];
+            let objWallet = [];
+            let portfolio = {};
+            let objPerformance = {};
+            let sumValue = 0;
+            let sumBuy = 0;
+            /////////////////////////////////////////////////////////////////////////////////
             if (req.params.wallet_id) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
+                distribution = await Transaction.getDistributionByWallet(req.userId.id, req.params.wallet_id)
             } else {
                 objTransactions = await Transaction.getUserTransaction(req.userId.id);
+                distribution = await Transaction.getDistribution(req.userId.id)
             };
 
             if (!objTransactions) {
                 return res.status(500).json(error.message, true);
             };
             /////////////////////////////////////////////////////////////////////////////////
-            const newObj = [];
-            const cryptos = res.locals.cryptos;
-
-            let sumValue = 0;
-            let sumBuy = 0;
-
             for (const transac of cryptos) {
-                sumValue += parseInt(transac.value);
                 sumBuy += parseInt(transac.investment);
-                newObj.push({'id':transac.wallet_id, 'sum':transac.value, 'label':transac.wallet_label});
+                newObj.push({'id':transac.wallet_id, 'sum':0, 'label':transac.wallet_label}); 
+            }
+
+            for (const test in distribution) {
+                sumValue += parseInt(distribution[test].value);
+                newObj[test].sum = distribution[test].value
             }
             /////////////////////////////////////////////////////////////////////////////////
             const objRepartition = []
-            const distribution = await Transaction.getDistribution(req.userId.id)
-            
             for (const distrib of distribution) {
+                if (req.params.wallet_id) {
+                    delete distrib.wallet_id;
+                    delete distrib.wallet_label;
+                }
                 delete distrib.user_id
                 objRepartition[distrib.name] = {...distrib}
                 objRepartition[distrib.name].distribution = (100 * distrib.value)/sumValue
             }
             /////////////////////////////////////////////////////////////////////////////////
-            const objPerformance = {};
             const pnl = sumValue - sumBuy;
 
             objPerformance.investment = sumBuy;
             objPerformance.actual_value = sumValue;
             objPerformance.pnl = pnl;
             /////////////////////////////////////////////////////////////////////////////////
-            const objWallet = [];
             const empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
 
             newObj.reduce((key, value) => {
@@ -63,8 +72,6 @@ module.exports = {
                 }
             };
             /////////////////////////////////////////////////////////////////////////////////
-            const portfolio = {};
-
             portfolio.transactions = Object.values(objTransactions);
             portfolio.distribution = Object.values(objRepartition);
             portfolio.performance = objPerformance;

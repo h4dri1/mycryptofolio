@@ -2,6 +2,7 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+DROP VIEW coins_value;
+DROP VIEW coins_value_wallet;
 
 COMMIT;
