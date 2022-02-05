@@ -31,15 +31,6 @@ export default function SearchCrypto() {
         return false;
     });
 
-
-    // const filterOptions = createFilterOptions({
-    //     matchFrom: 'start',
-    //     stringify: (option) => option.title,
-    // });
-
-    // const match = useMatch(`/crypto/${slug}`);
-    const location = useLocation();
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const slug = useParams();
 
@@ -48,22 +39,20 @@ export default function SearchCrypto() {
     return (
         <Box component="form"
 
-            item xs={12} borderRadius='3'
+            item xs={12}
             container gap={2} ml={3}
-            size='small'
-            height='50px'
             sx={{
                 width: 400,
-                height: '100%',
                 backgroundColor: 'primary.light',
                 '&:hover': {
                     backgroundColor: '#8b6ad8',
                     textColor: 'white',
-                    size: 'small'
+                    height: 10
                 },
             }}
         >
             <Autocomplete
+
                 disablePortal
                 id="cryptoCurrency"
                 options={someCryptos}
@@ -91,7 +80,9 @@ export default function SearchCrypto() {
                 )
                 }
                 renderInput={(params) => <TextField {...params}
-                    label={'Rechercher une crypto'} />}
+                    placeholder="Rechercher une crypto"
+
+                />}
                 selectOnFocus
                 clearOnBlur
                 handleHomeEndKeys
