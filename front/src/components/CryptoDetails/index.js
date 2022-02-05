@@ -43,8 +43,6 @@ const CryptoDetails = () => {
     const { data, chart, loading } = useSelector((state) => state.cryptoDetails);
     const { slug } = useParams();
 
-    console.log(slug);
-
     useEffect(() => {
         dispatch(fetchCryptoData(slug));
     }, []);
@@ -70,7 +68,7 @@ const CryptoDetails = () => {
                                         data={data}
                                     />
                                 </Grid>
-                                <Divider sx={{ width: "100%", mt: 2, mb: 2 }}></Divider>
+                                {/* <Divider sx={{ width: "100%", mt: 2, mb: 2 }}></Divider> */}
                                 <Grid item xs={4} md={5.5} className={classes.gridSubItem}>
                                     <Converter />
                                 </Grid>

@@ -34,8 +34,6 @@ export default function SearchCrypto() {
     const dispatch = useDispatch();
     const slug = useParams();
 
-    console.log(slug);
-
     return (
         <Box component="form"
 
