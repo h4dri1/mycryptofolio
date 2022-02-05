@@ -31,6 +31,19 @@ class Crypto {
             throw error;
         }
     }
+    
+
+    static async updatePrice(cryptos) {
+        try {
+            const {rows} = await db.query('SELECT * FROM update_price($1)', [cryptos]);
+            if (rows) {
+                return rows.map(row => new Crypto(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = Crypto;

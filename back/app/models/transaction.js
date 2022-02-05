@@ -7,6 +7,19 @@ class Transaction {
             this[propName] = obj[propName];
         }
     }
+
+    static async getDistribution(id) {
+        try {
+            const {rows} = await db.query('SELECT * FROM coins_value WHERE user_id=$1;', [id]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
     static async getTransactionByPk(tid) {
         try {
             const {rows} = await db.query('SELECT * FROM transaction WHERE id=$1;', [tid]);
