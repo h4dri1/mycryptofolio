@@ -40,21 +40,22 @@ const CryptoList = () => {
               <TableCell align="center">Price</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody >
+
             {cryptos.map((crypto) => (
               <TableRow key={crypto.id} hover>
                 <TableCell align="center">{crypto.market_cap_rank}</TableCell>
-                <TableCell>
-                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center' }}>
+                <TableCell >
+                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ underline: 'none', display: 'flex', alignItems: 'center' }}>
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
                       // component={RouterLink} to={`/crypto-details/${crypto.id}`}
-                      underline="none"
+
                       variant="body1"
                       sx={{ mr: 1 }}
                     >{crypto.name}
                     </Typography>
-                    <Typography underline="none" sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
+                    <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: 'green' } : { color: 'red' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
