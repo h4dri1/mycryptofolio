@@ -18,9 +18,7 @@ const { loginSchema,
 
 const { validateBody, validateJWT } = require('./middlewares/validator');
 
-const jwtMW = require('./middlewares/jwtMW');
-
-const fetchMW = require('./middlewares/fetchMW');
+const { jwtMW, fetchMW, transactionGuard } = require('./middlewares');
 
 const {cache, flush} = require('./services/cache');
 
@@ -183,7 +181,7 @@ router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfol
 
 router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
-router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), transactionController.addTransaction);
+router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), transactionGuard, transactionController.addTransaction);
 
 router.post('/portfolio/wallet', jwtMW, flush, validateBody(walletSchema), walletController.addWallet);
 
