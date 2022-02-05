@@ -40,19 +40,17 @@ export default function SearchCrypto() {
         <Box component="form"
 
             item xs={12}
-            container gap={2} ml={3}
+            container gap={1} ml={3}
             sx={{
                 width: 400,
                 backgroundColor: 'primary.light',
                 '&:hover': {
                     backgroundColor: '#8b6ad8',
                     textColor: 'white',
-                    height: 10
                 },
             }}
         >
             <Autocomplete
-
                 disablePortal
                 id="cryptoCurrency"
                 options={someCryptos}
@@ -61,6 +59,7 @@ export default function SearchCrypto() {
 
                 renderOption={(props, option) => (
                     <Link
+                        underline="none"
                         onClick={() => dispatch(fetchCryptoData(option.id))}
                         key={option.id}
                         component={RouterLink}
