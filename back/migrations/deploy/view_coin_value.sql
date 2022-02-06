@@ -11,8 +11,6 @@ SELECT
 	SUM (quantity * (SELECT price FROM crypto WHERE crypto.coin_id=view_transaction.coin_id)) AS value
 FROM 
 	view_transaction
-WHERE 
-	buy=true
 GROUP BY
 	user_id,
 	symbol, 
@@ -29,8 +27,6 @@ SELECT
 	SUM (quantity * (SELECT price FROM crypto WHERE crypto.coin_id=view_transaction.coin_id)) AS value
 FROM 
 	view_transaction
-WHERE 
-	buy=true
 GROUP BY
 	wallet_label,
 	wallet_id,
