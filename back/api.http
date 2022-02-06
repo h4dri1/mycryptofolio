@@ -51,7 +51,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8888/v1/crypto/bitcoin/
+GET http://localhost:8888/v1/crypto/bitcoin/180
 Content-Type: application/json
 ###
 
