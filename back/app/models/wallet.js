@@ -26,7 +26,7 @@ class Wallet {
             const {rows} = await db.query('SELECT wallet_id AS id, SUM (value) as "sum", wallet_label AS label FROM \
             coins_value_wallet WHERE coins_value_wallet.user_id=$1 AND wallet_id=$2 GROUP BY wallet_label, wallet_id;', [id, wid]);
             if (rows) {
-                return rows.map(row => new Wallet(row));
+                return new Wallet(rows[0]);
             }
         } catch (error) {
             console.log(error);
