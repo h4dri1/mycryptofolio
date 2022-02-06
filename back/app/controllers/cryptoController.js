@@ -28,7 +28,11 @@ module.exports = {
     getOneCrypto: async (req, res) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}`);
-            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=${req.params.nbd}&interval=daily`);
+            let days = 180;
+            if (req.params.nbd) {
+                days = req.params.nbd
+            }
+            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=${days}&interval=daily`);
             const superObj = {'data': {
                 'id': data.id,
                 'symbol': data.symbol,
