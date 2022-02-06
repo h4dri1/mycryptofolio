@@ -7,38 +7,30 @@ module.exports = {
             /////////////////////////////////////////////////////////////////////////////////
             let objRepartition;
             let objTransactions;
-            let portfolio = {};
-            let objPerformance = {};
-            let sumValue = 0;
-            let sumBuy = 0;
+            let objPerformance;
             let objWallet;
+            let portfolio = {};
             let empty = false;
             /////////////////////////////////////////////////////////////////////////////////
             if (req.params.wallet_id) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
                 objRepartition = await Transaction.getDistributionByWallet(req.userId.id, req.params.wallet_id);
                 objWallet = await Wallet.findSumWalletByWallet(req.userId.id, req.params.wallet_id);
+                objPerformance = await Transaction.getPerformanceByWallet(req.userId.id, req.params.wallet_id);
             } else {
                 objTransactions = await Transaction.getUserTransaction(req.userId.id);
                 objRepartition = await Transaction.getDistribution(req.userId.id);
                 objWallet = await Wallet.findSumWallet(req.userId.id);
+                objPerformance = await Transaction.getPerformance(req.userId.id);
                 empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
             };
 
-            if (!objTransactions | !objRepartition | !objWallet) {
-                return res.status(500).json(error.message, true);
+            if (!objTransactions | !objRepartition | !objWallet | !objPerformance) {
+                if (error.message) {
+                    return res.status(500).json(error.message, true);
+                }
+                return res.status(500).json('error not defined', true);
             };
-            /////////////////////////////////////////////////////////////////////////////////
-            for (const distri in objRepartition) {
-                sumValue += parseInt(objRepartition[distri].value);
-                sumBuy += parseInt(objRepartition[distri].investment);
-            }
-            /////////////////////////////////////////////////////////////////////////////////
-            const pnl = sumValue - sumBuy;
-
-            objPerformance.investment = sumBuy;
-            objPerformance.actual_value = sumValue;
-            objPerformance.pnl = pnl;
             /////////////////////////////////////////////////////////////////////////////////
             if (empty) {
                 for (const emp of empty) {
