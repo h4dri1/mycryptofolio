@@ -13,3 +13,11 @@ export const fetchCryptoDataSuccess = (payload) => ({
     type: FETCH_CRYPTO_DATA_SUCCESS,
     payload,
 });
+
+// export const changeFieldValue = (value, key) => ({
+//     type: CHANGE_FIELD_VALUE,
+//     payload: {
+//       value,
+//       key,
+//     },
+//   });
