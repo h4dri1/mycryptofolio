@@ -65,9 +65,5 @@ module.exports = merge(common, {
     hints: false,
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
-  },
-  devServer: {
-    compress: true,
-    disableHostCheck: true,   // That solved it
- }  
+  }
 });
