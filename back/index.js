@@ -55,9 +55,7 @@ expressJSDocSwagger(app)(options);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors({
-  origin: 'https://mycryptofolio.fr'
-}));
+app.use(cors());
 
 app.use(express.json());
 
