@@ -102,8 +102,8 @@ export default function TestAvatar() {
                                             <MenuItem
                                             // onClick={handleToggle}
                                             >
-                                                <Link component={RouterLink} to="/portfolio"
-                                                    sx={{ color: "black" }}
+                                                <Link component={RouterLink} to="/portfolio" underline="none"
+                                                    sx={{ color: "primary.light" }}
                                                 >
                                                     Portfolio
                                                 </Link>
@@ -112,7 +112,7 @@ export default function TestAvatar() {
                                             <MenuItem >
                                                 <Link onClick={handleLogout}
                                                     component={RouterLink} to="/" underline="none" // redirection to HOME when click on LOGOUT
-                                                    sx={{ color: "black" }}
+                                                    sx={{ color: "primary.light" }}
                                                 >
                                                     Logout
                                                 </Link>

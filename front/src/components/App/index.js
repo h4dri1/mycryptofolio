@@ -10,6 +10,7 @@ import { Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Paper } from '@mui/material';
+import { amber, deepOrange, grey } from '@mui/material/colors';
 
 import AlertMsg from 'src/components/common/AlertMessage';
 
@@ -28,13 +29,13 @@ const App = () => {
     palette: {
       mode: darkMode ? 'dark' : 'light',
       primary: {
-        light: '#aa90d7',
+        light: '#7f5cce',
         main: '#3A0CA3',
         dark: '#280872',
         contrastText: 'white',
       },
       secondary: {
-        light: '#fafafa',
+        light: '#c345b1',
         main: '#B5179E',
         dark: '#7e106e',
         contrastText: 'white',
@@ -43,16 +44,8 @@ const App = () => {
         main: '#a9b0ba',
         contrastText: 'white',
       },
-
-
-      // contrastThreshold: 3,
-      // // Used by the functions below to shift a color's luminance by approximately
-      // // two indexes within its tonal palette.
-      // // E.g., shift from Red 500 to Red 300 or Red 700.
-      // tonalOffset: 0.2,
     },
-
-  });
+  })
 
   // theme = responsiveFontSizes(theme);
 

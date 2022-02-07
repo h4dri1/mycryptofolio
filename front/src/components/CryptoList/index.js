@@ -68,10 +68,10 @@ const CryptoList = () => {
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
                       variant="body1"
-                      sx={{ mr: 1 }}
+                      sx={{ mr: 1, }}
                     >{crypto.name}
                     </Typography>
-                    <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
+                    <Typography sx={{ display: { xs: 'none', sm: 'block', color: "neutral.contrastText" } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell align="right">{`$${crypto.current_price.toLocaleString()}`}</TableCell>
@@ -91,6 +91,7 @@ const CryptoList = () => {
           sx={{ mb: 9 }}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
+          sx={{ color: "primary.light" }}
         >
           Charger plus de cryptos
         </LoadingButton>
