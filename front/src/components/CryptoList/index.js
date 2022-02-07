@@ -10,14 +10,32 @@ import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { makeStyles, useTheme } from '@mui/styles';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: '0 auto',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '80%',
+    },
+  },
+  cryptoList: {
+    margin: '1% 0 3% 0',
+  },
+  loadButton: {
+
+  },
+}));
+
 const CryptoList = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
 
@@ -26,8 +44,8 @@ const CryptoList = () => {
   }, []);
 
   return (
-    <Grid container justifyContent="center" spacing={{ xs: 2, sm: 4 }}>
-      <Grid item xs={12}>
+    <Grid container justifyContent="center" className={classes.root}>
+      <Grid item xs={12} className={classes.cryptoList}>
         <Table>
           <TableHead sx={{ fontWeight: 'bold' }}>
             <TableRow>
@@ -45,11 +63,9 @@ const CryptoList = () => {
               <TableRow key={crypto.id} hover>
                 <TableCell align="center">{crypto.market_cap_rank}</TableCell>
                 <TableCell>
-                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
-                      // component={RouterLink} to={`/crypto-details/${crypto.id}`}
-                      underline="none"
                       variant="body1"
                       sx={{ mr: 1 }}
                     >{crypto.name}
@@ -69,6 +85,7 @@ const CryptoList = () => {
       </Grid>
       <Grid item>
         <LoadingButton
+          className={classes.loadButton}
           variant="outlined"
           sx={{ mb: 9 }}
           loading={cryptoListLoading}
