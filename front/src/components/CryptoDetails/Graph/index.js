@@ -56,11 +56,6 @@ export default function Graph({ chart }) {
             legend: {
                 display: true,
                 position: 'top',
-
-                // Greg: vérifier si on garde le tooltip
-                tooltip: {
-                    usePointStyle: false,
-                }
             },
             title: {
                 display: true,
@@ -110,8 +105,8 @@ export default function Graph({ chart }) {
 
     // 3 lines of the GRAPH from API
     const dataPrices = (chart.prices.map((element) => ((element[1]).toFixed(0))));
-    const marketCapPrices = (chart.market_caps.map((element) => ((element[1]).toFixed(0))));
-    const marketVolumes = (chart.total_volumes.map((element) => ((element[1]).toFixed(0))));
+    // const marketCapPrices = (chart.market_caps.map((element) => ((element[1]).toFixed(0))));
+    // const marketVolumes = (chart.total_volumes.map((element) => ((element[1]).toFixed(0))));
 
     // const defaultNotChecked = Chart.defaults.datasets.line.showLine = false;
 
@@ -128,18 +123,18 @@ export default function Graph({ chart }) {
                 borderColor: ['rgb(244, 67, 54)'],
                 backgroundColor: ['rgb(244, 67, 54)'],
             },
-            {
-                label: 'Market cap.',
-                data: marketCapPrices,
-                borderColor: ['rgb(170, 144, 215)'],
-                backgroundColor: ['rgb(170, 144, 215)'],
-            },
-            {
-                label: 'Market vol.',
-                data: marketVolumes,
-                borderColor: ['rgb(67, 97, 238)'],
-                backgroundColor: ['rgb(67, 97, 238)'],
-            },
+            // {
+            //     label: 'Market cap.',
+            //     data: marketCapPrices,
+            //     borderColor: ['rgb(170, 144, 215)'],
+            //     backgroundColor: ['rgb(170, 144, 215)'],
+            // },
+            // {
+            //     label: 'Market vol.',
+            //     data: marketVolumes,
+            //     borderColor: ['rgb(67, 97, 238)'],
+            //     backgroundColor: ['rgb(67, 97, 238)'],
+            // },
 
         ],
     };

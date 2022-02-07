@@ -6,8 +6,8 @@ import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 
 const TopBanner = () => (
-    <AppBar position="static" color="transparent" sx={{ justifyContent: 'center', height: '38px' }}>
-        <Toolbar disableGutters>
+    <AppBar sx={{ justifyContent: 'center', height: '38px', color: 'black', bgcolor: "#f6eaf7" }}>
+        <Toolbar position="sticky" disableGutters>
             <Indicators />
             <Container
                 disableGutters

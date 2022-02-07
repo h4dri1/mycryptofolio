@@ -17,9 +17,10 @@ import { fetchCryptoData } from 'src/actions/cryptoDetails';
 const useStyles = makeStyles({
     grid: {
         // border: 'solid 2px red',
-        marginTop: '0.1px',
+        marginTop: '0.9px',
         height: '100%',
         // maxWidth: '100%',
+
     },
     gridItem: {
         // borderStyle: 'solid',
@@ -27,11 +28,13 @@ const useStyles = makeStyles({
         borderRadius: 2,
         // minHeight: '50vh',
         margin: '5px',
+
     },
     gridSubItem: {
         // border: 'solid 2px gold',
         // height: '100%',
         maxWidth: '100%',
+
     },
 });
 
@@ -54,7 +57,7 @@ const CryptoDetails = () => {
                     <Box
                         sx={{ p: 1, m: 1, borderRadius: 5, textAlign: 'justify', fontSize: '0.875rem', fontWeight: '700' }}
                         container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-                        <Container maxWidth={'100%'} sx={{ display: 'flex', gridAutoFlow: 'row' }}>
+                        <Container maxWidth={'100%'} sx={{ display: 'flex', marginTop: '7%', gridAutoFlow: 'row' }}>
                             <Grid sx={{ boxShadow: 4 }} item xs={12} className={classes.gridItem}>
                                 <Grid item xs={11} md={6} className={classes.gridSubItem}>
                                     <Description sx={{ gridAutoRows: '100px' }}
@@ -75,7 +78,7 @@ const CryptoDetails = () => {
                             </Container>
                         </Container>
                         <Container sx={{ display: 'flex' }} >
-                            <Grid item xs={12} md={12} className={classes.gridItem}>
+                            <Grid item xs={12} md={12}>
                                 <Graph sx={{ display: 'flex', width: "100%" }}
                                     chart={chart}
                                     data={data}

@@ -46,8 +46,8 @@ const CryptoList = () => {
   return (
     <Grid container justifyContent="center" className={classes.root}>
       <Grid item xs={12} className={classes.cryptoList}>
-        <Table>
-          <TableHead sx={{ fontWeight: 'bold' }}>
+        <Table sx={{ marginTop: '7%' }}>
+          <TableHead >
             <TableRow>
               <TableCell align="center"><TableSortLabel />#</TableCell>
               <TableCell>Nom</TableCell>
@@ -64,11 +64,12 @@ const CryptoList = () => {
               <TableRow key={crypto.id} hover>
                 <TableCell align="center">{crypto.market_cap_rank}</TableCell>
                 <TableCell>
-                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: 'primary.light', display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
+
                       variant="body1"
-                      sx={{ mr: 1, }}
+                      sx={{ mr: 1 }}
                     >{crypto.name}
                     </Typography>
                     <Typography sx={{ display: { xs: 'none', sm: 'block', color: "neutral.contrastText" } }}>{crypto.symbol.toUpperCase()}</Typography>
@@ -91,7 +92,7 @@ const CryptoList = () => {
           sx={{ mb: 9 }}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
-          sx={{ color: "primary.light" }}
+          sx={{ mb: 7, color: "primary.light" }}
         >
           Charger plus de cryptos
         </LoadingButton>

@@ -62,6 +62,7 @@ export default function SearchCrypto() {
                         key={option.id}
                         component={RouterLink}
                         to={`/crypto/${option.id}`}
+                        sx={{ color: 'primary.light' }}
                     >
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img

@@ -58,8 +58,8 @@ const Dashboard = ({ logged }) => {
     <div className="">
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-        <Grid className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
-          <Container sx={{ bgcolor: 'grey' }} >
+        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
+          <Container>
             <Grid container>
               <Grid item xs={11} md={6} className={classes.gridSubItem}>
                 <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />

@@ -131,7 +131,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Grid sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed" sx={{ mt: 4.8 }}>
         <Toolbar
           disableGutters
         >
@@ -181,6 +181,6 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Grid>
+    </Grid >
   );
 }
