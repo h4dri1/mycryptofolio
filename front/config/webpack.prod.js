@@ -66,4 +66,13 @@ module.exports = merge(common, {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
+  devServer: {
+    allowedHosts: [
+     'mycryptofolio.fr',
+     'api.mycryptofolio.fr'
+    ],
+    historyApiFallback: true,
+    contentBase: './',
+    hot: true
+  }
 });
