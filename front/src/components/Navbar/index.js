@@ -143,25 +143,36 @@ export default function PrimarySearchAppBar() {
               variant="h5"
               noWrap
               color="white"
-              component="div"
+              component="h1"
               sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
-            >MyCryptoFolio
+            >
+              MyCryptoFolio
+            </Typography>
+            <Typography
+              variant="subtitle"
+              noWrap
+              color="white"
+              sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
+            >
+              Suivez la performance de vos portefeuilles crypto
             </Typography>
           </Link>
-          <Typography
-            variant="h7"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-            sx={{ ml: 3 }}
+
+          <Link
+            component={RouterLink}
+            to="/portfolio"
+            sx={{ color: 'white', ml: 10 }}
           >
-            <Link
-              component={RouterLink}
-              to="/portfolio"
-              sx={{ color: 'white', ml: 10 }}
-            >Portfolio
-            </Link>
-          </Typography>
+            <Typography
+              variant="h7"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block', ml: 3 } }}
+            >
+              Portfolio
+            </Typography>
+          </Link>
+
           <SearchCrypto sx={{ color: 'white', ml: 10 }} />
           <Box sx={{ flexGrow: 1 }} />
           <MyAccount />
