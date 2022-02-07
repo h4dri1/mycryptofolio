@@ -52,10 +52,10 @@ const CryptoList = () => {
                       // component={RouterLink} to={`/crypto-details/${crypto.id}`}
 
                       variant="body1"
-                      sx={{ mr: 1 }}
+                      sx={{ mr: 1, }}
                     >{crypto.name}
                     </Typography>
-                    <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
+                    <Typography sx={{ display: { xs: 'none', sm: 'block', color: "neutral.contrastText" } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: 'green' } : { color: 'red' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
@@ -74,6 +74,7 @@ const CryptoList = () => {
           sx={{ mb: 9 }}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
+          sx={{ color: "primary.light" }}
         >
           Charger plus de cryptos
         </LoadingButton>

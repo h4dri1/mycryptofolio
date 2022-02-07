@@ -5,7 +5,7 @@ import getNewAccessToken from './getNewAccessToken';
 const refreshToken = localStorage.getItem('refreshToken');
 
 const privateRoute = axios.create({
-  baseURL: 'https://dev.mycryptofolio.fr/v1',
+  baseURL: 'https://api.mycryptofolio.fr/v1',
   headers: '',
 });
 
