@@ -123,7 +123,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
 
   return (
     <div>
-      <Typography color="primary.main" variant="h6" component="h2">
+      <Typography color="primary.light" variant="h6" component="h2">
         Enregistrer {buy ? 'un achat' : 'une vente'}
       </Typography>
       <Divider sx={{ width: '100%' }} />
@@ -252,6 +252,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
                 <Button
                   variant="outlined"
                   onClick={handleCancel}
+                  sx={{ color: "primary.light" }}
                 >
                   Annuler
                 </Button>
