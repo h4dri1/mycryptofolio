@@ -14,12 +14,15 @@ import {
   setPrice,
 } from 'src/actions/cryptos';
 
+const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
+
 const cryptoList = (store) => (next) => (action) => {
   switch (action.type) {
     case GET_ALL_CRYPTOS:
       axios({
         method: 'get',
-        url: 'https://dev.mycryptofolio.fr/v1/cryptos/USD/100',
+        baseURL,
+        url: '/cryptos/usd/100',
       })
         .then((res) => {
           store.dispatch(updateAllCryptos(res.data));
@@ -32,7 +35,8 @@ const cryptoList = (store) => (next) => (action) => {
 
       axios({
         method: 'get',
-        url: `https://dev.mycryptofolio.fr/v1/cryptos/${selectedCurrency}/${quantity}`,
+        baseURL,
+        url: `/cryptos/${selectedCurrency}/${quantity}`,
       })
         .then((res) => {
           store.dispatch(updateCryptoList(res.data));
@@ -61,8 +65,12 @@ const cryptoList = (store) => (next) => (action) => {
       const month = dateValue.getMonth() < 9 ? `0${dateValue.getMonth() + 1}` : `${dateValue.getMonth() + 1}`;
       const year = dateValue.getFullYear();
 
-      const requestUrl = coinId ? `https://api.coingecko.com/api/v3/coins/${coinId}/history?date=${day}-${month}-${year}` : `https://api.coingecko.com/api/v3/coins/bitcoin/history?date=${day}-${month}-${year}`;
-      axios(requestUrl)
+      const requestOptions = {
+        method: 'get',
+        baseURL,
+        url: coinId ? `/history/${coinId}/${day}-${month}-${year}` : `/history/bitcoin/${day}-${month}-${year}`,
+      };
+      axios(requestOptions)
         .then((res) => {
           const currentPrice = res.data.market_data.current_price[refCurrency.toLowerCase()];
           store.dispatch(setPrice((Math.ceil(currentPrice * 100) / 100)));

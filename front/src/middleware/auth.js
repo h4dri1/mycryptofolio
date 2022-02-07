@@ -16,15 +16,19 @@ const auth = (store) => (next) => async (action) => {
   const state = store.getState();
   const refreshToken = localStorage.getItem('refreshToken');
   const { accessToken } = state.user;
+  const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
   switch (action.type) {
     case LOGIN:
       // TODO: ajouter la fonction cleanObject de DOM-Purify pour nettoyer les valeurs des champs
-      axios.post('https://dev.mycryptofolio.fr/v1/jwt/login', {
-        email: state.user.email,
-        password: state.user.password,
-        // email: "test@test.fr",
-        // password: "#0clock$0087",
+      axios({
+        method: 'post',
+        baseURL,
+        url: '/jwt/login',
+        data: {
+          email: state.user.email,
+          password: state.user.password,
+        },
       })
         .then((res) => {
           if (res.status === 200) {
@@ -49,7 +53,7 @@ const auth = (store) => (next) => async (action) => {
         })
         .catch((err) => {
           console.log(err.response.data);
-          alert(`${err.response.data}`);
+          store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data }));
         });
       next(action);
       break;
@@ -60,11 +64,16 @@ const auth = (store) => (next) => async (action) => {
       break;
 
     case REGISTER:
-      axios.post('https://dev.mycryptofolio.fr/v1/signup', {
-        email: state.user.email,
-        nickname: state.user.nickname,
-        password: state.user.password,
-        passwordCheck: state.user.passwordCheck,
+      axios({
+        method: 'post',
+        baseURL,
+        url: '/signup',
+        data: {
+          email: state.user.email,
+          nickname: state.user.nickname,
+          password: state.user.password,
+          passwordCheck: state.user.passwordCheck,
+        },
       })
         .then((res) => {
           if (res.status === 201) {
@@ -82,8 +91,6 @@ const auth = (store) => (next) => async (action) => {
               avatar: picture,
               accessToken: newAccessToken,
               existingUser: true,
-              password: '#0clock$0087',
-              passwordCheck: '',
             };
             store.dispatch(saveUser(userObj));
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${nickname} !` }));
@@ -91,7 +98,7 @@ const auth = (store) => (next) => async (action) => {
         })
         .catch((err) => {
           console.log(err.response.data);
-          alert(`${err.response.data}`);
+          store.dispatch(setDisplaySnackBar({ severity: 'warning', message: err.response.data }));
         });
       next(action);
       break;
