@@ -67,8 +67,9 @@ module.exports = merge(common, {
     maxAssetSize: 512000,
   },
   devServer: {
-    disableHostCheck: true,
-    host: '0.0.0.0',
-    port: 8080
-}
+    allowedHosts: [
+     'mycryptofolio.fr',
+     'api.mycryptofolio.fr'
+    ]
+  }
 });
