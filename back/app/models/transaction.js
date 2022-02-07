@@ -7,6 +7,63 @@ class Transaction {
             this[propName] = obj[propName];
         }
     }
+
+    static async getPerformance(id) {
+        try {
+            const {rows} = await db.query('SELECT SUM (investment) as investment, SUM (value) as actual_value,\
+            SUM (value) - SUM (investment) as pnl FROM coins_value WHERE user_id=$1;', [id]);
+            if (rows) {
+                return new Transaction(rows[0]);
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    static async getPerformanceByWallet(id, wid) {
+        try {
+            const {rows} = await db.query('SELECT SUM (investment) as investment, SUM (value) as actual_value, \
+            SUM (value) - SUM (investment) as pnl FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2;', [id, wid]);
+            if (rows) {
+                return new Transaction(rows[0]);
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    static async getDistribution(id) {
+        try {
+            const {rows} = await db.query('SELECT name, quantity, investment, value, (100 * coins_value.value) /\
+            (SELECT SUM(value) FROM coins_value WHERE user_id=$1) as distribution \
+            FROM coins_value WHERE coins_value.user_id=$1\
+            GROUP BY investment, name, quantity, value;', [id]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    static async getDistributionByWallet(id, wid) {
+        try {
+            const {rows} = await db.query('SELECT name, quantity, investment,  value, (100 * coins_value_wallet.value) /\
+            (SELECT SUM(value) FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2) as distribution \
+            FROM coins_value_wallet WHERE coins_value_wallet.user_id=$1 AND coins_value_wallet.wallet_id=$2\
+            GROUP BY investment, name, quantity, value;', [id, wid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
     static async getTransactionByPk(tid) {
         try {
             const {rows} = await db.query('SELECT * FROM transaction WHERE id=$1;', [tid]);
