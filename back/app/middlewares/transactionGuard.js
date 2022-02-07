@@ -4,8 +4,9 @@ module.exports = async (req, res, next) => {
     try {
         let own_wallet = false;
         let bodyId = false;
+        let is_transaction;
         if (req.body.id) {
-            const is_transaction = await Transaction.getTransactionByPk(req.body.id);
+            is_transaction = await Transaction.getTransactionByPk(req.body.id);
             if (is_transaction.length === 0) {
                 return res.status(500).json('No transaction with this id');
             }
@@ -35,9 +36,8 @@ module.exports = async (req, res, next) => {
             }
             if (bodyId) {
                 const cryptos2 = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
-                console.log(cryptos2)
                 const wallet2 = cryptos2.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
-                if ((wallet2.total + req.body.quantity) - wallet2.total > wallet.total) {
+                if (Number(wallet2.total) === Number(is_transaction[0].quantity) | (Math.abs(req.body.quantity) + is_transaction[0].quantity) > wallet2.total) {
                     return res.status(500).json('You trying to sell more coin than you have');
                 }  
             } else {
