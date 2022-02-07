@@ -27,12 +27,9 @@ const useStyles = makeStyles((theme) => ({
   cryptoList: {
     margin: '1% 0 3% 0',
   },
-  loadButton: {
-
-  },
 }));
 
-const CryptoList = () => {
+function CryptoList() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -74,11 +71,11 @@ const CryptoList = () => {
                     <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
-                <TableCell align="right">{`$${crypto.current_price.toLocaleString()}`}</TableCell>
-                <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: 'green' } : { color: 'red' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`$${crypto.market_cap.toLocaleString()}`}</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`$${crypto.total_volume.toLocaleString()}`}</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`$${crypto.circulating_supply.toLocaleString()}`}</TableCell>
+                <TableCell align="right">{`${crypto.current_price.toLocaleString()}`}</TableCell>
+                <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
+                <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`${crypto.market_cap.toLocaleString()}`}</TableCell>
+                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`${crypto.total_volume.toLocaleString()}`}</TableCell>
+                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`${crypto.circulating_supply.toLocaleString()}`}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -86,7 +83,6 @@ const CryptoList = () => {
       </Grid>
       <Grid item>
         <LoadingButton
-          className={classes.loadButton}
           variant="outlined"
           sx={{ mb: 9 }}
           loading={cryptoListLoading}
@@ -97,6 +93,6 @@ const CryptoList = () => {
       </Grid>
     </Grid>
   );
-};
+}
 
 export default CryptoList;
