@@ -65,5 +65,10 @@ module.exports = merge(common, {
     hints: false,
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
-  }
+  },
+  devServer: {
+    disableHostCheck: true,
+    host: '0.0.0.0',
+    port: 8080
+}
 });
