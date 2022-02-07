@@ -103,8 +103,6 @@ const auth = (store) => (next) => async (action) => {
       next(action);
       break;
     case CHECK_TOKEN:
-
-      // console.log('isTokenExpired', isTokenExpired());
       if (isTokenExpired(accessToken) && refreshToken) {
         const newAccessToken = await getNewAccessToken(refreshToken);
         const { user } = parseJwt(newAccessToken);
@@ -119,7 +117,6 @@ const auth = (store) => (next) => async (action) => {
       }
       else if (isTokenExpired(accessToken) && (!refreshToken || isTokenExpired(accessToken))) {
         store.dispatch(logout());
-        store.dispatch(toggleLoginModal());
       }
 
       next(action);

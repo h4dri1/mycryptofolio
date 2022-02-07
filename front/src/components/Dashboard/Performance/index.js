@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 
 import { useSelector } from 'react-redux';
 
-const Performance = () => {
+function Performance() {
   const { performance } = useSelector((state) => state.portfolio);
 
   let perfPercentage = (
@@ -26,9 +26,9 @@ const Performance = () => {
           display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', height: '100%',
         }}
         >
-          <Typography>Investissement : {`$${Number(performance.investment).toLocaleString()}`}</Typography>
-          <Typography>Valeur actuelle : {`$${Number(performance.actual_value).toLocaleString()}`}</Typography>
-          <Typography>PnL : {`$${Number(performance.pnl).toLocaleString()}`}</Typography>
+          <Typography>Investissement : {`${Number(performance.investment).toLocaleString()}`}</Typography>
+          <Typography>Valeur actuelle : {`${Number(performance.actual_value).toLocaleString()}`}</Typography>
+          <Typography>PnL : {`${Number(performance.pnl).toLocaleString()}`}</Typography>
         </Box>
       </Grid>
       <Grid
@@ -60,11 +60,11 @@ const Performance = () => {
             },
           },
           ]}
-        ><Typography variant="h4" color={perfPercentage >= 0 ? 'green' : 'red'}>{perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}</Typography>
+        ><Typography variant="h4" color={perfPercentage >= 0 ? '#1cb344' : '#eb3b5a'}>{perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}</Typography>
         </Box>
       </Grid>
     </Grid>
   );
-};
+}
 
 export default Performance;
