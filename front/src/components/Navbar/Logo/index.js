@@ -8,9 +8,9 @@ export default function Logo() {
         alt="logo MyCryptoFolio"
         src={logo}
         sx={{
-          width: 100,
-          height: 100,
-          margin: '1rem',
+          width: 70,
+          height: 70,
+          margin: '0.5rem 1rem',
           borderRadius: '1rem',
         }}
         variant="square"
