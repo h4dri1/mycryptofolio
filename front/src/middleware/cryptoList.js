@@ -19,7 +19,7 @@ const cryptoList = (store) => (next) => (action) => {
     case GET_ALL_CRYPTOS:
       axios({
         method: 'get',
-        url: 'https://dev.mycryptofolio.fr/v1/cryptos/USD/100',
+        url: 'https://api.mycryptofolio.fr/v1/cryptos/USD/100',
       })
         .then((res) => {
           store.dispatch(updateAllCryptos(res.data));
@@ -32,7 +32,7 @@ const cryptoList = (store) => (next) => (action) => {
 
       axios({
         method: 'get',
-        url: `https://dev.mycryptofolio.fr/v1/cryptos/${selectedCurrency}/${quantity}`,
+        url: `https://api.mycryptofolio.fr/v1/cryptos/${selectedCurrency}/${quantity}`,
       })
         .then((res) => {
           store.dispatch(updateCryptoList(res.data));

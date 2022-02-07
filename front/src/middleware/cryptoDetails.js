@@ -9,7 +9,7 @@ const cryptoDetails = (store) => (next) => (action) => {
         case FETCH_CRYPTO_DATA:
             axios({
                 method: 'get',
-                url: `https://dev.mycryptofolio.fr/v1/crypto/${action.payload}`,
+                url: `https://api.mycryptofolio.fr/v1/crypto/${action.payload}`,
             })
                 .then((res) => {
                     console.log(res.data);

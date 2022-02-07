@@ -20,7 +20,7 @@ const auth = (store) => (next) => async (action) => {
   switch (action.type) {
     case LOGIN:
       // TODO: ajouter la fonction cleanObject de DOM-Purify pour nettoyer les valeurs des champs
-      axios.post('https://dev.mycryptofolio.fr/v1/jwt/login', {
+      axios.post('https://api.mycryptofolio.fr/v1/jwt/login', {
         email: state.user.email,
         password: state.user.password,
         // email: "test@test.fr",
@@ -60,7 +60,7 @@ const auth = (store) => (next) => async (action) => {
       break;
 
     case REGISTER:
-      axios.post('https://dev.mycryptofolio.fr/v1/signup', {
+      axios.post('https://api.mycryptofolio.fr/v1/signup', {
         email: state.user.email,
         nickname: state.user.nickname,
         password: state.user.password,

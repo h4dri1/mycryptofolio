@@ -21,7 +21,7 @@ import getNewAccessToken from 'src/services/getNewAccessToken';
 
 const portfolio = (store) => (next) => async (action) => {
   const privateRoute = axios.create({
-    baseURL: 'https://dev.mycryptofolio.fr/v1',
+    baseURL: 'https://api.mycryptofolio.fr/v1',
   });
 
   privateRoute.interceptors.request.use(async (req) => {

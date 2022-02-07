@@ -9,7 +9,7 @@ import RefCurrency from './RefCurrency';
 const TopBanner = () => {
 
     return (
-        <AppBar position="static" >
+        <AppBar sx={{ height: '50px' }} position="static" >
             <Toolbar disableGutters>
                 <Indicators />
                 <Container
