@@ -13,20 +13,25 @@ import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
 
+
 const useStyles = makeStyles({
   grid: {
     // border: 'solid 2px red',
     marginTop: '0.1px',
     height: '100%',
+    // maxWidth: '100%',
   },
   gridItem: {
-    borderStyle: 'solid',
+    // borderStyle: 'solid',
+    borderColor: '#E7EBF0',
+    borderRadius: 2,
     // minHeight: '50vh',
     margin: '5px',
   },
   gridSubItem: {
     // border: 'solid 2px gold',
     // height: '100%',
+    maxWidth: '100%',
   },
 });
 
@@ -46,11 +51,12 @@ const Dashboard = ({ logged }) => {
     }
   }, []);
 
+
   return (
     <div className="">
       <ConfirmDelete />
-      <Grid container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-        <Grid item xs={11} md={5.5} className={classes.gridItem}>
+      <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
+        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
           <Container>
             <Grid container>
               <Grid item xs={11} md={6} className={classes.gridSubItem}>
@@ -62,13 +68,13 @@ const Dashboard = ({ logged }) => {
             </Grid>
           </Container>
         </Grid>
-        <Grid item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
           <Performance />
         </Grid>
-        <Grid item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
           <TransactionsHistory />
         </Grid>
-        <Grid item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
           <TransactionCreator />
         </Grid>
       </Grid>
