@@ -57,6 +57,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
+var corsOptions = {
+  origin: "http://localhost:3000"
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 app.use('/v1', router);
