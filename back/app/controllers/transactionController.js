@@ -63,35 +63,33 @@ module.exports = {
             portfolio.distribution = newObjRepartition;
             portfolio.performance = objPerformance;
 
-            if (!req.params.wallet_id) {
-                let objWallet = [];
-                let newObj = [];
-                let sum = 0;
+            let objWallet = [];
+            let newObj = [];
+            let sum = 0;
 
-                const empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
+            const empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
 
-                for (const coin of cryptos) {
-                    sum = (coin.total * price[coin.coin_id].usd);
-                    newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
-                };
+            for (const coin of cryptos) {
+                sum = (coin.total * price[coin.coin_id].usd);
+                newObj.push({'id':coin.wallet_id, 'sum':sum, 'label':coin.wallet_label});
+            };
 
-                newObj.reduce((key, value) => {
-                if (!key[value.id]) {
-                    key[value.id] = { id: value.id, sum: 0, label: value.label };
-                    objWallet.push(key[value.id]);
-                }
-                key[value.id].sum += value.sum;
-                return key;
-                }, {});
-
-                if (empty) {
-                    for (const emp of empty) {
-                        objWallet.push({'id':emp.id, 'sum':'0', 'label':emp.label});
-                    }
-                };
-
-                portfolio.wallet = objWallet;
+            newObj.reduce((key, value) => {
+            if (!key[value.id]) {
+                key[value.id] = { id: value.id, sum: 0, label: value.label };
+                objWallet.push(key[value.id]);
             }
+            key[value.id].sum += value.sum;
+            return key;
+            }, {});
+
+            if (empty) {
+                for (const emp of empty) {
+                    objWallet.push({'id':emp.id, 'sum':'0', 'label':emp.label});
+                }
+            };
+
+            portfolio.wallet = objWallet;
             
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));

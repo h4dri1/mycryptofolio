@@ -58,7 +58,8 @@ const CryptoList = () => {
               <TableCell align="center">Price</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody >
+
             {cryptos.map((crypto) => (
               <TableRow key={crypto.id} hover>
                 <TableCell align="center">{crypto.market_cap_rank}</TableCell>
@@ -70,7 +71,7 @@ const CryptoList = () => {
                       sx={{ mr: 1 }}
                     >{crypto.name}
                     </Typography>
-                    <Typography underline="none" sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
+                    <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: 'green' } : { color: 'red' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
