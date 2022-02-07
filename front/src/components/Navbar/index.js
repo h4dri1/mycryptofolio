@@ -12,6 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import {
   AppBar,
   Box,
+  Grid,
   Toolbar,
   Typography,
   InputBase,
@@ -129,7 +130,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Grid sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar
           disableGutters
@@ -169,6 +170,6 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Box>
+    </Grid>
   );
 }

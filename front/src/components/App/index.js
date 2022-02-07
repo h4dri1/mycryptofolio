@@ -54,7 +54,7 @@ const App = () => {
 
   });
 
-  // theme = responsiveFontSizes(theme, { breakpoints: ['sm', 'md', 'lg'] });
+  // theme = responsiveFontSizes(theme);
 
   useEffect(async () => {
     await dispatch(checkToken());
