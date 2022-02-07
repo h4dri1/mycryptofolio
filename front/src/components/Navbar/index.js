@@ -153,7 +153,7 @@ export default function PrimarySearchAppBar() {
               variant="subtitle"
               noWrap
               color="white"
-              sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
+              sx={{ display: { xs: 'none', md: 'flex' }, ml: 1 }}
             >
               Suivez la performance de vos portefeuilles crypto
             </Typography>
@@ -162,7 +162,7 @@ export default function PrimarySearchAppBar() {
           <Link
             component={RouterLink}
             to="/portfolio"
-            sx={{ color: 'white', ml: 10 }}
+            sx={{ color: 'white', ml: 5 }}
           >
             <Typography
               variant="h7"
@@ -174,7 +174,7 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </Link>
 
-          <SearchCrypto sx={{ color: 'white', ml: 10 }} />
+          <SearchCrypto />
           <Box sx={{ flexGrow: 1 }} />
           <MyAccount />
         </Toolbar>

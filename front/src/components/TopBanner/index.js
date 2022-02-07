@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';

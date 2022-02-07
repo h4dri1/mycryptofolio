@@ -3,7 +3,6 @@ import LoginRegister from 'src/components/LoginRegister';
 import { login, register } from 'src/actions/user';
 import AvatarIcon from './AvatarIcon';
 
-
 export default function MyAccount() {
 
   const { logged, existingUser } = useSelector((state) => state.user);

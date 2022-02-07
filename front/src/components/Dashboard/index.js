@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { useEffect } from 'react';
@@ -28,11 +29,6 @@ const useStyles = makeStyles({
     // minHeight: '50vh',
     margin: '5px',
   },
-  gridSubItem: {
-    // border: 'solid 2px gold',
-    // height: '100%',
-    maxWidth: '100%',
-  },
 });
 
 const Dashboard = ({ logged }) => {
@@ -56,25 +52,25 @@ const Dashboard = ({ logged }) => {
     <div className="">
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} item xs={11} md={5.5} className={classes.gridItem}>
           <Container>
-            <Grid container>
-              <Grid item xs={11} md={6} className={classes.gridSubItem}>
+            <Grid container sx={{ padding: 0 }}>
+              <Grid item xs={12} md={6} className={classes.gridSubItem}>
                 <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />
               </Grid>
-              <Grid item xs={11} md={6} className={classes.gridSubItem}>
+              <Grid item xs={12} md={6} className={classes.gridSubItem}>
                 <AssetsShares distribution={distribution} />
               </Grid>
             </Grid>
           </Container>
         </Grid>
-        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} item xs={11} md={5.5} className={classes.gridItem}>
           <Performance />
         </Grid>
-        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
           <TransactionsHistory />
         </Grid>
-        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} item xs={11} md={5.5} className={classes.gridItem}>
           <TransactionCreator />
         </Grid>
       </Grid>

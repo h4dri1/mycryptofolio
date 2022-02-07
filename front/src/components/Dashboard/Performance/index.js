@@ -26,9 +26,9 @@ function Performance() {
           display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', height: '100%',
         }}
         >
-          <Typography>Investissement : {`${Number(performance.investment).toLocaleString()}`}</Typography>
-          <Typography>Valeur actuelle : {`${Number(performance.actual_value).toLocaleString()}`}</Typography>
-          <Typography>PnL : {`${Number(performance.pnl).toLocaleString()}`}</Typography>
+          <Typography>Investissement : {`$${Number(performance.investment).toLocaleString()}`}</Typography>
+          <Typography>Valeur actuelle : {`$${Number(performance.actual_value).toLocaleString()}`}</Typography>
+          <Typography>PnL : {`$${Number(performance.pnl).toLocaleString()}`}</Typography>
         </Box>
       </Grid>
       <Grid
