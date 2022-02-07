@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cryptoList: {
-    margin: '1% 0 3% 0',
+    margin: '1% 1% 3% 1%',
   },
 }));
 
@@ -59,16 +59,16 @@ function CryptoList() {
 
             {cryptos.map((crypto) => (
               <TableRow key={crypto.id} hover>
-                <TableCell align="center">{crypto.market_cap_rank}</TableCell>
+                <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' } }}>{crypto.market_cap_rank}</TableCell>
                 <TableCell>
-                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                  <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
                       variant="body1"
-                      sx={{ mr: 1 }}
+                      sx={{ mr: 1, display: { xs: 'none', sm: 'block' } }}
                     >{crypto.name}
                     </Typography>
-                    <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
+                    <Typography>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell align="right">{`${crypto.current_price.toLocaleString()}`}</TableCell>

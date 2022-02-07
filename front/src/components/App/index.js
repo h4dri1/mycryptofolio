@@ -54,7 +54,7 @@ const App = () => {
 
   });
 
-  // theme = responsiveFontSizes(theme);
+  theme = responsiveFontSizes(theme);
 
   useEffect(async () => {
     await dispatch(checkToken());
