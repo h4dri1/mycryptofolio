@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 
 const bodyParser = require('body-parser');
 
-const helmet = require('helmet');
+//const helmet = require('helmet');
 
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
@@ -45,17 +45,17 @@ const options = {
   
 expressJSDocSwagger(app)(options);
 
-app.disable('x-powered-by');
-
-app.use(helmet.xssFilter());
-
-app.use(helmet.frameguard({ action: 'deny' }));
-
-app.use(helmet.noSniff());
+//app.disable('x-powered-by');
+//
+//app.use(helmet.xssFilter());
+//
+//app.use(helmet.frameguard({ action: 'deny' }));
+//
+//app.use(helmet.noSniff());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors());
+//app.use(cors());
 
 app.use(express.json());
 
