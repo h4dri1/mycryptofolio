@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
+
 const getNewAccessToken = async (token) => {
   try {
-    const response = await axios(`https://dev.mycryptofolio.fr/v1/jwt/refresh/${token}`);
-    console.log(response.status, response.data, response.headers.authorization);
+    const response = await axios(`${baseURL}/jwt/refresh/${token}`);
     if (response.status === 200) {
       return response.headers.authorization;
     }
