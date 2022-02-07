@@ -18,9 +18,7 @@ const { loginSchema,
 
 const { validateBody, validateJWT } = require('./middlewares/validator');
 
-const jwtMW = require('./middlewares/jwtMW');
-
-const fetchMW = require('./middlewares/fetchMW');
+const { jwtMW, fetchMW, transactionGuard } = require('./middlewares');
 
 const {cache, flush} = require('./services/cache');
 
@@ -121,7 +119,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/crypto/:id', cache, cryptoController.getOneCrypto);
+router.get('/crypto/:id/:nbd?', cache, cryptoController.getOneCrypto);
 
  /**
  * GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
@@ -183,7 +181,7 @@ router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfol
 
 router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
-router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), transactionController.addTransaction);
+router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), transactionGuard, transactionController.addTransaction);
 
 router.post('/portfolio/wallet', jwtMW, flush, validateBody(walletSchema), walletController.addWallet);
 

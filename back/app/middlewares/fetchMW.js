@@ -1,4 +1,4 @@
-const { Transaction } = require('../models');
+const { Transaction, Crypto } = require('../models');
 const service_fetch = require('../services/fetch');
 
 module.exports = async (req, res, next) => {
@@ -17,8 +17,13 @@ module.exports = async (req, res, next) => {
         });
         searched_coins = strCryptos.toString();
         const data = await service_fetch(`//api.coingecko.com/api/v3/simple/price?ids=${searched_coins}&vs_currencies=usd`);
-        res.locals.cryptos = cryptos;
-        res.locals.price = data;
+        const newData = {}
+        for (const price in data) {        
+            newData.coin_id = price;
+            newData.price = data[price].usd;
+            JSON.stringify(newData)
+            await Crypto.updatePrice(newData);
+        }
         next();
     } catch (error) {
         console.log(error);

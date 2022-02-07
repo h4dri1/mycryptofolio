@@ -2,6 +2,7 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+ALTER TABLE crypto 
+DROP COLUMN price CASCADE;
 
 COMMIT;
