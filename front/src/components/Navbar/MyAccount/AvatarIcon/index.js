@@ -101,27 +101,28 @@ export default function TestAvatar() {
                       onKeyDown={handleListKeyDown}
                     >
                       <MenuItem>
-                          <Link
-                              component={RouterLink}
-                              to="/portfolio"
-                              sx={{ color: 'black' }}
-                            >
-                                                  Portfolio
-                            </Link>
+                        <Link
+                          component={RouterLink}
+                          to="/portfolio"
+                          underline="none"
+                          sx={{ color: 'primary.light' }}
+                        >
+                          Portfolio
+                        </Link>
 
-                        </MenuItem>
+                      </MenuItem>
                       <MenuItem>
-                          <Link
-                              onClick={handleLogout}
-                              component={RouterLink}
-                              to="/"
-                              underline="none" // redirection to HOME when click on LOGOUT
-                              sx={{ color: 'black' }}
-                            >
-                                                  Logout
-                            </Link>
+                        <Link
+                          onClick={handleLogout}
+                          component={RouterLink}
+                          to="/"
+                          underline="none" // redirection to HOME when click on LOGOUT
+                          sx={{ color: 'primary.light' }}
+                        >
+                          Logout
+                        </Link>
 
-                        </MenuItem>
+                      </MenuItem>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>

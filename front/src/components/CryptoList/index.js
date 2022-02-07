@@ -65,7 +65,7 @@ function CryptoList() {
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
                       variant="body1"
-                      sx={{ mr: 1, display: { xs: 'none', sm: 'block' } }}
+                      sx={{ mr: 1, display: { xs: 'none', sm: 'block', color: "neutral.contrastText" } }}
                     >{crypto.name}
                     </Typography>
                     <Typography>{crypto.symbol.toUpperCase()}</Typography>
@@ -87,6 +87,7 @@ function CryptoList() {
           sx={{ mb: 9 }}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
+          sx={{ color: "primary.light" }}
         >
           Charger plus de cryptos
         </LoadingButton>

@@ -56,6 +56,11 @@ export default function Graph({ chart }) {
             legend: {
                 display: true,
                 position: 'top',
+
+                // Greg: vérifier si on garde le tooltip
+                tooltip: {
+                    usePointStyle: false,
+                }
             },
             title: {
                 display: true,
@@ -139,7 +144,7 @@ export default function Graph({ chart }) {
         ],
     };
 
-    return <Line options={options} data={graphData} height={70} />;
+    return <Line options={options} data={graphData} height={90} />;
 }
 
 Graph.propTypes = {

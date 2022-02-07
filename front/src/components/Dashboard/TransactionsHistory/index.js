@@ -47,7 +47,7 @@ const TransactionsHistory = () => {
       display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto',
     }}
     >
-      <Typography color="primary.main" variant="h6">Historique des transactions</Typography>
+      <Typography color="primary.light" variant="h6">Historique des transactions</Typography>
       <Divider sx={{ width: '100%' }} />
       <Table stickyHeader sx={{ maxWidth: '90%' }}>
         <TableHead>

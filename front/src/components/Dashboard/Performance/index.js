@@ -18,7 +18,7 @@ function Performance() {
   return (
     <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        <Typography color="primary.main" variant="h6" align="center">Performance</Typography>
+        <Typography color="primary.light" variant="h6" align="center">Performance</Typography>
         <Divider sx={{ width: '100%' }} />
       </Grid>
       <Grid item xs={12} sm={6}>
