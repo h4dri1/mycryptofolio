@@ -50,12 +50,12 @@ const CryptoList = () => {
           <TableHead sx={{ fontWeight: 'bold' }}>
             <TableRow>
               <TableCell align="center"><TableSortLabel />#</TableCell>
-              <TableCell>Name</TableCell>
+              <TableCell>Nom</TableCell>
+              <TableCell align="right">Prix</TableCell>
               <TableCell align="right">24h %</TableCell>
               <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Market Cap</TableCell>
               <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Volume 24h</TableCell>
               <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Circulating supply</TableCell>
-              <TableCell align="center">Price</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -74,11 +74,11 @@ const CryptoList = () => {
                     <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
+                <TableCell align="right">{`$${crypto.current_price.toLocaleString()}`}</TableCell>
                 <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: 'green' } : { color: 'red' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`$${crypto.market_cap.toLocaleString()}`}</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`$${crypto.total_volume.toLocaleString()}`}</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`$${crypto.circulating_supply.toLocaleString()}`}</TableCell>
-                <TableCell align="center">{`$${crypto.current_price.toLocaleString()}`}</TableCell>
               </TableRow>
             ))}
           </TableBody>
