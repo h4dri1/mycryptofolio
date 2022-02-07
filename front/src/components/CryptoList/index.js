@@ -58,7 +58,7 @@ const CryptoList = () => {
               <TableCell align="center">Price</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody >
+          <TableBody>
 
             {cryptos.map((crypto) => (
               <TableRow key={crypto.id} hover>

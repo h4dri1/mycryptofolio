@@ -82,7 +82,7 @@ const auth = (store) => (next) => async (action) => {
               avatar: picture,
               accessToken: newAccessToken,
               existingUser: true,
-              password: '#0clock$0087',
+              password: '',
               passwordCheck: '',
             };
             store.dispatch(saveUser(userObj));
