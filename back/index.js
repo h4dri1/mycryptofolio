@@ -57,6 +57,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
+app.all('/', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://mycryptofolio.fr");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next()
+});
+
 app.use(express.json());
 
 app.use('/v1', router);
