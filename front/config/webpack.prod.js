@@ -70,6 +70,9 @@ module.exports = merge(common, {
     allowedHosts: [
      'mycryptofolio.fr',
      'api.mycryptofolio.fr'
-    ]
+    ],
+    historyApiFallback: true,
+    contentBase: './',
+    hot: true
   }
 });
