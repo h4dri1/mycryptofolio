@@ -17,8 +17,6 @@ import parseJwt from 'src/services/parseJwt';
 import isTokenExpired from 'src/services/isTokenExpired';
 import getNewAccessToken from 'src/services/getNewAccessToken';
 
-// import privateRoute from 'src/services/privateRoute';
-
 const portfolio = (store) => (next) => async (action) => {
   const privateRoute = axios.create({
     baseURL: `${process.env.PRIVATE_API_BASE_URL}`,
@@ -149,7 +147,24 @@ const portfolio = (store) => (next) => async (action) => {
         },
       })
         .then((res) => {
-          store.dispatch(fetchSpecificWalletSuccess(res.data));
+          const { distribution, performance, transactions, wallet: updatedWallet} = res.data;
+          const { wallet: wallets } = store.getState().portfolio;
+
+          const updatedWallets = wallets.map((wallet) => {
+            if (wallet.id === updatedWallet.id) {
+              return wallet = updatedWallet;
+            };
+            return wallet;
+          });
+
+          const walletsObj = {
+            distribution,
+            performance,
+            transactions,
+            wallet: updatedWallets,
+          }
+
+          store.dispatch(fetchSpecificWalletSuccess(walletsObj));
           const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
