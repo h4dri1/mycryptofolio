@@ -7,22 +7,22 @@ import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 
 const TopBanner = () => (
-  <AppBar position="static" color="transparent" sx={{ justifyContent: 'center', height: '38px' }}>
-    <Toolbar disableGutters>
-      <Indicators />
-      <Container
-        disableGutters
-        maxWidth="100%"
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-        }}
-      >
-        <RefCurrency />
-        <ToggleMode />
-      </Container>
-    </Toolbar>
-  </AppBar>
+    <AppBar position="static" color="transparent" sx={{ justifyContent: 'center', height: '38px' }}>
+        <Toolbar disableGutters>
+            <Indicators />
+            <Container
+                disableGutters
+                maxWidth="100%"
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    alignItems: 'center',
+                }}
+            >
+                <RefCurrency />
+                <ToggleMode />
+            </Container>
+        </Toolbar>
+    </AppBar>
 );
 export default TopBanner;

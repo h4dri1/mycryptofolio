@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     marginTop: '0.1px',
     height: '100%',
     // maxWidth: '100%',
+
   },
   gridItem: {
     // borderStyle: 'solid',
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
     borderRadius: 2,
     // minHeight: '50vh',
     margin: '5px',
+
   },
 });
 
@@ -53,7 +55,7 @@ const Dashboard = ({ logged }) => {
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
         <Grid sx={{ boxShadow: 4 }} item xs={11} md={5.5} className={classes.gridItem}>
-          <Container>
+          <Container sx={{ bgcolor: 'grey' }}>
             <Grid container sx={{ padding: 0 }}>
               <Grid item xs={12} md={6} className={classes.gridSubItem}>
                 <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />
