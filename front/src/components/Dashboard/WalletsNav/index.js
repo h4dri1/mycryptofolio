@@ -8,7 +8,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
 
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 import {
@@ -23,6 +23,7 @@ import AddWallet from './AddWallet';
 import EditWallet from './EditWallet';
 
 const WalletsNav = ({ wallets, selectedWallet }) => {
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
   const dispatch = useDispatch();
 
   const toSlug = (walletFullName) => walletFullName.split(' ').join('-').toLowerCase();
@@ -121,7 +122,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                           },
                         },
                         ]}
-                      ><Typography variant="body2">{`$${Math.round(wallet.sum).toLocaleString()}`}</Typography>
+                      ><Typography variant="body2">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4 }).format(wallet.sum)}</Typography>
                       </Box>
                       <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
