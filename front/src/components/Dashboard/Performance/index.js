@@ -27,36 +27,65 @@ function Performance() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-evenly',
-          alignItems: 'center',
+          alignItems: 'right',
+          padding: '3em',
           height: '100%',
         }}
         >
-          <Typography>
-            Investissement : {Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: refCurrency,
-            maximumSignificantDigits: 4,
-            minimumSignificantDigits: 2,
-          }).format(performance.investment)}
-          </Typography>
+          <Box sx={{
+            display: 'inline-flex',
+            justifyContent: 'space-between',
+          }}
+          >
+            <Typography>
+              Investissement :
+            </Typography>
+            <Typography color="secondary.main" component="span">
+              {Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: refCurrency,
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(performance.investment)}
+            </Typography>
+          </Box>
 
-          <Typography>
-            Valeur actuelle : {Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: refCurrency,
-            maximumSignificantDigits: 4,
-            minimumSignificantDigits: 2,
-          }).format(performance.actual_value)}
-          </Typography>
+          <Box sx={{
+            display: 'inline-flex',
+            justifyContent: 'space-between',
+          }}
+          >
+            <Typography>
+              Valeur actuelle :
+            </Typography>
+            <Typography color="secondary.main" component="span" ml={2}>
+              {Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: refCurrency,
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(performance.actual_value)}
+            </Typography>
+          </Box>
 
-          <Typography>
-            PnL : {Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: refCurrency,
-            maximumSignificantDigits: 4,
-            minimumSignificantDigits: 2,
-          }).format(performance.pnl)}
-          </Typography>
+          <Box sx={{
+            display: 'inline-flex',
+            justifyContent: 'space-between',
+          }}
+          >
+            <Typography>
+              PnL :
+            </Typography>
+            <Typography color="secondary.main" component="span" ml={2}>
+              {Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: refCurrency,
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(performance.pnl)}
+            </Typography>
+          </Box>
+
         </Box>
       </Grid>
       <Grid
