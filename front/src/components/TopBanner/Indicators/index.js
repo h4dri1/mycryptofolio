@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 
 // const useStyles = makeStyles((theme) => ({
@@ -18,6 +19,8 @@ import PropTypes from 'prop-types';
 // }));
 
 const Indicators = ({ data }) => {
+
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
 
   return (
     <Container
@@ -42,12 +45,18 @@ const Indicators = ({ data }) => {
         </Typography>
         <Typography
           sx={{
-            // m: 0.8,
+            ml: 0.8,
             color: 'secondary.main',
             fontSize: '0.8rem',
           }}
         >
-          {data.total_market_cap.usd}
+          {Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: refCurrency,
+            maximumSignificantDigits: 4,
+            minimumSignificantDigits: 2,
+          }).format(data.total_market_cap.usd)}
+
         </Typography>
       </Box>
 
@@ -63,12 +72,18 @@ const Indicators = ({ data }) => {
         </Typography>
         <Typography
           sx={{
-            // ml: 1.5,
+            ml: 0.8,
             color: 'secondary.main',
             fontSize: '0.8rem',
           }}
         >
-          {data.total_volume.usd}
+          {Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: refCurrency,
+            maximumSignificantDigits: 4,
+            minimumSignificantDigits: 2,
+          }).format(data.total_volume.usd)}
+
         </Typography>
       </Box>
 
@@ -80,16 +95,20 @@ const Indicators = ({ data }) => {
             // ml: 5,
           }}
         >
-          Dominance :
+          Dominance BTC:
         </Typography>
         <Typography
           sx={{
-            // m: 0.8,
+            ml: 0.8,
             color: 'secondary.main',
             fontSize: '0.8rem',
           }}
         >
-          {data.market_cap_percentage.btc}
+          {Intl.NumberFormat('en-US', {
+            // style: 'percent',
+            maximumSignificantDigits: 4,
+            minimumSignificantDigits: 2,
+          }).format(data.market_cap_percentage.btc)}%
         </Typography>
       </Box>
     </Container>
