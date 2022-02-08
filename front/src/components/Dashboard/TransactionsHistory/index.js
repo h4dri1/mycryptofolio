@@ -71,7 +71,13 @@ const TransactionsHistory = () => {
               {!transaction.buy
                 ? <TableCell align="center">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                 : <TableCell align="center">-</TableCell>}
-              <TableCell align="center">{transaction.buy ? transaction.quantity : transaction.quantity * -1}</TableCell>
+              <TableCell align="center">
+                {Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  maximumSignificantDigits: 4,
+                  minimumSignificantDigits: 2,
+                }).format(transaction.buy ? transaction.quantity : (transaction.quantity * -1))}
+              </TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
               <TableCell align="right">{transaction.rentability}%</TableCell>
               <TableCell align="right"> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
