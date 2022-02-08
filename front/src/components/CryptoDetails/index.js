@@ -2,8 +2,6 @@
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
 
 // import PropTypes from 'prop-types';
 import { useEffect } from 'react';
@@ -17,19 +15,12 @@ import Indicators from './Indicators';
 
 const useStyles = makeStyles({
   grid: {
-    marginTop: '130px',
+    marginTop: '140px',
     height: '100%',
     padding: 0,
-
   },
   gridItem: {
-    borderColor: '#E7EBF0',
     borderRadius: 2,
-    margin: '5px',
-
-  },
-  gridSubItem: {
-    maxWidth: '100%',
   },
 });
 
@@ -49,43 +40,39 @@ function CryptoDetails() {
       {!loading && (
         <Box
           sx={{
-            p: 1, m: 1, borderRadius: 5, textAlign: 'justify', fontSize: '0.875rem', fontWeight: '700',
+            p: 1, borderRadius: 5, fontSize: '0.875rem', fontWeight: '700', margin: '0 auto 50px auto',
           }}
           container
           rowSpacing={{ xs: 1, md: 2 }}
-          justifyContent="space-evenly"
           className={classes.grid}
         >
-          <Grid container maxWidth="100%" sx={{ display: 'flex', marginTop: '7%', gridAutoFlow: 'row' }}>
-            <Grid sx={{ boxShadow: 4 }} item xs={12} className={classes.gridItem}>
-              <Grid item xs={11} md={6} className={classes.gridSubItem}>
-                <Description
-                  sx={{ gridAutoRows: '100px' }}
-                  data={data}
-                />
-              </Grid>
-            </Grid>
-            <Grid container sx={{ boxShadow: 4, width: '40%' }} className={classes.gridItem}>
-              <Grid item xs={4} className={classes.gridSubItem}>
-                <Indicators
-                  data={data}
-                />
-              </Grid>
-              {/* <Divider sx={{ width: "100%", mt: 2, mb: 2 }}></Divider> */}
-              <Grid item xs={4} md={5.5} className={classes.gridSubItem}>
-                <Converter />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Container sx={{ display: 'flex' }}>
-            <Grid item xs={12} md={12}>
-              <Graph
-                sx={{ display: 'flex', width: '100%' }}
-                chart={chart}
+          <Grid container sx={{ display: 'flex', marginTop: '7%', gridAutoFlow: 'row', justifyContent: 'space-evenly' }}>
+            <Grid item xs={12} md={6.5} sx={{ boxShadow: 4 }} className={classes.gridItem}>
+              <Description
+                sx={{ gridAutoRows: '100px' }}
                 data={data}
               />
             </Grid>
-          </Container>
+            <Grid item xs={12} md={4.5} sx={{ boxShadow: 4 }} className={classes.gridItem}>
+              <Grid container sx={{ height: '100%' }}>
+                <Grid item xs={12} className={classes.gridSubItem}>
+                  <Indicators
+                    data={data}
+                  />
+                </Grid>
+                {/* <Divider sx={{ width: "100%", mt: 2, mb: 2 }}></Divider> */}
+                {/* <Grid item xs={4} md={5.5} className={classes.gridSubItem}>
+                  <Converter />
+                </Grid> */}
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={11} sx={{ margin: '0 auto' }}>
+            <Graph
+              chart={chart}
+              data={data}
+            />
+          </Grid>
         </Box>
       )}
     </>
