@@ -18,6 +18,8 @@ import {
 
 import { toggleConfirmDelete } from 'src/actions/settings';
 
+import nFormatter from 'src/services/nFormatter';
+
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 import AddWallet from './AddWallet';
 import EditWallet from './EditWallet';
@@ -66,9 +68,9 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                 },
                 ]}
               >
-                <Typography>{wallets.length > 0
-                  && `$${Math.round(wallets.reduce((total, wallet) => total + wallet.sum, 0))
-                    .toLocaleString()}`}
+                <Typography>
+                  { wallets.length > 0
+                  && nFormatter(wallets.reduce((total, wallet) => total + wallet.sum, 0)) }
                 </Typography>
               </Box>
             </ListItemButton>
@@ -122,7 +124,9 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                           },
                         },
                         ]}
-                      ><Typography variant="body2">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4 }).format(wallet.sum)}</Typography>
+                      >
+                        {/* <Typography variant="body2">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4 }).format(wallet.sum)}</Typography> */}
+                        <Typography variant="body2">$ {nFormatter(wallet.sum)}</Typography>
                       </Box>
                       <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
