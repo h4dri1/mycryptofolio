@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 
 import { useSelector } from 'react-redux';
 
-const Performance = () => {
+function Performance() {
   const { performance } = useSelector((state) => state.portfolio);
 
   let perfPercentage = (
@@ -18,7 +18,7 @@ const Performance = () => {
   return (
     <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        <Typography color="primary.main" variant="h6" align="center">Performance</Typography>
+        <Typography color="primary.light" variant="h6" align="center">Performance</Typography>
         <Divider sx={{ width: '100%' }} />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -60,11 +60,11 @@ const Performance = () => {
             },
           },
           ]}
-        ><Typography variant="h4" color={perfPercentage >= 0 ? 'green' : 'red'}>{perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}</Typography>
+        ><Typography variant="h4" color={perfPercentage >= 0 ? '#1cb344' : '#eb3b5a'}>{perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}</Typography>
         </Box>
       </Grid>
     </Grid>
   );
-};
+}
 
 export default Performance;

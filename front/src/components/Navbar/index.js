@@ -12,6 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import {
   AppBar,
   Box,
+  Grid,
   Toolbar,
   Typography,
   InputBase,
@@ -129,8 +130,8 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Grid sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed" sx={{ mt: 4.8 }}>
         <Toolbar
           disableGutters
         >
@@ -152,7 +153,7 @@ export default function PrimarySearchAppBar() {
               variant="subtitle"
               noWrap
               color="white"
-              sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
+              sx={{ display: { xs: 'none', md: 'flex' }, ml: 1 }}
             >
               Suivez la performance de vos portefeuilles crypto
             </Typography>
@@ -161,25 +162,25 @@ export default function PrimarySearchAppBar() {
           <Link
             component={RouterLink}
             to="/portfolio"
-            sx={{ color: 'white', ml: 10 }}
+            sx={{ color: 'white', ml: 5 }}
           >
             <Typography
               variant="h7"
               noWrap
               component="div"
-              sx={{ display: { xs: 'none', sm: 'block', ml: 3 } }}
+              sx={{ display: { xs: 'none', sm: 'block', ml: 7 } }}
             >
               Portfolio
             </Typography>
           </Link>
 
-          <SearchCrypto sx={{ color: 'white', ml: 10 }} />
+          <SearchCrypto />
           <Box sx={{ flexGrow: 1 }} />
           <MyAccount />
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Box>
+    </Grid >
   );
 }
