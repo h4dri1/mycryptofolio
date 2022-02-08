@@ -1,4 +1,4 @@
--- Deploy mycryptofolio:function_invest_value to pg
+-- Revert mycryptofolio:function_invest_value to pg
 
 BEGIN;
 	
