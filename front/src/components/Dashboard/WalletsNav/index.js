@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
