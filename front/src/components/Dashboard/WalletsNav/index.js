@@ -70,7 +70,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
               >
                 <Typography>
                   { wallets.length > 0
-                  && nFormatter(wallets.reduce((total, wallet) => total + wallet.sum, 0)) }
+                  && nFormatter(wallets.reduce((total, wallet) => total + Number(wallet.sum), 0),2) }
                 </Typography>
               </Box>
             </ListItemButton>
@@ -126,7 +126,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                         ]}
                       >
                         {/* <Typography variant="body2">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4 }).format(wallet.sum)}</Typography> */}
-                        <Typography variant="body2">$ {nFormatter(wallet.sum)}</Typography>
+                        <Typography variant="body2">$ {nFormatter(wallet.sum, 2)}</Typography>
                       </Box>
                       <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
