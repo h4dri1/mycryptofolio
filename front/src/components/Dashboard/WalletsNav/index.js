@@ -126,7 +126,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                         ]}
                       >
                         {/* <Typography variant="body2">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4 }).format(wallet.sum)}</Typography> */}
-                        <Typography variant="body2">$ {nFormatter(wallet.sum, 2)}</Typography>
+                        <Typography variant="body2">{`$${nFormatter(wallet.sum, 2)}`}</Typography>
                       </Box>
                       <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
