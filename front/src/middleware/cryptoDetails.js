@@ -14,7 +14,6 @@ const cryptoDetails = (store) => (next) => (action) => {
         url: `/crypto/${action.payload}`,
       })
         .then((res) => {
-          console.log(res.data);
           // fetchCryptoDataSuccess(res.data)
           store.dispatch(fetchCryptoDataSuccess(res.data));
         })
