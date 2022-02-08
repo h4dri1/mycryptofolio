@@ -68,12 +68,12 @@ const cryptoList = (store) => (next) => (action) => {
       const requestOptions = {
         method: 'get',
         baseURL,
-        url: coinId ? `/history/${coinId}/${day}-${month}-${year}` : `/history/bitcoin/${day}-${month}-${year}`,
+        url: `/history/${coinId}/${day}-${month}-${year}`,
       };
       axios(requestOptions)
         .then((res) => {
           const currentPrice = res.data.market_data.current_price[refCurrency.toLowerCase()];
-          store.dispatch(setPrice((Math.ceil(currentPrice * 100) / 100)));
+          store.dispatch(setPrice((Math.ceil(currentPrice * 100000000) / 100000000)));
         })
         .catch((err) => {
           console.log(err.response);
