@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { FETCH_CRYPTO_DATA, fetchCryptoDataSuccess } from 'src/actions/cryptoDetails';
-// import { getCryptoData } from '../actions/cryptoDetails';
 
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 

@@ -7,6 +7,7 @@ import auth from '../middleware/auth';
 import cryptoList from '../middleware/cryptoList';
 import portfolio from '../middleware/portfolio';
 import cryptoDetails from '../middleware/cryptoDetails';
+import indicators from '../middleware/indicators';
 
 // == Enhancers
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -17,6 +18,7 @@ const enhancers = composeEnhancers(
     cryptoList,
     portfolio,
     cryptoDetails,
+    indicators,
   ),
 );
 
