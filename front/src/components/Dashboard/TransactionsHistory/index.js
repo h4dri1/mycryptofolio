@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -13,7 +14,6 @@ import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteTransaction } from 'src/actions/portfolio';
 import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settings';
 import { useState } from 'react';
 
@@ -37,7 +37,6 @@ const TransactionsHistory = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(undefined);
 
   const handleEditTransaction = (id) => {
-    console.log('Edit transaction #', id);
     setSelectedTransaction(id);
     dispatch(toggleTransactionEditor());
   };
@@ -74,7 +73,7 @@ const TransactionsHistory = () => {
               <TableCell align="center">{transaction.buy ? transaction.quantity : transaction.quantity * -1}</TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
               <TableCell align="right">{transaction.rentability}%</TableCell>
-              <TableCell align="right">
+              <TableCell align="right"> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
                 <EditOrDeleteItem
                   positionAbsolute={false}
                   editItem={handleEditTransaction}

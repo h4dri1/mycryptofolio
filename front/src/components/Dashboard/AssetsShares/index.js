@@ -88,17 +88,17 @@ export default function AssetsShares({ distribution }) {
             <TableRow align="left">
               <TableCell align="center" sx={{ padding: '1em 0' }}>Devise</TableCell>
               <TableCell align="center" sx={{ padding: '1em 0' }}>Quantité</TableCell>
-              <TableCell align="center" sx={{ padding: '1em 0' }}>Total$</TableCell>
-              <TableCell align="center" sx={{ padding: '1em 0' }}>Répartition</TableCell>
+              <TableCell align="center" sx={{ padding: '1em 0' }}>Total</TableCell>
+              <TableCell align="center" sx={{ padding: '1em 0' }}>%</TableCell>
             </TableRow>
           </TableHead>
           <TableBody align="left">
             {distribution.map((asset, index) => (
               <TableRow key={index}>
-                <TableCell align="center" sx={{ padding: 0 }}>{asset.name}</TableCell>
-                <TableCell align="center" sx={{ padding: 0 }}>{asset.quantity}</TableCell>
-                <TableCell align="center" sx={{ padding: 0 }}>{Math.round(asset.value * 100) / 100}</TableCell>
-                <TableCell align="center" sx={{ padding: 0 }}>{asset.distribution.toFixed(0)}%</TableCell>
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{asset.name}</TableCell>
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{asset.quantity.toLocaleString()}</TableCell>
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{`$${(Math.round(asset.value * 100) / 100).toLocaleString()}`}</TableCell>
+                <TableCell align="center" sx={{ padding: '0.5em 0.1em' }}>{(Math.round(asset.distribution * 10)) / 10}%</TableCell>
               </TableRow>
             ))}
           </TableBody>
