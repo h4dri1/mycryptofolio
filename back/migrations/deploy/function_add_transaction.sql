@@ -20,7 +20,7 @@ CREATE FUNCTION update_transaction(json) RETURNS transaction AS $$
 		buy_date=($1->>'buy_date')::timestamp,
 		buy=($1->>'buy')::boolean,
 		price=($1->>'price')::decimal,
-		quantity=($1->>'quantity')::int,
+		quantity=($1->>'quantity')::numeric,
 		wallet_id=($1->>'wallet_id')::int,
 		crypto_id=($1->>'crypto_id')::int
 	WHERE id=($1->>'id')::int
