@@ -3,6 +3,6 @@
 BEGIN;
 
 ALTER TABLE crypto 
-ADD COLUMN price int;
+ADD COLUMN price numeric(16,8);
 
 COMMIT;
