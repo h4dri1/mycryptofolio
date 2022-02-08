@@ -33,6 +33,7 @@ const TransactionsHistory = () => {
   const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.portfolio);
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
 
   const [selectedTransaction, setSelectedTransaction] = useState(undefined);
 
@@ -63,12 +64,12 @@ const TransactionsHistory = () => {
         <TableBody>
           {transactions.map((transaction) => (
             <TableRow key={transaction.id}>
-              <TableCell align="left">{transaction.symbol}</TableCell>
+              <TableCell align="left">{transaction.symbol.toUpperCase()}</TableCell>
               {transaction.buy
-                ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
+                ? <TableCell align="center">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                 : <TableCell align="center">-</TableCell>}
               {!transaction.buy
-                ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
+                ? <TableCell align="center">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                 : <TableCell align="center">-</TableCell>}
               <TableCell align="center">{transaction.buy ? transaction.quantity : transaction.quantity * -1}</TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
