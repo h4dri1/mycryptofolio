@@ -52,35 +52,35 @@ const TransactionsHistory = () => {
       <Table stickyHeader sx={{ maxWidth: '90%' }}>
         <TableHead>
           <TableRow>
-            <TableCell align="left" sx={{ padding: '1em, 0' }}>Nom</TableCell>
-            <TableCell align="center" sx={{ padding: '1em, 0' }}>Prix d'achat</TableCell>
-            <TableCell align="center" sx={{ padding: '1em, 0' }}>Prix de vente</TableCell>
-            <TableCell align="center" sx={{ padding: '1em, 0' }}>Quantité</TableCell>
-            <TableCell align="center" sx={{ padding: '1em, 0' }}>Date</TableCell>
-            {/* <TableCell align="right" sx={{ padding: '1em, 0' }}>%</TableCell> */}
-            <TableCell align="right" sx={{ padding: '1em, 0' }} />
+            <TableCell align="left" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Nom</TableCell>
+            <TableCell align="center" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Prix d'achat</TableCell>
+            <TableCell align="center" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Prix de vente</TableCell>
+            <TableCell align="center" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Quantité</TableCell>
+            <TableCell align="center" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Date</TableCell>
+            {/* <TableCell align="right" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>%</TableCell> */}
+            <TableCell align="right" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }} />
           </TableRow>
         </TableHead>
         <TableBody>
           {transactions.map((transaction) => (
             <TableRow key={transaction.id}>
-              <TableCell align="left" sx={{ padding: '.5em 0' }}>{transaction.symbol.toUpperCase()}</TableCell>
+              <TableCell align="left" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{transaction.symbol.toUpperCase()}</TableCell>
               {transaction.buy
-                ? <TableCell align="center" sx={{ padding: '.5em 0' }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
-                : <TableCell align="center" sx={{ padding: '.5em 0' }}>-</TableCell>}
+                ? <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
+                : <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
               {!transaction.buy
-                ? <TableCell align="center" sx={{ padding: '.5em 0' }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
-                : <TableCell align="center" sx={{ padding: '.5em 0' }}>-</TableCell>}
-              <TableCell align="center" sx={{ padding: '.5em 0' }}>
+                ? <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
+                : <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
+              <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
                 {Intl.NumberFormat('en-US', {
                   style: 'decimal',
                   maximumSignificantDigits: 4,
                   minimumSignificantDigits: 2,
                 }).format(transaction.buy ? transaction.quantity : (transaction.quantity * -1))}
               </TableCell>
-              <TableCell align="center" sx={{ padding: '.5em 0' }}>{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
-              {/* <TableCell align="right">{transaction.rentability}%</TableCell> */}
-              <TableCell align="right" sx={{ padding: '.5em 0' }}> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
+              <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
+              {/* <TableCell align="right" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{transaction.rentability}%</TableCell> */}
+              <TableCell align="right" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
                 <EditOrDeleteItem
                   positionAbsolute={false}
                   editItem={handleEditTransaction}

@@ -18,6 +18,7 @@ const useStyles = makeStyles({
   grid: {
     height: '100%',
     marginTop: '130px',
+    marginBottom: '50px',
   },
   gridItem: {
     borderColor: '#E7EBF0',
@@ -51,7 +52,7 @@ const Dashboard = ({ logged }) => {
     <div className="">
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-        <Grid sx={{ boxShadow: 4 }} item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
           <Grid container sx={{ padding: 0 }}>
             <Grid item xs={12} md={6} className={classes.gridSubItem}>
               <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />
@@ -61,13 +62,13 @@ const Dashboard = ({ logged }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid sx={{ boxShadow: 4 }} item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
           <Performance />
         </Grid>
         <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
           <TransactionsHistory />
         </Grid>
-        <Grid sx={{ boxShadow: 4 }} item xs={11} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
           <TransactionCreator />
         </Grid>
       </Grid>

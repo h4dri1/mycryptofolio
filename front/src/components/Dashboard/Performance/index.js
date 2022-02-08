@@ -35,6 +35,7 @@ function Performance() {
           <Box sx={{
             display: 'inline-flex',
             justifyContent: 'space-between',
+            margin: { xs: '0 1em', md: '0' },
           }}
           >
             <Typography>
@@ -53,6 +54,7 @@ function Performance() {
           <Box sx={{
             display: 'inline-flex',
             justifyContent: 'space-between',
+            margin: { xs: '0 1em', md: '0' },
           }}
           >
             <Typography>
@@ -71,6 +73,7 @@ function Performance() {
           <Box sx={{
             display: 'inline-flex',
             justifyContent: 'space-between',
+            margin: { xs: '0 1em', md: '0' },
           }}
           >
             <Typography>
