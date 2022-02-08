@@ -28,7 +28,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
   const dispatch = useDispatch();
 
-  const toSlug = (walletFullName) => walletFullName.split(' ').join('-').toLowerCase();
+  const toSlug = (walletFullName) => walletFullName.trim().split(' ').join('-').toLowerCase();
 
   const handleLinkClick = (walletId) => {
     dispatch(updateSelectedWallet(walletId));
