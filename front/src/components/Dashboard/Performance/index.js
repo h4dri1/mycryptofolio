@@ -28,7 +28,7 @@ function Performance() {
           flexDirection: 'column',
           justifyContent: 'space-evenly',
           alignItems: 'right',
-          padding: '3em',
+          padding: { xs: '.5em', md: '3em' },
           height: '100%',
         }}
         >
