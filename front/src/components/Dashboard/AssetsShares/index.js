@@ -12,10 +12,13 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AssetsShares({ distribution }) {
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+
   const labelsList = distribution.map((item) => (
     item.name
   ));
@@ -95,10 +98,26 @@ export default function AssetsShares({ distribution }) {
           <TableBody align="left">
             {distribution.map((asset, index) => (
               <TableRow key={index}>
-                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{asset.name}</TableCell>
-                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{asset.quantity.toLocaleString()}</TableCell>
-                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{`$${(Math.round(asset.value * 100) / 100).toLocaleString()}`}</TableCell>
-                <TableCell align="center" sx={{ padding: '0.5em 0.1em' }}>{(Math.round(asset.distribution * 10)) / 10}%</TableCell>
+
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{asset.name.toUpperCase()}</TableCell>
+
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  maximumSignificantDigits: 4,
+                  minimumSignificantDigits: 2,
+                }).format(asset.quantity)}
+                </TableCell>
+
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>
+                  {Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: refCurrency,
+                    maximumSignificantDigits: 4,
+                    minimumSignificantDigits: 2,
+                  }).format(asset.value)}
+                </TableCell>
+
+                <TableCell align="center" sx={{ padding: '0.5em 0.1em' }}>{Intl.NumberFormat('en-US', { style: 'percent', maximumSignificantDigits: 2 }).format((asset.distribution / 100))}</TableCell>
               </TableRow>
             ))}
           </TableBody>
