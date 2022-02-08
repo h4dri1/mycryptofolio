@@ -66,47 +66,45 @@ export default function AssetsShares({ distribution }) {
   };
 
   return (
-    <>
-      <Container disableGutters sx={{ border: 0, borderColor: 'grey' }}>
-        <Typography color="primary.main" variant="h6" align="center">Répartition de vos actifs</Typography>
-        <Divider sx={{ width: '100%' }} />
-        <Container
-          sx={{ width: '40%', height: '40%', mt: 1 }}
-        >
-          <Pie
-            data={data}
-            options={options}
-          />
-          {/* {jsxLabels}
+    <Container disableGutters sx={{ border: 0, borderColor: 'grey', margin: { xs: '2em 0', md: '0' } }}>
+      <Typography color="primary.light" variant="h6" align="center">Répartition de vos actifs</Typography>
+      <Divider sx={{ width: '100%' }} />
+      <Container
+        sx={{ width: '40%', height: '40%', mt: 1 }}
+      >
+        <Pie
+          data={data}
+          options={options}
+        />
+        {/* {jsxLabels}
                     {jsxData} */}
-        </Container>
-        <Container sx={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '30vh', overflowY: 'auto',
-        }}
-        >
-          <Table stickyHeader sx={{ maxWidth: '100%', p: '10' }}>
-            <TableHead align="left">
-              <TableRow align="left">
-                <TableCell>Devise</TableCell>
-                <TableCell>Quantité</TableCell>
-                <TableCell>Total$</TableCell>
-                <TableCell>Répartition</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody align="left">
-              {distribution.map((asset, index) => (
-                <TableRow key={index}>
-                  <TableCell>{asset.name}</TableCell>
-                  <TableCell>{asset.quantity}</TableCell>
-                  <TableCell>{Math.round(asset.value * 100) / 100}</TableCell>
-                  <TableCell>{asset.distribution.toFixed(0)}%</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Container>
       </Container>
-    </>
+      <Container sx={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '30vh', overflowY: 'auto',
+      }}
+      >
+        <Table stickyHeader sx={{ maxWidth: '100%', p: '10' }}>
+          <TableHead align="left">
+            <TableRow align="left">
+              <TableCell align="center" sx={{ padding: '1em 0' }}>Devise</TableCell>
+              <TableCell align="center" sx={{ padding: '1em 0' }}>Quantité</TableCell>
+              <TableCell align="center" sx={{ padding: '1em 0' }}>Total$</TableCell>
+              <TableCell align="center" sx={{ padding: '1em 0' }}>Répartition</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody align="left">
+            {distribution.map((asset, index) => (
+              <TableRow key={index}>
+                <TableCell align="center" sx={{ padding: 0 }}>{asset.name}</TableCell>
+                <TableCell align="center" sx={{ padding: 0 }}>{asset.quantity}</TableCell>
+                <TableCell align="center" sx={{ padding: 0 }}>{Math.round(asset.value * 100) / 100}</TableCell>
+                <TableCell align="center" sx={{ padding: 0 }}>{asset.distribution.toFixed(0)}%</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Container>
+    </Container>
   );
 }
 

@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import {
+    Link as RouterLink, useNavigate, useLocation, useParams,
+} from 'react-router-dom';
+
 // import TextField from '@mui/material/TextField';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
@@ -17,7 +18,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 export default function SearchCrypto() {
-
     const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
     const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
 
@@ -35,12 +35,16 @@ export default function SearchCrypto() {
     const slug = useParams();
 
     return (
-        <Box component="form"
-
-            item xs={12}
-            container gap={1} ml={3}
+        <Box
+            component="form"
+            item
+            xs={12}
+            container
+            gap={1}
+            ml={{ xs: -5, sm: 3 }}
             sx={{
                 width: 400,
+                borderRadius: '4px',
                 backgroundColor: 'primary.light',
                 '&:hover': {
                     backgroundColor: '#8b6ad8',
@@ -62,6 +66,7 @@ export default function SearchCrypto() {
                         key={option.id}
                         component={RouterLink}
                         to={`/crypto/${option.id}`}
+                        sx={{ color: 'primary.light' }}
                     >
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img
@@ -74,12 +79,13 @@ export default function SearchCrypto() {
                             {option.symbol.toUpperCase()} : {option.name}
                         </Box>
                     </Link>
-                )
-                }
-                renderInput={(params) => <TextField {...params}
-                    placeholder="Rechercher une crypto"
-
-                />}
+                )}
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        placeholder="Rechercher une crypto"
+                    />
+                )}
                 selectOnFocus
                 clearOnBlur
                 handleHomeEndKeys
@@ -93,7 +99,7 @@ export default function SearchCrypto() {
                     }
                 }}
             />
-        </Box >
+        </Box>
 
     );
 }
