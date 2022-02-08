@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -13,7 +14,6 @@ import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteTransaction } from 'src/actions/portfolio';
 import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settings';
 import { useState } from 'react';
 
@@ -33,11 +33,11 @@ const TransactionsHistory = () => {
   const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.portfolio);
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
 
   const [selectedTransaction, setSelectedTransaction] = useState(undefined);
 
   const handleEditTransaction = (id) => {
-    console.log('Edit transaction #', id);
     setSelectedTransaction(id);
     dispatch(toggleTransactionEditor());
   };
@@ -57,24 +57,30 @@ const TransactionsHistory = () => {
             <TableCell align="center">Prix de vente</TableCell>
             <TableCell align="center">Quantité</TableCell>
             <TableCell align="center">Date</TableCell>
-            <TableCell align="right">%</TableCell>
+            {/* <TableCell align="right">%</TableCell> */}
             <TableCell align="right" />
           </TableRow>
         </TableHead>
         <TableBody>
           {transactions.map((transaction) => (
             <TableRow key={transaction.id}>
-              <TableCell align="left">{transaction.symbol}</TableCell>
+              <TableCell align="left">{transaction.symbol.toUpperCase()}</TableCell>
               {transaction.buy
-                ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
+                ? <TableCell align="center">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                 : <TableCell align="center">-</TableCell>}
               {!transaction.buy
-                ? <TableCell align="center">{`$${transaction.price.toLocaleString()}`}</TableCell>
+                ? <TableCell align="center">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                 : <TableCell align="center">-</TableCell>}
-              <TableCell align="center">{transaction.buy ? transaction.quantity : transaction.quantity * -1}</TableCell>
+              <TableCell align="center">
+                {Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  maximumSignificantDigits: 4,
+                  minimumSignificantDigits: 2,
+                }).format(transaction.buy ? transaction.quantity : (transaction.quantity * -1))}
+              </TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
-              <TableCell align="right">{transaction.rentability}%</TableCell>
-              <TableCell align="right">
+              {/* <TableCell align="right">{transaction.rentability}%</TableCell> */}
+              <TableCell align="right"> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
                 <EditOrDeleteItem
                   positionAbsolute={false}
                   editItem={handleEditTransaction}

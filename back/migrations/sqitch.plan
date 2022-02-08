@@ -15,3 +15,4 @@ alter_crypto 2022-01-31T23:18:12Z h4dri1 <hadrien.vuillaume@gmail.com> # add col
 view_coin_value 2022-02-05T01:29:39Z h4dri1 <hadrien.vuillaume@gmail.com> # add view with actual value
 remove_value_func 2022-02-05T14:14:39Z h4dri1 <hadrien.vuillaume@gmail.com> # remove function_invest_value
 function_add_price 2022-02-05T14:15:11Z h4dri1 <hadrien.vuillaume@gmail.com> # add function for update crypto price
+alter_type_transaction_quantity 2022-02-08T10:36:18Z h4dri1 <hadrien.vuillaume@gmail.com> # change type of quantity

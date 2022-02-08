@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 function Performance() {
   const { performance } = useSelector((state) => state.portfolio);
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
 
   let perfPercentage = (
     (
@@ -23,12 +24,68 @@ function Performance() {
       </Grid>
       <Grid item xs={12} sm={6}>
         <Box sx={{
-          display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-evenly',
+          alignItems: 'right',
+          padding: '3em',
+          height: '100%',
         }}
         >
-          <Typography>Investissement : {`$${Number(performance.investment).toLocaleString()}`}</Typography>
-          <Typography>Valeur actuelle : {`$${Number(performance.actual_value).toLocaleString()}`}</Typography>
-          <Typography>PnL : {`$${Number(performance.pnl).toLocaleString()}`}</Typography>
+          <Box sx={{
+            display: 'inline-flex',
+            justifyContent: 'space-between',
+          }}
+          >
+            <Typography>
+              Investissement :
+            </Typography>
+            <Typography color="secondary.main" component="span">
+              {Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: refCurrency,
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(performance.investment)}
+            </Typography>
+          </Box>
+
+          <Box sx={{
+            display: 'inline-flex',
+            justifyContent: 'space-between',
+          }}
+          >
+            <Typography>
+              Valeur actuelle :
+            </Typography>
+            <Typography color="secondary.main" component="span" ml={2}>
+              {Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: refCurrency,
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(performance.actual_value)}
+            </Typography>
+          </Box>
+
+          <Box sx={{
+            display: 'inline-flex',
+            justifyContent: 'space-between',
+          }}
+          >
+            <Typography>
+              PnL :
+            </Typography>
+            <Typography color="secondary.main" component="span" ml={2}>
+              {Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: refCurrency,
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(performance.pnl)}
+            </Typography>
+          </Box>
+
         </Box>
       </Grid>
       <Grid
@@ -60,7 +117,13 @@ function Performance() {
             },
           },
           ]}
-        ><Typography variant="h4" color={perfPercentage >= 0 ? '#1cb344' : '#eb3b5a'}>{perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}</Typography>
+        >
+          <Typography
+            variant="h3"
+            color={perfPercentage >= 0 ? '#1cb344' : '#eb3b5a'}
+          >
+            {perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}
+          </Typography>
         </Box>
       </Grid>
     </Grid>

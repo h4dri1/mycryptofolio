@@ -5,6 +5,7 @@ import {
   Button,
   Divider,
   Grid,
+  InputAdornment,
   TextField,
   Typography,
 } from '@mui/material';
@@ -35,7 +36,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
   const { currentPrice } = useSelector((state) => state.cryptos);
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
 
-  const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
+  const [currency, setCurrency] = useState({ id: '', symbol: '' });
   const [quantity, setQuantity] = useState('');
   const [dateValue, setDateValue] = useState(new Date());
   // eslint-disable-next-line max-len
@@ -69,9 +70,10 @@ const TransactionCreatorForm = ({ buy, id }) => {
   };
 
   const handleCancel = () => {
-    setQuantity(0);
-    setPrice(0);
+    setCurrency({ id: '', symbol: '' });
     setDateValue(Date.now());
+    setPrice(0);
+    setQuantity(0);
     if (transactionEditorIsOpen) {
       dispatch(toggleTransactionEditor());
     }
@@ -198,6 +200,11 @@ const TransactionCreatorForm = ({ buy, id }) => {
               name="quatity"
               label="Quantité"
               type="number"
+              inputProps={{
+                lang: 'en-US',
+                min: 0,
+                step: '0.00000001',
+              }}
               id="quatity"
               value={quantity}
               onChange={(e) => {
@@ -213,11 +220,14 @@ const TransactionCreatorForm = ({ buy, id }) => {
               required
               fullWidth
               name="price"
-              label={`Prix (${refCurrency.toUpperCase()})`}
+              label="Prix"
               type="number"
               id="price"
-              value={currentPrice}
+              value={(Math.ceil(currentPrice * 100) / 100)}
               onChange={(e) => setPrice(e.target.value)}
+              InputProps={{
+                startAdornment: <InputAdornment position="start">{refCurrency.toUpperCase()}</InputAdornment>,
+              }}
             />
           </Grid>
         </Grid>

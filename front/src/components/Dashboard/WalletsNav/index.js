@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -7,7 +8,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
 
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 import {
@@ -17,11 +18,14 @@ import {
 
 import { toggleConfirmDelete } from 'src/actions/settings';
 
+import nFormatter from 'src/services/nFormatter';
+
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 import AddWallet from './AddWallet';
 import EditWallet from './EditWallet';
 
 const WalletsNav = ({ wallets, selectedWallet }) => {
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
   const dispatch = useDispatch();
 
   const toSlug = (walletFullName) => walletFullName.split(' ').join('-').toLowerCase();
@@ -64,9 +68,9 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                 },
                 ]}
               >
-                <Typography>{wallets.length > 0
-                  && `$${Math.round(wallets.reduce((total, wallet) => total + wallet.sum, 0))
-                    .toLocaleString()}`}
+                <Typography>
+                  { wallets.length > 0
+                  && nFormatter(wallets.reduce((total, wallet) => total + Number(wallet.sum), 0),2) }
                 </Typography>
               </Box>
             </ListItemButton>
@@ -120,7 +124,9 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                           },
                         },
                         ]}
-                      ><Typography variant="body2">{`$${Math.round(wallet.sum).toLocaleString()}`}</Typography>
+                      >
+                        {/* <Typography variant="body2">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4 }).format(wallet.sum)}</Typography> */}
+                        <Typography variant="body2">$ {nFormatter(wallet.sum, 2)}</Typography>
                       </Box>
                       <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>

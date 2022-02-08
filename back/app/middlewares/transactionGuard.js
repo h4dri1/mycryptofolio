@@ -41,12 +41,12 @@ module.exports = async (req, res, next) => {
                     return res.status(500).json('You trying to sell more coin than you have');
                 }  
             } else {
-                if ((wallet.total + req.body.quantity) < 0) {
+                if ((Number(wallet.total) + Number(req.body.quantity)) < 0) {
                     return res.status(500).json('You trying to sell more coin than you have');
                 }    
             }
         } else {
-            if (req.body.quantity < 0) {
+            if (Number(req.body.quantity) < 0) {
                 return res.status(500).json('Buy quantity must be a positive number');
             }
         }           
