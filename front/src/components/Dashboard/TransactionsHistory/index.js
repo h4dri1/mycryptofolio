@@ -57,7 +57,7 @@ const TransactionsHistory = () => {
             <TableCell align="center">Prix de vente</TableCell>
             <TableCell align="center">Quantité</TableCell>
             <TableCell align="center">Date</TableCell>
-            <TableCell align="right">%</TableCell>
+            {/* <TableCell align="right">%</TableCell> */}
             <TableCell align="right" />
           </TableRow>
         </TableHead>
@@ -79,7 +79,7 @@ const TransactionsHistory = () => {
                 }).format(transaction.buy ? transaction.quantity : (transaction.quantity * -1))}
               </TableCell>
               <TableCell align="center">{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
-              <TableCell align="right">{transaction.rentability}%</TableCell>
+              {/* <TableCell align="right">{transaction.rentability}%</TableCell> */}
               <TableCell align="right"> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
                 <EditOrDeleteItem
                   positionAbsolute={false}
