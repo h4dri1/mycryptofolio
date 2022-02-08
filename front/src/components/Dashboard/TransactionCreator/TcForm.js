@@ -5,6 +5,7 @@ import {
   Button,
   Divider,
   Grid,
+  InputAdornment,
   TextField,
   Typography,
 } from '@mui/material';
@@ -219,11 +220,14 @@ const TransactionCreatorForm = ({ buy, id }) => {
               required
               fullWidth
               name="price"
-              label={`Prix (${refCurrency.toUpperCase()})`}
+              label="Prix"
               type="number"
               id="price"
-              value={currentPrice}
+              value={(Math.ceil(currentPrice * 100) / 100)}
               onChange={(e) => setPrice(e.target.value)}
+              InputProps={{
+                startAdornment: <InputAdornment position="start">{refCurrency.toUpperCase()}</InputAdornment>,
+              }}
             />
           </Grid>
         </Grid>
