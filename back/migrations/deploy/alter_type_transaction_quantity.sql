@@ -5,7 +5,7 @@ BEGIN;
 DROP VIEW view_transaction CASCADE;
 
 ALTER TABLE transaction
-ALTER COLUMN quantity TYPE NUMERIC(10,8);
+ALTER COLUMN quantity TYPE NUMERIC(16,8);
 
 CREATE OR REPLACE VIEW view_transaction AS
 SELECT
