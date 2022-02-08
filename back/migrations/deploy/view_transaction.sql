@@ -2,12 +2,12 @@
 
 BEGIN;
 
-CREATE VIEW view_transaction AS
+CREATE OR REPLACE VIEW view_transaction AS
 SELECT
 	transaction.id,
 	buy_date,
 	buy,
-	price,
+	transaction.price,
 	quantity,
 	crypto.coin_id,
 	crypto.symbol,

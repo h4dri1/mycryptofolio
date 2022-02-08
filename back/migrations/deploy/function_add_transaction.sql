@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION add_transaction(json) RETURNS transaction AS $$
 		($1->>'buy_date')::timestamp, 
 		($1->>'buy')::boolean, 
 		($1->>'price')::decimal, 
-		($1->>'quantity')::int, 
+		($1->>'quantity')::numeric, 
 		($1->>'wallet_id')::int,
 		($1->>'crypto_id')::int
 	)
