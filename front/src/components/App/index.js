@@ -38,11 +38,9 @@ const App = () => {
         light: '#c345b1',
         main: '#B5179E',
         dark: '#7e106e',
-        contrastText: 'white',
       },
       neutral: {
         main: '#a9b0ba',
-        contrastText: 'white',
       },
     },
   })

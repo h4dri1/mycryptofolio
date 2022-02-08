@@ -18,7 +18,7 @@ import TransactionCreator from './TransactionCreator';
 const useStyles = makeStyles({
   grid: {
     // border: 'solid 2px red',
-    marginTop: '0.1px',
+    marginTop: '7%',
     height: '100%',
     // maxWidth: '100%',
 
@@ -28,8 +28,12 @@ const useStyles = makeStyles({
     borderColor: '#E7EBF0',
     borderRadius: 2,
     // minHeight: '50vh',
-    margin: '5px',
+    margin: '10px',
 
+  },
+  gridSubItem: {
+    // border: 'solid 2px gold',
+    // height: '100%',
   },
 });
 
@@ -53,11 +57,11 @@ const Dashboard = ({ logged }) => {
   return (
     <div className="">
       <ConfirmDelete />
-      <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-        <Grid sx={{ boxShadow: 4 }} item xs={11} md={5.5} className={classes.gridItem}>
-          <Container sx={{ bgcolor: 'grey' }}>
-            <Grid container sx={{ padding: 0 }}>
-              <Grid item xs={12} md={6} className={classes.gridSubItem}>
+      <Grid ml={3} maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="center" className={classes.grid}>
+        <Grid sx={{ boxShadow: 4 }} className={classes.gridItem} item xs={11} md={5.5} className={classes.gridItem}>
+          <Container  >
+            <Grid container>
+              <Grid item xs={11} md={6} className={classes.gridSubItem}>
                 <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />
               </Grid>
               <Grid item xs={12} md={6} className={classes.gridSubItem}>
