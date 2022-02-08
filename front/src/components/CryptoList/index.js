@@ -19,13 +19,14 @@ import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: '130px',
     margin: '0 auto',
     [theme.breakpoints.up('md')]: {
       maxWidth: '80%',
     },
   },
   cryptoList: {
-    margin: '1% 1% 3% 1%',
+    margin: '0% 1% 3% 1%',
   },
 }));
 
@@ -43,7 +44,7 @@ function CryptoList() {
   return (
     <Grid container justifyContent="center" className={classes.root}>
       <Grid item xs={12} className={classes.cryptoList}>
-        <Table sx={{ marginTop: '7%' }}>
+        <Table>
           <TableHead >
             <TableRow>
               <TableCell align="center"><TableSortLabel />#</TableCell>

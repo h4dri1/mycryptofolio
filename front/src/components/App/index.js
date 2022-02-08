@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 // == Import
 import Home from 'src/pages/Home';
 import Portfolio from 'src/pages/Portfolio';
@@ -43,7 +44,7 @@ const App = () => {
         main: '#a9b0ba',
       },
     },
-  })
+  });
 
   theme = responsiveFontSizes(theme);
 

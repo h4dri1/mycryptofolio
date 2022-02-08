@@ -14,20 +14,14 @@ import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
 
-
 const useStyles = makeStyles({
   grid: {
-    // border: 'solid 2px red',
-    marginTop: '7%',
     height: '100%',
-    // maxWidth: '100%',
-
+    marginTop: '130px',
   },
   gridItem: {
-    // borderStyle: 'solid',
     borderColor: '#E7EBF0',
     borderRadius: 2,
-    // minHeight: '50vh',
     margin: '10px',
 
   },
