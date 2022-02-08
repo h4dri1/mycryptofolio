@@ -12,10 +12,13 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AssetsShares({ distribution }) {
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+
   const labelsList = distribution.map((item) => (
     item.name
   ));
@@ -86,17 +89,33 @@ export default function AssetsShares({ distribution }) {
             <TableRow align="left">
               <TableCell align="center" sx={{ padding: '1em 0' }}>Devise</TableCell>
               <TableCell align="center" sx={{ padding: '1em 0' }}>Quantité</TableCell>
-              <TableCell align="center" sx={{ padding: '1em 0' }}>Total$</TableCell>
-              <TableCell align="center" sx={{ padding: '1em 0' }}>Répartition</TableCell>
+              <TableCell align="center" sx={{ padding: '1em 0' }}>Total</TableCell>
+              <TableCell align="center" sx={{ padding: '1em 0' }}>%</TableCell>
             </TableRow>
           </TableHead>
           <TableBody align="left">
             {distribution.map((asset, index) => (
               <TableRow key={index}>
-                <TableCell align="center" sx={{ padding: 0 }}>{asset.name}</TableCell>
-                <TableCell align="center" sx={{ padding: 0 }}>{asset.quantity}</TableCell>
-                <TableCell align="center" sx={{ padding: 0 }}>{Math.round(asset.value * 100) / 100}</TableCell>
-                <TableCell align="center" sx={{ padding: 0 }}>{asset.distribution.toFixed(0)}%</TableCell>
+
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{asset.name.toUpperCase()}</TableCell>
+
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{Intl.NumberFormat('en-US', {
+                  style: 'decimal',
+                  maximumSignificantDigits: 4,
+                  minimumSignificantDigits: 2,
+                }).format(asset.quantity)}
+                </TableCell>
+
+                <TableCell align="center" sx={{ padding: '0.5em 0' }}>
+                  {Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: refCurrency,
+                    maximumSignificantDigits: 4,
+                    minimumSignificantDigits: 2,
+                  }).format(asset.value)}
+                </TableCell>
+
+                <TableCell align="center" sx={{ padding: '0.5em 0.1em' }}>{Intl.NumberFormat('en-US', { style: 'percent', maximumSignificantDigits: 2 }).format((asset.distribution / 100))}</TableCell>
               </TableRow>
             ))}
           </TableBody>
