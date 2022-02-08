@@ -76,8 +76,6 @@ export default function AssetsShares({ distribution }) {
           data={data}
           options={options}
         />
-        {/* {jsxLabels}
-                    {jsxData} */}
       </Container>
       <Container sx={{
         display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '30vh', overflowY: 'auto',
