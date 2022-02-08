@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Indicators from './Indicators';
 import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
+// import Divider from '@mui/material/Divider';
 
 import Converter from './Converter';
 import Description from './Description';
