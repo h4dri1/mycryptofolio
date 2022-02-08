@@ -10,13 +10,14 @@ import { Routes, Route } from 'react-router-dom';
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Paper } from '@mui/material';
-import { amber, deepOrange, grey } from '@mui/material/colors';
+// import { Paper } from '@mui/material';
 
 import AlertMsg from 'src/components/common/AlertMessage';
 
 import { checkToken } from 'src/actions/user';
 import { getAllCryptos } from 'src/actions/cryptos';
+import { getIndicators } from 'src/actions/indicators';
+
 
 // == Composant
 
@@ -51,7 +52,9 @@ const App = () => {
   useEffect(async () => {
     await dispatch(checkToken());
     dispatch(getAllCryptos());
+    dispatch(getIndicators());
   }, []);
+
 
   return (
     <div className="app">
