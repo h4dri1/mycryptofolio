@@ -257,9 +257,9 @@ const TransactionCreatorForm = ({ buy, id }) => {
               item
               container
               xs={12}
-              sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' } }}
+              // sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' } }}
             >
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Button
                   variant="outlined"
                   onClick={handleCancel}
@@ -268,7 +268,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
                   Annuler
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Button
                   variant="contained"
                   type="submit"
