@@ -61,6 +61,10 @@ const cryptoList = (store) => (next) => (action) => {
     case GET_CURRENT_PRICE:
       const { coinId, dateValue, refCurrency } = action.payload;
 
+      if (!coinId) {
+        break;
+      }
+
       const day = dateValue.getDate() < 10 ? `0${dateValue.getDate()}` : dateValue.getDate();
       const month = dateValue.getMonth() < 9 ? `0${dateValue.getMonth() + 1}` : `${dateValue.getMonth() + 1}`;
       const year = dateValue.getFullYear();
