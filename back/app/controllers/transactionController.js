@@ -47,8 +47,10 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
         } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.message, true);
+            if (error.message) {
+                return res.status(500).json(error.message, true);
+            }
+            return res.status(500).json('error not defined', true);
         }
     },
 
@@ -68,8 +70,10 @@ module.exports = {
             }
             res.status(204).json('Update ok')
         } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.message);
+            if (error.message) {
+                return res.status(500).json(error.message, true);
+            }
+            return res.status(500).json('error not defined', true);
         }
     },
 
@@ -88,8 +92,10 @@ module.exports = {
                 res.status(204).json('delete ok');
             }
         } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.message);
+            if (error.message) {
+                return res.status(500).json(error.message, true);
+            }
+            return res.status(500).json('error not defined', true);
         }
     }
 };

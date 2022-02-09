@@ -51,8 +51,10 @@ module.exports = {
             }             
             //return res.status(204).json('update ok');
         } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.message);
+            if (error.message) {
+                return res.status(500).json(error.message, true);
+            }
+            return res.status(500).json('error not defined', true);
         }
     }
 };
