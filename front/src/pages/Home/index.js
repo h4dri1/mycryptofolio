@@ -8,6 +8,7 @@ import { toggleLoginModal } from 'src/actions/settings';
 import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
 import CryptoList from 'src/components/CryptoList';
+import Footer from 'src/components/Footer';
 
 export default function Home({ displayLogin }) {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ export default function Home({ displayLogin }) {
       <TopBanner />
       <Navbar />
       <CryptoList />
+      <Footer />
     </div>
   );
 }
