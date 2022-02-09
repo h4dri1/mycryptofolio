@@ -22,7 +22,7 @@ const TopBanner = () => {
     }, []);
 
     return (
-        <AppBar sx={{ justifyContent: 'center', height: '38px', color: 'black', bgcolor: "#f6eaf7" }}>
+        <AppBar sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: "#f6eaf7" }}>
             <Toolbar position="sticky" disableGutters>
                 <Indicators data={data} />
                 <Container
