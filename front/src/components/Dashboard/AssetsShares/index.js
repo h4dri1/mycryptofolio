@@ -126,8 +126,8 @@ export default function AssetsShares({ distribution }) {
 AssetsShares.propTypes = {
   distribution: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    distribution: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
+    quantity: PropTypes.string.isRequired,
+    distribution: PropTypes.string.isRequired,
   })).isRequired,
 };
