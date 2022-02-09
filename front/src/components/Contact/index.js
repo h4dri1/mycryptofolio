@@ -3,32 +3,23 @@ import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import Avatar from '@mui/material/Avatar';
+import Link from '@mui/material/Link';
+
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles({
     grid: {
-        // border: 'solid 2px red',
         marginTop: '7%',
         height: '100%',
-        // maxWidth: '100%',
-
     },
     gridItem: {
-        // borderStyle: 'solid',
         borderColor: '#E7EBF0',
         borderRadius: 2,
-        // minHeight: '50vh',
         margin: '10px',
-
-    },
-    gridSubItem: {
-        // border: 'solid 2px gold',
-        // height: '100%',
-    },
+    }
 });
 
 export default function Contact() {
@@ -37,86 +28,92 @@ export default function Contact() {
 
     return (
 
-        <Grid display="flex" maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
+        <Grid display="flex" maxHeight={'100%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
 
-
-            <Card sx={{ maxWidth: 345, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Avatar
-                    alt="photo-avatar"
-                    // url="https://github.com/h4dri1"
-                    sx={{ mt: 3, display: "flex", alignItems: 'center', width: 56, height: 56 }}
-                />
+            <Card sx={{ width: 250, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Link href="https://github.com/h4dri1">
+                    <Avatar
+                        alt="photo-avatar"
+                        src="https://avatars.githubusercontent.com/u/89306281?v=4"
+                        sx={{ mt: 3, display: "flex", alignItems: 'center', width: 80, height: 80 }}
+                    />
+                </Link>
                 <CardContent>
                     <Typography variant="h5" component="div" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}  >
                         Hadrien
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
-                        Lead dev back et product owner de MyCryptoFolio
+                        Lead dev back & Product owner
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    {/* <Button size="small">Share</Button>
+                    <Button size="small">Learn More</Button> */}
                 </CardActions>
             </Card>
 
-            <Card sx={{ maxWidth: 345, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Avatar
-                    alt="photo-avatar"
-                    url=""
-                    sx={{ mt: 3, display: "flex", alignItems: 'center', width: 56, height: 56 }}
-                />
+            <Card sx={{ width: 250, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Link href="https://github.com/Augustin-Holguin">
+                    <Avatar
+                        alt="photo-avatar"
+                        src="https://avatars.githubusercontent.com/u/25201511?v=4"
+                        sx={{ mt: 3, display: "flex", alignItems: 'center', width: 70, height: 70 }}
+                    />
+                </Link>
                 <CardContent>
                     <Typography variant="h5" component="div" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}  >
                         Augustin
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
-                        Lead dev front de MyCryptoFolio
+                        Lead dev front
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    {/* <Button size="small">Share</Button>
+                    <Button size="small">Learn More</Button> */}
                 </CardActions>
             </Card>
 
-            <Card sx={{ maxWidth: 345, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Avatar
-                    alt="photo-avatar"
-                    url=""
-                    sx={{ mt: 3, display: "flex", alignItems: 'center', width: 56, height: 56 }}
-                />
+            <Card sx={{ width: 250, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Link href="https://github.com/vmingam">
+                    <Avatar
+                        alt="photo-avatar"
+                        src="https://avatars.githubusercontent.com/u/7131900?v=4"
+                        sx={{ mt: 3, display: "flex", alignItems: 'center', width: 70, height: 70 }}
+                    />
+                </Link>
                 <CardContent>
                     <Typography variant="h5" component="div" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}  >
                         Vincent
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
-                        Dev front & Git master de MyCryptoFolio
+                        Dev front & Git master
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    {/* <Button size="small">Share</Button>
+                    <Button size="small">Learn More</Button> */}
                 </CardActions>
             </Card>
 
-            <Card sx={{ maxWidth: 345, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Avatar
-                    alt="photo-avatar"
-                    url=""
-                    sx={{ mt: 3, display: "flex", alignItems: 'center', width: 56, height: 56 }}
-                />
+            <Card sx={{ width: 250, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Link href="https://github.com/GregoryTannier">
+                    <Avatar
+                        alt="photo-avatar"
+                        src="https://avatars.githubusercontent.com/u/77966553?v=4"
+                        sx={{ mt: 3, display: "flex", alignItems: 'center', width: 70, height: 70 }}
+                    />
+                </Link>
                 <CardContent>
                     <Typography variant="h5" component="div" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}  >
                         Grégory
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
-                        Dev front & Scrum master de MyCryptoFolio
+                        Dev front & Scrum master
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    {/* <Buttsn size="small">Learn More</Button> */}
                 </CardActions>
             </Card>
 
