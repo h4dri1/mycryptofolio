@@ -15,8 +15,10 @@ module.exports = {
             }
             res.status(204).json(wallet);
         } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.message);
+            if (error.message) {
+                return res.status(500).json(error.message, true);
+            }
+            return res.status(500).json('error not defined', true);
         }
     },
 
@@ -45,8 +47,10 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             return res.status(204).json();
         } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.message);
+            if (error.message) {
+                return res.status(500).json(error.message, true);
+            }
+            return res.status(500).json('error not defined', true);
         }
     }
 };

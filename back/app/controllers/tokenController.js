@@ -11,6 +11,9 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(refreshPayload.user, refreshPayload.wallet));
             res.status(200).json('token refresh ok');
         } catch (error) {
+            if (error.message) {
+                return res.status(401).json(error.message);
+            }
             return res.status(401).json(error.message);
         };
     }

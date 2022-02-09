@@ -10,7 +10,10 @@ module.exports = async (req, res, next) => {
             cryptos = await Transaction.getUserCrypto(req.userId.id);
         }
         if (!cryptos) {
-            return res.status(500).json(error.message, true);
+            if (error.message) {
+                return res.status(500).json(error.message, true);
+            }
+            return res.status(500).json('error not defined', true);
         };
         const strCryptos = cryptos.map((crypto) => {
             return crypto['coin_id']
@@ -26,7 +29,9 @@ module.exports = async (req, res, next) => {
         }
         next();
     } catch (error) {
-        console.log(error);
-        return res.status(500).json(error.message, true);
+        if (error.message) {
+            return res.status(500).json(error.message, true);
+        }
+        return res.status(500).json('error not defined', true);
     }
 }
