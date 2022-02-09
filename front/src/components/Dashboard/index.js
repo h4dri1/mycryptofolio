@@ -69,7 +69,7 @@ const Dashboard = ({ logged }) => {
           <TransactionsHistory />
         </Grid>
         <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
-          <TransactionCreator />
+          <TransactionCreator disabled={!selectedWallet} />
         </Grid>
       </Grid>
     </div>
