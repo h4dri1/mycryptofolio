@@ -20,7 +20,7 @@ import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 import { saveTransaction } from 'src/actions/portfolio';
 import { toggleTransactionEditor } from 'src/actions/settings';
 
-const TransactionCreatorForm = ({ buy, id }) => {
+const TransactionCreatorForm = ({ buy, id, disabled }) => {
   const dispatch = useDispatch();
 
   // Get all 20k cryptos
@@ -133,11 +133,11 @@ const TransactionCreatorForm = ({ buy, id }) => {
       <Grid component="form" onSubmit={handleSubmit} container gap={2} mt={3}>
         <Grid item xs={12}>
           <Autocomplete
+            disabled={disabled}
             disablePortal
             id="cryptoCurrency"
             options={someCryptos}
             getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
-            // ! For later, to enhance list aspect
             renderOption={(props, option) => (
               <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                 <img
@@ -164,30 +164,6 @@ const TransactionCreatorForm = ({ buy, id }) => {
               }
             }}
           />
-          {/* ! For later, to enhance list perf */}
-          {/* <Autocomplete
-            id="currency"
-            getOptionLabel={(option) => typeof option === 'string' ? option : option.description}
-            filterOptions={(x) => x}
-            options={options}
-            onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue);
-            }}
-            renderInput={(params) => (
-              <TextField {...params} label="Renseignez une crypto" fullWidth />
-              )}
-              renderOption={(props, option) => {
-                const matches = option.structured_formatting.main_text_matched_substrings;
-                const parts = parse(
-                  option.structured_formatting.main_text,
-                  matches.map((match) => [match.offset, match.offset + match.length]),
-                  )}
-                  fullWidth
-                  // name="currency"
-                  // label="Choisissez une crypto-monnaie"
-                  // type="text"
-                  value={value}
-                /> */}
         </Grid>
         <Grid container item xs={12} spacing={2}>
           <Grid
@@ -196,6 +172,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
             className="transaction__field"
           >
             <TextField
+              disabled={disabled}
               required
               fullWidth
               name="quatity"
@@ -218,6 +195,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
             xs={6}
           >
             <TextField
+              disabled
               required
               fullWidth
               name="price"
@@ -240,6 +218,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <MobileDatePicker
+                  disabled={disabled}
                   disableFuture
                   label={buy ? 'Date de l\'achat' : 'Date de la vente'}
                   openTo="year"
@@ -261,6 +240,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
             >
               <Grid item xs={12} md={6}>
                 <Button
+                  disabled={disabled}
                   variant="outlined"
                   onClick={handleCancel}
                   sx={{ color: 'primary.light' }}
@@ -270,6 +250,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Button
+                  disabled={disabled}
                   variant="contained"
                   type="submit"
                   onSubmit={handleSubmit}
@@ -309,8 +290,10 @@ export default TransactionCreatorForm;
 TransactionCreatorForm.propTypes = {
   buy: PropTypes.bool.isRequired,
   id: PropTypes.number,
+  disabled: PropTypes.bool.isRequired,
 };
 
 TransactionCreatorForm.defaultProps = {
   id: undefined,
+  // disabled: true,
 };
