@@ -12,7 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles({
     grid: {
-        marginTop: '7%',
+        marginTop: '20%',
         height: '100%',
     },
     gridItem: {
@@ -35,7 +35,7 @@ export default function Contact() {
                     <Avatar
                         alt="photo-avatar"
                         src="https://avatars.githubusercontent.com/u/89306281?v=4"
-                        sx={{ mt: 3, display: "flex", alignItems: 'center', width: 80, height: 80 }}
+                        sx={{ mt: 3, display: "flex", alignItems: 'center', width: 70, height: 70 }}
                     />
                 </Link>
                 <CardContent>
