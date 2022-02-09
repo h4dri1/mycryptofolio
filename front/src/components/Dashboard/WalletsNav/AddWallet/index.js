@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';

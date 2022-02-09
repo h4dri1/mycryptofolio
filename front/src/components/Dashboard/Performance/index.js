@@ -28,13 +28,14 @@ function Performance() {
           flexDirection: 'column',
           justifyContent: 'space-evenly',
           alignItems: 'right',
-          padding: '3em',
+          padding: { xs: '.5em', md: '3em' },
           height: '100%',
         }}
         >
           <Box sx={{
             display: 'inline-flex',
             justifyContent: 'space-between',
+            margin: { xs: '0 1em', md: '0' },
           }}
           >
             <Typography>
@@ -53,6 +54,7 @@ function Performance() {
           <Box sx={{
             display: 'inline-flex',
             justifyContent: 'space-between',
+            margin: { xs: '0 1em', md: '0' },
           }}
           >
             <Typography>
@@ -71,6 +73,7 @@ function Performance() {
           <Box sx={{
             display: 'inline-flex',
             justifyContent: 'space-between',
+            margin: { xs: '0 1em', md: '0' },
           }}
           >
             <Typography>
