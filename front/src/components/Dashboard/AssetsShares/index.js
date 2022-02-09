@@ -18,7 +18,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AssetsShares({ distribution }) {
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
-
+  
   const labelsList = distribution.map((item) => (
     item.name
   ));
@@ -96,9 +96,7 @@ export default function AssetsShares({ distribution }) {
           <TableBody align="left">
             {distribution.map((asset, index) => (
               <TableRow key={index}>
-
                 <TableCell align="center" sx={{ padding: '0.5em 0' }}>{asset.name.toUpperCase()}</TableCell>
-
                 <TableCell align="center" sx={{ padding: '0.5em 0' }}>{Intl.NumberFormat('en-US', {
                   style: 'decimal',
                   maximumSignificantDigits: 4,

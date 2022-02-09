@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import PropTypes from 'prop-types';
 import {
   Autocomplete,
@@ -255,19 +256,19 @@ const TransactionCreatorForm = ({ buy, id }) => {
             <Grid
               item
               container
-              spacing={2}
               xs={12}
+              // sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' } }}
             >
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Button
                   variant="outlined"
                   onClick={handleCancel}
-                  sx={{ color: "primary.light" }}
+                  sx={{ color: 'primary.light' }}
                 >
                   Annuler
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Button
                   variant="contained"
                   type="submit"
@@ -292,7 +293,7 @@ const TransactionCreatorForm = ({ buy, id }) => {
               <Typography variant="h6">
                 Montant de la transaction
               </Typography>
-              <Typography variant="overline" fontSize={25}>
+              <Typography variant="overline" sx={{ fontSize: { xs: 15, sm: 25 } }}>
                 {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * currentPrice)}
               </Typography>
             </Grid>

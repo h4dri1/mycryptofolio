@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import { PropTypes } from 'prop-types';
 
 import {
@@ -29,7 +30,7 @@ const TabPanel = ({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          maxHeight: '50vh',
+          // maxHeight: '50vh',
           overflowY: 'auto',
           padding: '0 2em',
         }}
@@ -66,9 +67,9 @@ const TransactionCreator = (props) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        maxHeight: '50vh',
+        // maxHeight: '50vh',
         overflowY: 'auto',
-        padding: '0 2em',
+        padding: { xs: '0 0 2em 0', sm: '0 .5em 2em .5em' },
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
