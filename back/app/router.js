@@ -108,7 +108,7 @@ router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptos/:vs/:nb(\\d+)', cryptoController.getTopCrypto);
+router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
 
 /**
  * GET /v1/crypto/{id}
@@ -119,7 +119,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', cryptoController.getTopCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/crypto/:id/:nbd?', cryptoController.getOneCrypto);
+router.get('/crypto/:id/:nbd?', cache, cryptoController.getOneCrypto);
 
  /**
  * GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
@@ -135,7 +135,7 @@ router.get('/crypto/:id/:nbd?', cryptoController.getOneCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', cryptoController.getOnePrice);
+router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', cache, cryptoController.getOnePrice);
 
 /**
  * GET /v1/cryptos
@@ -145,7 +145,7 @@ router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:includ
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptos', cryptoController.getAllCryptos);
+router.get('/cryptos', cache, cryptoController.getAllCryptos);
 
 /**
  * GET /v1/cryptos
@@ -155,11 +155,11 @@ router.get('/cryptos', cryptoController.getAllCryptos);
  * @returns {object} 500 - An error message
  */
 
-router.get('/trending', cryptoController.getTrendingCryptos);
+router.get('/trending', cache, cryptoController.getTrendingCryptos);
 
-router.get('/global', cryptoController.getGlobalData);
+router.get('/global', cache, cryptoController.getGlobalData);
 
-router.get('/history/:coinId/:day-:month-:year', cryptoController.getHistoricalData);
+router.get('/history/:coinId/:day-:month-:year', cache, cryptoController.getHistoricalData);
 
 /**
  * GET /v1/portfolio
@@ -169,7 +169,7 @@ router.get('/history/:coinId/:day-:month-:year', cryptoController.getHistoricalD
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
 /**
  * GET /v1/portfolio/wallet/{wallet_id}
@@ -179,16 +179,16 @@ router.get('/portfolio', jwtMW, fetchMW, transactionController.getPortfolio);
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, transactionController.getPortfolio);
 
-router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, validateBody(transactionSchema), transactionGuard, transactionController.addTransaction);
+router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, validateBody(transactionSchema), transactionGuard, cache, transactionController.addTransaction);
 
-router.post('/portfolio/wallet', jwtMW, validateBody(walletSchema), walletController.addWallet);
+router.post('/portfolio/wallet', jwtMW, flush, validateBody(walletSchema), walletController.addWallet);
 
-router.post('/signup', flush, validateBody(signupSchema), userController.addUser);
+router.post('/signup', validateBody(signupSchema), flush, userController.addUser);
 
-router.delete('/portfolio/transaction/:tid(\\d+)', jwtMW, transactionController.deleteTransaction);
+router.delete('/portfolio/transaction/:tid(\\d+)', jwtMW, flush, transactionController.deleteTransaction);
 
-router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, walletController.deleteWallet);
+router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, flush, walletController.deleteWallet);
 
 module.exports = router;
