@@ -30,7 +30,6 @@ const cache = async (req, res, next) => {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(req.userId));
         }
-        console.log(cachedValue)
         return res.json(cachedValue);
     };
 
