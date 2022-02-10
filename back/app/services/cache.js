@@ -21,6 +21,8 @@ const cache = async (req, res, next) => {
         key = `${prefix}${req.url}:${req.params}`;
     }
 
+    console.log(key)
+
     if (await db.exists(key)) {
         const cachedString = await db.get(key);
         const cachedValue = JSON.parse(cachedString);
@@ -28,6 +30,7 @@ const cache = async (req, res, next) => {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(req.userId));
         }
+        console.log(cachedValue)
         return res.json(cachedValue);
     };
 
@@ -35,10 +38,12 @@ const cache = async (req, res, next) => {
 
     res.json = async (data, err) => {
         if (!err) {
+            console.log(err)
             const str = JSON.stringify(data);
             keys.push(key);
             await db.set(key, str, {EX: timeout, NX: true});
         }
+        console.log(data)
         originalResponseJson(data);
     }
     next();
