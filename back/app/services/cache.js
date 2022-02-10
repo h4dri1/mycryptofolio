@@ -38,12 +38,10 @@ const cache = async (req, res, next) => {
 
     res.json = async (data, err) => {
         if (!err) {
-            console.log(err)
             const str = JSON.stringify(data);
             keys.push(key);
             await db.set(key, str, {EX: timeout, NX: true});
         }
-        console.log(data)
         originalResponseJson(data);
     }
     next();
@@ -51,7 +49,6 @@ const cache = async (req, res, next) => {
 
 const flush = async (req, res, next) => {
     while(key=keys.shift()) {
-        console.log(key);
         await db.del(key);
     }
     next();
