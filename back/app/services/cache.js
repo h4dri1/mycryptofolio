@@ -18,7 +18,7 @@ const cache = async (req, res, next) => {
     if (req.userId) {
         key = `${prefix}:${req.userId.id}:${req.url}:${req.params}`;
     } else {
-        key = `${prefix}${req.url}:${req.params}`;
+        key = `${prefix}${req.url}`;
     }
 
     if (await db.exists(key)) {
