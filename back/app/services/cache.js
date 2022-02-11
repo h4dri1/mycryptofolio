@@ -21,15 +21,15 @@ const cache = async (req, res, next) => {
         key = `${prefix}${req.url}:${req.params}`;
     }
 
-    console.log(key)
-
     if (await db.exists(key)) {
+        console.log("data cache")
         const cachedString = await db.get(key);
         const cachedValue = JSON.parse(cachedString);
         if (req.userId) {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(req.userId));
         }
+        console.log(key)
         return res.json(cachedValue);
     };
 
