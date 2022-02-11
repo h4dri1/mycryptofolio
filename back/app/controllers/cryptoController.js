@@ -23,7 +23,7 @@ module.exports = {
     getTopCrypto: async (req, res) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);           
-            console.log("data api coingeko")
+            console.log("data api coingeko : top")
             res.status(200).json(data);
         } catch (error) {
             if (error.message) {
@@ -110,7 +110,7 @@ module.exports = {
     getGlobalData: async (req, res) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/global`);
-            console.log("data api coingeko")
+            console.log("data api coingeko : global")
             res.status(200).json(data);
         } catch (error) {
             if (error.message) {
