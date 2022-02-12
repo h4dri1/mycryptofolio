@@ -16,7 +16,6 @@ const cache = async (req, res, next) => {
     };
 
     if (req.userId) {
-        console.log(key)
         key = `${prefix}:${req.userId.id}:${req.url}`;
     } else {
         key = `${prefix}${req.url}`;
@@ -35,8 +34,8 @@ const cache = async (req, res, next) => {
     const originalResponseJson = res.json.bind(res);
 
     res.json = async (data, err) => {
+        const str = JSON.stringify(data);
         if (!err) {
-            const str = JSON.stringify(data);
             keys.push(key);
             await db.set(key, str, {EX: timeout, NX: true});
         }
