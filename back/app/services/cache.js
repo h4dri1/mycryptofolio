@@ -35,11 +35,11 @@ const cache = async (req, res, next) => {
     const originalResponseJson = res.json.bind(res);
 
     res.json = async (data, err) => {
-        if (!err) {
+        //if (!err) {
             const str = JSON.stringify(data);
             keys.push(key);
             await db.set(key, str, {EX: timeout, NX: true});
-        }
+        //}
         originalResponseJson(data);
     }
     next();
