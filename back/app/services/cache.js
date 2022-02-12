@@ -16,22 +16,19 @@ const cache = async (req, res, next) => {
     };
 
     if (req.userId) {
-        key = `${prefix}:${req.userId.id}:${req.url}:${req.params}`;
+        key = `${prefix}:${req.userId.id}:${req.url}`;
     } else {
         key = `${prefix}${req.url}`;
     }
 
     if (await db.exists(key)) {
-        console.log("data cache")
         const cachedString = await db.get(key);
         const cachedValue = JSON.parse(cachedString);
         if (req.userId) {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(req.userId));
         }
-        if (key === 'mycryptofolio:/global') {
-            console.log(cachedValue)
-        }
+        console.log(`donnés en cache : key : ${key} : ${cachedValue}`);
         return res.json(cachedValue);
     };
 
