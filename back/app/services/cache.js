@@ -16,6 +16,7 @@ const cache = async (req, res, next) => {
     };
 
     if (req.userId) {
+        console.log(key)
         key = `${prefix}:${req.userId.id}:${req.url}`;
     } else {
         key = `${prefix}${req.url}`;
