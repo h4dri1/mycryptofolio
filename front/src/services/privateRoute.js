@@ -2,10 +2,12 @@ import axios from 'axios';
 import isTokenExpired from './isTokenExpired';
 import getNewAccessToken from './getNewAccessToken';
 
+const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
+
 const refreshToken = localStorage.getItem('refreshToken');
 
 const privateRoute = axios.create({
-  baseURL: 'https://api.mycryptofolio.fr/v1',
+  baseURL: baseURL,
   headers: '',
 });
 
