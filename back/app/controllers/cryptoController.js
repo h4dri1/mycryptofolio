@@ -20,9 +20,9 @@ module.exports = {
         }
     },
 
-    getTopCrypto: (req, res) => {
+    getTopCrypto: async (req, res) => {
         try {
-            const data = service_fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);           
+            const data = await service_fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);           
             console.log("data api coingeko : top")
             res.status(200).json(data);
         } catch (error) {
@@ -33,14 +33,14 @@ module.exports = {
         }
     },
 
-    getOneCrypto:  (req, res) => {
+    getOneCrypto: async (req, res) => {
         try {
-            const data =  service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}`);
+            const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}`);
             let days = 180;
             if (req.params.nbd) {
                 days = req.params.nbd
             }
-            const chart = service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=${days}&interval=daily`);
+            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=${days}&interval=daily`);
             const superObj = {'data': {
                 'id': data.id,
                 'symbol': data.symbol,
@@ -70,7 +70,7 @@ module.exports = {
         }
     },
 
-    getOnePrice: (req, res) => {
+    getOnePrice: async (req, res) => {
         try {
             let link = `//api.coingecko.com/api/v3/simple/price?ids=${req.params.id}&vs_currencies=${req.params.vs}`
             if (req.params.include_market_cap) {
@@ -85,7 +85,7 @@ module.exports = {
             if (req.params.include_last_updated_at) {
                 link = link + '&include_last_updated_at=true';
             }
-            const data = service_fetch(link);
+            const data = await service_fetch(link);
             res.status(200).json(data);
         } catch (error) {
             if (error.message) {
@@ -95,9 +95,9 @@ module.exports = {
         }
     },
  
-    getTrendingCryptos: (req, res) => {
+    getTrendingCryptos: async (req, res) => {
         try {
-            const data = service_fetch(`//api.coingecko.com/api/v3/search/trending`);
+            const data = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
             res.status(200).json(data);
         } catch (error) {
             if (error.message) {
@@ -107,9 +107,9 @@ module.exports = {
         }
     },
 
-    getGlobalData: (req, res) => {
+    getGlobalData: async (req, res) => {
         try {
-            const data = service_fetch(`//api.coingecko.com/api/v3/global`);
+            const data = await service_fetch(`//api.coingecko.com/api/v3/global`);
             console.log("data api coingeko : global")
             res.status(200).json(data);
         } catch (error) {
@@ -120,9 +120,9 @@ module.exports = {
         }
     },
 
-    getHistoricalData: (req, res) => {
+    getHistoricalData: async (req, res) => {
         try {
-            const data = service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
+            const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
             res.status(200).json(data);
         } catch (error) {
             if (error.message) {
