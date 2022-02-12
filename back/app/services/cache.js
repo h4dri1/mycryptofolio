@@ -28,6 +28,9 @@ const cache = async (req, res, next) => {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(req.userId));
         }
+        if (key === 'mycryptofolio:/cryptos/usd/10') {
+            console.log(cachedValue)
+        }
         console.log(`donnés en cache : key : ${key} : ${cachedValue}`);
         return res.json(cachedValue);
     };
@@ -35,11 +38,11 @@ const cache = async (req, res, next) => {
     const originalResponseJson = res.json.bind(res);
 
     res.json = async (data, err) => {
-        //if (!err) {
+        if (!err) {
             const str = JSON.stringify(data);
             keys.push(key);
             await db.set(key, str, {EX: timeout, NX: true});
-        //}
+        }
         originalResponseJson(data);
     }
     next();
