@@ -108,7 +108,7 @@ router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptos/:vs/:nb(\\d+)', (req, next) => {if (req.hostname === 'dev.mycryptofolio.fr') {next()}}, cache, cryptoController.getTopCrypto);
+router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
 
 /**
  * GET /v1/crypto/{id}
