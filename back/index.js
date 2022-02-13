@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 
-//const cors = require('cors');
+const cors = require('cors');
 
 const router = require('./app/router');
 
@@ -15,6 +15,11 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 
 const expressJSDocSwagger = require('express-jsdoc-swagger');
+
+const corsOptions = {
+  origin: 'https://dev.mycryptofolio.fr',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
 
 const options = {
     info: {
@@ -55,7 +60,7 @@ app.use(helmet.noSniff());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
