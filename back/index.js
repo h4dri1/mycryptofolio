@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 
-const cors = require('cors');
+//const cors = require('cors');
 
 const router = require('./app/router');
 
@@ -55,7 +55,7 @@ app.use(helmet.noSniff());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors());
+//app.use(cors());
 
 app.use(express.json());
 
