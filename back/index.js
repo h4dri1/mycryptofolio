@@ -16,6 +16,11 @@ const helmet = require('helmet');
 
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
+const corsOptions = {
+  origin: 'https://dev.mycryptofolio.fr',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+
 const options = {
     info: {
       version: '1.0.0',
@@ -54,6 +59,8 @@ app.use(helmet.frameguard({ action: 'deny' }));
 app.use(helmet.noSniff());
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
