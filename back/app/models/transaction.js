@@ -37,6 +37,7 @@ class Transaction {
     static async getDistribution(id) {
         try {
             const {rows} = await db.query('SELECT name, quantity, investment, value, (100 * coins_value.value) /\
+            NULLIF((SELECT SUM(value) FROM coins_value WHERE user_id=$1), 0) \
             (SELECT SUM(value) FROM coins_value WHERE user_id=$1) as distribution \
             FROM coins_value WHERE coins_value.user_id=$1\
             GROUP BY investment, name, quantity, value;', [id]);
@@ -52,6 +53,7 @@ class Transaction {
     static async getDistributionByWallet(id, wid) {
         try {
             const {rows} = await db.query('SELECT name, quantity, investment,  value, (100 * coins_value_wallet.value) /\
+            NULLIF((SELECT SUM(value) FROM coins_value WHERE user_id=$1 AND wallet_id=$2), 0) \
             (SELECT SUM(value) FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2) as distribution \
             FROM coins_value_wallet WHERE coins_value_wallet.user_id=$1 AND coins_value_wallet.wallet_id=$2\
             GROUP BY investment, name, quantity, value;', [id, wid]);
