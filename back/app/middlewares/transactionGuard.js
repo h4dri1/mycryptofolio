@@ -37,11 +37,11 @@ module.exports = async (req, res, next) => {
             if (bodyId) {
                 const cryptos2 = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
                 const wallet2 = cryptos2.find(element => element.wallet_id === Number(req.params.wid) & element.coin_id === req.body.coin_id);
-                if (Number(wallet2.total) === Number(is_transaction[0].quantity) | (Math.abs(req.body.quantity) + is_transaction[0].quantity) >= wallet2.total) {
+                if (Number(wallet2.total) === Number(is_transaction[0].quantity) | (Math.abs(req.body.quantity) + is_transaction[0].quantity) > wallet2.total) {
                     return res.status(500).json('You trying to sell more coin than you have');
                 }  
             } else {
-                if ((Number(wallet.total) + Number(req.body.quantity)) <= 0) {
+                if ((Number(wallet.total) + Number(req.body.quantity)) < 0) {
                     return res.status(500).json('You trying to sell more coin than you have');
                 }    
             }
