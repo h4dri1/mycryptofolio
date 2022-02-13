@@ -6,7 +6,7 @@ db.connect();
 const prefix = 'mycryptofolio:';
 let timeout = 60;
 
-//let key;
+const key;
 
 const keys = [];
 
@@ -15,11 +15,11 @@ const cache = async (req, res, next) => {
         timeout = 60 * 5;
     };
 
-    //if (req.userId) {
-      //  key = `${prefix}:${req.userId.id}:${req.url}`;
-    //} else {
-    const key = `${prefix}${req.url}`;
-    //}
+    if (req.userId) {
+        key = `${prefix}${req.userId.id}:${req.url}`;
+    } else {
+        key = `${prefix}${req.url}`;
+    }
 
     if (await db.exists(key)) {
         const cachedString = await db.get(key);
