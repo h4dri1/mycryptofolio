@@ -51,8 +51,9 @@ class Transaction {
 
     static async getDistributionByWallet(id, wid) {
         try {
-            const {rows} = await db.query('SELECT name, quantity, value, distribution FROM view_get_distribution_by_wallet \
-            WHERE user_id=$1 AND wallet_id=$2 AND distribution!=0;', [id, wid]);
+            const {rows} = await db.query('SELECT name, quantity,  value, (100 * coins_value_wallet.value) / \
+            (SELECT SUM(value) FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2 AND coins_value_wallet.quantity!=0) AS distribution \
+            FROM coins_value_wallet WHERE quantity!=0 AND user_id=$1 AND wallet_id=$2 GROUP BY name, quantity, value;', [id, wid]);
             if (rows) {
                 return rows.map(row => new Transaction(row));
             }

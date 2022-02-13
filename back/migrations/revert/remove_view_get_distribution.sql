@@ -1,4 +1,4 @@
--- Deploy mycryptofolio:view_get_distribution_by_wallet to pg
+-- Revert mycryptofolio:remove_view_get_distribution from pg
 
 BEGIN;
 
