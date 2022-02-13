@@ -4,19 +4,28 @@ const db = createClient();
 db.connect();
 
 const prefix = 'mycryptofolio:';
+
 let timeout = 60;
 
 const keys = [];
+
+let newKey;
 
 const cache = async (req, res, next) => {
     if (req.url === '/cryptos') {
         timeout = 60 * 5;
     };
 
+    newKey = `${prefix}${req.url}`
+
+    if (req.userId.id) {
+        newKey = `${prefix}${req.userId.id}:${req.url}`
+    }
+
     //if (req.userId) {
         //key = `${prefix}${req.userId.id}:${req.url}`;
 //    } else {
-    const key = `${prefix}${req.url}`;
+    const key = newKey;
     //}
 
     if (await db.exists(key)) {
