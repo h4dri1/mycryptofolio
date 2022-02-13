@@ -2,6 +2,6 @@
 
 BEGIN;
 
-DROP VIEW gview_get_distribution_by_wallet;
+DROP VIEW view_get_distribution_by_wallet;
 
 COMMIT;
