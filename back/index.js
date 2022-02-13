@@ -18,7 +18,7 @@ const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 const corsOptions = {
   origin: 'https://dev.mycryptofolio.fr',
-  optionsSuccessStatus: 200 // For legacy browser support
+  optionsSuccessStatus: 200
 }
 
 const options = {
