@@ -22,11 +22,7 @@ const cache = async (req, res, next) => {
         newKey = `${prefix}${req.userId.id}:${req.url}`
     }
 
-    //if (req.userId) {
-        //key = `${prefix}${req.userId.id}:${req.url}`;
-//    } else {
     const key = newKey;
-    //}
 
     if (await db.exists(key)) {
         const cachedString = await db.get(key);
@@ -42,10 +38,10 @@ const cache = async (req, res, next) => {
 
     res.json = async (data, err) => {
         const str = JSON.stringify(data);
-        //if (!err) {
+        if (!err) {
             keys.push(key);
             await db.set(key, str, {EX: timeout, NX: true});
-        //}
+        }
         originalResponseJson(data);
     }
     next();
