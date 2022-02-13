@@ -6,7 +6,7 @@ db.connect();
 const prefix = 'mycryptofolio:';
 let timeout = 60;
 
-const key;
+const key = '';
 
 const keys = [];
 
