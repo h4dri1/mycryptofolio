@@ -17,7 +17,7 @@ const helmet = require('helmet');
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 const corsOptions = {
-  origin: 'https://dev.mycryptofolio.fr',
+  origin: 'http://localhost:4000',
   optionsSuccessStatus: 200 // For legacy browser support
 }
 
