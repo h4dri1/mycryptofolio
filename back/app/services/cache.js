@@ -12,6 +12,8 @@ const keys = [];
 let newKey;
 
 const cache = async (req, res, next) => {
+
+    console.log(req.hostname)
     if (req.url === '/cryptos') {
         timeout = 60 * 5;
     };
