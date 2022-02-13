@@ -6,7 +6,7 @@ db.connect();
 const prefix = 'mycryptofolio:';
 let timeout = 60;
 
-let key;
+//let key;
 
 const keys = [];
 
@@ -15,11 +15,11 @@ const cache = async (req, res, next) => {
         timeout = 60 * 5;
     };
 
-    if (req.userId) {
-        key = `${prefix}:${req.userId.id}:${req.url}`;
-    } else {
-        key = `${prefix}${req.url}`;
-    }
+    //if (req.userId) {
+      //  key = `${prefix}:${req.userId.id}:${req.url}`;
+    //} else {
+    const key = `${prefix}${req.url}`;
+    //}
 
     if (await db.exists(key)) {
         const cachedString = await db.get(key);
@@ -35,18 +35,18 @@ const cache = async (req, res, next) => {
 
     res.json = async (data, err) => {
         const str = JSON.stringify(data);
-        if (!err) {
+        //if (!err) {
             keys.push(key);
             await db.set(key, str, {EX: timeout, NX: true});
-        }
+        //}
         originalResponseJson(data);
     }
     next();
 };
 
 const flush = async (req, res, next) => {
-    while(keyR=keys.shift()) {
-        await db.del(keyR);
+    while(key=keys.shift()) {
+        await db.del(key);
     }
     next();
 }
