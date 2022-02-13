@@ -18,7 +18,7 @@ const cache = async (req, res, next) => {
 
     newKey = `${prefix}${req.url}`
 
-    if (req.userId.id) {
+    if (req.userId) {
         newKey = `${prefix}${req.userId.id}:${req.url}`
     }
 
