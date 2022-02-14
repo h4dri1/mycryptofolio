@@ -64,7 +64,7 @@ app.use(helmet.xssFilter());
 
 app.use(helmet.frameguard({ action: 'deny' }));
 
-app.use(helmet.noSniff());
+//app.use(helmet.noSniff());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
