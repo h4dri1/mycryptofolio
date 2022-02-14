@@ -9,7 +9,8 @@ SELECT
 	transaction.id as transaction_id,
 	wallet_id,
 	wallet.user_id,
-	(SELECT coin_id FROM crypto WHERE id=transaction.crypto_id) as coin_id
+	(SELECT coin_id FROM crypto WHERE id=transaction.crypto_id) as coin_id,
+	buy
 FROM 
 	transaction
 JOIN wallet
