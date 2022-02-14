@@ -155,7 +155,7 @@ class Transaction {
 
     static async getSumCoinByWalletWithSell(tid) {
         try {
-            const {rows} = await db.query('SELECT transaction_id, wallet_id, user_id, coin_id, buy\
+            const {rows} = await db.query('SELECT transaction_id, wallet_id, user_id, coin_id, buy,\
             (SELECT quantity FROM view_transaction WHERE id=$1), \
             (SELECT COUNT (buy = false) FROM view_wallet_user_transaction WHERE buy=false AND \
                  (SELECT coin_id FROM view_wallet_user_transaction WHERE transaction_id=$1)=coin_id) AS sell, \
