@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 
 const path = __dirname + '/app/views/';
 
-const helmet = require('helmet');
+//const helmet = require('helmet');
 
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
@@ -58,11 +58,11 @@ app.use(express.json());
 
 app.use(express.static(path));
 
-app.disable('x-powered-by');
+//app.disable('x-powered-by');
 
-app.use(helmet.xssFilter());
+//app.use(helmet.xssFilter());
 
-app.use(helmet.frameguard({ action: 'deny' }));
+//app.use(helmet.frameguard({ action: 'deny' }));
 
 //app.use(helmet.noSniff());
 
