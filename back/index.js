@@ -12,12 +12,14 @@ const port = process.env.PORT || 5000;
 
 const bodyParser = require('body-parser');
 
+const path = __dirname + '/app/views/';
+
 const helmet = require('helmet');
 
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 const corsOptions = {
-  origin: 'https://dev.mycryptofolio.fr',
+  origin: 'http://localhost:8080',
   optionsSuccessStatus: 200
 }
 
@@ -50,6 +52,12 @@ const options = {
   
 expressJSDocSwagger(app)(options);
 
+app.use(cors(corsOptions));
+
+app.use(express.json());
+
+app.use(express.static(path));
+
 app.disable('x-powered-by');
 
 app.use(helmet.xssFilter());
@@ -60,9 +68,9 @@ app.use(helmet.noSniff());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors(corsOptions));
-
-app.use(express.json());
+app.get('/', (req, res) => {
+    res.sendFile(path + 'index.html');
+})
 
 app.use('/v1', router);
 
