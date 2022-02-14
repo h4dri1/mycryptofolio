@@ -153,6 +153,25 @@ class Transaction {
         }
     }
 
+    static async getSumCoinByWalletWithSell(tid) {
+        try {
+            const {rows} = await db.query('SELECT transaction_id, wallet_id, user_id, coin_id,\
+            (SELECT quantity FROM view_transaction WHERE id=$1), \
+            (SELECT COUNT (buy = false) FROM view_wallet_user_transaction WHERE buy=false AND \
+                 (SELECT coin_id FROM view_wallet_user_transaction WHERE transaction_id=$1)=coin_id) AS sell, \
+            (SELECT SUM(quantity) FROM view_transaction WHERE \
+                (SELECT coin_id FROM view_wallet_user_transaction WHERE transaction_id=$1)=coin_id AND wallet_id= \
+                     (SELECT wallet_id FROM view_wallet_user_transaction WHERE transaction_id=$1)) AS total\
+            FROM view_wallet_user_transaction WHERE transaction_id=$1 GROUP BY transaction_id, wallet_id, user_id, coin_id;', [tid]);
+            if (rows) {
+                return rows.map(row => new Transaction(row));
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
     async save() {
         try {
             if(this.id) {
