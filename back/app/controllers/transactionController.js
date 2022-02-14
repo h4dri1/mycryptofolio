@@ -88,6 +88,6 @@ module.exports = {
                 return res.status(500).json(error.message, true);
             }
             return res.status(500).json('error not defined', true);
-        }
+        } 
     }
 };
