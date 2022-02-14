@@ -67,9 +67,11 @@ module.exports = {
             if (own[0].user_id !== req.userId.id) {
                 return res.status(500).json('You doesn\'t own this transaction');
             }
+            console.log(own[0].sell === 0)
             if (own[0].sell === 0) {
                 next();
             } else {
+                console.log(own[0].total)
                 if (own[0].total === 0) {
                     return res.status(500).json('Delete first sell transaction');
                 }
