@@ -1,3 +1,5 @@
+const { Transaction, Wallet } = require("../models");
+
 module.exports = {
     transactionGuard: async (req, res, next) => {
         try {
@@ -58,8 +60,22 @@ module.exports = {
 
     deleteTransaction: async (req, res, next) => {
         try {
-            
-        } catch (error) {
+            const own = await Transaction.getSumCoinByWalletWithSell(req.params.tid);
+            if (own.length === 0) {
+                return res.status(500).json('No transaction with this id');
+            }
+            if (own.user_id !== req.userId.id) {
+                return res.status(500).json('You doesn\'t own this transaction');
+            }
+            if (own.sell === 0) {
+                next();
+            } else {
+                if (own.total < own.quantity) {
+                    return res.status(500).json('Delete first sell transaction');
+                }
+                next();
+            }
+        } catch {
             console.log(error);
             return res.status(500).json(error.message, true);
         }

@@ -65,7 +65,7 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NDc4MDk4NywiZXhwIjoxNjQ0NzgxMjg3fQ.9U5T9cmVKZYqSNNo8preVHnwUS9Cu01STjQ5vZjZTbQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFpbCI6InRlc3QyQHRlc3QuZnIiLCJuaWNrbmFtZSI6InRlc3QyIiwicGljdHVyZSI6Imh0dHBzOi8vY2RuLmljb24taWNvbnMuY29tL2ljb25zMi8xMzcxL1BORy81MTIvcm9ib3QwM185MDgzMy5wbmcifSwiaWF0IjoxNjQ0NzkxNDY3LCJleHAiOjE2NDQ3OTE3Njd9.aUJfW3H4cpr-_81Nn47UfMJXdKgI8gNKZ1hQHv8fwpI
 
 ###
 
@@ -74,17 +74,17 @@ Content-Type: application/json
 Authorization: 
 ### ATTENTION LA ROUTE ADD TRANSACTION EST ACCESSIBLE A UN USER CONNECTE AVEC UN MAUVAIS WALLET
 
-POST http://localhost:8888/v1/portfolio/wallet/2/transaction/ HTTP/1.1
+POST http://localhost:8888/v1/portfolio/wallet/3/transaction/ HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NDc4MDk4NywiZXhwIjoxNjQ0NzgxMjg3fQ.9U5T9cmVKZYqSNNo8preVHnwUS9Cu01STjQ5vZjZTbQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFpbCI6InRlc3QyQHRlc3QuZnIiLCJuaWNrbmFtZSI6InRlc3QyIiwicGljdHVyZSI6Imh0dHBzOi8vY2RuLmljb24taWNvbnMuY29tL2ljb25zMi8xMzcxL1BORy81MTIvcm9ib3QwM185MDgzMy5wbmcifSwiaWF0IjoxNjQ0NzkyMjQ2LCJleHAiOjE2NDQ3OTI1NDZ9.CE7JAa13ogkytY1H5og8IqZYwpNuUbr8vkDXc5tA1Ac
 
 {
-  "buy": false,
+  "buy": true,
   "buy_date": "Fri Jan 28 2022 15:20:46 GMT+0100",
-  "coin_id": "ethereum",
+  "coin_id": "chainlink",
   "price": 1000,
-  "quantity": -3,
-  "symbol": "eth"
+  "quantity": 20,
+  "symbol": "link"
 }
 
 ### 
@@ -116,7 +116,7 @@ POST http://localhost:8888/v1/jwt/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "test@test.fr",
+    "email": "test2@test.fr",
     "password": "#0clock$0087"
 }
 

@@ -79,18 +79,10 @@ module.exports = {
 
     deleteTransaction: async (req, res) => {
         try {
-            const is_owning_wallet = await Transaction.getWalletIdByTransaction(req.params.tid);
-            if (is_owning_wallet.length === 0) {
-                return res.status(500).json(`No transaction with this id`, true);
-            } else {
-                if (req.userId.id !== is_owning_wallet[0].user_id) {
-                    return res.status(500).json(`You doesn't own this wallet`, true); 
-                }
-                await Transaction.delete(req.params.tid);
-                res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
-                res.setHeader('Authorization', jwt.makeToken(req.userId));
-                res.status(204).json('delete ok');
-            }
+            await Transaction.delete(req.params.tid);
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
+            res.setHeader('Authorization', jwt.makeToken(req.userId));
+            res.status(204).json('delete ok');
         } catch (error) {
             if (error.message) {
                 return res.status(500).json(error.message, true);
