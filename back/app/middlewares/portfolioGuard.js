@@ -70,7 +70,7 @@ module.exports = {
             if (own.sell === 0) {
                 next();
             } else {
-                if (own.total < own.quantity) {
+                if ((own.total - own.quantity) < own.quantity) {
                     return res.status(500).json('Delete first sell transaction');
                 }
                 next();
