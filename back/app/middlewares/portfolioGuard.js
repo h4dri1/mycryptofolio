@@ -1,13 +1,13 @@
 const { Transaction } = require("../models");
-const { buyGuard, sellGuard } = require("../services/gards");
+const { guards } = require("../services");
 
 module.exports = {
     transactionGuard: async (req, res, next) => {
         try {
             if (req.body.buy) {
-                buyGuard(req, res, next)
+                guards.buyGuard(req, res, next)
             } else {
-                sellGuard(req, res, next)
+                guards.sellGuard(req, res, next)
             }
         } catch (error) {
             console.log(error);

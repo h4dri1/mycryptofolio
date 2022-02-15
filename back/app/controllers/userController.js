@@ -1,6 +1,6 @@
 const { User, Wallet } = require('../models');
 const bcrypt = require('bcrypt');
-const jwt = require('../services/jwt');
+const { jwt } = require('../services');
 
 module.exports = {
     validLoginJwt: async (req, res) => {
