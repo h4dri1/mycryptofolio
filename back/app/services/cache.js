@@ -1,5 +1,5 @@
-const jwt = require('../services/jwt');
-const {createClient} = require('redis');
+const { jwt } = require('./');
+const { createClient } = require('redis');
 const db = createClient();
 db.connect();
 
