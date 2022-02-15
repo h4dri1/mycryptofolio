@@ -1,4 +1,3 @@
-const req = require('express/lib/request');
 const fetchMW = require('./fetchMW');
 const jwtMW = require('./jwtMW');
 const portfolioGuard = require('./portfolioGuard');
