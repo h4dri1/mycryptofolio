@@ -1,5 +1,5 @@
 const { Transaction, Crypto } = require('../models');
-const { service_fetch } = require('../services');
+const service_fetch = require('../services/fetch');
 
 module.exports = async (req, res, next) => {
     try {

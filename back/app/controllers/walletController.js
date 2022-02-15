@@ -1,4 +1,4 @@
-const { jwt } = require('../services');
+const jwt = require('../services/jwt');
 const { Wallet, Transaction } = require('../models');
 
 module.exports = {
