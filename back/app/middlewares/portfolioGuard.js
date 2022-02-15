@@ -1,4 +1,4 @@
-const { Transaction, Wallet } = require("../models");
+const { Transaction } = require("../models");
 const { buyGuard, sellGuard } = require("../services/gards");
 
 module.exports = {
