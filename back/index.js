@@ -68,7 +68,7 @@ app.use(helmet.noSniff());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
     res.sendFile(path + 'index.html');
 })
 
