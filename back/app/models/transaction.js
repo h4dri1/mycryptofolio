@@ -77,7 +77,7 @@ class Transaction {
 
     static async getTransactionByWallet(wid) {
         try {
-            const {rows} = await db.query('SELECT transaction_id FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
+            const {rows} = await db.query('SELECT * FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
             if (rows) {
                 return rows.map(row => new Transaction(row));
             }
