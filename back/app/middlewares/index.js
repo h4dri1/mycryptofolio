@@ -1,7 +1,6 @@
 const req = require('express/lib/request');
 const fetchMW = require('./fetchMW');
 const jwtMW = require('./jwtMW');
-const transactionGuard = require('./transactionGuard');
 const portfolioGuard = require('./portfolioGuard');
 const validator = require('./validator');
 
