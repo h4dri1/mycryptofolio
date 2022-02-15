@@ -23,7 +23,7 @@ module.exports = {
                     }
                 } 
             }
-            if (Number(req.body.quantity) < 0) {
+            if (Number(req.body.quantity) <= 0) {
                 return res.status(500).json('Buy quantity must be a positive number');
             }
             next();
@@ -67,7 +67,7 @@ module.exports = {
                     return res.status(500).json('You trying to sell more coin than you have');
                 }    
             }
-            if (Number(req.body.quantity) > 0) {
+            if (Number(req.body.quantity) >= 0) {
                 return res.status(500).json('Selling quantity must be a negative number');
             }
             next();
