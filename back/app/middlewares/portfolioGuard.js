@@ -6,8 +6,10 @@ module.exports = {
         try {
             if (req.body.buy) {
                 buyGuard(req, res, next)
+                next();
             } else {
                 sellGuard(req, res, next)
+                next();
             }
         } catch (error) {
             console.log(error);
