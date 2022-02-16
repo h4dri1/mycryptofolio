@@ -40,10 +40,10 @@ module.exports = {
                 if (own.length === 0) {
                     return res.status(500).json('No transaction with this id');
                 }
-                if (own.user_id !== req.userId.id) {
+                if (own[0].user_id !== req.userId.id) {
                     return res.status(500).json('You doesn\'t own this transaction');
                 }
-                if (Number(wallet.total) === Number(own.quantity) | (Math.abs(req.body.quantity) + own.quantity) > wallet.total) {
+                if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(req.body.quantity) + own[0].quantity) > wallet.total) {
                     return res.status(500).json('You trying to sell more coin than you have');
                 } 
             } else {
