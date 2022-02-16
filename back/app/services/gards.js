@@ -43,6 +43,10 @@ module.exports = {
                 if (own[0].user_id !== req.userId.id) {
                     return res.status(500).json('You doesn\'t own this transaction');
                 }
+                console.log(wallet.total)
+                console.log(own[0].quantity)
+                console.log((Number(wallet.total) === Number(own[0].quantity)))
+                console.log((Math.abs(req.body.quantity) + own[0].quantity))
                 if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(req.body.quantity) + own[0].quantity) > wallet.total) {
                     return res.status(500).json('You trying to sell more coin than you have');
                 } 
