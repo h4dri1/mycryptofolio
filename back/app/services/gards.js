@@ -8,7 +8,7 @@ module.exports = {
                 if (own.length === 0) {
                     return res.status(500).json('No transaction with this id');
                 }
-                if (own.user_id !== Number(req.userId.id)) {
+                if (own[0].user_id !== Number(req.userId.id)) {
                     return res.status(500).json('You doesn\'t own this transaction');
                 }
                 next();
