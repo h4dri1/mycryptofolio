@@ -19,9 +19,7 @@ module.exports = {
                     coinGuard(req, res, next);
                 }
             }
-            if (res.status === 500) {
-                console.log(res.status)
-            }
+            console.log(res.status)
             next();
         } catch (error) {
             console.log(error);
