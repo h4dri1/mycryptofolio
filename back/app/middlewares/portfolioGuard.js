@@ -6,21 +6,21 @@ module.exports = {
         try {
             if (req.body.buy) {
                 if (req.body.id) {
-                    transactionGuard(req, res, next);
+                    transactionGuard(req, res);
                 } else {
-                    walletGuard(req, res, next);
+                    walletGuard(req, res);
                 }
             } else {
                 if (req.body.id) {
-                    transactionGuard(req, res, next);
-                    var check = await coinGuard(req, res, next);
+                    transactionGuard(req, res);
+                    var youShallNotPass = await coinGuard(req, res);
                 } else {
                     walletGuard(req, res, next);
-                    var check = await coinGuard(req, res, next);
+                    var youShallNotPass = await coinGuard(req, res);
                 }
             }
-            if (check) {
-                return res.status(500).json(check)
+            if (youShallNotPass) {
+                return res.status(500).json(youShallNotPass);
             } else {
                 next();
             }
