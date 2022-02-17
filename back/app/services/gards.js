@@ -45,20 +45,20 @@ module.exports = {
             }
             if (req.body.id) {
                 if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(Number(req.body.quantity)) + Math.abs(Number(own[0].quantity))) > wallet.total) {
-                    res.status(500).json('You trying to sell more coin than you have');
+                    res = res.status(500).json('You trying to sell more coin than you have');
                 }
             } else {
                 if ((Number(wallet.total) + Number(req.body.quantity)) < 0) {
-                    res.status(500).json('You trying to sell more coin than you have');
+                    res = res.status(500).json('You trying to sell more coin than you have');
                 }
             }
             if (req.body.buy) {
                 if (Number(req.body.quantity) <= 0) {
-                    res.status(500).json('Buy quantity must be a positive number');
+                    res = res.status(500).json('Buy quantity must be a positive number');
                 }
             } else {
                 if (Number(req.body.quantity) >= 0) {
-                    res.status(500).json('Selling quantity must be a negative number');
+                    res = res.status(500).json('Selling quantity must be a negative number');
                 }
             }
         } catch (error) {
