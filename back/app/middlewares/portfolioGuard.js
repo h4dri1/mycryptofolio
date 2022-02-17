@@ -19,7 +19,7 @@ module.exports = {
                     coinGuard(req, res, next);
                 }
             }
-            console.log('????????')
+            console.log(res.status)
             next();
         } catch (error) {
             console.log(error);
