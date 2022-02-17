@@ -63,33 +63,9 @@ class Transaction {
         }
     }
 
-    static async getTransactionByPk(tid) {
-        try {
-            const {rows} = await db.query('SELECT * FROM transaction WHERE id=$1;', [tid]);
-            if (rows) {
-                return rows.map(row => new Transaction(row));
-            }
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
-    }
-
     static async getTransactionByWallet(wid) {
         try {
             const {rows} = await db.query('SELECT * FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
-            if (rows) {
-                return rows.map(row => new Transaction(row));
-            }
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
-    }
-
-    static async getWalletIdByTransaction(tid) {
-        try {
-            const {rows} = await db.query('SELECT * FROM view_wallet_user_transaction WHERE transaction_id=$1;', [tid]);
             if (rows) {
                 return rows.map(row => new Transaction(row));
             }

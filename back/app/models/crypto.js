@@ -32,7 +32,6 @@ class Crypto {
         }
     }
     
-
     static async updatePrice(cryptos) {
         try {
             const {rows} = await db.query('SELECT * FROM update_price($1)', [cryptos]);
