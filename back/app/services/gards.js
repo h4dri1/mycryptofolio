@@ -47,9 +47,11 @@ module.exports = {
                 console.log(own[0].quantity)
                 console.log((Number(wallet.total) === Number(own[0].quantity)))
                 console.log((Math.abs(req.body.quantity) + own[0].quantity))
-                if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(req.body.quantity) + Math.abs(own[0].quantity)) >= wallet.total) {
+                if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(req.body.quantity) + Math.abs(own[0].quantity)) > wallet.total) {
+                    console.log("ok")
                     return res.status(500).json('You trying to sell more coin than you have');
-                } 
+                }
+                console.log("okok")
             } else {
                 const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
                 if (is_owning_wallet.length === 0) {
