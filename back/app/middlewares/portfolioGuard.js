@@ -7,22 +7,22 @@ module.exports = {
             if (req.body.buy) {
                 if (req.body.id) {
                     transactionGuard(req, res, next);
-                    next();
                 } else {
                     walletGuard(req, res, next);
-                    next();
                 }
             } else {
                 if (req.body.id) {
                     transactionGuard(req, res, next);
                     coinGuard(req, res, next);
-                    next();
                 } else {
                     walletGuard(req, res, next);
                     coinGuard(req, res, next);
-                    next();
                 }
             }
+            if (res.status === 500) {
+                return
+            }
+            next();
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
