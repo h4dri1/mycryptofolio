@@ -47,7 +47,7 @@ module.exports = {
                 console.log(own[0].quantity)
                 console.log((Number(wallet.total) === Number(own[0].quantity)))
                 console.log((Math.abs(req.body.quantity) + own[0].quantity))
-                if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(req.body.quantity) + Math.abs(own[0].quantity)) > wallet.total) {
+                if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(req.body.quantity) + Math.abs(own[0].quantity)) >= wallet.total) {
                     return res.status(500).json('You trying to sell more coin than you have');
                 } 
             } else {
