@@ -11,6 +11,7 @@ module.exports = {
                 if (own[0].user_id !== Number(req.userId.id)) {
                     return res.status(500).json('You doesn\'t own this transaction');
                 }
+                next();
             } else {
                 const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
                 if (is_owning_wallet.length === 0) {
@@ -25,6 +26,7 @@ module.exports = {
             if (Number(req.body.quantity) <= 0) {
                 return res.status(500).json('Buy quantity must be a positive number');
             }
+            next();
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
@@ -51,7 +53,7 @@ module.exports = {
                     console.log("ok")
                     return res.status(500).json('You trying to sell more coin than you have');
                 }
-                console.log("okok")
+                next()
             } else {
                 const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
                 if (is_owning_wallet.length === 0) {
@@ -68,11 +70,12 @@ module.exports = {
                 }
                 if ((Number(wallet.total) + Number(req.body.quantity)) < 0) {
                     return res.status(500).json('You trying to sell more coin than you have');
-                }    
+                }
             }
             if (Number(req.body.quantity) >= 0) {
                 return res.status(500).json('Selling quantity must be a negative number');
             }
+            next();
         } catch {
             console.log(error);
             return res.status(500).json(error.message, true);
