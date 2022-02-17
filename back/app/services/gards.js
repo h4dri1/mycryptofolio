@@ -45,7 +45,6 @@ module.exports = {
                     return res.status(500).json('You doesn\'t own this transaction');
                 }
                 const foundC = transacWallet.filter(element => element.coin_id === req.body.coin_id).length > 0;
-                console.log(foundC)
                 if (!foundC) {
                     return res.status(500).json('You are trying to sell coins that are not present in this wallet');
                 }
