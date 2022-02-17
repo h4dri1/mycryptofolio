@@ -1,13 +1,30 @@
 const { Transaction } = require("../models");
-const { buyGuard, sellGuard } = require("../services/gards");
+const { transactionGuard, walletGuard, coinGuard } = require("../services/gards");
 
 module.exports = {
     transactionGuard: async (req, res, next) => {
         try {
+            let youShallNotPass;
             if (req.body.buy) {
-                buyGuard(req, res, next)
+                if (req.body.id) {
+                    youShallNotPass = await transactionGuard(req, res);
+                } else {
+                    youShallNotPass =  await walletGuard(req, res);
+                }
             } else {
-                sellGuard(req, res, next)
+                if (req.body.id) {
+                    youShallNotPass = await transactionGuard(req, res);
+                } else {
+                    youShallNotPass = await walletGuard(req, res);
+                }
+                if (!youShallNotPass) {
+                    youShallNotPass = await coinGuard(req, res);
+                }
+            }
+            if (youShallNotPass) {
+                return res.status(500).json(youShallNotPass);
+            } else {
+                next();
             }
         } catch (error) {
             console.log(error);
@@ -33,6 +50,20 @@ module.exports = {
                 next();
             }
         } catch {
+            console.log(error);
+            return res.status(500).json(error.message, true);
+        }
+    }, 
+
+    deleteWallet: async (req, res, next) => {
+        try {
+            const youShallNotPass = await walletGuard(req, res);
+            if (youShallNotPass) {
+                return res.status(500).json(youShallNotPass);
+            } else {
+                next();
+            }
+        } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
         }

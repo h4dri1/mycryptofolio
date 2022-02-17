@@ -24,20 +24,6 @@ module.exports = {
 
     deleteWallet: async (req, res) => {
         try {
-            let own_wallet = false;
-            const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
-            if (is_owning_wallet.length === 0) {
-                return res.status(500).json(`You have no wallet`);
-            } else {
-                for (const own of is_owning_wallet) {
-                    if (Number(req.params.wid) === own.id) {
-                        own_wallet = true;
-                    }
-                }
-                if (!own_wallet) {
-                    return res.status(500).json(`You doesn't own this wallet`);
-                }
-            }
             const transactions = await Transaction.getTransactionByWallet(req.params.wid);
             for (const transaction of transactions) {
                 await Transaction.delete(transaction.transaction_id);
