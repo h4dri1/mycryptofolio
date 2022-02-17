@@ -13,15 +13,14 @@ module.exports = {
             } else {
                 if (req.body.id) {
                     transactionGuard(req, res, next);
-                    const ok = coinGuard(req, res, next);
+                    const ok = await coinGuard(req, res, next);
                     console.log(ok)
                 } else {
                     walletGuard(req, res, next);
-                    const okk = coinGuard(req, res, next);
+                    const okk = await coinGuard(req, res, next);
                     console.log(okk)
                 }
             }
-            console.log(res.status)
             next();
         } catch (error) {
             console.log(error);
