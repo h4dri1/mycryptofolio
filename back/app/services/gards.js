@@ -35,33 +35,38 @@ module.exports = {
     },
 
     coinGuard: async (req, res) => {
+        let test;
         const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
         const transacWallet = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
         const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
         try {
             const foundC = transacWallet.filter(element => element.coin_id === req.body.coin_id).length > 0;
             if (!foundC) {
-                res.status(500).json('You are trying to sell coins that are not present in this wallet');
+                return test = 'You are trying to sell coins that are not present in this wallet'
+                //res.status(500).json('You are trying to sell coins that are not present in this wallet');
             }
             if (req.body.id) {
                 if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(Number(req.body.quantity)) + Math.abs(Number(own[0].quantity))) > wallet.total) {
-                    res = res.status(500).json('You trying to sell more coin than you have');
+                    return test = 'You trying to sell more coin than you have'
+                    //res.status(500).json('You trying to sell more coin than you have');
                 }
             } else {
                 if ((Number(wallet.total) + Number(req.body.quantity)) < 0) {
-                    res = res.status(500).json('You trying to sell more coin than you have');
+                    return test = 'You trying to sell more coin than you have'
+                    //res.status(500).json('You trying to sell more coin than you have');
                 }
             }
             if (req.body.buy) {
                 if (Number(req.body.quantity) <= 0) {
-                    res = res.status(500).json('Buy quantity must be a positive number');
+                    return test = 'Buy quantity must be a positive number'
+                    //res.status(500).json('Buy quantity must be a positive number');
                 }
             } else {
                 if (Number(req.body.quantity) >= 0) {
-                    res = res.status(500).json('Selling quantity must be a negative number');
+                    return test = 'Selling quantity must be a negative number'
+                    //res.status(500).json('Selling quantity must be a negative number');
                 }
             }
-            
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
