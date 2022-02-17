@@ -189,6 +189,6 @@ router.post('/signup', validateBody(signupSchema), flush, userController.addUser
 
 router.delete('/portfolio/transaction/:tid(\\d+)', jwtMW, flush, portfolioGuard.deleteTransaction, transactionController.deleteTransaction);
 
-router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, flush, walletController.deleteWallet);
+router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, flush, portfolioGuard.deleteWallet, walletController.deleteWallet);
 
 module.exports = router;
