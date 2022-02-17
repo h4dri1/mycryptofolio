@@ -1,13 +1,30 @@
 const { Transaction } = require("../models");
-const { buyGuard, sellGuard } = require("../services/gards");
+const { transactionGuard, walletGuard, coinGuard } = require("../services/gards");
 
 module.exports = {
     transactionGuard: async (req, res, next) => {
         try {
             if (req.body.buy) {
-                buyGuard(req, res, next)
+                if (req.body.id) {
+                    transactionGuard(req, res, next);
+                } else {
+                    walletGuard(req, res, next);
+                }
+                if (Number(req.body.quantity) <= 0) {
+                    return res.status(500).json('Buy quantity must be a positive number');
+                }
             } else {
-                sellGuard(req, res, next)
+                if (req.body.id) {
+                    transactionGuard(req, res, next);
+                    coinGuard(req, res, next);
+                } else {
+                    walletGuard(req, res, next);
+                    coinGuard(req, res, next);
+                }
+                if (Number(req.body.quantity) >= 0) {
+                    return res.status(500).json('Selling quantity must be a negative number');
+                }
+                next();
             }
         } catch (error) {
             console.log(error);
