@@ -11,7 +11,6 @@ module.exports = {
                 if (own[0].user_id !== Number(req.userId.id)) {
                     return res.status(500).json('You doesn\'t own this transaction');
                 }
-                next();
             } else {
                 const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
                 if (is_owning_wallet.length === 0) {
@@ -53,7 +52,6 @@ module.exports = {
                     console.log("ok")
                     return res.status(500).json('You trying to sell more coin than you have');
                 }
-                next()
             } else {
                 const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
                 if (is_owning_wallet.length === 0) {
