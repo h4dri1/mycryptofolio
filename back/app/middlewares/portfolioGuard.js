@@ -20,7 +20,7 @@ module.exports = {
                 }
             }
             if (res.status === 500) {
-                return
+                console.log('???')
             }
             next();
         } catch (error) {
