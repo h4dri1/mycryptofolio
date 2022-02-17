@@ -13,6 +13,7 @@ module.exports = {
                 if (Number(req.body.quantity) <= 0) {
                     return res.status(500).json('Buy quantity must be a positive number');
                 }
+                next();
             } else {
                 if (req.body.id) {
                     transactionGuard(req, res, next);
