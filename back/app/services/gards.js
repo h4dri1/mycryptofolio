@@ -35,6 +35,7 @@ module.exports = {
     },
 
     coinGuard: async (req, res, next) => {
+        const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
         const transacWallet = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
         const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
         try {
