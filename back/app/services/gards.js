@@ -61,6 +61,7 @@ module.exports = {
                     res = res.status(500).json('Selling quantity must be a negative number');
                 }
             }
+            
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
