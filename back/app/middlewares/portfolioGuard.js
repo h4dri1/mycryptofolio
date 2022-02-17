@@ -10,9 +10,6 @@ module.exports = {
                 } else {
                     walletGuard(req, res, next);
                 }
-                if (Number(req.body.quantity) <= 0) {
-                    return res.status(500).json('Buy quantity must be a positive number');
-                }
                 next();
             } else {
                 if (req.body.id) {
@@ -21,9 +18,6 @@ module.exports = {
                 } else {
                     walletGuard(req, res, next);
                     coinGuard(req, res, next);
-                }
-                if (Number(req.body.quantity) >= 0) {
-                    return res.status(500).json('Selling quantity must be a negative number');
                 }
                 next();
             }

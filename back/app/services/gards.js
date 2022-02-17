@@ -52,6 +52,15 @@ module.exports = {
                     return res.status(500).json('You trying to sell more coin than you have');
                 }
             }
+            if (req.body.buy) {
+                if (Number(req.body.quantity) <= 0) {
+                    return res.status(500).json('Buy quantity must be a positive number');
+                }
+            } else {
+                if (Number(req.body.quantity) >= 0) {
+                    return res.status(500).json('Selling quantity must be a negative number');
+                }
+            }
         } catch (error) {
             console.log(error);
             return res.status(500).json(error.message, true);
