@@ -6,9 +6,11 @@ module.exports = {
             let youShallNotPass;
             const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
             if (own.length === 0) {
+                res.status(404);
                 return youShallNotPass = 'No transaction with this id';
             }
             if (own[0].user_id !== Number(req.userId.id)) {
+                res.status(403);
                 return youShallNotPass = 'You doesn\'t own this transaction';
             }
         } catch (error) {
@@ -22,10 +24,12 @@ module.exports = {
             let youShallNotPass;
             const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
             if (is_owning_wallet.length === 0) {
+                res.status(400);
                 return youShallNotPass = 'You have no wallet create one before add transaction';
             } else {
                 const found = is_owning_wallet.filter(element => element.id === Number(req.params.wid)).length > 0;
                 if (!found) {
+                    res.status(403);
                     return youShallNotPass = `You doesn't own this wallet`;
                 }
             } 
@@ -42,24 +46,29 @@ module.exports = {
             const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
             const foundC = transacWallet.filter(element => element.coin_id === req.body.coin_id).length > 0;
             if (!foundC) {
+                res.status(400);
                 return youShallNotPass = 'You are trying to sell coins that are not present in this wallet'
             }
             if (req.body.id) {
                 const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
                 if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(Number(req.body.quantity)) + Math.abs(Number(own[0].quantity))) > wallet.total) {
+                    res.status(400);
                     return youShallNotPass = 'You trying to sell more coin than you have'
                 }
             } else {
                 if ((Number(wallet.total) + Number(req.body.quantity)) < 0) {
+                    res.status(400);
                     return youShallNotPass = 'You trying to sell more coin than you have'
                 }
             }
             if (req.body.buy) {
                 if (Number(req.body.quantity) <= 0) {
+                    res.status(400);
                     return youShallNotPass = 'Buy quantity must be a positive number'
                 }
             } else {
                 if (Number(req.body.quantity) >= 0) {
+                    res.status(400);
                     return youShallNotPass = 'Selling quantity must be a negative number'
                 }
             }
