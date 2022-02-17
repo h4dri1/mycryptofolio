@@ -4,19 +4,21 @@ const { transactionGuard, walletGuard, coinGuard } = require("../services/gards"
 module.exports = {
     transactionGuard: async (req, res, next) => {
         try {
+            let youShallNotPass;
             if (req.body.buy) {
                 if (req.body.id) {
-                    transactionGuard(req, res);
+                    youShallNotPass = await transactionGuard(req, res);
                 } else {
-                    walletGuard(req, res);
+                    youShallNotPass =  await walletGuard(req, res);
                 }
             } else {
                 if (req.body.id) {
-                    transactionGuard(req, res);
-                    var youShallNotPass = await coinGuard(req, res);
+                    youShallNotPass = await transactionGuard(req, res);
                 } else {
-                    walletGuard(req, res, next);
-                    var youShallNotPass = await coinGuard(req, res);
+                    youShallNotPass = await walletGuard(req, res);
+                }
+                if (!youShallNotPass) {
+                    youShallNotPass = await coinGuard(req, res);
                 }
             }
             if (youShallNotPass) {

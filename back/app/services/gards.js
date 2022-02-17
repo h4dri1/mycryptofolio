@@ -2,8 +2,8 @@ const { Transaction, Wallet } = require("../models");
 
 module.exports = {
     transactionGuard: async (req, res) => {
-        let youShallNotPass;
         try {
+            let youShallNotPass;
             const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
             if (own.length === 0) {
                 return youShallNotPass = 'No transaction with this id';
@@ -18,8 +18,8 @@ module.exports = {
     },
 
     walletGuard: async (req, res) => {
-        let youShallNotPass;
         try {
+            let youShallNotPass;
             const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
             if (is_owning_wallet.length === 0) {
                 return youShallNotPass = 'You have no wallet create one before add transaction';
@@ -33,20 +33,19 @@ module.exports = {
             console.log(error);
             return res.status(500).json(error.message, true);
         }
-
     },
 
     coinGuard: async (req, res) => {
-        let youShallNotPass;
-        const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
-        const transacWallet = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
-        const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
         try {
+            let youShallNotPass;
+            const transacWallet = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
+            const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
             const foundC = transacWallet.filter(element => element.coin_id === req.body.coin_id).length > 0;
             if (!foundC) {
                 return youShallNotPass = 'You are trying to sell coins that are not present in this wallet'
             }
             if (req.body.id) {
+                const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
                 if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(Number(req.body.quantity)) + Math.abs(Number(own[0].quantity))) > wallet.total) {
                     return youShallNotPass = 'You trying to sell more coin than you have'
                 }
