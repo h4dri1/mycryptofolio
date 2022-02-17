@@ -7,19 +7,21 @@ module.exports = {
             if (req.body.buy) {
                 if (req.body.id) {
                     transactionGuard(req, res, next);
+                    next();
                 } else {
                     walletGuard(req, res, next);
+                    next();
                 }
-                next();
             } else {
                 if (req.body.id) {
                     transactionGuard(req, res, next);
                     coinGuard(req, res, next);
+                    next();
                 } else {
                     walletGuard(req, res, next);
                     coinGuard(req, res, next);
+                    next();
                 }
-                next();
             }
         } catch (error) {
             console.log(error);
