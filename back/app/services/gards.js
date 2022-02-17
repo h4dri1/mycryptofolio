@@ -35,8 +35,8 @@ module.exports = {
     },
 
     coinGuard: async (req, res, next) => {
-        const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
         const transacWallet = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
+        const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
         try {
             const foundC = transacWallet.filter(element => element.coin_id === req.body.coin_id).length > 0;
             if (!foundC) {
