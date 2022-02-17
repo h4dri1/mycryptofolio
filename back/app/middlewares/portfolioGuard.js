@@ -22,7 +22,7 @@ module.exports = {
                 }
             }
             if (youShallNotPass) {
-                return res.status(500).json(youShallNotPass);
+                return res.json(youShallNotPass);
             } else {
                 next();
             }
@@ -65,7 +65,7 @@ module.exports = {
             }
         } catch (error) {
             console.log(error);
-            return res.status(500).json(error.message, true);
+            return res.json(error.message, true);
         }
     }
 }
