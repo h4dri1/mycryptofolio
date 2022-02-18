@@ -28,12 +28,10 @@ module.exports = {
     deleteTransaction: async (req, res, next) => {
         try {
             const own = await Transaction.getSumCoinByWalletWithSell(req.params.tid);
-            if (!own[0].transaction_id) {
-                res.status(404)
+            if (!own | own.length === 0) {
                 throw new NoTransactionId(req.params.tid).message;
             }
             if (own[0].user_id !== req.userId.id) {
-                res.status(403)
                 throw NotYourTransaction(req.params.tid).message;
             }
             if (own[0].sell === 0 | !own[0].buy) {
