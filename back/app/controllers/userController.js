@@ -7,7 +7,7 @@ module.exports = {
     validLoginJwt: async (req, res, next) => {
         try {
             const user = await User.findOne(req.body.email);
-            if (!user) {
+            if (user[0].id) {
                 res.status(401)
                 throw new BadPassUser().message
             }
