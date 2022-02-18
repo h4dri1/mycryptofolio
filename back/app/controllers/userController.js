@@ -8,7 +8,6 @@ module.exports = {
         try {
             const user = await User.findOne(req.body.email);
             if (!user.id) {
-                console.log('ok')
                 res.status(401)
                 throw new BadPassUser().message
             }
