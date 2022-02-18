@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
         } else {
             var cryptos = await Transaction.getUserCrypto(req.userId.id);
         }
-        if (cryptos[0].wallet_id) {
+        if (cryptos[0].wallet_id | cryptos.length === 0) {
             const strCryptos = cryptos.map((crypto) => {
                 return crypto['coin_id']
             });

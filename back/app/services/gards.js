@@ -13,18 +13,16 @@ module.exports = {
     transactionGuard: async (req, res, next) => {
         const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
         if (!own[0].transaction_id) {
-            res.status(404);
             throw new NoTransactionId(req.body.id).message;
         }
         if (own[0].user_id !== Number(req.userId.id)) {
-            res.status(403);
             throw new NotYourTransaction(req.body.id).message;
         }
     },
 
     walletGuard: async (req, res, next) => {
         const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
-        if (!is_owning_wallet[0].id) {
+        if (!is_owning_wallet[0].id | is_owning_wallet.length === 0) {
             res.status(400);
             throw new NoWallet().message;
         } else {
@@ -37,7 +35,6 @@ module.exports = {
     },
 
     coinGuard: async (req, res, next) => {
-        let youShallNotPass;
         const transacWallet = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
         const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
         const foundC = transacWallet.filter(element => element.coin_id === req.body.coin_id).length > 0;

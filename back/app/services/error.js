@@ -4,7 +4,6 @@ class NoTransactionId extends Error {
     }
 }
 
-
 class NotYourTransaction extends Error {
     constructor(id) {
         super(`You doesn\'t own the transaction whith id ${id}`);
@@ -37,6 +36,7 @@ class MoreCoinThanYouHave extends Error {
 
 class BuyMustBePositive extends Error {
     constructor() {
+
         super(`Buy quantity must be a positive number`);
     }
 }
