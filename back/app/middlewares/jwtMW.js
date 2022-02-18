@@ -1,18 +1,19 @@
 const jwt = require('../services/jwt');
+const { InvalidToken } = require('../services/error');
 
 module.exports = (req, res, next) => {
     try {
         const token = req.headers['authorization'];
         if (!token) {
-            return res.status(401).json('Invalid token');
+            throw new InvalidToken().message;
         }
         const payload = jwt.validateToken(token);
         if (!payload.user) {
-            return res.status(401).json('Invalid token');
+            throw new InvalidToken().message;
         }
         req.userId = payload.user;
         next();
-    } catch(error) {
-        return res.status(401).json(error.message);
+    } catch(err) {
+        next(err);
     };
 };

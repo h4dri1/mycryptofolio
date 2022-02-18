@@ -2,37 +2,25 @@ const { Crypto } = require('../models');
 const service_fetch = require('../services/fetch');
 
 module.exports = {
-    getAllCryptos: async (req, res) => {
+    getAllCryptos: async (req, res, next) => {
         try {
             const cryptos = await Crypto.findAll();
-            if (!cryptos) {
-                if (error.message) {
-                    return res.status(500).json(error.message, true);
-                }
-                return res.status(500).json('error not defined', true);
-            };
             res.status(200).json(cryptos);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
 
-    getTopCrypto: async (req, res) => {
+    getTopCrypto: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);
             res.status(200).json(data);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
 
-    getOneCrypto: async (req, res) => {
+    getOneCrypto: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}`);
             let days = 180;
@@ -61,15 +49,12 @@ module.exports = {
                 chart
             }
             res.status(200).json(superObj);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
 
-    getOnePrice: async (req, res) => {
+    getOnePrice: async (req, res, next) => {
         try {
             let link = `//api.coingecko.com/api/v3/simple/price?ids=${req.params.id}&vs_currencies=${req.params.vs}`
             if (req.params.include_market_cap) {
@@ -86,47 +71,35 @@ module.exports = {
             }
             const data = await service_fetch(link);
             res.status(200).json(data);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
  
-    getTrendingCryptos: async (req, res) => {
+    getTrendingCryptos: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
             res.status(200).json(data);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
 
-    getGlobalData: async (req, res) => {
+    getGlobalData: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/global`);
             res.status(200).json(data);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
 
-    getHistoricalData: async (req, res) => {
+    getHistoricalData: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
             res.status(200).json(data);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);        
         }
     }
 };

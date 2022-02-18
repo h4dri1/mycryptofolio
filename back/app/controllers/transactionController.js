@@ -2,7 +2,7 @@ const jwt = require('../services/jwt');
 const { Transaction, Crypto, Wallet } = require('../models');
 
 module.exports = {
-    getPortfolio: async (req, res) => {
+    getPortfolio: async (req, res, next) => {
         try {
             /////////////////////////////////////////////////////////////////////////////////
             let objRepartition;
@@ -24,13 +24,6 @@ module.exports = {
                 objPerformance = await Transaction.getPerformance(req.userId.id);
                 empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
             };
-
-            if (!objTransactions | !objRepartition | !objWallet | !objPerformance) {
-                if (error.message) {
-                    return res.status(500).json(error.message, true);
-                }
-                return res.status(500).json('error not defined', true);
-            };
             /////////////////////////////////////////////////////////////////////////////////
             if (empty) {
                 for (const emp of empty) {
@@ -46,15 +39,12 @@ module.exports = {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
 
-    addTransaction: async (req, res) => {
+    addTransaction: async (req, res, next) => {
         try {
             const crypto_id = await Crypto.findOneCrypto(req.body.coin_id, req.body.symbol);
             const instance = new Transaction(req.body);
@@ -69,25 +59,19 @@ module.exports = {
                 return res.status(201).json(transaction);
             }
             res.status(204).json('Update ok')
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
 
-    deleteTransaction: async (req, res) => {
+    deleteTransaction: async (req, res, next) => {
         try {
             await Transaction.delete(req.params.tid);
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(204).json('delete ok');
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         } 
     }
 };

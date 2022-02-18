@@ -2,7 +2,7 @@ const jwt = require('../services/jwt');
 const { Wallet, Transaction } = require('../models');
 
 module.exports = {
-    addWallet: async (req, res) => {
+    addWallet: async (req, res, next) => {
         try {
             const instance = new Wallet(req.body);
             instance.user_id = req.userId.id;
@@ -14,15 +14,12 @@ module.exports = {
                 return res.status(201).json(wallet);
             }
             res.status(204).json(wallet);
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     },
 
-    deleteWallet: async (req, res) => {
+    deleteWallet: async (req, res, next) => {
         try {
             const transactions = await Transaction.getTransactionByWallet(req.params.wid);
             for (const transaction of transactions) {
@@ -32,11 +29,8 @@ module.exports = {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             return res.status(204).json();
-        } catch (error) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
-            }
-            return res.status(500).json('error not defined', true);
+        } catch (err) {
+            next(err);
         }
     }
 };
