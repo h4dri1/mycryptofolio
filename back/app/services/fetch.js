@@ -1,12 +1,13 @@
 const fetch = require('cross-fetch');
+const { PublicApiError } = require('./error');
 
 module.exports = async (fetchData) => {
-    try {
-        const coins = await fetch(fetchData);
-        return data = await coins.json();
-    } catch (error) {
-        console.log(error);
-        throw error;
+    const coins = await fetch(fetchData);
+    if (!coins) {
+        throw { 
+            url: fetchData,
+            error : new PublicApiError().message
+        }
     }
-
+    return data = await coins.json();
 }

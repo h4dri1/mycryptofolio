@@ -15,37 +15,23 @@ class User {
      */
 
      static async findOne(email) {
-        try {
-            const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1;', [email]);
-            if (rows[0]) {
-                return new User(rows[0]);
-            }
-        } catch (error) {
-            console.log(error);
-            throw error; 
-        }
+        const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1;', [email]);
+        return new User(rows[0]);
     }
 
     async save() {
-        try {
-            const {rows} = await db.query('SELECT * FROM add_user($1)', [this]);
-            if (rows) {
-                this.id = rows[0].id;
-                return this;
-            }
-            //if(this.id) {
-            //    await db.query('SELECT * FROM update_user($1)', [this])
-            //} else {
-            //    const {rows} = await db.query('SELECT * FROM add_user($1)', [this]);
-            //    if (rows) {
-            //        this.id = rows[0].id;
-            //        return this;
-            //    }
-            //}
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+        const {rows} = await db.query('SELECT * FROM add_user($1)', [this]);
+        this.id = rows[0].id;
+        return this;
+        //if(this.id) {
+        //    await db.query('SELECT * FROM update_user($1)', [this])
+        //} else {
+        //    const {rows} = await db.query('SELECT * FROM add_user($1)', [this]);
+        //    if (rows) {
+        //        this.id = rows[0].id;
+        //        return this;
+        //    }
+        //}
     }
 };
 

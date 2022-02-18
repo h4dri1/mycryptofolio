@@ -1,57 +1,52 @@
 const { Transaction } = require("../models");
 const { transactionGuard, walletGuard, coinGuard } = require("../services/gards");
+const { NoTransactionId, NotYourTransaction, DeleteFirstSell, NotYourWallet } = require('../services/error');
 
 module.exports = {
     transactionGuard: async (req, res, next) => {
         try {
-            let youShallNotPass;
             if (req.body.buy) {
                 if (req.body.id) {
-                    youShallNotPass = await transactionGuard(req, res);
+                    transactionGuard(req, res);
                 } else {
-                    youShallNotPass =  await walletGuard(req, res);
+                    await walletGuard(req, res);
                 }
             } else {
                 if (req.body.id) {
-                    youShallNotPass = await transactionGuard(req, res);
+                    await transactionGuard(req, res);
                 } else {
-                    youShallNotPass = await walletGuard(req, res);
+                    await walletGuard(req, res);
                 }
-                if (!youShallNotPass) {
-                    youShallNotPass = await coinGuard(req, res);
-                }
+                await coinGuard(req, res);
             }
-            if (youShallNotPass) {
-                return res.json(youShallNotPass);
-            } else {
-                next();
-            }
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json(error.message, true);
+            next();
+        } catch (err) {
+            next(err);
         }
     },
 
     deleteTransaction: async (req, res, next) => {
         try {
             const own = await Transaction.getSumCoinByWalletWithSell(req.params.tid);
-            if (own.length === 0) {
-                return res.status(500).json('No transaction with this id');
+            if (!own[0].transaction_id) {
+                res.status(404)
+                throw new NoTransactionId(req.params.tid).message;
             }
             if (own[0].user_id !== req.userId.id) {
-                return res.status(500).json('You doesn\'t own this transaction');
+                res.status(403)
+                throw NotYourTransaction(req.params.tid).message;
             }
             if (own[0].sell === 0 | !own[0].buy) {
                 next();
             } else {
                 if (Math.round(own[0].total) === 0) {
-                    return res.status(500).json('Delete first sell transaction');
+                    res.status(400)
+                    throw new DeleteFirstSell(req.params.tid).message;
                 }
                 next();
             }
-        } catch {
-            console.log(error);
-            return res.status(500).json(error.message, true);
+        } catch (err) { 
+            next(err)
         }
     }, 
 
@@ -59,13 +54,12 @@ module.exports = {
         try {
             const youShallNotPass = await walletGuard(req, res);
             if (youShallNotPass) {
-                return res.status(500).json(youShallNotPass);
+                throw new NotYourWallet(req.params.wid).message;
             } else {
                 next();
             }
-        } catch (error) {
-            console.log(error);
-            return res.json(error.message, true);
+        } catch (err) {
+            next(err)
         }
     }
 }

@@ -1,20 +1,19 @@
 const jwt = require('../services/jwt');
+const { InvalidToken } = require('../services/error');
 
 module.exports = {
-    refresh: (req, res) => {
+    refresh: (req, res, next) => {
         try {
             const refreshPayload = jwt.validateRefreshToken(req.params.token);
-            if (!refreshPayload) {
-                return res.status(401).json('Token Invalide !');
+            if (!refreshPayload.user) {
+                res.status(401);
+                throw new InvalidToken().message;
             }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(refreshPayload.user, refreshPayload.wallet));
             res.status(200).json('token refresh ok');
-        } catch (error) {
-            if (error.message) {
-                return res.status(401).json(error.message);
-            }
-            return res.status(401).json(error.message);
+        } catch (err) {
+            next(err);
         };
     }
 };
