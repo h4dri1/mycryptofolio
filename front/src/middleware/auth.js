@@ -97,8 +97,8 @@ const auth = (store) => (next) => async (action) => {
           }
         })
         .catch((err) => {
-          console.log(err.response.data);
-          store.dispatch(setDisplaySnackBar({ severity: 'warning', message: err.response.data }));
+          console.log(err.response.data.message);
+          store.dispatch(setDisplaySnackBar({ severity: 'warning', message: err.response.data.message }));
         });
       next(action);
       break;
