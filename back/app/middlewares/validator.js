@@ -1,10 +1,10 @@
-const { JoiError, InvalidToken } = require('../services/error')
+const { FormError, InvalidToken } = require('../services/error')
 
 const validator = {
     validateBody: (schema) => (req, res, next) => {
         const {error} = schema.validate(req.body);
         if (error) {
-            throw new JoiError(error.message)
+            throw new FormError(error.message)
         } else {
             next();
         }
@@ -13,7 +13,7 @@ const validator = {
     validateQuery: (schema) => (req, res, next) => {
         const {error} = schema.validate(req.query);
         if (error) {
-            throw new JoiError(error.message)
+            throw new FormError(error.message)
         } else {
             next();
         }
@@ -22,7 +22,7 @@ const validator = {
     validateParams: (schema) => (req, res, next) => {
         const {error} = schema.validate(req.params);
         if (error) {
-            throw new JoiError(error.message)
+            throw new FormError(error.message)
         } else {
             next();
         }
