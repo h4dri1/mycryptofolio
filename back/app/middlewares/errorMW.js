@@ -4,8 +4,11 @@ const errorLogger = (err, req, res, next) => {
 }
 
 const errorResponder = (err, req, res, next) => {
+    if (!err.statusCode) {
+        err.statusCode = 500
+    }
     res.header("Content-Type", 'application/json')
-    res.send(JSON.stringify(err, null, 4))
+    res.status(err.statusCode).send(JSON.stringify(err, null, 4))
 }
 
 module.exports = { errorLogger, errorResponder }
