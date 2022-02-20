@@ -65,7 +65,7 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTE0ODE3MywiZXhwIjoxNjQ1MTQ4NDczfQ.gm7Cj3oqoV0C3ACmdF3TJgpksOzJl2yU29fho1Q1IBQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTMxNTU0NSwiZXhwIjoxNjQ1MzE1ODQ1fQ.zyNupNHja5D1uGdSMiCjaV2BcTVl-84ooOsePL1OOtw
 
 
 ###
@@ -77,7 +77,7 @@ Authorization:
 
 POST http://localhost:8888/v1/portfolio/wallet/1/transaction/ HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTE0ODE3MywiZXhwIjoxNjQ1MTQ4NDczfQ.gm7Cj3oqoV0C3ACmdF3TJgpksOzJl2yU29fho1Q1IBQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTMxNjQ5NywiZXhwIjoxNjQ1MzE2Nzk3fQ.q2awox-8ooClVkDKOqDcwF5S0vFt2AlQXcW7C4hpjAc
 
 {
   "buy": false,
@@ -105,7 +105,7 @@ content-type: application/json
 
 {
   "email": "test10@test.fr",
-  "nickname": "test3",
+  "nickname": "s$",
   "password": "#Cafard0087",
   "passwordCheck": "#Cafard0087",
   "picture": "cool"

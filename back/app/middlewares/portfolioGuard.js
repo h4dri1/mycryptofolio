@@ -1,5 +1,5 @@
 const { Transaction } = require("../models");
-const { transactionGuard, walletGuard, coinGuard } = require("../services/gards");
+const { transactionGuard, walletGuard, coinGuard, buySellSign } = require("../services/gards");
 const { NoTransactionId, NotYourTransaction, DeleteFirstSell, NotYourWallet } = require('../services/error');
 
 module.exports = {
@@ -19,6 +19,7 @@ module.exports = {
                 }
                 await coinGuard(req, res);
             }
+            await buySellSign(req, res);
             next();
         } catch (err) {
             next(err);
@@ -29,17 +30,16 @@ module.exports = {
         try {
             const own = await Transaction.getSumCoinByWalletWithSell(req.params.tid);
             if (!own | own.length === 0) {
-                throw new NoTransactionId(req.params.tid).message;
+                throw new NoTransactionId(req.params.tid);
             }
             if (own[0].user_id !== req.userId.id) {
-                throw NotYourTransaction(req.params.tid).message;
+                throw NotYourTransaction(req.params.tid);
             }
             if (own[0].sell === 0 | !own[0].buy) {
                 next();
             } else {
                 if (Math.round(own[0].total) === 0) {
-                    res.status(400)
-                    throw new DeleteFirstSell(req.params.tid).message;
+                    throw new DeleteFirstSell(req.params.tid);
                 }
                 next();
             }
@@ -52,7 +52,7 @@ module.exports = {
         try {
             const youShallNotPass = await walletGuard(req, res);
             if (youShallNotPass) {
-                throw new NotYourWallet(req.params.wid).message;
+                throw new NotYourWallet(req.params.wid);
             } else {
                 next();
             }

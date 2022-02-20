@@ -7,10 +7,10 @@ module.exports = {
             const refreshPayload = jwt.validateRefreshToken(req.params.token);
             if (!refreshPayload.user) {
                 res.status(401);
-                throw new InvalidToken().message;
+                throw new InvalidToken();
             }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            res.setHeader('Authorization', jwt.makeToken(refreshPayload.user, refreshPayload.wallet));
+            res.setHeader('Authorization', jwt.makeToken(refreshPayload.user));
             res.status(200).json('token refresh ok');
         } catch (err) {
             next(err);
