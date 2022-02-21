@@ -30,14 +30,15 @@ module.exports = async (req, res, next) => {
                 }
                 next();
             }
-        } else if (req.url === '/jwt/login') {
-            console.error = async (_, data) => {
-                data.count = 1
-                const str = JSON.stringify(data);
-                await db.set(key, str, {EX: timeout, NX: true});
-            }
-            next();
         }
+
+        console.error = async (_, data) => {
+            data.count = 1
+            const str = JSON.stringify(data);
+            await db.set(key, str, {EX: timeout, NX: true});
+        }
+        next();
+        
     } catch(err) {
         next(err)
     };
