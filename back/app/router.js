@@ -8,19 +8,21 @@ const {
     cryptoController,
     transactionController,
     walletController
-} = require('./controllers');
+    } 
+    = require('./controllers');
 
 const { loginSchema,
         signupSchema, 
         transactionSchema, 
         walletSchema 
-} = require('./schemas');
+    } 
+    = require('./schemas');
 
 const { validateBody, validateJWT } = require('./middlewares/validator');
 
-const { jwtMW, fetchMW, portfolioGuard } = require('./middlewares');
+const { jwtMW, fetchMW, portfolioGuard, auth } = require('./middlewares');
 
-const {cache, flush} = require('./services/cache');
+const {cache, flush } = require('./services/cache');
 
 /**
 * @typedef {Object} User_Login
@@ -85,7 +87,7 @@ const {cache, flush} = require('./services/cache');
  * @returns {object} 500 - An error message
  */
 
-router.post('/jwt/login', validateBody(loginSchema), userController.validLoginJwt);
+router.post('/jwt/login', auth, validateBody(loginSchema), userController.validLoginJwt);
 
 /**
  * GET /v1/jwt/refresh/{token}
