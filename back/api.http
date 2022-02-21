@@ -65,14 +65,15 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTMxNTU0NSwiZXhwIjoxNjQ1MzE1ODQ1fQ.zyNupNHja5D1uGdSMiCjaV2BcTVl-84ooOsePL1OOtw
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTQ4MDMwOCwiZXhwIjoxNjQ1NDgwNjA4fQ.c9SV843YdcI3A-HuXJxpsFRvdJQRekyfwLr9eBnE2vs
 
 
 ###
 
-GET http://localhost:8888/v1/portfolio/wallet/4
+GET http://localhost:8888/v1/portfolio/wallet/1
 Content-Type: application/json
-Authorization: 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTQ4MDMwOCwiZXhwIjoxNjQ1NDgwNjA4fQ.c9SV843YdcI3A-HuXJxpsFRvdJQRekyfwLr9eBnE2vs
+
 ### ATTENTION LA ROUTE ADD TRANSACTION EST ACCESSIBLE A UN USER CONNECTE AVEC UN MAUVAIS WALLET
 
 POST http://localhost:8888/v1/portfolio/wallet/1/transaction/ HTTP/1.1
@@ -118,7 +119,7 @@ content-type: application/json
 
 {
     "email": "test@test.fr",
-    "password": "#0clock$0087"
+    "password": "#0clock0087"
 }
 
 ### 

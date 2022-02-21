@@ -1,4 +1,3 @@
-const jwt = require('../services/jwt');
 const { Wallet, Transaction } = require('../models');
 
 module.exports = {
@@ -7,8 +6,6 @@ module.exports = {
             const instance = new Wallet(req.body);
             instance.user_id = req.userId.id;
             const wallet = await instance.save();
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
-            res.setHeader('Authorization', jwt.makeToken(req.userId));
             if (wallet) {
                 wallet.sum = 0;
                 return res.status(201).json(wallet);
@@ -26,8 +23,6 @@ module.exports = {
                 await Transaction.delete(transaction.transaction_id);
             }
             await Wallet.delete(req.params.wid);
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
-            res.setHeader('Authorization', jwt.makeToken(req.userId));
             return res.status(204).json();
         } catch (err) {
             next(err);

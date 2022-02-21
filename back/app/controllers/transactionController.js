@@ -1,4 +1,3 @@
-const jwt = require('../services/jwt');
 const { Transaction, Crypto, Wallet } = require('../models');
 
 module.exports = {
@@ -36,8 +35,6 @@ module.exports = {
             portfolio.performance = objPerformance;
             portfolio.wallet = objWallet;
             /////////////////////////////////////////////////////////////////////////////////
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
-            res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(200).json(portfolio);
         } catch (err) {
             next(err);
@@ -53,8 +50,6 @@ module.exports = {
             instance.wallet_id = req.params.wid;
             instance.crypto_id = crypto_id[0].id;
             const transaction = await instance.save();
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
-            res.setHeader('Authorization', jwt.makeToken(req.userId));
             if (transaction) {
                 return res.status(201).json(transaction);
             }
@@ -67,8 +62,6 @@ module.exports = {
     deleteTransaction: async (req, res, next) => {
         try {
             await Transaction.delete(req.params.tid);
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization'); 
-            res.setHeader('Authorization', jwt.makeToken(req.userId));
             res.status(204).json('delete ok');
         } catch (err) {
             next(err);
