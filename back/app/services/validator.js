@@ -1,4 +1,4 @@
-const { FormError, InvalidToken } = require('../services/error')
+const { FormError, InvalidToken } = require('./error')
 
 const validator = {
     validateBody: (schema) => (req, res, next) => {

@@ -6,8 +6,9 @@ const {
     userController,
     tokenController,
     cryptoController,
-    transactionController,
-    walletController
+    portfolioController,
+    walletController, 
+    transactionController
     } 
     = require('./controllers');
 
@@ -18,7 +19,7 @@ const { loginSchema,
     } 
     = require('./schemas');
 
-const { validateBody, validateJWT } = require('./middlewares/validator');
+const { validateBody, validateJWT } = require('./services/validator');
 
 const { jwtMW, fetchMW, portfolioGuard, auth } = require('./middlewares');
 
@@ -171,7 +172,7 @@ router.get('/history/:coinId/:day-:month-:year', cache, cryptoController.getHist
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio', jwtMW, cache, fetchMW, portfolioController.getPortfolio);
 
 /**
  * GET /v1/portfolio/wallet/{wallet_id}
@@ -181,7 +182,7 @@ router.get('/portfolio', jwtMW, cache, fetchMW, transactionController.getPortfol
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, transactionController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, portfolioController.getPortfolio);
 
 router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), portfolioGuard.transactionGuard, transactionController.addTransaction);
 
