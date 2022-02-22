@@ -1,11 +1,11 @@
 const fetchMW = require('./fetchMW');
 const jwtMW = require('./jwtMW');
-const portfolioGuard = require('./guardMW');
-const auth = require('./authMW');
+const guardMW = require('./guardMW');
+const errorMW = require('./errorMW');
 
 module.exports = {
     fetchMW,
     jwtMW,
-    portfolioGuard,
-    auth
+    guardMW,
+    errorMW
 }

@@ -1,5 +1,5 @@
 const { Transaction } = require("../models");
-const { transactionGuard, walletGuard, coinGuard, buySellSign } = require("../services/gards");
+const { transactionGuard, walletGuard, coinGuard, buySellSign } = require("../services/guards");
 const { NoTransactionId, NotYourTransaction, DeleteFirstSell, NotYourWallet } = require('../services/error');
 
 module.exports = {
