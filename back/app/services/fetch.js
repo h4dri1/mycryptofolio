@@ -1,5 +1,5 @@
 const fetch = require('cross-fetch');
-const { PublicApiError } = require('./error');
+const { PublicApiError } = require('../error');
 
 module.exports = async (fetchData) => {
     const coins = await fetch(fetchData);

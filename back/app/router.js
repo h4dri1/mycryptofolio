@@ -25,9 +25,9 @@ const { loginSchema,
     } 
     = require('./schemas');
 
-const { jwtMW, fetchMW, guardMW } = require('./middlewares');
+const { jwtMW, fetchMW, guardMW, validateJWT, validateBody, validateParams } = require('./middlewares');
 
-const { auth, cache, flush, validateJWT, validateBody, validateParams } = require('./services');
+const { auth, cache, flush } = require('./services');
 
 /**
 * @typedef {Object} User_Login

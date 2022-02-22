@@ -7,7 +7,7 @@ const { NoTransactionId,
         SellMustBeNegative,
         BuyMustBePositive,
         MoreCoinThanYouHave 
-        } = require('../services/error');
+        } = require('../error');
 
 module.exports = {
     transactionGuard: async (req, res, next) => {

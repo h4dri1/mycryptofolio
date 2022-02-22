@@ -1,7 +1,7 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('../services/jwt');
-const { BadPassUser, EmailUsed, CheckYourPassword } = require('../services/error');
+const { BadPassUser, EmailUsed, CheckYourPassword } = require('../error');
 
 module.exports = {
     validLoginJwt: async (req, res, next) => {
