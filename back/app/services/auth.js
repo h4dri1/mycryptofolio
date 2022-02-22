@@ -28,6 +28,14 @@ module.exports = async (req, res, next) => {
                         await db.set(key, str, {EX: timeout});
                     }
                 }
+
+                const originalResponseJson = res.json.bind(res);
+
+                res.json = async (data) => {
+                    await db.del(key);
+                    originalResponseJson(data);
+                }
+
                 next();
             }
         } else if (req.url === '/jwt/login') {

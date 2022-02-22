@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 
 const bodyParser = require('body-parser');
 
-const { errorLogger, errorResponder } = require('./app/middlewares/errorMW');
+const { errorMW } = require('./app/middlewares');
 
 const helmet = require('helmet');
 
@@ -68,9 +68,9 @@ app.use(express.json());
 
 app.use('/v1', router);
 
-app.use(errorLogger);
+app.use(errorMW.errorLogger);
 
-app.use(errorResponder);
+app.use(errorMW.errorResponder);
 
 app.use((_, res) => {
     res.status(404).json('404 Not found');

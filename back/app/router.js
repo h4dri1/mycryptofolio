@@ -15,15 +15,19 @@ const {
 const { loginSchema,
         signupSchema, 
         transactionSchema, 
-        walletSchema 
+        walletSchema,
+        getTopCryptoSchema,
+        getOneCryptoSchema,
+        getOnePriceSchema,
+        getPortfolioSchema,
+        deleteTransactionSchema,
+        deleteWalletSchema
     } 
     = require('./schemas');
 
-const { validateBody, validateJWT } = require('./services/validator');
+const { jwtMW, fetchMW, guardMW } = require('./middlewares');
 
-const { jwtMW, fetchMW, portfolioGuard, auth } = require('./middlewares');
-
-const {cache, flush } = require('./services/cache');
+const { auth, cache, flush, validateJWT, validateBody, validateParams } = require('./services');
 
 /**
 * @typedef {Object} User_Login
@@ -111,7 +115,7 @@ router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
+router.get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto);
 
 /**
  * GET /v1/crypto/{id}
@@ -122,7 +126,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/crypto/:id/:nbd?', cache, cryptoController.getOneCrypto);
+router.get('/crypto/:id/:nbd?', validateParams(getOneCryptoSchema), cache, cryptoController.getOneCrypto);
 
  /**
  * GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
@@ -138,7 +142,7 @@ router.get('/crypto/:id/:nbd?', cache, cryptoController.getOneCrypto);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', cache, cryptoController.getOnePrice);
+router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', validateParams(getOnePriceSchema), cache, cryptoController.getOnePrice);
 
 /**
  * GET /v1/cryptos
@@ -182,16 +186,16 @@ router.get('/portfolio', jwtMW, cache, fetchMW, portfolioController.getPortfolio
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, portfolioController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', validateParams(getPortfolioSchema), jwtMW, cache, fetchMW, portfolioController.getPortfolio);
 
-router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), portfolioGuard.transactionGuard, transactionController.addTransaction);
+router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), guardMW.transactionGuard, transactionController.addTransaction);
 
 router.post('/portfolio/wallet', jwtMW, flush, validateBody(walletSchema), walletController.addWallet);
 
 router.post('/signup', validateBody(signupSchema), flush, userController.addUser);
 
-router.delete('/portfolio/transaction/:tid(\\d+)', jwtMW, flush, portfolioGuard.deleteTransaction, transactionController.deleteTransaction);
+router.delete('/portfolio/transaction/:tid(\\d+)', validateParams(deleteTransactionSchema), jwtMW, flush, guardMW.deleteTransaction, transactionController.deleteTransaction);
 
-router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, flush, portfolioGuard.deleteWallet, walletController.deleteWallet);
+router.delete('/portfolio/wallet/:wid(\\d+)', validateParams(deleteWalletSchema), jwtMW, flush, guardMW.deleteWallet, walletController.deleteWallet);
 
 module.exports = router;
