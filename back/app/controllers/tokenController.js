@@ -1,5 +1,5 @@
 const jwt = require('../services/jwt');
-const { InvalidToken } = require('../services/error');
+const { InvalidToken } = require('../error');
 
 module.exports = {
     refresh: (req, res, next) => {
