@@ -19,7 +19,8 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(user));
             const response = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
-                "refreshToken": jwt.makeRefreshToken(user)
+                "refreshToken": jwt.makeRefreshToken(user),
+                "id": user.id
             };
             res.status(200).json(response);
         } catch (err) {
@@ -48,7 +49,7 @@ module.exports = {
                 "refreshToken": jwt.makeRefreshToken(newUser)
             };     
             if (newUser) {           
-                return res.status(201).json(response);
+                res.status(201).json(response);
             }             
             //return res.status(204).json('update ok');
         } catch (err) {

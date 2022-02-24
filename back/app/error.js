@@ -118,6 +118,33 @@ class BadPassUser extends Error {
     }
 }
 
+class BanUser extends Error {
+    constructor() {
+        super();
+        this.name = this.constructor.name;
+        this.message = `You have try 5 times with bad credentials retry in 30min`;
+        this.statusCode = 401;
+    }
+}
+
+class UseRevokedRefreshToken extends Error {
+    constructor() {
+        super();
+        this.name = this.constructor.name;
+        this.message = `You try to use a revoked login session please to log in again`;
+        this.statusCode = 403;
+    }
+}
+
+class BadGuy extends Error {
+    constructor() {
+        super();
+        this.name = this.constructor.name;
+        this.message = `The refresh token you trying to use is not yours, admin alerted`;
+        this.statusCode = 403;
+    }
+}
+
 class EmailUsed extends Error {
     constructor(email) {
         super();
@@ -161,5 +188,8 @@ module.exports = {
     EmailUsed,
     CheckYourPassword,
     FormError,
-    JWTError
+    JWTError,
+    BanUser,
+    UseRevokedRefreshToken,
+    BadGuy
 };

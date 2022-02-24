@@ -2,51 +2,88 @@ const { createClient } = require('redis');
 const db = createClient();
 db.connect();
 
-module.exports = async (req, res, next) => {
-    try {
-        const prefix = 'mycryptofolio:';
-        newKey = `${prefix}${req.body.email}`;
-        timeout = 60 * 30;
-    
-        const key = newKey;
-    
-        if (await db.exists(key)) {
-            const cachedString = await db.get(key);
-            const cachedValue = JSON.parse(cachedString); 
-            const cts = cachedValue.count;
-            if (cachedValue.count > 4) {
-                cachedValue.message = 'You have try 5 times with bad credentials retry in 30min';
-                return res.json(cachedValue);
-            } else {
-                console.error = async (_, data) => {
-                    if (data.name === 'BadPassUser') {
-                        data.count = cts + 1
-                        if (data.count === 4) {
-                            data.message = 'This is your last try, after that you have to wait 30min before you can try again';
-                        }
-                        const str = JSON.stringify(data);
-                        await db.set(key, str, {EX: timeout});
-                    }
-                }
+const jwt = require('./jwt');
 
-                const originalResponseJson = res.json.bind(res);
+const { BanUser, UseRevokedRefreshToken, BadGuy, InvalidToken } = require('../error');
 
-                res.json = async (data) => {
-                    await db.del(key);
-                    originalResponseJson(data);
-                }
+module.exports = {
+    login: async (req, res, next) => {
+        const prefix = 'login:';
+        const key = `${prefix}${req.body.email}`
+        const timeout = 60 * 30;
 
-                next();
-            }
-        } else if (req.url === '/jwt/login') {
+        if (!await db.exists(key)) {
             console.error = async (_, data) => {
-                data.count = 1
-                const str = JSON.stringify(data);
-                await db.set(key, str, {EX: timeout, NX: true});
+                if (data && data.name === 'BadPassUser') {
+                    await db.set(key, 1);
+                }
+            }
+
+            const originalResponseJson = res.json.bind(res);
+
+            res.json = async (data) => {
+                const [head, pay, sign] = data.refreshToken.split('.')
+                await db.hSet(`${data.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
+                originalResponseJson(data);
             }
             next();
+        } else {
+            const cachedString = await db.get(key);
+            const cachedValue = JSON.parse(cachedString);
+
+            if (cachedValue > 4) {
+                await db.expire(key, timeout)
+                return res.json(new BanUser);
+            } else {
+                const originalResponseJson = res.json.bind(res);
+
+                console.error = async (_, data) => {
+                    if (data && data.name === 'BadPassUser') {
+                        await db.incr(key);
+                    }
+                }
+                
+                res.json = async (data) => {
+                    await db.del(key);
+                    const [head, pay, sign] = data.refreshToken.split('.')
+                    await db.hSet(`${data.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
+                    originalResponseJson(data);
+                }
+                next();
+            }
         }
-    } catch(err) {
-        next(err)
-    };
-};
+    },
+
+    logout: async (req, res, next) => {
+        try {
+            const refreshPayload = jwt.validateRefreshToken(req.params.token);
+            if (!refreshPayload.user) {
+                throw new InvalidToken();
+            }
+            if (refreshPayload.user.id !== req.userId.id) {
+                throw new BadGuy();
+            }
+            const [head, pay, sign] = req.params.token.split('.')
+            if (await db.hExists(`${req.userId.id}`, sign)) {
+                await db.hDel(`${req.userId.id}`, sign);
+            }
+            return res.status(200).json({message: 'logout ok'})
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    checkRT: async (req, res, next) => {
+        const refreshPayload = jwt.validateRefreshToken(req.params.token);
+        if (!refreshPayload.user) {
+            throw new InvalidToken();
+        }
+        const [head, pay, sign] = req.params.token.split('.');
+        if (!await db.hExists(`${refreshPayload.user.id}`, sign)) {
+            throw new UseRevokedRefreshToken();
+        } else {
+            return refreshPayload;
+        }
+    }
+}
+
