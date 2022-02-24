@@ -92,7 +92,9 @@ const { auth, cache, flush } = require('./services');
  * @returns {object} 500 - An error message
  */
 
-router.post('/jwt/login', auth, validateBody(loginSchema), userController.validLoginJwt);
+router.post('/jwt/login', validateBody(loginSchema), auth.login, userController.validLoginJwt);
+
+router.get('/logout/:token', jwtMW, auth.logout)
 
 /**
  * GET /v1/jwt/refresh/{token}

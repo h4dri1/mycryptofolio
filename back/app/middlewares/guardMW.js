@@ -7,7 +7,7 @@ module.exports = {
         try {
             if (req.body.buy) {
                 if (req.body.id) {
-                    transactionGuard(req, res);
+                   await transactionGuard(req, res);
                 } else {
                     await walletGuard(req, res);
                 }
