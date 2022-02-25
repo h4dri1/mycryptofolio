@@ -4,8 +4,6 @@ const express = require('express');
 
 const cors = require('cors');
 
-const youShallNotPass = require('./app/middlewares/youShallNotPass')
-
 const router = require('./app/router');
 
 const app = express();
@@ -70,8 +68,6 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use(youShallNotPass);
-
 app.use('/v1', router);
 
 app.use(errorMW.errorLogger);
@@ -82,6 +78,6 @@ app.use((_, res) => {
     res.status(404).json('404 Not found');
 });
 
-app.listen(port, () => {
+app.listen(port, '127.0.0.1', () => {
     console.log(`Server started on http://localhost:${port}`);
 });
