@@ -70,6 +70,12 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', (_, res) => {
+    res.sendFile(path + 'index.html');
+})
+
 app.use('/v1', router);
 
 app.use(errorMW.errorLogger);
