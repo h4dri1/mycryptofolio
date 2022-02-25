@@ -137,10 +137,10 @@ class UseRevokedRefreshToken extends Error {
 }
 
 class BadGuy extends Error {
-    constructor() {
+    constructor(ip) {
         super();
         this.name = this.constructor.name;
-        this.message = `The refresh token you trying to use is not yours, admin alerted`;
+        this.message = `IP : ${ip} The refresh token you trying to use is not yours, admin alerted`;
         this.statusCode = 403;
     }
 }

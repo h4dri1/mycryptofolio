@@ -61,7 +61,7 @@ module.exports = {
                 throw new InvalidToken();
             }
             if (refreshPayload.user.id !== req.userId.id) {
-                throw new BadGuy();
+                throw new BadGuy(req.ip);
             }
             const [head, pay, sign] = req.params.token.split('.')
             if (await db.hExists(`${req.userId.id}`, sign)) {
