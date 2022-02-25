@@ -78,6 +78,6 @@ app.use((_, res) => {
     res.status(404).json('404 Not found');
 });
 
-app.listen(port, () => {
+app.listen(port, '127.0.0.1', () => {
     console.log(`Server started on http://localhost:${port}`);
 });
