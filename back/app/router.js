@@ -27,7 +27,7 @@ const { loginSchema,
 
 const { jwtMW, fetchMW, guardMW, validateJWT, validateBody, validateParams } = require('./middlewares');
 
-const { auth, cache, flush } = require('./services');
+const { auth, cache, flush, rateLimiter } = require('./services');
 
 /**
 * @typedef {Object} User_Login
@@ -92,7 +92,7 @@ const { auth, cache, flush } = require('./services');
  * @returns {object} 500 - An error message
  */
 
-router.post('/jwt/login', validateBody(loginSchema), auth.login, userController.validLoginJwt);
+router.post('/jwt/login', rateLimiter, validateBody(loginSchema), auth.login, userController.validLoginJwt);
 
 router.get('/logout/:token', jwtMW, auth.logout)
 
