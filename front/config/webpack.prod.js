@@ -6,6 +6,8 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { BundleStatsWebpackPlugin } = require('bundle-stats-webpack-plugin');
 
+const host = '127.0.0.1'
+
 module.exports = merge(common, {
   mode: 'production',
   devtool: false,
@@ -65,5 +67,6 @@ module.exports = merge(common, {
     hints: false,
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
-  }
+  },
+  host
 });
