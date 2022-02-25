@@ -8,6 +8,8 @@ const getOnePriceSchema =  require('./params/getOnePriceSchema');
 const getPortfolioSchema = require('./params/getPortfolioSchema');
 const deleteTransactionSchema = require('./params/deleteTransactionSchema');
 const deleteWalletSchema = require('./params/deleteWalletSchema');
+const loginSchemaLim = require('./limiter/loginSchema');
+const signupSchemaLim = require('./limiter/signupSchema');
 
 module.exports = { 
     loginSchema,
@@ -19,5 +21,7 @@ module.exports = {
     getOnePriceSchema,
     getPortfolioSchema,
     deleteTransactionSchema,
-    deleteWalletSchema
+    deleteWalletSchema,
+    loginSchemaLim,
+    signupSchemaLim
 }
