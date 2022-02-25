@@ -2,7 +2,7 @@
 import { StrictMode, useState } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter  } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 // == Import : local
 // Composants
@@ -14,11 +14,11 @@ import store from './store';
 //    => crée une structure d'objets imbriqués (DOM virtuel)
 const rootReactElement = (
   <StrictMode>
-    <BrowserRouter >
+    <HashRouter>
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter >
+    </HashRouter>
   </StrictMode>
 )
 // 2. La cible du DOM (là où la structure doit prendre vie dans le DOM)
