@@ -52,6 +52,8 @@ const options = {
   
 expressJSDocSwagger(app)(options);
 
+app.set('trust proxy', true)
+
 app.disable('x-powered-by');
 
 app.use(helmet.xssFilter());
