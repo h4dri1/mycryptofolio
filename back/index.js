@@ -4,6 +4,8 @@ const express = require('express');
 
 const cors = require('cors');
 
+const youShallNotPass = require('./app/middlewares/youShallNotPass')
+
 const router = require('./app/router');
 
 const app = express();
@@ -67,6 +69,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+app.use(youShallNotPass);
 
 app.use('/v1', router);
 

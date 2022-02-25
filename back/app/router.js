@@ -27,7 +27,11 @@ const { loginSchema,
 
 const { jwtMW, fetchMW, guardMW, validateJWT, validateBody, validateParams } = require('./middlewares');
 
-const { auth, cache, flush, rateLimiter } = require('./services');
+const { auth, cache, flush } = require('./services');
+
+const { loginSchemaLim, signupSchemaLim } = require('./schemas')
+
+const rateLimit = require('express-rate-limit');
 
 /**
 * @typedef {Object} User_Login
@@ -92,7 +96,7 @@ const { auth, cache, flush, rateLimiter } = require('./services');
  * @returns {object} 500 - An error message
  */
 
-router.post('/jwt/login', rateLimiter, validateBody(loginSchema), auth.login, userController.validLoginJwt);
+router.post('/jwt/login', rateLimit(loginSchemaLim), validateBody(loginSchema), auth.login, userController.validLoginJwt);
 
 router.get('/logout/:token', jwtMW, auth.logout)
 
@@ -194,7 +198,7 @@ router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBo
 
 router.post('/portfolio/wallet', jwtMW, flush, validateBody(walletSchema), walletController.addWallet);
 
-router.post('/signup', validateBody(signupSchema), flush, userController.addUser);
+router.post('/signup', rateLimit(signupSchemaLim), validateBody(signupSchema), flush, userController.addUser);
 
 router.delete('/portfolio/transaction/:tid(\\d+)', validateParams(deleteTransactionSchema), jwtMW, flush, guardMW.deleteTransaction, transactionController.deleteTransaction);
 
