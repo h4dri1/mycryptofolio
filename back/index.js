@@ -12,6 +12,8 @@ const port = process.env.PORT || 5000;
 
 const bodyParser = require('body-parser');
 
+const path = __dirname + '/app/views/';
+
 const { errorMW } = require('./app/middlewares');
 
 const helmet = require('helmet');
