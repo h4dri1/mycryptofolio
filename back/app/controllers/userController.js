@@ -22,6 +22,7 @@ module.exports = {
                 "refreshToken": jwt.makeRefreshToken(user),
                 "id": user.id
             };
+            console.log(req.ip)
             res.status(200).json(response);
         } catch (err) {
             next(err);
