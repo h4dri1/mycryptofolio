@@ -32,7 +32,7 @@ module.exports = {
         try {
             const instance = new User(req.body);
             const user = await User.findOne(instance.email);
-            if (user) {
+            if (user.id) {
                 throw new EmailUsed(req.body.email);
             }
             if (instance.password !== instance.passwordCheck) {
