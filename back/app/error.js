@@ -172,6 +172,24 @@ class FormError extends Error {
     }
 }
 
+class RateLimitSignup extends Error {
+    constructor () {
+        super();
+        this.name = this.constructor.name;
+        this.message = 'You have reached the max new user/ip';
+        this.statusCode = 429;  
+    }
+}
+
+class RateLimitLogin extends Error {
+    constructor () {
+        super();
+        this.name = this.constructor.name;
+        this.message = 'You have reached the max request for login';
+        this.statusCode = 429;  
+    }
+}
+
 module.exports = {
     NoTransactionId,
     NoWallet,
@@ -191,5 +209,7 @@ module.exports = {
     JWTError,
     BanUser,
     UseRevokedRefreshToken,
-    BadGuy
+    BadGuy,
+    RateLimitSignup,
+    RateLimitLogin
 };
