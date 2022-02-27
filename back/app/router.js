@@ -192,7 +192,7 @@ router.get('/portfolio', jwtMW, cache, fetchMW, portfolioController.getPortfolio
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', validateParams(getPortfolioSchema), jwtMW, cache, fetchMW, portfolioController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, validateParams(getPortfolioSchema), cache, fetchMW, portfolioController.getPortfolio);
 
 router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), guardMW.transactionGuard, transactionController.addTransaction);
 
@@ -200,8 +200,8 @@ router.post('/portfolio/wallet', jwtMW, flush, validateBody(walletSchema), walle
 
 router.post('/signup', rateLimit(signupSchemaLim), validateBody(signupSchema), flush, userController.addUser);
 
-router.delete('/portfolio/transaction/:tid(\\d+)', validateParams(deleteTransactionSchema), jwtMW, flush, guardMW.deleteTransaction, transactionController.deleteTransaction);
+router.delete('/portfolio/transaction/:tid(\\d+)', jwtMW, validateParams(deleteTransactionSchema),  flush, guardMW.deleteTransaction, transactionController.deleteTransaction);
 
-router.delete('/portfolio/wallet/:wid(\\d+)', validateParams(deleteWalletSchema), jwtMW, flush, guardMW.deleteWallet, walletController.deleteWallet);
+router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, validateParams(deleteWalletSchema), flush, guardMW.deleteWallet, walletController.deleteWallet);
 
 module.exports = router;
