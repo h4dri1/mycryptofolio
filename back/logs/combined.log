@@ -29,3 +29,113 @@
 {"level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T18:54:14.910Z"}
 {"level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T18:54:25.372Z"}
 {"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T18:58:38.847Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T19:17:39.983Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:17:59.172Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:17:59.950Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:18:01.026Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:18:02.249Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:18:03.871Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:18:06.073Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:18:07.853Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:18:10.062Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:18:32.249Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:18:36.801Z"}
+{"level":"warn","message":"You have reached the max request for login","name":"RateLimitLogin","statusCode":429,"timestamp":"2022-02-28T19:18:37.796Z"}
+{"level":"warn","message":"You have reached the max request for login","name":"RateLimitLogin","statusCode":429,"timestamp":"2022-02-28T19:18:38.848Z"}
+{"level":"warn","message":"You have reached the max request for login","name":"RateLimitLogin","statusCode":429,"timestamp":"2022-02-28T19:18:39.899Z"}
+{"level":"warn","message":"You have reached the max request for login","name":"RateLimitLogin","statusCode":429,"timestamp":"2022-02-28T19:18:41.188Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T19:18:59.293Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T19:19:11.932Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:19:21.679Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:19:23.494Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:19:24.918Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:19:26.188Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:19:27.763Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:19:29.575Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:19:31.571Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:19:33.282Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:55.594Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:56.331Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:56.803Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:57.267Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:57.737Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:58.254Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:58.621Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:58.773Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:58.937Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:20:59.098Z"}
+{"level":"warn","message":"You have reached the max request for login","name":"RateLimitLogin","statusCode":429,"timestamp":"2022-02-28T19:20:59.231Z"}
+{"level":"warn","message":"You have reached the max request for login","name":"RateLimitLogin","statusCode":429,"timestamp":"2022-02-28T19:20:59.633Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:23:13.166Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:23:16.267Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:23:18.835Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:23:20.963Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:23:22.487Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:23:23.698Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:23:25.638Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:23:26.470Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:25.905Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:26.833Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:27.656Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:28.555Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:29.380Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:30.196Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:32.369Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:33.325Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:34.191Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:24:35.949Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:26:13.134Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:26:14.683Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:26:15.556Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:26:16.767Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:26:17.784Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:26:19.001Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:26:20.252Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:27:33.016Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:29:20.114Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:29:28.005Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:29:28.668Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:14.876Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:15.901Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:17.153Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:18.202Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:19.449Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:20.523Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:21.618Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:22.604Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:34.297Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:50.432Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:51.505Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:30:56.623Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:31:55.374Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:32:02.658Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:32:30.753Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:32:36.744Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:33:09.654Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:33:21.132Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:33:24.916Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:33:33.774Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:33:35.997Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:33:39.435Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:17.587Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:18.905Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:20.306Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:21.599Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:22.934Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:24.262Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:25.151Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:50.455Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:52.145Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:54.282Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:55.313Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:56.654Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:57.472Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:57.658Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:57.817Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:57.938Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:34:58.073Z"}
+{"level":"warn","message":"You have reached the max request for login","name":"RateLimitLogin","statusCode":429,"timestamp":"2022-02-28T19:34:58.135Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:35:22.484Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T19:36:09.877Z"}
+{"ip":"127.0.0.1","level":"info","message":"You have try 5 times with bad credentials retry in 30min","name":"BanUser","statusCode":401,"timestamp":"2022-02-28T19:39:51.582Z"}
+{"ip":"127.0.0.1","level":"info","message":"You have try 5 times with bad credentials retry in 30min","name":"BanUser","statusCode":401,"timestamp":"2022-02-28T19:39:57.889Z"}

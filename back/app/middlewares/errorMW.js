@@ -40,7 +40,6 @@ const errorResponder = (err, req, res, next) => {
     if (!err.statusCode) {
         err.statusCode = 500
     }
-    console.log({message: err.message})
     res.header("Content-Type", 'application/json');
     res.status(err.statusCode).send(JSON.stringify({message: err.message}, null, 4));
 }
