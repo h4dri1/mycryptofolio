@@ -8,11 +8,11 @@ module.exports = {
         try {
             const user = await User.findOne(req.body.email);
             if (!user.id) {
-                throw new BadPassUser();
+                throw new BadPassUser(req.ip);
             }
             const isPwdValid = await bcrypt.compare(req.body.password, user.password);
             if (isPwdValid === false) {
-                throw new BadPassUser();
+                throw new BadPassUser(req.ip);
             }
             delete user.password;
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
@@ -24,7 +24,7 @@ module.exports = {
             };
             res.status(200).json(response);
         } catch (err) {
-            next(err);
+            next(err)
         };
     },
 

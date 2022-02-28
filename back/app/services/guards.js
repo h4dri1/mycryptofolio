@@ -16,7 +16,7 @@ module.exports = {
             throw new NoTransactionId(req.body.id);
         }
         if (own[0].user_id !== Number(req.userId.id)) {
-            throw new NotYourTransaction(req.body.id);
+            throw new NotYourTransaction(req.ip, req.body.id);
         }
     },
 
@@ -27,7 +27,7 @@ module.exports = {
         } else {
             const found = is_owning_wallet.filter(element => element.id === Number(req.params.wid)).length > 0;
             if (!found) {
-                throw new NotYourWallet(req.params.wid);
+                throw new NotYourWallet(req.ip, req.params.wid);
             }
         } 
     },
@@ -42,11 +42,11 @@ module.exports = {
         if (req.body.id) {
             const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
             if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(Number(req.body.quantity)) + Math.abs(Number(own[0].quantity))) > wallet.total) {
-                throw new MoreCoinThanYouHave(req.body, wallet);
+                throw new MoreCoinThanYouHave(req.body);
             }
         } else {
             if ((Number(wallet.total) + Number(req.body.quantity)) < 0) {
-                throw new MoreCoinThanYouHave(req.body, wallet);
+                throw new MoreCoinThanYouHave(req.body);
             };
         }
     },
@@ -54,11 +54,11 @@ module.exports = {
     buySellSign: async (req, res) => {
         if (req.body.buy) {
             if (Number(req.body.quantity) <= 0) {
-                throw new BuyMustBePositive();
+                throw new BuyMustBePositive(req.ip);
             }
         } else {
             if (Number(req.body.quantity) >= 0) {
-                throw new SellMustBeNegative();
+                throw new SellMustBeNegative(req.ip);
             }
         }
     }

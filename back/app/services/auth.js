@@ -4,6 +4,8 @@ db.connect();
 
 const jwt = require('./jwt');
 
+const { logger } = require('../middlewares/errorMW')
+
 const { BanUser, UseRevokedRefreshToken, BadGuy, InvalidToken } = require('../error');
 
 module.exports = {
@@ -13,10 +15,14 @@ module.exports = {
         const timeout = 60 * 30;
 
         if (!await db.exists(key)) {
-            console.error = async (_, data) => {
+            
+            const originalLogger = logger.log.bind(logger);
+
+            logger.log = async (data) => {
                 if (data && data.name === 'BadPassUser') {
                     await db.set(key, 1);
                 }
+                originalLogger(data);
             }
 
             const originalResponseJson = res.json.bind(res);
@@ -33,14 +39,17 @@ module.exports = {
 
             if (cachedValue > 4) {
                 await db.expire(key, timeout)
-                return res.json(new BanUser);
+                return res.json(new BanUser(req.ip));
             } else {
                 const originalResponseJson = res.json.bind(res);
 
-                console.error = async (_, data) => {
+                const originalLogger = logger.log.bind(logger);
+
+                logger.log = async (data) => {
                     if (data && data.name === 'BadPassUser') {
                         await db.incr(key);
                     }
+                    originalLogger(data);
                 }
                 
                 res.json = async (data) => {

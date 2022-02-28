@@ -1,0 +1,31 @@
+{"level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T17:03:46.347Z"}
+{"level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T17:15:09.269Z"}
+{"level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T17:15:53.469Z"}
+{"level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T17:16:40.103Z"}
+{"coin_id":"ethereum","level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","quantity_sell":-100000,"statusCode":409,"timestamp":"2022-02-28T17:16:56.111Z","total_wallet":"3.00000000"}
+{"level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T17:21:28.096Z"}
+{"level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T17:21:34.801Z"}
+{"level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T17:22:21.698Z"}
+{"level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T17:23:05.663Z"}
+{"level":"info","message":"You are trying to sell binancecoin who are not present in this wallet","name":"NotPresentInWallet","statusCode":409,"timestamp":"2022-02-28T17:23:30.712Z"}
+{"level":"info","message":"You are trying to sell binancecoin who are not present in this wallet","name":"NotPresentInWallet","statusCode":409,"timestamp":"2022-02-28T17:23:52.056Z"}
+{"level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T17:26:07.983Z"}
+{"level":"info","message":"You trying to sell more bitcoin than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T17:27:21.883Z"}
+{"level":"info","message":"You trying to sell more bitcoin than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T17:28:16.449Z"}
+{"level":"info","message":"You trying to sell more bitcoin than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T17:30:01.579Z"}
+{"level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T17:37:24.838Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T18:48:06.133Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T18:48:15.348Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T18:48:25.868Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T18:48:40.409Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T18:48:42.383Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T18:48:42.833Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T18:48:49.251Z"}
+{"level":"info","message":"You try to use a revoked login session please to log in again","name":"UseRevokedRefreshToken","statusCode":403,"timestamp":"2022-02-28T18:48:52.557Z"}
+{"level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T18:50:02.209Z"}
+{"level":"info","message":"You are trying to sell bitcoin who are not present in this wallet","name":"NotPresentInWallet","statusCode":409,"timestamp":"2022-02-28T18:50:43.444Z"}
+{"level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T18:51:43.767Z"}
+{"level":"info","message":"You are trying to sell bitcoin who are not present in this wallet","name":"NotPresentInWallet","statusCode":409,"timestamp":"2022-02-28T18:53:58.245Z"}
+{"level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T18:54:14.910Z"}
+{"level":"info","message":"You trying to sell more ethereum than you have","name":"MoreCoinThanYouHave","statusCode":409,"timestamp":"2022-02-28T18:54:25.372Z"}
+{"ip":"127.0.0.1","level":"warn","message":"Bad password and/or user","name":"BadPassUser","statusCode":401,"timestamp":"2022-02-28T18:58:38.847Z"}
