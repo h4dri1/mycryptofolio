@@ -199,7 +199,7 @@ const portfolio = (store) => (next) => async (action) => {
         })
         .catch((err) => {
           console.log(err.response);
-          alert(err.response.data);
+          store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
