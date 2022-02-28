@@ -4,6 +4,9 @@ node_modules
 # back
 back/sqitch.conf
 back/data/bloc_note.sql
+back/logs/combined.log
+back/logs/error.log
+back/logs/exceptions.log
 
 # production
 build
