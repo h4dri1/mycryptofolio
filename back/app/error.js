@@ -186,20 +186,22 @@ class FormError extends Error {
 }
 
 class RateLimitSignup extends Error {
-    constructor () {
+    constructor (ip) {
         super();
         this.name = this.constructor.name;
         this.level = 'warn';
+        this.ip = ip;
         this.message = 'You have reached the max new user/ip';
         this.statusCode = 429;  
     }
 }
 
 class RateLimitLogin extends Error {
-    constructor () {
+    constructor (ip) {
         super();
         this.name = this.constructor.name;
         this.level = 'warn';
+        this.ip = ip;
         this.message = 'You have reached the max request for login';
         this.statusCode = 429;  
     }
