@@ -7,7 +7,7 @@ back/data/bloc_note.sql
 back/logs/combined.log
 back/logs/error.log
 back/logs/exceptions.log
-back/rejections
+back/rejections.log
 
 # production
 build
