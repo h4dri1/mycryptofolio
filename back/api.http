@@ -105,7 +105,7 @@ POST http://localhost:8888/v1/signup HTTP/1.1
 content-type: application/json
 
 {
-  "email": "testt@test.fr",
+  "email": "testt@",
   "nickname": "test",
   "password": "#Cafard0087",
   "passwordCheck": "#Cafard0087",
@@ -119,15 +119,14 @@ content-type: application/json
 
 {
     "email": "test@test.fr",
-    "password": "#0clocmk$0087"
+    "password": "#0clock$0087"
 }
 
 ### 
 
 GET http://localhost:8888/v1/logout/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTc0NjUxOCwiZXhwIjoxNjQ4MzM4NTE4fQ.FoojjPHqLXPb625u7bbi8pzDk2t8_3M1IalQi0peQHY HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTc0NjUxOCwiZXhwIjoxNjQ1NzQ2ODE4fQ.0ahMJKx41o8e5XcRZ3JKaqASoo-94tpmByVK6QJJwSg
-
+Authorization:  oih opl
 ###
 
 DELETE http://localhost:8888/v1/portfolio/transaction/166 HTTP/1.1

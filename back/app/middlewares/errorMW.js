@@ -1,4 +1,5 @@
 const { createLogger, format, transports } = require("winston");
+
 const { UnExeptedError } = require('../error');
 
 const errLevels = {
@@ -20,16 +21,18 @@ const logger = createLogger({
     ],
     exceptionHandlers: [
         new transports.File({ filename: 'logs/exceptions.log' })
-    ]
+    ],
+    rejectionHandlers: [
+        new transports.File({ filename: 'logs/rejections.log' }),
+    ],
 });
 
 const errorLogger = (err, req, res, next) => {
     if (process.env.NODE_ENV !== 'production') {
         console.error(err.stack)
     }
-    if (!err.level || !err.message) {
-        logger.log(new UnExeptedError(err));
-        err.message = 'error not defined';
+    if (!err.level) {
+        logger.log(new UnExeptedError(err)); 
     } else {
         logger.log(err);
     }
