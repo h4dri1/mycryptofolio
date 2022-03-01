@@ -6,7 +6,7 @@ const signupLimiter = {
     standardHeaders: true,
     legacyHeaders: false,
     handler: (req, res, next, options) => {
-        throw new RateLimitSignup();
+        throw new RateLimitSignup(req.ip);
     }
 }
 

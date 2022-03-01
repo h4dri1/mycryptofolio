@@ -6,7 +6,7 @@ const loginLimiter = {
     standardHeaders: true,
     legacyHeaders: false,
     handler: (req, res, next, options) => {
-        throw new RateLimitLogin();
+        throw new RateLimitLogin(req.ip);
     }	
 }
 
