@@ -8,57 +8,46 @@ const { logger } = require('../middlewares/errorMW')
 
 const { BanUser, UseRevokedRefreshToken, BadGuy, InvalidToken } = require('../error');
 
+const originalLogger = logger.log.bind(logger);
+
 module.exports = {
     login: async (req, res, next) => {
         try {
             const prefix = 'login:';
             const key = `${prefix}${req.body.email}`
             const timeout = 60 * 30;
-    
-            if (!await db.exists(key)) {
-                
-                const originalLogger = logger.log.bind(logger);
-    
-                logger.log = async (data) => {
-                    if (data && data.name === 'BadPassUser') {
-                        await db.set(key, 1);
-                    }
-                    originalLogger(data);
-                }
-    
-                const originalResponseJson = res.json.bind(res);
-    
-                res.json = async (data) => {
-                    const [head, pay, sign] = data.refreshToken.split('.')
-                    await db.hSet(`${data.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
-                    originalResponseJson(data);
-                }
-                next();
-            } else {
+            const originalResponseJson = res.json.bind(res);
+
+            if (db.get(key)) {
                 const cachedString = await db.get(key);
                 const cachedValue = JSON.parse(cachedString);
     
                 if (cachedValue > 4) {
                     await db.expire(key, timeout)
                     throw new BanUser(req.ip);
-                } else {
-                    const originalResponseJson = res.json.bind(res);
-    
-                    logger.log = async (data) => {
-                        if (data && data.name === 'BadPassUser') {
-                            await db.incr(key);
-                        }
-                    }
-                    
-                    res.json = async (data) => {
-                        await db.del(key);
-                        const [head, pay, sign] = data.refreshToken.split('.')
-                        await db.hSet(`${data.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
-                        originalResponseJson(data);
-                    }
-                    next();
                 }
             }
+                    
+            res.json = async (data) => {
+                if (db.get(key)) {
+                    await db.del(key);
+                }
+                const [head, pay, sign] = data.refreshToken.split('.')
+                await db.hSet(`${data.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
+                originalResponseJson(data);
+            }
+
+            logger.log = async (data) => {
+                if (data && data.name === 'BadPassUser') {
+                    if (!await db.get(key)) {
+                        await db.set(key, 1);
+                    } else {
+                        await db.incr(key);
+                    }
+                }
+                originalLogger(data);
+            }
+            next();
         } catch (err) {
             next(err)
         }
