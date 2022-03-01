@@ -112,16 +112,6 @@ class InvalidToken extends Error {
     }
 }
 
-class JWTError extends Error {
-    constructor(mess) {
-        super();
-        this.name = this.constructor.name;
-        this.level = 'info';
-        this.message = mess;
-        this.statusCode = 498;
-    }
-}
-
 class BadPassUser extends Error {
     constructor(ip) {
         super();
@@ -218,7 +208,7 @@ class RateLimitLogin extends Error {
 class UnExeptedError extends Error {
     constructor (err) {
         super();
-        this.name = this.constructor.name;
+        this.name = err.name;
         this.level = 'error';
         this.message = err.message;
         this.statusCode = 500;  
@@ -241,7 +231,6 @@ module.exports = {
     EmailUsed,
     CheckYourPassword,
     FormError,
-    JWTError,
     BanUser,
     UseRevokedRefreshToken,
     BadGuy,
