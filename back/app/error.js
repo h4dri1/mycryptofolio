@@ -127,7 +127,7 @@ class BanUser extends Error {
     constructor(ip) {
         super();
         this.name = this.constructor.name;
-        this.level = 'info';
+        this.level = 'warn';
         this.ip = ip;
         this.message = `You have try 5 times with bad credentials retry in 30min`;
         this.statusCode = 401;

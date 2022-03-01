@@ -121,7 +121,7 @@ router.get('/jwt/refresh/:token', validateJWT, tokenController.refresh);
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto);
+router.get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto);
 
 /**
  * GET /v1/crypto/{id}
@@ -132,7 +132,7 @@ router.get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, 
  * @returns {object} 500 - An error message
  */
 
-router.get('/crypto/:id/:nbd?', validateParams(getOneCryptoSchema), cache, cryptoController.getOneCrypto);
+router.get('/crypto/:id/:nbd?', cache, cryptoController.getOneCrypto);
 
  /**
  * GET /v1/cryptoprice/{id}/{vs}/{include_market_cap}/{include_24hr_vol}/{include_24hr_change}/{include_last_updated_at}
@@ -148,7 +148,7 @@ router.get('/crypto/:id/:nbd?', validateParams(getOneCryptoSchema), cache, crypt
  * @returns {object} 500 - An error message
  */
 
-router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', validateParams(getOnePriceSchema), cache, cryptoController.getOnePrice);
+router.get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', cache, cryptoController.getOnePrice);
 
 /**
  * GET /v1/cryptos
@@ -192,7 +192,7 @@ router.get('/portfolio', jwtMW, cache, fetchMW, portfolioController.getPortfolio
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, validateParams(getPortfolioSchema), cache, fetchMW, portfolioController.getPortfolio);
+router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, portfolioController.getPortfolio);
 
 router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), guardMW.transactionGuard, transactionController.addTransaction);
 
@@ -200,8 +200,8 @@ router.post('/portfolio/wallet', jwtMW, flush, validateBody(walletSchema), walle
 
 router.post('/signup', rateLimit(signupSchemaLim), validateBody(signupSchema), flush, userController.addUser);
 
-router.delete('/portfolio/transaction/:tid(\\d+)', jwtMW, validateParams(deleteTransactionSchema),  flush, guardMW.deleteTransaction, transactionController.deleteTransaction);
+router.delete('/portfolio/transaction/:tid(\\d+)', jwtMW,  flush, guardMW.deleteTransaction, transactionController.deleteTransaction);
 
-router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, validateParams(deleteWalletSchema), flush, guardMW.deleteWallet, walletController.deleteWallet);
+router.delete('/portfolio/wallet/:wid(\\d+)', jwtMW, flush, guardMW.deleteWallet, walletController.deleteWallet);
 
 module.exports = router;
