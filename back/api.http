@@ -55,7 +55,7 @@ GET http://localhost:8888/v1/crypto/bitcoin
 Content-Type: application/json
 ###
 
-GET http://localhost:8888/v1/cryptoprice/bitcoin,ethereum/usd
+GET http://localhost:8888/v1/cryptoprice/bitcoin/usd/include_market_cap=true/include_last_updated_at=true
 Content-Type: application/json
 ###
 

@@ -16,7 +16,6 @@ module.exports = {
             const prefix = 'login:';
             const key = `${prefix}${req.body.email}`
             const timeout = 60 * 30;
-            const originalResponseJson = res.json.bind(res);
 
             if (db.get(key)) {
                 const cachedString = await db.get(key);
@@ -27,6 +26,8 @@ module.exports = {
                     throw new BanUser(req.ip);
                 }
             }
+
+            const originalResponseJson = res.json.bind(res);
                     
             res.json = async (data) => {
                 if (db.get(key)) {
