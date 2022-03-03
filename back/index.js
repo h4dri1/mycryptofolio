@@ -10,9 +10,9 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
-const bodyParser = require('body-parser');
-
-const path = __dirname + '/app/views/';
+//const bodyParser = require('body-parser');
+//
+//const path = __dirname + '/app/views/';
 
 const { errorMW } = require('./app/middlewares');
 
@@ -64,19 +64,17 @@ app.use(helmet.frameguard({ action: 'deny' }));
 
 app.use(helmet.noSniff());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use(express.static(path));
+//app.use(express.static(path));
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', (_, res) => {
-    res.sendFile(path + 'index.html');
-})
+//app.use(bodyParser.urlencoded({ extended: true }));
+//
+//app.get('/', (_, res) => {
+//    res.sendFile(path + 'index.html');
+//})
 
 app.use('/v1', router);
 
