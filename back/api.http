@@ -65,7 +65,7 @@ Content-Type: application/json
 
 GET http://localhost:8888/v1/portfolio/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NTc0NTI0MywiZXhwIjoxNjQ1NzQ1NTQzfQ.LOIxj6rwLNUrA-IPhjKBoPsMKB0lQsmNBwU0pOzJaLQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NjI3NTcyOSwiZXhwIjoxNjQ2Mjc2MDI5fQ.q0i6tFC6Qy2hHFJAd0jIkDst2Qgykhug1rK--t6eT04
 
 
 ###
@@ -93,7 +93,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFp
 
 POST http://localhost:8888/v1/portfolio/wallet HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NDQyNDY4MCwiZXhwIjoxNjQ0NDI0OTgwfQ.ej0_D0ujm6dwpQ2YQ75SpCV2iKp54OSLgUxu7lnq2m4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5mciIsIm5pY2tuYW1lIjoidGVzdCIsInBpY3R1cmUiOiJodHRwczovL2Nkbi5pY29uLWljb25zLmNvbS9pY29uczIvMTM3MS9QTkcvNTEyL3JvYm90MDNfOTA4MzMucG5nIn0sImlhdCI6MTY0NjI3NTcyOSwiZXhwIjoxNjQ2Mjc2MDI5fQ.q0i6tFC6Qy2hHFJAd0jIkDst2Qgykhug1rK--t6eT04
 
 {
   "label": "test3"
@@ -119,7 +119,7 @@ content-type: application/json
 
 {
     "email": "test@test.fr",
-    "password": "#0cflock$0087"
+    "password": "#0clock$0087"
 }
 
 ### 

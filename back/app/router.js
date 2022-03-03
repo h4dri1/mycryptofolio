@@ -192,7 +192,7 @@ router.get('/portfolio', jwtMW, cache, fetchMW, portfolioController.getPortfolio
  * @returns {object} 500 - An error message
  */
 
-router.get('/portfolio/wallet/:wallet_id(\\d+)', jwtMW, cache, fetchMW, portfolioController.getPortfolio);
+router.get('/portfolio/wallet/:wid(\\d+)', jwtMW, cache, fetchMW, portfolioController.getPortfolio);
 
 router.post('/portfolio/wallet/:wid(\\d+)/transaction', jwtMW, flush, validateBody(transactionSchema), guardMW.transactionGuard, transactionController.addTransaction);
 
