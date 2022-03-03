@@ -52,13 +52,7 @@ expressJSDocSwagger(app)(options);
 
 app.set('trust proxy', true)
 
-app.disable('x-powered-by');
-
-app.use(helmet.xssFilter());
-
-app.use(helmet.frameguard({ action: 'deny' }));
-
-app.use(helmet.noSniff());
+app.use(helmet);
 
 app.use(cors(corsOptions));
 
