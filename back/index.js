@@ -54,12 +54,6 @@ app.set('trust proxy', true)
 
 app.disable('x-powered-by');
 
-app.use(helmet.xssFilter());
-
-app.use(helmet.frameguard({ action: 'deny' }));
-
-app.use(helmet.noSniff());
-
 app.use(cors(corsOptions));
 
 app.use(express.json());
