@@ -52,7 +52,7 @@ expressJSDocSwagger(app)(options);
 
 app.set('trust proxy', true)
 
-app.use(helmet);
+app.use(helmet());
 
 app.use(cors(corsOptions));
 
