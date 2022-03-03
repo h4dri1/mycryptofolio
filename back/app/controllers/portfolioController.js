@@ -11,11 +11,11 @@ module.exports = {
             let portfolio = {};
             let empty = false;
             /////////////////////////////////////////////////////////////////////////////////
-            if (req.params.wallet_id) {
-                objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wallet_id);
-                objRepartition = await Portfolio.getDistributionByWallet(req.userId.id, req.params.wallet_id);
-                objWallet = await Wallet.findSumWalletByWallet(req.userId.id, req.params.wallet_id);
-                objPerformance = await Portfolio.getPerformanceByWallet(req.userId.id, req.params.wallet_id);
+            if (req.params.wid) {
+                objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wid);
+                objRepartition = await Portfolio.getDistributionByWallet(req.userId.id, req.params.wid);
+                objWallet = await Wallet.findSumWalletByWallet(req.userId.id, req.params.wid);
+                objPerformance = await Portfolio.getPerformanceByWallet(req.userId.id, req.params.wid);
             } else {
                 objTransactions = await Transaction.getUserTransaction(req.userId.id);
                 objRepartition = await Portfolio.getDistribution(req.userId.id);
