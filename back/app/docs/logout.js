@@ -2,6 +2,7 @@
  * @swagger
 * /v1/logout/{token}:
 *   get:
+*     tags: [Auth]
 *     security:             
 *     - bearerAuth: []   
 *     summary: Logout.
@@ -20,7 +21,6 @@
 *                 schema:
 *                     type: object
 *                 properties:
-*                 status:
 *                 type: string  
 *                 description: Logout message.
 *                 example: Lougout OK

@@ -19,11 +19,14 @@ const helmet = require('helmet');
 
 const swaggerOptions = {
   swaggerDefinition: {
-    openapi: '3.0.1', // YOU NEED THIS
+    openapi: '3.0.1',
     info: {
-      title: 'Your API title',
       version: '1.0.0',
-      description: 'Your API description'
+      title: 'Mycryptofolio-API',
+      description: 'A crypto monitoring REST API',
+      license: {
+        name: 'MIT',
+      },
     },
     basePath: '/',
     components: {
@@ -31,6 +34,7 @@ const swaggerOptions = {
         bearerAuth: {
           type: 'http',
           scheme: 'bearer',
+          in: 'header',
           bearerFormat: 'JWT',
         }
       }
