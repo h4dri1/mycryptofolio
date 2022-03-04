@@ -2,6 +2,7 @@
  * @swagger
 * /v1/jwt/refresh/{token}:
 *   get:
+*     tags: [Auth]
 *     summary: Get new Access Token
 *     description: Get new Access Token if Refresh Token is valide.
 *     parameters:
@@ -18,8 +19,8 @@
 *                 schema:
 *                     type: object
 *                 properties:
-*                 status:
-*                 type: string  
-*                 description: success message
-*                 example: token refresh ok
+*                   id:
+*                     type: string  
+*                     description: crypto id
+*                     example: bitcoin
 */

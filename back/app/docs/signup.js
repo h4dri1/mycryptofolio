@@ -1,12 +1,11 @@
 /**
  * @swagger
- * /v1/jwt/login:
+ * /v1/signup:
  *   post:
  *     tags: [Auth]
- *     summary: Login.
- *     description: Login for use portfolio.
+ *     summary: Signup.
+ *     description: Signup for use portfolio.
  *     requestBody:
- *           required: true
  *           content:
  *             application/json:
  *               schema:
@@ -14,12 +13,28 @@
  *                 properties:
  *                   email:
  *                     type: string
+ *                     required: true
  *                     description: The user's email.
  *                     example: mail@mail.fr
+ *                   nickname:
+ *                     type: string
+ *                     required: true
+ *                     description: The user's pseudo.
+ *                     example: superPseudo
  *                   password:
  *                     type: string
+ *                     required: true
  *                     description: The user's password.
  *                     example: password
+ *                   passwordCheck:
+ *                     type: string
+ *                     required: true
+ *                     description: The user's password check.
+ *                     example: password
+ *                   picture:
+ *                     type: string
+ *                     description: The user's pictures url.
+ *                     example: null
  *     responses:
  *       200:
  *         description: connected status
