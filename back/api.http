@@ -15,7 +15,7 @@ content-type: application/json
 
 {
     "email": "test@test.fr",
-    "password": "#0clok$0087"
+    "password": "#0clock$0087"
 }
 
 ### Route protégée uniquement accéssible avec token valide

@@ -8,47 +8,43 @@ const router = require('./app/router');
 
 const app = express();
 
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
 const port = process.env.PORT || 5000;
 
 const { errorMW } = require('./app/middlewares');
 
 const helmet = require('helmet');
 
-const expressJSDocSwagger = require('express-jsdoc-swagger');
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.1', // YOU NEED THIS
+    info: {
+      title: 'Your API title',
+      version: '1.0.0',
+      description: 'Your API description'
+    },
+    basePath: '/',
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        }
+      }
+    }
+  },
+  apis: ['./app/docs/*.js'],
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 const corsOptions = {
   origin: 'http://mycryptofolio.fr',
   optionsSuccessStatus: 200
 }
-
-const options = {
-    info: {
-      version: '1.0.0',
-      title: 'Mycryptofolio-back',
-      description: 'A crypto monitoring REST API',
-      license: {
-        name: 'MIT',
-      },
-    },
-    security: {
-      bearerAuth: {
-        type: 'apiKey',
-        name: 'access_token',
-        scheme: 'bearer',
-        in: 'header',
-      },
-    },
-    baseDir: __dirname,
-    filesPattern: './**/*.js',
-    swaggerUIPath: '/api-docs',
-    exposeSwaggerUI: true,
-    exposeApiDocs: false,
-    apiDocsPath: '/v3/api-docs',
-    notRequiredAsNullable: false,
-    swaggerUiOptions: {},
-};
-  
-expressJSDocSwagger(app)(options);
 
 app.set('trust proxy', true)
 
@@ -57,6 +53,8 @@ app.use(helmet());
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/v1', router);
 
