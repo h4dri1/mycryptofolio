@@ -207,6 +207,28 @@ class RateLimitLogin extends Error {
     }
 }
 
+class RateLimitRefresh extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'warn';
+        this.ip = ip;
+        this.message = 'You have reached the max request for refresh token';
+        this.statusCode = 429;  
+    }
+}
+
+class RateLimitTransaction extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'warn';
+        this.ip = ip;
+        this.message = 'You have reached the max request for add transaction';
+        this.statusCode = 429;  
+    }
+}
+
 class UnExeptedError extends Error {
     constructor (err) {
         super();
@@ -238,5 +260,7 @@ module.exports = {
     BadGuy,
     RateLimitSignup,
     RateLimitLogin,
-    UnExeptedError
+    UnExeptedError,
+    RateLimitRefresh,
+    RateLimitTransaction
 };

@@ -20,20 +20,22 @@ const { loginSchema,
         getOnePriceSchema,
         getPortfolioSchema,
         deleteTransactionSchema,
-        deleteWalletSchema
+        deleteWalletSchema,
+        loginSchemaLim, 
+        signupSchemaLim,
+        refreshSchemaLim,
+        transactionSchemaLim
 } = require('./schemas');
 
 const { jwtMW, fetchMW, guardMW, validateJWT, validateBody, validateParams } = require('./middlewares');
 
 const { auth, cache, flush } = require('./services');
 
-const { loginSchemaLim, signupSchemaLim } = require('./schemas')
-
 const rateLimit = require('express-rate-limit');
 
 router
     .get('/logout/:token', jwtMW, auth.logout)
-    .get('/jwt/refresh/:token', validateJWT, tokenController.refresh)
+    .get('/jwt/refresh/:token', rateLimit(refreshSchemaLim), validateJWT, tokenController.refresh)
     .post(
         '/jwt/login', 
         rateLimit(loginSchemaLim), 
@@ -43,13 +45,13 @@ router
     );
 
 router
-    .get('/cryptos/:vs/:nb(\\d+)', cache, cryptoController.getTopCrypto)
-    .get('/crypto/:id/:nbd?', cache, cryptoController.getOneCrypto)
+    .get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto)
+    .get('/crypto/:id/:nbd?', validateParams(getOneCryptoSchema), cache, cryptoController.getOneCrypto)
     .get('/cryptos', cache, cryptoController.getAllCryptos)
     .get('/trending', cache, cryptoController.getTrendingCryptos)
     .get('/global', cache, cryptoController.getGlobalData)
     .get('/history/:coinId/:day-:month-:year', cache, cryptoController.getHistoricalData)
-    .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', cache, cryptoController.getOnePrice);
+    .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', validateParams(getOnePriceSchema), cache, cryptoController.getOnePrice);
 
 router
     .get(
@@ -67,18 +69,21 @@ router
         portfolioController.getPortfolio
     )
     .post(
-        '/portfolio/wallet/:wid(\\d+)/transaction', 
-        jwtMW, 
-        flush, 
+        '/portfolio/wallet/:wid(\\d+)/transaction',
+        rateLimit(transactionSchemaLim),
+        jwtMW,
+        validateParams(getPortfolioSchema),
         validateBody(transactionSchema), 
+        flush, 
         guardMW.transactionGuard, 
         transactionController.addTransaction
     )
     .post(
-        '/portfolio/wallet', 
-        jwtMW, 
-        flush, 
+        '/portfolio/wallet',
+        rateLimit(transactionSchemaLim),
+        jwtMW,
         validateBody(walletSchema), 
+        flush, 
         walletController.addWallet
     )
     .post(
@@ -90,14 +95,16 @@ router
     )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
-        jwtMW,  
+        jwtMW,
+        validateParams(deleteTransactionSchema),
         flush, 
         guardMW.deleteTransaction, 
         transactionController.deleteTransaction
     )
     .delete(
         '/portfolio/wallet/:wid(\\d+)', 
-        jwtMW, 
+        jwtMW,
+        validateParams(deleteWalletSchema),
         flush,
         guardMW.deleteWallet, 
         walletController.deleteWallet
