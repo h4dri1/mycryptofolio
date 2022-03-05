@@ -72,7 +72,6 @@ router
         '/portfolio/wallet/:wid(\\d+)/transaction',
         rateLimit(transactionSchemaLim),
         jwtMW,
-        validateParams(getPortfolioSchema),
         validateBody(transactionSchema), 
         flush, 
         guardMW.transactionGuard, 
