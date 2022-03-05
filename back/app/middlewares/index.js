@@ -1,11 +1,15 @@
 const fetchMW = require('./fetchMW');
 const jwtMW = require('./jwtMW');
-const portfolioGuard = require('./portfolioGuard');
-const validator = require('./validator');
+const guardMW = require('./guardMW');
+const errorMW = require('./errorMW');
+const { validateBody, validateJWT, validateParams } = require('./validateMW');
 
 module.exports = {
     fetchMW,
     jwtMW,
-    portfolioGuard,
-    validator
+    guardMW,
+    errorMW,
+    validateBody, 
+    validateJWT, 
+    validateParams
 }
