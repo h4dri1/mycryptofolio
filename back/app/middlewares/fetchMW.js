@@ -3,35 +3,27 @@ const service_fetch = require('../services/fetch');
 
 module.exports = async (req, res, next) => {
     try {
-        let cryptos;
-        if (req.params.wallet_id) {
-            cryptos = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wallet_id);
+        if (req.params.wid) {
+            var cryptos = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
         } else {
-            cryptos = await Transaction.getUserCrypto(req.userId.id);
+            var cryptos = await Transaction.getUserCrypto(req.userId.id);
         }
-        if (!cryptos) {
-            if (error.message) {
-                return res.status(500).json(error.message, true);
+        if (cryptos.length === 0) {
+            const strCryptos = cryptos.map((crypto) => {
+                return crypto['coin_id']
+            });
+            searched_coins = strCryptos.toString();
+            const data = await service_fetch(`//api.coingecko.com/api/v3/simple/price?ids=${searched_coins}&vs_currencies=usd`);
+            const newData = {}
+            for (const price in data) {        
+                newData.coin_id = price;
+                newData.price = data[price].usd;
+                JSON.stringify(newData)
+                await Crypto.updatePrice(newData);
             }
-            return res.status(500).json('error not defined', true);
-        };
-        const strCryptos = cryptos.map((crypto) => {
-            return crypto['coin_id']
-        });
-        searched_coins = strCryptos.toString();
-        const data = await service_fetch(`//api.coingecko.com/api/v3/simple/price?ids=${searched_coins}&vs_currencies=usd`);
-        const newData = {}
-        for (const price in data) {        
-            newData.coin_id = price;
-            newData.price = data[price].usd;
-            JSON.stringify(newData)
-            await Crypto.updatePrice(newData);
         }
         next();
-    } catch (error) {
-        if (error.message) {
-            return res.status(500).json(error.message, true);
-        }
-        return res.status(500).json('error not defined', true);
+    } catch (err) {
+        next(err);
     }
 }

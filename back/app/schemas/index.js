@@ -1,11 +1,31 @@
-const loginSchema = require('./loginSchema');
-const signupSchema = require('./signupSchema');
-const transactionSchema = require('./transactionSchema');
-const walletSchema = require('./walletSchema');
+const loginSchema = require('./body/loginSchema');
+const signupSchema = require('./body/signupSchema');
+const transactionSchema = require('./body/transactionSchema');
+const walletSchema = require('./body/walletSchema');
+const getTopCryptoSchema = require('./params/getTopCryptoSchema');
+const getOneCryptoSchema = require('./params/getOneCryptoSchema');
+const getOnePriceSchema =  require('./params/getOnePriceSchema');
+const getPortfolioSchema = require('./params/getPortfolioSchema');
+const deleteTransactionSchema = require('./params/deleteTransactionSchema');
+const deleteWalletSchema = require('./params/deleteWalletSchema');
+const loginSchemaLim = require('./limiter/loginSchema');
+const signupSchemaLim = require('./limiter/signupSchema');
+const refreshSchemaLim = require('./limiter/refreshSchema');
+const transactionSchemaLim = require('./limiter/transactionSchema');
 
-module.exports = {
+module.exports = { 
     loginSchema,
     signupSchema,
     transactionSchema,
-    walletSchema
+    walletSchema,
+    getTopCryptoSchema,
+    getOneCryptoSchema,
+    getOnePriceSchema,
+    getPortfolioSchema,
+    deleteTransactionSchema,
+    deleteWalletSchema,
+    loginSchemaLim,
+    signupSchemaLim,
+    refreshSchemaLim,
+    transactionSchemaLim
 }
