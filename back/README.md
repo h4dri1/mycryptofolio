@@ -1,4 +1,4 @@
-# projet-11-crypt-o-folio - Backend
+# Mycryptofolio - Backend
 
 Ce sous-dépôt est destiné à l'API de MyCryptoFolio.
 
@@ -9,6 +9,7 @@ Ce projet est une API REST pour gérer les appels du Front et alimenter un site 
 - [NodeJS](https://nodejs.org/en/download) (v12 ou supérieur)
 - [PostgreSQL](https://postgresql.org/download) (v12 ou supérieur)
 - [Sqitch](https://sqitch.org/download) (v1 ou supérieur)
+- [Redis](https://redis.io/) (v6 ou supérieur)
 
 Ces outils sont nécessaires à l'installation et au fonctionnement de l'API.
 A installer sur votre hôte avant de continuer.
