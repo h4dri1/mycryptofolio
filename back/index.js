@@ -9,39 +9,14 @@ const router = require('./app/router');
 const app = express();
 
 const swaggerJSDoc = require("swagger-jsdoc");
+
 const swaggerUi = require("swagger-ui-express");
 
-const port = process.env.PORT || 5000;
+const swaggerOptions = require('./app/docs/swaggerOptions');
 
 const { errorMW } = require('./app/middlewares');
 
 const helmet = require('helmet');
-
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: '3.0.1',
-    info: {
-      version: '1.0.0',
-      title: 'Mycryptofolio-API',
-      description: 'A crypto monitoring REST API',
-      license: {
-        name: 'MIT',
-      },
-    },
-    basePath: '/',
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          in: 'header',
-          bearerFormat: 'JWT',
-        }
-      }
-    }
-  },
-  apis: ['./app/docs/*.js'],
-};
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
@@ -49,6 +24,8 @@ const corsOptions = {
   origin: 'http://mycryptofolio.fr',
   optionsSuccessStatus: 200
 }
+
+const port = process.env.PORT || 5000;
 
 app.set('trust proxy', true)
 
