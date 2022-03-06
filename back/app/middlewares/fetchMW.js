@@ -8,7 +8,6 @@ module.exports = async (req, res, next) => {
         } else {
             var cryptos = await Transaction.getUserCrypto(req.userId.id);
         }
-        if (cryptos.length === 0) {
             const strCryptos = cryptos.map((crypto) => {
                 return crypto['coin_id']
             });
@@ -21,7 +20,6 @@ module.exports = async (req, res, next) => {
                 JSON.stringify(newData)
                 await Crypto.updatePrice(newData);
             }
-        }
         next();
     } catch (err) {
         next(err);

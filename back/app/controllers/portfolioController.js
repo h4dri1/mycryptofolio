@@ -23,8 +23,14 @@ module.exports = {
                 objPerformance = await Portfolio.getPerformance(req.userId.id);
                 empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
             };
+
+            if (!objWallet.id && !empty) {
+                objWallet.id = Number(req.params.wid),
+                objWallet.sum = '0',
+                objWallet.label = 'long'
+            }
             /////////////////////////////////////////////////////////////////////////////////
-            if (empty) {
+            if (empty && objWallet.id) {
                 for (const emp of empty) {
                     objWallet.push({'id':emp.id, 'sum': 0, 'label':emp.label});
                 }

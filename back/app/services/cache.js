@@ -26,7 +26,6 @@ const cache = async (req, res, next) => {
     if (await db.exists(key)) {
         const cachedString = await db.get(key);
         const cachedValue = JSON.parse(cachedString);
-
         return res.json(cachedValue);    
     };
 
@@ -34,7 +33,8 @@ const cache = async (req, res, next) => {
 
     res.json = async (data) => {
         const str = JSON.stringify(data);
-        keys.push(key);
+        //keys.push(key);
+        await db.hSet('keys', key, key, {EX: timeout, NX: true});
         await db.set(key, str, {EX: timeout, NX: true});
         originalResponseJson(data);
     }
@@ -42,10 +42,15 @@ const cache = async (req, res, next) => {
 }
 
 const flush = async (req, res, next) => {
-    let key;
-    while(key=keys.shift()) {
+    //let key;
+    //while(key=keys.shift()) {
+    //    await db.del(key);
+    //}
+    const getAllKeys = await db.hGetAll('keys');
+    for (const key in getAllKeys) {
         await db.del(key);
     }
+    await db.del('keys')
     next();
 }
 

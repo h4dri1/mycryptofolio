@@ -95,17 +95,17 @@ router
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
         jwtMW,
-        validateParams(deleteTransactionSchema),
-        flush, 
-        guardMW.deleteTransaction, 
+        validateParams(deleteTransactionSchema), 
+        guardMW.deleteTransaction,
+        flush,
         transactionController.deleteTransaction
     )
     .delete(
         '/portfolio/wallet/:wid(\\d+)', 
         jwtMW,
         validateParams(deleteWalletSchema),
+        guardMW.deleteWallet,
         flush,
-        guardMW.deleteWallet, 
         walletController.deleteWallet
     );
 
