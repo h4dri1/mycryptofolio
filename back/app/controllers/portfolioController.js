@@ -30,7 +30,7 @@ module.exports = {
                 objWallet.label = 'long'
             }
             /////////////////////////////////////////////////////////////////////////////////
-            if (empty && objWallet.id) {
+            if (empty) {
                 for (const emp of empty) {
                     objWallet.push({'id':emp.id, 'sum': 0, 'label':emp.label});
                 }
