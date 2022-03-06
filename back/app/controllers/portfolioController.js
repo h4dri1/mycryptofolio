@@ -10,12 +10,14 @@ module.exports = {
             let objWallet;
             let portfolio = {};
             let empty = false;
+            let emptyWallet = false;
             /////////////////////////////////////////////////////////////////////////////////
             if (req.params.wid) {
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wid);
                 objRepartition = await Portfolio.getDistributionByWallet(req.userId.id, req.params.wid);
                 objWallet = await Wallet.findSumWalletByWallet(req.userId.id, req.params.wid);
                 objPerformance = await Portfolio.getPerformanceByWallet(req.userId.id, req.params.wid);
+                emptyWallet = await Wallet.findWalletWithNoTransaction(req.userId.id);
             } else {
                 objTransactions = await Transaction.getUserTransaction(req.userId.id);
                 objRepartition = await Portfolio.getDistribution(req.userId.id);
@@ -23,11 +25,15 @@ module.exports = {
                 objPerformance = await Portfolio.getPerformance(req.userId.id);
                 empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
             };
-
+            /////////////////////////////////////////////////////////////////////////////////
             if (!objWallet.id && !empty) {
-                objWallet.id = Number(req.params.wid),
-                objWallet.sum = '0',
-                objWallet.label = 'long'
+                objWallet.id = Number(req.params.wid);
+                objWallet.sum = '0';
+                for (const emp of emptyWallet) {
+                    if (Number(emp.id) === Number(req.params.wid)) {
+                        objWallet.label = emp.label
+                    }
+                }
             }
             /////////////////////////////////////////////////////////////////////////////////
             if (empty) {
