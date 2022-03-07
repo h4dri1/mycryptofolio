@@ -27,9 +27,11 @@ const corsOptions = {
 
 const port = process.env.PORT || 5000;
 
-app.set('trust proxy', true)
+const host = process.env.HOST || 'localhost';
 
 app.use(helmet());
+
+app.set('trust proxy', true)
 
 app.use(cors(corsOptions));
 
@@ -47,6 +49,6 @@ app.use((_, res) => {
     res.status(404).json('404 Not found');
 });
 
-app.listen(port, '127.0.0.1', () => {
+app.listen(port, host, () => {
     console.log(`Server started on http://localhost:${port}`);
 });
