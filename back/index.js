@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { app, host, port } = require('./server');
+const { app, host, port } = require('./config');
 
 const { swaggerUi, swaggerSpec } = require('./app/docs/swagger')
 
