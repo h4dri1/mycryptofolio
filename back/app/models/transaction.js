@@ -9,7 +9,7 @@ class Transaction {
     }
 
     static async getTransactionByWallet(wid) {
-        const {rows} = await db.query('SELECT * FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
+        const {rows} = await pool.query('SELECT * FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
         return rows.map(row => new Transaction(row));
     }
 
