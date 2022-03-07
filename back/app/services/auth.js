@@ -1,6 +1,4 @@
-const { createClient } = require('redis');
-const db = createClient();
-db.connect();
+const { redis } = require('../database')
 
 const jwt = require('./jwt');
 
@@ -17,12 +15,12 @@ module.exports = {
             const key = `${prefix}${req.body.email}`
             const timeout = 60 * 30;
 
-            if (db.get(key)) {
-                const cachedString = await db.get(key);
+            if (redis.get(key)) {
+                const cachedString = await redis.get(key);
                 const cachedValue = JSON.parse(cachedString);
     
                 if (cachedValue > 4) {
-                    await db.expire(key, timeout)
+                    await redis.expire(key, timeout)
                     throw new BanUser(req.ip);
                 }
             }
@@ -30,20 +28,20 @@ module.exports = {
             const originalResponseJson = res.json.bind(res);
                     
             res.json = async (data) => {
-                if (db.get(key)) {
-                    await db.del(key);
+                if (redis.get(key)) {
+                    await redis.del(key);
                 }
                 const [head, pay, sign] = data.refreshToken.split('.')
-                await db.hSet(`${data.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
+                await redis.hSet(`${data.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
                 originalResponseJson(data);
             }
 
             logger.log = async (data) => {
                 if (data && data.name === 'BadPassUser') {
-                    if (!await db.get(key)) {
-                        await db.set(key, 1);
+                    if (!await redis.get(key)) {
+                        await redis.set(key, 1);
                     } else {
-                        await db.incr(key);
+                        await redis.incr(key);
                     }
                 }
                 originalLogger(data);
@@ -64,8 +62,8 @@ module.exports = {
                 throw new BadGuy(req.ip);
             }
             const [head, pay, sign] = req.params.token.split('.')
-            if (await db.hExists(`${req.userId.id}`, sign)) {
-                await db.hDel(`${req.userId.id}`, sign);
+            if (await redis.hExists(`${req.userId.id}`, sign)) {
+                await redis.hDel(`${req.userId.id}`, sign);
             }
             return res.status(200).json({message: 'logout ok'})
         } catch (err) {
@@ -79,7 +77,7 @@ module.exports = {
             throw new InvalidToken();
         }
         const [head, pay, sign] = req.params.token.split('.');
-        if (!await db.hExists(`${refreshPayload.user.id}`, sign)) {
+        if (!await redis.hExists(`${refreshPayload.user.id}`, sign)) {
             throw new UseRevokedRefreshToken();
         } else {
             return refreshPayload;
