@@ -1,6 +1,10 @@
+//const db = require('../database');
+
 const { createClient } = require('redis');
-const db = createClient();
-db.connect();
+
+const redis = createClient();
+redis.on('error', (err) => console.log('Redis Client Error', err));
+redis.connect();
 
 const prefix = 'mycryptofolio:';
 
