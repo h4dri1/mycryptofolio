@@ -239,6 +239,16 @@ class UnExeptedError extends Error {
     }
 }
 
+class DbConnectionError extends Error {
+    constructor (err) {
+        super();
+        this.name = err.name;
+        this.level = 'error';
+        this.message = err.message;
+        this.statusCode = 500;  
+    }
+}
+
 module.exports = {
     NoTransactionId,
     NoWallet,
@@ -262,5 +272,6 @@ module.exports = {
     RateLimitLogin,
     UnExeptedError,
     RateLimitRefresh,
-    RateLimitTransaction
+    RateLimitTransaction,
+    DbConnectionError
 };
