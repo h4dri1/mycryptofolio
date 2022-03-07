@@ -222,7 +222,10 @@ const portfolio = (store) => (next) => async (action) => {
               store.dispatch(saveNewToken(newAccessToken));
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err.response);
+            store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+          });
       }
       next(action);
       break;
