@@ -1,4 +1,3 @@
-# projet-11-crypt-o-folio
+# Mycryptofolio
 
-MyCryptoFolio est une plateforme qui donne aux visiteurs accès aux cryptomonnaies et leurs données ainsi que des informations régulièrement mises à jour et/ou importantes dans ce domaine.
-Elle permet aux utilisateurs enregistrés de gérer leurs portefeuilles d’investissement, d’y enregistrer des transactions, et de monitorer les performances en fonction des évolutions des cours.
+MyCryptoFolio est une plateforme qui permet d'explorer le marché des cryptomonnaies. Vous pourrez consulter les cours des principales cryptomonnaies en direct, les graphiques, la capitalisation ou encore le volume d'échange. En tant qu'utilisateur enregistrés vous pourrez gérer votre portefeuilles d’investissement, enregistrer des transactions et monitorer les performances en fonction des évolutions des cours.
