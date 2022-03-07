@@ -21,7 +21,7 @@ const helmet = require('helmet');
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 const corsOptions = {
-  origin: 'http://mycryptofolio.fr',
+  origin: 'http://localhost:8080',
   optionsSuccessStatus: 200
 }
 
