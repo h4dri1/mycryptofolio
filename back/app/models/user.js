@@ -1,4 +1,4 @@
-const db = require('../database');
+const { pool } = require('../database');
 
 class User {
     constructor(obj={}) {
@@ -8,18 +8,18 @@ class User {
     }
 
      static async findOne(email) {
-        const {rows} = await db.query('SELECT * FROM "user" WHERE email=$1;', [email]);
+        const {rows} = await pool.query('SELECT * FROM "user" WHERE email=$1;', [email]);
         return new User(rows[0]);
     }
 
     async save() {
-        const {rows} = await db.query('SELECT * FROM add_user($1)', [this]);
+        const {rows} = await pool.query('SELECT * FROM add_user($1)', [this]);
         this.id = rows[0].id;
         return this;
         //if(this.id) {
-        //    await db.query('SELECT * FROM update_user($1)', [this])
+        //    await pool.query('SELECT * FROM update_user($1)', [this])
         //} else {
-        //    const {rows} = await db.query('SELECT * FROM add_user($1)', [this]);
+        //    const {rows} = await pool.query('SELECT * FROM add_user($1)', [this]);
         //    if (rows) {
         //        this.id = rows[0].id;
         //        return this;

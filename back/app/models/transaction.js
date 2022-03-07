@@ -1,4 +1,4 @@
-const db = require('../database');
+const { pool } = require('../database');
 
 class Transaction {
 
@@ -14,7 +14,7 @@ class Transaction {
     }
 
     static async getUserCrypto(user_id) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         wallet_id, wallet_label, coin_id, symbol, \
         AVG(price) AS buy_price,\
@@ -31,7 +31,7 @@ class Transaction {
     }
 
     static async getUserCryptoByWallet(user_id, wallet_id) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         wallet_id, wallet_label, coin_id, symbol, \
         AVG(price) as buy_price, \
@@ -49,7 +49,7 @@ class Transaction {
     }
 
     static async getUserTransaction(user_id) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         id, symbol, buy, price, quantity, buy_date \
         FROM \
@@ -66,7 +66,7 @@ class Transaction {
     }
 
     static async getUserTransactionByWallet(user_id, wallet_id) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         id, symbol, buy, price, quantity, buy_date \
         FROM \
@@ -81,7 +81,7 @@ class Transaction {
     }
 
     static async getSumCoinByWalletWithSell(tid) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         transaction_id, wallet_id, user_id, coin_id, buy,\
         (SELECT quantity FROM view_transaction WHERE id=$1), \
@@ -103,9 +103,9 @@ class Transaction {
 
     async save() {
         if(this.id) {
-            await db.query('SELECT * FROM update_transaction($1)', [this]);
+            await pool.query('SELECT * FROM update_transaction($1)', [this]);
         } else {
-            const {rows} = await db.query('SELECT * FROM add_transaction($1)', [this]);
+            const {rows} = await pool.query('SELECT * FROM add_transaction($1)', [this]);
             if (rows) {
                 this.id = rows[0].id;
                 return this;
@@ -114,7 +114,7 @@ class Transaction {
     }
 
     static async delete(id) {
-        await db.query('DELETE FROM transaction WHERE id=$1;', [id]);
+        await pool.query('DELETE FROM transaction WHERE id=$1;', [id]);
     }
 }
 

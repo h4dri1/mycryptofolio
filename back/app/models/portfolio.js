@@ -1,4 +1,4 @@
-const db = require('../database');
+const { pool } = require('../database');
 
 class Transaction {
 
@@ -9,7 +9,7 @@ class Transaction {
     }
 
     static async getPerformance(id) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         SUM (investment) as investment, \
         SUM (value) as actual_value,\
@@ -24,7 +24,7 @@ class Transaction {
     }
 
     static async getPerformanceByWallet(id, wid) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         SUM (investment) as investment, \
         SUM (value) as actual_value, \
@@ -39,7 +39,7 @@ class Transaction {
     }
 
     static async getDistribution(id) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         name, quantity, value, \
         (100 * coins_value.value) / (SELECT SUM(value) FROM coins_value WHERE user_id=$1 AND coins_value.quantity!=0) as distribution \
@@ -55,7 +55,7 @@ class Transaction {
     }
 
     static async getDistributionByWallet(id, wid) {
-        const {rows} = await db.query(
+        const {rows} = await pool.query(
         'SELECT \
         name, quantity,  value, \
         (100 * coins_value_wallet.value) / (SELECT SUM(value) FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2 AND coins_value_wallet.quantity!=0) AS distribution \
