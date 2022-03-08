@@ -14,7 +14,7 @@ module.exports = {
                     
         res.json = async (data) => {
             const [head, pay, sign] = data.refreshToken.split('.');
-            const payload = jwt.validateToken(data.refreshToken.trim());
+            const payload = jwt.validateRefreshToken(data.refreshToken.trim());
             await redis.hSet(`${payload.user.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
             originalResponseJson(data);
         }
