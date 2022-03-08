@@ -1,7 +1,8 @@
 const request = require('supertest')
-const { app } = require('../../config')
+const { app } = require('../../server')
+
 describe('Login Endpoints', () => {
-  it('should create a new post', async () => {
+  it('should return a response with status 200', async () => {
     const res = await request(app)
       .post('/v1/jwt/login')
       .send({
@@ -10,4 +11,4 @@ describe('Login Endpoints', () => {
       })
     expect(res.statusCode).toEqual(200);
   })
-})
+});
