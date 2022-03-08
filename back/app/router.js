@@ -87,7 +87,7 @@ router
     )
     .post(
         '/signup',
-        auth.signup,
+        //auth.signup,
         rateLimit(signupSchemaLim), 
         validateBody(signupSchema), 
         flush, 
