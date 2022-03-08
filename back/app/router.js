@@ -86,7 +86,8 @@ router
         walletController.addWallet
     )
     .post(
-        '/signup', 
+        '/signup',
+        auth.signup,
         rateLimit(signupSchemaLim), 
         validateBody(signupSchema), 
         flush, 
