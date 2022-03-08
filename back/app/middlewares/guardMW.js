@@ -38,7 +38,7 @@ module.exports = {
             if (own[0].sell === 0 | !own[0].buy) {
                 next();
             } else {
-                if (Math.round(own[0].total) === 0) {
+                if (own[0].total === 0) {
                     throw new DeleteFirstSell(req.params.tid);
                 }
                 next();
