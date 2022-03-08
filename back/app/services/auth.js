@@ -9,6 +9,18 @@ const { BanUser, UseRevokedRefreshToken, BadGuy, InvalidToken } = require('../er
 const originalLogger = logger.log.bind(logger);
 
 module.exports = {
+    signup: async (req, res, next) => {
+        const originalResponseJson = res.json.bind(res);
+                    
+        res.json = async (data) => {
+            const [head, pay, sign] = data.refreshToken.split('.');
+            const payload = jwt.validateToken(data.refreshToken.trim());
+            await redis.hSet(`${payload.user.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
+            originalResponseJson(data);
+        }
+        next();
+    },
+
     login: async (req, res, next) => {
         try {
             const prefix = 'login:';
