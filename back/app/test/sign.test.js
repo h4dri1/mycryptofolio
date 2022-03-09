@@ -3,6 +3,17 @@ const { app } = require('../../server')
 const { redis } = require('../database')
 const { faker } = require('@faker-js/faker');
 
+beforeAll(async () => {
+  const res = await request(app)
+  .post('/v1/jwt/login')
+  .send({
+    email: 'test@test.fr',
+    password: '#0clock$0087',
+  })
+  token = res.header.authorization
+  refreshToken = res.body.refreshToken
+});
+
 describe('Login Endpoints', () => {
   it('should return a response with status 200', async () => {
     const res = await request(app)
@@ -11,6 +22,25 @@ describe('Login Endpoints', () => {
         email: 'test@test.fr',
         password: '#0clock$0087',
       })
+      .expect("Content-Type", /json/)
+    expect(res.statusCode).toEqual(200);
+  })
+});
+
+describe('RefreshToken Endpoints', () => {
+  it('should return a response with status 200', async () => {
+    const res = await request(app)
+      .get(`/v1/jwt/refresh/${refreshToken}`)
+      .expect("Content-Type", /json/)
+    expect(res.statusCode).toEqual(200);
+  })
+});
+
+describe('Logout Endpoints', () => {
+  it('should return a response with status 200', async () => {
+    const res = await request(app)
+      .get(`/v1/logout/${refreshToken}`)
+      .set('Authorization', `Bearer ${token}`)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(200);
   })
@@ -29,8 +59,11 @@ describe('Signup Endpoints', () => {
         picture: 'picture'
       })
     expect(res.statusCode).toEqual(201);
-    await redis.disconnect();
   })
+});
+
+afterAll(async () => {
+  await redis.disconnect();
 });
 
 

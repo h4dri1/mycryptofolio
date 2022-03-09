@@ -62,6 +62,9 @@ describe('Top Cryptos Endpoints', () => {
         .get('/v1/cryptoprice/bitcoin/usd/false/false/false/false')
         .expect("Content-Type", /json/)
       expect(res.statusCode).toEqual(200);
-      await redis.disconnect();
     })
+  });
+
+  afterAll(async () => {
+    await redis.disconnect();
   });

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node-dev index.js",
-    "test": "jest --detectOpenHandles"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
