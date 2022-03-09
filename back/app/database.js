@@ -8,10 +8,6 @@ redis.on('error', () => {
     process.exit()
 });
 
-redis.on('connect', () => {
-    console.log('--> Database Cache Server Connected');
-});
-
 redis.connect();
 
 const config = {
@@ -24,10 +20,6 @@ const pool = new Pool(config)
 pool.on('error', () => {
     console.error('--> Database Server DISCONNECTED !');
     process.exit();
-});
-
-pool.on('connect', () => {
-    console.log('--> Database Server Connected');
 });
 
 module.exports = { pool, redis };

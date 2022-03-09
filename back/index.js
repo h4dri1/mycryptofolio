@@ -4,7 +4,7 @@ const { app, host, port } = require('./server');
 
 app.listen(port, host, () => {
   console.log(`==> Run in ${process.env.NODE_ENV} environnement <==`);
-  if (process.env.NODE_ENV === 'dev') {
+  if (process.env.NODE_ENV !== 'production') {
       console.log(`--> Cors option ${process.env.HOSTNAME}`);
       console.log(`--> Helmet Header Security OFF`);
       console.log(`--> Trust Proxy OFF`);
