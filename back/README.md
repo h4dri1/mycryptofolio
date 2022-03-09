@@ -36,7 +36,21 @@ Enfin, créer une base de données PostgreSQL et déployer le projet Sqitch dess
 
 ```bash
 createdb -U postgres mycryptofolio
+```
+
+Pour une base de test :
+
+```bash
+sqitch deploy testuser
+node data/importJson.js
 sqitch deploy
+```
+
+Pour une base de production :
+
+```bash
+sqitch deploy --plan-file ./migrations/sqitch_prod.plan
+node data/importJson.js
 ```
 
 Configurer PostgreSQL (ou fournir les vartiables d'environnement nécéssaires) pour que les commandes `createdb` et `sqitch` puissent s'exécuter
@@ -46,4 +60,5 @@ Configurer PostgreSQL (ou fournir les vartiables d'environnement nécéssaires) 
 ```bash
 npm run dev (node-dev)
 npm start (node)
+npm test (jest)
 ```
