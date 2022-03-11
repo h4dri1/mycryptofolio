@@ -107,8 +107,8 @@ content-type: application/json
 {
   "email": "test@test.fr",
   "nickname": "test",
-  "password": "#Cafard0087",
-  "passwordCheck": "#Cafard0087",
+  "password": "",
+  "passwordCheck": "",
   "picture": "cool"
 }
 

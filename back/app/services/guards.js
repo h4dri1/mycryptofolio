@@ -22,7 +22,7 @@ module.exports = {
 
     walletGuard: async (req, res, next) => {
         const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
-        if (!is_owning_wallet[0].id | is_owning_wallet.length === 0) {
+        if (!is_owning_wallet[0].id || is_owning_wallet.length === 0) {
             throw new NoWallet();
         } else {
             const found = is_owning_wallet.filter(element => element.id === Number(req.params.wid)).length > 0;
@@ -41,7 +41,7 @@ module.exports = {
         }
         if (req.body.id) {
             const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
-            if (Number(wallet.total) === Number(own[0].quantity) | (Math.abs(Number(req.body.quantity)) + Math.abs(Number(own[0].quantity))) > wallet.total) {
+            if (Number(wallet.total) === Number(own[0].quantity) || (Math.abs(Number(req.body.quantity)) + Math.abs(Number(own[0].quantity))) > wallet.total) {
                 throw new MoreCoinThanYouHave(req.body);
             }
         } else {
