@@ -28,7 +28,7 @@ const logger = createLogger({
 });
 
 const errorLogger = (err, req, res, next) => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production' && !process.env.JEST_WORKER_ID) {
         console.error(err.stack)
     }
     if (!err.level) {
