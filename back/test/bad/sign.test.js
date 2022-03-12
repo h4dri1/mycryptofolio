@@ -1,7 +1,6 @@
 const request = require('supertest')
-const { app } = require('../../../server')
-const { redis } = require('../../database')
-const { faker } = require('@faker-js/faker');
+const { app } = require('../../server')
+const { redis } = require('../../app/database')
 
 let token = '';
 let refreshToken = '';

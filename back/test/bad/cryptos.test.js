@@ -1,6 +1,6 @@
 const request = require('supertest')
-const { app } = require('../../../server')
-const { redis } = require('../../database')
+const { app } = require('../../server')
+const { redis } = require('../../app/database')
 
 describe('Top Cryptos Endpoints Invalid', () => {
     it('should return a response with status 404', async () => {
