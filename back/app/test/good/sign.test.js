@@ -1,7 +1,10 @@
 const request = require('supertest')
-const { app } = require('../../server')
-const { redis } = require('../database')
+const { app } = require('../../../server')
+const { redis } = require('../../database')
 const { faker } = require('@faker-js/faker');
+
+let token = '';
+let refreshToken = '';
 
 beforeAll(async () => {
   const res = await request(app)
@@ -14,7 +17,7 @@ beforeAll(async () => {
   refreshToken = res.body.refreshToken
 });
 
-describe('Login Endpoints', () => {
+describe('Login Endpoints Valid', () => {
   it('should return a response with status 200', async () => {
     const res = await request(app)
       .post('/v1/jwt/login')
@@ -27,7 +30,7 @@ describe('Login Endpoints', () => {
   })
 });
 
-describe('RefreshToken Endpoints', () => {
+describe('RefreshToken Endpoints Valid', () => {
   it('should return a response with status 200', async () => {
     const res = await request(app)
       .get(`/v1/jwt/refresh/${refreshToken}`)
@@ -36,7 +39,7 @@ describe('RefreshToken Endpoints', () => {
   })
 });
 
-describe('Logout Endpoints', () => {
+describe('Logout Endpoints Valid', () => {
   it('should return a response with status 200', async () => {
     const res = await request(app)
       .get(`/v1/logout/${refreshToken}`)
@@ -46,7 +49,7 @@ describe('Logout Endpoints', () => {
   })
 });
 
-describe('Signup Endpoints', () => {
+describe('Signup Endpoints Valid', () => {
   it('should return a response with status 201', async () => {
     const res = await request(app)
       .post('/v1/signup')
@@ -59,6 +62,22 @@ describe('Signup Endpoints', () => {
         picture: 'picture'
       })
     expect(res.statusCode).toEqual(201);
+  })
+});
+
+describe('Signup Endpoints Invalid', () => {
+  it('should return a response with status 400', async () => {
+    const res = await request(app)
+      .post('/v1/signup')
+      .expect("Content-Type", /json/)
+      .send({
+        email: '',
+        nickname: '',
+        password: '',
+        passwordCheck: '',
+        picture: ''
+      })
+    expect(res.statusCode).toEqual(400);
   })
 });
 

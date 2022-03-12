@@ -9,7 +9,9 @@ const importData = async () => {
     for (const crypto of cryptos) {
         await pool.query('INSERT INTO crypto(coin_id, symbol) VALUES($1, $2)', [crypto.id, crypto.symbol]);
     }
-    db.end();
+    console.log('finish')
+    pool.end();
+    process.exit();
 };
 
 importData();
