@@ -33,7 +33,7 @@ module.exports = {
                 throw new NoTransactionId(req.params.tid);
             }
             if (own[0].user_id !== req.userId.id) {
-                throw NotYourTransaction(req.params.tid);
+                throw new NotYourTransaction(req.params.tid);
             }
             if (own[0].sell === 0 || !own[0].buy) {
                 next();

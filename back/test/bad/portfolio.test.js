@@ -160,11 +160,11 @@ describe('Portfolio delete transaction (JWT) Endpoints Invalid', () => {
           .set('Authorization', ``)
         expect(res.statusCode).toEqual(404);
     })
-    it('should return a response with status 500', async () => {
+    it('should return a response with status 403', async () => {
         const res = await request(app)
           .delete(`/v1/portfolio/transaction/4`)
           .set('Authorization', `Bearer ${token}`)
-        expect(res.statusCode).toEqual(500);
+        expect(res.statusCode).toEqual(403);
     })
 });
   

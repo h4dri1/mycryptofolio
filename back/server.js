@@ -6,6 +6,12 @@ const cors = require('cors');
 
 const helmet = require('helmet');
 
+const { swaggerUi, swaggerSpec } = require('./app/docs/swagger')
+
+const { errorMW } = require('./app/middlewares');
+
+const router = require('./app/router');
+
 const corsOptions = {
   origin: `http://${process.env.HOSTNAME}:${process.env.FRONT_PORT}`,
   optionsSuccessStatus: 200
@@ -25,12 +31,6 @@ if (process.env.NODE_ENV === 'production') {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-
-const { swaggerUi, swaggerSpec } = require('./app/docs/swagger')
-
-const { errorMW } = require('./app/middlewares');
-
-const router = require('./app/router');
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
