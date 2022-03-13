@@ -13,7 +13,7 @@ const { errorMW } = require('./app/middlewares');
 const router = require('./app/router');
 
 const corsOptions = {
-  origin: `http://${process.env.HOSTNAME}:${process.env.FRONT_PORT}`,
+  origin: `https://${process.env.HOSTNAME}:${process.env.FRONT_PORT}`,
   optionsSuccessStatus: 200
 }
 
