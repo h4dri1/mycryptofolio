@@ -37,7 +37,9 @@ npm install
 
 Copier le fichier .env.example, le renommer en .env et remplir les informations nécessaires.
 
-Copier le fichier .sqitch.example, le renommer en sqitch.conf et rajouter 'target = db:pg://postgres:password@localhost:5432/mycryptofolio
+Copier le fichier .sqitch.example, le renommer en sqitch.conf et rajouter :
+
+```target = db:pg://postgres:password@localhost:5432/mycryptofolio```
 
 Enfin, créer une base de données PostgreSQL et déployer le projet Sqitch dessus
 
