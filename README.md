@@ -113,12 +113,16 @@ npm start
 
 Affichage et mise en forme des données reçus de l'API
 
-## Installation
+## Installation :
 
 ```shell
 cd ~/myCryptoFolio/front
 yarn
 ```
+
+## Configuration environnement :
+
+Copier le fichier .env.example, le renommer en .env et remplir le chemin d'accés au back (http://localhost:8888/v1 en cas d'utilisation en local).
 
 ## Démarrage du serveur front
 
