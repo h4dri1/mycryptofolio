@@ -10,9 +10,12 @@ module.exports = {
             instance.wallet_id = req.params.wid;
             instance.crypto_id = crypto_id[0].id;
             const transaction = await instance.save();
+            // Create new transaction
             if (transaction) {
                 return res.status(201).json(transaction);
             }
+            // Update transaction
+            // id in body
             res.status(204).json('Update ok')
         } catch (err) {
             next(err);

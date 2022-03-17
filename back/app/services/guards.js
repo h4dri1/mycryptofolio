@@ -10,6 +10,9 @@ const { NoTransactionId,
         } = require('../error');
 
 module.exports = {
+    // Transaction check
+    // Check if transaction id exist
+    // Check if the connected user own this transaction id
     transactionGuard: async (req, res, next) => {
         const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
         if (!own[0].transaction_id) {
@@ -19,7 +22,9 @@ module.exports = {
             throw new NotYourTransaction(req.ip, req.body.id);
         }
     },
-
+    // Wallet check
+    // Check if the connected user own the wallet id
+    // Check if the user have a wallet
     walletGuard: async (req, res, next) => {
         const is_owning_wallet = await Wallet.findWalletByUser(req.userId.id);
         if (!is_owning_wallet[0].id || is_owning_wallet.length === 0) {
@@ -31,7 +36,9 @@ module.exports = {
             }
         } 
     },
-
+    // Coin check
+    // Check if the crypto is present in the wallet (for selling)
+    // Check if the quantity of selling coin < total coin
     coinGuard: async (req, res, next) => {
         const transacWallet = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
         const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
@@ -50,7 +57,9 @@ module.exports = {
             };
         }
     },
-
+    // Sign Check
+    // Check if buy transaction is +
+    // Check if sell transaction is -
     buySellSign: async (req, res) => {
         if (req.body.buy) {
             if (Number(req.body.quantity) <= 0) {

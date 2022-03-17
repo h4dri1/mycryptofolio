@@ -2,6 +2,8 @@ const { Transaction, Crypto } = require('../models');
 const service_fetch = require('../services/fetch');
 
 module.exports = async (req, res, next) => {
+    // Get all cryptos owned by user
+    // Fetch user's crypto price and add to db
     try {
         if (req.params.wid) {
             var cryptos = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);

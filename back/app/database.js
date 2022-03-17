@@ -1,7 +1,8 @@
 const { Pool } = require('pg');
 const { createClient } = require('redis');
-
 const redis = createClient();
+
+// Check Redis error connection
 
 redis.on('error', () => {
     console.log('--> Database Cache Server DISCONNECTED !');
@@ -15,7 +16,11 @@ const config = {
     allowExitOnIdle: true
 }
 
+// Postgresql Pool connection allow up to 100 connection at the same time
+
 const pool = new Pool(config)
+
+// Check postgresql connection error
 
 pool.on('error', () => {
     console.error('--> Database Server DISCONNECTED !');

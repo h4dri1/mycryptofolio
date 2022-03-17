@@ -8,6 +8,7 @@ module.exports = (req, res, next) => {
         if (!token) {
             throw new InvalidToken();
         }
+        // For Swagger doc
         if (token.includes('Bearer')) {
             newToken = token.replace('Bearer', '')
         }

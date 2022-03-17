@@ -10,8 +10,10 @@ const errLevels = {
     verbose: 4,
     debug: 5,
     silly: 6
-  }
- 
+}
+
+// Use winston for logging error
+// Winston config
 const logger = createLogger({
     levels: errLevels,
     format: format.combine(format.timestamp(), format.json()),
@@ -26,8 +28,10 @@ const logger = createLogger({
         new transports.File({ filename: 'logs/rejections.log' }),
     ],
 });
-
+// Winston error logger
+// Log error on log files
 const errorLogger = (err, req, res, next) => {
+    // If production env doesn't send error stack
     if (process.env.NODE_ENV !== 'production' && !process.env.JEST_WORKER_ID) {
         console.error(err.stack)
     }
@@ -38,7 +42,8 @@ const errorLogger = (err, req, res, next) => {
     }
     next(err);
 }
-
+// Error Responder
+// Respond error to user
 const errorResponder = (err, req, res, next) => {
     if (!err.statusCode) {
         err.statusCode = 500

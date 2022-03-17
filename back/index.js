@@ -1,6 +1,10 @@
 require('dotenv').config();
 
+// init express app on server.js
+
 const { app } = require('./server');
+
+// init host port in config.js
 
 const { host, port } = require('./config');
 

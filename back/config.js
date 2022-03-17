@@ -4,6 +4,8 @@ const express = require('express')
 
 const app = express();
 
+// Helmet is a MW for securise Headers
+
 const helmet = require('helmet');
 
 var corsOptions = {
@@ -14,6 +16,8 @@ var corsOptions = {
 const port = process.env.LPORT || 5000;
 
 const host = process.env.LHOST || 'localhost';
+
+// If Dev environnement turn off helmet and trust proxy
 
 if (process.env.NODE_ENV === 'production') {
     var corsOptions = {

@@ -27,9 +27,20 @@ const { loginSchema,
         transactionSchemaLim
 } = require('./schemas');
 
+// jwtMW => Check JWT Access Token for pretected route
+// fetchMW => Check cryptos in portfolio get the price and add it to db
+// guardMW => Check and validate transaction (check what you can or can't doing with a transaction)
+// validateJWT, validateBody, validateParams => Joi MW check data type
+
 const { jwtMW, fetchMW, guardMW, validateJWT, validateBody, validateParams } = require('./middlewares');
 
+// auth => Service for ban 5x bad password and whitelist/blacklist refreshtoken
+// cache => Redis db cache
+// flush => Flush redis cache
+
 const { auth, cache, flush } = require('./services');
+
+// express rate limite MW check number of call by IP and limit
 
 const rateLimit = require('express-rate-limit');
 

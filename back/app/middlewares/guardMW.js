@@ -3,6 +3,11 @@ const { transactionGuard, walletGuard, coinGuard, buySellSign } = require("../se
 const { NoTransactionId, NotYourTransaction, DeleteFirstSell, NotYourWallet } = require('../error');
 
 module.exports = {
+    // Use guard service for check and validate transaction
+    // Add transaction guard
+    // Sell/Buy/Update
+    // If all check ok we can going to the next MW
+    // If one check fail it throw a new error
     transactionGuard: async (req, res, next) => {
         try {
             if (req.body.buy) {
@@ -25,7 +30,9 @@ module.exports = {
             next(err);
         }
     },
-
+    // Delete transaction guard
+    // If all check ok we can going to the next MW
+    // If one check fail it throw a new error
     deleteTransaction: async (req, res, next) => {
         try {
             const own = await Transaction.getSumCoinByWalletWithSell(req.params.tid);
@@ -47,7 +54,9 @@ module.exports = {
             next(err)
         }
     }, 
-
+    // Delete wallet guard
+    // If all check ok we can going to the next MW
+    // If one check fail it throw a new error
     deleteWallet: async (req, res, next) => {
         try {
             const youShallNotPass = await walletGuard(req, res);
