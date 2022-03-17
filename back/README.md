@@ -4,6 +4,11 @@ Ce sous-dépôt est destiné à l'API de MyCryptoFolio.
 
 Ce projet est une API REST pour gérer les appels du Front et alimenter un site de cryptomonnaies
 
+## Path :
+
+-Docs disponible sur http://hostname:port/docs
+-API disponible sur http://hotnale:port/v1
+
 ## Stack technique
 
 - [NodeJS](https://nodejs.org/en/download) (v12 ou supérieur)
@@ -15,11 +20,10 @@ Ces outils sont nécessaires à l'installation et au fonctionnement de l'API.
 A installer sur votre hôte avant de continuer.
 
 ## Installation
-
 Cloner le dépot en local
 
 ```bash
-git clone <url_du_depot>
+git clone git@github.com:h4dri1/mycryptofolio.git
 ```
 
 Puis dans le dossier local, installer les dépendances npm
@@ -38,7 +42,7 @@ Enfin, créer une base de données PostgreSQL et déployer le projet Sqitch dess
 createdb -U postgres mycryptofolio
 ```
 
-Solution 1 : Avec sqitch
+### Solution 1 : Avec sqitch
 
 Pour une base de test :
 
@@ -55,7 +59,7 @@ sqitch deploy --plan-file ./migrations/sqitch_prod.plan
 node data/importJson.js
 ```
 
-Solution 2 : Avec NPM
+### Solution 2 : Avec NPM
 
 Pour une base de test :
 
@@ -69,7 +73,7 @@ Pour une base de production :
 npm run install_prod
 ```
 
-Clean DB :
+### Clean DB :
 
 ```bash
 npm run clean OU sqitch revert -y
@@ -79,8 +83,26 @@ Configurer PostgreSQL (ou fournir les vartiables d'environnement nécéssaires) 
 
 ## Lancement 
 
+### Developpement :
+
+=> NODE_ENV=dev node-dev
+
 ```bash
-npm run dev (node-dev)
-npm start (node)
-npm test (jest)
+npm run dev
+```
+
+### Test :
+
+Jest
+
+```bash
+npm test
+```
+
+### Production :
+
+=> NODE_ENV=production node start
+
+```bash
+npm start
 ```
