@@ -27,7 +27,7 @@ const { loginSchema,
         transactionSchemaLim
 } = require('./schemas');
 
-// jwtMW => Check JWT Access Token for pretected route
+// jwtMW => Check JWT Access Token for protected route
 // fetchMW => Check cryptos in portfolio get the price and add it to db
 // guardMW => Check and validate transaction (check what you can or can't doing with a transaction)
 // validateJWT, validateBody, validateParams => Joi MW check data type

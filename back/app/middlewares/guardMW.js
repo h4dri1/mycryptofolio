@@ -4,9 +4,9 @@ const { NoTransactionId, NotYourTransaction, DeleteFirstSell, NotYourWallet } = 
 
 module.exports = {
     // Use guard service for check and validate transaction
-    // Add transaction guard
-    // Sell/Buy/Update
-    // If all check ok we can going to the next MW
+    // Add/Update transaction guard
+    // Sell/Buy
+    // If all check ok we can go to the next MW
     // If one check fail it throw a new error
     transactionGuard: async (req, res, next) => {
         try {

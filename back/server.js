@@ -4,11 +4,11 @@ const express = require('express');
 
 const cors = require('cors');
 
-//Swagger API Docs URL : http://localhost:8888/docs
+// Swagger API Docs URL : http://localhost:8888/docs
 
 const { swaggerUi, swaggerSpec } = require('./app/docs/swagger');
 
-//Error Middleware
+// Error Middleware
 
 const { errorMW } = require('./app/middlewares');
 
@@ -24,11 +24,11 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/v1', router);
 
-//Error Logger MW
+// Error Logger MW
 
 app.use(errorMW.errorLogger);
 
-//Error Responder MW
+// Error Responder MW
 
 app.use(errorMW.errorResponder);
 
