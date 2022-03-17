@@ -46,7 +46,7 @@ CREATE OR REPLACE FUNCTION add_wallet(json) RETURNS wallet AS $$
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;
 
-CREATE FUNCTION update_wallet(json) RETURNS wallet AS $$
+CREATE OR REPLACE FUNCTION update_wallet(json) RETURNS wallet AS $$
 	UPDATE wallet SET
 		label=$1->>'label',
 		user_id=($1->>'user_id')::int
@@ -65,7 +65,7 @@ CREATE OR REPLACE FUNCTION add_user(json) RETURNS "user" AS $$
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;
 
-CREATE FUNCTION update_user(json) RETURNS "user" AS $$
+CREATE OR REPLACE FUNCTION update_user(json) RETURNS "user" AS $$
 	UPDATE "user" SET
 		email=$1->>'email',
 		nickname=$1->>'nickname',
@@ -88,7 +88,7 @@ CREATE OR REPLACE FUNCTION add_transaction(json) RETURNS transaction AS $$
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;
 
-CREATE FUNCTION update_transaction(json) RETURNS transaction AS $$
+CREATE OR REPLACE FUNCTION update_transaction(json) RETURNS transaction AS $$
 	UPDATE transaction SET
 		buy_date=($1->>'buy_date')::timestamp,
 		buy=($1->>'buy')::boolean,

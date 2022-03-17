@@ -4,9 +4,12 @@
   "description": "Ce sous-dépôt est destiné à l'API de MyCryptoFolio.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node-dev index.js",
-    "test": "jest"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=dev node-dev index.js",
+    "test": "jest",
+    "install_dev": "sqitch revert -y;sqitch deploy testuser;node data/importJson.js;sqitch deploy",
+    "install_prod": "sqitch revert -y;sqitch deploy --plan-file ./migrations/prod/sqitch.plan;node data/importJson.js",
+    "clean": "sqitch revert -y"
   },
   "keywords": [],
   "author": "",
