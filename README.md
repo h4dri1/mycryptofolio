@@ -4,9 +4,7 @@ MyCryptoFolio est une plateforme qui permet d'explorer le marché des cryptomonn
 
 # Backend
 
-Ce sous-dépôt est destiné à l'API de MyCryptoFolio.
-
-Ce projet est une API REST pour gérer les appels du Front et alimenter un site de cryptomonnaies
+Cette API REST est là pour gérer les appels du Front et alimenter le site en données
 
 ## Path :
 
@@ -110,3 +108,21 @@ npm test
 ```bash
 npm start
 ```
+
+# Frontend
+
+Affichage et mise en forme des données reçus de l'API
+
+## Installation
+
+```shell
+git clone git@github.com:O-clock-XIII/projet-11-crypt-o-folio.git ~/myCryptoFolio
+cd ~/myCryptoFolio/front
+yarn
+```
+
+## Démarrage du serveur front
+
+`yarn start`
+
+Ouvrir votre navigateur à l'url `http://localhost:8080`
