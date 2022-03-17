@@ -9,6 +9,7 @@ Cette API REST est là pour gérer les appels du Front et alimenter le site en d
 ## Path :
 
 -Docs disponible sur http://hostname:port/docs
+
 -API disponible sur http://hotname:port/v1
 
 ## Stack technique
