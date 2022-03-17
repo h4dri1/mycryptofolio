@@ -116,7 +116,6 @@ Affichage et mise en forme des données reçus de l'API
 ## Installation
 
 ```shell
-git clone git@github.com:O-clock-XIII/projet-11-crypt-o-folio.git ~/myCryptoFolio
 cd ~/myCryptoFolio/front
 yarn
 ```
