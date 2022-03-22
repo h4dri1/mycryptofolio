@@ -82,6 +82,17 @@ export default function AssetsShares({ distribution }) {
       </Container>
       <Container sx={{
         display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '30vh', overflowY: 'auto',
+        '&::-webkit-scrollbar': {
+          width: '0.4em'
+        },
+        '&::-webkit-scrollbar-track': {
+          boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+          webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#7f5cce',
+          outline: '1px solid slategrey'
+        }
       }}
       >
         <Table stickyHeader sx={{ maxWidth: '100%', p: '10' }}>

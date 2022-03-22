@@ -76,7 +76,19 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
             </ListItemButton>
           </Link>
         </Grid>
-        <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '30vh' }}>
+        <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '30vh',
+        '&::-webkit-scrollbar': {
+          width: '0.4em'
+        },
+        '&::-webkit-scrollbar-track': {
+          boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+          webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#7f5cce',
+          outline: '1px solid slategrey'
+        }
+       }}>
           <List>
             {
               wallets.map((wallet) => (
