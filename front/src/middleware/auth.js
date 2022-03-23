@@ -59,6 +59,14 @@ const auth = (store) => (next) => async (action) => {
       break;
 
     case LOGOUT:
+      axios({
+        method: 'get',
+        baseURL,
+        url: `/logout/${refreshToken}`,
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        }
+      })
       localStorage.removeItem('refreshToken');
       next(action);
       break;
