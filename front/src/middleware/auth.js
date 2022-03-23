@@ -59,6 +59,7 @@ const auth = (store) => (next) => async (action) => {
       break;
 
     case LOGOUT:
+      console.log('ok')
       axios({
         method: 'get',
         baseURL,
@@ -70,6 +71,7 @@ const auth = (store) => (next) => async (action) => {
         .then((res) => {
           if (res.status === 200) {
             localStorage.removeItem('refreshToken');
+            localStorage.removeItem('accessToken');
           }
         })
         .catch((err) => {
@@ -131,7 +133,7 @@ const auth = (store) => (next) => async (action) => {
         };
         store.dispatch(saveUser(userObj));
       }
-      else if (isTokenExpired(accessToken) && (!refreshToken || isTokenExpired(accessToken))) {
+      else if ((isTokenExpired(accessToken) && accessToken) && (!refreshToken || isTokenExpired(accessToken))) {
         store.dispatch(logout());
       }
 
