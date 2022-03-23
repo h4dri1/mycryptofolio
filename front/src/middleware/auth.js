@@ -67,7 +67,15 @@ const auth = (store) => (next) => async (action) => {
           Authorization: store.getState().user.accessToken,
         }
       })
-      localStorage.removeItem('refreshToken');
+        .then((res) => {
+          if (res.status === 200) {
+            localStorage.removeItem('refreshToken');
+          }
+        })
+        .catch((err) => {
+          console.log(err.response.data.message);
+          store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+        })     
       next(action);
       break;
 
