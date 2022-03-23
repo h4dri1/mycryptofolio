@@ -12,7 +12,7 @@ const errLevels = {
     silly: 6
 }
 
-// Use winston for logging error
+// Use winston for logging
 // Winston config
 const logger = createLogger({
     levels: errLevels,
@@ -28,7 +28,7 @@ const logger = createLogger({
         new transports.File({ filename: 'logs/rejections.log' }),
     ],
 });
-// Winston error logger
+// Winston logger
 // Log error on log files
 const errorLogger = (err, req, res, next) => {
     // If production env doesn't send error stack

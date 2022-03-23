@@ -9,7 +9,7 @@ const app = express();
 const helmet = require('helmet');
 
 var corsOptions = {
-    origin: `https://${process.env.LHOST}:8080`,
+    origin: `http://${process.env.LHOST}:8080`,
     optionsSuccessStatus: 200
 }
 
