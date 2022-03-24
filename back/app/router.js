@@ -66,14 +66,14 @@ router
 
 router
     .get(
-        '/portfolio', 
+        '/portfolio/:cur?', 
         jwtMW, 
         cache, 
         fetchMW, 
         portfolioController.getPortfolio
     )
     .get(
-        '/portfolio/wallet/:wid(\\d+)', 
+        '/portfolio/wallet/:wid(\\d+)/:cur?', 
         jwtMW, 
         cache, 
         fetchMW, 
