@@ -7,7 +7,6 @@ export const GET_ALL_CRYPTOS = 'GET_ALL_CRYPTOS';
 export const UPDATE_ALL_CRYPTOS = 'UPDATE_ALL_CRYPTOS';
 export const GET_CURRENT_PRICE = 'GET_CURRENT_PRICE';
 export const SET_PRICE = 'SET_PRICE';
-export const SET_CUR = 'SET_CUR';
 
 export const getCryptoList = () => ({
   type: GET_CRYPTO_LIST,
@@ -47,9 +46,4 @@ export const getCurrentPrice = (payload) => ({
 export const setPrice = (price) => ({
   type: SET_PRICE,
   payload: { currentPrice: price },
-});
-
-export const setCur = (cur) => ({
-  type: SET_CUR,
-  payload: { currentCur: cur },
 });

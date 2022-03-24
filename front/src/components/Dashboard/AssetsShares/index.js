@@ -18,7 +18,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AssetsShares({ distribution }) {
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
-  
+  //const refCurrency = localStorage.currency
+
   const labelsList = distribution.map((item) => (
     item.name
   ));
