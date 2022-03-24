@@ -59,7 +59,6 @@ const auth = (store) => (next) => async (action) => {
       break;
 
     case LOGOUT:
-      console.log('ok')
       axios({
         method: 'get',
         baseURL,

@@ -50,17 +50,6 @@ export default function SearchCrypto() {
                     backgroundColor: '#8b6ad8',
                     textColor: 'white',
                 },
-                '&::-webkit-scrollbar': {
-                    width: '0.4em'
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-                    webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    backgroundColor: '#7f5cce',
-                    outline: '1px solid slategrey'
-                  }
             }}
         >
             <Autocomplete

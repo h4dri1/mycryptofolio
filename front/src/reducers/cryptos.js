@@ -4,6 +4,7 @@ import {
   GET_MORE_CRYPTOS_LOADING,
   UPDATE_ALL_CRYPTOS,
   SET_PRICE,
+  SET_CUR
 } from 'src/actions/cryptos';
 
 const initialState = {
@@ -49,6 +50,11 @@ const cryptosReducer = (state = initialState, action = {}) => {
         },
       };
     case SET_PRICE:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_CUR:
       return {
         ...state,
         ...action.payload,

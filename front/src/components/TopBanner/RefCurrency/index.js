@@ -4,7 +4,7 @@ import Select from '@mui/material/Select';
 
 // export default function SelectAutoWidth() {
 export default function RefCurrency() {
-  const [cur, setCur] = React.useState('USD');
+  const [cur, setCur] = React.useState('EUR');
 
   const handleChange = (event) => {
     setCur(event.target.value);
