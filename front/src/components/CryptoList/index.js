@@ -59,13 +59,6 @@ function CryptoList() {
     var cryptoSym = ''
   }
 
-//
-//if (currency === 'BTC') {
-//  currency = '₿'
-//} else if (currency === 'ETH') {
-//  currency = "⧫"
-//}
-
   useEffect(() => {
     dispatch(getCryptoList());
   }, []);

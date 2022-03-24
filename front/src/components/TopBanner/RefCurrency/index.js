@@ -2,12 +2,15 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCryptoList } from '../../../actions/cryptos';
+import { fetchPortfolio } from '../../../actions/portfolio'
 
 // export default function SelectAutoWidth() {
 export default function RefCurrency() { 
-  const disptach = useDispatch()
+  const dispatch = useDispatch()
+
+  const { logged } = useSelector((state) => state.user);
 
   const currency = localStorage.getItem('currency');
   if (!currency) {
@@ -20,7 +23,10 @@ export default function RefCurrency() {
   const handleChange = (event) => {
     setCur(event.target.value);
     localStorage.setItem('currency', event.target.value);
-    disptach(getCryptoList());
+    dispatch(getCryptoList());
+    if (logged) {
+      dispatch(fetchPortfolio());
+    }
   };
 
   return (
