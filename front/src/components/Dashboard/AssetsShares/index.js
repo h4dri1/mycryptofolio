@@ -17,8 +17,27 @@ import { useSelector } from 'react-redux';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AssetsShares({ distribution }) {
-  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
-  //const refCurrency = localStorage.currency
+  //const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  const currency = localStorage.getItem('currency');
+
+  if (currency === 'BTC') {
+    var curParams = {
+      maximumSignificantDigits: 4
+    }
+    var cryptoSym = '₿'
+  } else if (currency === 'ETH') {
+    var curParams = {
+      maximumSignificantDigits: 4
+    }
+    var cryptoSym = 'Ξ'
+  } else {
+    var curParams = {
+      style: "currency",
+      currency: currency,
+      maximumSignificantDigits: 4
+    }
+    var cryptoSym = ''
+  }
 
   const labelsList = distribution.map((item) => (
     item.name
@@ -117,12 +136,7 @@ export default function AssetsShares({ distribution }) {
                 </TableCell>
 
                 <TableCell align="center" sx={{ padding: '0.5em 0' }}>
-                  {Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: refCurrency,
-                    maximumSignificantDigits: 4,
-                    minimumSignificantDigits: 2,
-                  }).format(asset.value)}
+                  {`${cryptoSym}${Intl.NumberFormat('en-US', curParams).format(asset.value)}`}
                 </TableCell>
 
                 <TableCell align="center" sx={{ padding: '0.5em 0.1em' }}>{Intl.NumberFormat('en-US', { style: 'percent', maximumSignificantDigits: 2 }).format((asset.distribution / 100))}</TableCell>
