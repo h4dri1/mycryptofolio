@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
@@ -37,6 +38,27 @@ function CryptoList() {
 
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
 
+  const currency = localStorage.getItem('currency');
+
+  if (currency === 'BTC') {
+    var curParams = {
+      maximumSignificantDigits: 4
+    }
+    var cryptoSym = '₿'
+  } else if (currency === 'ETH') {
+    var curParams = {
+      maximumSignificantDigits: 4
+    }
+    var cryptoSym = 'Ξ'
+  } else {
+    var curParams = {
+      style: "currency",
+      currency: currency,
+      maximumSignificantDigits: 4
+    }
+    var cryptoSym = ''
+  }
+
   useEffect(() => {
     dispatch(getCryptoList());
   }, []);
@@ -73,11 +95,11 @@ function CryptoList() {
                     <Typography>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
-                <TableCell align="right">{`$${crypto.current_price.toLocaleString()}`}</TableCell>
+                <TableCell align="right">{`${cryptoSym}${crypto.current_price.toLocaleString("en-US", curParams)}`}</TableCell>
                 <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`$${crypto.market_cap.toLocaleString()}`}</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`$${crypto.total_volume.toLocaleString()}`}</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`${crypto.circulating_supply.toLocaleString()}`}</TableCell>
+                <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`${cryptoSym}${crypto.market_cap.toLocaleString("en-US", curParams)}`}</TableCell>
+                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.total_volume.toLocaleString("en-US", curParams)}`}</TableCell>
+                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.circulating_supply.toLocaleString()}`}</TableCell>
               </TableRow>
             ))}
           </TableBody>

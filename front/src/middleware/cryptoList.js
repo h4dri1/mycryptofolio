@@ -31,7 +31,8 @@ const cryptoList = (store) => (next) => (action) => {
       next(action);
       break;
     case GET_CRYPTO_LIST:
-      const { selectedCurrency, quantity } = store.getState().cryptos.cryptoList;
+      const { quantity } = store.getState().cryptos.cryptoList;
+      const selectedCurrency = localStorage.getItem('currency')
 
       axios({
         method: 'get',

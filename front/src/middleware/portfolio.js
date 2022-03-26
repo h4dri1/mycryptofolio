@@ -127,7 +127,7 @@ const portfolio = (store) => (next) => async (action) => {
     case FETCH_PORTFOLIO:
       privateRoute({
         method: 'get',
-        url: '/portfolio',
+        url: `/portfolio/${localStorage.getItem('currency')}`,
         headers: { Authorization: store.getState().user.accessToken },
       })
         .then((res) => {
@@ -141,7 +141,7 @@ const portfolio = (store) => (next) => async (action) => {
     case FETCH_SPECIFIC_WALLET:
       privateRoute({
         method: 'get',
-        url: `/portfolio/wallet/${action.payload}`,
+        url: `/portfolio/wallet/${action.payload}/${localStorage.getItem('currency')}`,
         headers: {
           Authorization: store.getState().user.accessToken,
         },

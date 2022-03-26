@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 
 function Performance() {
   const { performance } = useSelector((state) => state.portfolio);
-  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  //const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  const refCurrency = localStorage.getItem('currency')
 
   let perfPercentage = (
     (

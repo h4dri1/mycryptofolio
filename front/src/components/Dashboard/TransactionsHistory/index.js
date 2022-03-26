@@ -33,8 +33,8 @@ const TransactionsHistory = () => {
   const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.portfolio);
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
-  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
-
+  //const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  const refCurrency = localStorage.getItem('currency')
   const [selectedTransaction, setSelectedTransaction] = useState(undefined);
 
   const handleEditTransaction = (id) => {

@@ -13,12 +13,17 @@ module.exports = async (req, res, next) => {
         const strCryptos = cryptos.map((crypto) => {
             return crypto['coin_id']
         });
+        if (req.params.cur) {
+            var cur = req.params.cur.toLowerCase()
+        } else {
+            var cur = 'usd'
+        }
         searched_coins = strCryptos.toString();
-        const data = await service_fetch(`//api.coingecko.com/api/v3/simple/price?ids=${searched_coins}&vs_currencies=usd`);
+        const data = await service_fetch(`//api.coingecko.com/api/v3/simple/price?ids=${searched_coins}&vs_currencies=${cur}`);
         const newData = {}
         for (const price in data) {        
             newData.coin_id = price;
-            newData.price = data[price].usd;
+            newData.price = data[price][cur];
             JSON.stringify(newData)
             await Crypto.updatePrice(newData);
         }
