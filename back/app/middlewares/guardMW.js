@@ -36,16 +36,16 @@ module.exports = {
     deleteTransaction: async (req, res, next) => {
         try {
             const own = await Transaction.getSumCoinByWalletWithSell(req.params.tid);
-            if (!own || own.length === 0) {
+            if (!own || Number(own.length) === 0) {
                 throw new NoTransactionId(req.params.tid);
             }
-            if (own[0].user_id !== req.userId.id) {
+            if (Number(own[0].user_id) !== Number(req.userId.id)) {
                 throw new NotYourTransaction(req.params.tid);
             }
-            if (own[0].sell === 0 || !own[0].buy) {
+            if (Number(own[0].sell) === 0 || !own[0].buy) {
                 next();
             } else {
-                if (own[0].total === 0) {
+                if (Number(own[0].total) === 0) {
                     throw new DeleteFirstSell(req.params.tid);
                 }
                 next();
@@ -53,7 +53,7 @@ module.exports = {
         } catch (err) { 
             next(err)
         }
-    }, 
+    },
     // Delete wallet guard
     // If all check ok we can going to the next MW
     // If one check fail it throw a new error
