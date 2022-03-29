@@ -2,8 +2,6 @@
 %project=mycryptofolio
 
 init 2022-01-20T13:15:40Z h4dri1 <hadrien.vuillaume@gmail.com> # creation des tables
-testuser 2022-01-20T14:07:29Z h4dri1 <hadrien.vuillaume@gmail.com> # ajouter un utilisateur de test
-testTransaction 2022-01-25T10:45:57Z h4dri1 <hadrien.vuillaume@gmail.com> # ajouter des transactions de test
 
 view_transaction 2022-01-25T22:09:27Z h4dri1 <hadrien.vuillaume@gmail.com> # création de la vue transaction
 function_invest_value 2022-01-25T22:11:46Z h4dri1 <hadrien.vuillaume@gmail.com> # création des functions invest et value
@@ -20,3 +18,6 @@ view_get_distribution_by_wallet 2022-02-13T20:14:36Z h4dri1 <hadrien.vuillaume@g
 remove_view_get_distribution 2022-02-13T20:43:56Z h4dri1 <hadrien.vuillaume@gmail.com> # remove unused view get_distribution_bu_wallet
 alter_view_wallet_user_transaction 2022-02-13T23:31:59Z h4dri1 <hadrien.vuillaume@gmail.com> # add coin_id to view
 currency_toogle 2022-03-29T22:47:44Z ,,, <hadri1@h4dri1> # add currency toogle working
+
+testuser 2022-01-20T14:07:29Z h4dri1 <hadrien.vuillaume@gmail.com> # ajouter un utilisateur de test
+testTransaction 2022-01-25T10:45:57Z h4dri1 <hadrien.vuillaume@gmail.com> # ajouter des transactions de test
