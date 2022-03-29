@@ -1,6 +1,11 @@
--- Deploy mycryptofolio:migration1 to pg
+-- Deploy mycryptofolio:currency_toogle to pg
 
 BEGIN;
+
+ALTER TABLE transaction 
+ADD COLUMN fiat TEXT;
+
+UPDATE transaction SET fiat='usd';
 
 CREATE OR REPLACE FUNCTION update_transaction_bprice(json) RETURNS transaction AS $$
 	UPDATE transaction SET
@@ -9,11 +14,6 @@ CREATE OR REPLACE FUNCTION update_transaction_bprice(json) RETURNS transaction A
 	WHERE id=($1->>'id')::int
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;
-
-ALTER TABLE transaction 
-ADD COLUMN fiat TEXT;
-
-UPDATE transaction SET fiat='usd';
 
 CREATE OR REPLACE VIEW view_transaction AS
 SELECT
@@ -33,4 +33,5 @@ JOIN wallet
 	ON wallet_id=wallet.id
 JOIN crypto
 	ON transaction.crypto_id=crypto.id;
+
 COMMIT;
