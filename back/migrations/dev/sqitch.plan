@@ -19,3 +19,4 @@ alter_type_transaction_quantity 2022-02-08T10:36:18Z h4dri1 <hadrien.vuillaume@g
 view_get_distribution_by_wallet 2022-02-13T20:14:36Z h4dri1 <hadrien.vuillaume@gmail.com> # add view GetDistributionByWallet
 remove_view_get_distribution 2022-02-13T20:43:56Z h4dri1 <hadrien.vuillaume@gmail.com> # remove unused view get_distribution_bu_wallet
 alter_view_wallet_user_transaction 2022-02-13T23:31:59Z h4dri1 <hadrien.vuillaume@gmail.com> # add coin_id to view
+currency_toogle 2022-03-29T22:47:44Z ,,, <hadri1@h4dri1> # add currency toogle working

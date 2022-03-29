@@ -22,6 +22,11 @@ class Crypto {
         const {rows} = await pool.query('SELECT * FROM update_price($1)', [cryptos]);
         return rows.map(row => new Crypto(row));
     }
+
+    static async updateTransactionBPrice(transac) {
+        const {rows} = await pool.query('SELECT * FROM update_transaction_bprice($1)', [transac]);
+        return rows.map(row => new Crypto(row));
+    }
 }
 
 module.exports = Crypto;

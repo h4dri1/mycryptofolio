@@ -51,7 +51,7 @@ class Transaction {
     static async getUserTransaction(user_id) {
         const {rows} = await pool.query(
         'SELECT \
-        id, symbol, buy, price, quantity, buy_date \
+        id, symbol, buy, price, quantity, buy_date, fiat \
         FROM \
         view_transaction \
         WHERE \
