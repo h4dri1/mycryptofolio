@@ -29,7 +29,7 @@ module.exports = async (req, res, next) => {
             await Crypto.updatePrice(newData);
         }
         for (const transac in transacs) {
-            if (cur !== transacs[transac].fiat) {
+            if (cur.toLowerCase() !== (transacs[transac].fiat).toLowerCase()) {
                 const change = await service_fetch(`//api.coingecko.com/api/v3/coins/tether/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
                 const newData = {};
                 if (cur === 'eur') {

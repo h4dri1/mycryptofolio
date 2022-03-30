@@ -10,14 +10,15 @@ CREATE OR REPLACE FUNCTION update_price(json) RETURNS crypto AS $$
 $$ LANGUAGE SQL STRICT;
 
 CREATE OR REPLACE FUNCTION add_transaction(json) RETURNS transaction AS $$
-	INSERT INTO transaction (buy_date, buy, price, quantity, wallet_id, crypto_id)
+	INSERT INTO transaction (buy_date, buy, price, quantity, wallet_id, crypto_id, fiat)
 	VALUES (
 		($1->>'buy_date')::timestamp, 
 		($1->>'buy')::boolean, 
 		($1->>'price')::decimal, 
 		($1->>'quantity')::numeric, 
 		($1->>'wallet_id')::int,
-		($1->>'crypto_id')::int
+		($1->>'crypto_id')::int,
+		($1->>'fiat')
 	)
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;
@@ -29,7 +30,8 @@ CREATE FUNCTION update_transaction(json) RETURNS transaction AS $$
 		price=($1->>'price')::decimal,
 		quantity=($1->>'quantity')::numeric,
 		wallet_id=($1->>'wallet_id')::int,
-		crypto_id=($1->>'crypto_id')::int
+		crypto_id=($1->>'crypto_id')::int,
+		fiat=($1->>'fiat')
 	WHERE id=($1->>'id')::int
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;
