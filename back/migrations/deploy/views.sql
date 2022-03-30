@@ -1,11 +1,6 @@
--- Deploy mycryptofolio:alter_type_transaction_quantity to pg
+-- Deploy mycryptofolio:views to pg
 
 BEGIN;
-
-DROP VIEW view_transaction CASCADE;
-
-ALTER TABLE transaction
-ALTER COLUMN quantity TYPE NUMERIC(16,8);
 
 CREATE OR REPLACE VIEW view_transaction AS
 SELECT
@@ -18,7 +13,8 @@ SELECT
 	crypto.symbol,
 	wallet.label AS "wallet_label",
 	wallet_id,
-	wallet.user_id
+	wallet.user_id,
+	transaction.fiat as fiat
 FROM transaction
 JOIN wallet
 	ON wallet_id=wallet.id
@@ -56,5 +52,18 @@ GROUP BY
 	user_id,
 	symbol, 
 	coin_id;
+
+CREATE OR REPLACE VIEW view_wallet_user_transaction AS
+SELECT
+	transaction.id as transaction_id,
+	wallet_id,
+	wallet.user_id,
+	(SELECT coin_id FROM crypto WHERE id=transaction.crypto_id) as coin_id,
+	buy
+FROM 
+	transaction
+JOIN wallet
+ON
+	wallet_id=wallet.id;
 
 COMMIT;

@@ -35,7 +35,7 @@ module.exports = async (req, res, next) => {
                 if (cur === 'eur') {
                     var newPrice = change.market_data.current_price.eur * transacs[transac].price;
                 } else {
-                    var newPrice = ((1 - change.market_data.current_price.eur) + 1) * transacs[transac].price;
+                    var newPrice = (1 / change.market_data.current_price.eur) * transacs[transac].price;
                 }
                 newData.id = transacs[transac].id
                 newData.price = newPrice;

@@ -22,7 +22,8 @@ CREATE TABLE crypto (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     coin_id TEXT NOT NULL UNIQUE,
     symbol TEXT NOT NULL,
-    logo TEXT
+    logo TEXT,
+    price numeric(16,8)
 );
 
 CREATE TABLE transaction (
@@ -30,10 +31,11 @@ CREATE TABLE transaction (
     buy_date TIMESTAMPTZ NOT NULL,
     buy BOOLEAN NOT NULL,
     price DECIMAL NOT NULL,
-    quantity REAL NOT NULL,
+    quantity NUMERIC(16,8) NOT NULL,
     actual_value DOUBLE PRECISION,
     wallet_id INT REFERENCES wallet(id),
-    crypto_id INT REFERENCES crypto(id)
+    crypto_id INT REFERENCES crypto(id),
+    fiat TEXT NOT NULL
 );
 
 COMMIT;
