@@ -60,7 +60,7 @@ sqitch deploy
 Pour une base de production :
 
 ```bash
-sqitch deploy --plan-file ./migrations/prod/sqitch.plan
+sqitch deploy currency_toogle
 node data/importJson.js
 ```
 
