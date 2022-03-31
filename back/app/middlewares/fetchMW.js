@@ -33,13 +33,47 @@ module.exports = async (req, res, next) => {
                 const change = await service_fetch(`//api.coingecko.com/api/v3/coins/tether/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
                 const newData = {};
                 if (cur === 'eur') {
-                    var newPrice = change.market_data.current_price.eur * transacs[transac].price;
-                } else {
-                    var newPrice = (1 / change.market_data.current_price.eur) * transacs[transac].price;
+                    if ((transacs[transac].fiat).toLowerCase() === 'usd') {
+                        var newPrice = change.market_data.current_price.eur * transacs[transac].price;
+                    } else if ((transacs[transac].fiat).toLowerCase() === 'btc') {
+                        const changeCryptos = await service_fetch(`//api.coingecko.com/api/v3/coins/bitcoin/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
+                        var newPrice = changeCryptos.market_data.current_price.eur * transacs[transac].price;
+                    } else if ((transacs[transac].fiat).toLowerCase() === 'eth') {
+                        const changeCryptos = await service_fetch(`//api.coingecko.com/api/v3/coins/ethereum/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
+                        var newPrice = changeCryptos.market_data.current_price.eur * transacs[transac].price;
+                    }
+                } else if (cur === 'usd') {
+                    if ((transacs[transac].fiat).toLowerCase() === 'eur') {
+                        var newPrice = (1 / change.market_data.current_price.eur) * transacs[transac].price;
+                    } else {
+                        const coinId = await Crypto.getCryptoId(transacs[transac].symbol)
+                        const changeCryptos = await service_fetch(`//api.coingecko.com/api/v3/coins/${coinId[0].coin_id}/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
+                        if ((transacs[transac].fiat).toLowerCase() === 'btc') {
+                            var newPrice = changeCryptos.market_data.current_price.btc;
+                        } else {
+                            var newPrice = changeCryptos.market_data.current_price.eth;
+                        }
+                    }             
+                } else if (cur === 'btc') {
+                    if (transacs[transac].symbol !== 'btc') {
+                        const coinId = await Crypto.getCryptoId(transacs[transac].symbol)
+                        const changeCryptos = await service_fetch(`//api.coingecko.com/api/v3/coins/${coinId[0].coin_id}/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
+                        var newPrice = changeCryptos.market_data.current_price.btc;
+                    } else {
+                        var newPrice = 1
+                    }
+                } else if (cur === 'eth') {
+                    if (transacs[transac].symbol !== 'eth') {
+                        const coinId = await Crypto.getCryptoId(transacs[transac].symbol)
+                        const changeCryptos = await service_fetch(`//api.coingecko.com/api/v3/coins/${coinId[0].coin_id}/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
+                        var newPrice = changeCryptos.market_data.current_price.eth;
+                    } else {
+                        var newPrice = 1
+                    }
                 }
                 newData.id = transacs[transac].id
                 newData.price = newPrice;
-                newData.fiat = cur
+                newData.fiat = cur;
                 JSON.stringify(newData);
                 await Crypto.updateTransactionBPrice(newData);
             }
