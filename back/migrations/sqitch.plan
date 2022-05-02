@@ -1,0 +1,6 @@
+%syntax-version=1.0.0
+%project=mycryptofolio
+
+init 2022-03-30T15:21:27Z h4dri1 <hadrien.vuillaume@gmail.com> # init table structure
+views 2022-03-30T15:22:28Z h4dri1 <hadrien.vuillaume@gmail.com> # add views
+functions 2022-03-30T15:26:39Z h4dri1 <hadrien.vuillaume@gmail.com> # add functions

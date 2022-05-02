@@ -60,7 +60,7 @@ const cryptoList = (store) => (next) => (action) => {
       break;
 
     case GET_CURRENT_PRICE:
-      const { coinId, dateValue, refCurrency } = action.payload;
+      const { coinId, dateValue, cur } = action.payload;
 
       if (!coinId) {
         break;
@@ -77,7 +77,7 @@ const cryptoList = (store) => (next) => (action) => {
       };
       axios(requestOptions)
         .then((res) => {
-          const currentPrice = res.data.market_data.current_price[refCurrency.toLowerCase()];
+          const currentPrice = res.data.market_data.current_price[cur.toLowerCase()];
           store.dispatch(setPrice((Math.ceil(currentPrice * 100000000) / 100000000)));
         })
         .catch((err) => {
