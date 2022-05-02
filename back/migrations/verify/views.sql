@@ -1,4 +1,4 @@
--- Verify mycryptofolio:production on pg
+-- Verify mycryptofolio:views on pg
 
 BEGIN;
 

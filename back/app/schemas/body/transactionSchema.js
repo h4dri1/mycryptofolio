@@ -9,7 +9,8 @@ const schema = Joi.object({
     coin_id: Joi.string().required(),
     symbol: Joi.string().required(),
     wallet_id: Joi.number(),
-    crypto_id: Joi.number()
+    crypto_id: Joi.number(),
+    fiat: Joi.string().required()
 });
 
 module.exports = schema;

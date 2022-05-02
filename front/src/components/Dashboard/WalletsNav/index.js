@@ -25,7 +25,18 @@ import AddWallet from './AddWallet';
 import EditWallet from './EditWallet';
 
 const WalletsNav = ({ wallets, selectedWallet }) => {
-  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  const currency = localStorage.getItem('currency');
+
+  if (currency === 'BTC') {
+    var cryptoSym = '₿'
+  } else if (currency === 'ETH') {
+    var cryptoSym = 'Ξ'
+  } else if (currency === 'USD') {
+    var cryptoSym = '$'
+  } else if (currency === 'EUR') {
+    var cryptoSym = '€'
+  }
+
   const dispatch = useDispatch();
 
   const toSlug = (walletFullName) => walletFullName.trim().split(' ').join('-').toLowerCase();
@@ -138,7 +149,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                         ]}
                       >
                         {/* <Typography variant="body2">{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4 }).format(wallet.sum)}</Typography> */}
-                        <Typography variant="body2">{`$${nFormatter(wallet.sum, 2)}`}</Typography>
+                        <Typography variant="body2">{`${cryptoSym}${nFormatter(wallet.sum, 2)}`}</Typography>
                       </Box>
                       <Typography sx={{ color: 'neutral.main' }}>{wallet.label}</Typography>
                     </Box>
