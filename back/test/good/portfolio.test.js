@@ -20,7 +20,7 @@ beforeAll(async () => {
 describe('Portfolio (JWT) Endpoints', () => {
   it('should return a response with status 200', async () => {
     const res = await request(app)
-      .get('/v1/portfolio')
+      .get('/v1/portfolio/usd')
       .set('Authorization', `Bearer ${token}`)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(200);
@@ -30,7 +30,7 @@ describe('Portfolio (JWT) Endpoints', () => {
 describe('Portfolio Wallet (JWT) Endpoints', () => {
   it('should return a response with status 200', async () => {
     const res = await request(app)
-      .get('/v1/portfolio/wallet/1')
+      .get('/v1/portfolio/wallet/1/usd')
       .set('Authorization', `Bearer ${token}`)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(200);
@@ -63,7 +63,8 @@ describe('Portfolio add transaction (JWT) Endpoints', () => {
         "coin_id": "chainlink",
         "price": 16,
         "quantity": 32.25,
-        "symbol": "link"
+        "symbol": "link",
+        "fiat": "usd"
       })
     expect(res.statusCode).toEqual(201);
     transaction = res.body.id;

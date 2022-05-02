@@ -17,20 +17,20 @@ beforeAll(async () => {
 describe('Portfolio (JWT) Endpoints Invalid', () => {
   it('should return a response with status 498', async () => {
     const res = await request(app)
-      .get('/v1/portfolio')
+      .get('/v1/portfolio/usd')
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(498);
   })
   it('should return a response with status 498', async () => {
     const res = await request(app)
-      .get('/v1/portfolio')
+      .get('/v1/portfolio/usd')
       .set('Authorization', ``)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(498);
   })
   it('should return a response with status 500', async () => {
     const res = await request(app)
-      .get('/v1/portfolio')
+      .get('/v1/portfolio/usd')
       .set('Authorization', `lisefjl`)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(500);
@@ -40,21 +40,21 @@ describe('Portfolio (JWT) Endpoints Invalid', () => {
 describe('Portfolio Wallet (JWT) Endpoints Invalid', () => {
     it('should return a response with status 404', async () => {
       const res = await request(app)
-        .get('/v1/portfolio/wallet/')
+        .get('/v1/portfolio/wallet/usd')
         .set('Authorization', `Bearer ${token}`)
         .expect("Content-Type", /json/)
       expect(res.statusCode).toEqual(404);
     })
     it('should return a response with status 498', async () => {
         const res = await request(app)
-          .get('/v1/portfolio/wallet/1')
+          .get('/v1/portfolio/wallet/1/usd')
           .set('Authorization', ``)
           .expect("Content-Type", /json/)
         expect(res.statusCode).toEqual(498);
     })
     it('should return a response with status 404', async () => {
         const res = await request(app)
-          .get('/v1/portfolio/wallet/a')
+          .get('/v1/portfolio/wallet/a/usd')
           .set('Authorization', `Bearer ${token}`)
           .expect("Content-Type", /json/)
         expect(res.statusCode).toEqual(404);
@@ -96,7 +96,8 @@ describe('Portfolio add transaction (JWT) Endpoints Invalid', () => {
           "coin_id": "chainlink",
           "price": 16,
           "quantity": 32.25,
-          "symbol": "link"
+          "symbol": "link",
+          "fiat":"usd"
         })
       expect(res.statusCode).toEqual(403);
     })
@@ -126,7 +127,8 @@ describe('Portfolio add transaction (JWT) Endpoints Invalid', () => {
             "coin_id": "chainlink",
             "price": 16,
             "quantity": -32.25,
-            "symbol": "link"
+            "symbol": "link",
+            "fiat": "usd"
           })
         expect(res.statusCode).toEqual(409);
     })
@@ -141,7 +143,8 @@ describe('Portfolio add transaction (JWT) Endpoints Invalid', () => {
             "coin_id": "chainlink",
             "price": 16,
             "quantity": 32.25,
-            "symbol": "link"
+            "symbol": "link",
+            "fiat": "usd"
           })
         expect(res.statusCode).toEqual(409);
     })

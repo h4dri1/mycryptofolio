@@ -11,7 +11,7 @@ module.exports = {
                 throw new BadPassUser(req.ip);
             }
             const isPwdValid = await bcrypt.compare(req.body.password, user.password);
-            if (isPwdValid === false) {
+            if (!isPwdValid) {
                 throw new BadPassUser(req.ip);
             }
             delete user.password;
