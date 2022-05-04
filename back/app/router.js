@@ -68,7 +68,7 @@ router
     .get(
         '/portfolio/:cur?', 
         jwtMW.routing, 
-        cache, 
+        //cache, 
         fetchMW, 
         portfolioController.getPortfolio
     )

@@ -49,9 +49,9 @@ module.exports = async (req, res, next) => {
                         const coinId = await Crypto.getCryptoId(transacs[transac].symbol)
                         const changeCryptos = await service_fetch(`//api.coingecko.com/api/v3/coins/${coinId[0].coin_id}/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
                         if ((transacs[transac].fiat).toLowerCase() === 'btc') {
-                            var newPrice = changeCryptos.market_data.current_price.btc;
+                            var newPrice = changeCryptos.market_data.current_price.usd;
                         } else {
-                            var newPrice = changeCryptos.market_data.current_price.eth;
+                            var newPrice = changeCryptos.market_data.current_price.usd;
                         }
                     }             
                 } else if (cur === 'btc') {

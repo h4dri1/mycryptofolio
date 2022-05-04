@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 import {
   CREATE_NEW_WALLET, toggleCreateWalletModal,
@@ -44,6 +45,8 @@ const portfolio = (store) => (next) => async (action) => {
     }
     return req;
   });
+
+  const { selectedCurrency } = store.getState().cryptos.cryptoList;
 
   switch (action.type) {
     case CREATE_NEW_WALLET:
@@ -127,7 +130,7 @@ const portfolio = (store) => (next) => async (action) => {
     case FETCH_PORTFOLIO:
       privateRoute({
         method: 'get',
-        url: `/portfolio/${localStorage.getItem('currency')}`,
+        url: `/portfolio/${selectedCurrency}`,
         headers: { Authorization: store.getState().user.accessToken },
       })
         .then((res) => {
@@ -141,7 +144,7 @@ const portfolio = (store) => (next) => async (action) => {
     case FETCH_SPECIFIC_WALLET:
       privateRoute({
         method: 'get',
-        url: `/portfolio/wallet/${action.payload}/${localStorage.getItem('currency')}`,
+        url: `/portfolio/wallet/${action.payload}/${selectedCurrency}`,
         headers: {
           Authorization: store.getState().user.accessToken,
         },

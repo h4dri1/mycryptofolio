@@ -31,8 +31,7 @@ const cryptoList = (store) => (next) => (action) => {
       next(action);
       break;
     case GET_CRYPTO_LIST:
-      const { quantity } = store.getState().cryptos.cryptoList;
-      const selectedCurrency = localStorage.getItem('currency')
+      const { selectedCurrency, quantity } = store.getState().cryptos.cryptoList;
 
       axios({
         method: 'get',
@@ -60,7 +59,7 @@ const cryptoList = (store) => (next) => (action) => {
       break;
 
     case GET_CURRENT_PRICE:
-      const { coinId, dateValue, cur } = action.payload;
+      const { coinId, dateValue, refCurrency } = action.payload;
 
       if (!coinId) {
         break;
@@ -77,7 +76,7 @@ const cryptoList = (store) => (next) => (action) => {
       };
       axios(requestOptions)
         .then((res) => {
-          const currentPrice = res.data.market_data.current_price[cur.toLowerCase()];
+          const currentPrice = res.data.market_data.current_price[refCurrency.toLowerCase()];
           store.dispatch(setPrice((Math.ceil(currentPrice * 100000000) / 100000000)));
         })
         .catch((err) => {

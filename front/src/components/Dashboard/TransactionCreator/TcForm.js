@@ -13,7 +13,8 @@ import {
 // import { useStyles } from '@mui/styles';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import MobileDatePicker from '@mui/lab/DatePicker';
+//import MobileDatePicker from '@mui/lab/DatePicker';
+import DatePicker from '@mui/lab/DatePicker';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
@@ -43,27 +44,6 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
   // eslint-disable-next-line max-len
   const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
 
-  const cur = localStorage.getItem('currency');
-
-  if (cur === 'BTC') {
-    var curParams = {
-      maximumSignificantDigits: 4
-    }
-    var cryptoSym = '₿'
-  } else if (cur === 'ETH') {
-    var curParams = {
-      maximumSignificantDigits: 4
-    }
-    var cryptoSym = 'Ξ'
-  } else {
-    var curParams = {
-      style: "currency",
-      currency: cur,
-      maximumSignificantDigits: 4
-    }
-    var cryptoSym = ''
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -75,7 +55,6 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
       // ref_currency: refCurrency.toLowerCase(),
       quantity,
       buy_date: dateValue.toUTCString(),
-      fiat: cur
     };
     // change sign of quantity in case of selling transaction
     if (!newTransaction.buy) {
@@ -105,7 +84,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
   useEffect(() => dispatch(getCurrentPrice({
     coinId: currency.id,
     dateValue,
-    cur,
+    refCurrency,
   })), [currency, dateValue]);
 
   // ! Do not remove next commented code, may be useful later
@@ -227,7 +206,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
               value={(Math.ceil(currentPrice * 100) / 100)}
               onChange={(e) => setPrice(e.target.value)}
               InputProps={{
-                startAdornment: <InputAdornment position="start">{cur.toUpperCase()}</InputAdornment>,
+                startAdornment: <InputAdornment position="start">{refCurrency.toUpperCase()}</InputAdornment>,
               }}
             />
           </Grid>
@@ -239,19 +218,16 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
               xs={12}
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <MobileDatePicker
-                  disabled={disabled}
-                  disableFuture
-                  label={buy ? 'Date de l\'achat' : 'Date de la vente'}
-                  openTo="year"
-                  view="day"
-                  views={['year', 'month', 'day']}
-                  value={dateValue}
-                  onChange={(newValue) => {
-                    setDateValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
+              <DatePicker
+                disabled={disabled}
+                disableFuture
+                label={buy ? 'Date de l\'achat' : 'Date de la vente'}
+                value={dateValue}
+                onChange={(newValue) => {
+                  setDateValue(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
               </LocalizationProvider>
             </Grid>
             <Grid
@@ -297,7 +273,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
                 Montant de la transaction
               </Typography>
               <Typography variant="overline" sx={{ fontSize: { xs: 15, sm: 25 } }}>
-                {Intl.NumberFormat('fr-FR', { style: 'currency', currency: cur }).format(quantity * currentPrice)}
+                {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * currentPrice)}
               </Typography>
             </Grid>
           </Grid>
