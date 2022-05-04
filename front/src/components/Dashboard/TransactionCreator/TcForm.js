@@ -55,6 +55,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
       // ref_currency: refCurrency.toLowerCase(),
       quantity,
       buy_date: dateValue.toUTCString(),
+      fiat: refCurrency
     };
     // change sign of quantity in case of selling transaction
     if (!newTransaction.buy) {

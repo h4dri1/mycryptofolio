@@ -1,6 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
@@ -13,8 +14,7 @@ import AssetsShares from './AssetsShares';
 import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+
 
 const useStyles = makeStyles({
   grid: {
