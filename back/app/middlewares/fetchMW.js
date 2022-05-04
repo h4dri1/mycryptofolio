@@ -16,7 +16,6 @@ module.exports = async (req, res, next) => {
         });
         if (req.params.cur) {
             var cur = req.params.cur.toLowerCase()
-            console.log(cur)
         } else {
             var cur = 'usd'
         }
