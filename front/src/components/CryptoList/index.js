@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
@@ -21,7 +20,7 @@ import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '130px',
-    margin: '0 auto',
+    margin: '0 auto', 
     [theme.breakpoints.up('md')]: {
       maxWidth: '80%',
     },
@@ -37,15 +36,14 @@ function CryptoList() {
   const classes = useStyles(theme);
 
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
+  const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
 
-  const currency = localStorage.getItem('currency');
-
-  if (currency === 'BTC') {
+  if (selectedCurrency === 'BTC') {
     var curParams = {
       maximumSignificantDigits: 4
     }
     var cryptoSym = '₿'
-  } else if (currency === 'ETH') {
+  } else if (selectedCurrency === 'ETH') {
     var curParams = {
       maximumSignificantDigits: 4
     }
@@ -53,7 +51,7 @@ function CryptoList() {
   } else {
     var curParams = {
       style: "currency",
-      currency: currency,
+      currency: selectedCurrency,
       maximumSignificantDigits: 4
     }
     var cryptoSym = ''

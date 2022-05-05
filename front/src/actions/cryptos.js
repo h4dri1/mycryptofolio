@@ -7,9 +7,15 @@ export const GET_ALL_CRYPTOS = 'GET_ALL_CRYPTOS';
 export const UPDATE_ALL_CRYPTOS = 'UPDATE_ALL_CRYPTOS';
 export const GET_CURRENT_PRICE = 'GET_CURRENT_PRICE';
 export const SET_PRICE = 'SET_PRICE';
+export const UPDATE_CURRENCY = 'UPDATE_CURRENCY';
 
 export const getCryptoList = () => ({
   type: GET_CRYPTO_LIST,
+});
+
+export const updateCurrency = (payload) => ({
+  type: UPDATE_CURRENCY,
+  payload,
 });
 
 export const updateCryptoList = (payload) => ({

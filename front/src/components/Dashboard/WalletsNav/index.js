@@ -25,15 +25,15 @@ import AddWallet from './AddWallet';
 import EditWallet from './EditWallet';
 
 const WalletsNav = ({ wallets, selectedWallet }) => {
-  const currency = localStorage.getItem('currency');
+  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
 
-  if (currency === 'BTC') {
+  if (refCurrency === 'BTC') {
     var cryptoSym = '₿'
-  } else if (currency === 'ETH') {
+  } else if (refCurrency === 'ETH') {
     var cryptoSym = 'Ξ'
-  } else if (currency === 'USD') {
+  } else if (refCurrency === 'USD') {
     var cryptoSym = '$'
-  } else if (currency === 'EUR') {
+  } else if (refCurrency === 'EUR') {
     var cryptoSym = '€'
   }
 
