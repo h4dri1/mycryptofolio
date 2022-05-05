@@ -15,7 +15,6 @@ import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
 
-
 const useStyles = makeStyles({
   grid: {
     height: '100%',
