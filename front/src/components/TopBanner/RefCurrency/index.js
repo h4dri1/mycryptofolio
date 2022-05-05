@@ -1,32 +1,28 @@
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { getCryptoList } from '../../../actions/cryptos';
-import { fetchPortfolio } from '../../../actions/portfolio'
+import { getCryptoList, updateCurrency } from 'src/actions/cryptos';
+import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
+import { fetchPortfolio } from 'src/actions/portfolio';
+import { useEffect, useState } from 'react';
+
+import {useLocation} from 'react-router-dom'
 
 // export default function SelectAutoWidth() {
-export default function RefCurrency() { 
-  const dispatch = useDispatch()
-
+export default function RefCurrency() {
   const { logged } = useSelector((state) => state.user);
-
-  const currency = localStorage.getItem('currency');
-  if (!currency) {
-    var [cur, setCur] = React.useState('USD');
-    localStorage.setItem('currency', 'USD')
-  } else {
-    var [cur, setCur] = React.useState(currency);
-  }
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const [cur, setCur] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
 
   const handleChange = (event) => {
     setCur(event.target.value);
-    localStorage.setItem('currency', event.target.value);
-    dispatch(getCryptoList());
-    if (logged) {
+    dispatch(updateCurrency(event.target.value));
+    if (logged && location.pathname === '/portfolio') {
       dispatch(fetchPortfolio());
     }
+    dispatch(getCryptoList());
   };
 
   return (
@@ -43,7 +39,7 @@ export default function RefCurrency() {
         labelId="demo-simple-select-autowidth-label"
         id="demo-simple-select-autowidth"
         value={cur}
-        onChange={(event) => {handleChange(event);}}
+        onChange={handleChange}
         autoWidth
       >
         {/* <MenuItem value="USD"></MenuItem> */}
@@ -53,5 +49,6 @@ export default function RefCurrency() {
         <MenuItem value="ETH">ETH</MenuItem>
       </Select>
     </div>
+    
   );
 }

@@ -88,18 +88,12 @@ module.exports = {
     logout: async (req, res, next) => {
         // Case Logout
         try {
-            const refreshPayload = jwt.validateRefreshToken(req.params.token);
-            if (!refreshPayload.user) {
-                throw new InvalidToken();
-            }
-            // If an User try to logout with a refresh token who differ whith the access token
-            if (refreshPayload.user.id !== req.userId.id) {
-                throw new BadGuy(req.ip);
-            }
             // Remove the logout session refresh token
             const [head, pay, sign] = req.params.token.split('.')
             if (await redis.hExists(`${req.userId.id}`, sign)) {
                 await redis.hDel(`${req.userId.id}`, sign);
+            } else {
+                throw new UseRevokedRefreshToken();
             }
             return res.status(200).json({message: 'logout ok'})
         } catch (err) {

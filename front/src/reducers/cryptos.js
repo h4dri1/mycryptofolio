@@ -4,12 +4,13 @@ import {
   GET_MORE_CRYPTOS_LOADING,
   UPDATE_ALL_CRYPTOS,
   SET_PRICE,
+  UPDATE_CURRENCY
 } from 'src/actions/cryptos';
 
 const initialState = {
   allCryptos: [],
   cryptoList: {
-    selectedCurrency: 'usd',
+    selectedCurrency: 'USD',
     quantity: 10,
     cryptoListLoading: false,
     list: [],
@@ -19,6 +20,14 @@ const initialState = {
 
 const cryptosReducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case UPDATE_CURRENCY:
+      return {
+        ...state,
+        cryptoList: {
+          ...state.cryptoList,
+          selectedCurrency: action.payload,
+        },
+      };
     case UPDATE_ALL_CRYPTOS:
       return {
         ...state,
@@ -52,7 +61,7 @@ const cryptosReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         ...action.payload,
-      }; 
+      };
     default:
       return state;
   }

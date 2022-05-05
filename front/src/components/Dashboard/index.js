@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
-import { alpha } from "@mui/material";
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
@@ -25,8 +25,7 @@ const useStyles = makeStyles({
     borderColor: '#E7EBF0',
     borderRadius: 2,
     margin: '10px',
-    //background: '#8EC5FC',
-    //background: 'linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)'
+
   },
   gridSubItem: {
     // border: 'solid 2px gold',

@@ -45,7 +45,7 @@ const { auth, cache, flush } = require('./services');
 const rateLimit = require('express-rate-limit');
 
 router
-    .get('/logout/:token', jwtMW, auth.logout)
+    .get('/logout/:token', jwtMW.logout, auth.logout)
     .get('/jwt/refresh/:token', rateLimit(refreshSchemaLim), validateJWT, tokenController.refresh)
     .post(
         '/jwt/login', 
@@ -67,14 +67,14 @@ router
 router
     .get(
         '/portfolio/:cur?', 
-        jwtMW, 
-        cache, 
+        jwtMW.routing, 
+        //cache, --> Need to see for working with toogle currency
         fetchMW, 
         portfolioController.getPortfolio
     )
     .get(
         '/portfolio/wallet/:wid(\\d+)/:cur?', 
-        jwtMW, 
+        jwtMW.routing, 
         cache, 
         fetchMW, 
         portfolioController.getPortfolio
@@ -82,7 +82,7 @@ router
     .post(
         '/portfolio/wallet/:wid(\\d+)/transaction',
         rateLimit(transactionSchemaLim),
-        jwtMW,
+        jwtMW.routing,
         validateBody(transactionSchema), 
         flush, 
         guardMW.transactionGuard, 
@@ -91,7 +91,7 @@ router
     .post(
         '/portfolio/wallet',
         rateLimit(transactionSchemaLim),
-        jwtMW,
+        jwtMW.routing,
         validateBody(walletSchema), 
         flush, 
         walletController.addWallet
@@ -106,7 +106,7 @@ router
     )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
-        jwtMW,
+        jwtMW.routing,
         validateParams(deleteTransactionSchema), 
         guardMW.deleteTransaction,
         flush,
@@ -114,7 +114,7 @@ router
     )
     .delete(
         '/portfolio/wallet/:wid(\\d+)', 
-        jwtMW,
+        jwtMW.routing,
         validateParams(deleteWalletSchema),
         guardMW.deleteWallet,
         flush,
