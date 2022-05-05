@@ -132,7 +132,7 @@ const auth = (store) => (next) => async (action) => {
         };
         store.dispatch(saveUser(userObj));
       }
-      else if (isTokenExpired(accessToken) && (!refreshToken || isTokenExpired(accessToken))) {
+      else if ((isTokenExpired(accessToken) && accessToken) && (!refreshToken || isTokenExpired(accessToken))) {
         store.dispatch(logout());
       }
 
