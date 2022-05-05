@@ -68,7 +68,7 @@ router
     .get(
         '/portfolio/:cur?', 
         jwtMW.routing, 
-        //cache, 
+        //cache, --> Need to see for working with toogle currency
         fetchMW, 
         portfolioController.getPortfolio
     )
