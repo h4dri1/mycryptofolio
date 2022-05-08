@@ -249,6 +249,16 @@ class DbConnectionError extends Error {
     }
 }
 
+class CurrencyError extends Error {
+    constructor (cur) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = `${cur} is not supported by the moment`;
+        this.statusCode = 500;  
+    }
+}
+
 module.exports = {
     NoTransactionId,
     NoWallet,
@@ -273,5 +283,6 @@ module.exports = {
     UnExeptedError,
     RateLimitRefresh,
     RateLimitTransaction,
-    DbConnectionError
+    DbConnectionError,
+    CurrencyError
 };
