@@ -76,7 +76,7 @@ router
         '/portfolio/:cur?', 
         jwtMW.routing, 
         validateParams(getPortfolioSchema),
-        cache, //--> Need to see for working with toogle currency
+        //cache, //--> Need to see for working with toogle currency
         updateMW, 
         portfolioController.getPortfolio
     )

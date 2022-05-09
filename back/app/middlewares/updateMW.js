@@ -1,6 +1,5 @@
 const { Transaction, Crypto } = require('../models');
 const fiat = require('../services/fiat');
-const service_fetch = require('../services/fetch');
 
 module.exports = async (req, res, next) => {
     // Get all cryptos owned by user
