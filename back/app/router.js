@@ -64,7 +64,7 @@ router
     .get('/cryptos', cache, cryptoController.getAllCryptos)
     .get('/trending', cache, cryptoController.getTrendingCryptos)
     .get('/global', cache, cryptoController.getGlobalData)
-    .get('/history/:coinId/:day/:month/:year', validateParams(getHistorySchema), cache, cryptoController.getHistoricalData)
+    .get('/history/:coinId/:day(\\d+)/:month(\\d+)/:year(\\d+)', validateParams(getHistorySchema), cache, cryptoController.getHistoricalData)
     .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?',
         validateParams(getOnePriceSchema),
         cache,

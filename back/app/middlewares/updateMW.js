@@ -5,6 +5,7 @@ const service_fetch = require('../services/fetch');
 module.exports = async (req, res, next) => {
     // Get all cryptos owned by user
     // Fetch user's crypto price and add to db
+    var checkChange = false;
     try {
         if (req.params.wid) {
             var cryptos = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
@@ -20,8 +21,16 @@ module.exports = async (req, res, next) => {
         } else {
             var cur = 'usd'
         }
-        await fiat.price(strCryptos, cur);
-        await fiat.buyPrice(transacs, cur);
+        //=> Moche
+        for (const transac in transacs) {
+            if (cur.toLowerCase() !== (transacs[transac].fiat).toLowerCase()) {
+                checkChange = true;
+            }
+        }
+        if (checkChange) {
+            await fiat.price(strCryptos, cur);
+            await fiat.buyPrice(transacs, cur);
+        }
         next();
     } catch (err) {
         next(err);

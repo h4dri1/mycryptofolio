@@ -23,33 +23,25 @@ module.exports = {
                 const fiatPrice = usdChange.market_data.current_price[cur];
                 const cryptoPrice = cryptosChange.market_data.current_price[cur];
                 const newData = {};
+
+                var newPrice = cryptoPrice;
+
                 if (cur === 'eur') {
                     if ((transacs[transac].fiat).toLowerCase() === 'usd') {
-                        var newPrice = fiatPrice * transacs[transac].price;
-                    } else {
-                        var newPrice = cryptoPrice;
+                        newPrice = fiatPrice * transacs[transac].price;
                     }
                 } else if (cur === 'usd') {
                     if ((transacs[transac].fiat).toLowerCase() === 'eur') {
-                        var newPrice = (1 / fiatPrice) * transacs[transac].price;
-                    } else {
-                       var newPrice = cryptoPrice;
-                    }             
-                } else if (cur === 'btc') {
-                    if (transacs[transac].symbol !== 'btc') {
-                        var newPrice = cryptoPrice;
-                    } else {
-                        var newPrice = 1
-                    }
-                } else if (cur === 'eth') {
-                    if (transacs[transac].symbol !== 'eth') {
-                        var newPrice = cryptoPrice;
-                    } else {
-                        var newPrice = 1
+                        newPrice = (1 / fiatPrice) * transacs[transac].price;
+                    }         
+                } else if (cur === 'btc' || cur === 'eth') {
+                    if (transacs[transac].symbol === cur) {
+                        newPrice = 1
                     }
                 } else {
                     throw new CurrencyError(cur);
                 }
+
                 newData.id = transacs[transac].id
                 newData.price = newPrice;
                 newData.fiat = cur;
