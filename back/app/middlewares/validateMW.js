@@ -26,17 +26,6 @@ const validator = {
         } else {
             next();
         }
-    },
-
-    validateJWT: (req, res, next) => {
-        try {
-            if (!req.params.token) {
-                throw new InvalidToken()
-            }
-            next();
-        } catch (err) {
-            next(err)
-        };
     }
 }
 
