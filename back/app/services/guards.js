@@ -41,6 +41,7 @@ module.exports = {
     // Check if the quantity of selling coin < total coin
     coinGuard: async (req, res, next) => {
         const transacWallet = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
+        //==> Redondant??
         const wallet = transacWallet.find(element => element.coin_id === req.body.coin_id);
         const foundC = transacWallet.filter(element => element.coin_id === req.body.coin_id).length > 0;
         if (!foundC) {
