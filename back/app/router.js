@@ -24,7 +24,8 @@ const { loginSchema,
         loginSchemaLim, 
         signupSchemaLim,
         refreshSchemaLim,
-        transactionSchemaLim
+        transactionSchemaLim,
+        getWalletSchema
 } = require('./schemas');
 
 // jwtMW => Check JWT Access Token for protected route
@@ -68,13 +69,15 @@ router
     .get(
         '/portfolio/:cur?', 
         jwtMW.routing, 
+        validateParams(getPortfolioSchema),
         cache, //--> Need to see for working with toogle currency
         fetchMW, 
         portfolioController.getPortfolio
     )
     .get(
-        '/portfolio/wallet/:wid(\\d+)/:cur?', 
-        jwtMW.routing, 
+        '/portfolio/wallet/:wid(\\d+)/:cur?',
+        jwtMW.routing,
+        validateParams(getWalletSchema),
         cache, 
         fetchMW, 
         portfolioController.getPortfolio

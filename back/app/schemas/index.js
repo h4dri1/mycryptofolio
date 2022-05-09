@@ -5,6 +5,7 @@ const walletSchema = require('./body/walletSchema');
 const getTopCryptoSchema = require('./params/getTopCryptoSchema');
 const getOneCryptoSchema = require('./params/getOneCryptoSchema');
 const getOnePriceSchema =  require('./params/getOnePriceSchema');
+const getWalletSchema = require('./params/getWalletSchema');
 const getPortfolioSchema = require('./params/getPortfolioSchema');
 const deleteTransactionSchema = require('./params/deleteTransactionSchema');
 const deleteWalletSchema = require('./params/deleteWalletSchema');
@@ -21,6 +22,7 @@ module.exports = {
     getTopCryptoSchema,
     getOneCryptoSchema,
     getOnePriceSchema,
+    getWalletSchema,
     getPortfolioSchema,
     deleteTransactionSchema,
     deleteWalletSchema,
