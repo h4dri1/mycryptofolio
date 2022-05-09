@@ -27,8 +27,8 @@ module.exports = async (req, res, next) => {
                 checkChange = true;
             }
         }
+        await fiat.price(strCryptos, cur);
         if (checkChange) {
-            await fiat.price(strCryptos, cur);
             await fiat.buyPrice(transacs, cur);
         }
         next();
