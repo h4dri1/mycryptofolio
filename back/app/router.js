@@ -12,6 +12,7 @@ const {
 } = require('./controllers');
 
 const { loginSchema,
+        tokenSchema,
         signupSchema, 
         transactionSchema, 
         walletSchema,
@@ -25,7 +26,8 @@ const { loginSchema,
         signupSchemaLim,
         refreshSchemaLim,
         transactionSchemaLim,
-        getWalletSchema
+        getWalletSchema,
+        getHistorySchema
 } = require('./schemas');
 
 // jwtMW => Check JWT Access Token for protected route
@@ -33,7 +35,7 @@ const { loginSchema,
 // guardMW => Check and validate transaction (check what you can or can't doing with a transaction)
 // validateBody, validateParams => Joi MW check data type
 
-const { jwtMW, fetchMW, guardMW, validateBody, validateParams } = require('./middlewares');
+const { jwtMW, updateMW, guardMW, validateBody, validateParams } = require('./middlewares');
 
 // auth => Service for ban 5x bad password and whitelist/blacklist refreshtoken
 // cache => Redis db cache
@@ -46,8 +48,8 @@ const { auth, cache, flush } = require('./services');
 const rateLimit = require('express-rate-limit');
 
 router
-    .get('/logout/:token', jwtMW.logout, auth.logout)
-    .get('/jwt/refresh/:token', rateLimit(refreshSchemaLim), tokenController.refresh)
+    .get('/logout/:token', validateParams(tokenSchema), jwtMW.logout, auth.logout)
+    .get('/jwt/refresh/:token', validateParams(tokenSchema), rateLimit(refreshSchemaLim), tokenController.refresh)
     .post(
         '/jwt/login', 
         rateLimit(loginSchemaLim), 
@@ -62,8 +64,12 @@ router
     .get('/cryptos', cache, cryptoController.getAllCryptos)
     .get('/trending', cache, cryptoController.getTrendingCryptos)
     .get('/global', cache, cryptoController.getGlobalData)
-    .get('/history/:coinId/:day-:month-:year', cache, cryptoController.getHistoricalData)
-    .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', validateParams(getOnePriceSchema), cache, cryptoController.getOnePrice);
+    .get('/history/:coinId/:day/:month/:year', validateParams(getHistorySchema), cache, cryptoController.getHistoricalData)
+    .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?',
+        validateParams(getOnePriceSchema),
+        cache,
+        cryptoController.getOnePrice
+    );
 
 router
     .get(
@@ -71,7 +77,7 @@ router
         jwtMW.routing, 
         validateParams(getPortfolioSchema),
         cache, //--> Need to see for working with toogle currency
-        fetchMW, 
+        updateMW, 
         portfolioController.getPortfolio
     )
     .get(
@@ -79,16 +85,16 @@ router
         jwtMW.routing,
         validateParams(getWalletSchema),
         cache, 
-        fetchMW, 
+        updateMW, 
         portfolioController.getPortfolio
     )
     .post(
         '/portfolio/wallet/:wid(\\d+)/transaction',
         rateLimit(transactionSchemaLim),
         jwtMW.routing,
-        validateBody(transactionSchema), 
-        flush, 
+        validateBody(transactionSchema),
         guardMW.transactionGuard, 
+        flush,
         transactionController.addTransaction
     )
     .post(

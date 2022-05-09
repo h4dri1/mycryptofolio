@@ -13,9 +13,12 @@ const loginSchemaLim = require('./limiter/loginSchema');
 const signupSchemaLim = require('./limiter/signupSchema');
 const refreshSchemaLim = require('./limiter/refreshSchema');
 const transactionSchemaLim = require('./limiter/transactionSchema');
+const tokenSchema = require('./params/tokenSchema');
+const getHistorySchema = require('./params/getHistorySchema');
 
 module.exports = { 
     loginSchema,
+    tokenSchema,
     signupSchema,
     transactionSchema,
     walletSchema,
@@ -29,5 +32,6 @@ module.exports = {
     loginSchemaLim,
     signupSchemaLim,
     refreshSchemaLim,
-    transactionSchemaLim
+    transactionSchemaLim,
+    getHistorySchema
 }

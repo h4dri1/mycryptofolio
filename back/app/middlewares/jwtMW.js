@@ -36,7 +36,8 @@ module.exports = {
             if (!token) {
                 throw new InvalidToken();
             }
-            jwt.validateToken(token);
+            const payload  = jwt.validateToken(token);
+            req.userId = payload.user;
             next();
         } catch (err) {
             if (err.message === 'jwt expired') {
