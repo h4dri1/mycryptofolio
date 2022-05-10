@@ -50,7 +50,7 @@ describe('Top Cryptos Endpoints', () => {
   describe('Histroy price one Cryptos Endpoints', () => {
     it('should return a response with status 200', async () => {
       const res = await request(app)
-        .get('/v1/history/bitcoin/03-01-2018')
+        .get('/v1/history/bitcoin/03/01/2018')
         .expect("Content-Type", /json/)
       expect(res.statusCode).toEqual(200);
     })

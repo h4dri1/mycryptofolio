@@ -16,7 +16,7 @@ module.exports = {
 
     buyPrice: async (transacs, cur) => {
         for (const transac in transacs) {
-            if (cur.toLowerCase() !== (transacs[transac].fiat).toLowerCase()) {
+            if (cur !== (transacs[transac].fiat)) {
                 const coinId = await Crypto.getCryptoId(transacs[transac].symbol)
                 const usdChange = await service_fetch(`//api.coingecko.com/api/v3/coins/tether/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
                 const cryptosChange = await service_fetch(`//api.coingecko.com/api/v3/coins/${coinId[0].coin_id}/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
@@ -27,11 +27,11 @@ module.exports = {
                 var newPrice = cryptoPrice;
 
                 if (cur === 'eur') {
-                    if ((transacs[transac].fiat).toLowerCase() === 'usd') {
+                    if ((transacs[transac].fiat) === 'usd') {
                         newPrice = fiatPrice[cur] * transacs[transac].price;
                     }
                 } else if (cur === 'usd') {
-                    if ((transacs[transac].fiat).toLowerCase() === 'eur') {
+                    if ((transacs[transac].fiat) === 'eur') {
                         newPrice = (1 / fiatPrice.eur) * transacs[transac].price;
                     }         
                 } else if (cur === 'btc' || cur === 'eth') {

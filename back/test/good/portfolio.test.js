@@ -20,7 +20,7 @@ beforeAll(async () => {
 describe('Portfolio (JWT) Endpoints', () => {
   it('should return a response with status 200', async () => {
     const res = await request(app)
-      .get('/v1/portfolio/usd')
+      .get('/v1/portfolio/USD')
       .set('Authorization', `Bearer ${token}`)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(200);
@@ -30,7 +30,7 @@ describe('Portfolio (JWT) Endpoints', () => {
 describe('Portfolio Wallet (JWT) Endpoints', () => {
   it('should return a response with status 200', async () => {
     const res = await request(app)
-      .get('/v1/portfolio/wallet/1/usd')
+      .get('/v1/portfolio/wallet/1/USD')
       .set('Authorization', `Bearer ${token}`)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(200);
