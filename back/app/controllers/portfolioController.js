@@ -31,6 +31,7 @@ module.exports = {
             /////////////////////////////////////////////////////////////////////////////////
             // Check if wallet is empty (sell and buy transaction with sum 0)
             // Add label if
+            //==> Moche
             if (!objWallet.id && !empty) {
                 objWallet.id = Number(req.params.wid);
                 objWallet.sum = '0';
@@ -43,6 +44,7 @@ module.exports = {
             /////////////////////////////////////////////////////////////////////////////////
             // Check if wallet is empty (never add transaction)
             // Add sum 0 , id, label if
+            //==> Moche
             if (empty) {
                 for (const emp of empty) {
                     objWallet.push({'id':emp.id, 'sum': 0, 'label':emp.label});

@@ -4,7 +4,7 @@ import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCryptoList, updateCurrency } from 'src/actions/cryptos';
 import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
-import { fetchPortfolio } from 'src/actions/portfolio';
+import { fetchPortfolio, fetchSpecificWallet } from 'src/actions/portfolio';
 import { useEffect, useState } from 'react';
 
 import {useLocation} from 'react-router-dom'
@@ -21,6 +21,7 @@ export default function RefCurrency() {
     dispatch(updateCurrency(event.target.value));
     if (logged && location.pathname === '/portfolio') {
       dispatch(fetchPortfolio());
+      //dispatch(fetchSpecificWallet());
     }
     dispatch(getCryptoList());
   };

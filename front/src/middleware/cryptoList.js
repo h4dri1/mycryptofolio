@@ -73,7 +73,7 @@ const cryptoList = (store) => (next) => (action) => {
       const requestOptions = {
         method: 'get',
         baseURL,
-        url: `/history/${coinId}/${day}-${month}-${year}`,
+        url: `/history/${coinId}/${day}/${month}/${year}`,
       };
       axios(requestOptions)
         .then((res) => {
