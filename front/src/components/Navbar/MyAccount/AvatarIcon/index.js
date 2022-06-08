@@ -109,6 +109,16 @@ export default function TestAvatar() {
                         >
                           Portfolio
                         </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link
+                          component={RouterLink}
+                          to="/profil"
+                          underline="none"
+                          sx={{ color: 'primary.light' }}
+                        >
+                          Profil
+                        </Link>
 
                       </MenuItem>
                       <MenuItem>

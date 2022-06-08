@@ -5,6 +5,7 @@ import Portfolio from 'src/pages/Portfolio';
 import CryptoPage from 'src/pages/CryptoPage';
 import UnknowRoute from 'src/pages/404';
 import ContactPage from 'src/pages/ContactPage';
+import ProfilPage from 'src/pages/ProfilPage';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -72,6 +73,7 @@ const App = () => {
             <Route path="/portfolio/:walletName" element={<Portfolio />} />
           </Route>
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/profil" element={<ProfilPage />} />
           <Route path="*" element={<UnknowRoute />} />
         </Routes>
         {/* </Paper> */}
