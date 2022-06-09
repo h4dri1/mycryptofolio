@@ -1,5 +1,5 @@
 const { Transaction } = require('../models');
-const fiat = require('../services/fiat');
+const update = require('../services/update');
 
 module.exports = async (req, res, next) => {
     // Get all cryptos owned by user
@@ -20,10 +20,9 @@ module.exports = async (req, res, next) => {
         } else {
             var cur = 'usd'
         }
-        await fiat.price(strCryptos, cur);
-        const checkChange = Object.entries(transacs).find(element => element[1].fiat !== cur) !== undefined;
-        if (checkChange) {
-            await fiat.buyPrice(transacs, cur);
+        await update.price(strCryptos, cur);
+        if (Object.entries(transacs).find(element => element[1].fiat !== cur) !== undefined) {
+            await update.buyPrice(transacs, cur);
         }
         next();
     } catch (err) {

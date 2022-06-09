@@ -3,7 +3,7 @@ const {cache, flush } = require('./cache');
 const fetch = require('./fetch');
 const guards = require('./guards');
 const jwt = require('./jwt');
-const fiat = require('./fiat');
+const update = require('./update');
 
 module.exports = {
     auth,
@@ -12,5 +12,5 @@ module.exports = {
     fetch,
     guards,
     jwt,
-    fiat
+    update
 }
