@@ -23,6 +23,8 @@ export default function Home({ displayLogin }) {
   useEffect(() => {
     if (logged && location.search === '?continue=/portfolio') {
       navigate('/portfolio');
+    } else if (logged && location.search == '?continue=/profil') {
+      navigate('/profil');
     }
   }, [logged]);
 

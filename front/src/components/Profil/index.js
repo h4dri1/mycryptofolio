@@ -35,17 +35,18 @@ const useStyles = makeStyles({
   });
 
 
-export default function Profil() {
+export default function Profil({ logged }) {
 
   const classes = useStyles();
-
-  const { logged } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!logged) {
-      navigate('/404');
+      navigate('/login?continue=/profil');
+    }
+    else {
+      navigate('/profil');
     }
   }, []);
 
