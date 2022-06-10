@@ -28,8 +28,18 @@ export default function Profil() {
 
     const [currency, setCurrency] = React.useState('EUR');
 
+    const [nicknameValue, setNicknameValue] = React.useState(nickname);
+
+    const [emailValue, setEmailValue] = React.useState(email);
+
+    const handleClick = () => {
+      console.log(nicknameValue);
+      console.log(emailValue);
+      console.log(currency);
+    };
+
     const handleChange = (event) => {
-        setCurrency(event.target.value);
+      setCurrency(event.target.value);
     };
 
     return (
@@ -40,13 +50,17 @@ export default function Profil() {
             boxShadow: 5,
             display: 'flex',
             flexDirection: 'column',
-            margin: '10px'
+            margin: '10px',
+            padding: '10px',
+            paddingRight: '35px',
+            paddingLeft: '35px'
         }}
         > 
             <Typography sx={{marginTop:"5px"}} color="primary.dark" variant="h5" align="center">Profil</Typography>
             <Divider sx={{ marginBottom: '10px' }} />
-            <TextField sx={{ margin: '10px' }} id="outlined-basic" label="User Name" defaultValue={nickname} variant="outlined"/>
-            <TextField sx={{ margin: '10px' }} id="outlined-basic" label="Email" defaultValue={email} variant="outlined"/>
+            
+            <TextField onChange={(e) => setNicknameValue(e.target.value)} sx={{ margin: '10px' }} id="outlined-basic" label="User Name" defaultValue={nickname} variant="outlined"/>
+            <TextField onChange={(e) => setEmailValue(e.target.value)} sx={{ margin: '10px' }} id="outlined-basic" label="Email" defaultValue={email} variant="outlined"/>
             <TextField
             sx={{ margin: '10px' }}
             id="outlined-select-currency"
@@ -64,7 +78,7 @@ export default function Profil() {
 
             <Grid container justifyContent={'center'}>
                 <Button sx={{margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
-                <Button sx={{margin: '5px', width: '45%'}} variant="contained">Save</Button>
+                <Button onClick={handleClick} sx={{margin: '5px', width: '45%'}} variant="contained">Save</Button>
             </Grid>
 
         </Box>

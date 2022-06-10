@@ -19,7 +19,10 @@ export default function Password() {
             boxShadow: 5,
             display: 'flex',
             flexDirection: 'column',
-            margin: '10px'
+            margin: '10px',
+            padding: '10px',
+            paddingRight: '35px',
+            paddingLeft: '35px'
         }}
         > 
             <Typography sx={{marginTop:"5px"}} color="primary.dark" variant="h5" align="center">Password</Typography>
