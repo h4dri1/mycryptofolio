@@ -15,16 +15,16 @@ class User {
     async save() {
         const {rows} = await pool.query('SELECT * FROM add_user($1)', [this]);
         this.id = rows[0].id;
+        if(this.id) {
+            await pool.query('SELECT * FROM update_user($1)', [this])
+        } else {
+            const {rows} = await pool.query('SELECT * FROM add_user($1)', [this]);
+            if (rows) {
+                this.id = rows[0].id;
+                return this;
+            }
+        }
         return this;
-        //if(this.id) {
-        //    await pool.query('SELECT * FROM update_user($1)', [this])
-        //} else {
-        //    const {rows} = await pool.query('SELECT * FROM add_user($1)', [this]);
-        //    if (rows) {
-        //        this.id = rows[0].id;
-        //        return this;
-        //    }
-        //}
     }
 };
 

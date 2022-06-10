@@ -51,7 +51,7 @@ module.exports = {
             if (newUser) {           
                 res.status(201).json(response);
             }             
-            //return res.status(204).json('update ok');
+            return res.status(204).json('update ok');
         } catch (err) {
             next(err);
         }
