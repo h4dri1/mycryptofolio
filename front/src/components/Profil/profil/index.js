@@ -24,7 +24,7 @@ const currencies = [
 
 export default function Profil() {
 
-    const { nickname, email } = useSelector((state) => state.user);
+    const { nickname, email, id } = useSelector((state) => state.user);
 
     const [currency, setCurrency] = React.useState('EUR');
 
@@ -33,6 +33,7 @@ export default function Profil() {
     const [emailValue, setEmailValue] = React.useState(email);
 
     const handleClick = () => {
+      console.log(id);
       console.log(nicknameValue);
       console.log(emailValue);
       console.log(currency);

@@ -10,6 +10,7 @@ import {
 export const initialState = {
   logged: false,
   existingUser: true,
+  id: '',
   email: '',
   password: '',
   nickname: '',

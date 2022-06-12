@@ -37,11 +37,13 @@ const auth = (store) => (next) => async (action) => {
             // store tokens
             localStorage.setItem('refreshToken', res.data.refreshToken);
             const newAccessToken = res.headers.authorization;
+            const id = res.data.id
 
             // Save user details
             const { user } = parseJwt(res.headers.authorization);
             const { email, nickname, picture } = user;
             const userObj = {
+              id,
               email,
               nickname,
               avatar: picture,
@@ -98,11 +100,14 @@ const auth = (store) => (next) => async (action) => {
             localStorage.setItem('refreshToken', res.data.refreshToken);
             const newAccessToken = res.headers.authorization;
 
+            const id = res.data.id
+
             // Save user details
             const { user } = parseJwt(res.headers.authorization);
             const { email, nickname, picture } = user;
 
             const userObj = {
+              id,
               email,
               nickname,
               avatar: picture,
@@ -123,8 +128,10 @@ const auth = (store) => (next) => async (action) => {
       if (isTokenExpired(accessToken) && refreshToken) {
         const newAccessToken = await getNewAccessToken(refreshToken);
         const { user } = parseJwt(newAccessToken);
-        const { email, nickname, picture } = user;
+        const { email, nickname, picture, id } = user;
+
         const userObj = {
+          id,
           email,
           nickname,
           avatar: picture,
