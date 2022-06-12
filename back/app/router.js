@@ -113,6 +113,14 @@ router
         flush, 
         userController.addUser
     )
+    .post(
+        '/signup/change',
+        jwtMW.routing,
+        rateLimit(signupSchemaLim), 
+        //validateBody(signupSchema), 
+        flush, 
+        userController.addUser
+    )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
         jwtMW.routing,
