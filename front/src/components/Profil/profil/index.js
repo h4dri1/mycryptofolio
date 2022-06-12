@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import { TextField, Divider, Typography, Grid, Button, Box, MenuItem } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { change_user } from '../../../actions/user';
 
 const currencies = [
     {
@@ -23,6 +24,7 @@ const currencies = [
   ];
 
 export default function Profil() {
+    const dispatch = useDispatch();
 
     const { nickname, email, id } = useSelector((state) => state.user);
 
@@ -32,11 +34,19 @@ export default function Profil() {
 
     const [emailValue, setEmailValue] = React.useState(email);
 
-    const handleClick = () => {
+    const newUser = {
+        id: id,
+        nickname: nicknameValue,
+        email: emailValue
+    }
+
+    const handleClick = (event) => {
+      event.preventDefault();
       console.log(id);
       console.log(nicknameValue);
       console.log(emailValue);
       console.log(currency);
+      dispatch(change_user(newUser));
     };
 
     const handleChange = (event) => {

@@ -6,6 +6,7 @@ export const CHECK_TOKEN = 'CHECK_TOKEN';
 export const SAVE_NEW_TOKEN = 'SAVE_NEW_TOKEN';
 export const EXISTING_USER_TOGGLE = 'EXISTING_USER_TOGGLE';
 export const REGISTER = 'REGISTER';
+export const CHANGE_USER = 'CHANGE_USER';
 
 export const changeField = (key, value) => ({
   type: CHANGE_FIELD,
@@ -15,13 +16,18 @@ export const changeField = (key, value) => ({
   },
 });
 
+export const change_user = (user) => ({
+  type: CHANGE_USER,
+  payload: { ...user },
+});
+
 export const login = () => ({
   type: LOGIN,
 });
 
-export const saveUser = (user) => ({
+export const saveUser = (newUser) => ({
   type: SAVE_USER,
-  payload: { ...user },
+  payload: { ...newUser },
 });
 
 export const logout = () => ({
