@@ -30,28 +30,35 @@ module.exports = {
 
     addUser: async (req, res, next) => {
         try {
-            const instance = new User(req.body);
-            const user = await User.findOne(instance.email);
-            if (user.id) {
-                throw new EmailUsed(req.body.email);
+            if (!req.body.id) {
+                const instance = new User(req.body);
+                const user = await User.findOne(instance.email);
+                if (user.id) {
+                    throw new EmailUsed(req.body.email);
+                }
+                if (instance.password !== instance.passwordCheck) {
+                    throw new CheckYourPassword();
+                }
+                instance.password = await bcrypt.hash(instance.password, 10);
+                delete instance.passwordCheck;
+                const newUser = await instance.save();
+                delete newUser.password;
+                res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+                res.setHeader('Authorization', jwt.makeToken(newUser));
+                const response = {
+                    "status": `Bienvenue ${newUser.nickname}`,
+                    "refreshToken": jwt.makeRefreshToken(newUser)
+                };     
+                if (newUser) {           
+                    res.status(201).json(response);
+                } 
+            } else {
+                const instance = new User(req.body);
+                console.log(instance)
+                await instance.save();
+                return res.status(204).json('update ok');
             }
-            if (instance.password !== instance.passwordCheck) {
-                throw new CheckYourPassword();
-            }
-            instance.password = await bcrypt.hash(instance.password, 10);
-            delete instance.passwordCheck;
-            const newUser = await instance.save();
-            delete newUser.password;
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            res.setHeader('Authorization', jwt.makeToken(newUser));
-            const response = {
-                "status": `Bienvenue ${newUser.nickname}`,
-                "refreshToken": jwt.makeRefreshToken(newUser)
-            };     
-            if (newUser) {           
-                res.status(201).json(response);
-            }             
-            return res.status(204).json('update ok');
+            
         } catch (err) {
             next(err);
         }

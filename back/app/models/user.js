@@ -7,14 +7,17 @@ class User {
         }
     }
 
-     static async findOne(email) {
+    static async findOne(email) {
         const {rows} = await pool.query('SELECT * FROM "user" WHERE email=$1;', [email]);
         return new User(rows[0]);
     }
 
+    static async findById(id) {
+        const {rows} = await pool.query('SELECT * FROM "user" WHERE id=$1;', [id]);
+        return new User(rows[0]);
+    }
+
     async save() {
-        const {rows} = await pool.query('SELECT * FROM add_user($1)', [this]);
-        this.id = rows[0].id;
         if(this.id) {
             await pool.query('SELECT * FROM update_user($1)', [this])
         } else {

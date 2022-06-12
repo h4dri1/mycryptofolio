@@ -116,7 +116,7 @@ router
     .post(
         '/signup/change',
         jwtMW.routing,
-        rateLimit(signupSchemaLim), 
+        //rateLimit(signupSchemaLim), 
         //validateBody(signupSchema), 
         flush, 
         userController.addUser
