@@ -54,9 +54,16 @@ module.exports = {
                 } 
             } else {
                 const instance = new User(req.body);
+                instance.picture = req.userId.picture;
                 console.log(instance)
                 await instance.save();
-                return res.status(204).json('update ok');
+                res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+                res.setHeader('Authorization', jwt.makeToken(instance));
+                const response = {
+                    "status": `Bienvenue ${instance.nickname}`,
+                    "refreshToken": jwt.makeRefreshToken(instance)
+                };     
+                return res.status(201).json(response);
             }
             
         } catch (err) {
