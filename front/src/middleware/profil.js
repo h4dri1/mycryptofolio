@@ -56,10 +56,17 @@ const profil = (store) => (next) => async (action) => {
         },
       })
         .then((res) => {
-          if (res.status === 204) {
-            store.dispatch(saveUser(res.data));
+          if (res.status === 201) {
             const newAccessToken = res.headers.authorization;
+            const userObj = {
+                id: action.payload.id,
+                email: action.payload.email,
+                nickname: action.payload.nickname,
+                accessToken: newAccessToken,
+            };
+            store.dispatch(saveUser(userObj));
             store.dispatch(saveNewToken(newAccessToken));
+            localStorage.setItem('refreshToken', res.data.refreshToken);
           }
         })
         .catch((err) => {
