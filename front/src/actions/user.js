@@ -1,4 +1,5 @@
 export const CHANGE_FIELD = 'CHANGE_FIELD';
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const LOGIN = 'LOGIN';
 export const SAVE_USER = 'SAVE_USER';
 export const LOGOUT = 'LOGOUT';
@@ -19,6 +20,11 @@ export const changeField = (key, value) => ({
 export const change_user = (user) => ({
   type: CHANGE_USER,
   payload: { ...user },
+});
+
+export const change_password = (newPass) => ({
+  type: CHANGE_PASSWORD,
+  payload: { ...newPass },
 });
 
 export const login = () => ({

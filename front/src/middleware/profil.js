@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 import {
-  CHANGE_USER
+  CHANGE_USER,
+  CHANGE_PASSWORD
 } from 'src/actions/user';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
@@ -42,10 +43,34 @@ const profil = (store) => (next) => async (action) => {
   });
 
   switch (action.type) {
-    case CHANGE_USER:
+    case CHANGE_PASSWORD:
       privateRoute({
         method: 'post',
-        url: '/signup/change',
+        url: '/signup/change/password',
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+        data: {
+          oldPass: action.payload.oldPass,
+          pass: action.payload.pass,
+          passConfirm: action.payload.passConfirm
+        },
+      })
+        .then((res) => {
+          if (res.status === 204) {
+            const newAccessToken = res.headers.authorization;
+            store.dispatch(saveNewToken(newAccessToken));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      next(action);
+      break;
+      case CHANGE_USER:
+      privateRoute({
+        method: 'post',
+        url: '/signup/change/user',
         headers: {
           Authorization: store.getState().user.accessToken,
         },

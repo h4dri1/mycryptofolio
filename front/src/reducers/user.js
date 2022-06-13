@@ -1,6 +1,7 @@
 import {
   CHANGE_FIELD,
   CHANGE_USER,
+  CHANGE_PASSWORD,
   LOGIN,
   SAVE_USER,
   LOGOUT,
@@ -32,6 +33,13 @@ const reducer = (state = initialState, action = {}) => {
       return ({
         ...state,
         ...action.payload,
+      });
+    }
+    case CHANGE_PASSWORD: {
+      return ({
+        ...state,
+        password: '',
+        passwordCheck: ''
       });
     }
     case LOGIN: {

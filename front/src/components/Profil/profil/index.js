@@ -42,10 +42,6 @@ export default function Profil() {
 
     const handleClick = (event) => {
       event.preventDefault();
-      console.log(id);
-      console.log(nicknameValue);
-      console.log(emailValue);
-      console.log(currency);
       dispatch(change_user(newUser));
     };
 
