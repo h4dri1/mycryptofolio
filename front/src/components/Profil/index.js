@@ -4,8 +4,6 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
-
 import {
     Grid
   } from '@mui/material';
@@ -17,7 +15,7 @@ import Password from './password'
 
 const useStyles = makeStyles({
     grid: {
-      minHeight: '80vh',
+      minHeight: '84vh',
       marginTop: '100px'
     },
     gridItem: {
