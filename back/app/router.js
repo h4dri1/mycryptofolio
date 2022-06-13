@@ -114,13 +114,21 @@ router
         userController.addUser
     )
     .post(
-        '/signup/change',
+        '/signup/change/user',
         auth.signup,
         jwtMW.changing,
         //rateLimit(signupSchemaLim), 
         //validateBody(signupSchema), 
         flush, 
-        userController.addUser
+        userController.modifyUser
+    )
+    .post(
+        '/signup/change/password',
+        jwtMW.routing,
+        //rateLimit(signupSchemaLim), 
+        //validateBody(signupSchema), 
+        flush, 
+        userController.modifyPassword
     )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 

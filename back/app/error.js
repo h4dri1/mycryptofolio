@@ -165,6 +165,16 @@ class EmailUsed extends Error {
     }
 }
 
+class CreateUserError extends Error {
+    constructor() {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = `Error on the creation of the user`;
+        this.statusCode = 500;
+    }
+}
+
 class CheckYourPassword extends Error {
     constructor () {
         super();
@@ -284,5 +294,6 @@ module.exports = {
     RateLimitRefresh,
     RateLimitTransaction,
     DbConnectionError,
-    CurrencyError
+    CurrencyError,
+    CreateUserError
 };
