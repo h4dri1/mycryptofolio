@@ -84,7 +84,7 @@ module.exports = {
             }
             const newHash = await bcrypt.hash(req.body.pass, 10);
             await User.updatePass(newHash, req.userId.id);
-            return res.status('204')
+            return res.status('201').json({"status": "Mot de passe modifié"});
         } catch(err) {
             next(err);
         }
