@@ -66,8 +66,8 @@ export default function Profil() {
             <Typography sx={{marginTop:"5px"}} color="primary.dark" variant="h5" align="center">Profil</Typography>
             <Divider sx={{ marginBottom: '10px' }} />
             
-            <TextField onChange={(e) => setNicknameValue(e.target.value)} sx={{ margin: '10px' }} id="outlined-basic" label="User Name" defaultValue={nickname} variant="outlined"/>
-            <TextField onChange={(e) => setEmailValue(e.target.value)} sx={{ margin: '10px' }} id="outlined-basic" label="Email" defaultValue={email} variant="outlined"/>
+            <TextField onChange={(e) => setNicknameValue(e.target.value)} sx={{ margin: '10px' }} id="nickname" label="User Name" defaultValue={nickname} variant="outlined"/>
+            <TextField onChange={(e) => setEmailValue(e.target.value)} sx={{ margin: '10px' }} id="email" label="Email" defaultValue={email} variant="outlined"/>
             <TextField
             sx={{ margin: '10px' }}
             id="outlined-select-currency"

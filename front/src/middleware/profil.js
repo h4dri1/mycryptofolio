@@ -57,13 +57,15 @@ const profil = (store) => (next) => async (action) => {
         },
       })
         .then((res) => {
-          if (res.status === 204) {
+          if (res.status === 201) {
             const newAccessToken = res.headers.authorization;
             store.dispatch(saveNewToken(newAccessToken));
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
           }
         })
         .catch((err) => {
           console.log(err);
+          store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
@@ -92,10 +94,12 @@ const profil = (store) => (next) => async (action) => {
             store.dispatch(saveUser(userObj));
             store.dispatch(saveNewToken(newAccessToken));
             localStorage.setItem('refreshToken', res.data.refreshToken);
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Modification réussi` }));
           }
         })
         .catch((err) => {
           console.log(err);
+          store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
