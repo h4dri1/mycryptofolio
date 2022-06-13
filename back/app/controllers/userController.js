@@ -30,8 +30,9 @@ module.exports = {
 
     addUser: async (req, res, next) => {
         try {
+            const instance = new User(req.body);
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             if (!req.body.id) {
-                const instance = new User(req.body);
                 const user = await User.findOne(instance.email);
                 if (user.id) {
                     throw new EmailUsed(req.body.email);
@@ -43,29 +44,20 @@ module.exports = {
                 delete instance.passwordCheck;
                 const newUser = await instance.save();
                 delete newUser.password;
-                res.setHeader('Access-Control-Expose-Headers', 'Authorization');
                 res.setHeader('Authorization', jwt.makeToken(newUser));
                 const response = {
                     "status": `Bienvenue ${newUser.nickname}`,
                     "refreshToken": jwt.makeRefreshToken(newUser)
                 };     
                 if (newUser) {           
-                    res.status(201).json(response);
+                    return res.status(201).json(response);
                 } 
             } else {
-                const instance = new User(req.body);
                 instance.picture = req.userId.picture;
-                console.log(instance)
                 await instance.save();
-                res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-                res.setHeader('Authorization', jwt.makeToken(instance));
-                const response = {
-                    "status": `Bienvenue ${instance.nickname}`,
-                    "refreshToken": jwt.makeRefreshToken(instance)
-                };     
-                return res.status(201).json(response);
+                res.setHeader('Authorization', jwt.makeToken(instance));   
+                return res.status(201).json({"refreshToken": jwt.makeRefreshToken(instance)});
             }
-            
         } catch (err) {
             next(err);
         }

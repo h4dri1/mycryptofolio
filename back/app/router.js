@@ -115,7 +115,8 @@ router
     )
     .post(
         '/signup/change',
-        jwtMW.routing,
+        auth.signup,
+        jwtMW.changing,
         //rateLimit(signupSchemaLim), 
         //validateBody(signupSchema), 
         flush, 
