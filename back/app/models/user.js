@@ -18,7 +18,12 @@ class User {
     }
 
     static async updatePass(password, id) {
-        const {rows} = await pool.query('UPDATE "user" set password=$1 WHERE id=$2', [password, id]);
+        const {rows} = await pool.query('UPDATE "user" set password=$1 WHERE id=$2;', [password, id]);
+        return new User(rows[0]);
+    }
+
+    static async updateAvatar(picture, id) {
+        const {rows} = await pool.query('UPDATE "user" set picture=$1 WHERE id=$2 RETURNING *;', [picture, id]);
         return new User(rows[0]);
     }
 
@@ -26,7 +31,7 @@ class User {
         if(this.id) {
             await pool.query('SELECT * FROM update_user($1)', [this])
         } else {
-            const {rows} = await pool.query('SELECT * FROM add_user($1)', [this]);
+            const {rows} = await pool.query('SELECT * FROM add_user($1);', [this]);
             if (rows) {
                 this.id = rows[0].id;
                 return this;

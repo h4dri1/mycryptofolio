@@ -88,5 +88,17 @@ module.exports = {
         } catch(err) {
             next(err);
         }
+    },
+
+    modifyAvatar: async (req, res, next) => {
+        try {
+            const user = await User.updateAvatar(req.body.avatar, req.userId.id);
+            delete user.password
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Authorization', jwt.makeToken(user));
+            return res.status(201).json({"refreshToken": jwt.makeRefreshToken(user)});
+        } catch(err) {
+            next(err);
+        }
     }
 };

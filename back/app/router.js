@@ -130,6 +130,15 @@ router
         flush, 
         userController.modifyPassword
     )
+    .post(
+        '/signup/change/avatar',
+        auth.signup,
+        jwtMW.changing,
+        //rateLimit(signupSchemaLim), 
+        //validateBody(signupSchema), 
+        flush, 
+        userController.modifyAvatar
+    )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
         jwtMW.routing,
