@@ -2,7 +2,12 @@ import * as React from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton'
-import { useSelector } from 'react-redux';
+import { Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRef } from 'react';
+import { change_avatar, saveUser } from '../../../actions/user';
+
+import axios from 'axios';
 
   const avatarStyle = {
     border: "2px solid #7932a8",
@@ -11,17 +16,50 @@ import { useSelector } from 'react-redux';
   };
 
 export default function AvatarP() {
+    const uploadInputRef = useRef(null);
+
+    const dispatch = useDispatch();
+
     const avatarS = avatarStyle;
 
     const { avatar } = useSelector((state) => state.user);
 
+    const handleChange = (event) => {
+      event.preventDefault();
+
+    const file = {
+      avatar: event.target.files[0]
+    }
+
+      dispatch(change_avatar(file));
+
+      //axios.post('https://api.cloudinary.com/v1_1/mycryptofolio/image/upload', formData)
+      //  .then(res => {
+      //    const { url } = res.data;
+      //    const imgObj = {
+      //      avatar: url
+      //    }
+      //    dispatch(saveUser(imgObj));
+      //    
+      //  })
+    }
+
     return (
-        <IconButton>
+      <Fragment>
+      <input
+        ref={uploadInputRef}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={handleChange}
+      />
+        <IconButton onClick={() => uploadInputRef.current && uploadInputRef.current.click()} variant="contained">
             <Avatar
                 alt="photo-avatar"
                 src={avatar}
                 sx={avatarS}
             />
         </IconButton>
+      </Fragment>
     );
 }

@@ -7,6 +7,7 @@ import {
   LOGOUT,
   SAVE_NEW_TOKEN,
   EXISTING_USER_TOGGLE,
+  CHANGE_AVATAR,
 } from '../actions/user';
 
 export const initialState = {
@@ -27,6 +28,12 @@ const reducer = (state = initialState, action = {}) => {
       return ({
         ...state,
         [action.payload.key]: action.payload.value,
+      });
+    }
+    case CHANGE_AVATAR: {
+      return ({
+        ...state,
+        ...action.payload,
       });
     }
     case CHANGE_USER: {

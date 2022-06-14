@@ -1,10 +1,12 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   CHANGE_USER,
-  CHANGE_PASSWORD
+  CHANGE_PASSWORD,
+  CHANGE_AVATAR
 } from 'src/actions/user';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
@@ -103,7 +105,43 @@ const profil = (store) => (next) => async (action) => {
         });
       next(action);
       break;
-      default:
+      case CHANGE_AVATAR:
+        const formData = new FormData();
+        formData.append('file', action.payload.avatar);
+        formData.append('upload_preset', 'profilPic');
+        formData.append('cloud_name', 'mycryptofolio');
+        axios.post('https://api.cloudinary.com/v1_1/mycryptofolio/image/upload', formData)
+          .then(res => {
+            const { url } = res.data;
+            const imgObj = {
+              avatar: url
+            }
+            store.dispatch(saveUser(imgObj));
+            privateRoute({
+              method: 'post',
+              url: '/signup/change/avatar',
+              headers: {
+                Authorization: store.getState().user.accessToken,
+              },
+              data: {
+                avatar: url
+              }
+            })
+            .then((res) => {
+              if (res.status === 201) {
+                const newAccessToken = res.headers.authorization;
+                store.dispatch(saveNewToken(newAccessToken));
+                localStorage.setItem('refreshToken', res.data.refreshToken);
+                store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre photo de profil à bien été mis à jour` }));
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+            });
+          })
+        break;
+        default:
         next(action);
         break;
     }
