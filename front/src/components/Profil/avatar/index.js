@@ -26,22 +26,10 @@ export default function AvatarP() {
 
     const handleChange = (event) => {
       event.preventDefault();
-
-    const file = {
-      avatar: event.target.files[0]
-    }
-
+      const file = {
+        avatar: event.target.files[0]
+      }
       dispatch(change_avatar(file));
-
-      //axios.post('https://api.cloudinary.com/v1_1/mycryptofolio/image/upload', formData)
-      //  .then(res => {
-      //    const { url } = res.data;
-      //    const imgObj = {
-      //      avatar: url
-      //    }
-      //    dispatch(saveUser(imgObj));
-      //    
-      //  })
     }
 
     return (

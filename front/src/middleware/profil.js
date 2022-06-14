@@ -116,7 +116,6 @@ const profil = (store) => (next) => async (action) => {
             const imgObj = {
               avatar: url
             }
-            store.dispatch(saveUser(imgObj));
             privateRoute({
               method: 'post',
               url: '/signup/change/avatar',
@@ -132,6 +131,7 @@ const profil = (store) => (next) => async (action) => {
                 const newAccessToken = res.headers.authorization;
                 store.dispatch(saveNewToken(newAccessToken));
                 localStorage.setItem('refreshToken', res.data.refreshToken);
+                store.dispatch(saveUser(imgObj));
                 store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre photo de profil à bien été mis à jour` }));
               }
             })
