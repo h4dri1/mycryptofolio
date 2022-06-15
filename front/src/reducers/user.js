@@ -8,6 +8,7 @@ import {
   SAVE_NEW_TOKEN,
   EXISTING_USER_TOGGLE,
   CHANGE_AVATAR,
+  CHANGE_CURRENCY
 } from '../actions/user';
 
 export const initialState = {
@@ -47,6 +48,12 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         password: '',
         passwordCheck: ''
+      });
+    }
+    case CHANGE_CURRENCY: {
+      return ({
+        ...state,
+        ...action.payload,
       });
     }
     case LOGIN: {

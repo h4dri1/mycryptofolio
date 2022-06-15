@@ -2,7 +2,9 @@ import * as React from 'react';
 
 import { TextField, Divider, Typography, Grid, Button, Box, MenuItem } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { change_user } from '../../../actions/user';
+import { useState } from 'react';
+import { change_user, changeCurrency } from '../../../actions/user';
+import { updateCurrency } from '../../../actions/cryptos';
 
 const currencies = [
     {
@@ -28,7 +30,7 @@ export default function Profil() {
 
     const { nickname, email, id } = useSelector((state) => state.user);
 
-    const [currency, setCurrency] = React.useState('EUR');
+    const [currency, setCur] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
 
     const [nicknameValue, setNicknameValue] = React.useState(nickname);
 
@@ -40,13 +42,19 @@ export default function Profil() {
         email: emailValue
     }
 
+    const curr = {
+      cur: currency
+    }
+
     const handleClick = (event) => {
       event.preventDefault();
       dispatch(change_user(newUser));
+      dispatch(changeCurrency(curr));
+      dispatch(updateCurrency(currency));
     };
 
     const handleChange = (event) => {
-      setCurrency(event.target.value);
+      setCur(event.target.value);
     };
 
     return (

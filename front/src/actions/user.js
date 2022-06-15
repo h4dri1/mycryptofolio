@@ -9,6 +9,7 @@ export const EXISTING_USER_TOGGLE = 'EXISTING_USER_TOGGLE';
 export const REGISTER = 'REGISTER';
 export const CHANGE_USER = 'CHANGE_USER';
 export const CHANGE_AVATAR = 'CHANGE_AVATAR';
+export const CHANGE_CURRENCY = 'CHANGE_CURRENCY';
 
 export const changeField = (key, value) => ({
   type: CHANGE_FIELD,
@@ -31,6 +32,11 @@ export const change_avatar = (avatar) => ({
 export const change_password = (newPass) => ({
   type: CHANGE_PASSWORD,
   payload: { ...newPass },
+});
+
+export const changeCurrency = (currency) => ({
+  type: CHANGE_CURRENCY,
+  payload: { ...currency },
 });
 
 export const login = () => ({

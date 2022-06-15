@@ -6,8 +6,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   CHANGE_USER,
   CHANGE_PASSWORD,
-  CHANGE_AVATAR
+  CHANGE_AVATAR,
+  CHANGE_CURRENCY
 } from 'src/actions/user';
+
+//import { UPDATE_CURRENCY } from '../actions/cryptos';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
 import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
@@ -140,6 +143,30 @@ const profil = (store) => (next) => async (action) => {
               store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
             });
           })
+        break;
+        case CHANGE_CURRENCY:
+            privateRoute({
+              method: 'post',
+              url: '/signup/change/currency',
+              headers: {
+                Authorization: store.getState().user.accessToken,
+              },
+              data: {
+                currency: action.payload.cur
+              }
+            })
+            .then((res) => {
+              if (res.status === 201) {
+                localStorage.setItem('currency', action.payload.cur);
+                const newAccessToken = res.headers.authorization;
+                store.dispatch(saveNewToken(newAccessToken));
+                store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Devise modifiée` }));
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+            });
         break;
         default:
         next(action);

@@ -7,10 +7,18 @@ import {
   UPDATE_CURRENCY
 } from 'src/actions/cryptos';
 
+const curr = localStorage.getItem('currency');
+
+if (curr === null) {
+  var currency = 'USD'
+} else {
+  var currency = curr
+}
+
 const initialState = {
   allCryptos: [],
   cryptoList: {
-    selectedCurrency: 'USD',
+    selectedCurrency: currency,
     quantity: 10,
     cryptoListLoading: false,
     list: [],
