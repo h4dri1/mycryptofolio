@@ -15,12 +15,15 @@ module.exports = {
                 throw new BadPassUser(req.ip);
             }
             delete user.password;
+            const userCurrency = user.currency;
+            delete user.currency;
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(user));
             const response = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
                 "refreshToken": jwt.makeRefreshToken(user),
-                "id": user.id
+                "id": user.id,
+                "currency": userCurrency
             };
             res.status(200).json(response);
         } catch (err) {
@@ -43,11 +46,14 @@ module.exports = {
             const newUser = await instance.save();
             if (newUser) {
                 delete newUser.password;
+                const userCurrency = user.currency;
+                delete user.currency;
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
                 res.setHeader('Authorization', jwt.makeToken(newUser));
                 const response = {
                     "status": `Bienvenue ${newUser.nickname}`,
-                    "refreshToken": jwt.makeRefreshToken(newUser)
+                    "refreshToken": jwt.makeRefreshToken(newUser),
+                    "currency": userCurrency
                 };
                 return res.status(201).json(response);
             } else {
@@ -97,6 +103,15 @@ module.exports = {
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(user));
             return res.status(201).json({"refreshToken": jwt.makeRefreshToken(user)});
+        } catch(err) {
+            next(err);
+        }
+    },
+
+    modifyCurrency: async (req, res, next) => {
+        try {
+            await User.updateCurrency(req.body.currency, req.userId.id);
+            return res.status(201).json({"status": "Devise modifiée"});
         } catch(err) {
             next(err);
         }

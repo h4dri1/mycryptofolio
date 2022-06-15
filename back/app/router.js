@@ -139,6 +139,14 @@ router
         flush, 
         userController.modifyAvatar
     )
+    .post(
+        '/signup/change/currency',
+        jwtMW.routing,
+        //rateLimit(signupSchemaLim), 
+        //validateBody(signupSchema), 
+        flush, 
+        userController.modifyCurrency
+    )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
         jwtMW.routing,

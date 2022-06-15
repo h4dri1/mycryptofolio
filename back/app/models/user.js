@@ -27,6 +27,11 @@ class User {
         return new User(rows[0]);
     }
 
+    static async updateCurrency(currency, id) {
+        const {rows} = await pool.query('UPDATE "user" set currency=$1 WHERE id=$2;', [currency, id]);
+        return new User(rows[0]);
+    }
+
     async save() {
         if(this.id) {
             await pool.query('SELECT * FROM update_user($1)', [this])
