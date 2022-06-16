@@ -4,8 +4,13 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useSelector, useDispatch } from 'react-redux';
+
+import { deleteUser } from '../../actions/user';
+
 import {
-    Grid
+    Grid,
+    Link
   } from '@mui/material';
 
 import { makeStyles } from '@mui/styles';
@@ -35,9 +40,15 @@ const useStyles = makeStyles({
 
 export default function Profil({ logged }) {
 
+  const dispatch = useDispatch();
+
   const classes = useStyles();
 
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    dispatch(deleteUser());
+  }
 
   useEffect(() => {
     if (!logged) {
@@ -65,7 +76,16 @@ export default function Profil({ logged }) {
               <ProfilP/>
               <Password/>
             </Grid>
-
+            <Link
+              sx={{ marginTop: '50px'}}
+              component="button"
+              variant="body2"
+              onClick={() => {
+                handleClick();
+              }}
+            >
+              Supprimer mon compte
+            </Link>
         </Grid >
     );
 }

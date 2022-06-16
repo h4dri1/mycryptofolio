@@ -9,7 +9,7 @@ import {
 
 const curr = localStorage.getItem('currency');
 
-if (curr === null) {
+if (curr === null || !curr || curr === 'undefined') {
   var currency = 'USD'
 } else {
   var currency = curr

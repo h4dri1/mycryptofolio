@@ -8,7 +8,8 @@ import {
   SAVE_NEW_TOKEN,
   EXISTING_USER_TOGGLE,
   CHANGE_AVATAR,
-  CHANGE_CURRENCY
+  CHANGE_CURRENCY,
+  DELETE_USER,
 } from '../actions/user';
 
 export const initialState = {
@@ -72,6 +73,17 @@ const reducer = (state = initialState, action = {}) => {
     }
 
     case LOGOUT: {
+      return ({
+        ...state,
+        logged: false,
+        email: '',
+        nickname: '',
+        avatar: '',
+        accessToken: '',
+      });
+    }
+
+    case DELETE_USER: {
       return ({
         ...state,
         logged: false,

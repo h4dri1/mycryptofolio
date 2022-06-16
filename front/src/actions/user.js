@@ -10,6 +10,7 @@ export const REGISTER = 'REGISTER';
 export const CHANGE_USER = 'CHANGE_USER';
 export const CHANGE_AVATAR = 'CHANGE_AVATAR';
 export const CHANGE_CURRENCY = 'CHANGE_CURRENCY';
+export const DELETE_USER = 'DELETE_USER';
 
 export const changeField = (key, value) => ({
   type: CHANGE_FIELD,
@@ -18,6 +19,10 @@ export const changeField = (key, value) => ({
     value,
   },
 });
+
+export const deleteUser = () => ({
+  type: DELETE_USER,
+})
 
 export const change_user = (user) => ({
   type: CHANGE_USER,

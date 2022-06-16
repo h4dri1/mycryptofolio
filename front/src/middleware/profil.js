@@ -7,7 +7,8 @@ import {
   CHANGE_USER,
   CHANGE_PASSWORD,
   CHANGE_AVATAR,
-  CHANGE_CURRENCY
+  CHANGE_CURRENCY,
+  DELETE_USER,
 } from 'src/actions/user';
 
 import { updateCurrency } from 'src/actions/cryptos';
@@ -145,7 +146,8 @@ const profil = (store) => (next) => async (action) => {
               store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
             });
           })
-        break;
+          next(action);
+          break;
         case CHANGE_CURRENCY:
             privateRoute({
               method: 'post',
@@ -170,7 +172,28 @@ const profil = (store) => (next) => async (action) => {
               console.log(err);
               store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
             });
-        break;
+            next(action);
+            break;
+        case DELETE_USER:
+            privateRoute({
+              method: 'get',
+              url: '/delete/user',
+              headers: {
+                Authorization: store.getState().user.accessToken,
+              },
+            })
+            .then((res) => {
+              if (res.status === 201) {
+                localStorage.clear();
+                store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre compte a bien été supprimé` }));
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+            });
+            next(action);
+            break;
         default:
         next(action);
         break;
