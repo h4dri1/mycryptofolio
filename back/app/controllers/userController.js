@@ -1,7 +1,7 @@
 const { User, Wallet, Transaction } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('../services/jwt');
-const { walletController } = require('../controllers');
+
 const { BadPassUser, EmailUsed, CheckYourPassword, CreateUserError } = require('../error');
 
 module.exports = {

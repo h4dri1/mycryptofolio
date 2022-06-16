@@ -27,7 +27,12 @@ const { loginSchema,
         refreshSchemaLim,
         transactionSchemaLim,
         getWalletSchema,
-        getHistorySchema
+        getHistorySchema,
+        deleteUserSchemaLim,
+        changeUserSchema,
+        changePasswordSchema,
+        changeAvatarSchema,
+        changeCurrencySchema
 } = require('./schemas');
 
 // jwtMW => Check JWT Access Token for protected route
@@ -56,7 +61,57 @@ router
         validateBody(loginSchema), 
         auth.login, 
         userController.validLoginJwt
-    );
+    )
+    .post(
+        '/signup',
+        auth.signup,
+        rateLimit(signupSchemaLim), 
+        validateBody(signupSchema), 
+        flush, 
+        userController.addUser
+    )
+    .delete(
+        '/delete/user',
+        jwtMW.routing,
+        rateLimit(deleteUserSchemaLim),
+        userController.deleteUser
+    )
+
+router
+    .post(
+        '/signup/change/user',
+        auth.signup,
+        jwtMW.changing,
+        rateLimit(signupSchemaLim), 
+        validateBody(changeUserSchema), 
+        flush, 
+        userController.modifyUser
+    )
+    .post(
+        '/signup/change/password',
+        jwtMW.routing,
+        rateLimit(signupSchemaLim), 
+        validateBody(changePasswordSchema), 
+        flush, 
+        userController.modifyPassword
+    )
+    .post(
+        '/signup/change/avatar',
+        auth.signup,
+        jwtMW.changing,
+        rateLimit(signupSchemaLim), 
+        validateBody(changeAvatarSchema), 
+        flush, 
+        userController.modifyAvatar
+    )
+    .post(
+        '/signup/change/currency',
+        jwtMW.routing,
+        rateLimit(signupSchemaLim), 
+        validateBody(changeCurrencySchema), 
+        flush, 
+        userController.modifyCurrency
+    )
 
 router
     .get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto)
@@ -88,12 +143,6 @@ router
         updateMW, 
         portfolioController.getPortfolio
     )
-    .get(
-        '/delete/user',
-        jwtMW.routing,
-        //validateParams(getWalletSchema), 
-        userController.deleteUser
-    )
     .post(
         '/portfolio/wallet/:wid(\\d+)/transaction',
         rateLimit(transactionSchemaLim),
@@ -110,48 +159,6 @@ router
         validateBody(walletSchema), 
         flush, 
         walletController.addWallet
-    )
-    .post(
-        '/signup',
-        auth.signup,
-        rateLimit(signupSchemaLim), 
-        validateBody(signupSchema), 
-        flush, 
-        userController.addUser
-    )
-    .post(
-        '/signup/change/user',
-        auth.signup,
-        jwtMW.changing,
-        //rateLimit(signupSchemaLim), 
-        //validateBody(signupSchema), 
-        flush, 
-        userController.modifyUser
-    )
-    .post(
-        '/signup/change/password',
-        jwtMW.routing,
-        //rateLimit(signupSchemaLim), 
-        //validateBody(signupSchema), 
-        flush, 
-        userController.modifyPassword
-    )
-    .post(
-        '/signup/change/avatar',
-        auth.signup,
-        jwtMW.changing,
-        //rateLimit(signupSchemaLim), 
-        //validateBody(signupSchema), 
-        flush, 
-        userController.modifyAvatar
-    )
-    .post(
-        '/signup/change/currency',
-        jwtMW.routing,
-        //rateLimit(signupSchemaLim), 
-        //validateBody(signupSchema), 
-        flush, 
-        userController.modifyCurrency
     )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 

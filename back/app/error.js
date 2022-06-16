@@ -269,6 +269,17 @@ class CurrencyError extends Error {
     }
 }
 
+class RateLimitDeleteUser extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'warn';
+        this.ip = ip;
+        this.message = 'You have reached the max request for deleting user';
+        this.statusCode = 429;  
+    }
+}
+
 module.exports = {
     NoTransactionId,
     NoWallet,
@@ -293,6 +304,7 @@ module.exports = {
     UnExeptedError,
     RateLimitRefresh,
     RateLimitTransaction,
+    RateLimitDeleteUser,
     DbConnectionError,
     CurrencyError,
     CreateUserError
