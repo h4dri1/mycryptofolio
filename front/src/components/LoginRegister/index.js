@@ -19,6 +19,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeField, existingUserToggle } from 'src/actions/user';
 import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 
+import {
+  Link
+} from '@mui/material';
+
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
@@ -125,6 +129,16 @@ export default function LoginRegister({ type, handleFormSubmit }) {
           )}
         </DialogContent>
         <DialogActions>
+        <Link
+          sx={{ marginRight: '40px'}}
+          component="button"
+          variant="body2"
+          onClick={() => {
+            handleClick();
+          }}
+        >
+          Mot de passe oublié ?
+        </Link>
           <Button onClick={() => dispatch(existingUserToggle())}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Button>
           <Button onClick={handleSubmit} variant="contained">{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }</Button>
         </DialogActions>
