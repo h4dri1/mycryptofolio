@@ -1,6 +1,7 @@
-const { User } = require('../models');
+const { User, Wallet, Transaction } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('../services/jwt');
+const { walletController } = require('../controllers');
 const { BadPassUser, EmailUsed, CheckYourPassword, CreateUserError } = require('../error');
 
 module.exports = {
@@ -46,14 +47,12 @@ module.exports = {
             const newUser = await instance.save();
             if (newUser) {
                 delete newUser.password;
-                const userCurrency = user.currency;
-                delete user.currency;
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
                 res.setHeader('Authorization', jwt.makeToken(newUser));
                 const response = {
                     "status": `Bienvenue ${newUser.nickname}`,
                     "refreshToken": jwt.makeRefreshToken(newUser),
-                    "currency": userCurrency
+                    "currency": 'USD'
                 };
                 return res.status(201).json(response);
             } else {
@@ -112,6 +111,23 @@ module.exports = {
         try {
             await User.updateCurrency(req.body.currency, req.userId.id);
             return res.status(201).json({"status": "Devise modifiée"});
+        } catch(err) {
+            next(err);
+        }
+    },
+
+    deleteUser: async (req, res, next) => {
+        try {
+            const wallets = await Wallet.findWalletByUser(req.userId.id);
+            for (const wallet of wallets) {
+                const transactions = await Transaction.getTransactionByWallet(wallet.id);
+                for (const transaction of transactions) {
+                    await Transaction.delete(transaction.transaction_id);
+                }
+                await Wallet.delete(wallet.id);
+            }
+            await User.deleteOne(req.userId.id);
+            return res.status(201).json({"status": "Compte supprimé"});
         } catch(err) {
             next(err);
         }
