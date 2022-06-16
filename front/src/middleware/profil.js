@@ -176,7 +176,7 @@ const profil = (store) => (next) => async (action) => {
             break;
         case DELETE_USER:
             privateRoute({
-              method: 'get',
+              method: 'delete',
               url: '/delete/user',
               headers: {
                 Authorization: store.getState().user.accessToken,

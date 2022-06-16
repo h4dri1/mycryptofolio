@@ -48,6 +48,7 @@ export default function Profil({ logged }) {
 
   const handleClick = () => {
     dispatch(deleteUser());
+    navigate('/');
   }
 
   useEffect(() => {
