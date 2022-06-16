@@ -1,4 +1,5 @@
 export const CHANGE_FIELD = 'CHANGE_FIELD';
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const LOGIN = 'LOGIN';
 export const SAVE_USER = 'SAVE_USER';
 export const LOGOUT = 'LOGOUT';
@@ -6,6 +7,10 @@ export const CHECK_TOKEN = 'CHECK_TOKEN';
 export const SAVE_NEW_TOKEN = 'SAVE_NEW_TOKEN';
 export const EXISTING_USER_TOGGLE = 'EXISTING_USER_TOGGLE';
 export const REGISTER = 'REGISTER';
+export const CHANGE_USER = 'CHANGE_USER';
+export const CHANGE_AVATAR = 'CHANGE_AVATAR';
+export const CHANGE_CURRENCY = 'CHANGE_CURRENCY';
+export const DELETE_USER = 'DELETE_USER';
 
 export const changeField = (key, value) => ({
   type: CHANGE_FIELD,
@@ -15,13 +20,37 @@ export const changeField = (key, value) => ({
   },
 });
 
+export const deleteUser = () => ({
+  type: DELETE_USER,
+})
+
+export const change_user = (user) => ({
+  type: CHANGE_USER,
+  payload: { ...user },
+});
+
+export const change_avatar = (avatar) => ({
+  type: CHANGE_AVATAR,
+  payload: { ...avatar },
+});
+
+export const change_password = (newPass) => ({
+  type: CHANGE_PASSWORD,
+  payload: { ...newPass },
+});
+
+export const changeCurrency = (currency) => ({
+  type: CHANGE_CURRENCY,
+  payload: { ...currency },
+});
+
 export const login = () => ({
   type: LOGIN,
 });
 
-export const saveUser = (user) => ({
+export const saveUser = (newUser) => ({
   type: SAVE_USER,
-  payload: { ...user },
+  payload: { ...newUser },
 });
 
 export const logout = () => ({

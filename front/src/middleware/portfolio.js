@@ -32,8 +32,9 @@ const portfolio = (store) => (next) => async (action) => {
       req.headers.Authorization = newAccessToken;
 
       const { user } = parseJwt(newAccessToken);
-      const { email, nickname, picture } = user;
+      const { email, nickname, picture, id } = user;
       const userObj = {
+        id,
         email,
         nickname,
         avatar: picture,

@@ -55,7 +55,7 @@ module.exports = {
             // If user send good data remove the ban counter key
             // add new refresh token to redis
             // Send original json response 
-            res.json = async (data) => {
+            res.json = async (data) => {  
                 if (redis.get(key)) {
                     await redis.del(key);
                 }

@@ -17,20 +17,20 @@ beforeAll(async () => {
 describe('Portfolio (JWT) Endpoints Invalid', () => {
   it('should return a response with status 498', async () => {
     const res = await request(app)
-      .get('/v1/portfolio/usd')
+      .get('/v1/portfolio/USD')
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(498);
   })
   it('should return a response with status 498', async () => {
     const res = await request(app)
-      .get('/v1/portfolio/usd')
+      .get('/v1/portfolio/USD')
       .set('Authorization', ``)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(498);
   })
   it('should return a response with status 500', async () => {
     const res = await request(app)
-      .get('/v1/portfolio/usd')
+      .get('/v1/portfolio/USD')
       .set('Authorization', `lisefjl`)
       .expect("Content-Type", /json/)
     expect(res.statusCode).toEqual(500);
@@ -40,21 +40,21 @@ describe('Portfolio (JWT) Endpoints Invalid', () => {
 describe('Portfolio Wallet (JWT) Endpoints Invalid', () => {
     it('should return a response with status 404', async () => {
       const res = await request(app)
-        .get('/v1/portfolio/wallet/usd')
+        .get('/v1/portfolio/wallet/USD')
         .set('Authorization', `Bearer ${token}`)
         .expect("Content-Type", /json/)
       expect(res.statusCode).toEqual(404);
     })
     it('should return a response with status 498', async () => {
         const res = await request(app)
-          .get('/v1/portfolio/wallet/1/usd')
+          .get('/v1/portfolio/wallet/1/USD')
           .set('Authorization', ``)
           .expect("Content-Type", /json/)
         expect(res.statusCode).toEqual(498);
     })
     it('should return a response with status 404', async () => {
         const res = await request(app)
-          .get('/v1/portfolio/wallet/a/usd')
+          .get('/v1/portfolio/wallet/a/USD')
           .set('Authorization', `Bearer ${token}`)
           .expect("Content-Type", /json/)
         expect(res.statusCode).toEqual(404);
@@ -112,7 +112,8 @@ describe('Portfolio add transaction (JWT) Endpoints Invalid', () => {
             "coin_id": '',
             "price": '',
             "quantity": '',
-            "symbol": ''
+            "symbol": '',
+            "fiat": ''
           })
         expect(res.statusCode).toEqual(400);
     })

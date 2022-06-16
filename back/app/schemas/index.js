@@ -1,4 +1,8 @@
 const loginSchema = require('./body/loginSchema');
+const changeUserSchema = require('./body/changeUserSchema');
+const changePasswordSchema = require('./body/changePasswordSchema');
+const changeAvatarSchema = require('./body/changeAvatarSchema');
+const changeCurrencySchema = require('./body/changeCurrencySchema');
 const signupSchema = require('./body/signupSchema');
 const transactionSchema = require('./body/transactionSchema');
 const walletSchema = require('./body/walletSchema');
@@ -13,6 +17,7 @@ const loginSchemaLim = require('./limiter/loginSchema');
 const signupSchemaLim = require('./limiter/signupSchema');
 const refreshSchemaLim = require('./limiter/refreshSchema');
 const transactionSchemaLim = require('./limiter/transactionSchema');
+const deleteUserSchemaLim = require('./limiter/deleteUserSchema');
 const tokenSchema = require('./params/tokenSchema');
 const getHistorySchema = require('./params/getHistorySchema');
 
@@ -33,5 +38,10 @@ module.exports = {
     signupSchemaLim,
     refreshSchemaLim,
     transactionSchemaLim,
-    getHistorySchema
+    deleteUserSchemaLim,
+    getHistorySchema,
+    changeUserSchema,
+    changePasswordSchema,
+    changeAvatarSchema,
+    changeCurrencySchema
 }
