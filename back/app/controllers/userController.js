@@ -67,10 +67,10 @@ module.exports = {
         try {
             const instance = new User(req.body);
             instance.picture = req.userId.picture;
-                await instance.save();
-                res.setHeader('Authorization', jwt.makeToken(instance));
-                res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-                return res.status(201).json({"refreshToken": jwt.makeRefreshToken(instance)});
+            await instance.save();
+            res.setHeader('Authorization', jwt.makeToken(instance));
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            return res.status(201).json({"refreshToken": jwt.makeRefreshToken(instance)});
         } catch(err) {
             next(err);
         }
