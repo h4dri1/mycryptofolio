@@ -105,7 +105,7 @@ module.exports = {
             return res.status(201).json({"refreshToken": jwt.makeRefreshToken(user)});
         } catch(err) {
             next(err);
-        }
+        } 
     },
 
     modifyCurrency: async (req, res, next) => {

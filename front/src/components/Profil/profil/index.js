@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { change_user, changeCurrency } from '../../../actions/user';
 import { updateCurrency } from '../../../actions/cryptos';
 
+import { setDisplaySnackBar } from 'src/actions/settings';
+
 const currencies = [
     {
       value: 'USD',
@@ -29,8 +31,10 @@ export default function Profil() {
     const dispatch = useDispatch();
 
     const { nickname, email, id } = useSelector((state) => state.user);
+    
+    const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
 
-    const [currency, setCur] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
+    const [currency, setCur] = React.useState(selectedCurrency);
 
     const [nicknameValue, setNicknameValue] = React.useState(nickname);
 
@@ -48,9 +52,14 @@ export default function Profil() {
 
     const handleClick = (event) => {
       event.preventDefault();
-      dispatch(change_user(newUser));
-      dispatch(changeCurrency(curr));
-      dispatch(updateCurrency(currency));
+      if (selectedCurrency !== currency) {
+        dispatch(changeCurrency(curr));
+      } else if (nickname !== nicknameValue || email !== emailValue) {
+        dispatch(change_user(newUser));
+      } else {
+        dispatch(setDisplaySnackBar({ severity: 'error', message: `Vous n'avez apporté aucune modification` }));
+        return
+      }
     };
 
     const handleChange = (event) => {

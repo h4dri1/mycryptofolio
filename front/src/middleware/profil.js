@@ -10,6 +10,8 @@ import {
   CHANGE_CURRENCY
 } from 'src/actions/user';
 
+import { updateCurrency } from 'src/actions/cryptos';
+
 //import { UPDATE_CURRENCY } from '../actions/cryptos';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
@@ -160,6 +162,7 @@ const profil = (store) => (next) => async (action) => {
                 localStorage.setItem('currency', action.payload.cur);
                 const newAccessToken = res.headers.authorization;
                 store.dispatch(saveNewToken(newAccessToken));
+                store.dispatch(updateCurrency(action.payload.cur));
                 store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Devise modifiée` }));
               }
             })

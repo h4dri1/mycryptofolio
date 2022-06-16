@@ -37,6 +37,12 @@ export default function Password() {
         if (!regex.test(newPass.pass)) {
             dispatch(setDisplaySnackBar({ severity: 'error', message: 'Votre mot de passe doit avoir une taille d\'au moins 8 charactères et contenir: une lettre majuscule, une lettre minuscule, un chiffre et un charactère spécial' }));
             return;
+        } else if (newPass.oldPass === newPass.pass) {
+            dispatch(setDisplaySnackBar({ severity: 'error', message: 'Votre mot de passe doit être different du mot de passe actuel' }));
+            return;
+        } else if (newPass.pass !== newPass.passConfirm) {
+            dispatch(setDisplaySnackBar({ severity: 'error', message: 'Vérifier votre nouveau mot de passe' }));
+            return;
         }
         dispatch(change_password(newPass));
     }
