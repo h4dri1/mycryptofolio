@@ -18,12 +18,18 @@ module.exports = {
             delete user.password;
             const userCurrency = user.currency;
             delete user.currency;
+            const token = {
+                id: user.id,
+            }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            res.setHeader('Authorization', jwt.makeToken(user));
+            res.setHeader('Authorization', jwt.makeToken(token));
             const response = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
-                "refreshToken": jwt.makeRefreshToken(user),
+                "refreshToken": jwt.makeRefreshToken(token),
                 "id": user.id,
+                "nickname": user.nickname,
+                "email": user.email,
+                "picture": user.picture,
                 "currency": userCurrency
             };
             res.status(200).json(response);
@@ -47,11 +53,16 @@ module.exports = {
             const newUser = await instance.save();
             if (newUser) {
                 delete newUser.password;
+                const token = {id: newUser.id};
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-                res.setHeader('Authorization', jwt.makeToken(newUser));
+                res.setHeader('Authorization', jwt.makeToken(token));
                 const response = {
                     "status": `Bienvenue ${newUser.nickname}`,
-                    "refreshToken": jwt.makeRefreshToken(newUser),
+                    "refreshToken": jwt.makeRefreshToken(token),
+                    "id": newUser.id,
+                    "nickname": newUser.nickname,
+                    "email": newUser.email,
+                    "picture": '',
                     "currency": 'USD'
                 };
                 return res.status(201).json(response);
@@ -66,11 +77,9 @@ module.exports = {
     modifyUser: async (req, res, next) => {
         try {
             const instance = new User(req.body);
-            instance.picture = req.userId.picture;
+            
             await instance.save();
-            res.setHeader('Authorization', jwt.makeToken(instance));
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            return res.status(201).json({"refreshToken": jwt.makeRefreshToken(instance)});
+            res.status(201).json("Modification effectuée");
         } catch(err) {
             next(err);
         }
@@ -97,11 +106,8 @@ module.exports = {
 
     modifyAvatar: async (req, res, next) => {
         try {
-            const user = await User.updateAvatar(req.body.avatar, req.userId.id);
-            delete user.password
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            res.setHeader('Authorization', jwt.makeToken(user));
-            return res.status(201).json({"refreshToken": jwt.makeRefreshToken(user)});
+            await User.updateAvatar(req.body.avatar, req.userId.id);
+            return res.status(201).json('Avatar modifié');
         } catch(err) {
             next(err);
         } 
