@@ -29,7 +29,9 @@ export default function AvatarP() {
       const file = {
         avatar: event.target.files[0]
       }
+      console.log(file);
       dispatch(change_avatar(file));
+      console.log('ok')
     }
 
     return (

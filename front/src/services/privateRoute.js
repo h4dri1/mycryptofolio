@@ -16,7 +16,7 @@ privateRoute.interceptors.request.use(async (req) => {
 
   if (isTokenExpired(accessToken) && refreshToken) {
     const newAccessToken = await getNewAccessToken(refreshToken);
-    req.headers.Authorization = newAccessToken;
+    req.headers.Authorization = newAccessToken.rToken;
     return req;
   }
   return req;

@@ -21,6 +21,7 @@ import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
 import parseJwt from 'src/services/parseJwt';
 import isTokenExpired from 'src/services/isTokenExpired';
 import getNewAccessToken from 'src/services/getNewAccessToken';
+import { CropLandscapeOutlined } from '@mui/icons-material';
 
 const profil = (store) => (next) => async (action) => {
   const privateRoute = axios.create({
@@ -33,19 +34,18 @@ const profil = (store) => (next) => async (action) => {
 
     if (isTokenExpired(accessToken) && refreshToken) {
       const newAccessToken = await getNewAccessToken(refreshToken);
-      req.headers.Authorization = newAccessToken;
+      const user = parseJwt(newAccessToken.rToken);
 
-      const { user } = parseJwt(newAccessToken);
-      const { email, nickname, picture } = user;
       const userObj = {
-        email,
-        nickname,
-        avatar: picture,
-        accessToken: newAccessToken,
+        id: user,
+        nickname: newAccessToken.user.nickname,
+        email: newAccessToken.user.email,
+        avatar: newAccessToken.user.picture,
+        accessToken: newAccessToken.rToken
       };
       store.dispatch(saveUser(userObj));
 
-      return req;
+      return req
     }
     return req;
   });
@@ -116,7 +116,7 @@ const profil = (store) => (next) => async (action) => {
         formData.append('file', action.payload.avatar);
         formData.append('upload_preset', 'profilPic');
         formData.append('cloud_name', 'mycryptofolio');
-        axios.post('https://api.cloudinary.com/v1_1/mycryptofolio/image/upload', formData)
+        await axios.post('https://api.cloudinary.com/v1_1/mycryptofolio/image/upload', formData)
           .then(res => {
             const { url } = res.data;
             const imgObj = {
@@ -136,7 +136,7 @@ const profil = (store) => (next) => async (action) => {
               if (res.status === 201) {
                 const newAccessToken = res.headers.authorization;
                 store.dispatch(saveNewToken(newAccessToken));
-                localStorage.setItem('refreshToken', res.data.refreshToken);
+                //localStorage.setItem('refreshToken', res.data.refreshToken);
                 store.dispatch(saveUser(imgObj));
                 store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre photo de profil à bien été mis à jour` }));
               }

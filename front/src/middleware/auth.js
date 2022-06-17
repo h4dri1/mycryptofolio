@@ -41,20 +41,20 @@ const auth = (store) => (next) => async (action) => {
             const newAccessToken = res.headers.authorization;
 
             // Save user details
-            const { user } = parseJwt(res.headers.authorization);
-            const { email, nickname, picture, id } = user;
+            const user = parseJwt(res.headers.authorization);
+
             const userObj = {
-              id,
-              email,
-              nickname,
-              avatar: picture,
+              id: user,
+              email: res.data.email,
+              nickname: res.data.nickname,
+              avatar: res.data.picture,
               accessToken: newAccessToken,
             };
             localStorage.setItem('currency', res.data.currency);
             store.dispatch(updateCurrency(res.data.currency));
             store.dispatch(getCryptoList());
             store.dispatch(saveUser(userObj));
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${nickname}, vous êtes bien connecté` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
           }
         })
         .catch((err) => {
@@ -106,14 +106,13 @@ const auth = (store) => (next) => async (action) => {
             const newAccessToken = res.headers.authorization;
 
             // Save user details
-            const { user } = parseJwt(res.headers.authorization);
-            const { email, nickname, picture, id } = user;
+            const user = parseJwt(res.headers.authorization);
 
             const userObj = {
-              id,
-              email,
-              nickname,
-              avatar: picture,
+              id: user,
+              email: res.data.email,
+              nickname: res.data.nickname,
+              avatar: res.data.picture,
               accessToken: newAccessToken,
               existingUser: true,
             };
@@ -121,7 +120,7 @@ const auth = (store) => (next) => async (action) => {
             store.dispatch(updateCurrency(res.data.currency));
             store.dispatch(getCryptoList());
             store.dispatch(saveUser(userObj));
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${nickname} !` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${userObj.nickname} !` }));
           }
         })
         .catch((err) => {
@@ -133,15 +132,14 @@ const auth = (store) => (next) => async (action) => {
     case CHECK_TOKEN:
       if (isTokenExpired(accessToken) && refreshToken) {
         const newAccessToken = await getNewAccessToken(refreshToken);
-        const { user } = parseJwt(newAccessToken);
-        const { email, nickname, picture, id } = user;
+        const user = parseJwt(newAccessToken.rToken);
 
         const userObj = {
-          id,
-          email,
-          nickname,
-          avatar: picture,
-          accessToken: newAccessToken,
+          id: user,
+          nickname: newAccessToken.user.nickname,
+          email: newAccessToken.user.email,
+          avatar: newAccessToken.user.picture,
+          accessToken: newAccessToken.rToken
         };
         store.dispatch(saveUser(userObj));
       }
