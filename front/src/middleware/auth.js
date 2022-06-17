@@ -47,7 +47,7 @@ const auth = (store) => (next) => async (action) => {
               id,
               email: res.data.email,
               nickname: res.data.nickname,
-              avatar: res.data.avatar,
+              avatar: res.data.picture,
               accessToken: newAccessToken,
             };
             localStorage.setItem('currency', res.data.currency);
@@ -113,15 +113,16 @@ const auth = (store) => (next) => async (action) => {
               id,
               email: res.data.email,
               nickname: res.data.nickname,
-              avatar: res.data.picture,
+              avatar: '',
               accessToken: newAccessToken,
               existingUser: true,
             };
+
             localStorage.setItem('currency', res.data.currency);
             store.dispatch(updateCurrency(res.data.currency));
             store.dispatch(getCryptoList());
             store.dispatch(saveUser(userObj));
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${nickname} !` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${userObj.nickname} !` }));
           }
         })
         .catch((err) => {
