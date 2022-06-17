@@ -15,18 +15,18 @@ module.exports = {
             // All 4 blocks (wallets, distribution, performance, transaction) are calculate with sql
             // If user choose one wallet
             if (req.params.wid) {
-                objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wid);
-                objRepartition = await Portfolio.getDistributionByWallet(req.userId.id, req.params.wid);
-                objWallet = await Wallet.findSumWalletByWallet(req.userId.id, req.params.wid);
-                objPerformance = await Portfolio.getPerformanceByWallet(req.userId.id, req.params.wid);
-                emptyWallet = await Wallet.findWalletWithNoTransaction(req.userId.id);
+                objTransactions = await Transaction.getUserTransactionByWallet(req.user, req.params.wid);
+                objRepartition = await Portfolio.getDistributionByWallet(req.user, req.params.wid);
+                objWallet = await Wallet.findSumWalletByWallet(req.user, req.params.wid);
+                objPerformance = await Portfolio.getPerformanceByWallet(req.user, req.params.wid);
+                emptyWallet = await Wallet.findWalletWithNoTransaction(req.user);
             // If user choose global portfolio
             } else {
-                objTransactions = await Transaction.getUserTransaction(req.userId.id);
-                objRepartition = await Portfolio.getDistribution(req.userId.id);
-                objWallet = await Wallet.findSumWallet(req.userId.id);
-                objPerformance = await Portfolio.getPerformance(req.userId.id);
-                empty = await Wallet.findWalletWithNoTransaction(req.userId.id);
+                objTransactions = await Transaction.getUserTransaction(req.user);
+                objRepartition = await Portfolio.getDistribution(req.user);
+                objWallet = await Wallet.findSumWallet(req.user);
+                objPerformance = await Portfolio.getPerformance(req.user);
+                empty = await Wallet.findWalletWithNoTransaction(req.user);
             };
             /////////////////////////////////////////////////////////////////////////////////
             // Check if wallet is empty (sell and buy transaction with sum 0)

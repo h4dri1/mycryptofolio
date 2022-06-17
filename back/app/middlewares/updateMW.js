@@ -6,11 +6,11 @@ module.exports = async (req, res, next) => {
     // Fetch user's crypto price and add to db
     try {
         if (req.params.wid) {
-            var cryptos = await Transaction.getUserCryptoByWallet(req.userId.id, req.params.wid);
-            var transacs = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wid);
+            var cryptos = await Transaction.getUserCryptoByWallet(req.userId, req.params.wid);
+            var transacs = await Transaction.getUserTransactionByWallet(req.userId, req.params.wid);
         } else {
-            var cryptos = await Transaction.getUserCrypto(req.userId.id);
-            var transacs = await Transaction.getUserTransaction(req.userId.id)
+            var cryptos = await Transaction.getUserCrypto(req.userId);
+            var transacs = await Transaction.getUserTransaction(req.userId)
         }
         const strCryptos = cryptos.map((crypto) => {
             return crypto['coin_id']

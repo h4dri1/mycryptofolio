@@ -19,11 +19,13 @@ module.exports = {
             const userCurrency = user.currency;
             delete user.currency;
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            res.setHeader('Authorization', jwt.makeToken(user));
+            res.setHeader('Authorization', jwt.makeToken(user.id));
             const response = {
                 "status": `(JWT) Bienvenue ${user.nickname}`,
-                "refreshToken": jwt.makeRefreshToken(user),
-                "id": user.id,
+                "refreshToken": jwt.makeRefreshToken(user.id),
+                "nickname": user.nickname,
+                "email": user.email,
+                "picture": user.picture,
                 "currency": userCurrency
             };
             res.status(200).json(response);
@@ -48,10 +50,13 @@ module.exports = {
             if (newUser) {
                 delete newUser.password;
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-                res.setHeader('Authorization', jwt.makeToken(newUser));
+                res.setHeader('Authorization', jwt.makeToken(newUser.id));
                 const response = {
                     "status": `Bienvenue ${newUser.nickname}`,
-                    "refreshToken": jwt.makeRefreshToken(newUser),
+                    "refreshToken": jwt.makeRefreshToken(newUser.id),
+                    "nickname": newUser.nickname,
+                    "email": newUser.email,
+                    "picture": newUser.picture,
                     "currency": 'USD'
                 };
                 return res.status(201).json(response);
@@ -97,11 +102,11 @@ module.exports = {
 
     modifyAvatar: async (req, res, next) => {
         try {
-            const user = await User.updateAvatar(req.body.avatar, req.userId.id);
-            delete user.password
-            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-            res.setHeader('Authorization', jwt.makeToken(user));
-            return res.status(201).json({"refreshToken": jwt.makeRefreshToken(user)});
+            const user = await User.updateAvatar(req.body.avatar, req.userId);
+            delete user.password;
+            //res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            //res.setHeader('Authorization', jwt.makeToken(user));
+            res.status(201).json({"status": "Avatar modifié"});
         } catch(err) {
             next(err);
         } 
