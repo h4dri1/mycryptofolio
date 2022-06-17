@@ -3,8 +3,7 @@ import * as React from 'react';
 import { TextField, Divider, Typography, Grid, Button, Box, MenuItem } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { change_user, changeCurrency } from '../../../actions/user';
-import { updateCurrency } from '../../../actions/cryptos';
+import { change_user } from '../../../actions/user';
 
 import { setDisplaySnackBar } from 'src/actions/settings';
 
@@ -43,18 +42,13 @@ export default function Profil() {
     const newUser = {
         id: id,
         nickname: nicknameValue,
-        email: emailValue
-    }
-
-    const curr = {
-      cur: currency
+        email: emailValue,
+        cur: currency
     }
 
     const handleClick = (event) => {
       event.preventDefault();
-      if (selectedCurrency !== currency) {
-        dispatch(changeCurrency(curr));
-      } else if (nickname !== nicknameValue || email !== emailValue) {
+      if (nicknameValue !== nickname || emailValue !== email || selectedCurrency !== currency) {
         dispatch(change_user(newUser));
       } else {
         dispatch(setDisplaySnackBar({ severity: 'error', message: `Vous n'avez apporté aucune modification` }));

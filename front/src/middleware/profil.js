@@ -32,15 +32,16 @@ const profil = (store) => (next) => async (action) => {
     const refreshToken = localStorage.getItem('refreshToken');
 
     if (isTokenExpired(accessToken) && refreshToken) {
-      const newAccessToken = await getNewAccessToken(refreshToken);
+      const { newAccessToken, userData } = await getNewAccessToken(refreshToken);
       req.headers.Authorization = newAccessToken;
 
       const { user } = parseJwt(newAccessToken);
-      const { email, nickname, picture } = user;
+      const { id } = user;
       const userObj = {
-        email,
-        nickname,
-        avatar: picture,
+        id,
+        email: userData.email,
+        nickname: userData.nickname,
+        avatar: userData.picture,
         accessToken: newAccessToken,
       };
       store.dispatch(saveUser(userObj));
@@ -88,6 +89,7 @@ const profil = (store) => (next) => async (action) => {
           id: action.payload.id,
           email: action.payload.email,
           nickname: action.payload.nickname,
+          picture: action.payload.picture,
         },
       })
         .then((res) => {
@@ -101,7 +103,7 @@ const profil = (store) => (next) => async (action) => {
             };
             store.dispatch(saveUser(userObj));
             store.dispatch(saveNewToken(newAccessToken));
-            localStorage.setItem('refreshToken', res.data.refreshToken);
+            store.dispatch(updateCurrency(action.payload.cur));
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Modification réussi` }));
           }
         })
@@ -136,7 +138,6 @@ const profil = (store) => (next) => async (action) => {
               if (res.status === 201) {
                 const newAccessToken = res.headers.authorization;
                 store.dispatch(saveNewToken(newAccessToken));
-                localStorage.setItem('refreshToken', res.data.refreshToken);
                 store.dispatch(saveUser(imgObj));
                 store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre photo de profil à bien été mis à jour` }));
               }
@@ -148,32 +149,31 @@ const profil = (store) => (next) => async (action) => {
           })
           next(action);
           break;
-        case CHANGE_CURRENCY:
-            privateRoute({
-              method: 'post',
-              url: '/signup/change/currency',
-              headers: {
-                Authorization: store.getState().user.accessToken,
-              },
-              data: {
-                currency: action.payload.cur
-              }
-            })
-            .then((res) => {
-              if (res.status === 201) {
-                localStorage.setItem('currency', action.payload.cur);
-                const newAccessToken = res.headers.authorization;
-                store.dispatch(saveNewToken(newAccessToken));
-                store.dispatch(updateCurrency(action.payload.cur));
-                store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Devise modifiée` }));
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
-            });
-            next(action);
-            break;
+        //case CHANGE_CURRENCY:
+        //    privateRoute({
+        //      method: 'post',
+        //      url: '/signup/change/currency',
+        //      headers: {
+        //        Authorization: store.getState().user.accessToken,
+        //      },
+        //      data: {
+        //        currency: action.payload.cur
+        //      }
+        //    })
+        //    .then((res) => {
+        //      if (res.status === 201) {
+        //        const newAccessToken = res.headers.authorization;
+        //        store.dispatch(saveNewToken(newAccessToken));
+        //        store.dispatch(updateCurrency(action.payload.cur));
+        //        store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Devise modifiée` }));
+        //      }
+        //    })
+        //    .catch((err) => {
+        //      console.log(err);
+        //      store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+        //    });
+        //    next(action);
+        //    break;
         case DELETE_USER:
             privateRoute({
               method: 'delete',

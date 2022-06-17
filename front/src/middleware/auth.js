@@ -42,19 +42,19 @@ const auth = (store) => (next) => async (action) => {
 
             // Save user details
             const { user } = parseJwt(res.headers.authorization);
-            const { email, nickname, picture, id } = user;
+            const { id } = user;
             const userObj = {
               id,
-              email,
-              nickname,
-              avatar: picture,
+              email: res.data.email,
+              nickname: res.data.nickname,
+              avatar: res.data.avatar,
               accessToken: newAccessToken,
             };
             localStorage.setItem('currency', res.data.currency);
             store.dispatch(updateCurrency(res.data.currency));
             store.dispatch(getCryptoList());
             store.dispatch(saveUser(userObj));
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${nickname}, vous êtes bien connecté` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
           }
         })
         .catch((err) => {
@@ -107,13 +107,13 @@ const auth = (store) => (next) => async (action) => {
 
             // Save user details
             const { user } = parseJwt(res.headers.authorization);
-            const { email, nickname, picture, id } = user;
+            const { id } = user;
 
             const userObj = {
               id,
-              email,
-              nickname,
-              avatar: picture,
+              email: res.data.email,
+              nickname: res.data.nickname,
+              avatar: res.data.picture,
               accessToken: newAccessToken,
               existingUser: true,
             };
@@ -132,16 +132,16 @@ const auth = (store) => (next) => async (action) => {
       break;
     case CHECK_TOKEN:
       if (isTokenExpired(accessToken) && refreshToken) {
-        const newAccessToken = await getNewAccessToken(refreshToken);
+        const { newAccessToken, userData } = await getNewAccessToken(refreshToken);
         const { user } = parseJwt(newAccessToken);
-        const { email, nickname, picture, id } = user;
+        const { id } = user;
 
         const userObj = {
           id,
-          email,
-          nickname,
-          avatar: picture,
-          accessToken: newAccessToken,
+          email: userData.email,
+          nickname: userData.nickname,
+          avatar: userData.picture,
+          accessToken: newAccessToken
         };
         store.dispatch(saveUser(userObj));
       }

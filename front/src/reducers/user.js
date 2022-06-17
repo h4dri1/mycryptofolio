@@ -51,12 +51,6 @@ const reducer = (state = initialState, action = {}) => {
         passwordCheck: ''
       });
     }
-    case CHANGE_CURRENCY: {
-      return ({
-        ...state,
-        ...action.payload,
-      });
-    }
     case LOGIN: {
       return ({
         ...state,
