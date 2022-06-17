@@ -55,9 +55,6 @@ export default function Profil({ logged }) {
     if (!logged) {
       navigate('/login?continue=/profil');
     }
-    else {
-      navigate('/profil');
-    }
   }, []);
 
     return (

@@ -80,8 +80,7 @@ router
 router
     .post(
         '/signup/change/user',
-        auth.signup,
-        jwtMW.changing,
+        jwtMW.routing,
         rateLimit(signupSchemaLim), 
         validateBody(changeUserSchema), 
         flush, 
@@ -97,8 +96,7 @@ router
     )
     .post(
         '/signup/change/avatar',
-        auth.signup,
-        jwtMW.changing,
+        jwtMW.routing,
         rateLimit(signupSchemaLim), 
         validateBody(changeAvatarSchema), 
         flush, 

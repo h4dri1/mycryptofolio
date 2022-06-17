@@ -39,11 +39,6 @@ export const change_password = (newPass) => ({
   payload: { ...newPass },
 });
 
-export const changeCurrency = (currency) => ({
-  type: CHANGE_CURRENCY,
-  payload: { ...currency },
-});
-
 export const login = () => ({
   type: LOGIN,
 });
