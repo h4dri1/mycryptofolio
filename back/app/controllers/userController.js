@@ -1,8 +1,11 @@
 const { User, Wallet, Transaction } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('../services/jwt');
+const mailer = require('../services/mailer');
 
-const { BadPassUser, EmailUsed, CheckYourPassword, CreateUserError } = require('../error');
+const { redis } = require('../database')
+
+const { BadPassUser, EmailUsed, CheckYourPassword, CreateUserError, ForgotPasswordNoMail } = require('../error');
 
 module.exports = {
     validLoginJwt: async (req, res, next) => {
@@ -74,6 +77,35 @@ module.exports = {
         }
     },
 
+    forgotPassword: async (req, res, next) => {
+        try {
+            const user = await User.findOne(req.body.email);
+            if (!user.id) {
+                throw new ForgotPasswordNoMail();
+            }
+            const token = require("crypto").randomBytes(64).toString('hex');
+            req.token = token
+            await mailer.sendMail(req, res, next);
+            await redis.set(token, user.id);
+            res.status(201).json({message: "Email with instructions sent"});
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    checkToken: async (req, res, next) => {
+        try {
+           const token = await redis.get(req.params.token);
+           if (token) {
+            res.status(200)
+           } else {
+            res.status(204).json()
+           }
+        } catch (err) {
+            next(err);
+        }
+    },
+
     modifyUser: async (req, res, next) => {
         try {
             const instance = new User(req.body);
@@ -98,6 +130,18 @@ module.exports = {
             }
             const newHash = await bcrypt.hash(req.body.pass, 10);
             await User.updatePass(newHash, req.userId.id);
+            return res.status('201').json({"status": "Mot de passe modifié"});
+        } catch(err) {
+            next(err);
+        }
+    },
+
+    modifyPasswordForgot: async (req, res, next) => {
+        try {
+            const id = await redis.get(req.body.token);
+            console.log(id)
+            const newHash = await bcrypt.hash(req.body.pass, 10);
+            await User.updatePass(newHash, id);
             return res.status('201').json({"status": "Mot de passe modifié"});
         } catch(err) {
             next(err);

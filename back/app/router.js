@@ -70,6 +70,14 @@ router
         flush, 
         userController.addUser
     )
+    .post(
+        '/jwt/login/forgot',
+        userController.forgotPassword
+    )
+    .get(
+        '/jwt/login/check/:token',
+        userController.checkToken
+    )
     .delete(
         '/delete/user',
         jwtMW.routing,
@@ -85,6 +93,11 @@ router
         validateBody(changeUserSchema), 
         flush, 
         userController.modifyUser
+    )
+    .post(
+        '/signup/change/forgot/password',
+        flush, 
+        userController.modifyPasswordForgot
     )
     .post(
         '/signup/change/password',

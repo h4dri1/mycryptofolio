@@ -4,6 +4,7 @@ const fetch = require('./fetch');
 const guards = require('./guards');
 const jwt = require('./jwt');
 const update = require('./update');
+const mailer = require('./mailer');
 
 module.exports = {
     auth,
@@ -12,5 +13,6 @@ module.exports = {
     fetch,
     guards,
     jwt,
-    update
+    update,
+    mailer
 }
