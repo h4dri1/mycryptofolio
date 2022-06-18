@@ -87,6 +87,7 @@ module.exports = {
             req.token = token
             await mailer.sendMail(req, res, next);
             await redis.set(token, user.id);
+            await redis.expire(token, 60*10);
             res.status(201).json({message: "Email with instructions sent"});
         } catch (err) {
             next(err);
@@ -138,9 +139,14 @@ module.exports = {
     modifyPasswordForgot: async (req, res, next) => {
         try {
             const id = await redis.get(req.body.token);
-            console.log(id)
+            const user = await User.findById(id);
+            const isPwdSame = await bcrypt.compare(req.body.pass, user.password);
+            if (req.body.pass !== req.body.passConfirm || isPwdSame) {
+                throw new CheckYourPassword();
+            } 
             const newHash = await bcrypt.hash(req.body.pass, 10);
             await User.updatePass(newHash, id);
+            await redis.del(req.body.token);
             return res.status('201').json({"status": "Mot de passe modifié"});
         } catch(err) {
             next(err);
