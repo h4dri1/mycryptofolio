@@ -110,8 +110,7 @@ const profil = (store) => (next) => async (action) => {
         data: {
           id: action.payload.id,
           email: action.payload.email,
-          nickname: action.payload.nickname,
-          picture: action.payload.picture,
+          nickname: action.payload.nickname
         },
       })
         .then((res) => {
