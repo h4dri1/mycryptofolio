@@ -86,6 +86,12 @@ router
         validateParams(checkForgotTokenSchema),
         userController.checkToken
     )
+    .get(
+        '/jwt/login/verify/:id/:token',
+        rateLimit(signupSchemaLim),
+        //validateParams(checkForgotTokenSchema),
+        userController.verifyUser
+    )
     .delete(
         '/delete/user',
         jwtMW.routing,
@@ -106,7 +112,7 @@ router
     .post(
         '/signup/change/forgot/password',
         rateLimit(signupSchemaLim),
-        //validateBody(changeForgotPasswordSchema),
+        validateBody(changeForgotPasswordSchema),
         flush, 
         userController.modifyPasswordForgot
     )

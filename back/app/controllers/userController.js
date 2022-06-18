@@ -40,7 +40,8 @@ module.exports = {
                 "nickname": user.nickname,
                 "email": user.email,
                 "picture": user.picture,
-                "currency": userCurrency
+                "currency": userCurrency,
+                "verify": user.verify,
             };
             res.status(200).json(response);
         } catch (err) {
@@ -73,7 +74,8 @@ module.exports = {
                     "nickname": newUser.nickname,
                     "email": newUser.email,
                     "picture": '',
-                    "currency": 'USD'
+                    "currency": 'USD',
+                    "verify": newUser.verify,
                 };
                 return res.status(201).json(response);
             } else {
@@ -119,6 +121,14 @@ module.exports = {
             const instance = new User(req.body);
             await instance.save();
             res.status(201).json("Modification effectuée");
+        } catch(err) {
+            next(err);
+        }
+    },
+
+    verifyUser: async (req, res, next) => {
+        try {
+
         } catch(err) {
             next(err);
         }
