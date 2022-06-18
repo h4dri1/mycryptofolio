@@ -15,6 +15,8 @@ import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
 
+import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
+
 const useStyles = makeStyles({
   grid: {
     height: '100%',
@@ -33,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard = ({ logged }) => {
+const Dashboard = ({ logged, verify}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,7 +46,10 @@ const Dashboard = ({ logged }) => {
     if (!logged) {
       navigate('/login?continue=/portfolio');
     }
-    else {
+    else if (logged && !verify) {
+      navigate('/')
+      dispatch(setDisplaySnackBar({ severity: 'error', message: `Votre compte n'est pas activé, vérifiez vos email` }));
+    } else {
       dispatch(fetchPortfolio());
     }
   }, []);

@@ -46,6 +46,7 @@ const profil = (store) => (next) => async (action) => {
         nickname: userData.nickname,
         avatar: userData.picture,
         accessToken: newAccessToken,
+        verify: userData.verify,
       };
       store.dispatch(saveUser(userObj));
 

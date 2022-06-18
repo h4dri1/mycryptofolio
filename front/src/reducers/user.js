@@ -23,6 +23,7 @@ export const initialState = {
   passwordCheck: '',
   avatar: '',
   accessToken: '',
+  verify: false
 };
 
 const reducer = (state = initialState, action = {}) => {

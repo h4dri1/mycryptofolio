@@ -49,12 +49,18 @@ const auth = (store) => (next) => async (action) => {
               nickname: res.data.nickname,
               avatar: res.data.picture,
               accessToken: newAccessToken,
+              verify: res.data.verify,
             };
             localStorage.setItem('currency', res.data.currency);
             store.dispatch(updateCurrency(res.data.currency));
             store.dispatch(getCryptoList());
             store.dispatch(saveUser(userObj));
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
+            if (userObj.verify) {
+              store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
+            } else {
+              store.dispatch(setDisplaySnackBar({ severity: 'error', message: `Votre compte n'est pas activé, vérifiez vos email` }));
+            }
+            
           }
         })
         .catch((err) => {
@@ -116,13 +122,14 @@ const auth = (store) => (next) => async (action) => {
               avatar: '',
               accessToken: newAccessToken,
               existingUser: true,
+              verify: res.data.verify,
             };
 
             localStorage.setItem('currency', res.data.currency);
             store.dispatch(updateCurrency(res.data.currency));
             store.dispatch(getCryptoList());
-            store.dispatch(saveUser(userObj));
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${userObj.nickname} !` }));
+            store.dispatch(saveUser(userObj)); 
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre compte à bien été crée un mail d'activation vous a été envoyé` }));
           }
         })
         .catch((err) => {
@@ -142,7 +149,8 @@ const auth = (store) => (next) => async (action) => {
           email: userData.email,
           nickname: userData.nickname,
           avatar: userData.picture,
-          accessToken: newAccessToken
+          accessToken: newAccessToken,
+          verify: userData.verify,
         };
         store.dispatch(saveUser(userObj));
       }

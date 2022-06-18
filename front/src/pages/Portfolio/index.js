@@ -6,13 +6,13 @@ import Footer from 'src/components/Footer';
 import { useSelector } from 'react-redux';
 
 export default function Portfolio() {
-  const { logged } = useSelector((state) => state.user);
+  const { logged, verify } = useSelector((state) => state.user);
 
   return (
     <div className="">
       <TopBanner />
       <Navbar />
-      <Dashboard logged={logged} />
+      <Dashboard logged={logged} verify={verify}/>
       <Footer />
     </div>
   );

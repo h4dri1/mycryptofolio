@@ -7,14 +7,14 @@ import { useSelector } from 'react-redux';
 
 export default function ProfilPage() {
 
-    const { logged } = useSelector((state) => state.user);
+    const { logged, verify } = useSelector((state) => state.user);
 
     return (
         <>
             <div className="">
                 <TopBanner />
                 <Navbar />
-                <Profil logged={logged} />
+                <Profil logged={logged} verify={verify}/>
                 <Footer />
             </div>
         </>

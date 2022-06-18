@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { deleteUser } from '../../actions/user';
 
+import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
+
 import {
     Grid,
     Link
@@ -38,7 +40,7 @@ const useStyles = makeStyles({
   });
 
 
-export default function Profil({ logged }) {
+export default function Profil({ logged, verify }) {
 
   const dispatch = useDispatch();
 
@@ -54,6 +56,9 @@ export default function Profil({ logged }) {
   useEffect(() => {
     if (!logged) {
       navigate('/login?continue=/profil');
+    } else if (logged && !verify) {
+      navigate('/');
+      dispatch(setDisplaySnackBar({ severity: 'error', message: `Votre compte n'est pas activé, vérifiez vos email` }));
     }
   }, []);
 
