@@ -6,6 +6,7 @@ import CryptoPage from 'src/pages/CryptoPage';
 import UnknowRoute from 'src/pages/404';
 import ContactPage from 'src/pages/ContactPage';
 import ProfilPage from 'src/pages/ProfilPage';
+import ForgotPass from 'src/pages/ForgotPass';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -74,6 +75,7 @@ const App = () => {
           </Route>
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/profil" element={<ProfilPage />} />
+          <Route path="/reset/:token" element={<ForgotPass />} />
           <Route path="*" element={<UnknowRoute />} />
         </Routes>
         {/* </Paper> */}

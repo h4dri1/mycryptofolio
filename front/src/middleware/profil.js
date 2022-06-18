@@ -9,6 +9,7 @@ import {
   CHANGE_AVATAR,
   CHANGE_CURRENCY,
   DELETE_USER,
+  CHANGE_FORGOT_PASSWORD
 } from 'src/actions/user';
 
 import { updateCurrency } from 'src/actions/cryptos';
@@ -52,6 +53,27 @@ const profil = (store) => (next) => async (action) => {
   });
 
   switch (action.type) {
+    case CHANGE_FORGOT_PASSWORD:
+      privateRoute({
+        method: 'post',
+        url: '/signup/change/forgot/password',
+        data: {
+          token: action.payload.token,
+          pass: action.payload.pass,
+          passConfirm: action.payload.passConfirm
+        },
+      })
+        .then((res) => {
+          if (res.status === 201) {
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+        });
+      next(action);
+      break;
     case CHANGE_PASSWORD:
       privateRoute({
         method: 'post',
