@@ -47,7 +47,6 @@ export default function Password() {
             return;
         }
         dispatch(change_forgot_password(newPass));
-        navigate('/login');
     }
 
     return (

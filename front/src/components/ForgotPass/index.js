@@ -37,7 +37,6 @@ const useStyles = makeStyles({
     },
   });
 
-
 export default function Profil(){
 
   const dispatch = useDispatch();
@@ -49,7 +48,7 @@ export default function Profil(){
   const { token } = useParams();
 
   const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
-
+  
  useEffect(() => {
     axios({
       method: 'get',

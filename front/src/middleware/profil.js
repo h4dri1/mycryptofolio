@@ -9,7 +9,7 @@ import {
   CHANGE_AVATAR,
   CHANGE_CURRENCY,
   DELETE_USER,
-  CHANGE_FORGOT_PASSWORD
+  CHANGE_FORGOT_PASSWORD,
 } from 'src/actions/user';
 
 import { updateCurrency } from 'src/actions/cryptos';
@@ -18,6 +18,8 @@ import { updateCurrency } from 'src/actions/cryptos';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
 import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
+
+import {toggleLoginModal} from 'src/actions/settings';
 
 import parseJwt from 'src/services/parseJwt';
 import isTokenExpired from 'src/services/isTokenExpired';
@@ -66,6 +68,7 @@ const profil = (store) => (next) => async (action) => {
         .then((res) => {
           if (res.status === 201) {
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
+            store.dispatch(toggleLoginModal());
           }
         })
         .catch((err) => {
@@ -110,7 +113,8 @@ const profil = (store) => (next) => async (action) => {
         data: {
           id: action.payload.id,
           email: action.payload.email,
-          nickname: action.payload.nickname
+          nickname: action.payload.nickname,
+          picture: action.payload.picture,
         },
       })
         .then((res) => {

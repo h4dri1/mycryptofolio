@@ -5,14 +5,14 @@ import Footer from 'src/components/Footer';
 
 import { useSelector } from 'react-redux';
 
-export default function ProfilPage() {
+export default function ForgotPassword() {
 
     return (
         <>
             <div className="">
                 <TopBanner />
                 <Navbar />
-                <ForgotPass/>
+                <ForgotPass />
                 <Footer />
             </div>
         </>
