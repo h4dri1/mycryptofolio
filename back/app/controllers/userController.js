@@ -109,7 +109,6 @@ module.exports = {
     modifyUser: async (req, res, next) => {
         try {
             const instance = new User(req.body);
-            
             await instance.save();
             res.status(201).json("Modification effectuée");
         } catch(err) {
