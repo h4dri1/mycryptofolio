@@ -60,6 +60,9 @@ export default function Profil(){
           navigate('/reset');
         }
       })
+      .catch((err) => {
+        navigate('/reset');
+      })
   }, []);
 
     return (
