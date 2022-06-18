@@ -5,7 +5,14 @@ const mailer = require('../services/mailer');
 
 const { redis } = require('../database')
 
-const { BadPassUser, EmailUsed, CheckYourPassword, CreateUserError, ForgotPasswordNoMail } = require('../error');
+const { 
+    BadPassUser,
+    EmailUsed,
+    CheckYourPassword,
+    CreateUserError,
+    ForgotPasswordNoMail,
+    SamePasswordAsOld 
+} = require('../error');
 
 module.exports = {
     validLoginJwt: async (req, res, next) => {
@@ -141,7 +148,10 @@ module.exports = {
             const id = await redis.get(req.body.token);
             const user = await User.findById(id);
             const isPwdSame = await bcrypt.compare(req.body.pass, user.password);
-            if (req.body.pass !== req.body.passConfirm || isPwdSame) {
+            if (isPwdSame) {
+                throw new SamePasswordAsOld();
+            }
+            if (req.body.pass !== req.body.passConfirm) {
                 throw new CheckYourPassword();
             } 
             const newHash = await bcrypt.hash(req.body.pass, 10);

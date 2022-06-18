@@ -290,6 +290,16 @@ class ForgotPasswordNoMail extends Error {
     }
 }
 
+class SamePasswordAsOld extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = `You can't use the same password as the old one`;
+        this.statusCode = 404;  
+    }
+}
+
 module.exports = {
     NoTransactionId,
     NoWallet,
@@ -318,5 +328,6 @@ module.exports = {
     DbConnectionError,
     CurrencyError,
     CreateUserError,
-    ForgotPasswordNoMail
+    ForgotPasswordNoMail,
+    SamePasswordAsOld
 };
