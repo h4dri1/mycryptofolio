@@ -165,6 +165,16 @@ class EmailUsed extends Error {
     }
 }
 
+class CreateUserError extends Error {
+    constructor() {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = `Error on the creation of the user`;
+        this.statusCode = 500;
+    }
+}
+
 class CheckYourPassword extends Error {
     constructor () {
         super();
@@ -249,6 +259,27 @@ class DbConnectionError extends Error {
     }
 }
 
+class CurrencyError extends Error {
+    constructor (cur) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = `${cur} is not supported by the moment`;
+        this.statusCode = 500;  
+    }
+}
+
+class RateLimitDeleteUser extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'warn';
+        this.ip = ip;
+        this.message = 'You have reached the max request for deleting user';
+        this.statusCode = 429;  
+    }
+}
+
 module.exports = {
     NoTransactionId,
     NoWallet,
@@ -273,5 +304,8 @@ module.exports = {
     UnExeptedError,
     RateLimitRefresh,
     RateLimitTransaction,
-    DbConnectionError
+    RateLimitDeleteUser,
+    DbConnectionError,
+    CurrencyError,
+    CreateUserError
 };

@@ -6,8 +6,15 @@ import {
   TOGGLE_TRANSACTION_EDITOR,
 } from 'src/actions/settings';
 
+if (localStorage.getItem('darkMode')) {
+  const darkString = localStorage.getItem('darkMode');
+  var dark = (darkString === 'true');
+} else {
+  var dark = false;
+}
+
 export const initialState = {
-  darkMode: false,
+  darkMode: dark,
   loginIsOpen: false,
   deleteItem: {
     toggle: false,
@@ -25,6 +32,7 @@ export const initialState = {
 const settings = (state = initialState, action = {}) => {
   switch (action.type) {
     case TOGGLE_DARK_MODE: {
+      localStorage.setItem('darkMode', !state.darkMode);
       return ({
         ...state,
         darkMode: !state.darkMode,

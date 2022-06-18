@@ -28,15 +28,16 @@ const portfolio = (store) => (next) => async (action) => {
     const refreshToken = localStorage.getItem('refreshToken');
 
     if (isTokenExpired(accessToken) && refreshToken) {
-      const newAccessToken = await getNewAccessToken(refreshToken);
+      const { newAccessToken, userData } = await getNewAccessToken(refreshToken);
       req.headers.Authorization = newAccessToken;
 
       const { user } = parseJwt(newAccessToken);
-      const { email, nickname, picture } = user;
+      const { id } = user;
       const userObj = {
-        email,
-        nickname,
-        avatar: picture,
+        id,
+        email: userData.email,
+        nickname: userData.nickname,
+        avatar: userData.picture,
         accessToken: newAccessToken,
       };
       store.dispatch(saveUser(userObj));

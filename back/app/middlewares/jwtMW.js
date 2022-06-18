@@ -3,6 +3,21 @@ const { InvalidToken } = require('../error');
 const { checkRT } = require('../services/auth');
 
 module.exports = {
+    changing: (req, res, next) => {
+        try {
+            const token = req.headers['authorization'];
+            let newToken = token;
+            if (!token) {
+                throw new InvalidToken();
+            }
+            const payload = jwt.validateToken(newToken.trim());
+            req.userId = payload.user;
+            next();
+        } catch (err) {
+            next(err);
+        }
+    },
+
     routing : (req, res, next) => {
         try {
             const token = req.headers['authorization'];
@@ -36,7 +51,8 @@ module.exports = {
             if (!token) {
                 throw new InvalidToken();
             }
-            jwt.validateToken(token);
+            const payload  = jwt.validateToken(token);
+            req.userId = payload.user;
             next();
         } catch (err) {
             if (err.message === 'jwt expired') {

@@ -1,17 +1,8 @@
-const { FormError, InvalidToken } = require('../error')
+const { FormError } = require('../error')
 
 const validator = {
     validateBody: (schema) => (req, res, next) => {
         const {error} = schema.validate(req.body);
-        if (error) {
-            throw new FormError(error.message)
-        } else {
-            next();
-        }
-    },
-
-    validateQuery: (schema) => (req, res, next) => {
-        const {error} = schema.validate(req.query);
         if (error) {
             throw new FormError(error.message)
         } else {
@@ -26,17 +17,6 @@ const validator = {
         } else {
             next();
         }
-    },
-
-    validateJWT: (req, res, next) => {
-        try {
-            if (!req.params.token) {
-                throw new InvalidToken()
-            }
-            next();
-        } catch (err) {
-            next(err)
-        };
     }
 }
 

@@ -9,7 +9,8 @@ CREATE TABLE "user" (
     email TEXT NOT NULL UNIQUE,
     nickname TEXT NOT NULL,
     password TEXT NOT NULL,
-    picture TEXT
+    picture TEXT,
+    currency TEXT NOT NULL DEFAULT 'USD'
 );
 
 CREATE TABLE wallet(

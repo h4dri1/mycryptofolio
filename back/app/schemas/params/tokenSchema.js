@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const schema = Joi.object({
-    cur: Joi.string().valid("EUR", "USD", "BTC", "ETH")
-});
+    token: Joi.string().min(3).max(500).required()
+})
 
 module.exports = schema;

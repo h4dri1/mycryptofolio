@@ -47,12 +47,11 @@ CREATE OR REPLACE FUNCTION add_user(json) RETURNS "user" AS $$
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;
 
-CREATE FUNCTION update_user(json) RETURNS "user" AS $$
+CREATE OR REPLACE FUNCTION update_user(json) RETURNS "user" AS $$
 	UPDATE "user" SET
 		email=$1->>'email',
 		nickname=$1->>'nickname',
-        password=$1->>'password',
-        picture=$1->>'picture'
+		picture=$1->>'picture'
 	WHERE id=($1->>'id')::int
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;

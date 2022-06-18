@@ -12,6 +12,7 @@ const {
 } = require('./controllers');
 
 const { loginSchema,
+        tokenSchema,
         signupSchema, 
         transactionSchema, 
         walletSchema,
@@ -24,15 +25,22 @@ const { loginSchema,
         loginSchemaLim, 
         signupSchemaLim,
         refreshSchemaLim,
-        transactionSchemaLim
+        transactionSchemaLim,
+        getWalletSchema,
+        getHistorySchema,
+        deleteUserSchemaLim,
+        changeUserSchema,
+        changePasswordSchema,
+        changeAvatarSchema,
+        changeCurrencySchema
 } = require('./schemas');
 
 // jwtMW => Check JWT Access Token for protected route
 // fetchMW => Check cryptos in portfolio get the price and add it to db
 // guardMW => Check and validate transaction (check what you can or can't doing with a transaction)
-// validateJWT, validateBody, validateParams => Joi MW check data type
+// validateBody, validateParams => Joi MW check data type
 
-const { jwtMW, fetchMW, guardMW, validateJWT, validateBody, validateParams } = require('./middlewares');
+const { jwtMW, updateMW, guardMW, validateBody, validateParams } = require('./middlewares');
 
 // auth => Service for ban 5x bad password and whitelist/blacklist refreshtoken
 // cache => Redis db cache
@@ -45,15 +53,63 @@ const { auth, cache, flush } = require('./services');
 const rateLimit = require('express-rate-limit');
 
 router
-    .get('/logout/:token', jwtMW.logout, auth.logout)
-    .get('/jwt/refresh/:token', rateLimit(refreshSchemaLim), validateJWT, tokenController.refresh)
+    .get('/logout/:token', validateParams(tokenSchema), jwtMW.logout, auth.logout)
+    .get('/jwt/refresh/:token', validateParams(tokenSchema), rateLimit(refreshSchemaLim), tokenController.refresh)
     .post(
         '/jwt/login', 
         rateLimit(loginSchemaLim), 
         validateBody(loginSchema), 
         auth.login, 
         userController.validLoginJwt
-    );
+    )
+    .post(
+        '/signup',
+        auth.signup,
+        rateLimit(signupSchemaLim), 
+        validateBody(signupSchema), 
+        flush, 
+        userController.addUser
+    )
+    .delete(
+        '/delete/user',
+        jwtMW.routing,
+        rateLimit(deleteUserSchemaLim),
+        userController.deleteUser
+    )
+
+router
+    .post(
+        '/signup/change/user',
+        jwtMW.routing,
+        rateLimit(signupSchemaLim), 
+        validateBody(changeUserSchema), 
+        flush, 
+        userController.modifyUser
+    )
+    .post(
+        '/signup/change/password',
+        jwtMW.routing,
+        rateLimit(signupSchemaLim), 
+        validateBody(changePasswordSchema), 
+        flush, 
+        userController.modifyPassword
+    )
+    .post(
+        '/signup/change/avatar',
+        jwtMW.routing,
+        rateLimit(signupSchemaLim), 
+        validateBody(changeAvatarSchema), 
+        flush, 
+        userController.modifyAvatar
+    )
+    .post(
+        '/signup/change/currency',
+        jwtMW.routing,
+        rateLimit(signupSchemaLim), 
+        validateBody(changeCurrencySchema), 
+        flush, 
+        userController.modifyCurrency
+    )
 
 router
     .get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto)
@@ -61,31 +117,37 @@ router
     .get('/cryptos', cache, cryptoController.getAllCryptos)
     .get('/trending', cache, cryptoController.getTrendingCryptos)
     .get('/global', cache, cryptoController.getGlobalData)
-    .get('/history/:coinId/:day-:month-:year', cache, cryptoController.getHistoricalData)
-    .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?', validateParams(getOnePriceSchema), cache, cryptoController.getOnePrice);
+    .get('/history/:coinId/:day(\\d+)/:month(\\d+)/:year(\\d+)', validateParams(getHistorySchema), cache, cryptoController.getHistoricalData)
+    .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?',
+        validateParams(getOnePriceSchema),
+        cache,
+        cryptoController.getOnePrice
+    );
 
 router
     .get(
         '/portfolio/:cur?', 
         jwtMW.routing, 
-        //cache, --> Need to see for working with toogle currency
-        fetchMW, 
+        validateParams(getPortfolioSchema),
+        cache, //--> Need to see for working with toogle currency
+        updateMW, 
         portfolioController.getPortfolio
     )
     .get(
-        '/portfolio/wallet/:wid(\\d+)/:cur?', 
-        jwtMW.routing, 
+        '/portfolio/wallet/:wid(\\d+)/:cur?',
+        jwtMW.routing,
+        validateParams(getWalletSchema),
         cache, 
-        fetchMW, 
+        updateMW, 
         portfolioController.getPortfolio
     )
     .post(
         '/portfolio/wallet/:wid(\\d+)/transaction',
         rateLimit(transactionSchemaLim),
         jwtMW.routing,
-        validateBody(transactionSchema), 
-        flush, 
+        validateBody(transactionSchema),
         guardMW.transactionGuard, 
+        flush,
         transactionController.addTransaction
     )
     .post(
@@ -95,14 +157,6 @@ router
         validateBody(walletSchema), 
         flush, 
         walletController.addWallet
-    )
-    .post(
-        '/signup',
-        auth.signup,
-        rateLimit(signupSchemaLim), 
-        validateBody(signupSchema), 
-        flush, 
-        userController.addUser
     )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
