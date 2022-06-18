@@ -106,7 +106,7 @@ router
     .post(
         '/signup/change/forgot/password',
         rateLimit(signupSchemaLim),
-        validateBody(changeForgotPasswordSchema),
+        //validateBody(changeForgotPasswordSchema),
         flush, 
         userController.modifyPasswordForgot
     )

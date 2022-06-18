@@ -147,7 +147,7 @@ module.exports = {
             const newHash = await bcrypt.hash(req.body.pass, 10);
             await User.updatePass(newHash, id);
             await redis.del(req.body.token);
-            await redis.del(user.id);
+            await redis.del(id);
             return res.status('201').json({"status": "Mot de passe modifié"});
         } catch(err) {
             next(err);
