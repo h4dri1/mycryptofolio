@@ -106,10 +106,9 @@ function CryptoList() {
       <Grid item>
         <LoadingButton
           variant="outlined"
-          sx={{ mb: 9 }}
+          sx={{ mb: 7, color: "primary.light" }}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
-          sx={{ mb: 7, color: "primary.light" }}
         >
           Charger plus de cryptos
         </LoadingButton>

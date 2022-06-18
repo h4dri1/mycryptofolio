@@ -280,6 +280,26 @@ class RateLimitDeleteUser extends Error {
     }
 }
 
+class ForgotPasswordNoMail extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = 'No mail found for this user';
+        this.statusCode = 404;  
+    }
+}
+
+class SamePasswordAsOld extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = `You can't use the same password as the old one`;
+        this.statusCode = 404;  
+    }
+}
+
 module.exports = {
     NoTransactionId,
     NoWallet,
@@ -307,5 +327,7 @@ module.exports = {
     RateLimitDeleteUser,
     DbConnectionError,
     CurrencyError,
-    CreateUserError
+    CreateUserError,
+    ForgotPasswordNoMail,
+    SamePasswordAsOld
 };

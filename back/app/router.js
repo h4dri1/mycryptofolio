@@ -32,7 +32,10 @@ const { loginSchema,
         changeUserSchema,
         changePasswordSchema,
         changeAvatarSchema,
-        changeCurrencySchema
+        changeCurrencySchema,
+        forgotPasswordSchema,
+        checkForgotTokenSchema,
+        changeForgotPasswordSchema
 } = require('./schemas');
 
 // jwtMW => Check JWT Access Token for protected route
@@ -70,10 +73,24 @@ router
         flush, 
         userController.addUser
     )
+    .post(
+        '/jwt/login/forgot',
+        rateLimit(signupSchemaLim),
+        validateBody(forgotPasswordSchema),
+        flush,
+        userController.forgotPassword
+    )
+    .get(
+        '/jwt/login/check/:token',
+        rateLimit(signupSchemaLim),
+        validateParams(checkForgotTokenSchema),
+        userController.checkToken
+    )
     .delete(
         '/delete/user',
         jwtMW.routing,
         rateLimit(deleteUserSchemaLim),
+        flush,
         userController.deleteUser
     )
 
@@ -85,6 +102,13 @@ router
         validateBody(changeUserSchema), 
         flush, 
         userController.modifyUser
+    )
+    .post(
+        '/signup/change/forgot/password',
+        rateLimit(signupSchemaLim),
+        //validateBody(changeForgotPasswordSchema),
+        flush, 
+        userController.modifyPasswordForgot
     )
     .post(
         '/signup/change/password',

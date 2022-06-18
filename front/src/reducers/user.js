@@ -10,6 +10,7 @@ import {
   CHANGE_AVATAR,
   CHANGE_CURRENCY,
   DELETE_USER,
+  CHANGE_FORGOT_PASSWORD
 } from '../actions/user';
 
 export const initialState = {
@@ -45,6 +46,13 @@ const reducer = (state = initialState, action = {}) => {
       });
     }
     case CHANGE_PASSWORD: {
+      return ({
+        ...state,
+        password: '',
+        passwordCheck: ''
+      });
+    }
+    case CHANGE_FORGOT_PASSWORD: {
       return ({
         ...state,
         password: '',

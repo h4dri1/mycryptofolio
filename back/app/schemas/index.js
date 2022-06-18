@@ -20,6 +20,9 @@ const transactionSchemaLim = require('./limiter/transactionSchema');
 const deleteUserSchemaLim = require('./limiter/deleteUserSchema');
 const tokenSchema = require('./params/tokenSchema');
 const getHistorySchema = require('./params/getHistorySchema');
+const forgotPasswordSchema = require('./body/forgotPasswordSchema');
+const checkForgotTokenSchema = require('./params/checkForgotTokenSchema');
+const changeForgotPasswordSchema = require('./body/changeForgotPasswordSchema');
 
 module.exports = { 
     loginSchema,
@@ -43,5 +46,8 @@ module.exports = {
     changeUserSchema,
     changePasswordSchema,
     changeAvatarSchema,
-    changeCurrencySchema
+    changeCurrencySchema,
+    forgotPasswordSchema,
+    checkForgotTokenSchema,
+    changeForgotPasswordSchema
 }
