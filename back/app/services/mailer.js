@@ -20,13 +20,13 @@ module.exports = {
                 to: req.body.email, // list of receivers
                 subject: "Reset Password", // Subject line
                 text: "Follow this link for choose a new password", // plain text body
-                html: `<b>Follow this link for choose a new password <a href="https://mycryptofolio.fr/reset/${req.token}">Reset Password</a></b>`, // html body
+                html: `<b>Follow this link for choose a new password <a href="https://mycryptofolio.fr/reset/${req.token}">Reset Password</a> it will be active during 10 minutes</b>`, // html body
             });
         
             console.log("Message sent: %s", info.messageId);
             console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         }
-        catch (err) {
+        catch (err) { 
             next(err);
         }
     }
