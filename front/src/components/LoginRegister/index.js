@@ -20,6 +20,8 @@ import { changeField, existingUserToggle } from 'src/actions/user';
 import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 import { useState } from 'react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import {
   Link
 } from '@mui/material';
@@ -44,6 +46,10 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   const { loginIsOpen } = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setForgotPassword(true);
@@ -79,6 +85,9 @@ export default function LoginRegister({ type, handleFormSubmit }) {
       }
     }
     if (!forgotPassword) {
+      if (location.pathname.split('/')[1] === 'reset') {
+        navigate('/');
+      }
       dispatch(handleFormSubmit());
     } else {
       axios({
@@ -102,8 +111,6 @@ export default function LoginRegister({ type, handleFormSubmit }) {
       }
     }
     
-  
-
   return (
     <>
       <Container>
