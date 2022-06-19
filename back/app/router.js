@@ -32,7 +32,6 @@ const { loginSchema,
         changeUserSchema,
         changePasswordSchema,
         changeAvatarSchema,
-        changeCurrencySchema,
         forgotPasswordSchema,
         checkForgotTokenSchema,
         changeForgotPasswordSchema
@@ -106,7 +105,7 @@ router
     .post(
         '/signup/change/forgot/password',
         rateLimit(signupSchemaLim),
-        //validateBody(changeForgotPasswordSchema),
+        validateBody(changeForgotPasswordSchema),
         flush, 
         userController.modifyPasswordForgot
     )
@@ -125,14 +124,6 @@ router
         validateBody(changeAvatarSchema), 
         flush, 
         userController.modifyAvatar
-    )
-    .post(
-        '/signup/change/currency',
-        jwtMW.routing,
-        rateLimit(signupSchemaLim), 
-        validateBody(changeCurrencySchema), 
-        flush, 
-        userController.modifyCurrency
     )
 
 router

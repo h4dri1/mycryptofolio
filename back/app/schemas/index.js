@@ -2,7 +2,6 @@ const loginSchema = require('./body/loginSchema');
 const changeUserSchema = require('./body/changeUserSchema');
 const changePasswordSchema = require('./body/changePasswordSchema');
 const changeAvatarSchema = require('./body/changeAvatarSchema');
-const changeCurrencySchema = require('./body/changeCurrencySchema');
 const signupSchema = require('./body/signupSchema');
 const transactionSchema = require('./body/transactionSchema');
 const walletSchema = require('./body/walletSchema');
@@ -46,7 +45,6 @@ module.exports = {
     changeUserSchema,
     changePasswordSchema,
     changeAvatarSchema,
-    changeCurrencySchema,
     forgotPasswordSchema,
     checkForgotTokenSchema,
     changeForgotPasswordSchema

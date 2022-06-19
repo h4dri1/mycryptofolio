@@ -173,15 +173,6 @@ module.exports = {
         } 
     },
 
-    modifyCurrency: async (req, res, next) => {
-        try {
-            await User.updateCurrency(req.body.currency, req.userId.id);
-            return res.status(201).json({"status": "Devise modifiée"});
-        } catch(err) {
-            next(err);
-        }
-    },
-
     deleteUser: async (req, res, next) => {
         try {
             const wallets = await Wallet.findWalletByUser(req.userId.id);
