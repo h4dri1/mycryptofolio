@@ -17,7 +17,6 @@ export default function RefCurrency() {
   const selected = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
 
   const handleChange = (event) => {
-    setCur(event.target.value);
     dispatch(updateCurrency(event.target.value));
     if (logged && location.pathname === '/portfolio') {
       dispatch(fetchPortfolio());
