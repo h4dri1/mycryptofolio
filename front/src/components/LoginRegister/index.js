@@ -117,10 +117,13 @@ export default function LoginRegister({ type, handleFormSubmit }) {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          {!forgotPassword && <DialogContentText>
             Pour accéder aux fonctionnalités avancées,
             { type === 'login' ? ' il faut vous connecter.' : ' il faut vous créer un compte et vous connecter.' }
-          </DialogContentText>
+          </DialogContentText>}
+          { forgotPassword && <DialogContentText>
+            Renseignez votre adresse mail
+          </DialogContentText>}
           {type === 'register' && !forgotPassword && (
             <TextField
               // autoFocus
