@@ -7,7 +7,6 @@ import {
   CHANGE_USER,
   CHANGE_PASSWORD,
   CHANGE_AVATAR,
-  CHANGE_CURRENCY,
   DELETE_USER,
   CHANGE_FORGOT_PASSWORD,
 } from 'src/actions/user';
@@ -114,7 +113,7 @@ const profil = (store) => (next) => async (action) => {
           id: action.payload.id,
           email: action.payload.email,
           nickname: action.payload.nickname,
-          picture: action.payload.picture,
+          currency: action.payload.currency,
         },
       })
         .then((res) => {
@@ -125,10 +124,12 @@ const profil = (store) => (next) => async (action) => {
                 email: action.payload.email,
                 nickname: action.payload.nickname,
                 accessToken: newAccessToken,
+                currency: action.payload.currency,
             };
+            localStorage.setItem('currency', action.payload.currency);
             store.dispatch(saveUser(userObj));
             store.dispatch(saveNewToken(newAccessToken));
-            store.dispatch(updateCurrency(action.payload.cur));
+            store.dispatch(updateCurrency(action.payload.currency));
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Modification réussi` }));
           }
         })
@@ -174,31 +175,6 @@ const profil = (store) => (next) => async (action) => {
           })
           next(action);
           break;
-        //case CHANGE_CURRENCY:
-        //    privateRoute({
-        //      method: 'post',
-        //      url: '/signup/change/currency',
-        //      headers: {
-        //        Authorization: store.getState().user.accessToken,
-        //      },
-        //      data: {
-        //        currency: action.payload.cur
-        //      }
-        //    })
-        //    .then((res) => {
-        //      if (res.status === 201) {
-        //        const newAccessToken = res.headers.authorization;
-        //        store.dispatch(saveNewToken(newAccessToken));
-        //        store.dispatch(updateCurrency(action.payload.cur));
-        //        store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Devise modifiée` }));
-        //      }
-        //    })
-        //    .catch((err) => {
-        //      console.log(err);
-        //      store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
-        //    });
-        //    next(action);
-        //    break;
         case DELETE_USER:
             privateRoute({
               method: 'delete',

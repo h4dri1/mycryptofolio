@@ -43,7 +43,7 @@ export default function Profil() {
         id: id,
         nickname: nicknameValue,
         email: emailValue,
-        cur: currency
+        currency: currency
     }
 
     const handleClick = (event) => {
