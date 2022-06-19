@@ -6,6 +6,9 @@ import Container from '@mui/material/Container';
 import Indicators from './Indicators';
 import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
+
+import { getCryptoList, updateCurrency } from 'src/actions/cryptos';
+
 import { getIndicators } from 'src/actions/indicators';
 
 import { useDispatch, useSelector } from 'react-redux';

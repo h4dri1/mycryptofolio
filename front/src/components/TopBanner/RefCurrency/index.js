@@ -14,7 +14,7 @@ export default function RefCurrency() {
   const { logged } = useSelector((state) => state.user);
   const location = useLocation();
   const dispatch = useDispatch();
-  const [cur, setCur] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
+  const selected = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
 
   const handleChange = (event) => {
     setCur(event.target.value);
@@ -39,7 +39,7 @@ export default function RefCurrency() {
         component="div"
         labelId="demo-simple-select-autowidth-label"
         id="demo-simple-select-autowidth"
-        value={cur}
+        value={selected}
         onChange={handleChange}
         autoWidth
       >

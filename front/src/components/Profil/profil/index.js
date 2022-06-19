@@ -47,7 +47,6 @@ export default function Profil() {
     }
 
     const handleClick = (event) => {
-      event.preventDefault();
       if (nicknameValue !== nickname || emailValue !== email || selectedCurrency !== currency) {
         dispatch(change_user(newUser));
       } else {
