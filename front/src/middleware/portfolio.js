@@ -79,7 +79,6 @@ const portfolio = (store) => (next) => async (action) => {
         })
         .finally(() => {
           store.dispatch(toggleCreateWalletModal())
-          store.dispatch(setPending())
         });
       next(action);
       break;
@@ -113,7 +112,6 @@ const portfolio = (store) => (next) => async (action) => {
           console.log(err);
         })
         .finally(() => {
-          store.dispatch(setPending())
           store.dispatch(toggleUpdateWalletModal())
         });
       next(action);

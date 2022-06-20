@@ -13,6 +13,8 @@ import Description from './Description';
 import Converter from './Converter';
 import Indicators from './Indicators';
 
+import Loading from '../Loading';
+
 const useStyles = makeStyles({
   grid: {
     marginTop: '140px',
@@ -37,6 +39,7 @@ function CryptoDetails() {
 
   return (
     <>
+      <Loading />
       {!loading && (
         <Box
           sx={{

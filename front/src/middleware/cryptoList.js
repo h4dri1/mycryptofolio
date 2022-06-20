@@ -52,7 +52,6 @@ const cryptoList = (store) => (next) => (action) => {
         .finally(() => {
           if (store.getState().cryptos.cryptoList.cryptoListLoading) {
             store.dispatch(getMoreCryptosLoading());
-            store.dispatch(setPending())
           }
         });
       next(action);
