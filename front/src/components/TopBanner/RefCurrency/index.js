@@ -7,7 +7,7 @@ import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 import { fetchPortfolio, fetchSpecificWallet } from 'src/actions/portfolio';
 import { useEffect, useState } from 'react';
 
-import {useLocation} from 'react-router-dom'
+import {useLocation, useNavigate } from 'react-router-dom'
 
 // export default function SelectAutoWidth() {
 export default function RefCurrency() {
@@ -15,12 +15,14 @@ export default function RefCurrency() {
   const location = useLocation();
   const dispatch = useDispatch();
   const selected = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  const wallet = useSelector((state) => state.portfolio.wallet);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     dispatch(updateCurrency(event.target.value));
-    if (logged && location.pathname === '/portfolio') {
+    if (logged && location.pathname.split('/')[1] === 'portfolio') {
       dispatch(fetchPortfolio());
-      //dispatch(fetchSpecificWallet());
+      navigate('/portfolio');
     }
     dispatch(getCryptoList());
   };

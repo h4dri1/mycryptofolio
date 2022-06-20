@@ -4,6 +4,7 @@ import {
   SET_DISPLAY_SNACK_BAR,
   TOGGLE_CONFIRM_DELETE,
   TOGGLE_TRANSACTION_EDITOR,
+  SET_PENDING,
 } from 'src/actions/settings';
 
 if (localStorage.getItem('darkMode')) {
@@ -27,6 +28,7 @@ export const initialState = {
     message: '',
   },
   transactionEditorIsOpen: false,
+  pending: false,
 };
 
 const settings = (state = initialState, action = {}) => {
@@ -36,6 +38,13 @@ const settings = (state = initialState, action = {}) => {
       return ({
         ...state,
         darkMode: !state.darkMode,
+      });
+    }
+
+    case SET_PENDING: {
+      return ({
+        ...state,
+        pending: !state.pending,
       });
     }
 
