@@ -7,6 +7,8 @@ import {
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
 import { useMediaQuery } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 
 import {
     Autocomplete,
@@ -46,7 +48,7 @@ export default function SearchCrypto() {
             ml={{ xs: 3, sm: 3 }}
             sx={{
                 width: 230,
-                minWidth: 100,
+                minWidth: 150,
                 borderRadius: '4px',
                 backgroundColor: 'primary.light',
                 '&:hover': {
@@ -89,7 +91,8 @@ export default function SearchCrypto() {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        placeholder="Rechercher une crypto"
+                        placeholder= {!hide ? "Rechercher une crypto" : ""}
+                        
                     />
                 )}
                 selectOnFocus

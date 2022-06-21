@@ -166,7 +166,7 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<CurrencyBitcoinIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+          {hideButton && <Button sx={{textTransform: "none", ml: 2, mr: hide1100 ? 2 : 5 }} color="secondary" startIcon={<CurrencyBitcoinIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
             <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
           </Button>}
           {!hideButton && <CurrencyBitcoinIcon 
@@ -180,7 +180,7 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<SavedSearchIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5, mr: hide1100 ? 2 : 5 }} color="secondary" startIcon={<SavedSearchIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
             <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
           </Button>}
           {!hideButton && <SavedSearchIcon sx={{ width: 30, height: 30, ml: hide500 ? 2 : 6}} color="primary.light"/>}
