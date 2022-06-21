@@ -16,7 +16,7 @@ module.exports = {
             });
             
             let info = await transporter.sendMail({
-                from: '"noresponse@mycryptofolio.fr 👻" <hadri1@ik.me>', // sender address
+                from: '"noresponse@mycryptofolio.fr 👻" <mycryptofol.io@ik.me>', // sender address
                 to: req.body.email, // list of receivers
                 subject: "Reset Password", // Subject line
                 text: "Follow this link for choose a new password", // plain text body
