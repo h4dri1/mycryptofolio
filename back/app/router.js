@@ -66,20 +66,20 @@ router
     )
     .get(
         '/verify/:token',
+        rateLimit(signupSchemaLim),
+        validateParams(checkForgotTokenSchema),
         userController.verifyEmail
     )
     .post(
         '/signup',
         rateLimit(signupSchemaLim), 
-        validateBody(signupSchema), 
-        flush, 
+        validateBody(signupSchema),
         userController.addUser
     )
     .post(
         '/jwt/login/forgot',
         rateLimit(signupSchemaLim),
         validateBody(forgotPasswordSchema),
-        flush,
         userController.forgotPassword
     )
     .get(
