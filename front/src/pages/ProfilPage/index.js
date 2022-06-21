@@ -14,7 +14,7 @@ export default function ProfilPage() {
             <div className="">
                 <TopBanner />
                 <Navbar />
-                <Profil logged={logged} />
+                <Profil logged={logged}/>
                 <Footer />
             </div>
         </>

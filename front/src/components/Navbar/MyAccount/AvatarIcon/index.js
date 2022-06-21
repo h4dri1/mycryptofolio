@@ -7,10 +7,16 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-import { Container, Link } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import Logout from '@mui/icons-material/Logout';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+
+import { Container, Link, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { logout } from '../../../../actions/user';
+import { StayPrimaryLandscape } from '@mui/icons-material';
 
 export default function TestAvatar() {
   const dispatch = useDispatch();
@@ -63,7 +69,6 @@ export default function TestAvatar() {
           alignItems: 'center',
         }}
       >
-        Bienvenue {nickname}
         <div>
           <Avatar
             src={avatar}
@@ -74,7 +79,7 @@ export default function TestAvatar() {
             aria-expanded={open ? 'true' : undefined}
             aria-haspopup="true"
             onClick={handleToggle}
-            sx={{ ml: 1.5 }}
+            sx={{ ml: 1.5, width: 56, height: 56, boxShadow: 10 }}
           />
           <Popper
             open={open}
@@ -88,8 +93,7 @@ export default function TestAvatar() {
               <Grow
                 {...TransitionProps}
                 style={{
-                  transformOrigin:
-                                        placement === 'bottom-start' ? 'left top' : 'left bottom',
+                  transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
                 }}
               >
                 <Paper>
@@ -103,6 +107,28 @@ export default function TestAvatar() {
                       <MenuItem>
                         <Link
                           component={RouterLink}
+                          to="/profil"
+                          underline="none"
+                          sx={{ color: 'primary.light' }}
+                        >
+                        <Avatar src={nickname} alt={nickname}/>
+                        </Link>
+                        <Link
+                          component={RouterLink}
+                          to="/profil"
+                          underline="none"
+                          sx={{ color: 'primary.light', paddingLeft: '0.5rem' }}
+                        >
+                        Profil
+                        </Link>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem>
+                        <ListItemIcon>
+                          <AccountBalanceWalletIcon fontSize="small" color='primary'/>
+                        </ListItemIcon>
+                        <Link
+                          component={RouterLink}
                           to="/portfolio"
                           underline="none"
                           sx={{ color: 'primary.light' }}
@@ -111,17 +137,9 @@ export default function TestAvatar() {
                         </Link>
                       </MenuItem>
                       <MenuItem>
-                        <Link
-                          component={RouterLink}
-                          to="/profil"
-                          underline="none"
-                          sx={{ color: 'primary.light' }}
-                        >
-                          Profil
-                        </Link>
-
-                      </MenuItem>
-                      <MenuItem>
+                        <ListItemIcon>
+                          <Logout fontSize="small" color='primary'/>
+                        </ListItemIcon>
                         <Link
                           onClick={handleLogout}
                           component={RouterLink}

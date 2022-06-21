@@ -5,7 +5,8 @@ import {
   logout,
   saveUser,
   CHECK_TOKEN,
-  REGISTER
+  REGISTER,
+  existingUserToggle
 } from 'src/actions/user';
 import { updateCurrency } from '../actions/cryptos';
 import { getCryptoList } from '../actions/cryptos';
@@ -36,7 +37,7 @@ const auth = (store) => (next) => async (action) => {
         },
       })
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === 200 && res.data.verify) {
             // close the Login modal
             store.dispatch(toggleLoginModal());
             // store tokens
@@ -52,6 +53,8 @@ const auth = (store) => (next) => async (action) => {
               nickname: res.data.nickname,
               avatar: res.data.picture,
               accessToken: newAccessToken,
+              verify: res.data.verify,
+              existingUser: true,
             };
             localStorage.setItem('currency', res.data.currency);
             store.dispatch(updateCurrency(res.data.currency));
@@ -59,6 +62,9 @@ const auth = (store) => (next) => async (action) => {
             store.dispatch(saveUser(userObj));
             store.dispatch(setPending());
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
+          } else {
+            store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez activer votre compte, vérifiez vos emails' }));
+            store.dispatch(setPending());
           }
         })
         .catch((err) => {
@@ -110,29 +116,15 @@ const auth = (store) => (next) => async (action) => {
       })
         .then((res) => {
           if (res.status === 201) {
+            store.dispatch(existingUserToggle())
             store.dispatch(toggleLoginModal());
-            localStorage.setItem('refreshToken', res.data.refreshToken);
-            const newAccessToken = res.headers.authorization;
-
-            // Save user details
-            const { user } = parseJwt(res.headers.authorization);
-            const { id } = user;
 
             const userObj = {
-              id,
               email: res.data.email,
-              nickname: res.data.nickname,
-              avatar: '',
-              accessToken: newAccessToken,
-              existingUser: true,
+              nickname: res.data.nickname
             };
-
-            localStorage.setItem('currency', res.data.currency);
-            store.dispatch(updateCurrency(res.data.currency));
-            store.dispatch(getCryptoList());
-            store.dispatch(saveUser(userObj));
             store.dispatch(setPending());
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${userObj.nickname} !` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${userObj.nickname}, un email d'activation de votre compte vous a été envoyé sur ${userObj.email}` }));
           }
         })
         .catch((err) => {
@@ -153,7 +145,8 @@ const auth = (store) => (next) => async (action) => {
           email: userData.email,
           nickname: userData.nickname,
           avatar: userData.picture,
-          accessToken: newAccessToken
+          accessToken: newAccessToken,
+          verify: userData.verify,
         };
         store.dispatch(saveUser(userObj));
       }

@@ -14,6 +14,7 @@ import AssetsShares from './AssetsShares';
 import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
+import { setDisplaySnackBar } from 'src/actions/settings';
 
 import Loading from '../Loading'
 
@@ -35,13 +36,13 @@ const useStyles = makeStyles({
   }
 });
 
-const Dashboard = ({ logged }) => {
+const Dashboard = ({ logged, verify }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
-
+  
   useEffect(() => {
     if (!logged) {
       navigate('/login?continue=/portfolio');

@@ -9,7 +9,7 @@ import {
   EXISTING_USER_TOGGLE,
   CHANGE_AVATAR,
   DELETE_USER,
-  CHANGE_FORGOT_PASSWORD
+  CHANGE_FORGOT_PASSWORD,
 } from '../actions/user';
 
 export const initialState = {
@@ -22,6 +22,7 @@ export const initialState = {
   passwordCheck: '',
   avatar: '',
   accessToken: '',
+  verify: false ,
 };
 
 const reducer = (state = initialState, action = {}) => {
