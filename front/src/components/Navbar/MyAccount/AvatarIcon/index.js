@@ -16,7 +16,6 @@ import { Container, Link, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { logout } from '../../../../actions/user';
-import { StayPrimaryLandscape } from '@mui/icons-material';
 
 export default function TestAvatar() {
   const dispatch = useDispatch();
@@ -109,15 +108,15 @@ export default function TestAvatar() {
                           component={RouterLink}
                           to="/profil"
                           underline="none"
-                          sx={{ color: 'primary.light' }}
+                          sx={{ color: 'primary.dark' }}
                         >
-                        <Avatar src={nickname} alt={nickname}/>
+                        <Avatar sx={{ bgcolor: 'primary.light' }} src={nickname} alt={nickname}/>
                         </Link>
                         <Link
                           component={RouterLink}
                           to="/profil"
                           underline="none"
-                          sx={{ color: 'primary.light', paddingLeft: '0.5rem' }}
+                          sx={{ color: 'primary.dark', paddingLeft: '0.5rem' }}
                         >
                         Profil
                         </Link>
@@ -131,7 +130,7 @@ export default function TestAvatar() {
                           component={RouterLink}
                           to="/portfolio"
                           underline="none"
-                          sx={{ color: 'primary.light' }}
+                          sx={{ color: 'primary.dark' }}
                         >
                           Portfolio
                         </Link>
@@ -145,7 +144,7 @@ export default function TestAvatar() {
                           component={RouterLink}
                           to="/"
                           underline="none" // redirection to HOME when click on LOGOUT
-                          sx={{ color: 'primary.light' }}
+                          sx={{ color: 'primary.dark' }}
                         >
                           Logout
                         </Link>
