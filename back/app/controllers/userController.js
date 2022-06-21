@@ -92,9 +92,9 @@ module.exports = {
             if (id) {
                 await User.verify(id);
                 await redis.del(req.params.token);
-                res.status(200).json()
+                res.status(200).json('Email vérifié vous pouvez vous connectez !');
             } else {
-                res.status(204).json()
+                res.status(500).json('Token invalide');
             }
          } catch (err) {
              next(err);
