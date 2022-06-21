@@ -70,18 +70,9 @@ module.exports = {
             const newUser = await instance.save();
             if (newUser) {
                 delete newUser.password;
-                const token = {id: newUser.id};
-                res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-                res.setHeader('Authorization', jwt.makeToken(token));
                 const response = {
-                    "status": `Bienvenue ${newUser.nickname}`,
-                    "refreshToken": jwt.makeRefreshToken(token),
-                    "id": newUser.id,
                     "nickname": newUser.nickname,
                     "email": newUser.email,
-                    "picture": '',
-                    "currency": 'USD',
-                    "verify": false
                 };
                 await mailer.sendMailCheck(req, res, next);
                 await redis.set(checkToken, newUser.id);
