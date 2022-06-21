@@ -6,6 +6,7 @@ import {
 // import TextField from '@mui/material/TextField';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
+import { useMediaQuery } from '@mui/material';
 
 import {
     Autocomplete,
@@ -33,6 +34,7 @@ export default function SearchCrypto() {
 
     const dispatch = useDispatch();
     const slug = useParams();
+    const hide = useMediaQuery('(max-width:500px)');
 
     return (
         <Box
@@ -41,15 +43,18 @@ export default function SearchCrypto() {
             xs={12}
             container
             gap={1}
-            ml={{ xs: -5, sm: 3 }}
+            ml={{ xs: 3, sm: 3 }}
             sx={{
-                width: 400,
+                width: 230,
+                minWidth: 100,
                 borderRadius: '4px',
                 backgroundColor: 'primary.light',
                 '&:hover': {
                     backgroundColor: '#8b6ad8',
                     textColor: 'white',
                 },
+                marginTop: '20px',
+                marginBottom: '20px',
             }}
         >
             <Autocomplete
@@ -57,6 +62,7 @@ export default function SearchCrypto() {
                 id="cryptoCurrency"
                 options={someCryptos}
                 getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
+
                 // ! For later, to enhance list aspect
 
                 renderOption={(props, option) => (
@@ -76,7 +82,7 @@ export default function SearchCrypto() {
                                 // srcSet={`${option.image} 2x`}
                                 alt=""
                             />
-                            {option.symbol.toUpperCase()} : {option.name}
+                            {option.symbol.toUpperCase()}{!hide && `: ${option.name}`}
                         </Box>
                     </Link>
                 )}
