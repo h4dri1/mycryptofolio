@@ -11,7 +11,8 @@ const {
     CheckYourPassword,
     CreateUserError,
     ForgotPasswordNoMail,
-    SamePasswordAsOld 
+    SamePasswordAsOld,
+    VerifyYourMail,
 } = require('../error');
 
 module.exports = {
@@ -31,6 +32,9 @@ module.exports = {
             const token = {
                 id: user.id,
             }
+            if (!user.verify) {
+                throw new VerifyYourMail(req.ip);
+            }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(token));
             const response = {
@@ -40,7 +44,8 @@ module.exports = {
                 "nickname": user.nickname,
                 "email": user.email,
                 "picture": user.picture,
-                "currency": userCurrency
+                "currency": userCurrency,
+                "verify": user.verify,
             };
             res.status(200).json(response);
         } catch (err) {
@@ -58,6 +63,8 @@ module.exports = {
             if (instance.password !== instance.passwordCheck) {
                 throw new CheckYourPassword();
             }
+            const checkToken = require("crypto").randomBytes(64).toString('hex');
+            req.token = checkToken
             instance.password = await bcrypt.hash(instance.password, 10);
             delete instance.passwordCheck;
             const newUser = await instance.save();
@@ -73,9 +80,13 @@ module.exports = {
                     "nickname": newUser.nickname,
                     "email": newUser.email,
                     "picture": '',
-                    "currency": 'USD'
+                    "currency": 'USD',
+                    "verify": false
                 };
-                return res.status(201).json(response);
+                await mailer.sendMailCheck(req, res, next);
+                await redis.set(checkToken, newUser.id);
+                await redis.expire(checkToken, 60*10);
+                res.status(201).json(response);
             } else {
                 throw new CreateUserError();
             }
@@ -84,11 +95,29 @@ module.exports = {
         }
     },
 
+    verifyEmail: async (req, res, next) => {
+        try {
+            const id = await redis.get(req.params.token);
+            if (id) {
+                await User.verify(id);
+                await redis.del(req.params.token);
+                res.status(200).json()
+            } else {
+                res.status(204).json()
+            }
+         } catch (err) {
+             next(err);
+         }
+    },
+
     forgotPassword: async (req, res, next) => {
         try {
             const user = await User.findOne(req.body.email);
             if (!user.id) {
                 throw new ForgotPasswordNoMail();
+            }
+            if (!user.verify) {
+                throw new VerifyYourMail(req.ip);
             }
             const token = require("crypto").randomBytes(64).toString('hex');
             req.token = token

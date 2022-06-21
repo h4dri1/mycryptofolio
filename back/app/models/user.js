@@ -12,6 +12,11 @@ class User {
         return new User(rows[0]);
     }
 
+    static async verify(id) {
+        const {rows} = await pool.query('UPDATE "user" SET verify=true WHERE id=$1;', [id]);
+        return new User(rows[0]);
+    }
+
     static async deleteOne(id) {
         const {rows} = await pool.query('DELETE FROM "user" WHERE id=$1;', [id]);
         return new User(rows[0]);
