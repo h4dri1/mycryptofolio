@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { deleteUser } from '../../actions/user';
 
+import Loading from '../Loading';
+
 import axios  from 'axios';
 
 import {
@@ -73,6 +75,7 @@ export default function Profil(){
             alignItems={'center'}
             className={classes.grid}
         >
+          <Loading />
             <Grid className={classes.grid}>
               <Password/>
             </Grid>

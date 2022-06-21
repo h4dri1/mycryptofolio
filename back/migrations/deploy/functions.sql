@@ -50,7 +50,8 @@ $$ LANGUAGE SQL STRICT;
 CREATE OR REPLACE FUNCTION update_user(json) RETURNS "user" AS $$
 	UPDATE "user" SET
 		email=$1->>'email',
-		nickname=$1->>'nickname'
+		nickname=$1->>'nickname',
+		currency=$1->>'currency'
 	WHERE id=($1->>'id')::int
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;

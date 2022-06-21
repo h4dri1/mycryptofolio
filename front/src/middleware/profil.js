@@ -7,7 +7,6 @@ import {
   CHANGE_USER,
   CHANGE_PASSWORD,
   CHANGE_AVATAR,
-  CHANGE_CURRENCY,
   DELETE_USER,
   CHANGE_FORGOT_PASSWORD,
 } from 'src/actions/user';
@@ -20,6 +19,8 @@ import { saveNewToken, saveUser } from 'src/actions/user';
 import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
 
 import {toggleLoginModal} from 'src/actions/settings';
+
+import { setPending } from 'src/actions/settings';
 
 import parseJwt from 'src/services/parseJwt';
 import isTokenExpired from 'src/services/isTokenExpired';
@@ -56,6 +57,7 @@ const profil = (store) => (next) => async (action) => {
 
   switch (action.type) {
     case CHANGE_FORGOT_PASSWORD:
+      store.dispatch(setPending())
       privateRoute({
         method: 'post',
         url: '/signup/change/forgot/password',
@@ -67,17 +69,20 @@ const profil = (store) => (next) => async (action) => {
       })
         .then((res) => {
           if (res.status === 201) {
+            store.dispatch(setPending())
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
             store.dispatch(toggleLoginModal());
           }
         })
         .catch((err) => {
           console.log(err);
+          store.dispatch(setPending())
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
     case CHANGE_PASSWORD:
+      store.dispatch(setPending())
       privateRoute({
         method: 'post',
         url: '/signup/change/password',
@@ -93,17 +98,20 @@ const profil = (store) => (next) => async (action) => {
         .then((res) => {
           if (res.status === 201) {
             const newAccessToken = res.headers.authorization;
+            store.dispatch(setPending())
             store.dispatch(saveNewToken(newAccessToken));
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
           }
         })
         .catch((err) => {
           console.log(err);
+          store.dispatch(setPending())
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
       case CHANGE_USER:
+        store.dispatch(setPending())
       privateRoute({
         method: 'post',
         url: '/signup/change/user',
@@ -114,7 +122,7 @@ const profil = (store) => (next) => async (action) => {
           id: action.payload.id,
           email: action.payload.email,
           nickname: action.payload.nickname,
-          picture: action.payload.picture,
+          currency: action.payload.currency,
         },
       })
         .then((res) => {
@@ -125,20 +133,25 @@ const profil = (store) => (next) => async (action) => {
                 email: action.payload.email,
                 nickname: action.payload.nickname,
                 accessToken: newAccessToken,
+                currency: action.payload.currency,
             };
+            localStorage.setItem('currency', action.payload.currency);
             store.dispatch(saveUser(userObj));
             store.dispatch(saveNewToken(newAccessToken));
-            store.dispatch(updateCurrency(action.payload.cur));
+            store.dispatch(updateCurrency(action.payload.currency));
+            store.dispatch(setPending())
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Modification réussi` }));
           }
         })
         .catch((err) => {
           console.log(err);
+          store.dispatch(setPending())
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
       case CHANGE_AVATAR:
+        store.dispatch(setPending())
         const formData = new FormData();
         formData.append('file', action.payload.avatar);
         formData.append('upload_preset', 'profilPic');
@@ -164,42 +177,20 @@ const profil = (store) => (next) => async (action) => {
                 const newAccessToken = res.headers.authorization;
                 store.dispatch(saveNewToken(newAccessToken));
                 store.dispatch(saveUser(imgObj));
+                store.dispatch(setPending())
                 store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre photo de profil à bien été mis à jour` }));
               }
             })
             .catch((err) => {
               console.log(err);
+              store.dispatch(setPending())
               store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
             });
           })
           next(action);
           break;
-        //case CHANGE_CURRENCY:
-        //    privateRoute({
-        //      method: 'post',
-        //      url: '/signup/change/currency',
-        //      headers: {
-        //        Authorization: store.getState().user.accessToken,
-        //      },
-        //      data: {
-        //        currency: action.payload.cur
-        //      }
-        //    })
-        //    .then((res) => {
-        //      if (res.status === 201) {
-        //        const newAccessToken = res.headers.authorization;
-        //        store.dispatch(saveNewToken(newAccessToken));
-        //        store.dispatch(updateCurrency(action.payload.cur));
-        //        store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Devise modifiée` }));
-        //      }
-        //    })
-        //    .catch((err) => {
-        //      console.log(err);
-        //      store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
-        //    });
-        //    next(action);
-        //    break;
         case DELETE_USER:
+          store.dispatch(setPending())
             privateRoute({
               method: 'delete',
               url: '/delete/user',
@@ -210,11 +201,13 @@ const profil = (store) => (next) => async (action) => {
             .then((res) => {
               if (res.status === 201) {
                 localStorage.clear();
+                store.dispatch(setPending())
                 store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre compte a bien été supprimé` }));
               }
             })
             .catch((err) => {
               console.log(err);
+              store.dispatch(setPending())
               store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
             });
             next(action);

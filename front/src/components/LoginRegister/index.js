@@ -15,10 +15,16 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 import { PropTypes } from 'prop-types';
 
+import { setPending } from 'src/actions/settings';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, existingUserToggle } from 'src/actions/user';
 import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 import { useState } from 'react';
+
+import Loading from '../Loading';
+
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
   Link
@@ -44,6 +50,10 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   const { loginIsOpen } = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setForgotPassword(true);
@@ -79,8 +89,12 @@ export default function LoginRegister({ type, handleFormSubmit }) {
       }
     }
     if (!forgotPassword) {
+      if (location.pathname.split('/')[1] === 'reset') {
+        navigate('/');
+      }
       dispatch(handleFormSubmit());
     } else {
+      dispatch(setPending());
       axios({
         method: 'post',
         baseURL,
@@ -92,24 +106,25 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         .then((res) => {
           if (res.status === 201) {
             setForgotPassword(false);
+            dispatch(setPending());
             dispatch(setDisplaySnackBar({ severity: 'success', message: 'Un email vous a été envoyé pour réinitialiser votre mot de passe' }));
           }
         })
         .catch((err) => {
           console.log(err.response.data.message);
+          dispatch(setPending());
           dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       }
     }
     
-  
-
   return (
     <>
       <Container>
         <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
       </Container>
       <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
+      <Loading />
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
           { type === 'login' ? 'Connexion' : 'S\'inscrire' }
           <IconButton edge="end" aria-label="Fermer" onClick={handleToggleLoginModal}>
@@ -117,10 +132,13 @@ export default function LoginRegister({ type, handleFormSubmit }) {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          {!forgotPassword && <DialogContentText>
             Pour accéder aux fonctionnalités avancées,
             { type === 'login' ? ' il faut vous connecter.' : ' il faut vous créer un compte et vous connecter.' }
-          </DialogContentText>
+          </DialogContentText>}
+          { forgotPassword && <DialogContentText>
+            Renseignez votre adresse mail
+          </DialogContentText>}
           {type === 'register' && !forgotPassword && (
             <TextField
               // autoFocus

@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 
+import Loading from '../Loading'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '130px',
@@ -57,12 +59,13 @@ function CryptoList() {
     var cryptoSym = ''
   }
 
-  useEffect(() => {
+  useEffect(() => { 
     dispatch(getCryptoList());
   }, []);
 
   return (
     <Grid container justifyContent="center" className={classes.root}>
+      <Loading />
       <Grid item xs={12} className={classes.cryptoList}>
         <Table>
           <TableHead >

@@ -15,6 +15,8 @@ import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
 
+import Loading from '../Loading'
+
 const useStyles = makeStyles({
   grid: {
     height: '100%',
@@ -30,7 +32,7 @@ const useStyles = makeStyles({
   gridSubItem: {
     // border: 'solid 2px gold',
     // height: '100%',
-  },
+  }
 });
 
 const Dashboard = ({ logged }) => {
@@ -51,6 +53,7 @@ const Dashboard = ({ logged }) => {
 
   return (
     <div className="">
+      <Loading/>
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
         <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>

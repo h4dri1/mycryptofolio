@@ -55,7 +55,7 @@ const Indicators = ({ data }) => {
             currency: refCurrency,
             maximumSignificantDigits: 4,
             minimumSignificantDigits: 2,
-          }).format(data.total_market_cap.usd)}
+          }).format(data.total_market_cap[refCurrency.toLowerCase()])}
 
         </Typography>
       </Box>
@@ -82,7 +82,7 @@ const Indicators = ({ data }) => {
             currency: refCurrency,
             maximumSignificantDigits: 4,
             minimumSignificantDigits: 2,
-          }).format(data.total_volume.usd)}
+          }).format(data.total_volume[refCurrency.toLowerCase()])}
 
         </Typography>
       </Box>

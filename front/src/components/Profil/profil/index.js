@@ -43,11 +43,10 @@ export default function Profil() {
         id: id,
         nickname: nicknameValue,
         email: emailValue,
-        cur: currency
+        currency: currency
     }
 
     const handleClick = (event) => {
-      event.preventDefault();
       if (nicknameValue !== nickname || emailValue !== email || selectedCurrency !== currency) {
         dispatch(change_user(newUser));
       } else {
