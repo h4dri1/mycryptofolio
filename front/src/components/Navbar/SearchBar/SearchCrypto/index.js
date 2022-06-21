@@ -55,8 +55,8 @@ export default function SearchCrypto() {
                     backgroundColor: '#8b6ad8',
                     textColor: 'white',
                 },
-                marginTop: '20px',
-                marginBottom: '20px',
+                marginTop: '10px',
+                marginBottom: '10px',
             }}
         >
             <Autocomplete

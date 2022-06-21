@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider';
 import Logout from '@mui/icons-material/Logout';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 
 import { Container, Link, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -135,6 +136,20 @@ export default function TestAvatar() {
                           Portfolio
                         </Link>
                       </MenuItem>
+                      <MenuItem>
+                        <ListItemIcon>
+                          <SavedSearchIcon fontSize="small" color='primary'/>
+                        </ListItemIcon>
+                        <Link
+                          component={RouterLink}
+                          to="/"
+                          underline="none"
+                          sx={{ color: 'primary.dark' }}
+                        >
+                          Watchlist
+                        </Link>
+                      </MenuItem>
+                      <Divider />
                       <MenuItem>
                         <ListItemIcon>
                           <Logout fontSize="small" color='primary'/>
