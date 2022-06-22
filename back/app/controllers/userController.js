@@ -92,7 +92,7 @@ module.exports = {
             if (id) {
                 await User.verify(id);
                 await redis.del(req.params.token);
-                res.status(200).json('Email vérifié vous pouvez vous connectez !');
+                res.status(200).redirect('https://mycryptofolio.fr/login');
             } else {
                 res.status(500).json('Token invalide');
             }

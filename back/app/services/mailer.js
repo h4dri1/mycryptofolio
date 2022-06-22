@@ -44,7 +44,7 @@ module.exports = {
             });
             
             let info = await transporter.sendMail({
-                from: '"noresponse@mycryptofolio.fr 👻" <mycryptofol.io@ik.me>', // sender address
+                from: '"donotreply@mycryptofolio.fr 👻" <mycryptofol.io@ik.me>', // sender address
                 to: req.body.email, // list of receivers
                 subject: "Verify Email", // Subject line
                 text: "Follow this link for validate your email", // plain text body
