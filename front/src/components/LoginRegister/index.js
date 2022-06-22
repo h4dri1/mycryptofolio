@@ -209,11 +209,25 @@ export default function LoginRegister({ type, handleFormSubmit }) {
               margin="dense"
               id="passwordCheck"
               label="Confirmer le mot de passe"
-              type="password"
+              type={showPass ? 'text' : 'password'}
               fullWidth
               variant="outlined"
               value={passwordCheck}
               onChange={handleChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPass ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                  )
+                }}
             />
           )}
         </DialogContent>
