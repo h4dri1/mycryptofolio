@@ -56,6 +56,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
 
   const [ showPass, setShowPass ] = useState(false);
 
+  const [ showPassCheck, setShowPassCheck ] = useState(false);
+
   const dispatch = useDispatch();
 
   const location = useLocation();
@@ -64,6 +66,10 @@ export default function LoginRegister({ type, handleFormSubmit }) {
 
   const handleClickShowPassword = () => {
     setShowPass(!showPass);
+  }
+
+  const handleClickShowCheckPassword = () => {
+    setShowPassCheck(!showPassCheck);
   }
 
   const handleMouseDownPassword = (event) => {
@@ -209,7 +215,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
               margin="dense"
               id="passwordCheck"
               label="Confirmer le mot de passe"
-              type={showPass ? 'text' : 'password'}
+              type={showPassCheck ? 'text' : 'password'}
               fullWidth
               variant="outlined"
               value={passwordCheck}
@@ -219,7 +225,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
+                      onClick={handleClickShowCheckPassword}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
                     >

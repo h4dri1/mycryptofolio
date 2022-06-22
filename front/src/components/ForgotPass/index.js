@@ -56,7 +56,7 @@ export default function Profil(){
       method: 'get',
       baseURL,
       url: `/jwt/login/check/${token}`
-    })
+    }) 
       .then((res) => {
         if (res.status === 204) {
           navigate('/reset');
