@@ -9,7 +9,12 @@ import {
   TextField,
   IconButton,
   Container,
+  InputAdornment
 } from '@mui/material';
+
+import Visibility from '@mui/icons-material/Visibility';
+
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
@@ -49,11 +54,21 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   // get the main state
   const { loginIsOpen } = useSelector((state) => state.settings);
 
+  const [ showPass, setShowPass ] = useState(false);
+
   const dispatch = useDispatch();
 
   const location = useLocation();
 
   const navigate = useNavigate();
+
+  const handleClickShowPassword = () => {
+    setShowPass(!showPass);
+  }
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  }
 
   const handleClick = () => {
     setForgotPassword(true);
@@ -168,11 +183,25 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             margin="dense"
             id="password"
             label="Mot de passe"
-            type="password"
+            type={showPass ? 'text' : 'password'}
             fullWidth
             variant="outlined"
             value={password}
             onChange={handleChange}
+            InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPass ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+              )
+            }}
           />
           }
           {type === 'register' && !forgotPassword && (
