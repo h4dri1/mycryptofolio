@@ -167,11 +167,11 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5, mr: hide1100 ? 1 : 2 }} color="secondary" startIcon={<CurrencyBitcoinIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+          {hideButton && <Button sx={{textTransform: "none" }} color="secondary" startIcon={<CurrencyBitcoinIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
             <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
           </Button>}
           {!hideButton && <CurrencyBitcoinIcon 
-            sx={{ width: 30, height: 30, ml: 2 }} 
+            sx={{ width: 30, height: 30, ml: 1, mr: 1 }} 
             color="primary.light"/>}
 
           </Link>
@@ -181,11 +181,11 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5, mr: hide1100 ? 1 : 2 }} color="secondary" startIcon={<ColorLensIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<ColorLensIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
             <Typography fontSize={'1.2em'}  color="white">NFT</Typography>
           </Button>}
           {!hideButton && <ColorLensIcon 
-            sx={{ width: 30, height: 30, ml: 2 }} 
+            sx={{ width: 30, height: 30, mr: 1 }} 
             color="primary.light"/>}
 
           </Link>
@@ -195,10 +195,12 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5, mr: hide1100 ? 1 : 2 }} color="secondary" startIcon={<SavedSearchIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<SavedSearchIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
             <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
           </Button>}
-          {!hideButton && <SavedSearchIcon sx={{ width: 30, height: 30, ml: hide500 ? 1 : 2}} color="primary.light"/>}
+          {!hideButton && <SavedSearchIcon 
+            sx={{ width: 30, height: 30, mr: 1 }} 
+            color="primary.light"/>}
           </Link>
           <Link
             component={RouterLink}
@@ -209,7 +211,9 @@ export default function PrimarySearchAppBar() {
           {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<AccountBalanceWalletIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
             <Typography fontSize={'1.2em'}  color="white">Portfolio</Typography>
           </Button>}
-          {!hideButton && <AccountBalanceWalletIcon sx={{ width: 30, height: 30, ml: hide500 ? 1 : 2}} color="primary.light"/>}
+          {!hideButton && <AccountBalanceWalletIcon 
+            sx={{ width: 30, height: 30 }} 
+            color="primary.light"/>}
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           <SearchCrypto />
