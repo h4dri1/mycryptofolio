@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: '0 auto', 
     [theme.breakpoints.up('md')]: {
-      maxWidth: '80%',
+      maxWidth: '78%',
     },
   },
   cryptoList: {
@@ -38,6 +38,7 @@ function CryptoList() {
 
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
+  const { darkMode } = useSelector((state) => state.settings);
 
   if (selectedCurrency === 'BTC') {
     var curParams = {
@@ -66,7 +67,7 @@ function CryptoList() {
     <Grid container justifyContent="center" className={classes.root}>
       <Loading />
       <Grid item xs={12} className={classes.cryptoList}>
-        <Table>
+        <Table sx={{backgroundColor: !darkMode ? '#fdecf7' : '#70516c', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
           <TableHead >
             <TableRow>
               <TableCell align="center"><TableSortLabel />#</TableCell>
@@ -89,10 +90,10 @@ function CryptoList() {
                     <Typography
 
                       variant="body1"
-                      sx={{ mr: 1, display: { xs: 'none', sm: 'block', color: "neutral.contrastText" } }}
+                      sx={{ mr: 1, display: { xs: 'none', sm: 'block', color: !darkMode ? "neutral.contrastText" : '#07f3d5' } }}
                     >{crypto.name}
                     </Typography>
-                    <Typography>{crypto.symbol.toUpperCase()}</Typography>
+                    <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell align="right">{`${cryptoSym}${crypto.current_price.toLocaleString("en-US", curParams)}`}</TableCell>

@@ -38,6 +38,19 @@ export default function TopNFT() {
 
     const { list: nfts } = useSelector((state) => state.cryptos.NFTTrend);
 
+    const { darkMode } = useSelector((state) => state.settings);
+
+    const { colorTheme } = useSelector((state) => state.settings);
+
+    if (colorTheme === 'white') {
+        var color = 'white';
+    } else if (colorTheme === 'secondary') {
+        var color = 'secondary.main'
+    } else if (colorTheme === 'gradient') {
+        var color = '#FF3CAC'
+        var image = 'linear-gradient(125deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+    }
+
     return (
 <Box
         sx={{
@@ -49,16 +62,18 @@ export default function TopNFT() {
             margin: '5px',
             flexWrap: 'wrap',
             marginTop: '20px',
-            borderRadius: '10px'
+            borderRadius: '10px',
+            backgroundColor: image ? '#FF3CAC' : color,
+            backgroundImage: image
         }}
         >
             <Container sx={{ marginBottom: 3 }}>
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, width: 'auto', justifyContent: 'center' }}>
-                <InsertPhotoIcon color="primary"/><Typography sx={{ fontWeight: 'bold' }}>Top NFT</Typography>
+                <InsertPhotoIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Top NFT</Typography>
             </Container>
-            <TableContainer component={Paper} >
+            <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#fdecf7' : '', borderRadius: '10px' }}>
                 <Table sx={{ minWidth: 10 }} size='small' aria-label="a dense table">
-                    <TableHead>
+                    <TableHead sx={{backgroundColor: '#e1a2d8'}}>
                         <TableRow>
                             <TableCell ></TableCell>
                             <TableCell>Nom</TableCell>

@@ -44,10 +44,23 @@ export default function TopFlop() {
 
     const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
 
+    const { darkMode } = useSelector((state) => state.settings);
+
+    const { colorTheme } = useSelector((state) => state.settings);
+
     const newCryptos = []
 
     for (const crypto in cryptos.coins) {
         newCryptos.push(cryptos.coins[crypto].item);
+    }
+
+    if (colorTheme === 'white') {
+        var color = 'white';
+    } else if (colorTheme === 'secondary') {
+        var color = 'secondary.main'
+    } else if (colorTheme === 'gradient') {
+        var color = '#FF3CAC'
+        var image = 'linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
     }
     
     return (
@@ -61,16 +74,18 @@ export default function TopFlop() {
             margin: '5px',
             flexWrap: 'wrap',
             marginTop: '20px',
-            borderRadius: '10px'
+            borderRadius: '10px',
+            backgroundColor: image ? '#FF3CAC' : color,
+            backgroundImage: image
         }}
         >
             <Container sx={{ marginBottom: 3 }}>
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, width: 'auto', justifyContent: 'center' }}>
-                <WhatshotIcon color="primary"/><Typography sx={{ fontWeight: 'bold' }}>Trending</Typography>
+                <WhatshotIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending</Typography>
             </Container>
-            <TableContainer component={Paper} >
+            <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#fdecf7' : '', borderRadius: '10px'}}>
                 <Table sx={{ minWidth: 10 }} size='small' aria-label="a dense table">
-                    <TableHead>
+                    <TableHead sx={{backgroundColor: '#e1a2d8'}}>
                         <TableRow>
                             <TableCell ></TableCell>
                             <TableCell>Nom</TableCell>

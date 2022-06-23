@@ -43,6 +43,17 @@ export default function TopNFT() {
 
     const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
 
+    const { colorTheme } = useSelector((state) => state.settings);
+
+    if (colorTheme === 'white') {
+        var color = 'white';
+    } else if (colorTheme === 'secondary') {
+        var color = 'secondary.main'
+    } else if (colorTheme === 'gradient') {
+        var color = '#FF3CAC'
+        var image = 'linear-gradient(180deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+    }
+
     const value = Object.keys(fearAndGreed).map((item) => {
         if (item === 'data') {
             var fearValue = fearAndGreed[item][0].value;
@@ -68,12 +79,14 @@ export default function TopNFT() {
             margin: '5px',
             flexWrap: 'wrap',
             marginTop: '20px',
-            borderRadius: '10px'
+            borderRadius: '10px',
+            backgroundColor: image ? '#FF3CAC' : color,
+            backgroundImage: image
         }}
         >
             <Container >
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, width: 'auto', justifyContent: 'center' }}>
-                <DeviceThermostatIcon color="primary"/><Typography sx={{ fontWeight: 'bold' }}>Sentiment</Typography>
+                <DeviceThermostatIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
             </Container>
             <Divider sx={{ marginBottom: 2 }} />
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>
@@ -86,9 +99,9 @@ export default function TopNFT() {
                     arcPadding={0.02}
                     hideText={true}
                 />
-                <Typography sx={{ fontSize: '1.5em', color: 'primary.main', fontWeight: 'bold', marginTop: 2 }}>{value}%</Typography>
+                <Typography sx={{ fontSize: '1.5em', color: color === 'white' ? 'primary.main' : 'white', fontWeight: 'bold', marginTop: 2 }}>{value}%</Typography>
                 <Divider sx={{ marginTop: 1, marginBottom: 3, width:'100%' }} />
-                <Typography sx={{ fontSize: '1.2em', color: '#e91e63', fontWeight: 'bold', marginBottom: 1 }}>{classification}</Typography>
+                <Typography sx={{ fontSize: '1.2em', color: '#ff9800', fontWeight: 'bold', marginBottom: 1 }}>{classification}</Typography>
             </Container>
 
             </Container>
