@@ -9,7 +9,6 @@ import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
 import CryptoList from 'src/components/CryptoList';
 import Footer from 'src/components/Footer';
-import Info from 'src/components/Info';
 
 export default function Home({ displayLogin }) {
   const dispatch = useDispatch();
@@ -33,7 +32,6 @@ export default function Home({ displayLogin }) {
     <div className="">
       <TopBanner />
       <Navbar />
-      <Info />
       <CryptoList />
       <Footer />
     </div>

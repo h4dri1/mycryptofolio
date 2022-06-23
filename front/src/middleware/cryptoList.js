@@ -2,8 +2,12 @@
 import axios from 'axios';
 
 import {
+  GET_NFT_TREND,
+  updateNFTTrend,
   GET_CRYPTO_LIST,
   updateCryptoList,
+  GET_CRYPTO_TREND,
+  updateCryptoTrend,
   GET_MORE_CRYPTOS,
   getMoreCryptosLoading,
   updateCryptoQuantity,
@@ -15,6 +19,7 @@ import {
 } from 'src/actions/cryptos';
 
 import { setPending } from 'src/actions/settings';
+import { GET_FEAR_GREED_INDEX, updateFearGreedIndex } from '../actions/cryptos';
 
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
@@ -31,6 +36,48 @@ const cryptoList = (store) => (next) => (action) => {
         })
         .catch((err) => console.log(err));
       next(action);
+      break;
+      case GET_CRYPTO_TREND:
+        axios({
+          method: 'get',
+          baseURL,
+          url: `/trending`,
+        })
+          .then((res) => {
+            store.dispatch(updateCryptoTrend(res.data));
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        next(action);
+      break;
+      case GET_NFT_TREND:
+        axios({
+          method: 'get',
+          baseURL,
+          url: `/nft/top`,
+        })
+          .then((res) => {
+            store.dispatch(updateNFTTrend(res.data));
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        next(action);
+      break;
+      case GET_FEAR_GREED_INDEX:
+        axios({
+          method: 'get',
+          baseURL,
+          url: `/index/fearandgreed`,
+        })
+          .then((res) => {
+            store.dispatch(updateFearGreedIndex(res.data));
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        next(action);
       break;
     case GET_CRYPTO_LIST:
       store.dispatch(setPending())

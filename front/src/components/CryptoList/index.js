@@ -21,7 +21,6 @@ import Loading from '../Loading'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '130px',
     margin: '0 auto', 
     [theme.breakpoints.up('md')]: {
       maxWidth: '80%',

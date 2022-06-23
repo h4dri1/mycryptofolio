@@ -1,10 +1,13 @@
 import {
   UPDATE_CRYPTO_LIST,
+  UPDATE_CRYPTO_TREND,
   UPDATE_CRYPTO_QUANTITY,
   GET_MORE_CRYPTOS_LOADING,
   UPDATE_ALL_CRYPTOS,
   SET_PRICE,
-  UPDATE_CURRENCY
+  UPDATE_CURRENCY,
+  UPDATE_NFT_TREND,
+  UPDATE_FEAR_GREED_INDEX
 } from 'src/actions/cryptos';
 
 const curr = localStorage.getItem('currency');
@@ -22,6 +25,15 @@ const initialState = {
     quantity: 10,
     cryptoListLoading: false,
     list: [],
+  },
+  cryptoTrend: {
+    list: []
+  },
+  NFTTrend: {
+    list: []
+  },
+  FearAndGreed: {
+    list: []
   },
   currentPrice: 0,
 };
@@ -49,6 +61,30 @@ const cryptosReducer = (state = initialState, action = {}) => {
           list: action.payload,
         },
       };
+    case UPDATE_CRYPTO_TREND:
+      return {
+        ...state,
+        cryptoTrend: {
+          ...state.cryptoTrend,
+          list: action.payload,
+        },
+    };
+    case UPDATE_FEAR_GREED_INDEX:
+      return {
+        ...state,
+        FearAndGreed: {
+          ...state.FearAndGreed,
+          list: action.payload,
+        },
+    };
+    case UPDATE_NFT_TREND:
+      return {
+        ...state,
+        NFTTrend: {
+          ...state.NFTTrend,
+          list: action.payload,
+        },
+    };
     case GET_MORE_CRYPTOS_LOADING:
       return {
         ...state,
