@@ -72,7 +72,7 @@ export default function TopNFT() {
                         >
                         <TableCell sx={{borderBottom: 0 }}>
                         <Box component={RouterLink} to={`/nft/${nft.contractName}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                            <Avatar src={nft.iconUrl} alt={nft.contractName} sx={{ mr: 2, width: 38, height: 38, marginLeft: 1 }} />
+                            <Avatar src={nft.iconUrl} alt={nft.contractName} sx={{ width: 38, height: 38, marginLeft: 1 }} />
                         </Box>
                         </TableCell>
                         <TableCell sx={{borderBottom: 0 }}>{nft.contractName}</TableCell>
