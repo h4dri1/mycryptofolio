@@ -58,25 +58,28 @@ router
     .get('/logout/:token', validateParams(tokenSchema), jwtMW.logout, auth.logout)
     .get('/jwt/refresh/:token', validateParams(tokenSchema), rateLimit(refreshSchemaLim), tokenController.refresh)
     .post(
-        '/jwt/login', 
+        '/jwt/login',
         rateLimit(loginSchemaLim), 
         validateBody(loginSchema), 
         auth.login, 
         userController.validLoginJwt
     )
+    .get(
+        '/verify/:token',
+        rateLimit(signupSchemaLim),
+        validateParams(checkForgotTokenSchema),
+        userController.verifyEmail
+    )
     .post(
         '/signup',
-        auth.signup,
         rateLimit(signupSchemaLim), 
-        validateBody(signupSchema), 
-        flush, 
+        validateBody(signupSchema),
         userController.addUser
     )
     .post(
         '/jwt/login/forgot',
         rateLimit(signupSchemaLim),
         validateBody(forgotPasswordSchema),
-        flush,
         userController.forgotPassword
     )
     .get(

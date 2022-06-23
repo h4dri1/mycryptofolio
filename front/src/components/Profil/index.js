@@ -10,6 +10,9 @@ import { deleteUser } from '../../actions/user';
 
 import Loading from '../Loading';
 
+import { setDisplaySnackBar } from 'src/actions/settings';
+
+
 import {
     Grid,
     Link
@@ -40,7 +43,7 @@ const useStyles = makeStyles({
   });
 
 
-export default function Profil({ logged }) {
+export default function Profil({ logged, verify }) {
 
   const dispatch = useDispatch();
 

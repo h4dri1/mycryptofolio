@@ -5,6 +5,12 @@ import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import PercentIcon from '@mui/icons-material/Percent';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+
+import { useMediaQuery } from '@mui/material';
+
 
 // const useStyles = makeStyles((theme) => ({
 //   indicator: {
@@ -21,6 +27,7 @@ import { useSelector } from 'react-redux';
 const Indicators = ({ data }) => {
 
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  const hideButton = useMediaQuery('(min-width:900px)');
 
   return (
     <Container
@@ -30,19 +37,21 @@ const Indicators = ({ data }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        ml: 1,
+        ml: 0.5,
         fontSize: '0.8rem',
         textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
+        whiteSpace: 'nowrap'
       }}
     >
-      <Box sx={{ display: { xs: 'none', sm: 'flex' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-        <Typography
+      <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
+      <MonetizationOnIcon sx={{ color: 'secondary.dark' }}/>
+        {hideButton && <Typography
           variant="subtitle"
           component="p"
+          sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
         >
           Total Market Cap. :
-        </Typography>
+        </Typography>}
         <Typography
           sx={{
             ml: 0.8,
@@ -60,16 +69,14 @@ const Indicators = ({ data }) => {
         </Typography>
       </Box>
 
-      <Box sx={{ display: { xs: 'none', sm: 'flex' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-        <Typography
+      <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
+      <CurrencyExchangeIcon sx={{ color: 'secondary.dark' }} />
+        {hideButton && <Typography
           variant="subtitle"
-          component="p"
-          sx={{
-            // ml: 5,
-          }}
+          sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
         >
           24h Vol :
-        </Typography>
+        </Typography>}
         <Typography
           sx={{
             ml: 0.8,
@@ -87,16 +94,15 @@ const Indicators = ({ data }) => {
         </Typography>
       </Box>
 
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-        <Typography
+      <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
+        <PercentIcon sx={{ color: 'secondary.dark' }} />
+        {hideButton && <Typography
           variant="subtitle"
           component="p"
-          sx={{
-            // ml: 5,
-          }}
+          sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
         >
           Dominance BTC:
-        </Typography>
+        </Typography>}
         <Typography
           sx={{
             ml: 0.8,

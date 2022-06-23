@@ -13,12 +13,18 @@ import { getIndicators } from 'src/actions/indicators';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useMediaQuery } from '@mui/material';
+
+import Logo from 'src/components/Navbar/Logo';
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
 
 
 const TopBanner = () => {
 
     const dispatch = useDispatch();
     const data = useSelector((state) => state.indicators);
+    const hide500 = useMediaQuery('(max-width:600px)');
 
     useEffect(() => {
         dispatch(getIndicators());
@@ -27,6 +33,9 @@ const TopBanner = () => {
     return (
         <AppBar sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: "#f6eaf7" }}>
             <Toolbar position="sticky" disableGutters>
+                {hide500 && <Link component={RouterLink} to="/">
+                    <Logo />
+                </Link>}
                 <Indicators data={data} />
                 <Container
                     disableGutters

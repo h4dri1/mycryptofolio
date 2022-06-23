@@ -300,6 +300,16 @@ class SamePasswordAsOld extends Error {
     }
 }
 
+class VerifyYourMail extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = `Vous devez activer votre compte avant de pouvoir vous connecter, vérifiez vos emails`;
+        this.statusCode = 500;  
+    }
+}
+
 module.exports = {
     NoTransactionId,
     NoWallet,
@@ -329,5 +339,6 @@ module.exports = {
     CurrencyError,
     CreateUserError,
     ForgotPasswordNoMail,
-    SamePasswordAsOld
+    SamePasswordAsOld,
+    VerifyYourMail
 };

@@ -13,7 +13,7 @@ module.exports = {
                 }
                 res.setHeader('Access-Control-Expose-Headers', 'Authorization');
                 res.setHeader('Authorization', jwt.makeToken(userObj));
-                res.status(201).json({id: userData.id, nickname: userData.nickname, email: userData.email, picture: userData.picture, currency: userData.currency});
+                res.status(201).json({id: userData.id, nickname: userData.nickname, email: userData.email, picture: userData.picture, currency: userData.currency, verify: userData.verify});
             }   
         } catch (err) {
             next(err);

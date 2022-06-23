@@ -10,7 +10,8 @@ CREATE TABLE "user" (
     nickname TEXT NOT NULL,
     password TEXT NOT NULL,
     picture TEXT,
-    currency TEXT NOT NULL DEFAULT 'USD'
+    currency TEXT NOT NULL DEFAULT 'USD',
+    verify BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE wallet(

@@ -12,7 +12,7 @@ export default function Portfolio() {
     <div className="">
       <TopBanner />
       <Navbar />
-      <Dashboard logged={logged} />
+      <Dashboard logged={logged}/>
       <Footer />
     </div>
   );

@@ -9,6 +9,10 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import SavedSearchIcon from '@mui/icons-material/SavedSearch';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+
 import {
   AppBar,
   Box,
@@ -19,6 +23,8 @@ import {
   MenuItem,
   Menu,
   Link,
+  Button,
+  useMediaQuery
 } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
@@ -129,58 +135,74 @@ export default function PrimarySearchAppBar() {
     />
   );
 
+  const hideButton = useMediaQuery('(min-width:900px)');
+  const hide1100 = useMediaQuery('(max-width:1100px)');
+  const hide500 = useMediaQuery('(max-width:600px)');
+
   return (
-    <Grid sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ mt: 4.8 }}>
         <Toolbar
           disableGutters
         >
-          <Link component={RouterLink} to="/">
+        {!hide500 && <Link component={RouterLink} to="/">
             <Logo />
-          </Link>
+        </Link>}
 
-          <Link component={RouterLink} to="/">
+          {!hide1100 && <Link component={RouterLink} to="/">
             <Typography
-              variant="h5"
               noWrap
               color="white"
               component="h1"
-              sx={{ display: { xs: 'none', sm: 'flex' }, ml: 1 }}
+              sx={{ fontSize: '2xl', ml: 1.5 }}
             >
               MyCryptoFolio
             </Typography>
-            <Typography
-              variant="subtitle"
-              noWrap
-              color="white"
-              sx={{ display: { xs: 'none', md: 'flex' }, ml: 1 }}
-            >
-              Suivez la performance de vos portefeuilles crypto
-            </Typography>
-          </Link>
+          </Link>}
+          <Box sx={{ flexGrow: 1 }} />
+          <Link
+            component={RouterLink}
+            to="/"
+            underline="none"
+            sx={{ color: 'white'}}
+          >
+          {hideButton && <Button sx={{textTransform: "none", ml: 5, mr: hide1100 ? 2 : 5 }} color="secondary" startIcon={<CurrencyBitcoinIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+            <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
+          </Button>}
+          {!hideButton && <CurrencyBitcoinIcon 
+            sx={{ width: 30, height: 30, ml: 2 }} 
+            color="primary.light"/>}
 
+          </Link>
+          <Link
+            component={RouterLink}
+            to="/"
+            underline="none"
+            sx={{ color: 'white'}}
+          >
+          {hideButton && <Button sx={{textTransform: "none", ml: 5, mr: hide1100 ? 2 : 5 }} color="secondary" startIcon={<SavedSearchIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+            <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
+          </Button>}
+          {!hideButton && <SavedSearchIcon sx={{ width: 30, height: 30, ml: hide500 ? 2 : 6}} color="primary.light"/>}
+          </Link>
           <Link
             component={RouterLink}
             to="/portfolio"
-            sx={{ color: 'white', ml: 5 }}
+            underline="none"
+            sx={{ color: 'white'}}
           >
-            <Typography
-              variant="h7"
-              noWrap
-              component="div"
-              sx={{ display: { xs: 'none', sm: 'block', ml: 7 } }}
-            >
-              Portfolio
-            </Typography>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<AccountBalanceWalletIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+            <Typography fontSize={'1.2em'}  color="white">Portfolio</Typography>
+          </Button>}
+          {!hideButton && <AccountBalanceWalletIcon sx={{ width: 30, height: 30, ml: hide500 ? 2 : 6}} color="primary.light"/>}
           </Link>
-
-          <SearchCrypto />
           <Box sx={{ flexGrow: 1 }} />
+          <SearchCrypto />
           <MyAccount />
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Grid >
+    </Box >
   );
 }
