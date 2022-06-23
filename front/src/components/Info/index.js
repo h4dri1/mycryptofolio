@@ -26,12 +26,11 @@ import TopNFT from './TopNFT'
 
 const useStyles = makeStyles({
     grid: {
-      marginTop: '100px'
+      marginTop: '110px'
     },
     gridItem: {
       borderColor: '#E7EBF0',
       borderRadius: 2,
-      margin: '10px',
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'center'
