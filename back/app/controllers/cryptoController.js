@@ -85,6 +85,24 @@ module.exports = {
         }
     },
 
+    getTopNFT: async (req, res, next) => {
+        try {
+            const data = await service_fetch(`//api.cryptoslam.io/v1/collections/top-100?timeRange=week`);
+            res.status(200).json(data);
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    getFearAndGreed: async (req, res, next) => {
+        try {
+            const data = await service_fetch(`//api.alternative.me/fng/?limit=1`);
+            res.status(200).json(data);
+        } catch (err) {
+            next(err);
+        }
+    },
+
     getGlobalData: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/global`);
