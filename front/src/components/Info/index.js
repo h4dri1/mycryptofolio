@@ -55,7 +55,6 @@ export default function Info() {
   useEffect(() => { 
     dispatch(resetNFTQuantity())
     dispatch(getCryptoTrend());
-    //dispatch(getNFTTrend());
     dispatch(getNFTList());
     dispatch(getFearGreedIndex());
   }, []);
