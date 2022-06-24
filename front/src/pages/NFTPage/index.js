@@ -9,7 +9,7 @@ import { toggleLoginModal } from 'src/actions/settings';
 
 import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
-import CryptoList from 'src/components/CryptoList';
+import NFTList from 'src/components/NFTList';
 import Footer from 'src/components/Footer';
 
 export default function Home({ displayLogin }) {
@@ -35,7 +35,7 @@ export default function Home({ displayLogin }) {
       <TopBanner />
       <Navbar />
       <Box sx={{height: '14vh'}}/>
-      <CryptoList/>
+      <NFTList/>
       <Footer />
     </div>
   );

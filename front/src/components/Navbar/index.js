@@ -177,7 +177,7 @@ export default function PrimarySearchAppBar() {
           </Link>
           <Link
             component={RouterLink}
-            to="/market"
+            to="/nft"
             underline="none"
             sx={{ color: 'white'}}
           >

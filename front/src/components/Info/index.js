@@ -14,6 +14,8 @@ import { setDisplaySnackBar } from 'src/actions/settings';
 
 import { getCryptoTrend, getNFTTrend, getFearGreedIndex } from '../../actions/cryptos';
 
+import { getNFTList, resetNFTQuantity } from '../../actions/nft';
+
 import {
     Grid,
     Link
@@ -51,8 +53,10 @@ export default function Info() {
   const navigate = useNavigate();
 
   useEffect(() => { 
+    dispatch(resetNFTQuantity())
     dispatch(getCryptoTrend());
-    dispatch(getNFTTrend());
+    //dispatch(getNFTTrend());
+    dispatch(getNFTList());
     dispatch(getFearGreedIndex());
   }, []);
 
@@ -63,7 +67,7 @@ export default function Info() {
             display={'flex'}
             direction={'column'}
             alignItems={'center'}
-            className={classes.grid}
+            className={classes.grid}  
         >
             <Loading />
             <Grid className={classes.gridItem}>

@@ -36,7 +36,7 @@ export default function TopNFT() {
 
     const dispatch = useDispatch();
 
-    const { list: nfts } = useSelector((state) => state.cryptos.NFTTrend);
+    const { list: nfts } = useSelector((state) => state.nft.NFTList);
 
     const { darkMode } = useSelector((state) => state.settings);
 
@@ -81,9 +81,10 @@ export default function TopNFT() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {nfts.slice(0, 5).map((nft) => (
+                    {nfts.map((nft) => (
                         <TableRow 
                         key={nft.rank}
+                        hover
                         >
                         <TableCell sx={{borderBottom: 0 }}>
                         <Box component={RouterLink} to={`/nft/${nft.contractName}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>

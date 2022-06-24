@@ -21,9 +21,9 @@ import Loading from '../Loading'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: '0 auto', 
+    margin: 'auto auto', 
     [theme.breakpoints.up('md')]: {
-      maxWidth: '78%',
+      maxWidth: '78%'
     },
   },
   cryptoList: {
@@ -67,7 +67,7 @@ function CryptoList() {
     <Grid container justifyContent="center" className={classes.root}>
       <Loading />
       <Grid item xs={12} className={classes.cryptoList}>
-        <Table sx={{backgroundColor: !darkMode ? '#fdecf7' : '#70516c', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
+        <Table size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#fdecf7' : '#70516c', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
           <TableHead >
             <TableRow>
               <TableCell align="center"><TableSortLabel />#</TableCell>
@@ -76,7 +76,7 @@ function CryptoList() {
               <TableCell align="right">24h %</TableCell>
               <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Market Cap</TableCell>
               <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Volume 24h</TableCell>
-              <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Circulating supply</TableCell>
+              <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' } }}>Circulating supply</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,7 +100,7 @@ function CryptoList() {
                 <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`${cryptoSym}${crypto.market_cap.toLocaleString("en-US", curParams)}`}</TableCell>
                 <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.total_volume.toLocaleString("en-US", curParams)}`}</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.circulating_supply.toLocaleString()}`}</TableCell>
+                <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' } }}>{`${cryptoSym}${crypto.circulating_supply.toLocaleString()}`}</TableCell>
               </TableRow>
             ))}
           </TableBody>

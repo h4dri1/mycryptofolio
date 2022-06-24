@@ -96,6 +96,7 @@ export default function TopFlop() {
                     {newCryptos.map((crypto) => (
                         <TableRow 
                         key={crypto.id}
+                        hover
                         >
                         <TableCell sx={{borderBottom: 0 }}>
                         <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>

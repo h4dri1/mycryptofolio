@@ -2,6 +2,7 @@ export const GET_CRYPTO_LIST = 'GET_CRYPTO_LIST';
 export const UPDATE_CRYPTO_LIST = 'UPDATE_CRYPTO_LIST';
 export const GET_MORE_CRYPTOS = 'GET_MORE_CRYPTOS';
 export const GET_MORE_CRYPTOS_LOADING = 'GET_MORE_CRYPTOS_LOADING';
+export const GET_MORE_NFT_LOADING = 'GET_MORE_CRYPTOS_LOADING';
 export const UPDATE_CRYPTO_QUANTITY = 'UPDATE_CRYPTO_QUANTITY';
 export const GET_ALL_CRYPTOS = 'GET_ALL_CRYPTOS';
 export const UPDATE_ALL_CRYPTOS = 'UPDATE_ALL_CRYPTOS';
@@ -14,6 +15,17 @@ export const GET_NFT_TREND = 'GET_NFT_TREND';
 export const UPDATE_NFT_TREND = 'UPDATE_NFT_TREND';
 export const GET_FEAR_GREED_INDEX = 'GET_FEAR_GREED_INDEX';
 export const UPDATE_FEAR_GREED_INDEX = 'UPDATE_FEAR_GREED_INDEX';
+export const GET_NFT_LIST = 'GET_NFT_LIST';
+export const UPDATE_NFT_LIST = 'UPDATE_NFT_LIST';
+
+export const getNFTList = () => ({
+  type: GET_NFT_LIST,
+});
+
+export const updateNFTList = (payload) => ({
+  type: UPDATE_NFT_LIST,
+  payload,
+})
 
 export const getFearGreedIndex = () => ({
   type: GET_FEAR_GREED_INDEX,
@@ -62,6 +74,10 @@ export const getMoreCryptos = () => ({
 
 export const getMoreCryptosLoading = () => ({
   type: GET_MORE_CRYPTOS_LOADING,
+});
+
+export const getMoreNFTsLoading = () => ({
+  type: GET_MORE_NFT_LOADING,
 });
 
 export const updateCryptoQuantity = () => ({
