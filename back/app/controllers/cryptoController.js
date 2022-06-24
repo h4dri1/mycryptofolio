@@ -88,7 +88,8 @@ module.exports = {
     getTopNFT: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.cryptoslam.io/v1/collections/top-100?timeRange=week`);
-            res.status(200).json(data);
+            const newData = data.slice(0, req.params.nb);
+            res.status(200).json(newData);
         } catch (err) {
             next(err);
         }
