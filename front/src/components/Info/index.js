@@ -52,11 +52,12 @@ export default function Info() {
 
   const navigate = useNavigate();
 
-  useEffect(() => { 
+  useEffect(() => {
+    window.scrollTo(0, 0)
     dispatch(resetNFTQuantity())
     dispatch(getCryptoTrend());
-    dispatch(getNFTList());
     dispatch(getFearGreedIndex());
+    dispatch(getNFTList());
   }, []);
 
     return (

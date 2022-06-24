@@ -6,6 +6,7 @@ import settingsReducer from './settings';
 import cryptoDetailsReducer from './cryptoDetails';
 import indicatorsReducer from './indicators';
 import NFTReducer from './nft';
+import nftDetailsReducer from './nftDetails';
 
 export default combineReducers({
   user: userReducer,
@@ -14,6 +15,7 @@ export default combineReducers({
   settings: settingsReducer,
   cryptoDetails: cryptoDetailsReducer,
   indicators: indicatorsReducer,
-  nft: NFTReducer
+  nft: NFTReducer,
+  nftDetails: nftDetailsReducer
 });
 
