@@ -85,6 +85,15 @@ module.exports = {
         }
     },
 
+    getNFTCollection: async (req, res, next) => {
+        try {
+            const data = await service_fetch(`//api.opensea.io/api/v1/collection/${req.params.collection}`);
+            res.status(200).json(data);
+        } catch (err) {
+            next(err);
+        }
+    },
+
     getTopNFT: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.cryptoslam.io/v1/collections/top-100?timeRange=week`);

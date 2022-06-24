@@ -130,6 +130,7 @@ router
     )
 
 router
+    .get('/nft/collections/:collection', cache, cryptoController.getNFTCollection)
     .get('/index/fearandgreed', cache, cryptoController.getFearAndGreed)
     .get('/nft/top/:nb(\\d+)', cache, cryptoController.getTopNFT)
     .get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto)
