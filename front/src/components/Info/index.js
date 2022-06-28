@@ -29,6 +29,7 @@ import CryptoList from '../CryptoList'
 
 const useStyles = makeStyles({
     grid: {
+      justifyContent: 'center',
       marginTop: '110px'
     },
     gridItem: {
@@ -65,9 +66,6 @@ export default function Info() {
 
         <Grid
             container
-            display={'flex'}
-            direction={'column'}
-            alignItems={'center'}
             className={classes.grid}  
         >
             <Loading />

@@ -66,7 +66,7 @@ export default function TopFlop() {
     return (
         <Box
         sx={{
-            minWidth: '420px',
+            minWidth: 'auto',
             height: 'auto',
             boxShadow: 5,
             display: 'flex',

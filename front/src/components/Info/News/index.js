@@ -71,7 +71,7 @@ export default function TopNFT() {
     return (
 <Box
         sx={{
-            minWidth: '420px',
+            minWidth: 'auto',
             height: 'auto',
             boxShadow: 5,
             display: 'flex',
