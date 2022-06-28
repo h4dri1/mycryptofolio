@@ -8,5 +8,9 @@ module.exports = async (fetchData) => {
     if (!coins) {
         throw new PublicApiError(fetchData);
     }
-    return data = await coins.json();
+    if (coins.status === 404) {
+        return data = {status: coins.statusText};
+    } else {
+        return data = await coins.json();
+    }
 }

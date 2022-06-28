@@ -87,11 +87,15 @@ module.exports = {
 
     getNFTCollection: async (req, res, next) => {
         try {
-            const data = await service_fetch(`//api.opensea.io/api/v1/collection/${req.params.collection}`);
-            res.status(200).json(data);
+            const list = await service_fetch(`//api.opensea.io/api/v1/collection/${req.params.collection}`);
+
+            if (list.status === 'Not Found') {
+                return res.status(200).json(list);
+            }
+            res.status(200).json(list.collection);
         } catch (err) {
             next(err);
-        }
+        } 
     },
 
     getTopNFT: async (req, res, next) => {
