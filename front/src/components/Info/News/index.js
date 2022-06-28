@@ -71,7 +71,7 @@ export default function TopNFT() {
     return (
 <Box
         sx={{
-            minWidth: '15vw',
+            width: '400px',
             height: 'auto',
             boxShadow: 5,
             display: 'flex',
@@ -85,7 +85,7 @@ export default function TopNFT() {
         }}
         >
             <Container >
-            <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, width: 'auto', justifyContent: 'center' }}>
+            <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
                 <DeviceThermostatIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
             </Container>
             <Divider sx={{ marginBottom: 2 }} />

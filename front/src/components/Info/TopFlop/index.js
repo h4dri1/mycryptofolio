@@ -66,7 +66,7 @@ export default function TopFlop() {
     return (
         <Box
         sx={{
-            minWidth: '27vw',
+            width: '400px',
             height: 'auto',
             boxShadow: 5,
             display: 'flex',
@@ -80,11 +80,11 @@ export default function TopFlop() {
         }}
         >
             <Container sx={{ marginBottom: 3 }}>
-            <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, width: 'auto', justifyContent: 'center' }}>
+            <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
                 <WhatshotIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending</Typography>
             </Container>
             <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#fdecf7' : '', borderRadius: '10px'}}>
-                <Table sx={{ minWidth: 10 }} size='small' aria-label="a dense table">
+                <Table size='small' aria-label="a dense table">
                     <TableHead sx={{backgroundColor: '#e1a2d8'}}>
                         <TableRow>
                             <TableCell ></TableCell>

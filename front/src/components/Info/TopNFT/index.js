@@ -54,7 +54,7 @@ export default function TopNFT() {
     return (
 <Box
         sx={{
-            minWidth: '27vw',
+            width: '400px',
             height: 'auto',
             boxShadow: 5,
             display: 'flex',
@@ -68,36 +68,36 @@ export default function TopNFT() {
         }}
         >
             <Container sx={{ marginBottom: 3 }}>
-            <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, width: 'auto', justifyContent: 'center' }}>
-                <InsertPhotoIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Top NFT</Typography>
-            </Container>
-            <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#fdecf7' : '', borderRadius: '10px' }}>
-                <Table sx={{ minWidth: 10 }} size='small' aria-label="a dense table">
-                    <TableHead sx={{backgroundColor: '#e1a2d8'}}>
-                        <TableRow>
-                            <TableCell ></TableCell>
-                            <TableCell>Nom</TableCell>
-                            <TableCell>Value</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {nfts.map((nft) => (
-                        <TableRow 
-                        key={nft.rank}
-                        hover
-                        >
-                        <TableCell sx={{borderBottom: 0 }}>
-                        <Box component={RouterLink} to={`/nft/${nft.productPath.replaceAll('-', '')}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                            <Avatar src={nft.iconUrl} alt={nft.contractName} sx={{ width: 38, height: 38, marginLeft: 1 }} />
-                        </Box>
-                        </TableCell>
-                        <TableCell sx={{borderBottom: 0 }}>{nft.contractName}</TableCell>
-                        <TableCell sx={{borderBottom: 0 }}>${Math.round(nft.valueUSD).toLocaleString()}</TableCell>
-                        </TableRow >
-                    ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
+                    <InsertPhotoIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Top NFT</Typography>
+                </Container>
+                <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#fdecf7' : '', borderRadius: '10px' }}>
+                    <Table size='small' aria-label="a dense table">
+                        <TableHead sx={{backgroundColor: '#e1a2d8'}}>
+                            <TableRow>
+                                <TableCell ></TableCell>
+                                <TableCell>Nom</TableCell>
+                                <TableCell>Value</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {nfts.map((nft) => (
+                            <TableRow 
+                            key={nft.rank}
+                            hover
+                            >
+                            <TableCell sx={{borderBottom: 0 }}>
+                            <Box component={RouterLink} to={`/nft/${nft.productPath.replaceAll('-', '')}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                                <Avatar src={nft.iconUrl} alt={nft.contractName} sx={{ width: 38, height: 38, marginLeft: 1 }} />
+                            </Box>
+                            </TableCell>
+                            <TableCell sx={{borderBottom: 0 }}>{nft.contractName}</TableCell>
+                            <TableCell sx={{borderBottom: 0 }}>${Math.round(nft.valueUSD).toLocaleString()}</TableCell>
+                            </TableRow >
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Container>
         </Box>
     );

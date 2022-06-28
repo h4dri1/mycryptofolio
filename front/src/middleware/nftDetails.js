@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import { FETCH_NFT_DATA, fetchNFTDataSuccess } from 'src/actions/nftDetails';
 
+import { setDisplaySnackBar } from 'src/actions/settings';
+
 import { setPending } from 'src/actions/settings';
 
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
@@ -16,6 +18,9 @@ const nftDetails = (store) => (next) => (action) => {
         url: `/nft/collections/${action.payload}`,
       })
         .then((res) => {
+          if (res.data.status === 'Not Found') {
+            store.dispatch(setDisplaySnackBar({ severity: 'error', message: `Erreur lors de la récupération des informations` }));
+          }
           store.dispatch(fetchNFTDataSuccess(res.data));
           store.dispatch(setPending())
         })
