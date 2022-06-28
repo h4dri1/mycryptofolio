@@ -25,6 +25,7 @@ import { makeStyles } from '@mui/styles';
 import TopFlop from './TopFlop'
 import News from './News'
 import TopNFT from './TopNFT'
+import CryptoList from '../CryptoList'
 
 const useStyles = makeStyles({
     grid: {
@@ -70,10 +71,11 @@ export default function Info() {
             className={classes.grid}  
         >
             <Loading />
-            <Grid className={classes.gridItem}>
+            <Grid item className={classes.gridItem}>
               <TopFlop/>
               <News/>
               <TopNFT/>
+              <CryptoList/>
             </Grid>
         </Grid >
     );

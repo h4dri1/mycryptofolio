@@ -71,13 +71,13 @@ export default function TopNFT() {
     return (
 <Box
         sx={{
-            width: '400px',
+            minWidth: '420px',
             height: 'auto',
             boxShadow: 5,
             display: 'flex',
             flexDirection: 'column',
-            margin: '5px',
             flexWrap: 'wrap',
+            margin: '5px',
             marginTop: '20px',
             borderRadius: '10px',
             backgroundColor: image ? '#FF3CAC' : color,

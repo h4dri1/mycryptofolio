@@ -34,7 +34,6 @@ export default function Home({ displayLogin }) {
       <TopBanner />
       <Navbar />
       <Info />
-      <CryptoList />
       <Footer />
     </div>
   );
