@@ -34,7 +34,8 @@ import {
     Table,
     TableCell,
     TableBody,
-    Avatar
+    Avatar,
+    useMediaQuery
 } from '@mui/material';
 
 export default function TopNFT() {
@@ -54,6 +55,10 @@ export default function TopNFT() {
         var image = 'linear-gradient(180deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
     }
 
+    const hideButton = useMediaQuery('(min-width:900px)');
+    const hide1100 = useMediaQuery('(max-width:1100px)');
+    const hide500 = useMediaQuery('(max-width:600px)');
+
     const value = Object.keys(fearAndGreed).map((item) => {
         if (item === 'data') {
             var fearValue = fearAndGreed[item][0].value;
@@ -71,7 +76,7 @@ export default function TopNFT() {
     return (
 <Box
         sx={{
-            minWidth: 'auto',
+            width: hide500 ? '350px': 'auto',
             height: 'auto',
             boxShadow: 5,
             display: 'flex',

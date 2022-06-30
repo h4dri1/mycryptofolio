@@ -73,8 +73,8 @@ export default function Info() {
               <TopFlop/>
               <News/>
               <TopNFT/>
-              <CryptoList/>
             </Grid>
+            <CryptoList/>
         </Grid >
     );
 }
