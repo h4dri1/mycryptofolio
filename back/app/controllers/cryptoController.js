@@ -85,29 +85,6 @@ module.exports = {
         }
     },
 
-    getNFTCollection: async (req, res, next) => {
-        try {
-            const list = await service_fetch(`//api.opensea.io/api/v1/collection/${req.params.collection}`);
-
-            if (list.status === 'Not Found') {
-                return res.status(200).json(list);
-            }
-            res.status(200).json(list.collection);
-        } catch (err) {
-            next(err);
-        } 
-    },
-
-    getTopNFT: async (req, res, next) => {
-        try {
-            const data = await service_fetch(`//api.cryptoslam.io/v1/collections/top-100?timeRange=week`);
-            const newData = data.slice(0, req.params.nb);
-            res.status(200).json(newData);
-        } catch (err) {
-            next(err);
-        }
-    },
-
     getFearAndGreed: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.alternative.me/fng/?limit=1`);

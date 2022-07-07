@@ -8,7 +8,8 @@ const {
     cryptoController,
     portfolioController,
     walletController, 
-    transactionController
+    transactionController,
+    nftsController
 } = require('./controllers');
 
 const { loginSchema,
@@ -130,9 +131,10 @@ router
     )
 
 router
-    .get('/nft/collections/:collection', cache, cryptoController.getNFTCollection)
+    .get('/test', nftsController.getTestNFT)
+    .get('/nft/collections/:collection', cache, nftsController.getNFTCollection)
     .get('/index/fearandgreed', cache, cryptoController.getFearAndGreed)
-    .get('/nft/top/:nb(\\d+)', cache, cryptoController.getTopNFT)
+    .get('/nft/top/:nb(\\d+)', cache, nftsController.getTopNFT)
     .get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto)
     .get('/crypto/:id/:nbd(\\d+)?', validateParams(getOneCryptoSchema), cache, cryptoController.getOneCrypto)
     .get('/cryptos', cache, cryptoController.getAllCryptos)
