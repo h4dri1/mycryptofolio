@@ -3,13 +3,14 @@ import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { Box } from '@mui/material'
+
 import { toggleLoginModal } from 'src/actions/settings';
 
 import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
-import CryptoList from 'src/components/CryptoList';
+import NFTList from 'src/components/NFTList';
 import Footer from 'src/components/Footer';
-import Info from 'src/components/Info';
 
 export default function Home({ displayLogin }) {
   const dispatch = useDispatch();
@@ -33,7 +34,8 @@ export default function Home({ displayLogin }) {
     <div className="">
       <TopBanner />
       <Navbar />
-      <Info />
+      <Box sx={{height: '14vh'}}/>
+      <NFTList/>
       <Footer />
     </div>
   );

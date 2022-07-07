@@ -27,7 +27,7 @@ import { useMediaQuery } from '@mui/material';
 const Indicators = ({ data }) => {
 
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
-  const hideButton = useMediaQuery('(min-width:900px)');
+  const hideButton = useMediaQuery('(min-width:1000px)');
 
   return (
     <Container

@@ -4,6 +4,7 @@ const cryptoController = require('./cryptoController');
 const portfolioController = require('./portfolioController');
 const walletController = require('./walletController');
 const transactionController = require('./transactionController');
+const nftsController = require('./nftsController'); 
 
 module.exports = {
     tokenController,
@@ -11,5 +12,6 @@ module.exports = {
     cryptoController,
     portfolioController,
     walletController,
-    transactionController
+    transactionController,
+    nftsController
 }

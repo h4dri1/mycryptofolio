@@ -28,6 +28,15 @@ CREATE TABLE crypto (
     price numeric(16,8)
 );
 
+CREATE TABLE nft (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    rank INT NOT NULL,
+    icon_url TEXT NOT NULL,
+    name TEXT NOT NULL,
+    base_currency TEXT NOT NULL,
+    value
+);
+
 CREATE TABLE transaction (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     buy_date TIMESTAMPTZ NOT NULL,

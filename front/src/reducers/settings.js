@@ -5,6 +5,7 @@ import {
   TOGGLE_CONFIRM_DELETE,
   TOGGLE_TRANSACTION_EDITOR,
   SET_PENDING,
+  CHANGE_COLOR,
 } from 'src/actions/settings';
 
 if (localStorage.getItem('darkMode')) {
@@ -15,6 +16,7 @@ if (localStorage.getItem('darkMode')) {
 }
 
 export const initialState = {
+  colorTheme: 'gradient',
   darkMode: dark,
   loginIsOpen: false,
   deleteItem: {
@@ -33,6 +35,13 @@ export const initialState = {
 
 const settings = (state = initialState, action = {}) => {
   switch (action.type) {
+    case CHANGE_COLOR: {
+      return {
+        ...state,
+        colorTheme: action.payload,
+      };
+    }
+  
     case TOGGLE_DARK_MODE: {
       localStorage.setItem('darkMode', !state.darkMode);
       return ({

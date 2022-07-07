@@ -7,6 +7,9 @@ import UnknowRoute from 'src/pages/404';
 import ContactPage from 'src/pages/ContactPage';
 import ProfilPage from 'src/pages/ProfilPage';
 import ForgotPass from 'src/pages/ForgotPass';
+import MarketPage from 'src/pages/MarketPage';
+import NFTPage from 'src/pages/NFTPage';
+import NFTDetails from 'src/pages/NFTDetails';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -68,8 +71,11 @@ const App = () => {
         <AlertMsg />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/market" element={<MarketPage />} />
+          <Route path="/nft" element={<NFTPage />} />
           <Route path="/login" element={<Home displayLogin />} />
           <Route path="/crypto/:slug" element={<CryptoPage />} />
+          <Route path="/nft/:slug" element={<NFTDetails />} />
           <Route path="/portfolio" element={<Portfolio />}>
             <Route path="/portfolio/:walletName" element={<Portfolio />} />
           </Route>

@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Indicators from './Indicators';
 import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
+import Color from './Color';
 
 import { getCryptoList, updateCurrency } from 'src/actions/cryptos';
 
@@ -47,6 +48,7 @@ const TopBanner = () => {
                     }}
                 >
                     <RefCurrency />
+                    <Color /> 
                     <ToggleMode />
                 </Container>
             </Toolbar>
