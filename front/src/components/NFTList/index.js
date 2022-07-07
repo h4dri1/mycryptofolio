@@ -87,7 +87,7 @@ function NFTList() {
               <TableRow key={nft.rank} hover>
                 <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' } }}>{nft.rank}</TableCell>
                 <TableCell>
-                <Box component={RouterLink} to={`/nft/${nft.productPath.replaceAll('-', '')}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                <Box component={RouterLink} to={`/nft`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
                   <Avatar src={nft.iconUrl} alt={nft.productPath} sx={{ width: 75, height: 75, marginLeft: 1 }} />
                 </Box>
                 </TableCell>
