@@ -28,11 +28,9 @@ const useStyles = makeStyles({
     gridItem: {
       borderColor: '#E7EBF0',
       borderRadius: 2,
-      display: 'inline-flex',
+      display: 'flex',
       flexWrap: 'wrap',
-      justifyContent: 'center',
-      alignItems: 'stretch',
-      columnGap: '20rem'
+      justifyContent: 'center'
     },
     gridSubItem: {
       border: 'solid 2px gold',
@@ -52,22 +50,26 @@ function NFTDetails() {
   }, []);
 
   return (
-<Grid
-    container
-    display={'flex'}
-    direction={'column'}
-    alignItems={'center'}
-    className={classes.grid}
->
-    <Loading />
-    <Grid item xs={12} className={classes.gridItem}></Grid>   
-        <AvatarNFT/>
-    <Grid/>
-    <Grid item xs={12} className={classes.gridItem}>
-        <Description/> 
-        <Data />
-    </Grid>
-</Grid >
+    <Grid
+        container
+        display={'flex'}
+        direction={'column'}
+        alignItems={'center'}
+        className={classes.grid}
+    >
+        <Loading />
+        <Grid item xs={12} className={classes.gridItem} sx={{ width: '100%'}}>
+            <AvatarNFT/>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem} sx={{ width: '90%', marginTop: 15}}>
+            <Box sx={{ width: '50%', display: 'flex', justifyContent: 'center', minWidth: '320px' }}>
+              <Description/> 
+            </Box>
+            <Box sx={{ width: '50%', display: 'flex', justifyContent: 'center', minWidth: '320px' }}>
+              <Data />
+            </Box>
+        </Grid>
+    </Grid >
   );
 }
 

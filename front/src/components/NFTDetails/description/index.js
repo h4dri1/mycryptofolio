@@ -28,7 +28,7 @@ export default function Password() {
     return (
 <Box
         sx={{
-            minWidth: '400px',
+            minWidth: 'auto',
             height: 'auto',
             boxShadow: 5,
             display: 'flex',
@@ -39,8 +39,8 @@ export default function Password() {
             backgroundColor: '#fdecf7'
         }}
         >
-        <Container maxWidth={'sm'}>
-            <Box sx={{width: '95%'}}>
+        <Container maxWidth={'sm'} sx={{ display: 'flex', justifyContent: 'center'}}>
+            <Box sx={{ width: '95%'}}>
                 <Typography color="primary.dark" variant="h5" align="center">{name}</Typography>
                 <Divider sx={{ marginBottom: '10px' }} />
                 <Typography sx={{ fontSize: '1.2em' ,textAlign: 'justify', marginTop: 4 }}>{description}</Typography>
