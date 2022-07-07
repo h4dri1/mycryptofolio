@@ -142,7 +142,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ mt: 4.8 }}>
+      <AppBar position="static" >
         <Toolbar
           disableGutters
         >

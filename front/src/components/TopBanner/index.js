@@ -32,8 +32,8 @@ const TopBanner = () => {
     }, []);
 
     return (
-        <AppBar sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: "#f6eaf7" }}>
-            <Toolbar position="sticky" disableGutters>
+        <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: "#f6eaf7"}}>
+            <Toolbar  disableGutters>
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />
                 </Link>}
