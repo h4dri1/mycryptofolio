@@ -21,7 +21,7 @@ import Loading from '../Loading'
 const useStyles = makeStyles({
   grid: {
     height: '100%',
-    marginTop: '130px',
+    marginTop: '20px',
     marginBottom: '50px',
   },
   gridItem: {
