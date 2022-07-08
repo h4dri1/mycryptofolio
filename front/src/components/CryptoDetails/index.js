@@ -17,7 +17,7 @@ import Loading from '../Loading';
 
 const useStyles = makeStyles({
   grid: {
-    marginTop: '140px',
+    marginTop: '20px',
     height: '100%',
     padding: 0,
   },
