@@ -7,9 +7,12 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler
 } from 'chart.js';
 
 import { Line } from 'react-chartjs-2';
+
+ChartJS.register(Filler);
 
 import PropTypes from 'prop-types';
 
@@ -39,26 +42,42 @@ export default function Graph({ chart }) {
   }
 
   // duration of the animation
-  const totalDuration = 10000;
+  const totalDuration = 3000;
   const delayBetweenPoints = totalDuration / data.length;
   const previousY = (ctx) => (ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y);
 
   // title of graph
-  const cryptoName = data.name;
+
 
   const options = {
     responsive: true,
     aspectRatio: window.innerWidth < 600 ? 1 : 3,
+    scales: {
+      x: {
+        ticks:{
+          maxTicksLimit: 12,
+          maxRotation: 360,
+          minRotation: 360,
+          labelOffset: 40
+        },
+        grid: {
+          display: false,
+        }
+      },
+      y: {
+        ticks: {
+          beginAtZero: true,
+        },
+        grid: {
+          display: true
+        }
+      },
+    },
     plugins: {
       legend: {
-        display: true,
+        display: false,
         position: 'top',
-      },
-      title: {
-        display: true,
-        text: cryptoName,
-        color: '#B5179E',
-      },
+      }
     },
     animation: {
       x: {
@@ -95,27 +114,41 @@ export default function Graph({ chart }) {
 
   const dataDays = (chart.prices.map((element) => {
     const date = new Date(element[0]);
-    return `${date.getDate()}/${(date.getMonth() + 1)}`;
+    //return `${date.getDate()}/${(date.getMonth() + 1)}`;
+    return `${date.getHours()}:${date.getMinutes()}`;
   }));
 
   // 3 lines of the GRAPH from API
-  const dataPrices = (chart.prices.map((element) => ((element[1]).toFixed(0))));
+
+  const dataPrices = chart.prices;
   // const marketCapPrices = (chart.market_caps.map((element) => ((element[1]).toFixed(0))));
   // const marketVolumes = (chart.total_volumes.map((element) => ((element[1]).toFixed(0))));
 
   // const defaultNotChecked = Chart.defaults.datasets.line.showLine = false;
 
-  const graphData = {
+  var chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(231,233,237)',
+    test: '#6EDCD9'
+  };
 
+  const graphData = {
+    type: 'line',
     // days in x
     labels: dataDays,
     datasets: [
       {
-        label: 'Cours actuel',
         // prices in y
         data: dataPrices,
-        borderColor: ['rgb(244, 67, 54)'],
-        backgroundColor: ['rgb(244, 67, 54)'],
+        pointRadius: 0,
+        borderColor: chartColors.green,
+        backgroundColor: chartColors.test,
+        fill: true
       },
       // {
       //     label: 'Market cap.',
@@ -133,7 +166,7 @@ export default function Graph({ chart }) {
     ],
   };
 
-  return <Line options={options} data={graphData} />;
+  return <Line options={options} data={graphData}/>;
 }
 
 Graph.propTypes = {

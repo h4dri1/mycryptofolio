@@ -13,7 +13,7 @@ const cryptoDetails = (store) => (next) => (action) => {
       axios({
         method: 'get',
         baseURL,
-        url: `/crypto/${action.payload}`,
+        url: `/crypto/${action.payload}/${action.days}`,
       })
         .then((res) => {
           // fetchCryptoDataSuccess(res.data)

@@ -1,9 +1,9 @@
 export const FETCH_CRYPTO_DATA = 'FETCH_CRYPTO_DATA';
 export const FETCH_CRYPTO_DATA_SUCCESS = 'FETCH_CRYPTO_DATA_SUCCESS';
 
-export const fetchCryptoData = (payload) => ({
+export const fetchCryptoData = (payload, days) => ({
     type: FETCH_CRYPTO_DATA,
-    payload,
+    payload, days,
 });
 
 export const fetchCryptoDataSuccess = (payload) => ({

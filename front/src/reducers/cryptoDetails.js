@@ -2,8 +2,11 @@ import {
     FETCH_CRYPTO_DATA, FETCH_CRYPTO_DATA_SUCCESS
 } from 'src/actions/cryptoDetails';
 
+
+
 const initialState = {
     loading: true,
+    days: 1,
     data: {
         name: "",
     },
@@ -20,6 +23,7 @@ const cryptoDetailsReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 loading: true,
+                days: action.days,
             };
         }
         case FETCH_CRYPTO_DATA_SUCCESS:
@@ -27,7 +31,7 @@ const cryptoDetailsReducer = (state = initialState, action = {}) => {
                 ...state,
                 data: action.payload.data,
                 chart: action.payload.chart,
-                loading: false
+                loading: false,
             };
         default:
             return state;

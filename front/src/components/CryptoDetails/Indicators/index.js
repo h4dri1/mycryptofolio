@@ -1,256 +1,58 @@
 /* eslint-disable no-dupe-keys */
 import PropTypes from 'prop-types';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Chip, Divider } from '@mui/material';
+
+import PaidIcon from '@mui/icons-material/Paid';
+import BatteryCharging90Icon from '@mui/icons-material/BatteryCharging90';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import FactoryIcon from '@mui/icons-material/Factory';
 
 export default function Indicators({ data }) {
   const lastUpdateDate = new Date(data.market_data.last_updated);
 
   return (
-    <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', mt: 2, color: 'text.secondary',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Rang Market cap.:
-        </Typography>
-        <Typography sx={{
-          fontWeight: 'normal', mx: 1, fontSize: 12, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.market_cap_rank}
-        </Typography>
+    <Box >
+      <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <Box>
+          <img
+            src={`${data.image.small}?w=248&fit=crop&auto=format`}
+            //   srcSet={`${data.image.thumb}?w=248&fit=crop&auto=format&dpr=2 2x`}
+            alt={`logo ${data.id}`}
+            loading="lazy"
+          />
+        </Box>
+        <Box sx={{ fontSize: '2em', marginLeft: 1}}>{data.name}</Box>
       </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary', flexWrap: 'wrap',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Contrevaleur:
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>BTC:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.current_price.btc}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>ETH:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.current_price.eth}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>EUR:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.current_price.eur}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>USD:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.current_price.usd}
-        </Typography>
+      <Divider/>
+      <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center', marginTop: 4 }}>
+        <PaidIcon fontSize='large' sx={{ color: 'primary.dark' }}/>
+        <Typography sx={{marginLeft: 1}}>MarketCap : ${data.market_data.market_cap.usd}</Typography>
       </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary', flexWrap: 'wrap',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Market cap.:
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>BTC:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.market_cap.btc}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>ETH:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.market_cap.eth}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>EUR:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.market_cap.eur}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>USD:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.market_cap.usd}
-        </Typography>
+      <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
+        <BatteryCharging90Icon fontSize='large' sx={{ color: 'primary.dark' }}/>
+        <Typography sx={{marginLeft: 1}}>Fully diluted valuation : ${data.market_data.fully_diluted_valuation}</Typography>
       </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'baseline', color: 'text.secondary', flexWrap: 'wrap',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Total volume:
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>BTC:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.total_volume.btc}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>ETH:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.total_volume.eth}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>EUR:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.total_volume.eur}
-        </Typography>
-
-        <Typography sx={{ mx: 0.5, fontSize: 10.8 }}>USD:</Typography>
-        <Typography sx={{
-          fontWeight: 'normal', fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.total_volume.usd}
-        </Typography>
+      <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
+        <CurrencyExchangeIcon fontSize='large' sx={{ color: 'primary.dark' }}/>
+        <Typography sx={{marginLeft: 1}}>24h Volume : ${data.market_data.total_volume.usd}</Typography>
       </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          % market cap. 24h:
-        </Typography>
-        <Typography sx={{
-          fontWeight: 'normal', mx: 1, fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.market_cap_change_percentage_24h}
-        </Typography>
+      <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
+        <ChangeCircleIcon fontSize='large' sx={{ color: 'primary.dark' }}/>
+        <Typography sx={{marginLeft: 1}}>Circulating supply : {data.market_data.circulating_supply}</Typography>
       </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Total supply:
-        </Typography>
-        <Typography sx={{
-          fontWeight: 'normal', mx: 1, fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.total_supply}
-        </Typography>
+      <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
+        <FactoryIcon fontSize='large' sx={{ color: 'primary.dark' }}/>
+        <Typography sx={{marginLeft: 1}}>Max supply : {data.market_data.max_supply}</Typography>
       </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Max supply:
-        </Typography>
-        <Typography sx={{
-          fontWeight: 'normal', mx: 1, fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.max_supply}
-        </Typography>
+      <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 4 }}>
+        <Chip sx={{marginRight: 1}} color='secondary' label="Website" component="a" href={data.links} clickable/>
+        <Chip sx={{marginLeft: 1}} color='secondary' label="GitHub" component="a" href={data.repos_url[0]} clickable/>
       </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Circulating supply:
-        </Typography>
-        <Typography sx={{
-          fontWeight: 'normal', mx: 1, fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.market_data.circulating_supply}
-        </Typography>
-      </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Dernière mise à jour:
-        </Typography>
-        <Typography sx={{
-          fontWeight: 'normal', mx: 1, fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {`${lastUpdateDate.getDate()}/${(lastUpdateDate.getMonth() + 1)}/${lastUpdateDate.getFullYear()}`}
-        </Typography>
-      </Box>
-
-      <Box sx={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Lien:
-        </Typography>
-        <Typography sx={{
-          fontWeight: 'normal', mx: 1, fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.links}
-        </Typography>
-      </Box>
-
-      <Box sx={{
-        mb: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', color: 'text.secondary',
-      }}
-      >
-        <Typography sx={{ fontWeight: 'bold', fontSize: 12.5 }}>
-          Repos:
-        </Typography>
-        <Typography sx={{
-          fontWeight: 'normal', mx: 1, fontSize: 10.8, color: 'secondary.main', fontWeight: 'bold',
-        }}
-        >
-          {data.repos_url[0]}
-        </Typography>
-      </Box>
+      
     </Box>
+
   );
 }
 
