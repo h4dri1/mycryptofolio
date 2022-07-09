@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react';
 export default function SearchCrypto() {
     const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
     const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
+    const { days } = useSelector((state) => state.cryptoDetails);
 
     // Get all 20k cryptos
     const allCryptos = useSelector((state) => state.cryptos.allCryptos);
@@ -70,7 +71,7 @@ export default function SearchCrypto() {
                 renderOption={(props, option) => (
                     <Link
                         underline="none"
-                        onClick={() => dispatch(fetchCryptoData(option.id))}
+                        onClick={() => dispatch(fetchCryptoData(option.id, days))}
                         key={option.id}
                         component={RouterLink}
                         to={`/crypto/${option.id}`}
