@@ -23,7 +23,6 @@ const cryptoDetailsReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 loading: true,
-                days: action.days,
             };
         }
         case FETCH_CRYPTO_DATA_SUCCESS:
