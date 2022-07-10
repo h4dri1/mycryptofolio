@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_CRYPTO_DATA, fetchCryptoDataSuccess } from 'src/actions/cryptoDetails';
+import { FETCH_CRYPTO_DATA, updateCryptoData } from 'src/actions/cryptoDetails';
 
 import { setPending } from 'src/actions/settings';
 
@@ -17,7 +17,7 @@ const cryptoDetails = (store) => (next) => (action) => {
       })
         .then((res) => {
           // fetchCryptoDataSuccess(res.data)
-          store.dispatch(fetchCryptoDataSuccess(res.data));
+          store.dispatch(updateCryptoData(res.data));
           store.dispatch(setPending())
         })
         .catch((err) => {

@@ -1,11 +1,8 @@
 import {
-    FETCH_CRYPTO_DATA, FETCH_CRYPTO_DATA_SUCCESS
+    FETCH_CRYPTO_DATA, UPDATE_CRYPTO_DATA
 } from 'src/actions/cryptoDetails';
 
-
-
 const initialState = {
-    loading: true,
     days: 1,
     data: {
         name: "",
@@ -22,16 +19,23 @@ const cryptoDetailsReducer = (state = initialState, action = {}) => {
         case FETCH_CRYPTO_DATA: {
             return {
                 ...state,
-                loading: true,
+                data: {
+                    name: "",
+                },
+                chart: {
+                    prices: [],
+                    market_caps: [],
+                    total_volumes: [],
+                },
+                days: action.days,
             };
         }
-        case FETCH_CRYPTO_DATA_SUCCESS:
+        case UPDATE_CRYPTO_DATA:
             return {
                 ...state,
                 data: action.payload.data,
                 chart: action.payload.chart,
-                loading: false,
-            };
+              };
         default:
             return state;
     }

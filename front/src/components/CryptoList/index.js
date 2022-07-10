@@ -59,7 +59,7 @@ function CryptoList() {
     var cryptoSym = ''
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(getCryptoList());
   }, []);
 

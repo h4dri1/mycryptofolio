@@ -11,13 +11,12 @@ export default function Description({ data }) {
   });
 
   return (
-    <Box sx={{ padding: '1em 2em', display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{ padding: '1em 2em', display: 'flex', flexDirection: 'column', minWidth: '100%'}}>
       <Typography sx={{marginBottom: 2}} color='primary.main' variant="h5" component="h1">What is {data.name}?</Typography>
       <Box
         sx={{ color: 'text.secondary', fontSize: 12, fontWeight: 'small' }}
         dangerouslySetInnerHTML={createMarkup(data.description)}
       />
-      {!data.description && `More info: ${data.links}`}
     </Box>
   );
 }
