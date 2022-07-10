@@ -10,10 +10,11 @@ const cryptoDetails = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_CRYPTO_DATA:
       store.dispatch(setPending())
+      const { selectedCurrency } = store.getState().cryptos.cryptoList;
       axios({
         method: 'get',
         baseURL,
-        url: `/crypto/${action.payload}/${action.days}`,
+        url: `/crypto/${action.payload}/${selectedCurrency}/${action.days}`,
       })
         .then((res) => {
           // fetchCryptoDataSuccess(res.data)
