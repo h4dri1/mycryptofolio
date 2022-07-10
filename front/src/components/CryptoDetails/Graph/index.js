@@ -64,7 +64,7 @@ export default function Graph({ chart }) {
       }
     },
     animation: {
-      duration: 0
+      duration: 3000
     } 
   };
 

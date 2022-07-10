@@ -13,7 +13,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCryptoData } from 'src/actions/cryptoDetails';
+import { fetchCryptoData, fetchChartData } from 'src/actions/cryptoDetails';
 import Graph from './Graph';
 import Description from './Description';
 import Converter from './Converter';
@@ -66,7 +66,7 @@ function CryptoDetails() {
   }, []);
 
   const handleClick = (event) => {
-    dispatch(fetchCryptoData(slug, event.target.value));
+    dispatch(fetchChartData(slug, event.target.value));
   }
 
   const handleChange = (event, newRange) => {
