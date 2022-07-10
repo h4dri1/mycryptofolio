@@ -27,7 +27,7 @@ module.exports = {
             if (req.params.nbd) {
                 days = req.params.nbd
             }
-            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=usd&days=${req.params.nbd}`);
+            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=${req.params.cur}&days=${req.params.nbd}`);
             const superObj = {'data': {
                 'id': data.id,
                 'symbol': data.symbol,
