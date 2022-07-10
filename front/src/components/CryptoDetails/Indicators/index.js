@@ -57,8 +57,8 @@ if (data.market_data) {
 
   return (
     <>
-      <Box>
-        <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', minWidth: '350px' }}> 
+      <Box sx={{ padding: '1em 2em', display: 'flex', flexDirection: 'column', minWidth: '100%'}}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', minWidth: '100%'}}> 
           <Box>
               <img
                 src={data.image ? `${data.image.small}?w=248&fit=crop&auto=format` : 'https://via.placeholder.com/24x24?text=No+Image'}
