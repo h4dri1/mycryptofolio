@@ -79,7 +79,7 @@ export default function TestAvatar() {
             aria-expanded={open ? 'true' : undefined}
             aria-haspopup="true"
             onClick={handleToggle}
-            sx={{ ml: 1.5, width: 56, height: 56, boxShadow: 10 }}
+            sx={{ width: 56, height: 56, boxShadow: 10 }}
           />
           <Popper
             open={open}
