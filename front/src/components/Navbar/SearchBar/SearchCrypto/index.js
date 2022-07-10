@@ -48,7 +48,8 @@ export default function SearchCrypto() {
             gap={1}
             ml={{ xs: 2, sm: 3 }}
             sx={{
-                width: 'auto',
+                width: 230,
+                minWidth: 'auto',
                 borderRadius: '4px',
                 backgroundColor: 'primary.light',
                 '&:hover': {
