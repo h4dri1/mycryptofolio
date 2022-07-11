@@ -57,7 +57,7 @@ if (data.market_data) {
 
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: 'auto', justifyContent: 'left'}}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: '380px', justifyContent: 'left'}}>
         <Box sx={{ display: 'flex', flexDirection: 'row', minWidth: '100%', justifyContent: 'center'}}> 
           <Box>
               <img

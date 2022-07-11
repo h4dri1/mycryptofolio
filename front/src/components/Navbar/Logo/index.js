@@ -20,7 +20,7 @@ export default function Logo() {
           width: hide ? 30 : 70,
           height: hide ? 30 : 70,
           ml: 1,
-          borderRadius: '1rem',
+          borderRadius: '1rem'
         }}
         variant="square"
       />
