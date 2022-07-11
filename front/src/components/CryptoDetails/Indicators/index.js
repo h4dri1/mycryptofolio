@@ -55,9 +55,12 @@ if (data.market_data) {
     console.log('darkmode')
   }
 
+  const currentPrice = data.market_data ? data.market_data.current_price[selectedCurrency.toLowerCase()].toLocaleString("en-US", curParams) : 0;
+  const priceChange = data.market_data ? data.market_data.market_cap_change_percentage_24h : 0;
+
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: '380px', justifyContent: 'left'}}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'left'}}>
         <Box sx={{ display: 'flex', flexDirection: 'row', minWidth: '100%', justifyContent: 'center'}}> 
           <Box>
               <img
@@ -93,6 +96,7 @@ if (data.market_data) {
         <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 4 }}>
           <Chip sx={{marginRight: 1}} color='secondary' label="Website" component="a" href={data.links ? data.links : '#'} clickable/>
           <Chip sx={{marginLeft: 1}} color='secondary' label="GitHub" component="a" href={data.repos_url ? data.repos_url[0] : '#'} clickable/>
+          <Chip sx={{marginLeft: 1}} color='secondary' label="Explorer" component="a" href={data.explorer ? data.explorer : '#'} clickable/>
         </Box>
       </Box>
     </>

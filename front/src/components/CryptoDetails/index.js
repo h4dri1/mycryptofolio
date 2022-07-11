@@ -92,8 +92,8 @@ function CryptoDetails() {
         >
           <Grid container sx={{ justifyContent: 'center', display: 'flex', gridAutoFlow: 'row', flexDirection: 'row', flexWrap: 'wrap' }}>
             <Box xs={11} sx={{flex: 2, marginLeft: { xs: 1, lg: 6.5}, marginRight: { xs: 1, lg: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, minWidth: '65%'}}>
-              <Box sx={{justifyContent: {xs: 'center', lg: 'space-between'}, display: 'flex', flexWrap: 'wrap', marginTop: {xs: 0, lg: 2}, marginBottom: 2, width: '100%'}}>
-                <Box sx={{maxHeight: '30px', marginBottom: {xs: 1}, display: 'flex'}}>
+              <Box sx={{justifyContent: {xs: 'center', lg: 'space-between'}, display: 'flex', flexWrap: 'wrap', marginTop: {xs: 0, lg: 2}, marginBottom: 2}}>
+                <Box sx={{ marginBottom: {xs: 1}, display: 'flex'}}>
                   <Typography sx={{fontSize: '1.5rem', color: 'primary.main', mr: 1}}>{cryptoSym}{currentPrice}</Typography>
                   <Chip sx={{marginRight: 1}} color={priceChange < 0 ? 'secondary' : 'success'} label={`${Math.round(priceChange * 100) / 100}%`}/>
                 </Box>
