@@ -18,6 +18,7 @@ import Graph from './Graph';
 import Description from './Description';
 import Converter from './Converter';
 import Indicators from './Indicators';
+import Chip from '@mui/material/Chip';
 
 import Loading from '../Loading';
 
@@ -76,6 +77,7 @@ function CryptoDetails() {
   }
 
   const currentPrice = data.market_data ? data.market_data.current_price[selectedCurrency.toLowerCase()].toLocaleString("en-US", curParams) : 0;
+  const priceChange = data.market_data ? data.market_data.market_cap_change_percentage_24h : 0;
 
   return (
     <>
@@ -91,7 +93,10 @@ function CryptoDetails() {
           <Grid container sx={{ justifyContent: 'center', display: 'flex', gridAutoFlow: 'row', flexDirection: 'row', flexWrap: 'wrap' }}>
             <Box xs={11} sx={{flex: 2, marginLeft: { xs: 1, lg: 6.5}, marginRight: { xs: 1, lg: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, minWidth: '65%'}}>
               <Box sx={{justifyContent: {xs: 'center', lg: 'space-between'}, display: 'flex', flexWrap: 'wrap', marginTop: {xs: 0, lg: 2}, marginBottom: 2, width: '100%'}}>
-                <Box sx={{maxHeight: '30px', marginBottom: {xs: 1}}}><Typography sx={{fontSize: '1.5rem', color: 'primary.main'}}>{cryptoSym}{currentPrice}</Typography></Box>
+                <Box sx={{maxHeight: '30px', marginBottom: {xs: 1}, display: 'flex'}}>
+                  <Typography sx={{fontSize: '1.5rem', color: 'primary.main', mr: 1}}>{cryptoSym}{currentPrice}</Typography>
+                  <Chip sx={{marginRight: 1}} color={priceChange < 0 ? 'secondary' : 'success'} label={`${Math.round(priceChange * 100) / 100}%`}/>
+                </Box>
                 <ToggleButtonGroup sx={{maxHeight: '30px'}} value={range} onChange={handleChange} variant="contained" exclusive aria-label="outlined primary button group">
                     <ToggleButton value={1} onClick={handleClick}>24h</ToggleButton>
                     <ToggleButton value={7} onClick={handleClick}>7d</ToggleButton>
@@ -101,12 +106,12 @@ function CryptoDetails() {
                     <ToggleButton value={365} onClick={handleClick}>1a</ToggleButton>
                     <ToggleButton value={'max'} onClick={handleClick}>Max</ToggleButton>
                 </ToggleButtonGroup>  
-                </Box>
-                <Graph
-                  chart={chart}
-                  data={data}
-                />
               </Box>
+              <Graph
+                chart={chart}
+                data={data}
+              />
+            </Box>
             <Box xs={11} sx={{boxShadow: 4, borderRadius: '10px', padding: 2,  marginRight: {xs: 1, lg: 6.5}, marginTop: {xs: 4, lg: 0}, marginLeft: {xs: 1, lg: 0}}}>
               <Indicators
                 data={data}
