@@ -94,7 +94,7 @@ if (data.market_data) {
           <Typography sx={{marginLeft: 1}}>Max supply : {maxSupply}</Typography>
         </Box>
         <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 4 }}>
-          <Chip sx={{marginRight: 1}} color='secondary' label="Website" component="a" href={data.links ? data.links : '#'} clickable/>
+          <Chip color='secondary' label="Website" component="a" href={data.links ? data.links : '#'} clickable/>
           <Chip sx={{marginLeft: 1}} color='secondary' label="GitHub" component="a" href={data.repos_url ? data.repos_url[0] : '#'} clickable/>
           <Chip sx={{marginLeft: 1}} color='secondary' label="Explorer" component="a" href={data.explorer ? data.explorer : '#'} clickable/>
         </Box>
