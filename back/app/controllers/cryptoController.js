@@ -34,6 +34,7 @@ module.exports = {
                 'name': data.name,
                 'description': data.description.en,
                 'links': data.links.homepage[0],
+                'explorer': data.links.blockchain_site[0],
                 'repos_url': data.links.repos_url.github,
                 'image': {'thumb': [data.image.thumb][0], 'small': [data.image.small][0], 'large': [data.image.large][0]},
                 'market_data': {'current_price': {'btc': data.market_data.current_price.btc, 
