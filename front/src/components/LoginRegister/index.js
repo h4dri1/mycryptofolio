@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeField, existingUserToggle } from 'src/actions/user';
 import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 import { useState } from 'react';
+import Box from '@mui/material/Box';
 
 import Loading from '../Loading';
 
@@ -142,12 +143,12 @@ export default function LoginRegister({ type, handleFormSubmit }) {
     }
     
   return (
-    <>
-      <Container >
+    <Box>
+      <Container>
         <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
       </Container>
       <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
-      <Loading />
+        <Loading />
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
           { type === 'login' ? 'Connexion' : 'S\'inscrire' }
           <IconButton edge="end" aria-label="Fermer" onClick={handleToggleLoginModal}>
@@ -255,7 +256,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
           {forgotPassword && (<Button onClick={handleSubmit} variant="contained">Envoyer</Button>)}
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 }
 

@@ -9,10 +9,13 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
+import {  useSelector } from 'react-redux';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+
+import { useEffect } from 'react';
 
 import {
   AppBar,
@@ -71,6 +74,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const { homeIcon } = useSelector((state) => state.settings);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -161,20 +166,22 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </Link>}
           <Box sx={{ flexGrow: 1 }} />
-          <Link
-            component={RouterLink}
-            to="/market"
-            underline="none"
-            sx={{ color: 'white'}}
-          >
-          {hideButton && <Button sx={{textTransform: "none" }} color="secondary" startIcon={<CurrencyBitcoinIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
-            <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
-          </Button>}
-          {!hideButton && <CurrencyBitcoinIcon 
-            sx={{ width: 25, height: 25, ml: 1, mr: 1 }} 
-            color="primary.light"/>}
-
-          </Link>
+          {homeIcon && 
+            <Link
+              component={RouterLink}
+              to="/market"
+              underline="none"
+              sx={{ color: 'white'}}
+            >
+            {hideButton && <Button sx={{textTransform: "none" }} color="secondary" startIcon={<CurrencyBitcoinIcon sx={{ width: 30, height: 30 }} color="secondary"/>}>
+              <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
+            </Button>}
+            {!hideButton && <CurrencyBitcoinIcon 
+              sx={{ width: 25, height: 25, ml: 1, mr: 1 }} 
+              color="primary.light"/>}
+            </Link>
+          }
+          {homeIcon && 
           <Link
             component={RouterLink}
             to="/nft"
@@ -189,6 +196,8 @@ export default function PrimarySearchAppBar() {
             color="primary.light"/>}
 
           </Link>
+          }
+          {homeIcon && 
           <Link
             component={RouterLink}
             to="/"
@@ -202,6 +211,8 @@ export default function PrimarySearchAppBar() {
             sx={{ width: 25, height: 25, mr: 1 }} 
             color="primary.light"/>}
           </Link>
+          }
+          {homeIcon && 
           <Link
             component={RouterLink}
             to="/portfolio"
@@ -215,13 +226,13 @@ export default function PrimarySearchAppBar() {
             sx={{ width: 25, height: 25 }} 
             color="primary.light"/>}
           </Link>
+          }
           <Box sx={{ flexGrow: 1 }} />
           <SearchCrypto/>
           <MyAccount />
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+
     </Box >
   );
 }

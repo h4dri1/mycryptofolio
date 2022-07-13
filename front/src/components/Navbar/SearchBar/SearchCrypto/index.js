@@ -19,6 +19,7 @@ import {
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { setHomeIcon, toggleHomeIcon } from '../../../../actions/settings';
 
 export default function SearchCrypto() {
     const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
@@ -47,6 +48,7 @@ export default function SearchCrypto() {
             container
             gap={1}
             ml={{ xs: 2, sm: 3 }}
+            onTouchStart ={() => dispatch(setHomeIcon(false))}
             sx={{
                 width: 230,
                 minWidth: 'auto',
@@ -64,6 +66,7 @@ export default function SearchCrypto() {
                 disablePortal
                 id="cryptoCurrency"
                 options={someCryptos}
+                onClose={() => dispatch(setHomeIcon(true))}
                 getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
 
                 // ! For later, to enhance list aspect
@@ -93,7 +96,6 @@ export default function SearchCrypto() {
                     <TextField
                         {...params}
                         placeholder= {!hide ? "Rechercher une crypto" : ""}
-                        
                     />
                 )}
                 selectOnFocus

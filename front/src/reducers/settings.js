@@ -6,6 +6,7 @@ import {
   TOGGLE_TRANSACTION_EDITOR,
   SET_PENDING,
   CHANGE_COLOR,
+  SET_HOME_ICON
 } from 'src/actions/settings';
 
 if (localStorage.getItem('darkMode')) {
@@ -16,6 +17,7 @@ if (localStorage.getItem('darkMode')) {
 }
 
 export const initialState = {
+  homeIcon: true,
   colorTheme: 'gradient',
   darkMode: dark,
   loginIsOpen: false,
@@ -48,6 +50,13 @@ const settings = (state = initialState, action = {}) => {
         ...state,
         darkMode: !state.darkMode,
       });
+    }
+
+    case SET_HOME_ICON: {
+      return {
+        ...state,
+        homeIcon: action.payload,
+      };
     }
 
     case SET_PENDING: {

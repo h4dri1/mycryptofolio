@@ -24,7 +24,7 @@ import AlertMsg from 'src/components/common/AlertMessage';
 import { checkToken } from 'src/actions/user';
 import { getAllCryptos } from 'src/actions/cryptos';
 import { getIndicators } from 'src/actions/indicators';
-
+import { setHomeIcon } from '../../actions/settings';
 
 // == Composant
 
