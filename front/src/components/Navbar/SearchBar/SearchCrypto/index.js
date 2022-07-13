@@ -6,7 +6,7 @@ import {
 // import TextField from '@mui/material/TextField';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
-import { useMediaQuery } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -80,12 +80,12 @@ export default function SearchCrypto() {
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img
                                 loading="lazy"
-                                width="20"
+                                width="25"
                                 src={option.image}
                                 // srcSet={`${option.image} 2x`}
                                 alt=""
                             />
-                            {option.symbol.toUpperCase()}{!hide && `: ${option.name}`}
+                            <Typography sx={{fontSize: '0.8em'}}>{option.symbol.toUpperCase()}{!hide && `: ${option.name}`}</Typography>
                         </Box>
                     </Link>
                 )}

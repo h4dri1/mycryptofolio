@@ -31,6 +31,8 @@ import Loading from '../Loading';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 import {
   Link
 } from '@mui/material';
@@ -141,7 +143,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
     
   return (
     <>
-      <Container>
+      <Container >
         <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
       </Container>
       <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>

@@ -91,8 +91,8 @@ function CryptoDetails() {
           className={classes.grid}
         >
           <Grid container sx={{ justifyContent: 'center', display: 'flex', gridAutoFlow: 'row', flexDirection: 'row', flexWrap: 'wrap' }}>
-            <Box xs={11} sx={{flex: 2, marginLeft: { xs: 1, lg: 6.5}, marginRight: { xs: 1, lg: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, minWidth: '60%'}}>
-              <Box sx={{justifyContent: {xs: 'center', lg: 'space-between'}, display: 'flex', flexWrap: 'wrap', marginTop: {xs: 0, lg: 2}, marginBottom: 2}}>
+            <Box xs={11} sx={{flex: 2, marginLeft: { xs: 1, lg: 1, xl: 6.5}, marginRight: { xs: 1, lg: 1,  xl: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, minWidth: '55%'}}>
+              <Box sx={{justifyContent: {xs: 'center', lg: 'space-between', xl: 'space-between'}, display: 'flex', flexWrap: 'wrap', marginTop: {xs: 0, lg: 2, xl: 2}, marginBottom: 2}}>
                 <Box sx={{ marginBottom: {xs: 1}, display: 'flex'}}>
                   <Typography sx={{fontSize: '1.5rem', color: 'primary.main', mr: 1}}>{cryptoSym}{currentPrice}</Typography>
                   <Chip sx={{marginRight: 1}} color={priceChange < 0 ? 'secondary' : 'success'} label={`${Math.round(priceChange * 100) / 100}%`}/>
@@ -107,17 +107,17 @@ function CryptoDetails() {
                     <ToggleButton value={'max'} onClick={handleClick}>Max</ToggleButton>
                 </ToggleButtonGroup>  
               </Box>
-              <Graph
+              <Graph 
                 chart={chart}
                 data={data}
               />
             </Box>
-            <Box xs={11} sx={{boxShadow: 4, borderRadius: '10px', padding: 2,  marginRight: {xs: 1, lg: 6.5}, marginTop: {xs: 4, lg: 0}, marginLeft: {xs: 1, lg: 0}}}>
+            <Box xs={11} sx={{boxShadow: 4, borderRadius: '10px', padding: 2,  marginRight: {xs: 1, lg: 1, xl: 6.5}, marginTop: {xs: 4, md: 0, lg: 0, xl: 0}, marginLeft: {xs: 1, lg: 1, xl: 0}}}>
               <Indicators
                 data={data}
               />
             </Box>
-            <Box xs={11} sx={{marginTop: 4, marginLeft: {xs: 1, lg: 6.5}, marginRight: {xs: 1, lg: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, width: 1}}>
+            <Box xs={11} sx={{marginTop: 4, marginLeft: {xs: 1, xl: 6.5}, marginRight: {xs: 1, xl: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, width: 1}}>
               <Description
                 sx={{ gridAutoRows: '100px' }}
                 data={data}

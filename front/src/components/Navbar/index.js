@@ -171,7 +171,7 @@ export default function PrimarySearchAppBar() {
             <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
           </Button>}
           {!hideButton && <CurrencyBitcoinIcon 
-            sx={{ width: 30, height: 30, ml: 1, mr: 1 }} 
+            sx={{ width: 25, height: 25, ml: 1, mr: 1 }} 
             color="primary.light"/>}
 
           </Link>
@@ -185,7 +185,7 @@ export default function PrimarySearchAppBar() {
             <Typography fontSize={'1.2em'}  color="white">NFT</Typography>
           </Button>}
           {!hideButton && <ColorLensIcon 
-            sx={{ width: 30, height: 30, mr: 1 }} 
+            sx={{ width: 25, height: 25, mr: 1 }} 
             color="primary.light"/>}
 
           </Link>
@@ -199,7 +199,7 @@ export default function PrimarySearchAppBar() {
             <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
           </Button>}
           {!hideButton && <SavedSearchIcon 
-            sx={{ width: 30, height: 30, mr: 1 }} 
+            sx={{ width: 25, height: 25, mr: 1 }} 
             color="primary.light"/>}
           </Link>
           <Link
@@ -212,11 +212,11 @@ export default function PrimarySearchAppBar() {
             <Typography fontSize={'1.2em'}  color="white">Portfolio</Typography>
           </Button>}
           {!hideButton && <AccountBalanceWalletIcon 
-            sx={{ width: 30, height: 30 }} 
+            sx={{ width: 25, height: 25 }} 
             color="primary.light"/>}
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <SearchCrypto />
+          <SearchCrypto/>
           <MyAccount />
         </Toolbar>
       </AppBar>
