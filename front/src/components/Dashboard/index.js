@@ -42,6 +42,7 @@ const Dashboard = ({ logged, verify }) => {
   const navigate = useNavigate();
 
   const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
+  const { darkMode } = useSelector((state) => state.settings);
   
   useEffect(() => {
     if (!logged) {
@@ -57,7 +58,7 @@ const Dashboard = ({ logged, verify }) => {
       <Loading/>
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-        <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: !darkMode ? '' : '#002F54' }} item xs={12} md={5.5} className={classes.gridItem}>
           <Grid container sx={{ padding: 0 }}>
             <Grid item xs={12} md={6} className={classes.gridSubItem}>
               <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />
@@ -67,13 +68,13 @@ const Dashboard = ({ logged, verify }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: !darkMode ? '' : '#002F54' }} item xs={12} md={5.5} className={classes.gridItem}>
           <Performance />
         </Grid>
-        <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: !darkMode ? '' : '#002F54' }} item xs={12} md={5.5} className={classes.gridItem}>
           <TransactionsHistory />
         </Grid>
-        <Grid sx={{ boxShadow: 4 }} item xs={12} md={5.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: !darkMode ? '' : '#002F54' }} item xs={12} md={5.5} className={classes.gridItem}>
           <TransactionCreator disabled={!selectedWallet} />
         </Grid>
       </Grid>

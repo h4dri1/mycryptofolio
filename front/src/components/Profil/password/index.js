@@ -25,6 +25,8 @@ export default function Password() {
 
     const [passwordConfirm, setPasswordConfirm] = React.useState('');
 
+    const { darkMode } = useSelector((state) => state.settings);
+
     const newPass = {
         oldPass: oldPassword,
         pass: password,
@@ -61,7 +63,7 @@ export default function Password() {
             paddingLeft: '35px'
         }}
         > 
-            <Typography sx={{marginTop:"5px"}} color="primary.dark" variant="h5" align="center">Password</Typography>
+            <Typography sx={{marginTop:"5px", color: !darkMode ? 'primary.light' : '#07f3d5'}} variant="h5" align="center">Password</Typography>
             <Divider sx={{ marginBottom: '10px' }} />
             <TextField onChange={(e) => setOldPassword(e.target.value)} sx={{ margin: '10px' }} type="password" id="pass" label="Password" defaultValue="" variant="outlined"/>
             <TextField onChange={(e) => setPassword(e.target.value)} sx={{ margin: '10px' }} type="password" id="newPass" label="New Password" defaultValue="" variant="outlined"/>

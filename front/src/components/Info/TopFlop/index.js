@@ -86,11 +86,11 @@ export default function TopFlop() {
         >
             <Container sx={{ marginBottom: 3 }}>
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center'}}>
-                <WhatshotIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending</Typography>
+                <WhatshotIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending</Typography>
             </Container>
-            <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#fdecf7' : '', borderRadius: '10px', width: hide500 ? '320px' : '472px'}}>
+            <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px'}}>
                 <Table size='small' aria-label="a dense table">
-                    <TableHead sx={{backgroundColor: '#e1a2d8'}}>
+                    <TableHead sx={{backgroundColor: '#B197FF'}}>
                         <TableRow>
                             <TableCell ></TableCell>
                             <TableCell>Nom</TableCell>
@@ -106,7 +106,7 @@ export default function TopFlop() {
                         <TableCell sx={{borderBottom: 0 }}>
                         <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
                             <Avatar src={crypto.small} alt={crypto.name} sx={{ mr: 2, width: 20, height: 20, marginLeft: 1 }} />
-                            <Typography>{crypto.symbol.toUpperCase()}</Typography>
+                            <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{crypto.symbol.toUpperCase()}</Typography>
                         </Box>
                         </TableCell>
                         <TableCell sx={{borderBottom: 0 }}>{crypto.id}</TableCell>

@@ -74,11 +74,11 @@ export default function TopNFT() {
         >
             <Container sx={{ marginBottom: 3 }}>
                 <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                    <InsertPhotoIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Top NFT</Typography>
+                    <InsertPhotoIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Top NFT</Typography>
                 </Container>
-                <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#fdecf7' : '', borderRadius: '10px', width: hide500 ? '320px' : '472px' }}>
+                <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px' }}>
                     <Table size='small' aria-label="a dense table">
-                        <TableHead sx={{backgroundColor: '#e1a2d8'}}>
+                        <TableHead sx={{backgroundColor: '#B197FF'}}>
                             <TableRow>
                                 <TableCell ></TableCell>
                                 <TableCell>Nom</TableCell>

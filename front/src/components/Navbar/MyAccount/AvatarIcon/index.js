@@ -24,6 +24,8 @@ export default function TestAvatar() {
   const anchorRef = React.useRef(null);
   const { nickname, avatar } = useSelector((state) => state.user);
 
+  const { darkMode } = useSelector((state) => state.settings);
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -109,15 +111,14 @@ export default function TestAvatar() {
                           component={RouterLink}
                           to="/profil"
                           underline="none"
-                          sx={{ color: 'primary.dark' }}
                         >
-                        <Avatar sx={{ bgcolor: 'primary.light' }} src={nickname} alt={nickname}/>
+                          <Avatar sx={{ bgcolor: darkMode ? 'secondary.light' : 'secondary.main'}} src={nickname} alt={nickname}/>
                         </Link>
                         <Link
                           component={RouterLink}
                           to="/profil"
                           underline="none"
-                          sx={{ color: 'primary.dark', paddingLeft: '0.5rem' }}
+                          sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5', paddingLeft: '0.5rem' }}
                         >
                         Profil
                         </Link>
@@ -125,26 +126,26 @@ export default function TestAvatar() {
                       <Divider />
                       <MenuItem>
                         <ListItemIcon>
-                          <AccountBalanceWalletIcon fontSize="small" color='primary'/>
+                          <AccountBalanceWalletIcon fontSize="small" sx={{color: !darkMode ? 'primary.dark' : '#07f3d5'}}/>
                         </ListItemIcon>
                         <Link
                           component={RouterLink}
                           to="/portfolio"
                           underline="none"
-                          sx={{ color: 'primary.dark' }}
+                          sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}
                         >
                           Portfolio
                         </Link>
                       </MenuItem>
                       <MenuItem>
                         <ListItemIcon>
-                          <SavedSearchIcon fontSize="small" color='primary'/>
+                          <SavedSearchIcon fontSize="small" sx={{color: !darkMode ? 'primary.dark' : '#07f3d5'}}/>
                         </ListItemIcon>
                         <Link
                           component={RouterLink}
                           to="/"
                           underline="none"
-                          sx={{ color: 'primary.dark' }}
+                          sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}
                         >
                           Watchlist
                         </Link>
@@ -152,14 +153,14 @@ export default function TestAvatar() {
                       <Divider />
                       <MenuItem>
                         <ListItemIcon>
-                          <Logout fontSize="small" color='primary'/>
+                          <Logout fontSize="small" sx={{color: !darkMode ? 'primary.dark' : '#07f3d5'}}/>
                         </ListItemIcon>
                         <Link
                           onClick={handleLogout}
                           component={RouterLink}
                           to="/"
                           underline="none" // redirection to HOME when click on LOGOUT
-                          sx={{ color: 'primary.dark' }}
+                          sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}
                         >
                           Logout
                         </Link>

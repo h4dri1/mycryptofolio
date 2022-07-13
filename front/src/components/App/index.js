@@ -37,20 +37,25 @@ const App = () => {
   let theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
+      background: {
+        default: darkMode ? '#00244F' : 'white',
+      },
       primary: {
         light: '#7f5cce',
         main: '#3A0CA3',
         dark: '#280872',
-        contrastText: 'white',
+        contrastText: 'white'
       },
       secondary: {
         light: '#c345b1',
         main: '#B5179E',
-        dark: '#7e106e',
+        dark: '#7e106e'
       },
       neutral: {
         main: '#a9b0ba',
       },
+      contrastThreshold: 3,
+      tonalOffset: 0.2,
     },
   });
 

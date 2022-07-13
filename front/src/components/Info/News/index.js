@@ -16,7 +16,6 @@ import GaugeChart from 'react-gauge-chart'
 
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 
-
 import { Link as RouterLink } from 'react-router-dom';
 
 import { 
@@ -41,6 +40,8 @@ import {
 export default function TopNFT() {
 
     const dispatch = useDispatch();
+
+    const { darkMode } = useSelector((state) => state.settings);
 
     const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
 
@@ -91,7 +92,7 @@ export default function TopNFT() {
         >
             <Container >
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                <DeviceThermostatIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
+                <DeviceThermostatIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
             </Container>
             <Divider sx={{ marginBottom: 2 }} />
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>

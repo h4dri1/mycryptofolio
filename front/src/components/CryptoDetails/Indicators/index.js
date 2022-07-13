@@ -15,6 +15,8 @@ export default function Indicators({ data }) {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { loading } = useSelector((state) => state.cryptoDetails);
 
+  const { darkMode } = useSelector((state) => state.settings);
+
   if (selectedCurrency === 'BTC') {
     var curParams = {
       maximumSignificantDigits: 4
@@ -51,10 +53,6 @@ if (data.market_data) {
   const circulatingSupply = data.market_data ? `${cryptoSym}${data.market_data.circulating_supply.toLocaleString()}` : 'Loading...';
   var maxSupply = data.market_data ? maxSupply : 'Loading...';
 
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    console.log('darkmode')
-  }
-
   const currentPrice = data.market_data ? data.market_data.current_price[selectedCurrency.toLowerCase()].toLocaleString("en-US", curParams) : 0;
   const priceChange = data.market_data ? data.market_data.market_cap_change_percentage_24h : 0;
 
@@ -74,23 +72,23 @@ if (data.market_data) {
         </Box>
         <Divider/>
         <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center', marginTop: 4 }}>
-          <PaidIcon fontSize='large' sx={{ color: 'primary.dark' }}/>
+          <PaidIcon fontSize='large' sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}/>
           <Typography sx={{marginLeft: 1}}>MarketCap : {marketCap}</Typography>
         </Box>
         <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
-          <BatteryCharging90Icon fontSize='large' sx={{ color: 'primary.dark' }}/>
+          <BatteryCharging90Icon fontSize='large' sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}/>
           <Typography sx={{marginLeft: 1}}>Fully diluted valuation : {fullyDilutedValuation}</Typography>
         </Box>
         <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
-          <CurrencyExchangeIcon fontSize='large' sx={{ color: 'primary.dark' }}/>
+          <CurrencyExchangeIcon fontSize='large' sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}/>
           <Typography sx={{marginLeft: 1}}>24h Volume : {totalVolume}</Typography>
         </Box>
         <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
-          <ChangeCircleIcon fontSize='large' sx={{ color: 'primary.dark' }}/>
+          <ChangeCircleIcon fontSize='large' sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}/>
           <Typography sx={{marginLeft: 1}}>Circulating supply : {circulatingSupply}</Typography>
         </Box>
         <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
-          <FactoryIcon fontSize='large' sx={{ color: 'primary.dark' }}/>
+          <FactoryIcon fontSize='large' sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}/>
           <Typography sx={{marginLeft: 1}}>Max supply : {maxSupply}</Typography>
         </Box>
         <Box sx={{ padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 4 }}>

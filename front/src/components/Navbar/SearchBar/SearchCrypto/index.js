@@ -88,7 +88,7 @@ export default function SearchCrypto() {
                                 // srcSet={`${option.image} 2x`}
                                 alt=""
                             />
-                            <Typography sx={{fontSize: '0.8em'}}>{option.symbol.toUpperCase()}{!hide && `: ${option.name}`}</Typography>
+                            <Typography sx={{fontSize: '0.8em'}}>{option.symbol.toUpperCase()} : {option.name}</Typography>
                         </Box>
                     </Link>
                 )}
