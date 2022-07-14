@@ -45,10 +45,15 @@ export default function TopNFT() {
 
     if (colorTheme === 'gradient') {
         var color = '#FF3CAC'
-        var image = 'linear-gradient(125deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+        var image = 'linear-gradient(180deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
     } else if (colorTheme === 'original') {
-        var color = '#FF3CAC'
-        var image = 'linear-gradient(125deg, rgba(2,50,107,1) 0%, rgba(0,47,84,1) 100%)'
+        if (!darkMode) {
+            var color = 'rgb(58,12,163)'
+            var image = 'linear-gradient(180deg, rgba(58,12,163,1) 0%, rgba(96,50,201,1) 100%)'
+        } else {
+            var color = 'rgba(2,50,107)'
+            var image = 'linear-gradient(180deg, rgba(0,47,84,1) 0%, rgba(2,50,107,1) 100%)'
+        }
     } else {
         var color = colorTheme
     }
