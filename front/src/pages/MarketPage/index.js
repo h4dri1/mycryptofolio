@@ -34,7 +34,6 @@ export default function Home({ displayLogin }) {
     <div className="">
       <TopBanner />
       <Navbar />
-      <Box sx={{height: '14vh'}}/>
       <CryptoList/>
       <Footer />
     </div>

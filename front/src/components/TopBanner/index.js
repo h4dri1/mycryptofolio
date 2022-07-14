@@ -8,6 +8,8 @@ import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 import Color from './Color';
 
+import Box from '@mui/material/Box';
+
 import { getCryptoList, updateCurrency } from 'src/actions/cryptos';
 
 import { getIndicators } from 'src/actions/indicators';
@@ -20,6 +22,7 @@ import Logo from 'src/components/Navbar/Logo';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 
+import { BlockPicker } from 'react-color'
 
 const TopBanner = () => {
 
@@ -32,8 +35,8 @@ const TopBanner = () => {
     }, []);
 
     return (
-        <AppBar sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: "#f6eaf7" }}>
-            <Toolbar position="sticky" disableGutters>
+        <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: "#f6eaf7"}}>
+            <Toolbar  disableGutters>
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />
                 </Link>}

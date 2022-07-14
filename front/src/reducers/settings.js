@@ -6,17 +6,19 @@ import {
   TOGGLE_TRANSACTION_EDITOR,
   SET_PENDING,
   CHANGE_COLOR,
+  SET_HOME_ICON
 } from 'src/actions/settings';
 
 if (localStorage.getItem('darkMode')) {
   const darkString = localStorage.getItem('darkMode');
   var dark = (darkString === 'true');
 } else {
-  var dark = false;
+  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
 export const initialState = {
-  colorTheme: 'gradient',
+  homeIcon: true,
+  colorTheme: 'original',
   darkMode: dark,
   loginIsOpen: false,
   deleteItem: {
@@ -48,6 +50,13 @@ const settings = (state = initialState, action = {}) => {
         ...state,
         darkMode: !state.darkMode,
       });
+    }
+
+    case SET_HOME_ICON: {
+      return {
+        ...state,
+        homeIcon: action.payload,
+      };
     }
 
     case SET_PENDING: {

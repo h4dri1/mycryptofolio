@@ -6,7 +6,7 @@ import {
 // import TextField from '@mui/material/TextField';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
-import { useMediaQuery } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -19,10 +19,13 @@ import {
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { setHomeIcon, toggleHomeIcon } from '../../../../actions/settings';
 
 export default function SearchCrypto() {
     const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
     const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
+    const { days } = useSelector((state) => state.cryptoDetails);
+    const { darkMode } = useSelector((state) => state.settings);
 
     // Get all 20k cryptos
     const allCryptos = useSelector((state) => state.cryptos.allCryptos);
@@ -45,10 +48,11 @@ export default function SearchCrypto() {
             xs={12}
             container
             gap={1}
-            ml={{ xs: 3, sm: 3 }}
+            ml={{ xs: 2, sm: 3 }}
+            onTouchStart ={() => dispatch(setHomeIcon(false))}
             sx={{
                 width: 230,
-                minWidth: 100,
+                minWidth: 'auto',
                 borderRadius: '4px',
                 backgroundColor: 'primary.light',
                 '&:hover': {
@@ -63,6 +67,7 @@ export default function SearchCrypto() {
                 disablePortal
                 id="cryptoCurrency"
                 options={someCryptos}
+                onClose={() => dispatch(setHomeIcon(true))}
                 getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
 
                 // ! For later, to enhance list aspect
@@ -70,21 +75,21 @@ export default function SearchCrypto() {
                 renderOption={(props, option) => (
                     <Link
                         underline="none"
-                        onClick={() => dispatch(fetchCryptoData(option.id))}
+                        onClick={() => dispatch(fetchCryptoData(option.id, days))}
                         key={option.id}
                         component={RouterLink}
                         to={`/crypto/${option.id}`}
-                        sx={{ color: 'primary.light' }}
+                        sx={{ color: !darkMode ? 'primary.light' : '#07f3d5' }}
                     >
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img
                                 loading="lazy"
-                                width="20"
+                                width="25"
                                 src={option.image}
                                 // srcSet={`${option.image} 2x`}
                                 alt=""
                             />
-                            {option.symbol.toUpperCase()}{!hide && `: ${option.name}`}
+                            <Typography sx={{fontSize: '0.8em'}}>{option.symbol.toUpperCase()} : {option.name}</Typography>
                         </Box>
                     </Link>
                 )}
@@ -92,7 +97,6 @@ export default function SearchCrypto() {
                     <TextField
                         {...params}
                         placeholder= {!hide ? "Rechercher une crypto" : ""}
-                        
                     />
                 )}
                 selectOnFocus

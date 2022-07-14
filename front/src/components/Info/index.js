@@ -30,7 +30,7 @@ import CryptoList from '../CryptoList'
 const useStyles = makeStyles({
     grid: {
       justifyContent: 'center',
-      marginTop: '110px'
+      marginTop: '20px'
     },
     gridItem: {
       borderColor: '#E7EBF0',

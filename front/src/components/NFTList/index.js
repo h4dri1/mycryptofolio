@@ -67,18 +67,18 @@ function NFTList() {
     <Grid container justifyContent="center" className={classes.root}>
       <Loading />
       <Grid item xs={12} className={classes.NFTList}>
-        <Table size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#fdecf7' : '#70516c', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
+        <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
           <TableHead >
             <TableRow>
-              <TableCell align="center"><TableSortLabel />#</TableCell>
-              <TableCell></TableCell>
-              <TableCell sx={{ display: { xs: 'table-cell', sm: 'table-cell' } }}>Nom</TableCell>
-              <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>Blockchain</TableCell>
-              <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>Buyers</TableCell>
-              <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>Sellers</TableCell>
-              <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Owners</TableCell>
-              <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Transactions</TableCell>
-              <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Valeur</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center"><TableSortLabel />#</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : ''}}></TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'table-cell', sm: 'table-cell' } }}>Nom</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', lg: 'table-cell' } }}>Blockchain</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', md: 'table-cell' } }}>Buyers</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', md: 'table-cell' } }}>Sellers</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' } }}>Owners</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' } }}>Transactions</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' } }}>Valeur</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -106,7 +106,7 @@ function NFTList() {
       <Grid item>
         <LoadingButton
           variant="outlined"
-          sx={{ mb: 7, color: "primary.light" }}
+          sx={{ mb: 7, color: !darkMode ? "primary.light" :  '#07f3d5', borderColor: !darkMode ? "primary.light" : '#002F54' }}
           loading={NFTListLoading}
           onClick={() => dispatch(getMoreNFT())}
         >

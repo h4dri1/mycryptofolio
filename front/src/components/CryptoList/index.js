@@ -11,6 +11,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { makeStyles, useTheme } from '@mui/styles';
+import { Paper } from '@mui/material';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -59,7 +60,7 @@ function CryptoList() {
     var cryptoSym = ''
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(getCryptoList());
   }, []);
 
@@ -67,24 +68,24 @@ function CryptoList() {
     <Grid container justifyContent="center" className={classes.root}>
       <Loading />
       <Grid item xs={12} className={classes.cryptoList}>
-        <Table size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#fdecf7' : '#70516c', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
+        <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
           <TableHead >
-            <TableRow>
-              <TableCell align="center"><TableSortLabel />#</TableCell>
-              <TableCell>Nom</TableCell>
-              <TableCell align="right">Prix</TableCell>
-              <TableCell align="right">24h %</TableCell>
-              <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Market Cap</TableCell>
-              <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Volume 24h</TableCell>
-              <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' } }}>Circulating supply</TableCell>
+            <TableRow >
+              <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center"><TableSortLabel />#</TableCell>
+              <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
+              <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">Prix</TableCell>
+              <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">24h %</TableCell>
+              <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Market Cap</TableCell>
+              <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Volume 24h</TableCell>
+              <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Circulating supply</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
 
             {cryptos.map((crypto) => (
               <TableRow key={crypto.id} hover>
-                <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' } }}>{crypto.market_cap_rank}</TableCell>
-                <TableCell>
+                <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
+                <TableCell sx={{borderBottom: 0}}>
                   <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
                     <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
@@ -96,11 +97,11 @@ function CryptoList() {
                     <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
-                <TableCell align="right">{`${cryptoSym}${crypto.current_price.toLocaleString("en-US", curParams)}`}</TableCell>
-                <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }) }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{`${cryptoSym}${crypto.market_cap.toLocaleString("en-US", curParams)}`}</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.total_volume.toLocaleString("en-US", curParams)}`}</TableCell>
-                <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' } }}>{`${cryptoSym}${crypto.circulating_supply.toLocaleString()}`}</TableCell>
+                <TableCell sx= {{borderBottom: 0}} align="right">{`${cryptoSym}${crypto.current_price.toLocaleString("en-US", curParams)}`}</TableCell>
+                <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }), borderBottom: 0 }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
+                <TableCell align="right" sx={{ borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{`${cryptoSym}${crypto.market_cap.toLocaleString("en-US", curParams)}`}</TableCell>
+                <TableCell align="right" sx={{ borderBottom: 0, display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.total_volume.toLocaleString("en-US", curParams)}`}</TableCell>
+                <TableCell align="right" sx={{ borderBottom: 0, display: { xs: 'none', lg: 'table-cell' } }}>{`${cryptoSym}${crypto.circulating_supply.toLocaleString()}`}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -109,7 +110,7 @@ function CryptoList() {
       <Grid item>
         <LoadingButton
           variant="outlined"
-          sx={{ mb: 7, color: "primary.light" }}
+          sx={{ mb: 7, color: !darkMode ? "primary.light" :  '#07f3d5', borderColor: !darkMode ? "primary.light" : '#002F54' }}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
         >

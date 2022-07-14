@@ -26,10 +26,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeField, existingUserToggle } from 'src/actions/user';
 import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 import { useState } from 'react';
+import Box from '@mui/material/Box';
 
 import Loading from '../Loading';
 
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import {
   Link
@@ -57,6 +60,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   const [ showPass, setShowPass ] = useState(false);
 
   const [ showPassCheck, setShowPassCheck ] = useState(false);
+
+  const { darkMode } = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
 
@@ -140,19 +145,26 @@ export default function LoginRegister({ type, handleFormSubmit }) {
     }
     
   return (
-    <>
+    <Box>
       <Container>
-        <Button onClick={handleToggleLoginModal} variant="contained">Mon compte</Button>
+        <Button sx={{':hover': {
+            bgcolor: !darkMode ? '' : '#00244F',
+            color: !darkMode ? '' : 'white',
+          },
+          color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
+          onClick={handleToggleLoginModal} 
+          variant="contained">Mon compte
+        </Button>
       </Container>
       <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
-      <Loading />
-        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Loading />
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: !darkMode ? 'white' : '#002F54' }}>
           { type === 'login' ? 'Connexion' : 'S\'inscrire' }
           <IconButton edge="end" aria-label="Fermer" onClick={handleToggleLoginModal}>
             <CloseRoundedIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{backgroundColor: !darkMode ? 'white' : '#002F54'}}>
           {!forgotPassword && <DialogContentText>
             Pour accéder aux fonctionnalités avancées,
             { type === 'login' ? ' il faut vous connecter.' : ' il faut vous créer un compte et vous connecter.' }
@@ -237,9 +249,9 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             />
           )}
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{backgroundColor: !darkMode ? 'white' : '#002F54'}} >
         <Link
-          sx={{ marginRight: '40px'}}
+          sx={{ marginRight: '40px', color: !darkMode ? '' : '#07f3d5'}}
           component="button"
           variant="body2"
           onClick={() => {
@@ -248,12 +260,33 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         >
           Mot de passe oublié ?
         </Link>
-          {!forgotPassword && (<Button onClick={handleToogleClick}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Button>)}
-          {!forgotPassword && (<Button onClick={handleSubmit} variant="contained">{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }</Button>)}
-          {forgotPassword && (<Button onClick={handleSubmit} variant="contained">Envoyer</Button>)}
+          {!forgotPassword && (<Button sx={{':hover': {
+              bgcolor: !darkMode ? '' : '#00244F',
+              color: !darkMode ? '' : 'white',
+            },
+            color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
+            onClick={handleToogleClick}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }
+          </Button>)}
+          {!forgotPassword && (<Button 
+            sx={{':hover': {
+              bgcolor: !darkMode ? '' : '#00244F',
+              color: !darkMode ? '' : 'white',
+            },
+            color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
+            onClick={handleSubmit} 
+            variant="contained">{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }
+          </Button>)}
+          {forgotPassword && (<Button 
+            sx={{':hover': {
+              bgcolor: !darkMode ? '' : '#00244F',
+              color: !darkMode ? '' : 'white',
+            },
+            color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
+            onClick={handleSubmit} 
+            variant="contained">Envoyer</Button>)}
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 }
 

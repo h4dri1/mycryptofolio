@@ -26,7 +26,7 @@ import Password from './password'
 const useStyles = makeStyles({
     grid: {
       minHeight: '84vh',
-      marginTop: '100px'
+      marginTop: '20px'
     },
     gridItem: {
       borderColor: '#E7EBF0',

@@ -16,7 +16,6 @@ import GaugeChart from 'react-gauge-chart'
 
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 
-
 import { Link as RouterLink } from 'react-router-dom';
 
 import { 
@@ -42,17 +41,25 @@ export default function TopNFT() {
 
     const dispatch = useDispatch();
 
+    const { darkMode } = useSelector((state) => state.settings);
+
     const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
 
     const { colorTheme } = useSelector((state) => state.settings);
 
-    if (colorTheme === 'white') {
-        var color = 'white';
-    } else if (colorTheme === 'secondary') {
-        var color = 'secondary.main'
-    } else if (colorTheme === 'gradient') {
+    if (colorTheme === 'gradient') {
         var color = '#FF3CAC'
         var image = 'linear-gradient(180deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+    } else if (colorTheme === 'original') {
+        if (!darkMode) {
+            var color = 'rgb(58,12,163)'
+            var image = 'linear-gradient(180deg, rgba(58,12,163,1) 0%, rgba(96,50,201,1) 100%)'
+        } else {
+            var color = 'rgba(2,50,107)'
+            var image = 'linear-gradient(180deg, rgba(0,47,84,1) 0%, rgba(2,50,107,1) 100%)'
+        }
+    } else {
+        var color = colorTheme
     }
 
     const hideButton = useMediaQuery('(min-width:900px)');
@@ -91,7 +98,7 @@ export default function TopNFT() {
         >
             <Container >
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                <DeviceThermostatIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
+                <DeviceThermostatIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
             </Container>
             <Divider sx={{ marginBottom: 2 }} />
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>

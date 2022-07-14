@@ -43,13 +43,19 @@ export default function TopNFT() {
 
     const { colorTheme } = useSelector((state) => state.settings);
 
-    if (colorTheme === 'white') {
-        var color = 'white';
-    } else if (colorTheme === 'secondary') {
-        var color = 'secondary.main'
-    } else if (colorTheme === 'gradient') {
+    if (colorTheme === 'gradient') {
         var color = '#FF3CAC'
-        var image = 'linear-gradient(125deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+        var image = 'linear-gradient(180deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+    } else if (colorTheme === 'original') {
+        if (!darkMode) {
+            var color = 'rgb(58,12,163)'
+            var image = 'linear-gradient(180deg, rgba(58,12,163,1) 0%, rgba(96,50,201,1) 100%)'
+        } else {
+            var color = 'rgba(2,50,107)'
+            var image = 'linear-gradient(180deg, rgba(0,47,84,1) 0%, rgba(2,50,107,1) 100%)'
+        }
+    } else {
+        var color = colorTheme
     }
 
     const hideButton = useMediaQuery('(min-width:900px)');
@@ -74,11 +80,11 @@ export default function TopNFT() {
         >
             <Container sx={{ marginBottom: 3 }}>
                 <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                    <InsertPhotoIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Top NFT</Typography>
+                    <InsertPhotoIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Top NFT</Typography>
                 </Container>
-                <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#fdecf7' : '', borderRadius: '10px', width: hide500 ? '320px' : '472px' }}>
+                <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px' }}>
                     <Table size='small' aria-label="a dense table">
-                        <TableHead sx={{backgroundColor: '#e1a2d8'}}>
+                        <TableHead sx={{backgroundColor: '#B197FF'}}>
                             <TableRow>
                                 <TableCell ></TableCell>
                                 <TableCell>Nom</TableCell>

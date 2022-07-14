@@ -2,33 +2,25 @@ import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+import { useSelector } from 'react-redux';
 
 export default function Description({ data }) {
   // SANITIZE the HTML crypto description
   const createMarkup = (textBrut) => ({
     __html: DOMPurify.sanitize(textBrut, { ALLOWED_TAGS: [] }),
   });
+  
+  const { darkMode } = useSelector((state) => state.settings);
 
   return (
-    <Box sx={{ padding: '1em 2em' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box>
-          <img
-            src={`${data.image.small}?w=248&fit=crop&auto=format`}
-            //   srcSet={`${data.image.thumb}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={`logo ${data.id}`}
-            loading="lazy"
-          />
-        </Box>
-        <Box sx={{ fontSize: '2em', marginLeft: '.75em' }}>{data.name}</Box>
-        <Box sx={{ fontSize: '1.5em', marginLeft: '.5em', color: 'primary.light', mb: '-5px' }}>{data.symbol}</Box>
-      </Box>
-
+    <Box sx={{ padding: '1em 2em', display: 'flex', flexDirection: 'column', minWidth: '100%'}}>
+      <Typography sx={{marginBottom: 2, color: !darkMode ? 'primary.main' : '#07f3d5'}} variant="h5" component="h1">What is {data.name}?</Typography>
       <Box
         sx={{ color: 'text.secondary', fontSize: 12, fontWeight: 'small' }}
         dangerouslySetInnerHTML={createMarkup(data.description)}
       />
-      {!data.description && `More info: ${data.links}`}
     </Box>
   );
 }

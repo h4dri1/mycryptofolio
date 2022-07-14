@@ -39,6 +39,8 @@ export default function Profil() {
 
     const [emailValue, setEmailValue] = React.useState(email);
 
+    const { darkMode } = useSelector((state) => state.settings);
+
     const newUser = {
         id: id,
         nickname: nicknameValue,
@@ -73,7 +75,7 @@ export default function Profil() {
             paddingLeft: '35px'
         }}
         > 
-            <Typography sx={{marginTop:"5px"}} color="primary.dark" variant="h5" align="center">Profil</Typography>
+            <Typography sx={{marginTop:"5px", color: !darkMode ? 'primary.light' : '#07f3d5'}} variant="h5" align="center">Profil</Typography>
             <Divider sx={{ marginBottom: '10px' }} />
             
             <TextField onChange={(e) => setNicknameValue(e.target.value)} sx={{ margin: '10px' }} id="nickname" label="User Name" defaultValue={nickname} variant="outlined"/>
