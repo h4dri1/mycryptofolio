@@ -90,15 +90,16 @@ export default function TestAvatar() {
             placement="bottom-end"
             transition
             disablePortal
+            sx={{width: {xs: '100%', md: 'auto'}, zIndex: 99999}}
           >
             {({ TransitionProps, placement }) => (
               <Grow
                 {...TransitionProps}
                 style={{
-                  transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
+                  transformOrigin: placement === 'bottom-start' ? 'bottom' : 'top',
                 }}
               >
-                <Paper >
+                <Paper sx={{marginTop: 1}}>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       autoFocusItem={open}
