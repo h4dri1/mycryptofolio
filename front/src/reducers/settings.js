@@ -9,17 +9,11 @@ import {
   SET_HOME_ICON
 } from 'src/actions/settings';
 
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  localStorage.setItem('darkMode', true);
-} else {
-  localStorage.setItem('darkMode', false);
-}
-
 if (localStorage.getItem('darkMode')) {
   const darkString = localStorage.getItem('darkMode');
   var dark = (darkString === 'true');
 } else {
-  var dark = false;
+  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
 export const initialState = {

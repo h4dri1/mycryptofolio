@@ -1,28 +1,48 @@
 import * as React from 'react';
-import { Avatar, Container, Box, Button, Link, Fab } from '@mui/material';
+import { Avatar, Container, Box, Button, Link, Fab, ClickAwayListener } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeColor } from 'src/actions/settings'
 import { updateNFTTrend } from 'src/actions/cryptos'
+import { BlockPicker } from 'react-color'
+import { useState } from 'react';
 
 export default function chooseColor() {
     const dispatch = useDispatch();
 
+    const [ color, setColor ] = useState('#ba68c8');
+    const [ display, setDisplay ] = useState(false);
+
+    const handleChangeComplete = (color) => {
+        dispatch(changeColor(color.hex));
+    }
+
     const handleClick1 = () => {
         dispatch(changeColor('secondary'))
     }
-        
-    const handleClick2 = () => {
-        dispatch(changeColor('white'))
-    }
-
+    
     const handleClick3 = () => {
         dispatch(changeColor('gradient'))
     }
 
     return (
         <Box sx={{display: 'flex'}}>
-            <Box onClick={handleClick1} sx={{ backgroundColor: 'secondary.main', borderRadius: '50%', border: 1, width: "20px", height: "20px" }} />
-            <Box onClick={handleClick2} sx={{ backgroundColor: 'white', borderRadius: '50%', border: 1, width: "20px", height: "20px", marginLeft: 1, marginRight: 1 }} />
+            {display && <Box sx={{position: 'absolute',
+                zIndex: '2'}}>
+                        <ClickAwayListener onClickAway={() => setDisplay(!display)}>
+                <Box sx={{position: 'fixed',
+                    top: '40px',
+                    right: '20px',
+                    bottom: '0px',
+                    height: '200px'
+                }}>
+                    <BlockPicker color={color} onChangeComplete={(color) => handleChangeComplete(color)} onChange={(color) => setColor(color.hex)}></BlockPicker>
+                </Box>
+                </ClickAwayListener>
+            </Box>
+            }
+        
+           
+            <Box onClick={() => setDisplay(!display)} sx={{ backgroundColor: `${color}`, borderRadius: '50%', border: 1, width: "20px", height: "20px", marginRight: 1 }} />
             <Box onClick={handleClick3} sx={{ marginRight: 1, backgroundColor: '#FF3CAC', backgroundImage: 'linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)', borderRadius: '50%', border: 1, width: "20px", height: "20px" }} />
         </Box>
     );

@@ -106,7 +106,7 @@ function NFTList() {
       <Grid item>
         <LoadingButton
           variant="outlined"
-          sx={{ mb: 7, color: "primary.light" }}
+          sx={{ mb: 7, color: !darkMode ? "primary.light" :  '#07f3d5', borderColor: !darkMode ? "primary.light" : '#002F54' }}
           loading={NFTListLoading}
           onClick={() => dispatch(getMoreNFT())}
         >

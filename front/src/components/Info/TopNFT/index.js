@@ -43,13 +43,11 @@ export default function TopNFT() {
 
     const { colorTheme } = useSelector((state) => state.settings);
 
-    if (colorTheme === 'white') {
-        var color = 'white';
-    } else if (colorTheme === 'secondary') {
-        var color = 'secondary.main'
-    } else if (colorTheme === 'gradient') {
+    if (colorTheme === 'gradient') {
         var color = '#FF3CAC'
-        var image = 'linear-gradient(125deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+        var image = 'linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+    } else {
+        var color = colorTheme
     }
 
     const hideButton = useMediaQuery('(min-width:900px)');
