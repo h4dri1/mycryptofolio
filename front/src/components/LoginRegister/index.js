@@ -10,7 +10,8 @@ import {
   IconButton,
   Container,
   InputAdornment,
-  Typography
+  Typography,
+  Avatar
 } from '@mui/material';
 
 import Visibility from '@mui/icons-material/Visibility';
@@ -154,14 +155,14 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   return (
     <Box>
       <Container>
-        <Button sx={{':hover': {
-            bgcolor: !darkMode ? '' : '#00244F',
-            color: !darkMode ? '' : 'white',
-          },
-          color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5', display: {xs: 'none', md: 'block'}}} 
-          onClick={handleToggleLoginModal} 
-          variant="contained">Mon compte
-        </Button>
+        <Avatar
+            id="composition-button"
+            aria-controls={open ? 'composition-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-haspopup="true"
+            onClick={handleToggleLoginModal}
+            sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}
+        />
         <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>
       </Container>
       <Dialog fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
@@ -275,7 +276,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
               },
               color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
               marginRight: {xs: 0, md: 2},
-              maxHeight: '40px',
+              maxHeight: '50px',
               width: '140px'
             }}
               onClick={handleToogleClick}><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Typography>
@@ -286,7 +287,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
                 color: !darkMode ? '' : 'white',
               },
               color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
-              maxHeight: '40px',
+              maxHeight: '50px',
               width: '140px'
               }}
               onClick={handleSubmit} 
