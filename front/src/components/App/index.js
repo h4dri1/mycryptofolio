@@ -54,6 +54,9 @@ const App = () => {
       neutral: {
         main: '#a9b0ba',
       },
+      custom: {
+        main: '#07f3d5',
+      },
       contrastThreshold: 3,
       tonalOffset: 0.2,
     },

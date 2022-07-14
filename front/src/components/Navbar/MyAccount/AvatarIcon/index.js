@@ -87,7 +87,7 @@ export default function TestAvatar() {
               aria-expanded={open ? 'true' : undefined}
               aria-haspopup="true"
               onClick={handleToggle}
-              sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10 }}
+              sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10, border: darkMode ? "1px solid #07f3d5" : "1px solid #7932a8" }}
             />
           }
           {hide500 && <MenuIcon ref={anchorRef} onClick={handleToggle} sx={{display: {md: 'none'}}}></MenuIcon>}

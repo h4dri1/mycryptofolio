@@ -9,20 +9,25 @@ import { change_avatar, saveUser } from '../../../actions/user';
 
 import axios from 'axios';
 
-  const avatarStyle = {
-    border: "2px solid #7932a8",
-    boxShadow: 20,
-    mt: 3, width: 150, height: 150 
-  };
+
 
 export default function AvatarP() {
+
     const uploadInputRef = useRef(null);
 
     const dispatch = useDispatch();
 
-    const avatarS = avatarStyle;
-
     const { avatar } = useSelector((state) => state.user);
+
+    const { darkMode } = useSelector((state) => state.settings);
+
+    const avatarStyle = {
+      border: darkMode ? "2px solid #07f3d5" : "2px solid #7932a8",
+      boxShadow: 20,
+      mt: 3, width: 150, height: 150 
+    };
+
+    const avatarS = avatarStyle;
 
     const handleChange = (event) => {
       event.preventDefault();

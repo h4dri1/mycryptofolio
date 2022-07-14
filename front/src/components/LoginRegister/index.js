@@ -192,6 +192,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
               variant="outlined"
               value={nickname}
               onChange={handleChange}
+              color={!darkMode ? 'secondary' : 'custom'}
             />
           )}
           <TextField
@@ -204,6 +205,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             variant="outlined"
             value={email}
             onChange={handleChange}
+            color={!darkMode ? 'secondary' : 'custom'}
           />
           {!forgotPassword && 
             <TextField
@@ -215,6 +217,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             variant="outlined"
             value={password}
             onChange={handleChange}
+            color={!darkMode ? 'secondary' : 'custom'}
             InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -241,6 +244,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
               variant="outlined"
               value={passwordCheck}
               onChange={handleChange}
+              color={!darkMode ? 'secondary' : 'custom'}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">

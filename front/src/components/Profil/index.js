@@ -51,6 +51,8 @@ export default function Profil({ logged, verify }) {
 
   const navigate = useNavigate();
 
+  const { darkMode } = useSelector((state) => state.settings);
+
   const handleClick = () => {
     dispatch(deleteUser());
     navigate('/');
@@ -80,8 +82,9 @@ export default function Profil({ logged, verify }) {
               <Password/>
             </Grid>
             <Link
-              sx={{ marginTop: '50px'}}
+              sx={{ marginTop: '50px', color: darkMode ? 'custom.main' : 'secondary.main'}}
               component="button"
+              underline='none'
               variant="body2"
               onClick={() => {
                 handleClick();
