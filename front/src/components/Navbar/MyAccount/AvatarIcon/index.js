@@ -99,7 +99,7 @@ export default function TestAvatar() {
                   transformOrigin: placement === 'bottom-start' ? 'bottom' : 'top',
                 }}
               >
-                <Paper sx={{marginTop: 1}}>
+                <Paper sx={{marginTop: 1, backgroundColor: !darkMode ? 'white' : '#00244F'}}>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       autoFocusItem={open}
