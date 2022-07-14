@@ -164,7 +164,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         </Button>
         <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>
       </Container>
-      <Dialog sx={{marginTop: 0}} fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
+      <Dialog fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
         <Loading />
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: !darkMode ? 'white' : '#002F54' }}>
           { type === 'login' ? 'Connexion' : 'S\'inscrire' }
@@ -256,10 +256,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
                 }}
             />
           )}
-        </DialogContent>
-        <DialogActions sx={{display: 'flex', flexDirection: {xs: 'column', md: 'row'}, backgroundColor: !darkMode ? 'white' : '#002F54', paddingBottom: {xs: 20, md: 2}}} >
           <Link
-            sx={{ width: '100%', marginRight: {xs: 0, md: '40px'}, marginBottom: { xs: 15, md: 0 }, color: !darkMode ? '' : '#07f3d5'}}
+            sx={{ width: '100%', color: !darkMode ? '' : '#07f3d5'}}
             component="button"
             variant="body2"
             onClick={() => {
@@ -268,6 +266,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
           >
             Mot de passe oublié ?
           </Link>
+        </DialogContent>
+        <DialogActions sx={{display: 'flex', flexDirection: {xs: 'column', md: 'row'}, backgroundColor: !darkMode ? 'white' : '#002F54'}} >
           <Box sx={{width: '100%', display: 'flex', justifyContent: {xs: 'space-around', md: 'end'}, height: '100%', alignContent: 'center'}}>
             {!forgotPassword && (<Button sx={{':hover': {
                 bgcolor: !darkMode ? '' : '#00244F',
@@ -275,7 +275,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
               },
               color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
               marginRight: {xs: 0, md: 2},
-              maxHeight: '40px'
+              maxHeight: '40px',
+              width: '140px'
             }}
               onClick={handleToogleClick}><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Typography>
             </Button>)}
@@ -285,7 +286,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
                 color: !darkMode ? '' : 'white',
               },
               color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
-              maxHeight: '40px'
+              maxHeight: '40px',
+              width: '140px'
               }}
               onClick={handleSubmit} 
               variant="contained"><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }</Typography>
