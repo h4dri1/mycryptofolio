@@ -77,18 +77,20 @@ export default function TestAvatar() {
         }}
       >
         <div>
-          <Avatar
-            src={avatar}
-            alt={nickname}
-            ref={anchorRef}
-            id="composition-button"
-            aria-controls={open ? 'composition-menu' : undefined}
-            aria-expanded={open ? 'true' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}
-            sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10 }}
-          />
-          <MenuIcon onClick={handleToggle} sx={{display: {md: 'none'}}}></MenuIcon>
+          {!hide500 &&
+            <Avatar
+              src={avatar}
+              alt={nickname}
+              ref={anchorRef}
+              id="composition-button"
+              aria-controls={open ? 'composition-menu' : undefined}
+              aria-expanded={open ? 'true' : undefined}
+              aria-haspopup="true"
+              onClick={handleToggle}
+              sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10 }}
+            />
+          }
+          {hide500 && <MenuIcon ref={anchorRef} onClick={handleToggle} sx={{display: {md: 'none'}}}></MenuIcon>}
           <Popper
             open={open}
             anchorEl={anchorRef.current}
@@ -96,7 +98,7 @@ export default function TestAvatar() {
             placement="bottom-end"
             transition
             disablePortal
-            sx={{width: {xs: '100%', md: 'auto'}, zIndex: 99999}}
+            sx={{width: {xs: '100%', md: 'auto'}, zIndex: 99999, position: 'sticky'}}
           >
             {({ TransitionProps, placement }) => (
               <Grow
@@ -105,7 +107,7 @@ export default function TestAvatar() {
                   transformOrigin: placement === 'bottom-start' ? 'bottom' : 'top',
                 }}
               >
-                <Paper sx={{marginTop: {xs: 14, md: 1}, backgroundColor: !darkMode ? 'white' : '#00244F', boxShadow: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px'}}>
+                <Paper sx={{marginTop: {xs: 4, md: 1}, backgroundColor: !darkMode ? 'white' : '#00244F', boxShadow: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px'}}>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       autoFocusItem={open}
