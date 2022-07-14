@@ -13,10 +13,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 
-import { Container, Link, TextField, Typography } from '@mui/material';
+import { Container, Link, TextField, Typography, useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { logout } from '../../../../actions/user';
+
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 export default function TestAvatar() {
   const dispatch = useDispatch();
@@ -51,6 +54,8 @@ export default function TestAvatar() {
     }
   }
 
+  const hide500 = useMediaQuery('(max-width:600px)');
+
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
@@ -81,8 +86,9 @@ export default function TestAvatar() {
             aria-expanded={open ? 'true' : undefined}
             aria-haspopup="true"
             onClick={handleToggle}
-            sx={{ width: 56, height: 56, boxShadow: 10 }}
+            sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10 }}
           />
+          <MenuIcon onClick={handleToggle} sx={{display: {md: 'none'}}}></MenuIcon>
           <Popper
             open={open}
             anchorEl={anchorRef.current}
@@ -99,21 +105,21 @@ export default function TestAvatar() {
                   transformOrigin: placement === 'bottom-start' ? 'bottom' : 'top',
                 }}
               >
-                <Paper sx={{marginTop: 1, backgroundColor: !darkMode ? 'white' : '#00244F'}}>
+                <Paper sx={{marginTop: {xs: 14, md: 1}, backgroundColor: !darkMode ? 'white' : '#00244F', boxShadow: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px'}}>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       autoFocusItem={open}
                       id="composition-menu"
                       aria-labelledby="composition-button"
                       onKeyDown={handleListKeyDown}
-                    >
-                      <MenuItem>
+                    > 
+                      <MenuItem >
                         <Link
                           component={RouterLink}
                           to="/profil"
                           underline="none"
                         >
-                          <Avatar sx={{ bgcolor: darkMode ? 'secondary.light' : 'secondary.main'}} src={nickname} alt={nickname}/>
+                          <Avatar sx={{ bgcolor: darkMode ? 'secondary.light' : 'secondary.main' }} src={hide500 ? avatar : nickname} alt={nickname}/>
                         </Link>
                         <Link
                           component={RouterLink}

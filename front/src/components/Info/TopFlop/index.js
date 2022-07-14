@@ -84,7 +84,7 @@ export default function TopFlop() {
             flexDirection: 'column',
             margin: '5px',
             flexWrap: 'wrap',
-            marginTop: '20px',
+            marginTop: {xs: '5px', md: '20px'},
             borderRadius: '10px',
             backgroundColor: image ? '#FF3CAC' : color,
             backgroundImage: image
