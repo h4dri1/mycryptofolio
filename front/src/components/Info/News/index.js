@@ -46,10 +46,13 @@ export default function TopNFT() {
     const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
 
     const { colorTheme } = useSelector((state) => state.settings);
-    
+
     if (colorTheme === 'gradient') {
         var color = '#FF3CAC'
-        var image = 'linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+        var image = 'linear-gradient(180deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
+    } else if (colorTheme === 'original') {
+        var color = '#FF3CAC'
+        var image = 'linear-gradient(180deg, rgba(2,50,107,1) 0%, rgba(0,47,84,1) 100%)'
     } else {
         var color = colorTheme
     }

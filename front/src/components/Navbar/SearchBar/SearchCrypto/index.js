@@ -25,6 +25,7 @@ export default function SearchCrypto() {
     const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
     const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
     const { days } = useSelector((state) => state.cryptoDetails);
+    const { darkMode } = useSelector((state) => state.settings);
 
     // Get all 20k cryptos
     const allCryptos = useSelector((state) => state.cryptos.allCryptos);
@@ -78,7 +79,7 @@ export default function SearchCrypto() {
                         key={option.id}
                         component={RouterLink}
                         to={`/crypto/${option.id}`}
-                        sx={{ color: 'primary.light' }}
+                        sx={{ color: !darkMode ? 'primary.light' : '#07f3d5' }}
                     >
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img

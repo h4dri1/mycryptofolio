@@ -18,7 +18,7 @@ if (localStorage.getItem('darkMode')) {
 
 export const initialState = {
   homeIcon: true,
-  colorTheme: 'gradient',
+  colorTheme: 'original',
   darkMode: dark,
   loginIsOpen: false,
   deleteItem: {
