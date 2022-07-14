@@ -9,7 +9,8 @@ import {
   TextField,
   IconButton,
   Container,
-  InputAdornment
+  InputAdornment,
+  Typography
 } from '@mui/material';
 
 import Visibility from '@mui/icons-material/Visibility';
@@ -30,9 +31,13 @@ import Box from '@mui/material/Box';
 
 import Loading from '../Loading';
 
+import { useMediaQuery } from '@mui/material'
+
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 import {
   Link
@@ -143,6 +148,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         });
       }
     }
+
+    const hide500 = useMediaQuery('(max-width:600px)');  
     
   return (
     <Box>
@@ -151,12 +158,13 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             bgcolor: !darkMode ? '' : '#00244F',
             color: !darkMode ? '' : 'white',
           },
-          color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
+          color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5', display: {xs: 'none', md: 'block'}}} 
           onClick={handleToggleLoginModal} 
           variant="contained">Mon compte
         </Button>
+        <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>
       </Container>
-      <Dialog open={loginIsOpen} onClose={handleToggleLoginModal}>
+      <Dialog sx={{marginTop: 14}} fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
         <Loading />
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: !darkMode ? 'white' : '#002F54' }}>
           { type === 'login' ? 'Connexion' : 'S\'inscrire' }
@@ -249,33 +257,40 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             />
           )}
         </DialogContent>
-        <DialogActions sx={{backgroundColor: !darkMode ? 'white' : '#002F54'}} >
-        <Link
-          sx={{ marginRight: '40px', color: !darkMode ? '' : '#07f3d5'}}
-          component="button"
-          variant="body2"
-          onClick={() => {
-            handleClick();
-          }}
-        >
-          Mot de passe oublié ?
-        </Link>
-          {!forgotPassword && (<Button sx={{':hover': {
-              bgcolor: !darkMode ? '' : '#00244F',
-              color: !darkMode ? '' : 'white',
-            },
-            color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
-            onClick={handleToogleClick}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }
-          </Button>)}
-          {!forgotPassword && (<Button 
-            sx={{':hover': {
-              bgcolor: !darkMode ? '' : '#00244F',
-              color: !darkMode ? '' : 'white',
-            },
-            color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
-            onClick={handleSubmit} 
-            variant="contained">{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }
-          </Button>)}
+        <DialogActions sx={{display: 'flex', flexDirection: {xs: 'column', md: 'row'}, backgroundColor: !darkMode ? 'white' : '#002F54', paddingBottom: {xs: 20, md: 2}}} >
+          <Link
+            sx={{ width: '100%', marginRight: {xs: 0, md: '40px'}, marginBottom: { xs: 15, md: 0 }, color: !darkMode ? '' : '#07f3d5'}}
+            component="button"
+            variant="body2"
+            onClick={() => {
+              handleClick();
+            }}
+          >
+            Mot de passe oublié ?
+          </Link>
+          <Box sx={{width: '100%', display: 'flex', justifyContent: {xs: 'space-around', md: 'end'}, height: '100%', alignContent: 'center'}}>
+            {!forgotPassword && (<Button sx={{':hover': {
+                bgcolor: !darkMode ? '' : '#00244F',
+                color: !darkMode ? '' : 'white',
+              },
+              color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
+              marginRight: {xs: 0, md: 2},
+              maxHeight: '40px'
+            }}
+              onClick={handleToogleClick}><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Typography>
+            </Button>)}
+            {!forgotPassword && (<Button 
+              sx={{':hover': {
+                bgcolor: !darkMode ? '' : '#00244F', 
+                color: !darkMode ? '' : 'white',
+              },
+              color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
+              maxHeight: '40px'
+              }}
+              onClick={handleSubmit} 
+              variant="contained"><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }</Typography>
+            </Button>)}
+          </Box>
           {forgotPassword && (<Button 
             sx={{':hover': {
               bgcolor: !darkMode ? '' : '#00244F',
@@ -283,7 +298,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             },
             color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
             onClick={handleSubmit} 
-            variant="contained">Envoyer</Button>)}
+            variant="contained">Envoyer
+          </Button>)}
         </DialogActions>
       </Dialog>
     </Box>

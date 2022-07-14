@@ -51,8 +51,7 @@ export default function SearchCrypto() {
             ml={{ xs: 2, sm: 3 }}
             onTouchStart ={() => dispatch(setHomeIcon(false))}
             sx={{
-                width: 230,
-                minWidth: 'auto',
+                width: {xs: '100%', md: 230},
                 borderRadius: '4px',
                 backgroundColor: 'primary.light',
                 '&:hover': {
@@ -61,6 +60,7 @@ export default function SearchCrypto() {
                 },
                 marginTop: '10px',
                 marginBottom: '10px',
+                marginRight: {xs: 1, md: 0},
             }}
         >
             <Autocomplete

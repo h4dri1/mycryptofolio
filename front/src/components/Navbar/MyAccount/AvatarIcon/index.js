@@ -98,7 +98,7 @@ export default function TestAvatar() {
                   transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
                 }}
               >
-                <Paper>
+                <Paper >
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       autoFocusItem={open}
