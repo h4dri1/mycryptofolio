@@ -16,11 +16,7 @@ export default function chooseColor() {
         dispatch(changeColor(color.hex));
     }
 
-    const handleClick1 = () => {
-        dispatch(changeColor('secondary'))
-    }
-    
-    const handleClick3 = () => {
+    const handleClick = () => {
         dispatch(changeColor('gradient'))
     }
 
@@ -28,22 +24,20 @@ export default function chooseColor() {
         <Box sx={{display: 'flex'}}>
             {display && <Box sx={{position: 'absolute',
                 zIndex: '2'}}>
-                        <ClickAwayListener onClickAway={() => setDisplay(!display)}>
-                <Box sx={{position: 'fixed',
-                    top: '40px',
-                    right: '20px',
-                    bottom: '0px',
-                    height: '200px'
-                }}>
-                    <BlockPicker color={color} onChangeComplete={(color) => handleChangeComplete(color)} onChange={(color) => setColor(color.hex)}></BlockPicker>
-                </Box>
+                <ClickAwayListener onClickAway={() => setDisplay(!display)}>
+                    <Box sx={{position: 'fixed',
+                        top: '40px',
+                        right: '20px',
+                        bottom: '0px',
+                        height: '200px'
+                    }}>
+                        <BlockPicker color={color} onChangeComplete={(color) => handleChangeComplete(color)} onChange={(color) => setColor(color.hex)}></BlockPicker>
+                    </Box>
                 </ClickAwayListener>
             </Box>
             }
-        
-           
-            <Box onClick={() => setDisplay(!display)} sx={{ backgroundColor: `${color}`, borderRadius: '50%', border: 1, width: "20px", height: "20px", marginRight: 1 }} />
-            <Box onClick={handleClick3} sx={{ marginRight: 1, backgroundColor: '#FF3CAC', backgroundImage: 'linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)', borderRadius: '50%', border: 1, width: "20px", height: "20px" }} />
+            <Box onClick={() => setDisplay(!display)} sx={{ cursor: 'pointer', backgroundColor: `${color}`, borderRadius: '50%', border: 1, width: "20px", height: "20px", marginRight: 1 }} />
+            <Box onClick={handleClick} sx={{ cursor: 'pointer', marginRight: 1, backgroundColor: '#FF3CAC', backgroundImage: 'linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)', borderRadius: '50%', border: 1, width: "20px", height: "20px" }} />
         </Box>
     );
 } 
