@@ -164,7 +164,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         </Button>
         <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>
       </Container>
-      <Dialog sx={{marginTop: 14}} fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
+      <Dialog sx={{marginTop: 0}} fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
         <Loading />
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: !darkMode ? 'white' : '#002F54' }}>
           { type === 'login' ? 'Connexion' : 'S\'inscrire' }
