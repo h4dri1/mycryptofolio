@@ -7,15 +7,20 @@ import {
     Typography
 } from '@mui/material';
 
+import { useSelector } from 'react-redux';
+
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 
 const Footer = () => {
+
+    const { darkMode } = useSelector((state) => state.settings);
+
     return (
 <Grid >
 
 <Box disableGutters
-    sx={{ justifyContent: 'center', bgcolor: "#f6eaf7", alignItems: "center", display: "flex", width: '100%', height: '50px' }}
+    sx={{ justifyContent: 'center', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF', alignItems: "center", display: "flex", width: '100%', height: '50px' }}
 >
     <Typography
         variant="subtitle"

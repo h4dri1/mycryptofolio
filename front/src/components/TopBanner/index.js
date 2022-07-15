@@ -30,12 +30,14 @@ const TopBanner = () => {
     const data = useSelector((state) => state.indicators);
     const hide500 = useMediaQuery('(max-width:600px)');
 
+    const { darkMode } = useSelector((state) => state.settings);
+
     useEffect(() => {
         dispatch(getIndicators());
     }, []);
 
     return (
-        <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: "#f6eaf7"}}>
+        <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF'}}>
             <Toolbar  disableGutters>
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />
