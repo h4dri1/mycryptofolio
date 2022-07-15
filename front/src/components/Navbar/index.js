@@ -75,7 +75,7 @@ export default function PrimarySearchAppBar() {
             <Logo />
         </Link>}
 
-          {!hide1100 && <Link component={RouterLink} to="/">
+          {!hide1100 && <Link underline='none' component={RouterLink} to="/">
             <Typography
               noWrap
               color="white"
