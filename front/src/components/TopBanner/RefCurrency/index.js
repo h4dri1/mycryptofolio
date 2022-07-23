@@ -26,7 +26,9 @@ export default function RefCurrency() {
       dispatch(fetchPortfolio());
       navigate('/portfolio');
     }
-    dispatch(fetchCryptoData(data.id, days));
+    if (location.pathname.split('/')[1] === 'crypto') {
+      dispatch(fetchCryptoData(data.id, days));
+    }
     dispatch(getCryptoList());
   };
 
