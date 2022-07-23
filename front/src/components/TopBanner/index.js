@@ -40,7 +40,7 @@ const TopBanner = () => {
     const [walletData, setWalletData] = useState({
         address: "Connect Wallet",
         balance: null,
-      });
+    });
 
     const onClick = () => {
         if (window.ethereum) {
@@ -76,10 +76,6 @@ const TopBanner = () => {
         // Setting a balance
         getbalance(account);
     };
-
-    useEffect(() => {
-        dispatch(getIndicators());
-    }, []);
 
     return (
         <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF'}}>

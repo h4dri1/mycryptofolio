@@ -25,6 +25,7 @@ import { checkToken } from 'src/actions/user';
 import { getAllCryptos } from 'src/actions/cryptos';
 import { getIndicators } from 'src/actions/indicators';
 import { setHomeIcon } from '../../actions/settings';
+import { getCryptoList } from '../../actions/cryptos';
 
 // == Composant
 
@@ -68,6 +69,7 @@ const App = () => {
     await dispatch(checkToken());
     dispatch(getAllCryptos());
     dispatch(getIndicators());
+    dispatch(getCryptoList());
   }, []);
 
 

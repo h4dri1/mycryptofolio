@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CryptoList() {
+console.log('cryptoList')
+
   const dispatch = useDispatch();
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -83,7 +85,6 @@ function CryptoList() {
   };
 
   useEffect(() => {
-    dispatch(getCryptoList());
     handleSortRequest()
   }, []);
 
