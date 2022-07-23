@@ -23,7 +23,7 @@ export default function chooseColor() {
     return (
         <Box sx={{display: 'flex'}}>
             {display && <Box sx={{position: 'absolute',
-                zIndex: '2'}}>
+                zIndex: '10'}}>
                 <ClickAwayListener onClickAway={() => setDisplay(!display)}>
                     <Box sx={{position: 'fixed',
                         top: '40px',

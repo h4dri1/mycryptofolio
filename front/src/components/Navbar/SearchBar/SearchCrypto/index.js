@@ -51,7 +51,7 @@ export default function SearchCrypto() {
             ml={{ xs: 2, sm: 3 }}
             onTouchStart ={() => dispatch(setHomeIcon(false))}
             sx={{
-                width: {xs: '100%', md: 230},
+                width: {xs: '100%', md: 260},
                 borderRadius: '4px',
                 backgroundColor: 'primary.light',
                 '&:hover': {

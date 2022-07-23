@@ -7,6 +7,7 @@ import Indicators from './Indicators';
 import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 import Color from './Color';
+import Button from '@mui/material/Button';
 
 import Box from '@mui/material/Box';
 
@@ -16,7 +17,7 @@ import { getIndicators } from 'src/actions/indicators';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { useMediaQuery } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 
 import Logo from 'src/components/Navbar/Logo';
 import Link from '@mui/material/Link';
@@ -52,6 +53,7 @@ const TopBanner = () => {
                         alignItems: 'center',
                     }}
                 >
+                    <Button onClick={() => console.log('metamask')} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: 'auto'}}>Connect wallet</Button>
                     <RefCurrency />
                     <Color /> 
                     <ToggleMode />

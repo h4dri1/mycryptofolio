@@ -54,7 +54,7 @@ export default function TestAvatar() {
     }
   }
 
-  const hide500 = useMediaQuery('(max-width:600px)');
+  const hide500 = useMediaQuery('(max-width:900px)');
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
