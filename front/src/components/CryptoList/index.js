@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { makeStyles, useTheme } from '@mui/styles';
 import { Paper } from '@mui/material';
+import {useState} from 'react';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,10 +37,12 @@ function CryptoList() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const classes = useStyles(theme);
-
-  const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { darkMode } = useSelector((state) => state.settings);
+  const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
+  
+  const [rowData, setRowData] = useState(cryptos);
+  const [orderDirection, setOrderDirection] = useState("asc");
 
   if (selectedCurrency === 'BTC') {
     var curParams = {
@@ -60,8 +63,28 @@ function CryptoList() {
     var cryptoSym = ''
   }
 
+  const sortArray = (arr, orderBy) => {
+    switch (orderBy) {
+      case "asc":
+      default:
+        return arr.sort((a, b) =>
+          a.market_cap_rank > b.market_cap_rank ? 1 : b.market_cap_rank > a.market_cap_rank ? -1 : 0
+        );
+      case "desc":
+        return arr.sort((a, b) =>
+          a.market_cap_rank < b.market_cap_rank ? 1 : b.market_cap_rank < a.market_cap_rank ? -1 : 0
+        );
+    }
+  };
+   
+  const handleSortRequest = () => {
+    setRowData(sortArray(cryptos, orderDirection));
+    setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
+  };
+
   useEffect(() => {
     dispatch(getCryptoList());
+    handleSortRequest()
   }, []);
 
   return (
@@ -71,7 +94,11 @@ function CryptoList() {
         <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
           <TableHead >
             <TableRow >
-              <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center"><TableSortLabel />#</TableCell>
+              <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center">
+                <TableSortLabel active={true} direction={orderDirection}>
+                  #
+                </TableSortLabel>
+              </TableCell>
               <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
               <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">Prix</TableCell>
               <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">24h %</TableCell>

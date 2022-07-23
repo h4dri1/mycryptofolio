@@ -75,7 +75,7 @@ export default function PrimarySearchAppBar() {
             <Logo />
         </Link>}
 
-          {!hide1100 && <Link component={RouterLink} to="/">
+          {!hide1100 && <Link underline='none' component={RouterLink} to="/">
             <Typography
               noWrap
               color="white"
@@ -93,11 +93,13 @@ export default function PrimarySearchAppBar() {
               underline="none"
               sx={{ color: 'white'}}
             >
-            {hideButton && <Button sx={{textTransform: "none" }} color="secondary" startIcon={<CurrencyBitcoinIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5' }}/>}>
-              <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
+            {hideButton && <Button sx={{textTransform: "none" }} color="secondary" startIcon={
+              <CurrencyBitcoinIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
+            }>
+            <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
             </Button>}
-            {!hideButton && <CurrencyBitcoinIcon 
-              sx={{ width: 25, height: 25, ml: 1, mr: 1 }} 
+            {!hideButton && <CurrencyBitcoinIcon
+              sx={{ width: 25, height: 25, ml: 1, mr: 1}} 
               color="primary.light"/>}
             </Link>
           }
@@ -108,8 +110,10 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<ColorLensIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5' }} color="secondary"/>}>
-            <Typography fontSize={'1.2em'}  color="white">NFT</Typography>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={
+            <ColorLensIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
+          }>
+          <Typography fontSize={'1.2em'}  color="white">NFT</Typography>
           </Button>}
           {!hideButton && <ColorLensIcon 
             sx={{ width: 25, height: 25, mr: 1 }} 
@@ -124,8 +128,10 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<SavedSearchIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5' }} color="secondary"/>}>
-            <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={
+            <SavedSearchIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
+          }>
+          <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
           </Button>}
           {!hideButton && <SavedSearchIcon 
             sx={{ width: 25, height: 25, mr: 1 }} 
@@ -139,8 +145,10 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={<AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5' }} color="secondary"/>}>
-            <Typography fontSize={'1.2em'}  color="white">Portfolio</Typography>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={
+            <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
+          }>
+          <Typography fontSize={'1.2em'}  color="white">Portfolio</Typography>
           </Button>}
           {!hideButton && <AccountBalanceWalletIcon 
             sx={{ width: 25, height: 25 }} 

@@ -16,6 +16,7 @@ import { getCryptoTrend, getNFTTrend, getFearGreedIndex } from '../../actions/cr
 
 import { getNFTList, resetNFTQuantity } from '../../actions/nft';
 
+
 import {
     Grid,
     Link
@@ -62,6 +63,7 @@ export default function Info() {
     dispatch(getNFTList());
   }, []);
 
+
     return (
 
         <Grid
@@ -70,9 +72,9 @@ export default function Info() {
         >
             <Loading />
             <Grid item className={classes.gridItem}>
-              <TopFlop/>
-              <News/>
-              <TopNFT/>
+                <TopFlop/>
+                <News/>
+                <TopNFT/>
             </Grid>
             <CryptoList/>
         </Grid >
