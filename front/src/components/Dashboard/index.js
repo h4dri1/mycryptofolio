@@ -48,7 +48,7 @@ const Dashboard = ({ logged, verify }) => {
     if (!logged) {
       navigate('/login?continue=/portfolio');
     }
-    else {
+    else  {
       dispatch(fetchPortfolio());
     }
   }, []);

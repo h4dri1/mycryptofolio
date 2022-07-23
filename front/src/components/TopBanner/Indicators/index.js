@@ -10,6 +10,11 @@ import PercentIcon from '@mui/icons-material/Percent';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 import { useMediaQuery } from '@mui/material';
+import { getIndicators } from '../../../actions/indicators';
+
+import { useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
 
 
 // const useStyles = makeStyles((theme) => ({
@@ -25,9 +30,14 @@ import { useMediaQuery } from '@mui/material';
 // }));
 
 const Indicators = ({ data }) => {
+  const dispatch = useDispatch();
 
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
   const hideButton = useMediaQuery('(min-width:1000px)');
+
+  useEffect(() => {
+    dispatch(getIndicators());
+  }, []);
 
   return (
     <Container

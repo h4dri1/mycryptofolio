@@ -11,6 +11,7 @@ import indicators from '../middleware/indicators';
 import profil from '../middleware/profil';
 import nftList from '../middleware/nftList';
 import nftDetails from '../middleware/nftDetails';
+import connectWallet from '../middleware/connectWallet';
 
 // == Enhancers
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -24,7 +25,8 @@ const enhancers = composeEnhancers(
     indicators,
     profil,
     nftList,
-    nftDetails
+    nftDetails,
+    connectWallet,
   ),
 );
 

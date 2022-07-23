@@ -26,6 +26,7 @@ import { getAllCryptos } from 'src/actions/cryptos';
 import { getIndicators } from 'src/actions/indicators';
 import { setHomeIcon } from '../../actions/settings';
 import { getCryptoList } from '../../actions/cryptos';
+import { getWalletAddress } from '../../actions/connectWallet';
 
 // == Composant
 
@@ -68,8 +69,6 @@ const App = () => {
   useEffect(async () => {
     await dispatch(checkToken());
     dispatch(getAllCryptos());
-    dispatch(getIndicators());
-    dispatch(getCryptoList());
   }, []);
 
 

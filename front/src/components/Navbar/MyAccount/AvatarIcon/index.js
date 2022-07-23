@@ -28,6 +28,7 @@ export default function TestAvatar() {
   const { nickname, avatar } = useSelector((state) => state.user);
 
   const { darkMode } = useSelector((state) => state.settings);
+  const { walletAddress } = useSelector((state) => state.connectWallet);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -90,6 +91,7 @@ export default function TestAvatar() {
               sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10, border: darkMode ? "1px solid #07f3d5" : "1px solid #7932a8", cursor: 'pointer' }}
             />
           }
+          
           {hide500 && <MenuIcon ref={anchorRef} onClick={handleToggle} sx={{display: {md: 'none'}}}></MenuIcon>}
           <Popper
             open={open}
