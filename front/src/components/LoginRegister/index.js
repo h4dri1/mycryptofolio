@@ -71,7 +71,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
 
   const { darkMode } = useSelector((state) => state.settings);
 
-  const { walletAddress } = useSelector((state) => state.connectWallet);
+  const { walletAddress, walletBalance } = useSelector((state) => state.connectWallet);
 
   const dispatch = useDispatch();
 

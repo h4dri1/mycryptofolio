@@ -30,6 +30,7 @@ import { BlockPicker } from 'react-color'
 
 import { ethers } from 'ethers';
 import { getWalletAddress, getWalletBalance } from '../../actions/connectWallet';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const TopBanner = () => {
     const dispatch = useDispatch();
@@ -59,6 +60,7 @@ const TopBanner = () => {
                         alignItems: 'center',
                     }}
                 >
+                    {walletAddress !== 'Wallet' && <Typography sx={{marginRight: 2, color: 'primary.dark'}}>Balance : {walletBalance === 0 ? '0' : parseFloat(walletBalance).toFixed(4)}ETH </Typography>}
                     <Button onClick={onClick} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: '140px'}}>{walletAddress === 'Wallet' ? walletAddress :`${walletAddress.substring(0, 11)}...`}</Button>
                     <RefCurrency />
                     <Color /> 
