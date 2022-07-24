@@ -2,6 +2,8 @@ import { getWalletBalance, GET_WALLET_ADRESS, GET_WALLET_BALANCE, updateWalletAd
 
 import { ethers } from "ethers";
 
+import { setDisplaySnackBar } from 'src/actions/settings';
+
 const connectWallet = (store) => (next) => (action) => {
 
     switch (action.type) {
@@ -10,11 +12,18 @@ const connectWallet = (store) => (next) => (action) => {
                 window.ethereum
                 .request({ method: "eth_requestAccounts" })
                 .then((res) => {
-                    store.dispatch(updateWalletAddress(res[0]))
-                    store.dispatch(getWalletBalance())
+                    if (res[0] !== localStorage.getItem('wallet')) {
+                        localStorage.setItem("wallet", res[0]);
+                        store.dispatch(updateWalletAddress(res[0]))
+                        store.dispatch(getWalletBalance())
+                    }
                 });  
             } else {
-                alert('Please install MetaMask');
+                if (!localStorage.getItem("wallet")) {
+                    store.dispatch(setDisplaySnackBar({ severity: 'error', message: `Please install Metamask` }));
+                } else {
+                    localStorage.removeItem("wallet");
+                }
             }
             next(action);
             break;

@@ -9,6 +9,7 @@ import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 import Color from './Color';
 import Button from '@mui/material/Button';
+import { Select, MenuItem } from '@mui/material';
 
 import { useState } from 'react';
 
@@ -41,7 +42,7 @@ const TopBanner = () => {
     const { walletAddress, walletBalance } = useSelector((state) => state.connectWallet);
 
     const onClick = () => {
-        dispatch(getWalletAddress());;
+        dispatch(getWalletAddress());
     }
 
     return (
@@ -60,8 +61,7 @@ const TopBanner = () => {
                         alignItems: 'center',
                     }}
                 >
-                    {walletAddress !== 'Wallet' && <Typography sx={{marginRight: 2, color: 'primary.dark'}}>Balance : {walletBalance === 0 ? '0' : parseFloat(walletBalance).toFixed(4)}ETH </Typography>}
-                    <Button onClick={onClick} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: '140px'}}>{walletAddress === 'Wallet' ? walletAddress :`${walletAddress.substring(0, 11)}...`}</Button>
+                    <Button onClick={onClick} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: {xs: '75px', md: '140px'}}}>{walletAddress === 'Wallet' ? `${walletAddress}` :`${walletAddress.substring(0, 8)}...`}</Button>
                     <RefCurrency />
                     <Color /> 
                     <ToggleMode />

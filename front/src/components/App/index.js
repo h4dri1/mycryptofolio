@@ -66,9 +66,20 @@ const App = () => {
 
   theme = responsiveFontSizes(theme);
 
+  const getChangeWallet = () => {
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length > 0) {
+          dispatch(getWalletAddress());
+        }
+      });
+    }
+  }
+
   useEffect(async () => {
     await dispatch(checkToken());
     dispatch(getAllCryptos());
+    getChangeWallet();
   }, []);
 
 

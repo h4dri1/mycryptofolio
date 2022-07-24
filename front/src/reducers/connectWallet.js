@@ -2,8 +2,14 @@ import {
     UPDATE_WALLET_ADRESS, UPDATE_WALLET_BALANCE
 } from 'src/actions/connectWallet';
 
+if (localStorage.getItem('wallet')) {
+    var walletAddress = localStorage.getItem('wallet');
+  } else {
+    var walletAddress = 'Wallet';
+}
+
 export const initialState = {
-    walletAddress: 'Wallet',
+    walletAddress: walletAddress,
     walletBalance: 0,
 };
 
