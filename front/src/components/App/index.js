@@ -26,7 +26,7 @@ import { getAllCryptos } from 'src/actions/cryptos';
 import { getIndicators } from 'src/actions/indicators';
 import { setHomeIcon } from '../../actions/settings';
 import { getCryptoList } from '../../actions/cryptos';
-import { getWalletAddress } from '../../actions/connectWallet';
+import { getWalletAddress, updateWalletAddress } from '../../actions/connectWallet';
 
 // == Composant
 
@@ -71,6 +71,9 @@ const App = () => {
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
           dispatch(getWalletAddress());
+        } else {
+          localStorage.setItem('wallet', 'Wallet');
+          dispatch(updateWalletAddress('Wallet'));
         }
       });
     }
