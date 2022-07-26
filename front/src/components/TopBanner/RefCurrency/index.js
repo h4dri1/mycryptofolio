@@ -9,6 +9,7 @@ import { fetchCryptoData } from 'src/actions/cryptoDetails';
 import { useEffect, useState } from 'react';
 
 import {useLocation, useNavigate, useParams } from 'react-router-dom'
+import { getWalletAddress, getWalletTokens } from '../../../actions/connectWallet';
 
 // export default function SelectAutoWidth() {
 export default function RefCurrency() {
@@ -30,6 +31,7 @@ export default function RefCurrency() {
       dispatch(fetchCryptoData(data.id, days));
     }
     dispatch(getCryptoList());
+    dispatch(getWalletTokens());
   };
 
   return (

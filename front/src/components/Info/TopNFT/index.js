@@ -86,7 +86,7 @@ export default function TopNFT() {
                     <Table size='small' aria-label="a dense table">
                         <TableHead sx={{backgroundColor: '#B197FF'}}>
                             <TableRow>
-                                <TableCell ></TableCell>
+                                <TableCell></TableCell>
                                 <TableCell>Nom</TableCell>
                                 <TableCell>Value</TableCell>
                             </TableRow>

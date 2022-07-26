@@ -10,6 +10,7 @@ import ForgotPass from 'src/pages/ForgotPass';
 import MarketPage from 'src/pages/MarketPage';
 import NFTPage from 'src/pages/NFTPage';
 import NFTDetails from 'src/pages/NFTDetails';
+import Wallet from 'src/pages/Wallet';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -99,6 +100,7 @@ const App = () => {
           <Route path="/login" element={<Home displayLogin />} />
           <Route path="/crypto/:slug" element={<CryptoPage />} />
           <Route path="/nft/:slug" element={<NFTDetails />} />
+          <Route path="/wallet" element={<Wallet />} />
           <Route path="/portfolio" element={<Portfolio />}>
             <Route path="/portfolio/:walletName" element={<Portfolio />} />
           </Route>

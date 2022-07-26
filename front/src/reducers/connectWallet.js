@@ -1,5 +1,5 @@
 import {
-    UPDATE_WALLET_ADRESS, UPDATE_WALLET_BALANCE
+    UPDATE_WALLET_ADRESS, UPDATE_WALLET_BALANCE, UPDATE_WALLET_TOKENS
 } from 'src/actions/connectWallet';
 
 if (localStorage.getItem('wallet')) {
@@ -11,6 +11,7 @@ if (localStorage.getItem('wallet')) {
 export const initialState = {
     walletAddress: walletAddress,
     walletBalance: 0,
+    walletTokens: [],
 };
 
 const connectWalletReducer = (state = initialState, action = {}) => {
@@ -24,6 +25,11 @@ const connectWalletReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 walletBalance: action.payload,
+            };
+        case UPDATE_WALLET_TOKENS:
+            return {
+                ...state,
+                walletTokens: action.payload,
             };
         default:
             return state;

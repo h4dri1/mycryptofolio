@@ -1,8 +1,14 @@
-import { getWalletBalance, GET_WALLET_ADRESS, GET_WALLET_BALANCE, updateWalletAddress, updateWalletBalance } from "../actions/connectWallet";
+import { getWalletBalance, GET_WALLET_ADRESS, GET_WALLET_BALANCE, updateWalletAddress, updateWalletBalance, GET_WALLET_TOKENS, updateWalletTokens, getWalletTokens } from "../actions/connectWallet";
 
 import { ethers } from "ethers";
 
+import axios from 'axios';
+
 import { setDisplaySnackBar } from 'src/actions/settings';
+
+import { setPending } from 'src/actions/settings';
+
+const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
 const connectWallet = (store) => (next) => (action) => {
 
@@ -12,11 +18,9 @@ const connectWallet = (store) => (next) => (action) => {
                 window.ethereum
                 .request({ method: "eth_requestAccounts" })
                 .then((res) => {
-                    if (res[0] !== localStorage.getItem('wallet')) {
                         localStorage.setItem("wallet", res[0]);
                         store.dispatch(updateWalletAddress(res[0]))
                         store.dispatch(getWalletBalance())
-                    }
                 });  
             } else {
                 if (!localStorage.getItem("wallet")) {
@@ -37,7 +41,29 @@ const connectWallet = (store) => (next) => (action) => {
             .then((balance) => {
               // Setting balance
                 store.dispatch(updateWalletBalance(ethers.utils.formatEther(balance)))
+                store.dispatch(getWalletTokens())
             });
+            next(action);
+            break;
+        case GET_WALLET_TOKENS:
+            var { walletAddress } = store.getState().connectWallet;
+            var { selectedCurrency } = store.getState().cryptos.cryptoList;
+            store.dispatch(setPending())
+            axios({
+                method: 'get',
+                baseURL,
+                url: `/token/${walletAddress}/${selectedCurrency}`,
+                })
+                .then((res) => {
+                    store.dispatch(updateWalletTokens(res.data));
+                    store.dispatch(setPending())
+                })
+                .catch((err) => {
+                    console.log(err)
+                    store.dispatch(setPending())
+                });
+            next(action);
+            break;
         default:
         next(action);
         break;
