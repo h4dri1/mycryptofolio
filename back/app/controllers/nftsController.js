@@ -32,7 +32,6 @@ module.exports = {
                 'Content-Type': 'application/json'
             }});
 
-            console.log(data)
 
             const { data: contracts, included } = data;
             const collectionsWithTradingVolume = contracts.map((oneContract) => {

@@ -2,7 +2,7 @@
 
 BEGIN;
 
-DROP TABLE IF EXISTS "transaction", "user", "wallet", "crypto" CASCADE;
+DROP TABLE IF EXISTS "transaction", "user", "wallet", "crypto", "nft", "whitelist" CASCADE;
 
 CREATE TABLE "user" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -24,6 +24,7 @@ CREATE TABLE crypto (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     coin_id TEXT NOT NULL UNIQUE,
     symbol TEXT NOT NULL,
+    eth_address TEXT UNIQUE,
     logo TEXT,
     price numeric(16,8)
 );
@@ -33,8 +34,7 @@ CREATE TABLE nft (
     rank INT NOT NULL,
     icon_url TEXT NOT NULL,
     name TEXT NOT NULL,
-    base_currency TEXT NOT NULL,
-    value
+    base_currency TEXT NOT NULL
 );
 
 CREATE TABLE transaction (
