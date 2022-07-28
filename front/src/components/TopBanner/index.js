@@ -1,4 +1,5 @@
 /* eslint-disable react/function-component-definition */
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -8,6 +9,9 @@ import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 import Color from './Color';
 import Button from '@mui/material/Button';
+import { Select, MenuItem } from '@mui/material';
+
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 
@@ -25,16 +29,34 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { BlockPicker } from 'react-color'
 
-const TopBanner = () => {
+import { useNavigate } from 'react-router-dom';
 
+import { ethers } from 'ethers';
+import { getWalletAddress, getWalletBalance, getWalletENS, getWalletNFT, getWalletTokens } from '../../actions/connectWallet';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+
+const TopBanner = () => {
     const dispatch = useDispatch();
     const data = useSelector((state) => state.indicators);
     const hide500 = useMediaQuery('(max-width:600px)');
+    const navigate = useNavigate();
 
     const { darkMode } = useSelector((state) => state.settings);
+    const { walletAddress, walletENS } = useSelector((state) => state.connectWallet);
+
+    const onClick = () => {
+        dispatch(getWalletAddress());
+        dispatch(getWalletENS());
+        if (walletAddress !== 'Wallet') {
+            navigate('/wallet');
+        }
+    }
 
     useEffect(() => {
-        dispatch(getIndicators());
+        if (walletAddress !== 'Wallet') {
+            dispatch(getWalletAddress());
+            dispatch(getWalletENS());
+        }
     }, []);
 
     return (
@@ -53,7 +75,9 @@ const TopBanner = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Button onClick={() => console.log('metamask')} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: 'auto'}}>Connect wallet</Button>
+                    <Button onClick={onClick} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: {xs: '75px', md: '140px'}}}>
+                        {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' ? `${walletENS}` : `${walletAddress.substring(0, 8)}...`}
+                    </Button>
                     <RefCurrency />
                     <Color /> 
                     <ToggleMode />
@@ -62,4 +86,5 @@ const TopBanner = () => {
         </AppBar>
     )
 };
+
 export default TopBanner;

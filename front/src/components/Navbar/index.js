@@ -36,6 +36,7 @@ export default function PrimarySearchAppBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const { homeIcon } = useSelector((state) => state.settings);
+  const { walletAddress } = useSelector((state) => state.connectWallet);
 
   const { darkMode } = useSelector((state) => state.settings);
 
@@ -148,7 +149,7 @@ export default function PrimarySearchAppBar() {
           {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={
             <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
           }>
-          <Typography fontSize={'1.2em'}  color="white">Portfolio</Typography>
+          <Typography fontSize={'1.2em'}  color="white">{walletAddress !== 'Wallet' ? 'Wallet' : 'Portfolio'}</Typography>
           </Button>}
           {!hideButton && <AccountBalanceWalletIcon 
             sx={{ width: 25, height: 25 }} 

@@ -82,7 +82,7 @@ const cryptoList = (store) => (next) => (action) => {
         next(action);
       break;
     case GET_CRYPTO_LIST:
-      store.dispatch(setPending())
+
       const { selectedCurrency, quantity } = store.getState().cryptos.cryptoList;
 
       axios({
@@ -92,7 +92,6 @@ const cryptoList = (store) => (next) => (action) => {
       })
         .then((res) => {
           store.dispatch(updateCryptoList(res.data));
-          store.dispatch(setPending())
         })
         .catch((err) => {
           store.dispatch(setPending())

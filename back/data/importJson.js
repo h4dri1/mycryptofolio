@@ -14,7 +14,7 @@ const importData = async () => {
     const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
     bar1.start(12676, 0);
     for (const crypto of cryptos) {
-        await pool.query('INSERT INTO crypto(coin_id, symbol) VALUES($1, $2)', [crypto.id, crypto.symbol]);
+        await pool.query('INSERT INTO crypto(coin_id, symbol, eth_address) VALUES($1, $2, $3)', [crypto.id, crypto.symbol, crypto.platforms.ethereum ? crypto.platforms.ethereum : null]);
         bar1.increment();
     }
     bar1.stop();

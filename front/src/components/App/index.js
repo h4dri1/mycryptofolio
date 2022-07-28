@@ -10,6 +10,7 @@ import ForgotPass from 'src/pages/ForgotPass';
 import MarketPage from 'src/pages/MarketPage';
 import NFTPage from 'src/pages/NFTPage';
 import NFTDetails from 'src/pages/NFTDetails';
+import Wallet from 'src/pages/Wallet';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,6 +26,8 @@ import { checkToken } from 'src/actions/user';
 import { getAllCryptos } from 'src/actions/cryptos';
 import { getIndicators } from 'src/actions/indicators';
 import { setHomeIcon } from '../../actions/settings';
+import { getCryptoList } from '../../actions/cryptos';
+import { getWalletAddress, getWalletBalance, updateWalletAddress, getWalletTokens, getWalletNFT, getWalletENS } from '../../actions/connectWallet';
 
 // == Composant
 
@@ -64,10 +67,27 @@ const App = () => {
 
   theme = responsiveFontSizes(theme);
 
+  const getChangeWallet = () => {
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length > 0) {
+          dispatch(updateWalletAddress(accounts[0]));
+          dispatch(getWalletBalance());
+          dispatch(getWalletTokens());
+          dispatch(getWalletNFT());
+          dispatch(getWalletENS());
+        } else {
+          localStorage.setItem('wallet', 'Wallet');
+          dispatch(updateWalletAddress('Wallet'));
+        }
+      });
+    }
+  }
+
   useEffect(async () => {
     await dispatch(checkToken());
     dispatch(getAllCryptos());
-    dispatch(getIndicators());
+    getChangeWallet();
   }, []);
 
 
@@ -84,6 +104,7 @@ const App = () => {
           <Route path="/login" element={<Home displayLogin />} />
           <Route path="/crypto/:slug" element={<CryptoPage />} />
           <Route path="/nft/:slug" element={<NFTDetails />} />
+          <Route path="/wallet" element={<Wallet />} />
           <Route path="/portfolio" element={<Portfolio />}>
             <Route path="/portfolio/:walletName" element={<Portfolio />} />
           </Route>

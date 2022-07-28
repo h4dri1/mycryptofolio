@@ -46,6 +46,8 @@ import {
 
 import axios from 'axios';
 
+import Identicon from 'react-identicons';
+
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
@@ -68,6 +70,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   const [ showPassCheck, setShowPassCheck ] = useState(false);
 
   const { darkMode } = useSelector((state) => state.settings);
+
+  const { walletAddress, walletBalance } = useSelector((state) => state.connectWallet);
 
   const dispatch = useDispatch();
 
@@ -155,7 +159,10 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   return (
     <Box>
       <Container>
-        <Avatar
+        {walletAddress !== 'Wallet' && <Box onClick={handleToggleLoginModal} sx={{ paddingTop: 1, aligItems: 'center', justifyContent: 'center', display: {xs: 'none', md: 'flex'}, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}>
+          <Identicon string={walletAddress} size={32}></Identicon>
+        </Box>}
+        {walletAddress === 'Wallet' && <Avatar
             id="composition-button"
             aria-controls={open ? 'composition-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
@@ -163,6 +170,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             onClick={handleToggleLoginModal}
             sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}
         />
+    }
         <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>
       </Container>
       <Dialog fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>

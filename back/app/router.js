@@ -9,7 +9,8 @@ const {
     portfolioController,
     walletController, 
     transactionController,
-    nftsController
+    nftsController,
+    blockchainController
 } = require('./controllers');
 
 const { loginSchema,
@@ -131,6 +132,9 @@ router
     )
 
 router
+    .get('/token/:address/:vs', blockchainController.getERC20Tokens)
+    .get('/nft/:address', blockchainController.getNFTbyAddress)
+    .get('/ens/:address', blockchainController.getENSbyAddress)
     .get('/test', nftsController.getTestNFT)
     .get('/nft/collections/:collection', cache, nftsController.getNFTCollection)
     .get('/index/fearandgreed', cache, cryptoController.getFearAndGreed)
