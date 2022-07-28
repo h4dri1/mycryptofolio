@@ -14,7 +14,20 @@ import {
   import useMediaQuery from '@mui/material/useMediaQuery';
   import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
   import Box from '@mui/material/Box';
-  import { Avatar } from '@mui/material';
+  import Card from '@mui/material/Card';
+  import CardHeader from '@mui/material/CardHeader';
+  import CardMedia from '@mui/material/CardMedia';
+  import CardContent from '@mui/material/CardContent';
+  import CardActions from '@mui/material/CardActions';
+  import Collapse from '@mui/material/Collapse';
+  import Avatar from '@mui/material/Avatar';
+  import IconButton from '@mui/material/IconButton';
+  import { red } from '@mui/material/colors';
+  import FavoriteIcon from '@mui/icons-material/Favorite';
+  import ShareIcon from '@mui/icons-material/Share';
+  import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+  import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 
   import PaidIcon from '@mui/icons-material/Paid';
 
@@ -29,7 +42,7 @@ import {
   
   ChartJS.register(ArcElement, Tooltip, Legend);
   
-  export default function Nft() {
+  export default function Nft({collection}) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
     const { darkMode } = useSelector((state) => state.settings);
     let sum = 0;
@@ -54,6 +67,12 @@ import {
         maximumSignificantDigits: 4
       }
       var cryptoSym = ''
+    }
+
+    var img_url = [];
+
+    for (const nft of collection) {
+        img_url.push(JSON.parse(nft.metadata).image_url);
     }
     
     //const labelsList = distribution.map((item) => (
@@ -110,11 +129,11 @@ import {
 
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
-        <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
+        <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
             <PhotoIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>NFT</Typography>
         </Container>
         <Container sx={{
-          display: 'flex', flexDirection: 'row', alignItems: 'center', maxHeight: '40vh', overflowY: 'auto', justifyContent: 'space-around',
+          display: 'flex', flexWrap: 'wrap', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto', justifyContent: 'space-around',
           '&::-webkit-scrollbar': {
             width: '0.4em'
           },
@@ -128,7 +147,21 @@ import {
           }
         }}
         >
-
+            {collection.map((nft) => (
+                <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4}}>
+                    <CardMedia
+                        component="img"
+                        image={JSON.parse(nft.metadata).image_url}
+                        alt={JSON.parse(nft.metadata).image}
+                        sx={{width: '180px', height: '180px'}}/>
+                    <CardContent sx={{backgroundColor: 'custom.main'}}>
+                        <Typography sx={{fontSize:'0.8em', justifyContent: 'center', display: 'flex', color: 'primary.dark'}}>
+                            {nft.name}
+                        </Typography>
+                    </CardContent>
+ 
+                </Card>
+            ))}
         </Container>
       </Container>
     );

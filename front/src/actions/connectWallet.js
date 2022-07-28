@@ -4,6 +4,10 @@ export const GET_WALLET_BALANCE = 'GET_WALLET_BALANCE';
 export const UPDATE_WALLET_BALANCE = 'UPDATE_WALLET_BALANCE';
 export const GET_WALLET_TOKENS = 'GET_WALLET_TOKENS';
 export const UPDATE_WALLET_TOKENS = 'UPDATE_WALLET_TOKENS';
+export const GET_WALLET_NFT = 'GET_WALLET_NFT';
+export const UPDATE_WALLET_NFT = 'UPDATE_WALLET_NFT';
+export const GET_WALLET_ENS = 'GET_WALLET_ENS';
+export const UPDATE_WALLET_ENS = 'UPDATE_WALLET_ENS';
 
 export const getWalletAddress = () => ({
     type: GET_WALLET_ADRESS,
@@ -29,5 +33,23 @@ export const getWalletTokens = () => ({
 
 export const updateWalletTokens = (payload) => ({
     type: UPDATE_WALLET_TOKENS,
+    payload,
+});
+
+export const getWalletNFT = () => ({
+    type: GET_WALLET_NFT,
+});
+
+export const updateWalletNFT = (payload) => ({
+    type: UPDATE_WALLET_NFT,
+    payload,
+});
+
+export const getWalletENS = () => ({
+    type: GET_WALLET_ENS,
+});
+
+export const updateWalletENS = (payload) => ({
+    type: UPDATE_WALLET_ENS,
     payload,
 });

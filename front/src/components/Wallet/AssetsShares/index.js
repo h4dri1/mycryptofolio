@@ -15,9 +15,10 @@ import {
   import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
   import Box from '@mui/material/Box';
   import { Avatar } from '@mui/material';
-  
+  import { useEffect } from 'react';
+  import { useSelector, useDispatch } from 'react-redux';
   import PropTypes from 'prop-types';
-  import { useSelector } from 'react-redux';
+  import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS } from '../../../actions/connectWallet';
 
   import { ethers } from 'ethers';
 
@@ -28,6 +29,7 @@ import {
   export default function AssetsShares({ distribution }) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
     const { darkMode } = useSelector((state) => state.settings);
+    const dispatch = useDispatch();
 
     if (selectedCurrency === 'BTC') {
         var curParams = {
@@ -102,11 +104,11 @@ import {
 
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
-        <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
+        <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
             <AccountBalanceWalletIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Tokens</Typography>
         </Container>
         <Container sx={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '40vh', overflowY: 'auto',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto',
           '&::-webkit-scrollbar': {
             width: '0.4em'
           },

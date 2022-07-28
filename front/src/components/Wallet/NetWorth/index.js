@@ -1,9 +1,10 @@
 import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
+  import React from 'react';
   import { Pie } from 'react-chartjs-2';
   import Container from '@mui/material/Container';
-  import { TableContainer, Paper } from '@mui/material';
+  import { TableContainer, Paper, IconButton } from '@mui/material';
   import Table from '@mui/material/Table';
   import TableHead from '@mui/material/TableHead';
   import TableBody from '@mui/material/TableBody';
@@ -24,6 +25,12 @@ import {
   import { ethers } from 'ethers';
 
   import { Link as RouterLink } from 'react-router-dom';
+
+  import DashboardIcon from '@mui/icons-material/Dashboard';
+  import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+  import VisibilityIcon from '@mui/icons-material/Visibility';
+  import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+  import PercentIcon from '@mui/icons-material/Percent';
   
   ChartJS.register(ArcElement, Tooltip, Legend);
   
@@ -62,65 +69,73 @@ import {
       var cryptoSym = ''
     }
     
-    //const labelsList = distribution.map((item) => (
-    //  item.symbol
-    //));
-  //
-    //const dataList = distribution.map((item) => (
-    //  item.distribution
-    //));
+    const labelsList = netWorth.map((item) => (
+      item.symbol
+    ));
   
-    // OPTIONS PIE GRAPH
-    //const options = {
-    //  plugins: {
-    //    legend: {
-    //      display: false,
-    //    },
-    //  },
-    //};
+    const dataList = netWorth.map((item) => (
+      item.share
+    ));
+     //OPTIONS PIE GRAPH
+    const options = {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    };
+     //DATA PIE GRAPH
+    const data = {
   
-    // DATA PIE GRAPH
-    //const data = {
-  //
-    //  // TODO: LABEL à dynamiser
-    //  labels: labelsList,
-    //  // labels: ['BTC', 'ETH',...]
-    //  datasets: [
-    //    {
-    //      label: '% of assets',
-    //      // TODO: DATA à dynamiser
-    //      data: dataList,
-    //      backgroundColor: [
-    //        'rgba(255, 99, 132, 0.2)',
-    //        'rgba(54, 162, 235, 0.2)',
-    //        'rgba(255, 206, 86, 0.2)',
-    //        'rgba(75, 192, 192, 0.2)',
-    //        'rgba(153, 102, 255, 0.2)',
-    //        'rgba(255, 159, 64, 0.2)',
-    //      ],
-    //      borderColor: [
-    //        'rgba(255, 99, 132, 1)',
-    //        'rgba(54, 162, 235, 1)',
-    //        'rgba(255, 206, 86, 1)',
-    //        'rgba(75, 192, 192, 1)',
-    //        'rgba(153, 102, 255, 1)',
-    //        'rgba(255, 159, 64, 1)',
-    //      ],
-    //      borderWidth: 2,
-    //    },
-    //  ],
-    //};
-  //
-
+      // TODO: LABEL à dynamiser
+      labels: labelsList,
+      // labels: ['BTC', 'ETH',...]
+      datasets: [
+        {
+          label: '% of assets',
+          // TODO: DATA à dynamiser
+          data: dataList,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+          ],
+          borderWidth: 2,
+        },
+      ],
+    };
+  
     const hide500 = useMediaQuery('(max-width:600px)');
 
+    const [show, setShow] = React.useState(true);
+    const [change, setChange] = React.useState('percent');
+
+    const handleClickHide = () => {
+      setShow(!show);
+    }
+
+    const handleClickChange = () => {
+      setChange(change === 'percent' ? 'value' : 'percent');
+    }
+
     return (
-      <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
+      <Container disableGutters sx={{ borderRadius: '10px', height: '100%'}}>
         <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-            <PaidIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Net Worth</Typography>
+            <DashboardIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Dashboard</Typography>
         </Container>
         <Container sx={{
-          display: 'flex', flexDirection: 'row', alignItems: 'center', maxHeight: '40vh', overflowY: 'auto', justifyContent: 'space-around',
+          marginTop: 3, display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', overflowY: 'auto', justifyContent: 'space-around',
           '&::-webkit-scrollbar': {
             width: '0.4em'
           },
@@ -137,8 +152,7 @@ import {
           <Box
           component="span"
           sx={[{
-            marginTop: 5,
-            width: '20%',
+            width: '25%',
             maxWidth: '40vw',
             borderRadius: '50%',
             border: 'solid 3px',
@@ -146,6 +160,7 @@ import {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor: '#002F54',
           },
           {
             '::after': {
@@ -156,29 +171,34 @@ import {
           },
           ]}
         >
-          <Typography
-            variant="h6"
-            color={'primary.light'}
-          >
-          {Intl.NumberFormat('en-US', {
-                    style: 'decimal',
-                    maximumSignificantDigits: 4,
-                    minimumSignificantDigits: 2,
-                  }).format(dayChange > 0 ? `+${dayChange}` : `${dayChange}`)}% 
-          </Typography>
+          <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
+            <Typography
+              variant="h5"
+              color={'primary.light'}
+            >
+            {dayChange > 0 ? `+` : `-`}{Intl.NumberFormat('en-US', {
+                      style: 'decimal',
+                      maximumSignificantDigits: 4,
+                      minimumSignificantDigits: 2,
+                    }).format(change === 'percent' ? dayChange : sum - sum24h)}{change === 'percent' ? '%' : selectedCurrency}
+            </Typography>
+            <IconButton onClick={handleClickChange}>
+              <AttachMoneyIcon/>
+            </IconButton>
+          </Box>
         </Box>
+        
         <Box
           component="span"
           sx={[{
-            marginTop: 5,
-            width: '30%',
-            maxWidth: '40vw',
+            width: '40%',
             borderRadius: '50%',
-            border: 'solid 3px',
+            border: 'solid 2px',
             borderColor: 'custom.main',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor: '#002F54',
           },
           {
             '::after': {
@@ -189,18 +209,15 @@ import {
           },
           ]}
         >
-          <Typography
-            variant="h4"
-            color={'primary.light'}
-          >
-          {cryptoSym}{sum.toLocaleString("en-US", curParams)}
-          </Typography>
-        </Box>
+        <Pie
+          data={data}
+          options={options}
+        />
+      </Box>
         <Box
           component="span"
           sx={[{
-            marginTop: 5,
-            width: '20%',
+            width: '25%',
             maxWidth: '40vw',
             borderRadius: '50%',
             border: 'solid 3px',
@@ -208,6 +225,7 @@ import {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor: '#002F54',
           },
           {
             '::after': {
@@ -218,17 +236,21 @@ import {
           },
           ]}
         >
-          <Typography
-            variant="h6"
-            color={'primary.light'}
-          >
-          {Intl.NumberFormat('en-US', {
-                    style: 'decimal',
-                    maximumSignificantDigits: 4,
-                    minimumSignificantDigits: 2,
-                  }).format(dayChange > 0 ? `+${dayChange}` : `${dayChange}`)}% 
-          </Typography>
+          <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
+            <Typography
+              variant="h5"
+              color={'primary.light'}
+            >
+            {cryptoSym}{show ? sum.toLocaleString("en-US", curParams) : '....'}
+            </Typography>
+            <IconButton onClick={handleClickHide}>
+              {show && <VisibilityOffIcon/>}
+              {!show && <VisibilityIcon/>}
+            </IconButton>
+          </Box>
+          
         </Box>
+
         </Container>
       </Container>
     );

@@ -29,21 +29,35 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { BlockPicker } from 'react-color'
 
+import { useNavigate } from 'react-router-dom';
+
 import { ethers } from 'ethers';
-import { getWalletAddress, getWalletBalance } from '../../actions/connectWallet';
+import { getWalletAddress, getWalletBalance, getWalletENS, getWalletNFT, getWalletTokens } from '../../actions/connectWallet';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const TopBanner = () => {
     const dispatch = useDispatch();
     const data = useSelector((state) => state.indicators);
     const hide500 = useMediaQuery('(max-width:600px)');
+    const navigate = useNavigate();
 
     const { darkMode } = useSelector((state) => state.settings);
-    const { walletAddress, walletBalance } = useSelector((state) => state.connectWallet);
+    const { walletAddress, walletENS } = useSelector((state) => state.connectWallet);
 
     const onClick = () => {
         dispatch(getWalletAddress());
+        dispatch(getWalletENS());
+        if (walletAddress !== 'Wallet') {
+            navigate('/wallet');
+        }
     }
+
+    useEffect(() => {
+        if (walletAddress !== 'Wallet') {
+            dispatch(getWalletAddress());
+            dispatch(getWalletENS());
+        }
+    }, []);
 
     return (
         <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF'}}>
@@ -61,7 +75,9 @@ const TopBanner = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Button onClick={onClick} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: {xs: '75px', md: '140px'}}}>{walletAddress === 'Wallet' ? `${walletAddress}` :`${walletAddress.substring(0, 8)}...`}</Button>
+                    <Button onClick={onClick} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: {xs: '75px', md: '140px'}}}>
+                        {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' ? `${walletENS}` : `${walletAddress.substring(0, 8)}...`}
+                    </Button>
                     <RefCurrency />
                     <Color /> 
                     <ToggleMode />

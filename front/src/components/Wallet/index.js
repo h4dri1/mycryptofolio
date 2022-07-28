@@ -17,7 +17,7 @@ import Performance from './NetWorth';
 import Nft from './Nft';
 
 import Loading from '../Loading'
-import { getWalletAddress } from '../../actions/connectWallet';
+import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS } from '../../actions/connectWallet';
 
 const useStyles = makeStyles({
   grid: {
@@ -43,7 +43,8 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress } = useSelector((state) => state.connectWallet);
+  const { walletNFT } = useSelector((state) => state.connectWallet);
   const { darkMode } = useSelector((state) => state.settings);
 
   const { colorTheme } = useSelector((state) => state.settings);
@@ -64,7 +65,10 @@ const Wallet = () => {
     }
 
   useEffect(() => {
-    dispatch(getWalletAddress())
+    dispatch(getWalletBalance())
+    dispatch(getWalletTokens())
+    dispatch(getWalletNFT())
+    dispatch(getWalletENS())
   }, []);
 
   return (
@@ -73,7 +77,7 @@ const Wallet = () => {
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container justifyContent="space-evenly" className={classes.grid}>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={11.3} className={classes.gridItem}>
-            <AssetsShares distribution={walletTokens} />
+          {walletAddress}
         </Grid>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={3.5} className={classes.gridItem}>
             <AssetsShares distribution={walletTokens} />
@@ -82,7 +86,7 @@ const Wallet = () => {
             <Performance netWorth={walletTokens} />
         </Grid>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={3.5} className={classes.gridItem}>
-            <Nft distribution={walletTokens} />
+            <Nft collection={walletNFT} />
         </Grid>
       </Grid>
     </div>
