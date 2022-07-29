@@ -22,17 +22,20 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import AlertMsg from 'src/components/common/AlertMessage';
 
+import { useNavigate } from 'react-router-dom';
+
 import { checkToken } from 'src/actions/user';
 import { getAllCryptos } from 'src/actions/cryptos';
 import { getIndicators } from 'src/actions/indicators';
 import { setHomeIcon } from '../../actions/settings';
 import { getCryptoList } from '../../actions/cryptos';
-import { getWalletAddress, getWalletBalance, updateWalletAddress, getWalletTokens, getWalletNFT, getWalletENS } from '../../actions/connectWallet';
+import { getWalletAddress, getWalletBalance, updateWalletAddress, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
 
 // == Composant
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // DARK MODE
   const { darkMode } = useSelector((state) => state.settings);
 
@@ -76,9 +79,11 @@ const App = () => {
           dispatch(getWalletTokens());
           dispatch(getWalletNFT());
           dispatch(getWalletENS());
+          dispatch(getWalletHistory());
         } else {
           localStorage.setItem('wallet', 'Wallet');
           dispatch(updateWalletAddress('Wallet'));
+          navigate('/');
         }
       });
     }

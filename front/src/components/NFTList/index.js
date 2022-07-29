@@ -64,6 +64,7 @@ function NFTList() {
   }, []);
 
   return (
+    <Box sx={{minHeight: '82.5vh'}}>
     <Grid container justifyContent="center" className={classes.root}>
       <Loading />
       <Grid item xs={12} className={classes.NFTList}>
@@ -106,7 +107,7 @@ function NFTList() {
       <Grid item>
         <LoadingButton
           variant="outlined"
-          sx={{ mb: 7, color: !darkMode ? "primary.light" :  '#07f3d5', borderColor: !darkMode ? "primary.light" : '#002F54' }}
+          sx={{ color: !darkMode ? "primary.light" :  '#07f3d5', borderColor: !darkMode ? "primary.light" : '#002F54' }}
           loading={NFTListLoading}
           onClick={() => dispatch(getMoreNFT())}
         >
@@ -114,6 +115,7 @@ function NFTList() {
         </LoadingButton>
       </Grid>
     </Grid>
+    </Box>
   );
 }
 
