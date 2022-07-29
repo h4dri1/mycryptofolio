@@ -132,10 +132,10 @@ import {
               <TableRow align="left">
                 <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', paddingLeft: 5}}>Token</TableCell>
                 <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Price</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>24h%</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Quantity</TableCell>
+                <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>24h%</TableCell>
+                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>Quantity</TableCell>
                 <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Value</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>%</TableCell>
+                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>%</TableCell>
               </TableRow>
             </TableHead>
             <TableBody align="left">
@@ -144,19 +144,19 @@ import {
                 <TableRow hover key={index}>
                   <TableCell align='center' sx={{borderBottom: 0 }}>
                     <Box component={RouterLink} to={`/crypto/${asset.name}`} sx={{ justifyContent: 'left', color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                        <Avatar src={asset.thumbnail ? asset.thumbnail : asset.name.slice(0,1)} alt={asset.symbol.slice(0,1)} sx={{ mr: 3, width: 20, height: 20, marginLeft: 1, backgroundColor: 'custom.main', color: 'secondary.light' }} />
-                        <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{asset.name}</Typography>
+                        <Avatar src={asset.thumbnail ? asset.thumbnail : asset.name.slice(0,1)} alt={asset.symbol.slice(0,1)} sx={{ mr: {xs: 1, md: 3}, width: 20, height: 20, marginLeft: 1, backgroundColor: 'custom.main', color: 'secondary.light' }} />
+                        <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{hide500 ? asset.symbol.toUpperCase() : asset.name}</Typography>
                     </Box>
                   </TableCell>
                   <TableCell align="left" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.price.toLocaleString("en-US", curParams)}
                   </TableCell>
-                  <TableCell align="center" sx={{ ...(asset.change24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }),padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
+                  <TableCell align="left" sx={{ ...(asset.change24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }),padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
                     style: 'decimal',
                     maximumSignificantDigits: 2,
                     minimumSignificantDigits: 2,
                   }).format(asset.change24h)}%
                   </TableCell>
-                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
+                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{Intl.NumberFormat('en-US', {
                     style: 'decimal',
                     maximumSignificantDigits: 4,
                     minimumSignificantDigits: 2,
@@ -164,7 +164,7 @@ import {
                   </TableCell>
                   <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.value.toLocaleString("en-US", curParams)}
                   </TableCell>
-                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
+                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{Intl.NumberFormat('en-US', {
                     style: 'decimal',
                     maximumSignificantDigits: 2,
                     minimumSignificantDigits: 2,

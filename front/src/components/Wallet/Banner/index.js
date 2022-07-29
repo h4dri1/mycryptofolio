@@ -63,7 +63,7 @@ export default function Banner({tokens}) {
     }
 
     return (
-        <Box disableGutters sx={{ display: 'flex', borderRadius: '10px', height: 'auto', width: 'auto', padding: 2 }}>
+        <Box disableGutters sx={{flexDirection: {xs: 'column', md: 'row'}, display: 'flex', borderRadius: '10px', height: 'auto', width: 'auto', padding: 2 }}>
             <Container sx={{display: 'flex', flexDirection: 'row'}}>
                 <Identicon address={walletAddress} diam={100} />
                 
