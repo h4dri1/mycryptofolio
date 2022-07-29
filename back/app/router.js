@@ -132,6 +132,7 @@ router
     )
 
 router
+    .get('/tokens/history/:address', blockchainController.getHistoryTransactionToken)
     .get('/token/:address/:vs', blockchainController.getERC20Tokens)
     .get('/nft/:address', blockchainController.getNFTbyAddress)
     .get('/ens/:address', blockchainController.getENSbyAddress)
