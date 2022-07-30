@@ -111,7 +111,7 @@ export default function TopNFT() {
                     arcPadding={0.02}
                     hideText={true}
                 />
-                <Typography sx={{ fontSize: '1.5em', color: color === 'white' ? 'primary.main' : 'white', fontWeight: 'bold', marginTop: 2 }}>{value}%</Typography>
+                <Typography sx={{ fontSize: '1.5em', color: color === 'white' ? 'primary.main' : 'white', fontWeight: 'bold', marginTop: 2 }}>{value[1] * 100}%</Typography>
                 <Divider sx={{ marginTop: 1, marginBottom: 3, width:'100%' }} />
                 <Typography sx={{ fontSize: '1.2em', color: '#ff9800', fontWeight: 'bold', marginBottom: 1 }}>{classification}</Typography>
             </Container>
