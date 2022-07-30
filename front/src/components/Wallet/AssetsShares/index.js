@@ -19,6 +19,7 @@ import {
   import { useSelector, useDispatch } from 'react-redux';
   import PropTypes from 'prop-types';
   import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS } from '../../../actions/connectWallet';
+  import HideImageIcon from '@mui/icons-material/HideImage';
 
   import { ethers } from 'ethers';
 

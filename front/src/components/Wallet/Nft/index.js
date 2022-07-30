@@ -151,8 +151,8 @@ import {
                 <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
                     <CardMedia
                         component="img"
-                        image={JSON.parse(nft.metadata).image_url}
-                        alt={JSON.parse(nft.metadata).image}
+                        image={JSON.parse(nft.metadata).image_url ? JSON.parse(nft.metadata).image_url : JSON.parse(nft.metadata).image}
+                        alt={nft.name}
                         sx={{width: '150px', height: '150px'}}/>
                     <CardContent sx={{backgroundColor: 'custom.main'}}>
                         <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>

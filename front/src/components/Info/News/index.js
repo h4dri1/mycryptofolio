@@ -69,7 +69,7 @@ export default function TopNFT() {
     const value = Object.keys(fearAndGreed).map((item) => {
         if (item === 'data') {
             var fearValue = fearAndGreed[item][0].value;
-            return fearValue;
+            return fearValue / 100;
         } 
     })
 
@@ -104,10 +104,10 @@ export default function TopNFT() {
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>
                 <GaugeChart
                     id="gauge-chart5"
-                    nrOfLevels={3}
+                    nrOfLevels={100}
                     arcsLength={[1, 1, 1]}
                     colors={['#e91e63', '#F5CD19', '#4caf50']}
-                    percent={0.11}
+                    percent={value[0]}
                     arcPadding={0.02}
                     hideText={true}
                 />
