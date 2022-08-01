@@ -31,17 +31,14 @@ module.exports = {
     sendMailCheck: async (req, res, next) => {
         try {
             let transporter = nodemailer.createTransport({
-                host: `${process.env.SMTP_HOST}`,
-                port: 587,
-                secure: false, // true for 465, false for other ports
-                auth: {
-                    user: `${process.env.MAIL_USER}`, // generated ethereal user
-                    pass: `${process.env.MAIL_PASS}`, // generated ethereal password
+                host: `localhost`,
+                tls: {
+                    rejectUnauthorized: false
                 },
             });
             
             let info = await transporter.sendMail({
-                from: '"donotreply@mycryptofolio.fr 👻" <mycryptofol.io@ik.me>', // sender address
+                from: '"noresponse@mycryptofolio.fr 👻" <mycryptofolio@mycryptofolio.fr>', // sender address
                 to: req.body.email, // list of receivers
                 subject: "Verify Email", // Subject line
                 text: "Follow this link for validate your email", // plain text body
