@@ -75,7 +75,6 @@ const settings = (state = initialState, action = {}) => {
     }
 
     case SET_DISPLAY_SNACK_BAR: {
-      console.log(action.payload ? action.payload.link : '')
       return ({
         ...state,
         alert: {

@@ -63,12 +63,11 @@ const auth = (store) => (next) => async (action) => {
             store.dispatch(setPending());
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
           } else if (res.status === 200) {
-            console.log(res.data)
             store.dispatch(setDisplaySnackBar({ severity: 'error', message: res.data.message, link: `https://mycryptofolio.fr/v1/verify/resend/${state.user.email}` }));
             store.dispatch(setPending());
           }
         })
-        .catch((err, res) => {
+        .catch((err) => {
           console.log(err.response.data.message);
           store.dispatch(setPending());
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
