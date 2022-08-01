@@ -7,8 +7,8 @@ module.exports = {
         try {
             let transporter = nodemailer.createTransport({
                 host: `${process.env.SMTP_HOST}`,
-                port: 587,
-                secure: false, // true for 465, false for other ports
+                port: 465,
+                secure: true, // true for 465, false for other ports
                 auth: {
                     user: `${process.env.MAIL_USER}`, // generated ethereal user
                     pass: `${process.env.MAIL_PASS}`, // generated ethereal password

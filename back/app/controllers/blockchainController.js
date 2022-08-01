@@ -73,6 +73,7 @@ module.exports = {
             const data = await service_fetch(`//deep-index.moralis.io/api/v2/${req.params.address}/erc20/transfers?chain=eth`, {headers: {
                 'X-API-Key': `${process.env.MORALIS_API_KEY}`
             }});
+            
             res.status(200).json(data); 
         } catch (err) {
             next(err);
@@ -100,4 +101,4 @@ module.exports = {
             next(err);        
         }
     }
-};   
+}; 
