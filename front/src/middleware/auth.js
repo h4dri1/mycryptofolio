@@ -64,7 +64,7 @@ const auth = (store) => (next) => async (action) => {
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
           } else if (res.status === 200) {
             console.log(res.data)
-            store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez activer votre compte, vérifiez le dossier SPAM ou ', link: `https://mycryptofolio.fr/v1/verify/resend/${res.data.message}` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'error', message: res.data.message, link: `https://mycryptofolio.fr/v1/verify/resend/${state.user.email}` }));
             store.dispatch(setPending());
           }
         })
