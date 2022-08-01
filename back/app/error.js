@@ -301,11 +301,11 @@ class SamePasswordAsOld extends Error {
 }
 
 class VerifyYourMail extends Error {
-    constructor (ip, email) {
+    constructor (ip) {
         super();
         this.name = this.constructor.name;
         this.level = 'warn';
-        this.message = `${email}`;
+        this.message = `Veuillez activer votre compte, vérifiez le dossier SPAM ou `;
         this.statusCode = 200;  
     }
 }

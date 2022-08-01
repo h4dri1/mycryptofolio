@@ -34,7 +34,7 @@ module.exports = {
                 id: user.id,
             }
             if (!user.verify) {
-                throw new VerifyYourMail(req.ip, req.body.email);
+                throw new VerifyYourMail(req.ip);
             }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(token));
@@ -113,7 +113,7 @@ module.exports = {
             await mailer.sendMailCheck(req, res, next);
             await redis.set(checkToken, user.id);
             await redis.expire(checkToken, 60*10);
-            res.status(200).json(req.params.email);
+            res.status(200).redirect('https://mycryptofolio.fr/login');
         } catch (err) {
             next(err);
         }
