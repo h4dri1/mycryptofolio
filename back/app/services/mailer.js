@@ -6,17 +6,14 @@ module.exports = {
     sendMail: async (req, res, next) => {
         try {
             let transporter = nodemailer.createTransport({
-                host: `${process.env.SMTP_HOST}`,
-                port: 465,
-                secure: true, // true for 465, false for other ports
-                auth: {
-                    user: `${process.env.MAIL_USER}`, // generated ethereal user
-                    pass: `${process.env.MAIL_PASS}`, // generated ethereal password
+                host: `localhost`,
+                tls: {
+                    rejectUnauthorized: false
                 },
             });
             
             let info = await transporter.sendMail({
-                from: '"noresponse@mycryptofolio.fr 👻" <mycryptofol.io@ik.me>', // sender address
+                from: '"noresponse@mycryptofolio.fr 👻" <mycryptofolio@mycryptofolio.fr>', // sender address
                 to: req.body.email, // list of receivers
                 subject: "Reset Password", // Subject line
                 text: "Follow this link for choose a new password", // plain text body
