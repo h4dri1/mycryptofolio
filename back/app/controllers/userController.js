@@ -13,6 +13,7 @@ const {
     ForgotPasswordNoMail,
     SamePasswordAsOld,
     VerifyYourMail,
+    NoUserWithThisMail
 } = require('../error');
 
 module.exports = {
@@ -33,7 +34,7 @@ module.exports = {
                 id: user.id,
             }
             if (!user.verify) {
-                throw new VerifyYourMail(req.ip);
+                throw new VerifyYourMail(req.ip, req.body.email);
             }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(token));
@@ -101,6 +102,23 @@ module.exports = {
          }
     },
 
+    resendMail: async (req, res, next) => {
+        try {
+            const user = await User.findOne(req.params.email);
+            if (!user.id) {
+                throw new NoUserWithThisMail(req.ip);
+            }
+            const checkToken = require("crypto").randomBytes(64).toString('hex');
+            req.token = checkToken 
+            await mailer.sendMailCheck(req, res, next);
+            await redis.set(checkToken, user.id);
+            await redis.expire(checkToken, 60*10);
+            res.status(200).json(req.params.email);
+        } catch (err) {
+            next(err);
+        }
+    },
+    
     forgotPassword: async (req, res, next) => {
         try {
             const user = await User.findOne(req.body.email);

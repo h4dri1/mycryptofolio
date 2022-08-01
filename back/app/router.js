@@ -59,6 +59,7 @@ const rateLimit = require('express-rate-limit');
 router
     .get('/logout/:token', validateParams(tokenSchema), jwtMW.logout, auth.logout)
     .get('/jwt/refresh/:token', validateParams(tokenSchema), rateLimit(refreshSchemaLim), tokenController.refresh)
+    .get('/verify/resend/:email', rateLimit(refreshSchemaLim), userController.resendMail)
     .post(
         '/jwt/login',
         rateLimit(loginSchemaLim), 
