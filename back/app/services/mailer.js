@@ -6,6 +6,7 @@ module.exports = {
     sendMail: async (req, res, next) => {
         try {
             let transporter = nodemailer.createTransport({
+                port: 25,
                 host: `localhost`,
                 tls: {
                     rejectUnauthorized: false
@@ -31,6 +32,7 @@ module.exports = {
     sendMailCheck: async (req, res, next) => {
         try {
             let transporter = nodemailer.createTransport({
+                port: 25,
                 host: `localhost`,
                 tls: {
                     rejectUnauthorized: false
