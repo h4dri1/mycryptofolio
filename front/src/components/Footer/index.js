@@ -17,7 +17,7 @@ const Footer = () => {
     const { darkMode } = useSelector((state) => state.settings);
 
     return (
-<Grid >
+<Grid sx={{}}>
 
 <Box disableGutters
     sx={{ justifyContent: 'center', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF', alignItems: "center", display: "flex", width: '100%', height: '50px' }}

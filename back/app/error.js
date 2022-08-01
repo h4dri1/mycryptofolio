@@ -304,13 +304,24 @@ class VerifyYourMail extends Error {
     constructor (ip) {
         super();
         this.name = this.constructor.name;
+        this.level = 'warn';
+        this.message = `Veuillez activer votre compte, vérifiez le dossier SPAM ou `;
+        this.statusCode = 200;  
+    }
+}
+
+class NoUserWithThisMail extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
         this.level = 'error';
-        this.message = `Vous devez activer votre compte avant de pouvoir vous connecter, vérifiez vos emails`;
-        this.statusCode = 500;  
+        this.message = `No user found with this mail`;
+        this.statusCode = 404;
     }
 }
 
 module.exports = {
+    NoUserWithThisMail,
     NoTransactionId,
     NoWallet,
     NotPresentInWallet,

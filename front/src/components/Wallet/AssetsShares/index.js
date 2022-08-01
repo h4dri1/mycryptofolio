@@ -19,6 +19,7 @@ import {
   import { useSelector, useDispatch } from 'react-redux';
   import PropTypes from 'prop-types';
   import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS } from '../../../actions/connectWallet';
+  import HideImageIcon from '@mui/icons-material/HideImage';
 
   import { ethers } from 'ethers';
 
@@ -50,55 +51,53 @@ import {
         var cryptoSym = ''
       }
     
-    //const labelsList = distribution.map((item) => (
-    //  item.symbol
-    //));
-  //
-    //const dataList = distribution.map((item) => (
-    //  item.distribution
-    //));
+    const labelsList = distribution.map((item) => (
+      item.symbol
+    ));
   
-    // OPTIONS PIE GRAPH
-    //const options = {
-    //  plugins: {
-    //    legend: {
-    //      display: false,
-    //    },
-    //  },
-    //};
+    const dataList = distribution.map((item) => (
+      item.share
+    ));
+     //OPTIONS PIE GRAPH
+    const options = {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    };
+     //DATA PIE GRAPH
+    const data = {
   
-    // DATA PIE GRAPH
-    //const data = {
-  //
-    //  // TODO: LABEL à dynamiser
-    //  labels: labelsList,
-    //  // labels: ['BTC', 'ETH',...]
-    //  datasets: [
-    //    {
-    //      label: '% of assets',
-    //      // TODO: DATA à dynamiser
-    //      data: dataList,
-    //      backgroundColor: [
-    //        'rgba(255, 99, 132, 0.2)',
-    //        'rgba(54, 162, 235, 0.2)',
-    //        'rgba(255, 206, 86, 0.2)',
-    //        'rgba(75, 192, 192, 0.2)',
-    //        'rgba(153, 102, 255, 0.2)',
-    //        'rgba(255, 159, 64, 0.2)',
-    //      ],
-    //      borderColor: [
-    //        'rgba(255, 99, 132, 1)',
-    //        'rgba(54, 162, 235, 1)',
-    //        'rgba(255, 206, 86, 1)',
-    //        'rgba(75, 192, 192, 1)',
-    //        'rgba(153, 102, 255, 1)',
-    //        'rgba(255, 159, 64, 1)',
-    //      ],
-    //      borderWidth: 2,
-    //    },
-    //  ],
-    //};
-  //
+      // TODO: LABEL à dynamiser
+      labels: labelsList,
+      // labels: ['BTC', 'ETH',...]
+      datasets: [
+        {
+          label: '% of assets',
+          // TODO: DATA à dynamiser
+          data: dataList,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+          ],
+          borderWidth: 2,
+        },
+      ],
+    };
+  
 
     const hide500 = useMediaQuery('(max-width:600px)');
 
@@ -108,7 +107,7 @@ import {
             <AccountBalanceWalletIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Tokens</Typography>
         </Container>
         <Container sx={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '100vh', overflowY: 'auto', justifyContent: 'center',
           '&::-webkit-scrollbar': {
             width: '0.4em'
           },
@@ -122,37 +121,43 @@ import {
           }
         }}
         >
-        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px'}}>
+        {/*<Container sx={{width: '25%', height: '35%', marginBottom: 2}}>
+            <Pie
+                data={data}
+                options={options}
+            />
+        </Container>*/}
+        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '580px'}}>
           <Table size='small' aria-label="a dense table" stickyHeader sx={{ maxWidth: '100%', p: '10'}}>
             <TableHead align="left">
               <TableRow align="left">
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Token</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Price</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>24h%</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Quantity</TableCell>
+                <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', paddingLeft: 5}}>Token</TableCell>
+                <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Price</TableCell>
+                <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>24h%</TableCell>
+                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>Quantity</TableCell>
                 <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Value</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>%</TableCell>
+                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>%</TableCell>
               </TableRow>
             </TableHead>
             <TableBody align="left">
               {distribution.map((asset, index) => (
                 (asset.value > 1 || selectedCurrency === 'BTC' || selectedCurrency === 'ETH') && (
                 <TableRow hover key={index}>
-                  <TableCell sx={{borderBottom: 0 }}>
-                    <Box component={RouterLink} to={`/crypto/${asset.name}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                        <Avatar src={asset.thumbnail ? asset.thumbnail : asset.name.slice(0,1)} alt={asset.symbol.slice(0,1)} sx={{ mr: 2, width: 20, height: 20, marginLeft: 1, backgroundColor: 'custom.main', color: 'secondary.light' }} />
-                        <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{asset.symbol.toUpperCase()}</Typography>
+                  <TableCell align='center' sx={{borderBottom: 0 }}>
+                    <Box component={RouterLink} to={`/crypto/${asset.name}`} sx={{ justifyContent: 'left', color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                        <Avatar src={asset.thumbnail ? asset.thumbnail : asset.name.slice(0,1)} alt={asset.symbol.slice(0,1)} sx={{ mr: {xs: 1, md: 3}, width: 20, height: 20, marginLeft: 1, backgroundColor: 'custom.main', color: 'secondary.light' }} />
+                        <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{hide500 ? asset.symbol.toUpperCase() : asset.name}</Typography>
                     </Box>
                   </TableCell>
-                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.price.toLocaleString("en-US", curParams)}
+                  <TableCell align="left" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.price.toLocaleString("en-US", curParams)}
                   </TableCell>
-                  <TableCell align="center" sx={{ ...(asset.change24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }),padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
+                  <TableCell align="left" sx={{ ...(asset.change24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }),padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
                     style: 'decimal',
                     maximumSignificantDigits: 2,
                     minimumSignificantDigits: 2,
                   }).format(asset.change24h)}%
                   </TableCell>
-                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
+                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{Intl.NumberFormat('en-US', {
                     style: 'decimal',
                     maximumSignificantDigits: 4,
                     minimumSignificantDigits: 2,
@@ -160,7 +165,7 @@ import {
                   </TableCell>
                   <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.value.toLocaleString("en-US", curParams)}
                   </TableCell>
-                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
+                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{Intl.NumberFormat('en-US', {
                     style: 'decimal',
                     maximumSignificantDigits: 2,
                     minimumSignificantDigits: 2,

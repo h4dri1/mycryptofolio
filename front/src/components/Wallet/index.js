@@ -9,15 +9,19 @@ import Container from '@mui/material/Container';
 import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
+import Paper from '@mui/material/Paper';
 import { setDisplaySnackBar } from 'src/actions/settings';
 import { Box, Typography } from '@mui/material';
 
 import AssetsShares from './AssetsShares';
-import Performance from './NetWorth';
+import Performance from './HistoryToken';
 import Nft from './Nft';
+import Banner from './Banner';
+import HistoryToken from './HistoryToken';
+import HistoryNFT from './HistoryNFT';
 
 import Loading from '../Loading'
-import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS } from '../../actions/connectWallet';
+import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
 
 const useStyles = makeStyles({
   grid: {
@@ -43,7 +47,7 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens, walletAddress } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress, walletHistory } = useSelector((state) => state.connectWallet);
   const { walletNFT } = useSelector((state) => state.connectWallet);
   const { darkMode } = useSelector((state) => state.settings);
 
@@ -65,32 +69,39 @@ const Wallet = () => {
     }
 
   useEffect(() => {
-    dispatch(getWalletBalance())
-    dispatch(getWalletTokens())
-    dispatch(getWalletNFT())
-    dispatch(getWalletENS())
+    if (walletAddress !== 'Wallet') {
+        dispatch(getWalletBalance())
+        dispatch(getWalletTokens())
+        dispatch(getWalletNFT())
+        dispatch(getWalletENS())
+        dispatch(getWalletHistory())
+    } else {
+        navigate('/');
+    }
   }, []);
 
   return (
     <div className="">
       <Loading/>
       <ConfirmDelete />
-      <Grid maxHeight={'80%'} container justifyContent="space-evenly" className={classes.grid}>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={11.3} className={classes.gridItem}>
-          {walletAddress}
+      <Box sx={{minHeight: '80vh'}}>
+      <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={8.1} className={classes.gridItem}>
+          <Banner tokens={walletTokens}/>
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={3.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
             <AssetsShares distribution={walletTokens} />
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={3.5} className={classes.gridItem}>
-            <Performance netWorth={walletTokens} />
-        </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={3.5} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
             <Nft collection={walletNFT} />
         </Grid>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={8.1} className={classes.gridItem}>
+            
+        </Grid>
       </Grid>
+      </Box>
     </div>
-  );
+  ); 
 };
 
 export default Wallet;

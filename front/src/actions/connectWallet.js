@@ -8,6 +8,8 @@ export const GET_WALLET_NFT = 'GET_WALLET_NFT';
 export const UPDATE_WALLET_NFT = 'UPDATE_WALLET_NFT';
 export const GET_WALLET_ENS = 'GET_WALLET_ENS';
 export const UPDATE_WALLET_ENS = 'UPDATE_WALLET_ENS';
+export const GET_WALLET_HISTORY = 'GET_WALLET_HISTORY';
+export const UPDATE_WALLET_HISTORY = 'UPDATE_WALLET_HISTORY';
 
 export const getWalletAddress = () => ({
     type: GET_WALLET_ADRESS,
@@ -51,5 +53,14 @@ export const getWalletENS = () => ({
 
 export const updateWalletENS = (payload) => ({
     type: UPDATE_WALLET_ENS,
+    payload,
+});
+
+export const getWalletHistory = () => ({
+    type: GET_WALLET_HISTORY,
+});
+
+export const updateWalletHistory = (payload) => ({
+    type: UPDATE_WALLET_HISTORY,
     payload,
 });

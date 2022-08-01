@@ -62,8 +62,8 @@ const auth = (store) => (next) => async (action) => {
             store.dispatch(saveUser(userObj));
             store.dispatch(setPending());
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
-          } else {
-            store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez activer votre compte, vérifiez vos emails' }));
+          } else if (res.status === 200) {
+            store.dispatch(setDisplaySnackBar({ severity: 'error', message: res.data.message, link: `https://mycryptofolio.fr/v1/verify/resend/${state.user.email}` }));
             store.dispatch(setPending());
           }
         })

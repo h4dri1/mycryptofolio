@@ -12,6 +12,8 @@ import { getWalletBalance,
         GET_WALLET_ENS,
         updateWalletENS,
         getWalletENS,
+        GET_WALLET_HISTORY,
+        updateWalletHistory,
         } from "../actions/connectWallet";
 
 import { ethers } from "ethers";
@@ -114,6 +116,25 @@ const connectWallet = (store) => (next) => async (action) => {
                     })
                     .then((res) => {
                         store.dispatch(updateWalletENS(res.data));
+                        store.dispatch(setPending())
+                        
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        store.dispatch(setPending())
+                    });
+                next(action);
+                break;
+            case GET_WALLET_HISTORY:
+                store.dispatch(setPending())
+                var { walletAddress } = store.getState().connectWallet;
+                axios({
+                    method: 'get',
+                    baseURL,
+                    url: `/tokens/history/${walletAddress}`,
+                    })
+                    .then((res) => {
+                        store.dispatch(updateWalletHistory(res.data));
                         store.dispatch(setPending())
                         
                     })

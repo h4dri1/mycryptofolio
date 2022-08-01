@@ -46,7 +46,7 @@ import {
 
 import axios from 'axios';
 
-import Identicon from 'react-identicons';
+import Identicon from '../Identicon';
 
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -159,8 +159,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   return (
     <Box>
       <Container>
-        {walletAddress !== 'Wallet' && <Box onClick={handleToggleLoginModal} sx={{ paddingTop: 1, aligItems: 'center', justifyContent: 'center', display: {xs: 'none', md: 'flex'}, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}>
-          <Identicon string={walletAddress} size={32}></Identicon>
+        {walletAddress !== 'Wallet' && <Box onClick={handleToggleLoginModal} sx={{ aligItems: 'center', justifyContent: 'center', display: {xs: 'none', md: 'flex'}, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}>
+          <Identicon address={walletAddress} diam={56}></Identicon>
         </Box>}
         {walletAddress === 'Wallet' && <Avatar
             id="composition-button"

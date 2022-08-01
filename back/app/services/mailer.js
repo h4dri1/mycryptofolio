@@ -6,17 +6,15 @@ module.exports = {
     sendMail: async (req, res, next) => {
         try {
             let transporter = nodemailer.createTransport({
-                host: `${process.env.SMTP_HOST}`,
-                port: 587,
-                secure: false, // true for 465, false for other ports
-                auth: {
-                    user: `${process.env.MAIL_USER}`, // generated ethereal user
-                    pass: `${process.env.MAIL_PASS}`, // generated ethereal password
+                port: 25,
+                host: `localhost`,
+                tls: {
+                    rejectUnauthorized: false
                 },
             });
             
             let info = await transporter.sendMail({
-                from: '"noresponse@mycryptofolio.fr 👻" <mycryptofol.io@ik.me>', // sender address
+                from: '"donotreply@mycryptofolio.fr 👻" <donotreply@mycryptofolio.fr>', // sender address
                 to: req.body.email, // list of receivers
                 subject: "Reset Password", // Subject line
                 text: "Follow this link for choose a new password", // plain text body
@@ -34,18 +32,16 @@ module.exports = {
     sendMailCheck: async (req, res, next) => {
         try {
             let transporter = nodemailer.createTransport({
-                host: `${process.env.SMTP_HOST}`,
-                port: 587,
-                secure: false, // true for 465, false for other ports
-                auth: {
-                    user: `${process.env.MAIL_USER}`, // generated ethereal user
-                    pass: `${process.env.MAIL_PASS}`, // generated ethereal password
+                port: 25,
+                host: `localhost`,
+                tls: {
+                    rejectUnauthorized: false
                 },
             });
             
             let info = await transporter.sendMail({
-                from: '"donotreply@mycryptofolio.fr 👻" <mycryptofol.io@ik.me>', // sender address
-                to: req.body.email, // list of receivers
+                from: '"donotreply@mycryptofolio.fr 👻" <donotreply@mycryptofolio.fr>', // sender address
+                to: req.body.email ? req.body.email : req.params.email, // list of receivers
                 subject: "Verify Email", // Subject line
                 text: "Follow this link for validate your email", // plain text body
                 html: `<b>Follow this link for validate your email <a href="https://mycryptofolio.fr/v1/verify/${req.token}">Verify</a> it will be active during 10 minutes</b>`, // html body

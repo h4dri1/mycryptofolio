@@ -133,7 +133,7 @@ import {
             <PhotoIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>NFT</Typography>
         </Container>
         <Container sx={{
-          display: 'flex', flexWrap: 'wrap', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto', justifyContent: 'space-around',
+          marginTop: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto', justifyContent: 'space-around',
           '&::-webkit-scrollbar': {
             width: '0.4em'
           },
@@ -148,21 +148,21 @@ import {
         }}
         >
             {collection.map((nft) => (
-                <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4}}>
+                <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
                     <CardMedia
                         component="img"
-                        image={JSON.parse(nft.metadata).image_url}
-                        alt={JSON.parse(nft.metadata).image}
-                        sx={{width: '180px', height: '180px'}}/>
+                        image={JSON.parse(nft.metadata).image_url ? JSON.parse(nft.metadata).image_url : JSON.parse(nft.metadata).image}
+                        alt={nft.name}
+                        sx={{width: '150px', height: '150px'}}/>
                     <CardContent sx={{backgroundColor: 'custom.main'}}>
-                        <Typography sx={{fontSize:'0.8em', justifyContent: 'center', display: 'flex', color: 'primary.dark'}}>
+                        <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>
                             {nft.name}
-                        </Typography>
+                        </Box>
                     </CardContent>
  
                 </Card>
             ))}
-        </Container>
+        </Container>        
       </Container>
     );
   }
