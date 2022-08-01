@@ -30,6 +30,7 @@ export const initialState = {
     open: false,
     severity: 'success',
     message: '',
+    link: ''
   },
   transactionEditorIsOpen: false,
   pending: false,
@@ -74,11 +75,13 @@ const settings = (state = initialState, action = {}) => {
     }
 
     case SET_DISPLAY_SNACK_BAR: {
+      console.log(action.payload ? action.payload.link : '')
       return ({
         ...state,
         alert: {
           severity: action.payload ? action.payload.severity : state.alert.severity,
           message: action.payload ? action.payload.message : '',
+          link: action.payload ? action.payload.link : '',
           open: !state.alert.open,
         },
       });

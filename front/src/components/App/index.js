@@ -68,6 +68,8 @@ const App = () => {
     },
   });
 
+
+
   theme = responsiveFontSizes(theme);
 
   const getChangeWallet = () => {

@@ -69,7 +69,7 @@ export default function Banner({tokens}) {
                 
                 <Box sx={{display: 'flex', flexDirection: 'column', marginLeft: 2, marginTop: 1}}>
                     <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                        <Typography component="a" href={`https://etherscan.io/address/${walletAddress}`} target="_blank" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>
+                        <Typography component="a" href={`https://etherscan.io/address/${walletAddress}`} rel="noopener" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>
                         <ContentCopyIcon onClick={() => {navigator.clipboard.writeText(walletAddress), dispatch(setDisplaySnackBar({ severity: 'success', message: `Address copied` }))}} sx={{ marginTop: 1, marginLeft: 1, cursor: 'pointer' }}></ContentCopyIcon>
                     </Box>
                     {walletENS && <Typography variant="h6" sx={{ marginTop: 1 }}>{walletENS}</Typography>}

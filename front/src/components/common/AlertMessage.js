@@ -1,5 +1,6 @@
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Link from '@mui/material/Link';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -7,7 +8,7 @@ import { setDisplaySnackBar } from 'src/actions/settings';
 
 export default function AlertMsg() {
   const dispatch = useDispatch();
-  const { open, severity, message } = useSelector((state) => state.settings.alert);
+  const { open, severity, message, link } = useSelector((state) => state.settings.alert);
 
   return (
     <div>
@@ -21,7 +22,8 @@ export default function AlertMsg() {
         onClose={() => dispatch(setDisplaySnackBar())}
       >
         <Alert severity={severity}>
-          {message}
+          {link && (<>{message}<Link underline="none" color='primary.light' href={link}>renvoyer l'email</Link></>)}
+          {!link && message}
         </Alert>
       </Snackbar>
     </div>

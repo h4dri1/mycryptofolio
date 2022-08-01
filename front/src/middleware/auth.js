@@ -62,12 +62,13 @@ const auth = (store) => (next) => async (action) => {
             store.dispatch(saveUser(userObj));
             store.dispatch(setPending());
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
-          } else {
-            store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez activer votre compte, vérifiez vos emails' }));
+          } else if (res.status === 200) {
+            console.log(res.data)
+            store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez activer votre compte, vérifiez le dossier SPAM ou ', link: `https://mycryptofolio.fr/v1/${res.data.message}` }));
             store.dispatch(setPending());
           }
         })
-        .catch((err) => {
+        .catch((err, res) => {
           console.log(err.response.data.message);
           store.dispatch(setPending());
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
