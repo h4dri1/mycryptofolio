@@ -12,6 +12,7 @@ import AssetsShares from './AssetsShares';
 import Nft from './Nft';
 import Banner from './Banner';
 
+import Loading from '../Loading'
 import { getWalletBalance, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
 
 const useStyles = makeStyles({
@@ -38,7 +39,7 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens, walletAddress, walletHistory, walletBalance } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress } = useSelector((state) => state.connectWallet);
   const { walletNFT } = useSelector((state) => state.connectWallet);
   const { darkMode } = useSelector((state) => state.settings);
 
