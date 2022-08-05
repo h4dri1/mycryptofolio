@@ -44,7 +44,7 @@ const { loginSchema,
 // guardMW => Check and validate transaction (check what you can or can't doing with a transaction)
 // validateBody, validateParams => Joi MW check data type
 
-const { jwtMW, updateMW, guardMW, validateBody, validateParams } = require('./middlewares');
+const { jwtMW, updateMW, guardMW, validateBody, validateParams, blockchainMW } = require('./middlewares');
 
 // auth => Service for ban 5x bad password and whitelist/blacklist refreshtoken
 // cache => Redis db cache
@@ -134,7 +134,7 @@ router
 
 router
     .get('/tokens/history/:address', blockchainController.getHistoryTransactionToken)
-    .get('/token/:address/:vs', blockchainController.getERC20Tokens)
+    .get('/token/:address/:vs/:net?/:network?', blockchainMW, blockchainController.getERC20Tokens)
     .get('/nft/:address', blockchainController.getNFTbyAddress)
     .get('/ens/:address', blockchainController.getENSbyAddress)
     .get('/test', nftsController.getTestNFT)

@@ -16,12 +16,13 @@ const cache = async (req, res, next) => {
         };
         // Redis Key
         newKey = `${prefix}${req.url}`
+        
         // Specific Redis Key for connected user
         // This is for prevent user from viewing some cached data from other user on the same path/key
         if (req.userId) {
             newKey = `${prefix}${req.userId.id}:${req.url}`
         }
-    
+        
         const key = newKey;
         // If key exist send data from redis
         if (await redis.exists(key)) {

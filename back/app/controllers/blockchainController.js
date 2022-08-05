@@ -1,4 +1,4 @@
-const { Crypto } = require('../models');
+const NativeTokenObject = require('../class/NativeTokenObject');
 const service_fetch = require('../services/fetch');
 const { ethers } = require('ethers');
 
@@ -7,54 +7,34 @@ require('dotenv').config();
 module.exports = {
     getERC20Tokens: async (req, res, next) => {
         try {
-            var newData = [];
-            const mainToken = {}
-            const data = await service_fetch(`//deep-index.moralis.io/api/v2/${req.params.address}/erc20?chain=eth`, {headers: {
-                'X-API-Key': `${process.env.MORALIS_API_KEY}`
-            }});
-            const walletBalance = await service_fetch(`//deep-index.moralis.io/api/v2/${req.params.address}/balance?chain=eth`, {headers: {
-                'X-API-Key': `${process.env.MORALIS_API_KEY}`
-            }});
-            const priceMainToken = req.params.vs !== 'ETH' ? await service_fetch(`//api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=${req.params.vs.toLowerCase()}&include_24hr_change=true`) : {};
-            let sum = req.params.vs !== 'ETH' ? ethers.utils.formatEther(walletBalance.balance) * priceMainToken.ethereum[req.params.vs.toLowerCase()] : Number(ethers.utils.formatEther(walletBalance.balance))
-            const prout = []
-            const test = data.map((add) => {
-                return add.token_address
-            })
-            for (const newAdd of test) {
-                const check = await Crypto.checkEthAddress(newAdd);
-                if (check) {
-                    prout.push(newAdd)
+            const whiteListToken = req.erc20Token.filter((token) => {
+                if (req.whiteListAddress.includes(token.token_address)) {
+                    token.change24h = req.tokensPrices[`${token.token_address}`][`${req.params.vs}_24h_change`]
+                    token.price = req.tokensPrices[`${token.token_address}`][req.params.vs]
+                    token.value = ethers.utils.formatEther(token.balance) * token.price
+                    token.value24h = token.value / (1 + token.change24h / 100)
+                    req.walletTotalBalance += token.value
+                    return token
                 }
-            }
-            const filterData = data.filter((add) => {
-                return prout.includes(add.token_address)
             })
-            const prices = await service_fetch(`//api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${prout}&vs_currencies=${req.params.vs.toLowerCase()}&include_24hr_change=true`)
-            for (const token of filterData) {
-                const curr = req.params.vs.toLowerCase();
-                token.price = prices[`${token.token_address}`][curr]
-                const change24h = prices[`${token.token_address}`][`${curr}_24h_change`]
-                token.value = ethers.utils.formatEther(token.balance) * token.price
-                token.value24h = token.value / (1 + change24h / 100)
-                token.change24h = change24h
-                newData.push(token);
-                sum += token.value;
+    
+            for (const token of whiteListToken) {
+                token.share = (token.value / req.walletTotalBalance) * 100;
             }
-            for (const token of newData) {  
-                token.share = (token.value / sum) * 100;
-            }
-            mainToken.name = 'Ethereum';
-            mainToken.symbol = 'ETH';
-            mainToken.balance = walletBalance.balance;
-            mainToken.price = req.params.vs !== 'ETH' ? priceMainToken.ethereum[req.params.vs.toLowerCase()] : 1;
-            mainToken.value = ethers.utils.formatEther(walletBalance.balance) * mainToken.price;
-            mainToken.share = (mainToken.value / sum) * 100;
-            mainToken.thumbnail = 'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880';
-            mainToken.change24h = req.params.vs !== 'ETH' ? priceMainToken.ethereum[`${req.params.vs.toLowerCase()}_24h_change`] : 0;
-            mainToken.value24h = mainToken.value / (1 + mainToken.change24h / 100)
-            newData.push(mainToken);
-            res.status(200).json(newData);
+    
+            const nativeTokenObject = new NativeTokenObject(
+                `${req.params.network === 'eth' ? 'Ethereum' : req.params.network}`, // name
+                `${req.params.network === 'eth' ? 'ETH' : req.params.network.toUpperCase()}`, // symbol
+                req.params.net, // balance
+                `${req.params.vs !== req.params.network ? req.nativeTokenPrice.ethereum[req.params.vs] : 1}`, // price
+                req.walletTotalBalance,// share
+                'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880', //thumbnail
+                req.params.vs !== req.params.network ? req.nativeTokenPrice.ethereum[`${req.params.vs}_24h_change`] : 0, // change24h
+            )
+    
+            whiteListToken.push(nativeTokenObject)
+            
+            res.status(200).json(whiteListToken);
         } catch (err) {
             next(err);        
         }
