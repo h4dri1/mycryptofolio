@@ -16,8 +16,6 @@ import {
   updateAllCryptos,
   GET_CURRENT_PRICE,
   setPrice,
-  GET_NFT_LIST,
-  updateNFTList,
 } from 'src/actions/cryptos';
 
 import { setPending } from 'src/actions/settings';

@@ -4,17 +4,14 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-import { deleteUser } from '../../actions/user';
+import { useDispatch } from 'react-redux';
 
 import Loading from '../Loading';
 
 import axios  from 'axios';
 
 import {
-    Grid,
-    Link
+    Grid
   } from '@mui/material';
 
 import { makeStyles } from '@mui/styles';

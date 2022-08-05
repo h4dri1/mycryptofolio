@@ -1,8 +1,6 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios';
 
-import { useSelector, useDispatch } from 'react-redux';
-
 import {
   CHANGE_USER,
   CHANGE_PASSWORD,

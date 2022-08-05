@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { change_forgot_password } from '../../../actions/user';
 
 import { setDisplaySnackBar } from 'src/actions/settings';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Visibility from '@mui/icons-material/Visibility';
 
@@ -26,8 +26,6 @@ import {
 } from '@mui/material';
 
 export default function Password() {
-
-    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 

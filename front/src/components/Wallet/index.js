@@ -4,24 +4,15 @@ import { makeStyles } from '@mui/styles';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
-import Container from '@mui/material/Container';
-import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
-import Paper from '@mui/material/Paper';
-import { setDisplaySnackBar } from 'src/actions/settings';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 import AssetsShares from './AssetsShares';
-import Performance from './HistoryToken';
 import Nft from './Nft';
 import Banner from './Banner';
-import HistoryToken from './HistoryToken';
-import HistoryNFT from './HistoryNFT';
 
-import Loading from '../Loading'
-import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
+import { getWalletBalance, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
 
 const useStyles = makeStyles({
   grid: {
@@ -47,7 +38,7 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens, walletAddress, walletHistory } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress, walletHistory, walletBalance } = useSelector((state) => state.connectWallet);
   const { walletNFT } = useSelector((state) => state.connectWallet);
   const { darkMode } = useSelector((state) => state.settings);
 
@@ -71,7 +62,6 @@ const Wallet = () => {
   useEffect(() => {
     if (walletAddress !== 'Wallet') {
         dispatch(getWalletBalance())
-        dispatch(getWalletTokens())
         dispatch(getWalletNFT())
         dispatch(getWalletENS())
         dispatch(getWalletHistory())

@@ -1,6 +1,3 @@
-import { styled, alpha } from '@mui/material/styles';
-import SearchIcon from '@mui/icons-material/Search';
-
 import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
 import SearchCrypto from 'src/components/Navbar/SearchBar/SearchCrypto';
@@ -15,17 +12,11 @@ import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 
-import { useEffect } from 'react';
-
 import {
   AppBar,
   Box,
-  Grid,
   Toolbar,
   Typography,
-  InputBase,
-  MenuItem,
-  Menu,
   Link,
   Button,
   useMediaQuery

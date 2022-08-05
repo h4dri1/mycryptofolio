@@ -10,9 +10,6 @@ import { deleteUser } from '../../actions/user';
 
 import Loading from '../Loading';
 
-import { setDisplaySnackBar } from 'src/actions/settings';
-
-
 import {
     Grid,
     Link

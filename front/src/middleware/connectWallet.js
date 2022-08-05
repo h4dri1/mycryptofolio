@@ -1,5 +1,4 @@
-import { getWalletBalance, 
-        GET_WALLET_ADRESS, 
+import {GET_WALLET_ADRESS, 
         GET_WALLET_BALANCE, 
         updateWalletAddress, 
         updateWalletBalance, 
@@ -8,22 +7,17 @@ import { getWalletBalance,
         getWalletTokens,
         GET_WALLET_NFT,
         updateWalletNFT,
-        getWalletNFT,
         GET_WALLET_ENS,
         updateWalletENS,
-        getWalletENS,
         GET_WALLET_HISTORY,
         updateWalletHistory,
         } from "../actions/connectWallet";
-
-import { ethers } from "ethers";
 
 import axios from 'axios';
 
 import { setDisplaySnackBar } from 'src/actions/settings';
 
 import { setPending } from 'src/actions/settings';
-import { Stroller } from "@mui/icons-material";
 
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
@@ -61,7 +55,8 @@ const connectWallet = (store) => (next) => async (action) => {
             })
             .then((balance) => {
               // Setting balance
-                store.dispatch(updateWalletBalance(ethers.utils.formatEther(balance)))
+                store.dispatch(updateWalletBalance(balance))
+                store.dispatch(getWalletTokens())
                 store.dispatch(setPending())
                 
             });
@@ -69,12 +64,12 @@ const connectWallet = (store) => (next) => async (action) => {
             break;
         case GET_WALLET_TOKENS:
             store.dispatch(setPending())
-            var { walletAddress } = store.getState().connectWallet;
+            var { walletAddress, walletBalance } = store.getState().connectWallet;
             var { selectedCurrency } = store.getState().cryptos.cryptoList;
             axios({
                 method: 'get',
                 baseURL,
-                url: `/token/${walletAddress}/${selectedCurrency}`,
+                url: `/token/${walletAddress}/${selectedCurrency}/${walletBalance}/eth`,
                 })
                 .then((res) => {
                     store.dispatch(updateWalletTokens(res.data));
@@ -109,20 +104,22 @@ const connectWallet = (store) => (next) => async (action) => {
             case GET_WALLET_ENS:
                 store.dispatch(setPending())
                 var { walletAddress } = store.getState().connectWallet;
-                axios({
-                    method: 'get',
-                    baseURL,
-                    url: `/ens/${walletAddress}`,
-                    })
-                    .then((res) => {
-                        store.dispatch(updateWalletENS(res.data));
-                        store.dispatch(setPending())
-                        
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        store.dispatch(setPending())
-                    });
+                if (walletAddress !== 'Wallet') {
+                    axios({
+                        method: 'get',
+                        baseURL,
+                        url: `/ens/${walletAddress}`,
+                        })
+                        .then((res) => {
+                            store.dispatch(updateWalletENS(res.data));
+                            store.dispatch(setPending())
+                            
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            store.dispatch(setPending())
+                        });
+                }
                 next(action);
                 break;
             case GET_WALLET_HISTORY:

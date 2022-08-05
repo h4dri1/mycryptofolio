@@ -9,31 +9,17 @@ import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 import Color from './Color';
 import Button from '@mui/material/Button';
-import { Select, MenuItem } from '@mui/material';
-
-import { useState } from 'react';
-
-import Box from '@mui/material/Box';
-
-import { getCryptoList, updateCurrency } from 'src/actions/cryptos';
-
-import { getIndicators } from 'src/actions/indicators';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Typography, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 
 import Logo from 'src/components/Navbar/Logo';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { BlockPicker } from 'react-color'
-
 import { useNavigate } from 'react-router-dom';
 
-import { ethers } from 'ethers';
-import { getWalletAddress, getWalletBalance, getWalletENS, getWalletNFT, getWalletTokens } from '../../actions/connectWallet';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import { getWalletAddress, getWalletENS } from '../../actions/connectWallet';
 
 const TopBanner = () => {
     const dispatch = useDispatch();

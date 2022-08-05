@@ -1,45 +1,18 @@
 import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
-  import { Pie } from 'react-chartjs-2';
   import Container from '@mui/material/Container';
-  import { TableContainer, Paper } from '@mui/material';
-  import Table from '@mui/material/Table';
-  import TableHead from '@mui/material/TableHead';
-  import TableBody from '@mui/material/TableBody';
-  import TableRow from '@mui/material/TableRow';
-  import TableCell from '@mui/material/TableCell';
-  import Divider from '@mui/material/Divider';
   import Typography from '@mui/material/Typography';
   import useMediaQuery from '@mui/material/useMediaQuery';
-  import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
   import Box from '@mui/material/Box';
   import Card from '@mui/material/Card';
-  import CardHeader from '@mui/material/CardHeader';
   import CardMedia from '@mui/material/CardMedia';
   import CardContent from '@mui/material/CardContent';
-  import CardActions from '@mui/material/CardActions';
-  import Collapse from '@mui/material/Collapse';
-  import Avatar from '@mui/material/Avatar';
-  import IconButton from '@mui/material/IconButton';
-  import { red } from '@mui/material/colors';
-  import FavoriteIcon from '@mui/icons-material/Favorite';
-  import ShareIcon from '@mui/icons-material/Share';
-  import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-  import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-
-  import PaidIcon from '@mui/icons-material/Paid';
 
   import PhotoIcon from '@mui/icons-material/Photo';
-  
-  import PropTypes from 'prop-types';
+
   import { useSelector } from 'react-redux';
 
-  import { ethers } from 'ethers';
-
-  import { Link as RouterLink } from 'react-router-dom';
-  
   ChartJS.register(ArcElement, Tooltip, Legend);
   
   export default function Nft({collection}) {

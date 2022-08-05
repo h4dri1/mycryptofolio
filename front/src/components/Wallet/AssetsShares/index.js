@@ -1,7 +1,6 @@
 import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
-  import { Pie } from 'react-chartjs-2';
   import Container from '@mui/material/Container';
   import { TableContainer, Paper } from '@mui/material';
   import Table from '@mui/material/Table';
@@ -9,17 +8,12 @@ import {
   import TableBody from '@mui/material/TableBody';
   import TableRow from '@mui/material/TableRow';
   import TableCell from '@mui/material/TableCell';
-  import Divider from '@mui/material/Divider';
   import Typography from '@mui/material/Typography';
   import useMediaQuery from '@mui/material/useMediaQuery';
   import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
   import Box from '@mui/material/Box';
   import { Avatar } from '@mui/material';
-  import { useEffect } from 'react';
-  import { useSelector, useDispatch } from 'react-redux';
-  import PropTypes from 'prop-types';
-  import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS } from '../../../actions/connectWallet';
-  import HideImageIcon from '@mui/icons-material/HideImage';
+  import { useSelector } from 'react-redux';
 
   import { ethers } from 'ethers';
 
@@ -30,7 +24,6 @@ import {
   export default function AssetsShares({ distribution }) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
     const { darkMode } = useSelector((state) => state.settings);
-    const dispatch = useDispatch();
 
     if (selectedCurrency === 'BTC') {
         var curParams = {

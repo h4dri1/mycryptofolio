@@ -1,29 +1,13 @@
 import * as React from 'react';
 
-import { useEffect } from 'react';
-
-import { useSelector, useDispatch } from 'react-redux';
-
-import { change_password } from '../../../actions/user';
-
-import { setDisplaySnackBar } from 'src/actions/settings';
-
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import { useSelector } from 'react-redux';
 
 import WhatshotIcon from '@mui/icons-material/Whatshot';
-
-import { getCryptoTrend } from '../../../actions/cryptos';
 
 import { Link as RouterLink } from 'react-router-dom';
 
 import { 
-    TextField, 
-    Divider, 
     Typography, 
-    Grid, 
-    Button, 
     Box,
     Container,
     TableContainer,
@@ -40,8 +24,6 @@ import {
 
 
 export default function TopFlop() {
-
-    const dispatch = useDispatch();
 
     const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
 

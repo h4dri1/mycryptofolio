@@ -5,11 +5,7 @@ import IconButton from '@mui/material/IconButton'
 import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRef } from 'react';
-import { change_avatar, saveUser } from '../../../actions/user';
-
-import axios from 'axios';
-
-
+import { change_avatar } from '../../../actions/user';
 
 export default function AvatarP() {
 

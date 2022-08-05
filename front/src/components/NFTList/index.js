@@ -6,7 +6,6 @@ import TableCell from '@mui/material/TableCell';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';

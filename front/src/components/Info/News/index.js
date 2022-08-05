@@ -2,45 +2,19 @@ import * as React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { change_password } from '../../../actions/user';
-
-import { setDisplaySnackBar } from 'src/actions/settings';
-
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-
-import TagIcon from '@mui/icons-material/Tag';
-
 import GaugeChart from 'react-gauge-chart'
 
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 
-import { Link as RouterLink } from 'react-router-dom';
-
 import { 
-    TextField, 
     Divider, 
     Typography, 
-    Grid, 
-    Button, 
     Box,
     Container,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    Table,
-    TableCell,
-    TableBody,
-    Avatar,
     useMediaQuery
 } from '@mui/material';
 
 export default function TopNFT() {
-
-    const dispatch = useDispatch();
-
     const { darkMode } = useSelector((state) => state.settings);
 
     const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);

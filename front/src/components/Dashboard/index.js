@@ -4,8 +4,7 @@ import { makeStyles } from '@mui/styles';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
-import Container from '@mui/material/Container';
+import { fetchPortfolio } from 'src/actions/portfolio';
 import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
@@ -14,7 +13,7 @@ import AssetsShares from './AssetsShares';
 import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
-import { setDisplaySnackBar } from 'src/actions/settings';
+
 
 import Loading from '../Loading'
 

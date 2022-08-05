@@ -6,18 +6,15 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { setDisplaySnackBar } from 'src/actions/settings';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function Banner({tokens}) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
     const { walletAddress, walletENS } = useSelector((state) => state.connectWallet);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     let sum = 0;
     let sum24h = 0;
@@ -69,7 +66,7 @@ export default function Banner({tokens}) {
                 
                 <Box sx={{display: 'flex', flexDirection: 'column', marginLeft: 2, marginTop: 1}}>
                     <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                        <Typography component="a" href={`https://etherscan.io/address/${walletAddress}`} rel="noopener" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>
+                        <Typography component="a" href={`https://etherscan.io/address/${walletAddress}`} rel="noopener" target="_blank" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>
                         <ContentCopyIcon onClick={() => {navigator.clipboard.writeText(walletAddress), dispatch(setDisplaySnackBar({ severity: 'success', message: `Address copied` }))}} sx={{ marginTop: 1, marginLeft: 1, cursor: 'pointer' }}></ContentCopyIcon>
                     </Box>
                     {walletENS && <Typography variant="h6" sx={{ marginTop: 1 }}>{walletENS}</Typography>}

@@ -2,8 +2,7 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { ButtonGroup, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import ToggleButton from '@mui/material/ToggleButton';
@@ -16,7 +15,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCryptoData, fetchChartData } from 'src/actions/cryptoDetails';
 import Graph from './Graph';
 import Description from './Description';
-import Converter from './Converter';
 import Indicators from './Indicators';
 import Chip from '@mui/material/Chip';
 

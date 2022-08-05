@@ -2,35 +2,10 @@ import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
   import React from 'react';
-  import { Pie } from 'react-chartjs-2';
   import Container from '@mui/material/Container';
-  import { TableContainer, Paper, IconButton } from '@mui/material';
-  import Table from '@mui/material/Table';
-  import TableHead from '@mui/material/TableHead';
-  import TableBody from '@mui/material/TableBody';
-  import TableRow from '@mui/material/TableRow';
-  import TableCell from '@mui/material/TableCell';
-  import Divider from '@mui/material/Divider';
   import Typography from '@mui/material/Typography';
   import useMediaQuery from '@mui/material/useMediaQuery';
-  import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-  import Box from '@mui/material/Box';
-  import { Avatar } from '@mui/material';
-
-  import PaidIcon from '@mui/icons-material/Paid';
-  
-  import PropTypes from 'prop-types';
   import { useSelector } from 'react-redux';
-
-  import { ethers } from 'ethers';
-
-  import { Link as RouterLink } from 'react-router-dom';
-
-  import DashboardIcon from '@mui/icons-material/Dashboard';
-  import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-  import VisibilityIcon from '@mui/icons-material/Visibility';
-  import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-  import PercentIcon from '@mui/icons-material/Percent';
   import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
   ChartJS.register(ArcElement, Tooltip, Legend);

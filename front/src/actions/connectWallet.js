@@ -30,7 +30,7 @@ export const updateWalletBalance = (payload) => ({
 });
 
 export const getWalletTokens = () => ({
-    type: GET_WALLET_TOKENS,
+    type: GET_WALLET_TOKENS
 });
 
 export const updateWalletTokens = (payload) => ({

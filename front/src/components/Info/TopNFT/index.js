@@ -1,25 +1,13 @@
 import * as React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-import { change_password } from '../../../actions/user';
-
-import { setDisplaySnackBar } from 'src/actions/settings';
-
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import { useSelector } from 'react-redux';
 
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 
 import { Link as RouterLink } from 'react-router-dom';
 
 import { 
-    TextField, 
-    Divider, 
     Typography, 
-    Grid, 
-    Button, 
     Box,
     Container,
     TableContainer,
@@ -34,8 +22,6 @@ import {
 } from '@mui/material';
 
 export default function TopNFT() {
-
-    const dispatch = useDispatch();
 
     const { list: nfts } = useSelector((state) => state.nft.NFTList);
 
