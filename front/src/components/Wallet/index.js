@@ -6,14 +6,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
-import { Box } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
 
 import AssetsShares from './AssetsShares';
 import Nft from './Nft';
 import Banner from './Banner';
 
-import Loading from '../Loading'
 import { getWalletBalance, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
+import HistoryToken from './HistoryToken';
 
 const useStyles = makeStyles({
   grid: {
@@ -39,7 +39,7 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens, walletAddress } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress, walletHistory } = useSelector((state) => state.connectWallet);
   const { walletNFT } = useSelector((state) => state.connectWallet);
   const { darkMode } = useSelector((state) => state.settings);
 
@@ -63,17 +63,16 @@ const Wallet = () => {
   useEffect(() => {
     if (walletAddress !== 'Wallet') {
         dispatch(getWalletBalance())
+        dispatch(getWalletHistory())
         dispatch(getWalletNFT())
         dispatch(getWalletENS())
-        dispatch(getWalletHistory())
     } else {
         navigate('/');
     }
   }, []);
-
+  
   return (
     <div className="">
-      <Loading/>
       <ConfirmDelete />
       <Box sx={{minHeight: '80vh'}}>
       <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
@@ -81,12 +80,15 @@ const Wallet = () => {
           <Banner tokens={walletTokens}/>
         </Grid>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
-            <AssetsShares distribution={walletTokens} />
+            {walletTokens.length > 0 ? (<AssetsShares distribution={walletTokens} />) : (<Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width={'100%'} height={'100%'} />)}
         </Grid>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
-            <Nft collection={walletNFT} />
+            {walletNFT.length > 0 ? (<Nft collection={walletNFT} />) : (<Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width={'100%'} height={'100%'} />)}
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={8.1} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
+            <HistoryToken history={walletHistory}/>
+        </Grid>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
             
         </Grid>
       </Grid>

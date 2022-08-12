@@ -2,7 +2,7 @@ import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
   import Container from '@mui/material/Container';
-  import { TableContainer, Paper } from '@mui/material';
+  import { TableContainer, Paper, Skeleton, Divider } from '@mui/material';
   import Table from '@mui/material/Table';
   import TableHead from '@mui/material/TableHead';
   import TableBody from '@mui/material/TableBody';
@@ -14,6 +14,8 @@ import {
   import Box from '@mui/material/Box';
   import { Avatar } from '@mui/material';
   import { useSelector } from 'react-redux';
+
+  import MoodBadIcon from '@mui/icons-material/MoodBad';
 
   import { ethers } from 'ethers';
 
@@ -120,56 +122,65 @@ import {
                 options={options}
             />
         </Container>*/}
-        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '580px'}}>
-          <Table size='small' aria-label="a dense table" stickyHeader sx={{ maxWidth: '100%', p: '10'}}>
-            <TableHead align="left">
-              <TableRow align="left">
-                <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', paddingLeft: 5}}>Token</TableCell>
-                <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Price</TableCell>
-                <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>24h%</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>Quantity</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Value</TableCell>
-                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>%</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody align="left">
-              {distribution.map((asset, index) => (
-                (asset.value > 1 || selectedCurrency === 'BTC' || selectedCurrency === 'ETH') && (
-                <TableRow hover key={index}>
-                  <TableCell align='center' sx={{borderBottom: 0 }}>
-                    <Box component={RouterLink} to={`/crypto/${asset.name}`} sx={{ justifyContent: 'left', color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                        <Avatar src={asset.thumbnail ? asset.thumbnail : asset.name.slice(0,1)} alt={asset.symbol.slice(0,1)} sx={{ mr: {xs: 1, md: 3}, width: 20, height: 20, marginLeft: 1, backgroundColor: 'custom.main', color: 'secondary.light' }} />
-                        <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{hide500 ? asset.symbol.toUpperCase() : asset.name}</Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell align="left" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.price.toLocaleString("en-US", curParams)}
-                  </TableCell>
-                  <TableCell align="left" sx={{ ...(asset.change24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }),padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
-                    style: 'decimal',
-                    maximumSignificantDigits: 2,
-                    minimumSignificantDigits: 2,
-                  }).format(asset.change24h)}%
-                  </TableCell>
-                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{Intl.NumberFormat('en-US', {
-                    style: 'decimal',
-                    maximumSignificantDigits: 4,
-                    minimumSignificantDigits: 2,
-                  }).format(ethers.utils.formatEther(asset.balance))}
-                  </TableCell>
-                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.value.toLocaleString("en-US", curParams)}
-                  </TableCell>
-                  <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{Intl.NumberFormat('en-US', {
-                    style: 'decimal',
-                    maximumSignificantDigits: 2,
-                    minimumSignificantDigits: 2,
-                  }).format(asset.share)}%
-                  </TableCell>
+        { distribution[0].balance !== '0x0' && distribution[0].name !== 'Ethereum' ? (
+          <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '580px'}}>
+            <Table size='small' aria-label="a dense table" stickyHeader sx={{ maxWidth: '100%', p: '10'}}>
+              <TableHead align="left">
+                <TableRow align="left">
+                  <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', paddingLeft: 5}}>Token</TableCell>
+                  <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Price</TableCell>
+                  <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>24h%</TableCell>
+                  <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>Quantity</TableCell>
+                  <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Value</TableCell>
+                  <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>%</TableCell>
                 </TableRow>
-              )
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+                <TableBody align="left">
+                  {distribution.map((asset) => (
+                    (asset.value > 1 || selectedCurrency === 'BTC' || selectedCurrency === 'ETH') && (
+                    <TableRow hover key={asset.name}>
+                      <TableCell align='center' sx={{borderBottom: 0 }}>
+                        <Box component={RouterLink} to={`/crypto/${asset.name}`} sx={{ justifyContent: 'left', color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                            <Avatar src={asset.thumbnail ? asset.thumbnail : asset.name.slice(0,1)} alt={asset.symbol.slice(0,1)} sx={{ mr: {xs: 1, md: 3}, width: 20, height: 20, marginLeft: 1, backgroundColor: 'custom.main', color: 'secondary.light' }} />
+                            <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{hide500 ? asset.symbol.toUpperCase() : asset.name}</Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell align="left" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.price.toLocaleString("en-US", curParams)}
+                      </TableCell>
+                      <TableCell align="left" sx={{ ...(asset.change24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }),padding: '0.5em 0', borderBottom: 0 }}>{Intl.NumberFormat('en-US', {
+                        style: 'decimal',
+                        maximumSignificantDigits: 2,
+                        minimumSignificantDigits: 2,
+                      }).format(asset.change24h)}%
+                      </TableCell>
+                      <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{Intl.NumberFormat('en-US', {
+                        style: 'decimal',
+                        maximumSignificantDigits: 4,
+                        minimumSignificantDigits: 2,
+                      }).format(ethers.utils.formatEther(asset.balance))}
+                      </TableCell>
+                      <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.value.toLocaleString("en-US", curParams)}
+                      </TableCell>
+                      <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{Intl.NumberFormat('en-US', {
+                        style: 'decimal',
+                        maximumSignificantDigits: 2,
+                        minimumSignificantDigits: 2,
+                      }).format(asset.share)}%
+                      </TableCell>
+                    </TableRow>
+                  )
+                  ))}
+                </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
+            <MoodBadIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+            <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No assets to display</Typography>
+          </Container>
+          
+        )
+        }
         </Container>
       </Container>
     );

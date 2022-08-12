@@ -81,7 +81,7 @@ function CryptoDetails() {
 
   return (
     <>
-      <Loading/>
+
         <Box
           sx={{
             p: 1, borderRadius: 5, fontSize: '0.875rem', fontWeight: '700', margin: '0 auto 50px auto'

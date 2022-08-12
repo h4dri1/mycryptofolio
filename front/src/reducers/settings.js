@@ -4,7 +4,6 @@ import {
   SET_DISPLAY_SNACK_BAR,
   TOGGLE_CONFIRM_DELETE,
   TOGGLE_TRANSACTION_EDITOR,
-  SET_PENDING,
   CHANGE_COLOR,
   SET_HOME_ICON
 } from 'src/actions/settings';
@@ -33,7 +32,6 @@ export const initialState = {
     link: ''
   },
   transactionEditorIsOpen: false,
-  pending: false,
 };
 
 const settings = (state = initialState, action = {}) => {
@@ -58,13 +56,6 @@ const settings = (state = initialState, action = {}) => {
         ...state,
         homeIcon: action.payload,
       };
-    }
-
-    case SET_PENDING: {
-      return ({
-        ...state,
-        pending: !state.pending,
-      });
     }
 
     case TOGGLE_LOGIN_MODAL: {

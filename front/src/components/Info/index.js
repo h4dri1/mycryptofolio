@@ -63,7 +63,6 @@ export default function Info() {
             container
             className={classes.grid}  
         >
-            <Loading />
             <Grid item className={classes.gridItem}>
                 <TopFlop/>
                 <News/>

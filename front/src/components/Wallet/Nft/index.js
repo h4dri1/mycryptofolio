@@ -9,6 +9,8 @@ import {
   import CardMedia from '@mui/material/CardMedia';
   import CardContent from '@mui/material/CardContent';
 
+  import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
+
   import PhotoIcon from '@mui/icons-material/Photo';
 
   import { useSelector } from 'react-redux';
@@ -42,10 +44,12 @@ import {
       var cryptoSym = ''
     }
 
-    var img_url = [];
+    if (collection.length > 0 && !collection[0].nft) {
+      var img_url = [];
 
-    for (const nft of collection) {
-        img_url.push(JSON.parse(nft.metadata).image_url);
+      for (const nft of collection) {
+          img_url.push(JSON.parse(nft.metadata).image_url);
+      }
     }
     
     //const labelsList = distribution.map((item) => (
@@ -120,21 +124,27 @@ import {
           }
         }}
         >
-            {collection.map((nft) => (
-                <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
-                    <CardMedia
-                        component="img"
-                        image={JSON.parse(nft.metadata).image_url ? JSON.parse(nft.metadata).image_url : JSON.parse(nft.metadata).image}
-                        alt={nft.name}
-                        sx={{width: '150px', height: '150px'}}/>
-                    <CardContent sx={{backgroundColor: 'custom.main'}}>
-                        <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>
-                            {nft.name}
-                        </Box>
-                    </CardContent>
- 
-                </Card>
-            ))}
+            {collection[0].nft ? (          <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
+            <ImageNotSupportedIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+            <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
+          </Container>) : (
+            (collection.map((nft) => (
+              <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
+                  <CardMedia
+                      component="img"
+                      image={JSON.parse(nft.metadata).image_url ? JSON.parse(nft.metadata).image_url : JSON.parse(nft.metadata).image}
+                      alt={nft.name}
+                      sx={{width: '150px', height: '150px'}}/>
+                  <CardContent sx={{backgroundColor: 'custom.main'}}>
+                      <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>
+                          {nft.name}
+                      </Box>
+                  </CardContent>
+
+              </Card>
+          ))
+        )
+          )}
         </Container>        
       </Container>
     );

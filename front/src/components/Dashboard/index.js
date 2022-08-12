@@ -59,7 +59,6 @@ const Dashboard = ({ logged, verify }) => {
 
   return (
     <div className="">
-      <Loading/>
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
         <Grid sx={{ boxShadow: 4, backgroundColor: !darkMode ? '' : '#002F54' }} item xs={12} md={5.5} className={classes.gridItem}>

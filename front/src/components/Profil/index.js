@@ -70,7 +70,6 @@ export default function Profil({ logged, verify }) {
             alignItems={'center'}
             className={classes.grid}
         >
-            <Loading />
             <Grid item xs={12} className={classes.gridItem}></Grid>   
               <AvatarP />
             <Grid/>

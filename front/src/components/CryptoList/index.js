@@ -88,7 +88,6 @@ function CryptoList() {
 
   return (
     <Grid container justifyContent="center" className={classes.root}>
-      <Loading />
       <Grid item xs={12} className={classes.cryptoList}>
         <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
           <TableHead >

@@ -129,7 +129,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
       }
       dispatch(handleFormSubmit());
     } else {
-      dispatch(setPending());
+      
       axios({
         method: 'post',
         baseURL,
@@ -141,13 +141,13 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         .then((res) => {
           if (res.status === 201) {
             setForgotPassword(false);
-            dispatch(setPending());
+            
             dispatch(setDisplaySnackBar({ severity: 'success', message: 'Un email vous a été envoyé pour réinitialiser votre mot de passe' }));
           }
         })
         .catch((err) => {
           console.log(err.response.data.message);
-          dispatch(setPending());
+          
           dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       }
@@ -173,7 +173,6 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>
       </Container>
       <Dialog fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
-        <Loading />
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: !darkMode ? 'white' : '#002F54' }}>
           { type === 'login' ? 'Connexion' : 'S\'inscrire' }
           <IconButton edge="end" aria-label="Fermer" onClick={handleToggleLoginModal}>

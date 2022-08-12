@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Avatar, Typography, IconButton } from '@mui/material';
+import { Box, Container, Avatar, Typography, IconButton, Skeleton } from '@mui/material';
 import Identicon from '../../Identicon';
 import { useSelector } from 'react-redux';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -69,22 +69,28 @@ export default function Banner({tokens}) {
                         <Typography component="a" href={`https://etherscan.io/address/${walletAddress}`} rel="noopener" target="_blank" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>
                         <ContentCopyIcon onClick={() => {navigator.clipboard.writeText(walletAddress), dispatch(setDisplaySnackBar({ severity: 'success', message: `Address copied` }))}} sx={{ marginTop: 1, marginLeft: 1, cursor: 'pointer' }}></ContentCopyIcon>
                     </Box>
-                    {walletENS && <Typography variant="h6" sx={{ marginTop: 1 }}>{walletENS}</Typography>}
+                    {walletENS ? <Typography variant="h6" sx={{ marginTop: 1 }}>{walletENS}</Typography> : walletENS !== '' ? <Skeleton sx={{marginTop: 1}} variant="text" width={100} height={40} /> : null}
                 </Box>
             </Container>
             <Container sx={{display: 'flex', justifyContent: 'right', alignItems: 'center'}}>
-            <Typography
-              variant="h6"
-              color={'custom.main'}
-              onClick={handleClickChange}
-              sx={{cursor: 'pointer'}}
-            >
-            {dayChange > 0 ? `+` : ''}{Intl.NumberFormat('en-US', {
-                      style: 'decimal',
-                      maximumSignificantDigits: 2,
-                      minimumSignificantDigits: 2,
-                    }).format(change === 'percent' ? dayChange : sum - sum24h)}{change === 'percent' ? '%' : selectedCurrency}
-            </Typography>
+            { isNaN(dayChange) ? 
+              <Box sx={{display:'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                <Skeleton sx={{marginRight: 1}} variant="text" width={50} height={40} />
+                <Skeleton sx={{marginRight: 3}} variant="circular" width={25} height={25} />
+              </Box> :
+              <Typography
+                variant="h6"
+                color={'custom.main'}
+                onClick={handleClickChange}
+                sx={{cursor: 'pointer'}}
+              >
+              {dayChange > 0 ? `+` : ''}{Intl.NumberFormat('en-US', {
+                        style: 'decimal',
+                        maximumSignificantDigits: 2,
+                        minimumSignificantDigits: 2,
+                      }).format(change === 'percent' ? dayChange : sum - sum24h)}{change === 'percent' ? '%' : selectedCurrency}
+              </Typography>
+            }
                 {dayChange > 0 && <ArrowCircleUpIcon onClick={handleClickChange} color={'success'} sx={{cursor: 'pointer', marginRight: 2, height: '30px', width: '30px'}}></ArrowCircleUpIcon>}
                 {dayChange < 0 && <ArrowCircleDownIcon onClick={handleClickChange} color={'error'} sx={{cursor: 'pointer', marginRight: 2, height: '30px', width: '30px'}}></ArrowCircleDownIcon>}
                 <Box sx={{display: 'flex', flexDirection: 'row', border: 'solid 2px #07f3d5', width: 'auto', height: '70px', borderRadius: '10px', alignItems: 'center', justifyContent: 'right'}}>
@@ -93,7 +99,7 @@ export default function Banner({tokens}) {
                         color={'white'}
                         sx={{ fontWeight: 'bold', marginLeft: 2}}
                         >
-                        {cryptoSym}{show ? sum.toLocaleString("en-US", curParams) : '* * * * *'}
+                        {cryptoSym}{show ? sum ? sum.toLocaleString("en-US", curParams) : <Skeleton variant="text" width={100} height={60}/> : '* * * * *'}
                     </Typography>
                     <IconButton onClick={handleClickHide} sx={{marginLeft: 1, marginRight: 1}}>
                         {show && <VisibilityOffIcon/>}

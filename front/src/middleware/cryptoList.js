@@ -92,7 +92,7 @@ const cryptoList = (store) => (next) => (action) => {
           store.dispatch(updateCryptoList(res.data));
         })
         .catch((err) => {
-          store.dispatch(setPending())
+          
           console.log(err);
         })
         .finally(() => {

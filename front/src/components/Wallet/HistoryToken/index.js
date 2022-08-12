@@ -2,20 +2,21 @@ import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
   import React from 'react';
-  import Container from '@mui/material/Container';
-  import Typography from '@mui/material/Typography';
-  import useMediaQuery from '@mui/material/useMediaQuery';
+  import { Container, Typography, useMediaQuery, List, ListItem, Box, ListItemIcon }  from '@mui/material';
   import { useSelector } from 'react-redux';
 
+  import Loading from '../../Loading'
+
   import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+
+  import FileUploadIcon from '@mui/icons-material/FileUpload';
+  import DownloadIcon from '@mui/icons-material/Download';
 
   ChartJS.register(ArcElement, Tooltip, Legend);
   
   export default function HistoryToken({ history }) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
     const { darkMode } = useSelector((state) => state.settings);
-   
-    console.log(history);
 
     if (selectedCurrency === 'BTC') {
       var curParams = {
@@ -35,7 +36,9 @@ import {
       }
       var cryptoSym = ''
     }
-  
+
+    const transactionArray = history['result']
+
     const hide500 = useMediaQuery('(max-width:600px)');
 
     const [show, setShow] = React.useState(true);
@@ -52,7 +55,7 @@ import {
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: '100%'}}>
         <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-            <FormatListBulletedIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>History</Typography>
+            <FormatListBulletedIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Token Transfert History</Typography>
         </Container>
         <Container sx={{
           marginTop: 3, display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', overflowY: 'auto', justifyContent: 'space-around',
@@ -69,8 +72,16 @@ import {
           }
         }}
         >
-        
-
+        <List>
+          {history['result'] && history['result'].map((transaction) => (
+            <ListItem key={transaction.hash}>
+              <Box sx={{display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '10px', padding: 2}}>
+                <Typography>From {transaction.from.substring(0, 6)}...{transaction.from.substring(38, 42)}</Typography>
+                <Typography>To {transaction.to.substring(0, 6)}...{transaction.to.substring(38, 42)}</Typography>
+              </Box>
+            </ListItem>
+          ))}
+        </List>
         </Container>
       </Container>
     );

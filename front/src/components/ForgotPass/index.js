@@ -72,7 +72,6 @@ export default function Profil(){
             alignItems={'center'}
             className={classes.grid}
         >
-          <Loading />
             <Grid className={classes.grid}>
               <Password/>
             </Grid>
