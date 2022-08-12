@@ -33,7 +33,6 @@ module.exports = {
             )
     
             whiteListToken.push(nativeTokenObject)
-            
             res.status(200).json(whiteListToken);
         } catch (err) {
             next(err);        
@@ -50,10 +49,10 @@ module.exports = {
 
     getHistoryTransactionToken: async (req, res, next) => {
         try {
-            const data = await service_fetch(`//deep-index.moralis.io/api/v2/${req.params.address}/erc20/transfers?chain=eth`, {headers: {
-                'X-API-Key': `${process.env.MORALIS_API_KEY}`
-            }});
-            
+            //const data = await service_fetch(`//deep-index.moralis.io/api/v2/${req.params.address}/erc20/transfers?chain=eth`, {headers: {
+            //    'X-API-Key': `${process.env.MORALIS_API_KEY}`
+            //}});
+            const data = await service_fetch(`https://api.etherscan.io/api?module=account&action=tokentx&contractaddress&address=${req.params.address}&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=67SRGI5F63SEN48J1CIVGNFEGQQBQPCIIN`)
             res.status(200).json(data); 
         } catch (err) {
             next(err);
@@ -65,6 +64,9 @@ module.exports = {
             const data = await service_fetch(`//deep-index.moralis.io/api/v2/${req.params.address}/nft?chain=eth&format=decimal`, {headers: {
                 'X-API-Key': `${process.env.MORALIS_API_KEY}`
             }});
+            if (data.result.length === 0) {
+                data.result = [{nft: 'no'}]
+            }
             res.status(200).json(data.result); 
         } catch (err) {
             next(err);        
