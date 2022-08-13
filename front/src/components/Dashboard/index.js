@@ -45,12 +45,7 @@ const Dashboard = ({ logged, verify }) => {
   
   useEffect(() => {
     if (!logged) {
-      if (localStorage.getItem('wallet') && localStorage.getItem('wallet') !== 'Wallet') {
-        navigate('/wallet');
-      } else {
-        navigate('/login?continue=/portfolio');
-      }
-      
+      navigate('/login?continue=/portfolio');   
     }
     else  {
       dispatch(fetchPortfolio());

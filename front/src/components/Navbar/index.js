@@ -133,7 +133,7 @@ export default function PrimarySearchAppBar() {
           {homeIcon && 
           <Link
             component={RouterLink}
-            to="/portfolio"
+            to={walletAddress !== 'Wallet' ? "/wallet" : "/portfolio"}
             underline="none"
             sx={{ color: 'white'}}
           >

@@ -145,8 +145,16 @@ const App = () => {
               </Suspense>
               }
             />
-            <Route path="/portfolio" element={<Portfolio />}>
-              <Route path="/portfolio/:walletName" element={<Portfolio />} />
+            <Route path="/portfolio" element={
+              <Suspense fallback={<Loading/>}>
+                <Portfolio />
+              </Suspense>  
+            }>
+              <Route path="/portfolio/:walletName" element={
+                <Suspense fallback={<Loading/>}>
+                  <Portfolio />
+                </Suspense>
+              } />
             </Route>
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/profil" element={<ProfilPage />} />
