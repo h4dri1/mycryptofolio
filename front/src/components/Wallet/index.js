@@ -85,7 +85,12 @@ const Wallet = () => {
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
             <Nft collection={walletNFT} />
         </Grid>
-
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
+            <HistoryToken history={walletHistory}/>
+        </Grid>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
+            
+        </Grid>
       </Grid>
       </Box>
     </div>

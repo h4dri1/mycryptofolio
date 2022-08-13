@@ -30,7 +30,6 @@ const ForgotPass = lazy(() => import('../../pages/ForgotPass'));
 const ProfilPage = lazy(() => import('../../pages/ProfilPage'));
 const UnknowRoute = lazy(() => import('../../pages/404'));
 
-
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Skeleton } from '@mui/material';
@@ -156,10 +155,26 @@ const App = () => {
                 </Suspense>
               } />
             </Route>
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/profil" element={<ProfilPage />} />
-            <Route path="/reset/:token" element={<ForgotPass />} />
-            <Route path="*" element={<UnknowRoute />} />
+            <Route path="/contact" element={
+              <Suspense fallback={<Loading/>}>
+                <ContactPage />
+              </Suspense>
+            } />
+            <Route path="/profil" element={
+              <Suspense fallback={<Loading/>}>
+                <ProfilPage />
+              </Suspense>
+            } />
+            <Route path="/reset/:token" element={
+              <Suspense fallback={<Loading/>}>
+                <ForgotPass />
+              </Suspense>
+            } />
+            <Route path="*" element={
+              <Suspense fallback={<Loading/>}>
+                <UnknowRoute />
+              </Suspense>
+            } />
         </Routes>
         {/* </Paper> */}
       </ThemeProvider>
