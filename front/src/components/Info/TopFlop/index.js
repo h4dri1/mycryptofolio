@@ -18,7 +18,8 @@ import {
     TableCell,
     TableBody,
     Avatar,
-    useMediaQuery
+    useMediaQuery,
+    Skeleton
 } from '@mui/material';
 
 
@@ -76,34 +77,39 @@ export default function TopFlop() {
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center'}}>
                 <WhatshotIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending</Typography>
             </Container>
-            <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px'}}>
-                <Table size='small' aria-label="a dense table">
-                    <TableHead sx={{backgroundColor: '#B197FF'}}>
-                        <TableRow>
-                            <TableCell ></TableCell>
-                            <TableCell>Nom</TableCell>
-                            <TableCell>Rang</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {newCryptos.map((crypto) => (
-                        <TableRow 
-                        key={crypto.id}
-                        hover
-                        >
-                        <TableCell sx={{borderBottom: 0 }}>
-                        <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                            <Avatar src={crypto.small} alt={crypto.name} sx={{ mr: 2, width: 20, height: 20, marginLeft: 1 }} />
-                            <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{crypto.symbol.toUpperCase()}</Typography>
-                        </Box>
-                        </TableCell>
-                        <TableCell sx={{borderBottom: 0 }}>{crypto.id}</TableCell>
-                        <TableCell sx={{borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
-                        </TableRow >
-                    ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            { newCryptos.length > 0 ? (
+                <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px'}}>
+                    <Table size='small' aria-label="a dense table">
+                        <TableHead sx={{backgroundColor: '#B197FF'}}>
+                            <TableRow>
+                                <TableCell ></TableCell>
+                                <TableCell>Nom</TableCell>
+                                <TableCell>Rang</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {newCryptos.map((crypto) => (
+                            <TableRow 
+                            key={crypto.id}
+                            hover
+                            >
+                            <TableCell sx={{borderBottom: 0 }}>
+                            <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                                <Avatar src={crypto.small} alt={crypto.name} sx={{ mr: 2, width: 20, height: 20, marginLeft: 1 }} />
+                                <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{crypto.symbol.toUpperCase()}</Typography>
+                            </Box>
+                            </TableCell>
+                            <TableCell sx={{borderBottom: 0 }}>{crypto.id}</TableCell>
+                            <TableCell sx={{borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
+                            </TableRow >
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            ) : (
+                <Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width={hide500 ? '320px' : '472px'} height='289px' />
+            )
+            }
             </Container>
         </Box>
     );

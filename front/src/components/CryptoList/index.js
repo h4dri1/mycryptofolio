@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 
 import Loading from '../Loading'
+import { Skeleton } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,9 +106,10 @@ function CryptoList() {
               <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Circulating supply</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
 
-            {cryptos.map((crypto) => (
+            {cryptos.length > 0 ? cryptos.map((crypto) => (
               <TableRow key={crypto.id} hover>
                 <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
                 <TableCell sx={{borderBottom: 0}}>
@@ -128,7 +130,16 @@ function CryptoList() {
                 <TableCell align="right" sx={{ borderBottom: 0, display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.total_volume.toLocaleString("en-US", curParams)}`}</TableCell>
                 <TableCell align="right" sx={{ borderBottom: 0, display: { xs: 'none', lg: 'table-cell' } }}>{`${cryptoSym}${crypto.circulating_supply.toLocaleString()}`}</TableCell>
               </TableRow>
-            ))}
+            )) : <TableRow>
+                    <TableCell sx={{borderBottom: 0}} align="center"><Skeleton variant='text' sx={{marginLeft: 3, width: 20, height: 30}}/></TableCell>
+                    <TableCell sx={{borderBottom: 0}} align="right"><Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}><Skeleton variant='circular' sx={{width: 40, height: 40}}/><Skeleton variant='text' sx={{marginLeft: 1, width: 50, height: 30}}></Skeleton></Box></TableCell>
+                    <TableCell sx={{borderBottom: 0}} align="right"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 50, height: 40}}/></Box></TableCell>
+                    <TableCell sx={{borderBottom: 0}} align="center"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 50, height: 40}}/></Box></TableCell>
+                    <TableCell sx={{borderBottom: 0}} align="center"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 100, height: 40}}/></Box></TableCell>
+                    <TableCell sx={{borderBottom: 0}} align="center"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 100, height: 40}}/></Box></TableCell>
+                    <TableCell sx={{borderBottom: 0}} align="center"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 100, height: 40}}/></Box></TableCell>
+                 </TableRow>}
+
           </TableBody>
         </Table>
       </Grid>

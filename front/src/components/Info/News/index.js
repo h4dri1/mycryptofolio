@@ -11,7 +11,8 @@ import {
     Typography, 
     Box,
     Container,
-    useMediaQuery
+    useMediaQuery,
+    Skeleton
 } from '@mui/material';
 
 export default function TopNFT() {
@@ -76,18 +77,23 @@ export default function TopNFT() {
             </Container>
             <Divider sx={{ marginBottom: 2 }} />
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>
-                <GaugeChart
-                    id="gauge-chart5"
-                    nrOfLevels={100}
-                    arcsLength={[1, 1, 1]}
-                    colors={['#e91e63', '#F5CD19', '#4caf50']}
-                    percent={value[0]}
-                    arcPadding={0.02}
-                    hideText={true}
-                />
-                <Typography sx={{ fontSize: '1.5em', color: color === 'white' ? 'primary.main' : 'white', fontWeight: 'bold', marginTop: 2 }}>{value[1] * 100}%</Typography>
+                { fearAndGreed.name !== undefined ? (
+                    <GaugeChart
+                        id="gauge-chart5"
+                        nrOfLevels={100}
+                        arcsLength={[1, 1, 1]}
+                        colors={['#e91e63', '#F5CD19', '#4caf50']}
+                        percent={value[0]}
+                        arcPadding={0.02}
+                        hideText={true}
+                    />
+                    ) : (
+                        <Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width={'200px'} height={'100px'} />
+                    )
+                }
+                { fearAndGreed.name !== undefined ? <Typography sx={{ fontSize: '1.5em', color: color === 'white' ? 'primary.main' : 'white', fontWeight: 'bold', marginTop: 2 }}>{value[1] * 100}%</Typography> : <Skeleton sx={{borderRadius: '10px'}} variant="text" width={'50px'} height={'50px'} />}
                 <Divider sx={{ marginTop: 1, marginBottom: 3, width:'100%' }} />
-                <Typography sx={{ fontSize: '1.2em', color: '#ff9800', fontWeight: 'bold', marginBottom: 1 }}>{classification}</Typography>
+                {fearAndGreed.name !== undefined ? <Typography sx={{ fontSize: '1.2em', color: '#ff9800', fontWeight: 'bold', marginBottom: 1 }}>{classification}</Typography> : <Skeleton sx={{borderRadius: '10px'}} variant="text" width={'50px'} height={'50px'} />}
             </Container>
 
             </Container>
