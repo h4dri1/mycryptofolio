@@ -133,10 +133,10 @@ router
     )
 
 router
-    .get('/tokens/history/:address', blockchainController.getHistoryTransactionToken)
-    .get('/token/:address/:vs/:net?/:network?', blockchainMW, blockchainController.getERC20Tokens)
-    .get('/nft/:address', blockchainController.getNFTbyAddress)
-    .get('/ens/:address', blockchainController.getENSbyAddress)
+    .get('/tokens/history/:address', cache, blockchainController.getHistoryTransactionToken)
+    .get('/token/:address/:vs/:net?/:network?', cache, blockchainMW, blockchainController.getERC20Tokens)
+    .get('/nft/:address', cache, blockchainController.getNFTbyAddress)
+    .get('/ens/:address', cache, blockchainController.getENSbyAddress)
     .get('/test', nftsController.getTestNFT)
     .get('/nft/collections/:collection', cache, nftsController.getNFTCollection)
     .get('/index/fearandgreed', cache, cryptoController.getFearAndGreed)

@@ -85,7 +85,7 @@ module.exports = {
             const data = await service_fetch(`//deep-index.moralis.io/api/v2/resolve/${req.params.address}/reverse`, {headers: {
                 'X-API-Key': `${process.env.MORALIS_API_KEY}`
             }});
-            res.status(200).json(data.name); 
+            res.status(200).json({name: data.name}); 
         } catch (err) {
             next(err);        
         }

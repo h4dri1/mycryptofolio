@@ -24,6 +24,7 @@ const cache = async (req, res, next) => {
         }
         
         const key = newKey;
+
         // If key exist send data from redis
         if (await redis.exists(key)) {
             const cachedString = await redis.get(key);
