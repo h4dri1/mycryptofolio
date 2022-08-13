@@ -53,6 +53,13 @@ module.exports = {
             //    'X-API-Key': `${process.env.MORALIS_API_KEY}`
             //}});
             const data = await service_fetch(`https://api.etherscan.io/api?module=account&action=tokentx&contractaddress&address=${req.params.address}&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=67SRGI5F63SEN48J1CIVGNFEGQQBQPCIIN`)
+            for (const transaction of data.result) {
+                if(transaction.from === req.params.address) {
+                    transaction.type = 'send'
+                } else if (transaction.to === req.params.address) {
+                    transaction.type = 'receive'
+                }
+            }
             res.status(200).json(data); 
         } catch (err) {
             next(err);
