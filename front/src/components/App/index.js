@@ -118,14 +118,18 @@ const App = () => {
         <AlertMsg />
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Home displayLogin />} />
             <Route path="/market" element={
               <Suspense fallback={<Loading/>}>
                 <MarketPage />
               </Suspense>
               } 
             />
-            <Route path="/nft" element={<NFTPage />} />
-            <Route path="/login" element={<Home displayLogin />} />
+            <Route path="/nft" element={
+              <Suspense fallback={<Loading/>}>
+                <NFTPage />
+              </Suspense>
+            } />
             <Route path="/crypto/:slug" element={
               <Suspense fallback={<Loading/>}>
                 <CryptoPage />
