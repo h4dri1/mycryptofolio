@@ -14,6 +14,7 @@ import {
   import PhotoIcon from '@mui/icons-material/Photo';
 
   import { useSelector } from 'react-redux';
+import { Skeleton } from '@mui/material';
 
   ChartJS.register(ArcElement, Tooltip, Legend);
   
@@ -104,6 +105,32 @@ import {
 
     const hide500 = useMediaQuery('(max-width:600px)');
 
+    const NFTList = () => {
+      return (
+        collection[0].nft ? (<Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
+            <ImageNotSupportedIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+            <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
+          </Container>) : (
+            (collection.map((nft) => (
+              <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
+                  <CardMedia
+                      component="img"
+                      image={JSON.parse(nft.metadata).image_url ? JSON.parse(nft.metadata).image_url : JSON.parse(nft.metadata).image}
+                      alt={nft.name}
+                      sx={{width: '150px', height: '150px'}}/>
+                  <CardContent sx={{backgroundColor: 'custom.main'}}>
+                      <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>
+                          {nft.name}
+                      </Box>
+                  </CardContent>
+
+              </Card>
+          ))
+        )
+          )
+      )
+    }
+
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
         <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
@@ -124,27 +151,10 @@ import {
           }
         }}
         >
-            {collection[0].nft ? (          <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
-            <ImageNotSupportedIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
-            <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
-          </Container>) : (
-            (collection.map((nft) => (
-              <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
-                  <CardMedia
-                      component="img"
-                      image={JSON.parse(nft.metadata).image_url ? JSON.parse(nft.metadata).image_url : JSON.parse(nft.metadata).image}
-                      alt={nft.name}
-                      sx={{width: '150px', height: '150px'}}/>
-                  <CardContent sx={{backgroundColor: 'custom.main'}}>
-                      <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>
-                          {nft.name}
-                      </Box>
-                  </CardContent>
-
-              </Card>
-          ))
-        )
-          )}
+        {collection.length >  0 ? <NFTList/> : <Container sx={{display: 'flex', justifyContent: 'space-around', marginBottom: 4}}>
+          <Skeleton variant="rectangle" width={150} height={210}/>
+          <Skeleton variant="rectangle" width={150} height={210}/>
+        </Container>}
         </Container>        
       </Container>
     );

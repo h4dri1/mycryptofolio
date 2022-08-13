@@ -75,10 +75,13 @@ import {
         <List>
           {history['result'] && history['result'].map((transaction) => (
             <ListItem key={transaction.hash}>
-              <Box sx={{display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '10px', padding: 2}}>
+              <Container sx={{display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '10px', padding: 2}}>
+                {transaction.type === 'send' ? 
+                  <><FileUploadIcon sx={{color: '#07f3d5'}}/><Typography>Send</Typography></> : 
+                    <><DownloadIcon sx={{color: '#07f3d5'}}/><Typography>Receive</Typography></>}
                 <Typography>From {transaction.from.substring(0, 6)}...{transaction.from.substring(38, 42)}</Typography>
                 <Typography>To {transaction.to.substring(0, 6)}...{transaction.to.substring(38, 42)}</Typography>
-              </Box>
+              </Container>
             </ListItem>
           ))}
         </List>

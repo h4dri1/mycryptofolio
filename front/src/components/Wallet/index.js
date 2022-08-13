@@ -80,17 +80,12 @@ const Wallet = () => {
           <Banner tokens={walletTokens}/>
         </Grid>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
-            {walletTokens.length > 0 ? (<AssetsShares distribution={walletTokens} />) : (<Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width={'100%'} height={'100%'} />)}
+            <AssetsShares distribution={walletTokens} />
         </Grid>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
-            {walletNFT.length > 0 ? (<Nft collection={walletNFT} />) : (<Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width={'100%'} height={'100%'} />)}
+            <Nft collection={walletNFT} />
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
-            <HistoryToken history={walletHistory}/>
-        </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
-            
-        </Grid>
+
       </Grid>
       </Box>
     </div>
