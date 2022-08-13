@@ -7,12 +7,14 @@ export default function SimpleBackdrop() {
 
   return (
   <div>
+    <Fade timeout={{enter: 2000, exit: 0}} in={open}>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={true}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+    </Fade>
     </div>
   );
 }

@@ -30,6 +30,9 @@ const TopBanner = () => {
     const { darkMode } = useSelector((state) => state.settings);
     const { walletAddress, walletENS } = useSelector((state) => state.connectWallet);
 
+    console.log(walletAddress);
+    console.log(walletENS);
+
     const onClick = () => {
         dispatch(getWalletAddress());
         dispatch(getWalletENS());
@@ -62,7 +65,7 @@ const TopBanner = () => {
                     }}
                 >
                     <Button onClick={onClick} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: {xs: '75px', md: '140px'}}}>
-                        {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' ? `${walletENS}` : `${walletAddress.substring(0, 8)}...`}
+                        {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' && walletENS !== undefined ? `${walletENS}` : `${walletAddress.substring(0, 8)}...`}
                     </Button>
                     <RefCurrency />
                     <Color /> 

@@ -111,7 +111,7 @@ const connectWallet = (store) => (next) => async (action) => {
                         url: `/ens/${walletAddress}`,
                         })
                         .then((res) => {
-                            store.dispatch(updateWalletENS(res.data));
+                            store.dispatch(updateWalletENS(res.data.name));
                             
                             
                         })
