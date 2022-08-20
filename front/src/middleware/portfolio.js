@@ -1,6 +1,5 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 import {
   CREATE_NEW_WALLET, toggleCreateWalletModal,
@@ -54,7 +53,7 @@ const portfolio = (store) => (next) => async (action) => {
 
   switch (action.type) {
     case CREATE_NEW_WALLET:
-      store.dispatch(setPending())
+
       const { inputText } = store.getState().portfolio.createWallet;
 
       privateRoute({
@@ -70,11 +69,11 @@ const portfolio = (store) => (next) => async (action) => {
         .then((res) => {
           store.dispatch(updateWalletList(res.data));
           const newAccessToken = res.headers.authorization;
-          store.dispatch(setPending())
+    
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
-          store.dispatch(setPending())
+    
           console.log(err);
         })
         .finally(() => {
@@ -83,7 +82,7 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case UPDATE_WALLET:
-      store.dispatch(setPending())
+
       const { inputText: newWalletName } = store.getState().portfolio.editWallet;
       privateRoute({
         method: 'post',
@@ -108,7 +107,7 @@ const portfolio = (store) => (next) => async (action) => {
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
-          store.dispatch(setPending())
+    
           console.log(err);
         })
         .finally(() => {
@@ -117,7 +116,7 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case DELETE_WALLET:
-      store.dispatch(setPending())
+
       if (action.payload !== undefined) {
         privateRoute({
           method: 'delete',
@@ -132,20 +131,20 @@ const portfolio = (store) => (next) => async (action) => {
               const updatedWalletList = wallets.filter((wallet) => wallet.id !== action.payload);
               store.dispatch(deleteOrUpdateWalletSuccess(updatedWalletList));
               store.dispatch(toggleConfirmDelete());
-              store.dispatch(setPending())
+        
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
             }
           })
           .catch((err) => {
             console.log(err)
-            store.dispatch(setPending())
+      
           });
       }
       next(action);
       break;
     case FETCH_PORTFOLIO:
-      store.dispatch(setPending())
+
       privateRoute({
         method: 'get',
         url: `/portfolio/${selectedCurrency}`,
@@ -153,18 +152,18 @@ const portfolio = (store) => (next) => async (action) => {
       })
         .then((res) => {
           store.dispatch(fetchPortfolioSuccess(res.data));
-          store.dispatch(setPending())
+    
           const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
           console.log(err)
-          store.dispatch(setPending())
+    
         });
       next(action);
       break;
     case FETCH_SPECIFIC_WALLET:
-      store.dispatch(setPending())
+
       privateRoute({
         method: 'get',
         url: `/portfolio/wallet/${action.payload}/${selectedCurrency}`,
@@ -191,19 +190,19 @@ const portfolio = (store) => (next) => async (action) => {
           }
 
           store.dispatch(fetchSpecificWalletSuccess(walletsObj));
-          store.dispatch(setPending())
+    
           const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
           console.log(err);
-          store.dispatch(setPending())
+    
         })
       next(action);
       break;
 
     case SAVE_TRANSACTION:
-      store.dispatch(setPending())
+
       const walletId = store.getState().portfolio.selectedWallet;
 
       // * Pour éviter d'envoyer une transaction orpheline à l'API
@@ -225,11 +224,11 @@ const portfolio = (store) => (next) => async (action) => {
         .then((res) => {
           console.log(res);
           store.dispatch(fetchSpecificWallet(walletId));
-          store.dispatch(setPending())
+    
         })
         .catch((err) => {
           console.log(err.response);
-          store.dispatch(setPending())
+    
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);

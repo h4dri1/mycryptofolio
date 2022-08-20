@@ -4,24 +4,16 @@ import { makeStyles } from '@mui/styles';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
-import Container from '@mui/material/Container';
-import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
-import Paper from '@mui/material/Paper';
-import { setDisplaySnackBar } from 'src/actions/settings';
-import { Box, Typography } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
 
 import AssetsShares from './AssetsShares';
-import Performance from './HistoryToken';
 import Nft from './Nft';
 import Banner from './Banner';
-import HistoryToken from './HistoryToken';
-import HistoryNFT from './HistoryNFT';
 
-import Loading from '../Loading'
-import { getWalletAddress, getWalletBalance, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
+import { getWalletBalance, getWalletNFT, getWalletENS, getWalletHistory, getWalletNetwork } from '../../actions/connectWallet';
+import HistoryToken from './HistoryToken';
 
 const useStyles = makeStyles({
   grid: {
@@ -47,7 +39,7 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens, walletAddress, walletHistory } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress, walletNetwork } = useSelector((state) => state.connectWallet);
   const { walletNFT } = useSelector((state) => state.connectWallet);
   const { darkMode } = useSelector((state) => state.settings);
 
@@ -67,22 +59,19 @@ const Wallet = () => {
     } else {
         var color = colorTheme
     }
-
+  
   useEffect(() => {
     if (walletAddress !== 'Wallet') {
         dispatch(getWalletBalance())
-        dispatch(getWalletTokens())
-        dispatch(getWalletNFT())
-        dispatch(getWalletENS())
         dispatch(getWalletHistory())
+        dispatch(getWalletENS())
     } else {
         navigate('/');
     }
   }, []);
-
+  
   return (
     <div className="">
-      <Loading/>
       <ConfirmDelete />
       <Box sx={{minHeight: '80vh'}}>
       <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
@@ -95,9 +84,12 @@ const Wallet = () => {
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
             <Nft collection={walletNFT} />
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={8.1} className={classes.gridItem}>
-            
+        {/*<Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
+            <HistoryToken history={walletHistory}/>
         </Grid>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
+            
+        </Grid>*/}
       </Grid>
       </Box>
     </div>

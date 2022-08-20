@@ -4,11 +4,8 @@ import {
 } from 'react-router-dom';
 
 // import TextField from '@mui/material/TextField';
-import { createFilterOptions } from '@mui/material/Autocomplete';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
 import { Typography, useMediaQuery } from '@mui/material';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
 
 import {
     Autocomplete,
@@ -23,7 +20,6 @@ import { setHomeIcon, toggleHomeIcon } from '../../../../actions/settings';
 
 export default function SearchCrypto() {
     const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
-    const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
     const { days } = useSelector((state) => state.cryptoDetails);
     const { darkMode } = useSelector((state) => state.settings);
 

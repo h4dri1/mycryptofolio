@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Avatar, Container, Box, Button, Link, Fab, ClickAwayListener } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
+import { Box, ClickAwayListener } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { changeColor } from 'src/actions/settings'
-import { updateNFTTrend } from 'src/actions/cryptos'
 import { BlockPicker } from 'react-color'
 import { useState } from 'react';
 

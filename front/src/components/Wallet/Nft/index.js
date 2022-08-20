@@ -1,45 +1,21 @@
 import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
-  import { Pie } from 'react-chartjs-2';
   import Container from '@mui/material/Container';
-  import { TableContainer, Paper } from '@mui/material';
-  import Table from '@mui/material/Table';
-  import TableHead from '@mui/material/TableHead';
-  import TableBody from '@mui/material/TableBody';
-  import TableRow from '@mui/material/TableRow';
-  import TableCell from '@mui/material/TableCell';
-  import Divider from '@mui/material/Divider';
   import Typography from '@mui/material/Typography';
   import useMediaQuery from '@mui/material/useMediaQuery';
-  import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
   import Box from '@mui/material/Box';
   import Card from '@mui/material/Card';
-  import CardHeader from '@mui/material/CardHeader';
   import CardMedia from '@mui/material/CardMedia';
   import CardContent from '@mui/material/CardContent';
-  import CardActions from '@mui/material/CardActions';
-  import Collapse from '@mui/material/Collapse';
-  import Avatar from '@mui/material/Avatar';
-  import IconButton from '@mui/material/IconButton';
-  import { red } from '@mui/material/colors';
-  import FavoriteIcon from '@mui/icons-material/Favorite';
-  import ShareIcon from '@mui/icons-material/Share';
-  import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-  import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-
-  import PaidIcon from '@mui/icons-material/Paid';
+  import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 
   import PhotoIcon from '@mui/icons-material/Photo';
-  
-  import PropTypes from 'prop-types';
+
   import { useSelector } from 'react-redux';
+import { Skeleton } from '@mui/material';
 
-  import { ethers } from 'ethers';
-
-  import { Link as RouterLink } from 'react-router-dom';
-  
   ChartJS.register(ArcElement, Tooltip, Legend);
   
   export default function Nft({collection}) {
@@ -69,11 +45,20 @@ import {
       var cryptoSym = ''
     }
 
-    var img_url = [];
+    if (collection.length > 0 && !collection[0].nft) {
+      var img_url = [];
 
-    for (const nft of collection) {
-        img_url.push(JSON.parse(nft.metadata).image_url);
+      for (const nft of collection) {
+        if (JSON.parse(nft.metadata)) {
+          if (JSON.parse(nft.metadata).image) {
+            img_url.push({'image': JSON.parse(nft.metadata).image, 'name': nft.name});
+          } else if (JSON.parse(nft.metadata).image_url) {
+            img_url.push({'image': JSON.parse(nft.metadata).image_url, 'name': nft.name});
+          }
+        }
+      }
     }
+
     
     //const labelsList = distribution.map((item) => (
     //  item.symbol
@@ -127,6 +112,32 @@ import {
 
     const hide500 = useMediaQuery('(max-width:600px)');
 
+    const NFTList = () => {
+      return (
+        collection[0].nft ? (<Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
+            <ImageNotSupportedIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+            <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
+          </Container>) : (
+            (img_url.map((nft) => (
+              <Card key={nft.image} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
+                  <CardMedia
+                      component="img"
+                      image={(nft.image).replace('ipfs://', 'https://ipfs.io/ipfs/')}
+                      alt={nft.name}
+                      sx={{width: '150px', height: '150px'}}/>
+                  <CardContent sx={{backgroundColor: 'custom.main'}}>
+                      <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>
+                          {nft.name}
+                      </Box>
+                  </CardContent>
+
+              </Card>
+          ))
+        )
+          )
+      )
+    }
+
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
         <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
@@ -147,21 +158,10 @@ import {
           }
         }}
         >
-            {collection.map((nft) => (
-                <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
-                    <CardMedia
-                        component="img"
-                        image={JSON.parse(nft.metadata).image_url ? JSON.parse(nft.metadata).image_url : JSON.parse(nft.metadata).image}
-                        alt={nft.name}
-                        sx={{width: '150px', height: '150px'}}/>
-                    <CardContent sx={{backgroundColor: 'custom.main'}}>
-                        <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>
-                            {nft.name}
-                        </Box>
-                    </CardContent>
- 
-                </Card>
-            ))}
+        {collection.length >  0 ? <NFTList/> : <Container sx={{display: 'flex', justifyContent: 'space-around', marginBottom: 4}}>
+          <Skeleton variant="rectangle" width={150} height={210}/>
+          <Skeleton variant="rectangle" width={150} height={210}/>
+        </Container>}
         </Container>        
       </Container>
     );

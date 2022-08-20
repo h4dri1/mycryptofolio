@@ -8,8 +8,6 @@ import { makeStyles } from '@mui/styles';
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 
-import { Link as RouterLink } from 'react-router-dom';
-
 const useStyles = makeStyles({
     grid: {
         marginTop: '20%',

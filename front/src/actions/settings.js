@@ -3,7 +3,6 @@ export const TOGGLE_DARK_MODE = 'TOGGLE_DARK_MODE';
 export const SET_DISPLAY_SNACK_BAR = 'SET_DISPLAY_SNACK_BAR';
 export const TOGGLE_CONFIRM_DELETE = 'TOGGLE_CONFIRM_DELETE';
 export const TOGGLE_TRANSACTION_EDITOR = 'TOGGLE_TRANSACTION_EDITOR';
-export const SET_PENDING = 'SET_PENDING';
 export const CHANGE_COLOR = 'CHANGE_COLOR';
 export const SET_HOME_ICON = 'SET_HOME_ICON';
 
@@ -37,8 +36,4 @@ export const toggleConfirmDelete = (payload) => ({
 
 export const toggleTransactionEditor = () => ({
   type: TOGGLE_TRANSACTION_EDITOR,
-});
-
-export const setPending = () => ({
-  type: SET_PENDING,
 });

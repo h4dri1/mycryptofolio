@@ -2,9 +2,6 @@ import { useSelector } from 'react-redux';
 import LoginRegister from 'src/components/LoginRegister';
 import { login, register } from 'src/actions/user';
 import AvatarIcon from './AvatarIcon';
-import { Avatar, IconButton } from '@mui/material';
-import LockIcon from '@mui/icons-material/Lock';
-import { setDisplaySnackBar } from 'src/actions/settings';
 import { useDispatch } from 'react-redux';
 
 export default function MyAccount() {

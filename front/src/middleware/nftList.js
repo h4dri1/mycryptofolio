@@ -18,20 +18,20 @@ const NFTList = (store) => (next) => (action) => {
   switch (action.type) {
     
     case GET_NFT_LIST:
-      store.dispatch(setPending())
+ 
       const { selectedCurrency, quantity } = store.getState().nft.NFTList;
 
       axios({
         method: 'get',
         baseURL,
-        url: `/nft/top/${quantity}`,
+        url: `/nfts/top/${quantity}`,
       })
         .then((res) => {
           store.dispatch(updateNFTList(res.data));
-          store.dispatch(setPending())
+     
         })
         .catch((err) => {
-          store.dispatch(setPending())
+     
           console.log(err);
         })
         .finally(() => {

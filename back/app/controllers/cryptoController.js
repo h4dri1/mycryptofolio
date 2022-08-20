@@ -1,5 +1,6 @@
 const { Crypto } = require('../models');
 const service_fetch = require('../services/fetch');
+const { NoCryptoFound } = require('../error');
 
 module.exports = {
     getAllCryptos: async (req, res, next) => {
@@ -23,6 +24,9 @@ module.exports = {
     getOneCrypto: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}`);
+            if (data.status === 'Not Found') {
+                throw new NoCryptoFound()
+            }
             let days = 1;
             if (req.params.nbd) {
                 days = req.params.nbd

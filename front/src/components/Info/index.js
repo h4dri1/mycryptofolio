@@ -2,17 +2,12 @@
 import * as React from 'react';
 
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-import { deleteUser } from '../../actions/user';
+import { useDispatch } from 'react-redux';
 
 import Loading from '../Loading';
 
-import { setDisplaySnackBar } from 'src/actions/settings';
-
-import { getCryptoTrend, getNFTTrend, getFearGreedIndex } from '../../actions/cryptos';
+import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
 
 import { getNFTList, resetNFTQuantity } from '../../actions/nft';
 
@@ -53,8 +48,6 @@ export default function Info() {
 
   const classes = useStyles();
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     window.scrollTo(0, 0)
     dispatch(resetNFTQuantity())
@@ -70,7 +63,6 @@ export default function Info() {
             container
             className={classes.grid}  
         >
-            <Loading />
             <Grid item className={classes.gridItem}>
                 <TopFlop/>
                 <News/>

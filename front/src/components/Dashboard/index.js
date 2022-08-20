@@ -4,8 +4,7 @@ import { makeStyles } from '@mui/styles';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio, fetchSpecificPortfolio } from 'src/actions/portfolio';
-import Container from '@mui/material/Container';
+import { fetchPortfolio } from 'src/actions/portfolio';
 import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
@@ -14,7 +13,7 @@ import AssetsShares from './AssetsShares';
 import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
-import { setDisplaySnackBar } from 'src/actions/settings';
+
 
 import Loading from '../Loading'
 
@@ -46,12 +45,7 @@ const Dashboard = ({ logged, verify }) => {
   
   useEffect(() => {
     if (!logged) {
-      if (localStorage.getItem('wallet') && localStorage.getItem('wallet') !== 'Wallet') {
-        navigate('/wallet');
-      } else {
-        navigate('/login?continue=/portfolio');
-      }
-      
+      navigate('/login?continue=/portfolio');   
     }
     else  {
       dispatch(fetchPortfolio());
@@ -60,7 +54,6 @@ const Dashboard = ({ logged, verify }) => {
 
   return (
     <div className="">
-      <Loading/>
       <ConfirmDelete />
       <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
         <Grid sx={{ boxShadow: 4, backgroundColor: !darkMode ? '' : '#002F54' }} item xs={12} md={5.5} className={classes.gridItem}>

@@ -9,9 +9,6 @@ import {
 
 import { useSelector } from 'react-redux';
 
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-
 const Footer = () => {
 
     const { darkMode } = useSelector((state) => state.settings);

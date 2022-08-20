@@ -320,6 +320,16 @@ class NoUserWithThisMail extends Error {
     }
 }
 
+class NoCryptoFound extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'error';
+        this.message = `No crypto found with this id`;
+        this.statusCode = 404;
+    }
+}
+
 module.exports = {
     NoUserWithThisMail,
     NoTransactionId,
@@ -351,5 +361,6 @@ module.exports = {
     CreateUserError,
     ForgotPasswordNoMail,
     SamePasswordAsOld,
-    VerifyYourMail
+    VerifyYourMail,
+    NoCryptoFound
 };

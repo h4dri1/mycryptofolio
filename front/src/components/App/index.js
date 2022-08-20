@@ -1,24 +1,38 @@
 /* eslint-disable react/function-component-definition */
 // == Import
 import Home from 'src/pages/Home';
-import Portfolio from 'src/pages/Portfolio';
-import CryptoPage from 'src/pages/CryptoPage';
-import UnknowRoute from 'src/pages/404';
-import ContactPage from 'src/pages/ContactPage';
-import ProfilPage from 'src/pages/ProfilPage';
-import ForgotPass from 'src/pages/ForgotPass';
-import MarketPage from 'src/pages/MarketPage';
-import NFTPage from 'src/pages/NFTPage';
-import NFTDetails from 'src/pages/NFTDetails';
-import Wallet from 'src/pages/Wallet';
+//import Portfolio from 'src/pages/Portfolio';
+//import CryptoPage from 'src/pages/CryptoPage';
+//import UnknowRoute from 'src/pages/404';
+//import ContactPage from 'src/pages/ContactPage';
+//import ProfilPage from 'src/pages/ProfilPage';
+//import ForgotPass from 'src/pages/ForgotPass';
+//import MarketPage from 'src/pages/MarketPage';
+//import NFTPage from 'src/pages/NFTPage';
+//import NFTDetails from 'src/pages/NFTDetails';
+//import Wallet from 'src/pages/Wallet';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+
+import Loading from '/src/components/Loading';
+
+const CryptoPage = lazy(() => import('../../pages/CryptoPage'));
+const Wallet = lazy(() => import('../../pages/Wallet'));
+const Portfolio = lazy(() => import('../../pages/Portfolio'));
+const NFTDetails = lazy(() => import('../../pages/NFTDetails'));
+const NFTPage = lazy(() => import('../../pages/NFTPage'));
+const MarketPage = lazy(() => import('../../pages/MarketPage'));
+const ContactPage = lazy(() => import('../../pages/ContactPage'));
+const ForgotPass = lazy(() => import('../../pages/ForgotPass'));
+const ProfilPage = lazy(() => import('../../pages/ProfilPage'));
+const UnknowRoute = lazy(() => import('../../pages/404'));
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-// import { Paper } from '@mui/material';
+import { Skeleton } from '@mui/material';
 
 import AlertMsg from 'src/components/common/AlertMessage';
 
@@ -26,10 +40,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { checkToken } from 'src/actions/user';
 import { getAllCryptos } from 'src/actions/cryptos';
-import { getIndicators } from 'src/actions/indicators';
-import { setHomeIcon } from '../../actions/settings';
-import { getCryptoList } from '../../actions/cryptos';
-import { getWalletAddress, getWalletBalance, updateWalletAddress, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
+import { getWalletBalance, updateWalletAddress, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory, getWalletNetwork } from '../../actions/connectWallet';
+import CryptoDetails from '../CryptoDetails';
 
 // == Composant
 
@@ -68,20 +80,36 @@ const App = () => {
     },
   });
 
-
-
   theme = responsiveFontSizes(theme);
+
+  const changeDispatch = () => {
+    dispatch(getWalletBalance());
+    dispatch(getWalletENS());
+    dispatch(getWalletHistory());
+  }
 
   const getChangeWallet = () => {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
+          console.log("accountsChanged", accounts);
           dispatch(updateWalletAddress(accounts[0]));
-          dispatch(getWalletBalance());
-          dispatch(getWalletTokens());
-          dispatch(getWalletNFT());
-          dispatch(getWalletENS());
-          dispatch(getWalletHistory());
+          changeDispatch();
+        } else {
+          localStorage.setItem('wallet', 'Wallet');
+          dispatch(updateWalletAddress('Wallet'));
+          navigate('/');
+        }
+      });
+    }
+  }
+
+  const getChangeNetwork = () => {
+    if (window.ethereum) {
+      window.ethereum.on("chainChanged", (networkId) => {
+        if (networkId.length > 0) {
+          console.log("network change", networkId);
+          changeDispatch();
         } else {
           localStorage.setItem('wallet', 'Wallet');
           dispatch(updateWalletAddress('Wallet'));
@@ -95,6 +123,7 @@ const App = () => {
     await dispatch(checkToken());
     dispatch(getAllCryptos());
     getChangeWallet();
+    getChangeNetwork();
   }, []);
 
 
@@ -105,20 +134,68 @@ const App = () => {
         <CssBaseline />
         <AlertMsg />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/market" element={<MarketPage />} />
-          <Route path="/nft" element={<NFTPage />} />
-          <Route path="/login" element={<Home displayLogin />} />
-          <Route path="/crypto/:slug" element={<CryptoPage />} />
-          <Route path="/nft/:slug" element={<NFTDetails />} />
-          <Route path="/wallet" element={<Wallet />} />
-          <Route path="/portfolio" element={<Portfolio />}>
-            <Route path="/portfolio/:walletName" element={<Portfolio />} />
-          </Route>
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/profil" element={<ProfilPage />} />
-          <Route path="/reset/:token" element={<ForgotPass />} />
-          <Route path="*" element={<UnknowRoute />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Home displayLogin />} />
+            <Route path="/market" element={
+              <Suspense fallback={<Loading/>}>
+                <MarketPage />
+              </Suspense>
+              } 
+            />
+            <Route path="/nft" element={
+              <Suspense fallback={<Loading/>}>
+                <NFTPage />
+              </Suspense>
+            } />
+            <Route path="/crypto/:slug" element={
+              <Suspense fallback={<Loading/>}>
+                <CryptoPage />
+              </Suspense>
+              }
+            />
+            <Route path="/nft/:slug" element={
+              <Suspense fallback={<Loading/>}>
+                <NFTDetails />
+              </Suspense>
+              }
+            />
+            <Route path="/wallet" element={
+              <Suspense fallback={<Loading/>}>
+                <Wallet />
+              </Suspense>
+              }
+            />
+            <Route path="/portfolio" element={
+              <Suspense fallback={<Loading/>}>
+                <Portfolio />
+              </Suspense>  
+            }>
+              <Route path="/portfolio/:walletName" element={
+                <Suspense fallback={<Loading/>}>
+                  <Portfolio />
+                </Suspense>
+              } />
+            </Route>
+            <Route path="/contact" element={
+              <Suspense fallback={<Loading/>}>
+                <ContactPage />
+              </Suspense>
+            } />
+            <Route path="/profil" element={
+              <Suspense fallback={<Loading/>}>
+                <ProfilPage />
+              </Suspense>
+            } />
+            <Route path="/reset/:token" element={
+              <Suspense fallback={<Loading/>}>
+                <ForgotPass />
+              </Suspense>
+            } />
+            <Route path="*" element={
+              <Suspense fallback={<Loading/>}>
+                <UnknowRoute />
+              </Suspense>
+            } />
         </Routes>
         {/* </Paper> */}
       </ThemeProvider>

@@ -2,45 +2,20 @@ import * as React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { change_password } from '../../../actions/user';
-
-import { setDisplaySnackBar } from 'src/actions/settings';
-
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-
-import TagIcon from '@mui/icons-material/Tag';
-
 import GaugeChart from 'react-gauge-chart'
 
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 
-import { Link as RouterLink } from 'react-router-dom';
-
 import { 
-    TextField, 
     Divider, 
     Typography, 
-    Grid, 
-    Button, 
     Box,
     Container,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    Table,
-    TableCell,
-    TableBody,
-    Avatar,
-    useMediaQuery
+    useMediaQuery,
+    Skeleton
 } from '@mui/material';
 
 export default function TopNFT() {
-
-    const dispatch = useDispatch();
-
     const { darkMode } = useSelector((state) => state.settings);
 
     const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
@@ -65,20 +40,10 @@ export default function TopNFT() {
     const hideButton = useMediaQuery('(min-width:900px)');
     const hide1100 = useMediaQuery('(max-width:1100px)');
     const hide500 = useMediaQuery('(max-width:600px)');
+    
+    const value = fearAndGreed.data !== undefined ? (fearAndGreed.data[0].value) / 100 : 0;
 
-    const value = Object.keys(fearAndGreed).map((item) => {
-        if (item === 'data') {
-            var fearValue = fearAndGreed[item][0].value;
-            return fearValue / 100;
-        } 
-    })
-
-    const classification = Object.keys(fearAndGreed).map((item) => {
-        if (item === 'data') {
-            var fearClassification = fearAndGreed[item][0].value_classification;
-            return fearClassification;
-        }
-    })
+    const classification = fearAndGreed.data !== undefined ? (fearAndGreed.data[0].value_classification) : 0
 
     return (
 <Box
@@ -102,18 +67,23 @@ export default function TopNFT() {
             </Container>
             <Divider sx={{ marginBottom: 2 }} />
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>
-                <GaugeChart
-                    id="gauge-chart5"
-                    nrOfLevels={100}
-                    arcsLength={[1, 1, 1]}
-                    colors={['#e91e63', '#F5CD19', '#4caf50']}
-                    percent={value[0]}
-                    arcPadding={0.02}
-                    hideText={true}
-                />
-                <Typography sx={{ fontSize: '1.5em', color: color === 'white' ? 'primary.main' : 'white', fontWeight: 'bold', marginTop: 2 }}>{value[1] * 100}%</Typography>
+                { fearAndGreed.name !== undefined ? (
+                    <GaugeChart
+                        id="gauge-chart5"
+                        nrOfLevels={10}
+                        arcsLength={[1, 1, 1]}
+                        colors={['#e91e63', '#F5CD19', '#4caf50']}
+                        percent={value}
+                        arcPadding={0.02}
+                        hideText={true}
+                    />
+                    ) : (
+                        <Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width={'200px'} height={'100px'} />
+                    )
+                }
+                { fearAndGreed.name !== undefined ? <Typography sx={{ fontSize: '1.5em', color: color === 'white' ? 'primary.main' : 'white', fontWeight: 'bold', marginTop: 2 }}>{Math.round(value * 100)}%</Typography> : <Skeleton sx={{borderRadius: '10px'}} variant="text" width={'50px'} height={'50px'} />}
                 <Divider sx={{ marginTop: 1, marginBottom: 3, width:'100%' }} />
-                <Typography sx={{ fontSize: '1.2em', color: '#ff9800', fontWeight: 'bold', marginBottom: 1 }}>{classification}</Typography>
+                {fearAndGreed.name !== undefined ? <Typography sx={{ fontSize: '1.2em', color: '#ff9800', fontWeight: 'bold', marginBottom: 1 }}>{classification}</Typography> : <Skeleton sx={{borderRadius: '10px'}} variant="text" width={'50px'} height={'50px'} />}
             </Container>
 
             </Container>

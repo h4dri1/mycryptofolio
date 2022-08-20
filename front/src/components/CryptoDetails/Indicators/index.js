@@ -9,7 +9,7 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import FactoryIcon from '@mui/icons-material/Factory';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export default function Indicators({ data }) {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);

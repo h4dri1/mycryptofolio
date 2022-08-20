@@ -16,8 +16,6 @@ import {
   updateAllCryptos,
   GET_CURRENT_PRICE,
   setPrice,
-  GET_NFT_LIST,
-  updateNFTList,
 } from 'src/actions/cryptos';
 
 import { setPending } from 'src/actions/settings';
@@ -94,7 +92,7 @@ const cryptoList = (store) => (next) => (action) => {
           store.dispatch(updateCryptoList(res.data));
         })
         .catch((err) => {
-          store.dispatch(setPending())
+          
           console.log(err);
         })
         .finally(() => {

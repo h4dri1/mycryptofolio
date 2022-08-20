@@ -10,9 +10,6 @@ import { deleteUser } from '../../actions/user';
 
 import Loading from '../Loading';
 
-import { setDisplaySnackBar } from 'src/actions/settings';
-
-
 import {
     Grid,
     Link
@@ -73,7 +70,6 @@ export default function Profil({ logged, verify }) {
             alignItems={'center'}
             className={classes.grid}
         >
-            <Loading />
             <Grid item xs={12} className={classes.gridItem}></Grid>   
               <AvatarP />
             <Grid/>

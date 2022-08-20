@@ -3,13 +3,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCryptoList, updateCurrency } from 'src/actions/cryptos';
-import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
-import { fetchPortfolio, fetchSpecificWallet } from 'src/actions/portfolio';
+import { fetchPortfolio } from 'src/actions/portfolio';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
-import { useEffect, useState } from 'react';
 
-import {useLocation, useNavigate, useParams } from 'react-router-dom'
-import { getWalletAddress, getWalletBalance, getWalletENS, getWalletTokens } from '../../../actions/connectWallet';
+import {useLocation, useNavigate } from 'react-router-dom'
+import { getWalletAddress, getWalletBalance, getWalletENS } from '../../../actions/connectWallet';
 
 // export default function SelectAutoWidth() {
 export default function RefCurrency() {
@@ -34,7 +32,6 @@ export default function RefCurrency() {
     dispatch(getCryptoList());
     if (walletAddress) {
       dispatch(getWalletAddress());
-      dispatch(getWalletTokens());
       dispatch(getWalletBalance());
       dispatch(getWalletENS());
     }

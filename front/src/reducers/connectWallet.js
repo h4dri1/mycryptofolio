@@ -1,5 +1,5 @@
 import {
-    UPDATE_WALLET_ADRESS, UPDATE_WALLET_BALANCE, UPDATE_WALLET_TOKENS, UPDATE_WALLET_NFT, UPDATE_WALLET_ENS, UPDATE_WALLET_HISTORY
+    UPDATE_WALLET_ADRESS, UPDATE_WALLET_BALANCE, UPDATE_WALLET_TOKENS, UPDATE_WALLET_NFT, UPDATE_WALLET_ENS, UPDATE_WALLET_HISTORY, UPDATE_WALLET_NETWORK
 } from 'src/actions/connectWallet';
 
 if (localStorage.getItem('wallet')) {
@@ -15,6 +15,7 @@ export const initialState = {
     walletNFT: [],
     walletENS: null,
     walletHistory: [],
+    walletNetwork: '',
 };
 
 const connectWalletReducer = (state = initialState, action = {}) => {
@@ -49,6 +50,11 @@ const connectWalletReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 walletHistory: action.payload,
+            };
+        case UPDATE_WALLET_NETWORK:
+            return {
+                ...state,
+                walletNetwork: action.payload,
             };
         default:
             return state;

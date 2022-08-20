@@ -1,0 +1,92 @@
+[
+    {
+        "name": "ethereum",
+        "coingecko_name": "ethereum",
+        "moralis_name": "eth",
+        "symbol": "ETH",
+        "hex": "0x1",
+        "chainId": 1,
+        "network": "Main Network",
+        "plateform": "ethereum"
+    },
+    {
+        "name": "ethereum",
+        "symbol": "ETH",
+        "hex": "0x3",
+        "chainId": 3,
+        "network": "Ropsten Test Network"
+    },
+    {
+        "name": "ethereum",
+        "symbol": "ETH",
+        "hex": "0x4",
+        "chainId": 4,
+        "network": "Rinkeby Test Network"
+    },
+    {
+        "name": "ethereum",
+        "symbol": "ETH",
+        "hex": "0x5",
+        "chainId": 5,
+        "network": "Goerli Test Network"
+    },
+    {
+        "name": "ethereum",
+        "symbol": "ETH",
+        "hex": "0x2a",
+        "chainId": 42,
+        "network": "Kovan Test Network"
+    },
+    {
+        "name": "polygon",
+        "coingecko_name": "matic-network",
+        "moralis_name": "polygon",
+        "symbol": "matic",
+        "hex": "0x89",
+        "chainId": 137,
+        "network": "Polygon Main Network",
+        "plateform": "polygon-pos"
+    },
+    {
+        "name": "polygon",
+        "symbol": "matic",
+        "hex": "0x90",
+        "chainId": 80001,
+        "network": "Mumbai Test Network"
+    },
+    {
+        "name": "avalanche",
+        "symbol": "avax",
+        "hex": "0xA86A",
+        "chainId": 43114,
+        "network": "Avalanche C-Chain Main Network"
+    },
+    {
+        "name": "binance",
+        "symbol": "bnb",
+        "hex": "0x38",
+        "chainId": 56,
+        "network": "Binance Smart Chain Main Network"
+    },
+    {
+        "name": "binance",
+        "symbol": "bnb",
+        "hex": "0x61",
+        "chainId": 97,
+        "network": "Binance Smart Chain Test Network"
+    },
+    {
+        "name": "fantom",
+        "symbol": "ftm",
+        "hex": "0xFA",
+        "chainId": 250,
+        "network": "Fantom Opera Main Network"
+    },
+    {
+        "name": "fantom",
+        "symbol": "ftm",
+        "hex": "0xFA2",
+        "chainId": 4002,
+        "network": "Fantom Opera Test Network"
+    }
+]

@@ -11,10 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchNFTData } from 'src/actions/nftDetails';
 
 import Loading from '../Loading';
-import { Avatar, Typography, Container, Divider } from '@mui/material';
-import { TextSnippetTwoTone } from '@mui/icons-material';
-
-import { setDisplaySnackBar } from 'src/actions/settings';
 
 import AvatarNFT from './banner'
 import Description from './description';
@@ -42,7 +38,6 @@ function NFTDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { list, loading } = useSelector((state) => state.nftDetails.data);
   const { slug } = useParams();
 
   useEffect(async () => {
@@ -57,7 +52,6 @@ function NFTDetails() {
         alignItems={'center'}
         className={classes.grid}
     >
-        <Loading />
         <Grid item xs={12} className={classes.gridItem} sx={{ width: '100%'}}>
             <AvatarNFT/>
         </Grid>

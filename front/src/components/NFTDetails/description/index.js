@@ -1,26 +1,17 @@
 import * as React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-import { change_password } from '../../../actions/user';
-
-import { setDisplaySnackBar } from 'src/actions/settings';
+import { useSelector } from 'react-redux';
 
 import { 
-    TextField, 
     Divider, 
     Typography, 
-    Grid, 
-    Button, 
     Box,
     Container
 } from '@mui/material';
 
 export default function Password() {
 
-    const dispatch = useDispatch();
-
-    const { list, loading } = useSelector((state) => state.nftDetails.data);
+    const { list } = useSelector((state) => state.nftDetails.data);
 
     const name = list.name ? list.name : '';
     const description = list.description ? list.description : '';

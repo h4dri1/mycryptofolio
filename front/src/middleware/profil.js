@@ -1,8 +1,6 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios';
 
-import { useSelector, useDispatch } from 'react-redux';
-
 import {
   CHANGE_USER,
   CHANGE_PASSWORD,
@@ -57,7 +55,7 @@ const profil = (store) => (next) => async (action) => {
 
   switch (action.type) {
     case CHANGE_FORGOT_PASSWORD:
-      store.dispatch(setPending())
+      
       privateRoute({
         method: 'post',
         url: '/signup/change/forgot/password',
@@ -69,20 +67,20 @@ const profil = (store) => (next) => async (action) => {
       })
         .then((res) => {
           if (res.status === 201) {
-            store.dispatch(setPending())
+            
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
             store.dispatch(toggleLoginModal());
           }
         })
         .catch((err) => {
           console.log(err);
-          store.dispatch(setPending())
+          
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
     case CHANGE_PASSWORD:
-      store.dispatch(setPending())
+      
       privateRoute({
         method: 'post',
         url: '/signup/change/password',
@@ -98,20 +96,20 @@ const profil = (store) => (next) => async (action) => {
         .then((res) => {
           if (res.status === 201) {
             const newAccessToken = res.headers.authorization;
-            store.dispatch(setPending())
+            
             store.dispatch(saveNewToken(newAccessToken));
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
           }
         })
         .catch((err) => {
           console.log(err);
-          store.dispatch(setPending())
+          
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
       case CHANGE_USER:
-        store.dispatch(setPending())
+        
       privateRoute({
         method: 'post',
         url: '/signup/change/user',
@@ -139,19 +137,19 @@ const profil = (store) => (next) => async (action) => {
             store.dispatch(saveUser(userObj));
             store.dispatch(saveNewToken(newAccessToken));
             store.dispatch(updateCurrency(action.payload.currency));
-            store.dispatch(setPending())
+            
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Modification réussi` }));
           }
         })
         .catch((err) => {
           console.log(err);
-          store.dispatch(setPending())
+          
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
       case CHANGE_AVATAR:
-        store.dispatch(setPending())
+        
         const formData = new FormData();
         formData.append('file', action.payload.avatar);
         formData.append('upload_preset', 'profilPic');
@@ -177,20 +175,20 @@ const profil = (store) => (next) => async (action) => {
                 const newAccessToken = res.headers.authorization;
                 store.dispatch(saveNewToken(newAccessToken));
                 store.dispatch(saveUser(imgObj));
-                store.dispatch(setPending())
+                
                 store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre photo de profil à bien été mis à jour` }));
               }
             })
             .catch((err) => {
               console.log(err);
-              store.dispatch(setPending())
+              
               store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
             });
           })
           next(action);
           break;
         case DELETE_USER:
-          store.dispatch(setPending())
+          
             privateRoute({
               method: 'delete',
               url: '/delete/user',
@@ -201,13 +199,13 @@ const profil = (store) => (next) => async (action) => {
             .then((res) => {
               if (res.status === 201) {
                 localStorage.clear();
-                store.dispatch(setPending())
+                
                 store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre compte a bien été supprimé` }));
               }
             })
             .catch((err) => {
               console.log(err);
-              store.dispatch(setPending())
+              
               store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
             });
             next(action);

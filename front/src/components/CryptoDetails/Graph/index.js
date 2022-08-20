@@ -10,11 +10,9 @@ import {
   Filler
 } from 'chart.js';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Line } from 'react-chartjs-2';
-
-import Loading from '../../Loading';
 
 ChartJS.register(Filler);
 

@@ -2,6 +2,6 @@
 
 BEGIN;
 
-DROP TABLE "transaction", "user", "wallet", "crypto" CASCADE;
+DROP TABLE "transaction", "user", "wallet", "crypto", "network" CASCADE;
 
 COMMIT;

@@ -14,6 +14,7 @@ import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 import parseJwt from 'src/services/parseJwt';
 import getNewAccessToken from 'src/services/getNewAccessToken';
 import isTokenExpired from 'src/services/isTokenExpired';
+import dompurify from 'dompurify';
 
 import { setPending } from 'src/actions/settings';
 
@@ -26,7 +27,7 @@ const auth = (store) => (next) => async (action) => {
   switch (action.type) {
     case LOGIN:
       // TODO: ajouter la fonction cleanObject de DOM-Purify pour nettoyer les valeurs des champs
-      store.dispatch(setPending());
+      
       axios({
         method: 'post',
         baseURL,
@@ -60,27 +61,27 @@ const auth = (store) => (next) => async (action) => {
             store.dispatch(updateCurrency(res.data.currency));
             store.dispatch(getCryptoList());
             store.dispatch(saveUser(userObj));
-            store.dispatch(setPending());
+            
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
           } else if (res.status === 200) {
             store.dispatch(setDisplaySnackBar({ severity: 'error', message: res.data.message, link: `https://mycryptofolio.fr/v1/verify/resend/${state.user.email}` }));
-            store.dispatch(setPending());
+            
           }
         })
         .catch((err) => {
           console.log(err.response.data.message);
-          store.dispatch(setPending());
+          
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
 
     case LOGOUT:
-      store.dispatch(setPending());
+      
       axios({
         method: 'get',
         baseURL,
-        url: `/logout/${refreshToken}`,
+        url: `/logout/${dompurify.sanitize(refreshToken)}`,
         headers: {
           Authorization: store.getState().user.accessToken,
         }
@@ -90,19 +91,19 @@ const auth = (store) => (next) => async (action) => {
             localStorage.removeItem('refreshToken');
             localStorage.removeItem('accessToken');
             localStorage.removeItem('currency');
-            store.dispatch(setPending());
+            
           }
         })
         .catch((err) => {
           console.log(err.response.data.message);
-          store.dispatch(setPending());
+          
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         })     
       next(action);
       break;
 
     case REGISTER:
-      store.dispatch(setPending());
+      
       axios({
         method: 'post',
         baseURL,
@@ -123,13 +124,13 @@ const auth = (store) => (next) => async (action) => {
               email: res.data.email,
               nickname: res.data.nickname
             };
-            store.dispatch(setPending());
+            
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bienvenue ${userObj.nickname}, un email d'activation de votre compte vous a été envoyé sur ${userObj.email}` }));
           }
         })
         .catch((err) => {
           console.log(err.response.data.message);
-          store.dispatch(setPending());
+          
           store.dispatch(setDisplaySnackBar({ severity: 'warning', message: err.response.data.message }));
         });
       next(action);

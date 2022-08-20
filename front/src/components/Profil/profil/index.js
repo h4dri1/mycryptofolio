@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { TextField, Divider, Typography, Grid, Button, Box, MenuItem } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { change_user } from '../../../actions/user';
 
 import { setDisplaySnackBar } from 'src/actions/settings';
