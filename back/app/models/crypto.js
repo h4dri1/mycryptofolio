@@ -8,8 +8,8 @@ class Crypto {
         }
     }
 
-    static async checkEthAddress(address) {
-        const { rows } = await pool.query('SELECT * FROM crypto WHERE eth_address = $1', [address]);
+    static async checkEthAddress(network, address) {
+        const { rows } = await pool.query(`SELECT * FROM crypto WHERE ${network} = $1`, [address]);
         if (rows.length > 0) {
             return true;
         } else {

@@ -44,7 +44,7 @@ const { loginSchema,
 // guardMW => Check and validate transaction (check what you can or can't doing with a transaction)
 // validateBody, validateParams => Joi MW check data type
 
-const { jwtMW, updateMW, guardMW, validateBody, validateParams, blockchainMW } = require('./middlewares');
+const { jwtMW, updateMW, guardMW, validateBody, validateParams } = require('./middlewares');
 
 // auth => Service for ban 5x bad password and whitelist/blacklist refreshtoken
 // cache => Redis db cache
@@ -134,13 +134,13 @@ router
 
 router
     .get('/tokens/history/:address', cache, blockchainController.getHistoryTransactionToken)
-    .get('/token/:address/:vs/:net?/:network?', cache, blockchainMW, blockchainController.getERC20Tokens)
-    .get('/nft/:address', cache, blockchainController.getNFTbyAddress)
+    .get('/token/:address/:vs/:net?/:network?', cache, blockchainController.getERC20Tokens)
+    .get('/nft/:address/:network', cache, blockchainController.getNFTbyAddress)
     .get('/ens/:address', cache, blockchainController.getENSbyAddress)
     .get('/test', nftsController.getTestNFT)
     .get('/nft/collections/:collection', cache, nftsController.getNFTCollection)
     .get('/index/fearandgreed', cache, cryptoController.getFearAndGreed)
-    .get('/nft/top/:nb(\\d+)', cache, nftsController.getTopNFT)
+    .get('/nfts/top/:nb(\\d+)', cache, nftsController.getTopNFT)
     .get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto)
     .get('/crypto/:id/:cur?/:nbd?', validateParams(getOneCryptoSchema), cache, cryptoController.getOneCrypto)
     .get('/cryptos', cache, cryptoController.getAllCryptos)
