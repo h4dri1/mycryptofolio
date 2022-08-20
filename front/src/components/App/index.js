@@ -40,7 +40,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { checkToken } from 'src/actions/user';
 import { getAllCryptos } from 'src/actions/cryptos';
-import { getWalletBalance, updateWalletAddress, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
+import { getWalletBalance, updateWalletAddress, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory, getWalletNetwork } from '../../actions/connectWallet';
 import CryptoDetails from '../CryptoDetails';
 
 // == Composant
@@ -80,9 +80,13 @@ const App = () => {
     },
   });
 
-
-
   theme = responsiveFontSizes(theme);
+
+  const changeDispatch = () => {
+    dispatch(getWalletBalance());
+    dispatch(getWalletENS());
+    dispatch(getWalletHistory());
+  }
 
   const getChangeWallet = () => {
     if (window.ethereum) {
@@ -90,10 +94,22 @@ const App = () => {
         if (accounts.length > 0) {
           console.log("accountsChanged", accounts);
           dispatch(updateWalletAddress(accounts[0]));
-          dispatch(getWalletBalance());
-          dispatch(getWalletNFT());
-          dispatch(getWalletENS());
-          dispatch(getWalletHistory());
+          changeDispatch();
+        } else {
+          localStorage.setItem('wallet', 'Wallet');
+          dispatch(updateWalletAddress('Wallet'));
+          navigate('/');
+        }
+      });
+    }
+  }
+
+  const getChangeNetwork = () => {
+    if (window.ethereum) {
+      window.ethereum.on("chainChanged", (networkId) => {
+        if (networkId.length > 0) {
+          console.log("network change", networkId);
+          changeDispatch();
         } else {
           localStorage.setItem('wallet', 'Wallet');
           dispatch(updateWalletAddress('Wallet'));
@@ -107,6 +123,7 @@ const App = () => {
     await dispatch(checkToken());
     dispatch(getAllCryptos());
     getChangeWallet();
+    getChangeNetwork();
   }, []);
 
 

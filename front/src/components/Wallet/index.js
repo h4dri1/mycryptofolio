@@ -12,7 +12,7 @@ import AssetsShares from './AssetsShares';
 import Nft from './Nft';
 import Banner from './Banner';
 
-import { getWalletBalance, getWalletNFT, getWalletENS, getWalletHistory } from '../../actions/connectWallet';
+import { getWalletBalance, getWalletNFT, getWalletENS, getWalletHistory, getWalletNetwork } from '../../actions/connectWallet';
 import HistoryToken from './HistoryToken';
 
 const useStyles = makeStyles({
@@ -39,7 +39,7 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens, walletAddress, walletHistory } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress, walletNetwork } = useSelector((state) => state.connectWallet);
   const { walletNFT } = useSelector((state) => state.connectWallet);
   const { darkMode } = useSelector((state) => state.settings);
 
@@ -59,12 +59,11 @@ const Wallet = () => {
     } else {
         var color = colorTheme
     }
-
+  
   useEffect(() => {
     if (walletAddress !== 'Wallet') {
         dispatch(getWalletBalance())
         dispatch(getWalletHistory())
-        dispatch(getWalletNFT())
         dispatch(getWalletENS())
     } else {
         navigate('/');

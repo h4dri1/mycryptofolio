@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getWalletAddress, getWalletENS } from '../../actions/connectWallet';
 
-const TopBanner = () => {
+function TopBanner() {
     const dispatch = useDispatch();
     const data = useSelector((state) => state.indicators);
     const hide500 = useMediaQuery('(max-width:600px)');
@@ -30,16 +30,13 @@ const TopBanner = () => {
     const { darkMode } = useSelector((state) => state.settings);
     const { walletAddress, walletENS } = useSelector((state) => state.connectWallet);
 
-    console.log(walletAddress);
-    console.log(walletENS);
-
     const onClick = () => {
         dispatch(getWalletAddress());
         dispatch(getWalletENS());
         if (walletAddress !== 'Wallet') {
             navigate('/wallet');
         }
-    }
+    };
 
     useEffect(() => {
         if (walletAddress !== 'Wallet') {
@@ -49,8 +46,8 @@ const TopBanner = () => {
     }, []);
 
     return (
-        <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF'}}>
-            <Toolbar  disableGutters>
+        <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF' }}>
+            <Toolbar disableGutters>
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />
                 </Link>}
@@ -64,16 +61,16 @@ const TopBanner = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Button onClick={onClick} variant="outlined" sx={{fontSize: '0.7em', margin: '5px', width: {xs: '75px', md: '140px'}}}>
+                    <Button onClick={onClick} variant="outlined" sx={{ fontSize: '0.7em', margin: '5px', width: { xs: '75px', md: '140px' } }}>
                         {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' && walletENS !== undefined ? `${walletENS}` : `${walletAddress.substring(0, 8)}...`}
                     </Button>
                     <RefCurrency />
-                    <Color /> 
+                    <Color />
                     <ToggleMode />
                 </Container>
             </Toolbar>
         </AppBar>
-    )
-};
+    );
+}
 
 export default TopBanner;

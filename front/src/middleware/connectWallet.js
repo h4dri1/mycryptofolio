@@ -11,6 +11,10 @@ import {GET_WALLET_ADRESS,
         updateWalletENS,
         GET_WALLET_HISTORY,
         updateWalletHistory,
+        GET_WALLET_NETWORK,
+        updateWalletNetwork,
+        getWalletNetwork,
+        getWalletNFT,
         } from "../actions/connectWallet";
 
 import axios from 'axios';
@@ -24,20 +28,17 @@ const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 const connectWallet = (store) => (next) => async (action) => {
 
     switch (action.type) {
-        case GET_WALLET_ADRESS:
-            
+        case GET_WALLET_ADRESS:   
             if (window.ethereum) {
                 window.ethereum
                 .request({ method: "eth_requestAccounts" })
                 .then((res) => {
                         localStorage.setItem("wallet", res[0]);
-                        store.dispatch(updateWalletAddress(res[0]))
-                        
+                        store.dispatch(updateWalletAddress(res[0]))     
                 });  
             } else {
                 if (!localStorage.getItem("wallet")) {
-                    store.dispatch(setDisplaySnackBar({ severity: 'error', message: `Please install Metamask` }));
-                    
+                    store.dispatch(setDisplaySnackBar({ severity: 'error', message: `Please install Metamask` }));          
                 } else {
                     localStorage.removeItem("wallet");
                     
@@ -45,8 +46,7 @@ const connectWallet = (store) => (next) => async (action) => {
             }
             next(action);
             break;
-        case GET_WALLET_BALANCE:
-            
+        case GET_WALLET_BALANCE:          
             var { walletAddress } = store.getState().connectWallet;
             window.ethereum
             .request({ 
@@ -56,44 +56,42 @@ const connectWallet = (store) => (next) => async (action) => {
             .then((balance) => {
               // Setting balance
                 store.dispatch(updateWalletBalance(balance))
-                store.dispatch(getWalletTokens())
-                
-                
+                store.dispatch(getWalletNetwork()) 
             });
             next(action);
             break;
-        case GET_WALLET_TOKENS:
-            
-            var { walletAddress, walletBalance } = store.getState().connectWallet;
+        case GET_WALLET_NETWORK:
+                const network = window.ethereum.networkVersion 
+                store.dispatch(updateWalletNetwork(network))
+                store.dispatch(getWalletTokens()) 
+                store.dispatch(getWalletNFT())
+                next(action);
+                break;
+        case GET_WALLET_TOKENS:         
+            var { walletAddress, walletBalance, walletNetwork } = store.getState().connectWallet;
             var { selectedCurrency } = store.getState().cryptos.cryptoList;
             axios({
                 method: 'get',
                 baseURL,
-                url: `/token/${walletAddress}/${selectedCurrency}/${walletBalance}/eth`,
+                url: `/token/${walletAddress}/${selectedCurrency.toLowerCase()}/${walletBalance}/${walletNetwork}`,
                 })
                 .then((res) => {
-                    store.dispatch(updateWalletTokens(res.data));
-                    
-                    
+                    store.dispatch(updateWalletTokens(res.data));                
                 })
                 .catch((err) => {
                     console.log(err)
-                    
                 });
             next(action);
             break;
-            case GET_WALLET_NFT:
-                
-                var { walletAddress } = store.getState().connectWallet;
+            case GET_WALLET_NFT:       
+                var { walletAddress, walletNetwork } = store.getState().connectWallet;
                 axios({
                     method: 'get',
                     baseURL,
-                    url: `/nft/${walletAddress}`,
+                    url: `/nft/${walletAddress}/${walletNetwork}`,
                     })
                     .then((res) => {
-                        store.dispatch(updateWalletNFT(res.data));
-                        
-                        
+                        store.dispatch(updateWalletNFT(res.data));   
                     })
                     .catch((err) => {
                         console.log(err)
@@ -101,8 +99,7 @@ const connectWallet = (store) => (next) => async (action) => {
                     });
                 next(action);
                 break;
-            case GET_WALLET_ENS:
-                
+            case GET_WALLET_ENS:         
                 var { walletAddress } = store.getState().connectWallet;
                 if (walletAddress !== 'Wallet') {
                     axios({
@@ -111,9 +108,7 @@ const connectWallet = (store) => (next) => async (action) => {
                         url: `/ens/${walletAddress}`,
                         })
                         .then((res) => {
-                            store.dispatch(updateWalletENS(res.data.name));
-                            
-                            
+                            store.dispatch(updateWalletENS(res.data.name));       
                         })
                         .catch((err) => {
                             console.log(err)
@@ -122,8 +117,7 @@ const connectWallet = (store) => (next) => async (action) => {
                 }
                 next(action);
                 break;
-            case GET_WALLET_HISTORY:
-                
+            case GET_WALLET_HISTORY:          
                 var { walletAddress } = store.getState().connectWallet;
                 axios({
                     method: 'get',

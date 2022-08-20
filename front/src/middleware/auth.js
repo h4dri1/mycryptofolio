@@ -14,6 +14,7 @@ import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 import parseJwt from 'src/services/parseJwt';
 import getNewAccessToken from 'src/services/getNewAccessToken';
 import isTokenExpired from 'src/services/isTokenExpired';
+import dompurify from 'dompurify';
 
 import { setPending } from 'src/actions/settings';
 
@@ -80,7 +81,7 @@ const auth = (store) => (next) => async (action) => {
       axios({
         method: 'get',
         baseURL,
-        url: `/logout/${refreshToken}`,
+        url: `/logout/${dompurify.sanitize(refreshToken)}`,
         headers: {
           Authorization: store.getState().user.accessToken,
         }

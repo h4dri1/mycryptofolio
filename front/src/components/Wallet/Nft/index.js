@@ -49,9 +49,16 @@ import { Skeleton } from '@mui/material';
       var img_url = [];
 
       for (const nft of collection) {
-          img_url.push(JSON.parse(nft.metadata).image_url);
+        if (JSON.parse(nft.metadata)) {
+          if (JSON.parse(nft.metadata).image) {
+            img_url.push({'image': JSON.parse(nft.metadata).image, 'name': nft.name});
+          } else if (JSON.parse(nft.metadata).image_url) {
+            img_url.push({'image': JSON.parse(nft.metadata).image_url, 'name': nft.name});
+          }
+        }
       }
     }
+
     
     //const labelsList = distribution.map((item) => (
     //  item.symbol
@@ -111,11 +118,11 @@ import { Skeleton } from '@mui/material';
             <ImageNotSupportedIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
             <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
           </Container>) : (
-            (collection.map((nft) => (
-              <Card key={nft.name} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
+            (img_url.map((nft) => (
+              <Card key={nft.image} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
                   <CardMedia
                       component="img"
-                      image={JSON.parse(nft.metadata).image_url ? JSON.parse(nft.metadata).image_url : JSON.parse(nft.metadata).image}
+                      image={(nft.image).replace('ipfs://', 'https://ipfs.io/ipfs/')}
                       alt={nft.name}
                       sx={{width: '150px', height: '150px'}}/>
                   <CardContent sx={{backgroundColor: 'custom.main'}}>

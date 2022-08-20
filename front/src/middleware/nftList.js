@@ -24,7 +24,7 @@ const NFTList = (store) => (next) => (action) => {
       axios({
         method: 'get',
         baseURL,
-        url: `/nft/top/${quantity}`,
+        url: `/nfts/top/${quantity}`,
       })
         .then((res) => {
           store.dispatch(updateNFTList(res.data));

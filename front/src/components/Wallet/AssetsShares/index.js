@@ -110,7 +110,7 @@ import {
             </TableHead>
               <TableBody align="left">
                 {distribution.map((asset) => (
-                  (asset.value > 1 || selectedCurrency === 'BTC' || selectedCurrency === 'ETH') && (
+                  (asset.value > 0.1 || selectedCurrency === 'BTC' || selectedCurrency === 'ETH') && (
                   <TableRow hover key={asset.name}>
                     <TableCell align='center' sx={{borderBottom: 0 }}>
                       <Box component={RouterLink} to={`/crypto/${asset.name}`} sx={{ justifyContent: 'left', color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>

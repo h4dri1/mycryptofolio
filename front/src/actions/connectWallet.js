@@ -10,6 +10,8 @@ export const GET_WALLET_ENS = 'GET_WALLET_ENS';
 export const UPDATE_WALLET_ENS = 'UPDATE_WALLET_ENS';
 export const GET_WALLET_HISTORY = 'GET_WALLET_HISTORY';
 export const UPDATE_WALLET_HISTORY = 'UPDATE_WALLET_HISTORY';
+export const GET_WALLET_NETWORK = 'GET_WALLET_NETWORK';
+export const UPDATE_WALLET_NETWORK = 'UPDATE_WALLET_NETWORK';
 
 export const getWalletAddress = () => ({
     type: GET_WALLET_ADRESS,
@@ -62,5 +64,14 @@ export const getWalletHistory = () => ({
 
 export const updateWalletHistory = (payload) => ({
     type: UPDATE_WALLET_HISTORY,
+    payload,
+});
+
+export const getWalletNetwork = () => ({
+    type: GET_WALLET_NETWORK,
+});
+
+export const updateWalletNetwork = (payload) => ({
+    type: UPDATE_WALLET_NETWORK,
     payload,
 });
