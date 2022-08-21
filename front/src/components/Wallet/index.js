@@ -64,7 +64,6 @@ const Wallet = () => {
     if (walletAddress !== 'Wallet') {
         dispatch(getWalletBalance())
         dispatch(getWalletHistory())
-        dispatch(getWalletENS())
     } else {
         navigate('/');
     }

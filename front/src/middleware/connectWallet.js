@@ -15,13 +15,12 @@ import {GET_WALLET_ADRESS,
         updateWalletNetwork,
         getWalletNetwork,
         getWalletNFT,
+        getWalletENS,
         } from "../actions/connectWallet";
 
 import axios from 'axios';
 
 import { setDisplaySnackBar } from 'src/actions/settings';
-
-import { setPending } from 'src/actions/settings';
 
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
@@ -65,6 +64,7 @@ const connectWallet = (store) => (next) => async (action) => {
                 store.dispatch(updateWalletNetwork(network))
                 store.dispatch(getWalletTokens()) 
                 store.dispatch(getWalletNFT())
+                store.dispatch(getWalletENS())
                 next(action);
                 break;
         case GET_WALLET_TOKENS:         
@@ -100,8 +100,9 @@ const connectWallet = (store) => (next) => async (action) => {
                 next(action);
                 break;
             case GET_WALLET_ENS:         
-                var { walletAddress } = store.getState().connectWallet;
-                if (walletAddress !== 'Wallet') {
+                var { walletAddress, walletNetwork } = store.getState().connectWallet;
+                console.log(walletNetwork)
+                if (walletAddress !== 'Wallet' && Number(walletNetwork) === 1) {
                     axios({
                         method: 'get',
                         baseURL,
@@ -114,6 +115,8 @@ const connectWallet = (store) => (next) => async (action) => {
                             console.log(err)
                             
                         });
+                } else if (walletNetwork !== 1) {
+                    store.dispatch(updateWalletENS(''));
                 }
                 next(action);
                 break;

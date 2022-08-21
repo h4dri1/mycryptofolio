@@ -6,7 +6,7 @@ import Home from 'src/pages/Home';
 //import UnknowRoute from 'src/pages/404';
 //import ContactPage from 'src/pages/ContactPage';
 //import ProfilPage from 'src/pages/ProfilPage';
-//import ForgotPass from 'src/pages/ForgotPass';
+import ForgotPass from 'src/pages/ForgotPass';
 //import MarketPage from 'src/pages/MarketPage';
 //import NFTPage from 'src/pages/NFTPage';
 //import NFTDetails from 'src/pages/NFTDetails';
@@ -26,7 +26,7 @@ const NFTDetails = lazy(() => import('../../pages/NFTDetails'));
 const NFTPage = lazy(() => import('../../pages/NFTPage'));
 const MarketPage = lazy(() => import('../../pages/MarketPage'));
 const ContactPage = lazy(() => import('../../pages/ContactPage'));
-const ForgotPass = lazy(() => import('../../pages/ForgotPass'));
+//const ForgotPass = lazy(() => import('../../pages/ForgotPass'));
 const ProfilPage = lazy(() => import('../../pages/ProfilPage'));
 const UnknowRoute = lazy(() => import('../../pages/404'));
 
@@ -84,7 +84,6 @@ const App = () => {
 
   const changeDispatch = () => {
     dispatch(getWalletBalance());
-    dispatch(getWalletENS());
     dispatch(getWalletHistory());
   }
 
