@@ -9,11 +9,12 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { setDisplaySnackBar } from 'src/actions/settings';
 import { useDispatch } from 'react-redux';
+import Badge from '@mui/material/Badge';
 
 
 export default function Banner({tokens}) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
-    const { walletAddress, walletENS } = useSelector((state) => state.connectWallet);
+    const { walletAddress, walletENS, walletNetwork } = useSelector((state) => state.connectWallet);
     const dispatch = useDispatch();
 
     let sum = 0;
@@ -99,8 +100,9 @@ export default function Banner({tokens}) {
     return (
         <Box disableGutters sx={{flexDirection: {xs: 'column', md: 'row'}, display: 'flex', borderRadius: '10px', height: 'auto', width: 'auto', padding: 2 }}>
             <Container sx={{display: 'flex', flexDirection: 'row'}}>
+              <Badge sx={{"& .MuiBadge-badge": { height: '28px', width: '28px', borderRadius: '50%' }}} badgeContent={<Box sx={{width: 25, height: 25, borderRadius: '50%'}} component={'img'} src={Number(walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>} overlap="circular" color="success">
                 <Identicon address={walletAddress} diam={100} />
-                
+              </Badge> 
                 <Box sx={{display: 'flex', flexDirection: 'column', marginLeft: 2, marginTop: 1}}>
                     <Box sx={{display: 'flex', flexDirection: 'row'}}>
                         <Typography component="a" href={`https://etherscan.io/address/${walletAddress}`} rel="noopener" target="_blank" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>

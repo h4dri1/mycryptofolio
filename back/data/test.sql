@@ -4,9 +4,9 @@ TRUNCATE TABLE "user" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE transaction RESTART IDENTITY CASCADE;
 TRUNCATE TABLE wallet RESTART IDENTITY CASCADE;
 
-INSERT INTO "user" (email, nickname, password, picture) VALUES
-('test@test.fr', 'test', '$2a$10$x4Xt/4SE6IpashO03u5bS.ovOG2SFMaVaEGgZeKF90pSveR3qOuzu', 'https://cdn.icon-icons.com/icons2/1371/PNG/512/robot03_90833.png'),
-('test2@test.fr', 'test2', '$2a$10$x4Xt/4SE6IpashO03u5bS.ovOG2SFMaVaEGgZeKF90pSveR3qOuzu', 'https://cdn.icon-icons.com/icons2/1371/PNG/512/robot03_90833.png');
+INSERT INTO "user" (email, nickname, password, picture, verify) VALUES
+('hadri1@ik.me', 'test', '$2a$10$x4Xt/4SE6IpashO03u5bS.ovOG2SFMaVaEGgZeKF90pSveR3qOuzu', 'https://cdn.icon-icons.com/icons2/1371/PNG/512/robot03_90833.png', true),
+('test2@test.fr', 'test2', '$2a$10$x4Xt/4SE6IpashO03u5bS.ovOG2SFMaVaEGgZeKF90pSveR3qOuzu', 'https://cdn.icon-icons.com/icons2/1371/PNG/512/robot03_90833.png', false);
 
 INSERT INTO wallet (label, user_id) VALUES
 ('Day Trading', '1'),

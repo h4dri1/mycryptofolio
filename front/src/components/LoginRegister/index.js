@@ -11,7 +11,8 @@ import {
   Container,
   InputAdornment,
   Typography,
-  Avatar
+  Avatar,
+  Badge
 } from '@mui/material';
 
 import Visibility from '@mui/icons-material/Visibility';
@@ -70,7 +71,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
 
   const { darkMode } = useSelector((state) => state.settings);
 
-  const { walletAddress, walletBalance } = useSelector((state) => state.connectWallet);
+  const { walletAddress, walletNetwork } = useSelector((state) => state.connectWallet);
 
   const dispatch = useDispatch();
 
@@ -159,7 +160,9 @@ export default function LoginRegister({ type, handleFormSubmit }) {
     <Box>
       <Container>
         {walletAddress !== 'Wallet' && <Box onClick={handleToggleLoginModal} sx={{ aligItems: 'center', justifyContent: 'center', display: {xs: 'none', md: 'flex'}, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}>
+        <Badge sx={{"& .MuiBadge-badge": { height: '20px', width: '20px', borderRadius: '50%' }}} badgeContent={<Box sx={{width: 18, height: 18, borderRadius: '50%'}} component={'img'} src={Number(walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>} overlap="circular" color="success">
           <Identicon address={walletAddress} diam={56}></Identicon>
+        </Badge>
         </Box>}
         {walletAddress === 'Wallet' && <Avatar
             id="composition-button"
