@@ -136,12 +136,12 @@ export default function Password() {
                     }}
               />
             <Grid container justifyContent={'center'}>
-                <Button sx={{':hover': {
+                <Button onClick={handleClick} sx={{':hover': {
                 bgcolor: !darkMode ? '' : 'primary.main', 
                 color: !darkMode ? '' : 'white',
               },
               color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
-                <Button sx={{':hover': {
+                <Button onClick={handleClick} sx={{':hover': {
                 bgcolor: !darkMode ? '' : 'primary.main', 
                 color: !darkMode ? '' : 'white',
               },
