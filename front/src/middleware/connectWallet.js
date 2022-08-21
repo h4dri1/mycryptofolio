@@ -101,7 +101,6 @@ const connectWallet = (store) => (next) => async (action) => {
                 break;
             case GET_WALLET_ENS:         
                 var { walletAddress, walletNetwork } = store.getState().connectWallet;
-                console.log(walletNetwork)
                 if (walletAddress !== 'Wallet' && Number(walletNetwork) === 1) {
                     axios({
                         method: 'get',

@@ -281,7 +281,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         <DialogActions sx={{display: 'flex', flexDirection: {xs: 'column', md: 'row'}, backgroundColor: !darkMode ? 'white' : '#002F54'}} >
           <Box sx={{width: '100%', display: 'flex', justifyContent: {xs: 'space-around', md: 'end'}, height: '100%', alignContent: 'center'}}>
             {!forgotPassword && (<Button sx={{':hover': {
-                bgcolor: !darkMode ? '' : '#00244F',
+                bgcolor: !darkMode ? '' : 'primary.main',
                 color: !darkMode ? '' : 'white',
               },
               color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
@@ -293,7 +293,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             </Button>)}
             {!forgotPassword && (<Button 
               sx={{':hover': {
-                bgcolor: !darkMode ? '' : '#00244F', 
+                bgcolor: !darkMode ? '' : 'primary.main', 
                 color: !darkMode ? '' : 'white',
               },
               color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
@@ -306,7 +306,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
           </Box>
           {forgotPassword && (<Button 
             sx={{':hover': {
-              bgcolor: !darkMode ? '' : '#00244F',
+              bgcolor: !darkMode ? '' : 'primary.main',
               color: !darkMode ? '' : 'white',
             },
             color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 

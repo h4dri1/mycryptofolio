@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { change_forgot_password } from '../../../actions/user';
 
@@ -38,6 +38,8 @@ export default function Password() {
     const [ showPass, setShowPass ] = useState(false);
 
     const [ showPassCheck, setShowPassCheck ] = useState(false);
+
+    const { darkMode } = useSelector((state) => state.settings);
 
     const newPass = {
         token: token,
@@ -85,7 +87,7 @@ export default function Password() {
             paddingLeft: '35px'
         }}
         > 
-            <Typography sx={{marginTop:"5px"}} color="primary.dark" variant="h5" align="center">Password</Typography>
+            <Typography sx={{marginTop:"5px"}} color={darkMode ? "custom.main" : "primary.dark"} variant="h5" align="center">Password</Typography>
             <Divider sx={{ marginBottom: '10px' }} />
             <TextField 
                 onChange={(e) => setPassword(e.target.value)} 
@@ -117,7 +119,7 @@ export default function Password() {
                 id="newPassCheck" 
                 label="Verify Password" 
                 value={passwordConfirm}
-                variant="outlined"/>
+                variant="outlined"
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -132,9 +134,18 @@ export default function Password() {
                       </InputAdornment>
                       )
                     }}
+              />
             <Grid container justifyContent={'center'}>
-                <Button sx={{margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
-                <Button onClick={handleClick} sx={{margin: '5px', width: '45%'}} variant="contained">Save</Button>
+                <Button sx={{':hover': {
+                bgcolor: !darkMode ? '' : 'primary.main', 
+                color: !darkMode ? '' : 'white',
+              },
+              color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
+                <Button sx={{':hover': {
+                bgcolor: !darkMode ? '' : 'primary.main', 
+                color: !darkMode ? '' : 'white',
+              },
+              color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',margin: '5px', width: '45%'}} variant="contained">Save</Button>
             </Grid>
         </Box>
     );
