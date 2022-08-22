@@ -28,7 +28,6 @@ export default function TestAvatar() {
   const { nickname, avatar } = useSelector((state) => state.user);
 
   const { darkMode } = useSelector((state) => state.settings);
-  const { walletAddress } = useSelector((state) => state.connectWallet);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);

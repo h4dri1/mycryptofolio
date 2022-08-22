@@ -18,8 +18,6 @@ import Description from './Description';
 import Indicators from './Indicators';
 import Chip from '@mui/material/Chip';
 
-import Loading from '../Loading';
-
 const useStyles = makeStyles({
   grid: {
     marginTop: '20px',

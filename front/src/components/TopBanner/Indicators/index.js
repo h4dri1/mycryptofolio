@@ -8,8 +8,6 @@ import { useSelector } from 'react-redux';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import PercentIcon from '@mui/icons-material/Percent';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-
-import { useMediaQuery } from '@mui/material';
 import { getIndicators } from '../../../actions/indicators';
 
 import { useEffect } from 'react';

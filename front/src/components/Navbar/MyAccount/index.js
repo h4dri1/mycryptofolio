@@ -8,8 +8,6 @@ export default function MyAccount() {
 
   const { logged, existingUser, verify } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch();
-
   return (
     // If connected = display the avatar
     // If NOT connected = display the button MON COMPTE to access LOGIN
