@@ -1,5 +1,6 @@
 /* eslint-disable react/function-component-definition */
-import * as React from 'react';
+
+import React, { Suspense, lazy } from 'react';
 
 import { useEffect } from 'react';
 
@@ -9,14 +10,21 @@ import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
 
 import { getNFTList, resetNFTQuantity } from '../../actions/nft';
 
+import Loading from '../Loading'
+
 
 import { Grid } from '@mui/material';
 
 import { makeStyles } from '@mui/styles';
-import TopFlop from './TopFlop'
-import News from './News'
-import TopNFT from './TopNFT'
-import CryptoList from '../CryptoList'
+//import TopFlop from './TopFlop'
+//import News from './News'
+//import TopNFT from './TopNFT'
+//import CryptoList from '../CryptoList'
+
+const TopFlop = lazy(() => import('./TopFlop'))
+const News = lazy(() => import('./News'))
+const TopNFT = lazy(() => import('./TopNFT'))
+const CryptoList = lazy(() => import('../CryptoList'))
 
 const useStyles = makeStyles({
     grid: {
@@ -58,11 +66,15 @@ export default function Info() {
             className={classes.grid}  
         >
             <Grid item className={classes.gridItem}>
+              <Suspense fallback={<Loading/>}>
                 <TopFlop/>
                 <News/>
                 <TopNFT/>
+              </Suspense>
             </Grid>
-            <CryptoList/>
+            <Suspense fallback={<Loading/>}>
+              <CryptoList/>
+            </Suspense>
         </Grid >
     );
 }
