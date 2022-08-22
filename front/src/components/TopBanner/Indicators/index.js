@@ -33,7 +33,6 @@ const Indicators = ({ data }) => {
   const dispatch = useDispatch();
 
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
-  const hideButton = useMediaQuery('(min-width:1000px)');
 
   useEffect(() => {
     dispatch(getIndicators());
@@ -55,13 +54,13 @@ const Indicators = ({ data }) => {
     >
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
       <MonetizationOnIcon sx={{ color: 'secondary.dark' }}/>
-        {hideButton && <Typography
+        <Typography
           variant="subtitle"
           component="p"
           sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
         >
           Total Market Cap. :
-        </Typography>}
+        </Typography>
         <Typography
           sx={{
             ml: 0.8,
@@ -81,12 +80,12 @@ const Indicators = ({ data }) => {
 
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
       <CurrencyExchangeIcon sx={{ color: 'secondary.dark' }} />
-        {hideButton && <Typography
+        <Typography
           variant="subtitle"
           sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
         >
           24h Vol :
-        </Typography>}
+        </Typography>
         <Typography
           sx={{
             ml: 0.8,
@@ -106,13 +105,13 @@ const Indicators = ({ data }) => {
 
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
         <PercentIcon sx={{ color: 'secondary.dark' }} />
-        {hideButton && <Typography
+        <Typography
           variant="subtitle"
           component="p"
           sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
         >
           Dominance BTC:
-        </Typography>}
+        </Typography>
         <Typography
           sx={{
             ml: 0.8,

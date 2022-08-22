@@ -51,7 +51,6 @@ export default function Info() {
     dispatch(getNFTList());
   }, []);
 
-
     return (
 
         <Grid

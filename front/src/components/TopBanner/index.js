@@ -3,8 +3,6 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-
-import Indicators from './Indicators';
 import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 import Color from './Color';
@@ -20,6 +18,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import { getWalletAddress, getWalletENS } from '../../actions/connectWallet';
+
+import Indicators from './Indicators';
 
 function TopBanner() {
     const dispatch = useDispatch();
@@ -51,7 +51,7 @@ function TopBanner() {
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />
                 </Link>}
-                <Indicators data={data} />
+                {!hide500 && <Indicators data={data} />}
                 <Container
                     disableGutters
                     maxWidth="100%"
@@ -61,8 +61,8 @@ function TopBanner() {
                         alignItems: 'center',
                     }}
                 >
-                    <Button onClick={onClick} variant="outlined" sx={{ fontSize: '0.7em', margin: '5px', width: { xs: '75px', md: '140px' } }}>
-                        {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' && walletENS !== undefined ? `${walletENS}` : `${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}
+                    <Button onClick={onClick} variant="outlined" sx={{ fontSize: {xs: '0.5em', md: '0.7em'}, margin: '5px', width: { xs: '75px', md: '140px' } }}>
+                        {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' && walletENS !== undefined ? `${walletENS}` : `${walletAddress.substring(0, 6)}...${ !hide500 ? walletAddress.substring(38, 42) : ''}`}
                         <Box sx={{width: 18, height: 18, borderRadius: '50%', marginLeft: 1}} component={'img'} src={Number(walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>
                     </Button>
                     
