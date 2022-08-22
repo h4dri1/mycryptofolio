@@ -4,8 +4,6 @@ export const GET_MORE_CRYPTOS = 'GET_MORE_CRYPTOS';
 export const GET_MORE_CRYPTOS_LOADING = 'GET_MORE_CRYPTOS_LOADING';
 export const GET_MORE_NFT_LOADING = 'GET_MORE_CRYPTOS_LOADING';
 export const UPDATE_CRYPTO_QUANTITY = 'UPDATE_CRYPTO_QUANTITY';
-export const GET_ALL_CRYPTOS = 'GET_ALL_CRYPTOS';
-export const UPDATE_ALL_CRYPTOS = 'UPDATE_ALL_CRYPTOS';
 export const GET_CURRENT_PRICE = 'GET_CURRENT_PRICE';
 export const SET_PRICE = 'SET_PRICE';
 export const UPDATE_CURRENCY = 'UPDATE_CURRENCY';
@@ -82,15 +80,6 @@ export const getMoreNFTsLoading = () => ({
 
 export const updateCryptoQuantity = () => ({
   type: UPDATE_CRYPTO_QUANTITY,
-});
-
-export const getAllCryptos = () => ({
-  type: GET_ALL_CRYPTOS,
-});
-
-export const updateAllCryptos = (payload) => ({
-  type: UPDATE_ALL_CRYPTOS,
-  payload,
 });
 
 export const getCurrentPrice = (payload) => ({

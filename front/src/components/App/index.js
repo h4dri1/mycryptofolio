@@ -38,7 +38,7 @@ import AlertMsg from 'src/components/common/AlertMessage';
 import { useNavigate } from 'react-router-dom';
 
 import { checkToken } from 'src/actions/user';
-import { getAllCryptos } from 'src/actions/cryptos';
+
 import { getWalletBalance, updateWalletAddress, getWalletHistory } from '../../actions/connectWallet';
 
 // == Composant
@@ -48,6 +48,7 @@ const App = () => {
   const navigate = useNavigate();
   // DARK MODE
   const { darkMode } = useSelector((state) => state.settings);
+  const { logged } = useSelector((state) => state.user);
 
   // COLOR PALETTE for LIGHT & DARK modes
   let theme = createTheme({
@@ -117,8 +118,10 @@ const App = () => {
   }
 
   useEffect(async () => {
-    await dispatch(checkToken());
-    dispatch(getAllCryptos());
+    if (logged) {
+      await dispatch(checkToken());
+    }
+    //dispatch(getAllCryptos());
     getChangeWallet();
     getChangeNetwork();
   }, []);

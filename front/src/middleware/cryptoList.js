@@ -12,8 +12,6 @@ import {
   getMoreCryptosLoading,
   updateCryptoQuantity,
   getCryptoList,
-  GET_ALL_CRYPTOS,
-  updateAllCryptos,
   GET_CURRENT_PRICE,
   setPrice,
 } from 'src/actions/cryptos';
@@ -25,18 +23,6 @@ const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
 const cryptoList = (store) => (next) => (action) => {
   switch (action.type) {
-    case GET_ALL_CRYPTOS:
-      axios({
-        method: 'get',
-        baseURL,
-        url: '/cryptos/usd/100',
-      })
-        .then((res) => {
-          store.dispatch(updateAllCryptos(res.data));
-        })
-        .catch((err) => console.log(err));
-      next(action);
-      break;
       case GET_CRYPTO_TREND:
         axios({
           method: 'get',

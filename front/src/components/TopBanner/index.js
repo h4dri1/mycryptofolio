@@ -30,8 +30,6 @@ function TopBanner() {
     const { darkMode } = useSelector((state) => state.settings);
     const { walletAddress, walletENS, walletNetwork } = useSelector((state) => state.connectWallet);
 
-    console.log(walletNetwork);
-
     const onClick = () => {
         dispatch(getWalletAddress());
         dispatch(getWalletENS());
