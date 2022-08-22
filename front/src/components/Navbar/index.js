@@ -23,35 +23,11 @@ import {
 } from '@mui/material';
 
 export default function PrimarySearchAppBar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const { homeIcon } = useSelector((state) => state.settings);
   const { walletAddress } = useSelector((state) => state.connectWallet);
 
   const { darkMode } = useSelector((state) => state.settings);
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const dispatch = useDispatch();
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
 
   const hideButton = useMediaQuery('(min-width:900px)');
   const hide1100 = useMediaQuery('(max-width:1100px)');

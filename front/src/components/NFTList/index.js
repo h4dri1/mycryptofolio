@@ -16,8 +16,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getNFTList, getMoreNFT } from 'src/actions/nft';
 
-import Loading from '../Loading'
-
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: '0 auto', 

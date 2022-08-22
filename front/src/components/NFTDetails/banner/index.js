@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Avatar, Paper, Typography } from '@mui/material';
+import { Avatar, Paper } from '@mui/material';
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 

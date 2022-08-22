@@ -6,14 +6,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
-import { Box, Skeleton } from '@mui/material';
+import { Box } from '@mui/material';
 
 import AssetsShares from './AssetsShares';
 import Nft from './Nft';
 import Banner from './Banner';
 
-import { getWalletBalance, getWalletNFT, getWalletENS, getWalletHistory, getWalletNetwork } from '../../actions/connectWallet';
-import HistoryToken from './HistoryToken';
+import { getWalletBalance, getWalletHistory } from '../../actions/connectWallet';
 
 const useStyles = makeStyles({
   grid: {
@@ -39,7 +38,7 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens, walletAddress, walletNetwork } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress } = useSelector((state) => state.connectWallet);
   const { walletNFT } = useSelector((state) => state.connectWallet);
   const { darkMode } = useSelector((state) => state.settings);
 

@@ -5,17 +5,12 @@ import { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import Loading from '../Loading';
-
 import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
 
 import { getNFTList, resetNFTQuantity } from '../../actions/nft';
 
 
-import {
-    Grid,
-    Link
-  } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import { makeStyles } from '@mui/styles';
 import TopFlop from './TopFlop'

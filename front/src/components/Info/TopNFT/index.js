@@ -44,9 +44,7 @@ export default function TopNFT() {
     } else {
         var color = colorTheme
     }
-
-    const hideButton = useMediaQuery('(min-width:900px)');
-    const hide1100 = useMediaQuery('(max-width:1100px)');
+    
     const hide500 = useMediaQuery('(max-width:600px)');
 
     return (

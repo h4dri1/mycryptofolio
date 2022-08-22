@@ -37,21 +37,6 @@ import {
       var cryptoSym = ''
     }
 
-    const transactionArray = history['result']
-
-    const hide500 = useMediaQuery('(max-width:600px)');
-
-    const [show, setShow] = React.useState(true);
-    const [change, setChange] = React.useState('percent');
-
-    const handleClickHide = () => {
-      setShow(!show);
-    }
-
-    const handleClickChange = () => {
-      setChange(change === 'percent' ? 'value' : 'percent');
-    }
-
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: '100%'}}>
         <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>

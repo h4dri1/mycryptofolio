@@ -2,7 +2,7 @@ import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
   import Container from '@mui/material/Container';
-  import { TableContainer, Paper, Skeleton, Divider } from '@mui/material';
+  import { TableContainer, Paper, Skeleton } from '@mui/material';
   import Table from '@mui/material/Table';
   import TableHead from '@mui/material/TableHead';
   import TableBody from '@mui/material/TableBody';

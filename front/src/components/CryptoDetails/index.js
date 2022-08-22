@@ -35,7 +35,7 @@ function CryptoDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { data, chart, days } = useSelector((state) => state.cryptoDetails);
+  const { data, chart } = useSelector((state) => state.cryptoDetails);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { slug } = useParams();
 

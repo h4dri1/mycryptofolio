@@ -32,7 +32,6 @@ const UnknowRoute = lazy(() => import('../../pages/404'));
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Skeleton } from '@mui/material';
 
 import AlertMsg from 'src/components/common/AlertMessage';
 
@@ -40,8 +39,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { checkToken } from 'src/actions/user';
 import { getAllCryptos } from 'src/actions/cryptos';
-import { getWalletBalance, updateWalletAddress, getWalletTokens, getWalletNFT, getWalletENS, getWalletHistory, getWalletNetwork } from '../../actions/connectWallet';
-import CryptoDetails from '../CryptoDetails';
+import { getWalletBalance, updateWalletAddress, getWalletHistory } from '../../actions/connectWallet';
 
 // == Composant
 

@@ -34,19 +34,6 @@ import {
       }
       var cryptoSym = ''
     }
-  
-    const hide500 = useMediaQuery('(max-width:600px)');
-
-    const [show, setShow] = React.useState(true);
-    const [change, setChange] = React.useState('percent');
-
-    const handleClickHide = () => {
-      setShow(!show);
-    }
-
-    const handleClickChange = () => {
-      setChange(change === 'percent' ? 'value' : 'percent');
-    }
 
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: '100%'}}>

@@ -18,7 +18,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 
-import Loading from '../Loading'
 import { Skeleton } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
