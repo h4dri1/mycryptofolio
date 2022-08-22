@@ -1,7 +1,6 @@
-const NativeTokenObject = require('../class/NativeTokenObject');
+const { NativeTokenObject, Erc20TokensObject } = require('../class');
 const service_fetch = require('../services/fetch');
 const { blockchain } = require('../services');
-const { ethers } = require('ethers');
 const { Network } = require('../models');
 
 require('dotenv').config();
@@ -16,22 +15,15 @@ module.exports = {
             await blockchain.getWalletBalance(req, res, next);   
             await blockchain.getERC20Token(req, res, next);
 
-            const whiteListToken = req.erc20Token.filter((token) => {
-                if (req.whiteListAddress.includes(token.token_address)) {
-                    token.change24h = req.tokensPrices[`${token.token_address}`][`${req.params.vs}_24h_change`]
-                    token.price = req.tokensPrices[`${token.token_address}`][req.params.vs]
-                    token.value = ethers.utils.formatEther(token.balance) * token.price
-                    token.value24h = token.value / (1 + token.change24h / 100)
-                    req.walletTotalBalance += token.value
-                    return token
-                }
+            const whiteListToken = req.erc20Token.filter((token) => req.whiteListAddress.includes(token.token_address)).map((token) => {
+                return new Erc20TokensObject(req, token)
             })
-    
+
             for (const token of whiteListToken) {
                 token.share = (token.value / req.walletTotalBalance) * 100;
             }
     
-            const nativeTokenObject = new NativeTokenObject({
+            whiteListToken.push(new NativeTokenObject({
                 name: req.network[0].name,
                 symbol: req.network[0].symbol,
                 balance: req.params.net,
@@ -39,18 +31,9 @@ module.exports = {
                 share: req.walletTotalBalance,
                 thumbnail: 'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880',
                 change24h: req.nativeTokenChange24h,
-            })
-    
-            whiteListToken.push(nativeTokenObject)
+            }))
+
             res.status(200).json(whiteListToken);
-        } catch (err) {
-            next(err);        
-        }
-    },
-
-    getRangeWalletValue: async (req, res, next) => {
-        try {
-
         } catch (err) {
             next(err);        
         }

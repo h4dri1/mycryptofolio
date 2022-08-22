@@ -23,7 +23,7 @@ const forgotPasswordSchema = require('./body/forgotPasswordSchema');
 const checkForgotTokenSchema = require('./params/checkForgotTokenSchema');
 const changeForgotPasswordSchema = require('./body/changeForgotPasswordSchema');
 
-module.exports = { 
+module.exports = { schemas: {
     loginSchema,
     tokenSchema,
     signupSchema,
@@ -47,5 +47,5 @@ module.exports = {
     changeAvatarSchema,
     forgotPasswordSchema,
     checkForgotTokenSchema,
-    changeForgotPasswordSchema
+    changeForgotPasswordSchema}
 }

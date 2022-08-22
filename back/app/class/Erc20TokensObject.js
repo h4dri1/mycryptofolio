@@ -1,28 +1,33 @@
 const { ethers } = require('ethers');
 
 class Erc20TokensObject {
-    constructor(testObj) {
-        this.name = testObj.name;
-        this.symbol = testObj.symbol;
-        this.balance = testObj.balance;
-        this.price = testObj.price;
-        this.value = this.getNativeValue();
-        this.share = this.getShare(share);
-        this.thumbnail = testObj.thumbnail;
-        this.change24h = testObj.change24h;
-        this.value24h = this.getValue24h();
+
+    constructor(req, obj={}) {
+        for (const propname in obj) {
+            this[propname] = obj[propname];
+        }
+
+        this.change24h = this.getChange24h(req, obj)
+        this.price = this.getPrice(req, obj)
+        this.value = this.getValue()
+        this.value24h = this.getValue24h()
+        req.walletTotalBalance += this.value
     }
 
-    getNativeValue() {
-        return Number(ethers.utils.formatEther(this.balance)) * this.price; ;
+    getChange24h(req, obj) {
+        return req.tokensPrices[`${obj.token_address}`][`${req.params.vs}_24h_change`]
     }
 
-    getShare(share) {
-        return (this.value / share) * 100;
+    getPrice(req, obj) {
+        return req.tokensPrices[`${obj.token_address}`][req.params.vs]
+    }
+
+    getValue() {
+        return ethers.utils.formatEther(this.balance) * this.price
     }
 
     getValue24h() {
-        return this.value / (1 + this.change24h / 100);
+        return this.value / (1 + this.change24h / 100)
     }
 }
 

@@ -13,31 +13,7 @@ const {
     blockchainController
 } = require('./controllers');
 
-const { loginSchema,
-        tokenSchema,
-        signupSchema, 
-        transactionSchema, 
-        walletSchema,
-        getTopCryptoSchema,
-        getOneCryptoSchema,
-        getOnePriceSchema,
-        getPortfolioSchema,
-        deleteTransactionSchema,
-        deleteWalletSchema,
-        loginSchemaLim, 
-        signupSchemaLim,
-        refreshSchemaLim,
-        transactionSchemaLim,
-        getWalletSchema,
-        getHistorySchema,
-        deleteUserSchemaLim,
-        changeUserSchema,
-        changePasswordSchema,
-        changeAvatarSchema,
-        forgotPasswordSchema,
-        checkForgotTokenSchema,
-        changeForgotPasswordSchema
-} = require('./schemas');
+const { schemas } = require('./schemas');
 
 // jwtMW => Check JWT Access Token for protected route
 // fetchMW => Check cryptos in portfolio get the price and add it to db
@@ -57,44 +33,44 @@ const { auth, cache, flush } = require('./services');
 const rateLimit = require('express-rate-limit');
 
 router
-    .get('/logout/:token', validateParams(tokenSchema), jwtMW.logout, auth.logout)
-    .get('/jwt/refresh/:token', validateParams(tokenSchema), rateLimit(refreshSchemaLim), tokenController.refresh)
-    .get('/verify/resend/:email', rateLimit(refreshSchemaLim), userController.resendMail)
+    .get('/logout/:token', validateParams(schemas.tokenSchema), jwtMW.logout, auth.logout)
+    .get('/jwt/refresh/:token', validateParams(schemas.tokenSchema), rateLimit(schemas.refreshSchemaLim), tokenController.refresh)
+    .get('/verify/resend/:email', rateLimit(schemas.refreshSchemaLim), userController.resendMail)
     .post(
         '/jwt/login',
-        rateLimit(loginSchemaLim), 
-        validateBody(loginSchema), 
+        rateLimit(schemas.loginSchemaLim), 
+        validateBody(schemas.loginSchema), 
         auth.login, 
         userController.validLoginJwt
     )
     .get(
         '/verify/:token',
-        rateLimit(signupSchemaLim),
-        validateParams(checkForgotTokenSchema),
+        rateLimit(schemas.signupSchemaLim),
+        validateParams(schemas.checkForgotTokenSchema),
         userController.verifyEmail
     )
     .post(
         '/signup',
-        rateLimit(signupSchemaLim), 
-        validateBody(signupSchema),
+        rateLimit(schemas.signupSchemaLim), 
+        validateBody(schemas.signupSchema),
         userController.addUser
     )
     .post(
         '/jwt/login/forgot',
-        rateLimit(signupSchemaLim),
-        validateBody(forgotPasswordSchema),
+        rateLimit(schemas.signupSchemaLim),
+        validateBody(schemas.forgotPasswordSchema),
         userController.forgotPassword
     )
     .get(
         '/jwt/login/check/:token',
-        rateLimit(signupSchemaLim),
-        validateParams(checkForgotTokenSchema),
+        rateLimit(schemas.signupSchemaLim),
+        validateParams(schemas.checkForgotTokenSchema),
         userController.checkToken
     )
     .delete(
         '/delete/user',
         jwtMW.routing,
-        rateLimit(deleteUserSchemaLim),
+        rateLimit(schemas.deleteUserSchemaLim),
         flush,
         userController.deleteUser
     )
@@ -103,52 +79,53 @@ router
     .post(
         '/signup/change/user',
         jwtMW.routing,
-        rateLimit(signupSchemaLim), 
-        validateBody(changeUserSchema), 
+        rateLimit(schemas.signupSchemaLim), 
+        validateBody(schemas.changeUserSchema), 
         flush, 
         userController.modifyUser
     )
     .post(
         '/signup/change/forgot/password',
-        rateLimit(signupSchemaLim),
-        validateBody(changeForgotPasswordSchema),
+        rateLimit(schemas.signupSchemaLim),
+        validateBody(schemas.changeForgotPasswordSchema),
         flush, 
         userController.modifyPasswordForgot
     )
     .post(
         '/signup/change/password',
         jwtMW.routing,
-        rateLimit(signupSchemaLim), 
-        validateBody(changePasswordSchema), 
+        rateLimit(schemas.signupSchemaLim), 
+        validateBody(schemas.changePasswordSchema), 
         flush, 
         userController.modifyPassword
     )
     .post(
         '/signup/change/avatar',
         jwtMW.routing,
-        rateLimit(signupSchemaLim), 
-        validateBody(changeAvatarSchema), 
+        rateLimit(schemas.signupSchemaLim), 
+        validateBody(schemas.changeAvatarSchema), 
         flush, 
         userController.modifyAvatar
     )
-
 router
     .get('/tokens/history/:address', cache, blockchainController.getHistoryTransactionToken)
     .get('/token/:address/:vs/:net?/:network?', cache, blockchainController.getERC20Tokens)
     .get('/nft/:address/:network', cache, blockchainController.getNFTbyAddress)
     .get('/ens/:address', cache, blockchainController.getENSbyAddress)
+
+router
     .get('/test', nftsController.getTestNFT)
     .get('/nft/collections/:collection', cache, nftsController.getNFTCollection)
     .get('/index/fearandgreed', cache, cryptoController.getFearAndGreed)
     .get('/nfts/top/:nb(\\d+)', cache, nftsController.getTopNFT)
-    .get('/cryptos/:vs/:nb(\\d+)', validateParams(getTopCryptoSchema), cache, cryptoController.getTopCrypto)
-    .get('/crypto/:id/:cur?/:nbd?', validateParams(getOneCryptoSchema), cache, cryptoController.getOneCrypto)
+    .get('/cryptos/:vs/:nb(\\d+)', validateParams(schemas.getTopCryptoSchema), cache, cryptoController.getTopCrypto)
+    .get('/crypto/:id/:cur?/:nbd?', validateParams(schemas.getOneCryptoSchema), cache, cryptoController.getOneCrypto)
     .get('/cryptos', cache, cryptoController.getAllCryptos)
     .get('/trending', cache, cryptoController.getTrendingCryptos)
     .get('/global', cache, cryptoController.getGlobalData)
-    .get('/history/:coinId/:day(\\d+)/:month(\\d+)/:year(\\d+)', validateParams(getHistorySchema), cache, cryptoController.getHistoricalData)
+    .get('/history/:coinId/:day(\\d+)/:month(\\d+)/:year(\\d+)', validateParams(schemas.getHistorySchema), cache, cryptoController.getHistoricalData)
     .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?',
-        validateParams(getOnePriceSchema),
+        validateParams(schemas.getOnePriceSchema),
         cache,
         cryptoController.getOnePrice
     );
@@ -157,7 +134,7 @@ router
     .get(
         '/portfolio/:cur?', 
         jwtMW.routing, 
-        validateParams(getPortfolioSchema),
+        validateParams(schemas.getPortfolioSchema),
         cache, //--> Need to see for working with toogle currency
         updateMW, 
         portfolioController.getPortfolio
@@ -165,32 +142,32 @@ router
     .get(
         '/portfolio/wallet/:wid(\\d+)/:cur?',
         jwtMW.routing,
-        validateParams(getWalletSchema),
+        validateParams(schemas.getWalletSchema),
         cache, 
         updateMW, 
         portfolioController.getPortfolio
     )
     .post(
         '/portfolio/wallet/:wid(\\d+)/transaction',
-        rateLimit(transactionSchemaLim),
+        rateLimit(schemas.transactionSchemaLim),
         jwtMW.routing,
-        validateBody(transactionSchema),
+        validateBody(schemas.transactionSchema),
         guardMW.transactionGuard, 
         flush,
         transactionController.addTransaction
     )
     .post(
         '/portfolio/wallet',
-        rateLimit(transactionSchemaLim),
+        rateLimit(schemas.transactionSchemaLim),
         jwtMW.routing,
-        validateBody(walletSchema), 
+        validateBody(schemas.walletSchema), 
         flush, 
         walletController.addWallet
     )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
         jwtMW.routing,
-        validateParams(deleteTransactionSchema), 
+        validateParams(schemas.deleteTransactionSchema), 
         guardMW.deleteTransaction,
         flush,
         transactionController.deleteTransaction
@@ -198,7 +175,7 @@ router
     .delete(
         '/portfolio/wallet/:wid(\\d+)', 
         jwtMW.routing,
-        validateParams(deleteWalletSchema),
+        validateParams(schemas.deleteWalletSchema),
         guardMW.deleteWallet,
         flush,
         walletController.deleteWallet
