@@ -1,4 +1,3 @@
-import * as React from 'react';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
@@ -17,14 +16,15 @@ import { Container, Link, TextField, Typography, useMediaQuery } from '@mui/mate
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { logout } from '../../../../actions/user';
+import { useState } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 export default function TestAvatar() {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
   const { nickname, avatar } = useSelector((state) => state.user);
 
   const { darkMode } = useSelector((state) => state.settings);

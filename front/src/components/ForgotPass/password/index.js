@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import { change_forgot_password } from '../../../actions/user';
@@ -29,11 +27,11 @@ export default function Password() {
 
     const dispatch = useDispatch();
 
-    const [password, setPassword] = React.useState('');
+    const [password, setPassword] = useState('');
 
     const { token } = useParams();
 
-    const [passwordConfirm, setPasswordConfirm] = React.useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
 
     const [ showPass, setShowPass ] = useState(false);
 

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
 
 import GaugeChart from 'react-gauge-chart'

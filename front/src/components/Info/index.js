@@ -1,6 +1,4 @@
 /* eslint-disable react/function-component-definition */
-import * as React from 'react';
-
 import { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
@@ -8,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
 
 import { getNFTList, resetNFTQuantity } from '../../actions/nft';
-
 
 import { Grid } from '@mui/material';
 

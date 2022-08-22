@@ -1,4 +1,3 @@
-import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';

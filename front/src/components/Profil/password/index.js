@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -19,11 +19,11 @@ export default function Password() {
 
     const dispatch = useDispatch();
 
-    const [oldPassword, setOldPassword] = React.useState('');
+    const [oldPassword, setOldPassword] = useState('');
 
-    const [password, setPassword] = React.useState('');
+    const [password, setPassword] = useState('');
 
-    const [passwordConfirm, setPasswordConfirm] = React.useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
 
     const { darkMode } = useSelector((state) => state.settings);
 

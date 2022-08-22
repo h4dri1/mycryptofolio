@@ -1,5 +1,6 @@
-import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+
+import { Fragment } from 'react';
 
 import axios from 'axios';
 
@@ -28,8 +29,8 @@ export default function SearchCrypto() {
     const { darkMode } = useSelector((state) => state.settings);
     //const { allCryptos } = useSelector((state) => state.cryptos)
 
-    const [open, setOpen] = React.useState(false);
-    const [options, setOptions] = React.useState([]);
+    const [open, setOpen] = useState(false);
+    const [options, setOptions] = useState([]);
     const loading = open && options.length === 0;
 
     useEffect(() => {
@@ -146,10 +147,10 @@ export default function SearchCrypto() {
                         InputProps={{
                             ...params.InputProps,
                             endAdornment: (
-                            <React.Fragment>
+                            <Fragment>
                                 {loading ? <CircularProgress color="inherit" size={20} /> : null}
                                 {params.InputProps.endAdornment}
-                            </React.Fragment>
+                            </Fragment>
                             ),
                         }}
                     />

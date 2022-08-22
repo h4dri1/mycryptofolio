@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Box, ClickAwayListener } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeColor } from 'src/actions/settings'

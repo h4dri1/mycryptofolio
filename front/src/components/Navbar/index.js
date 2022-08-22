@@ -1,8 +1,6 @@
 import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
 import SearchCrypto from 'src/components/Navbar/SearchBar/SearchCrypto';
-
-import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {  useSelector } from 'react-redux';
