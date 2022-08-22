@@ -10,6 +10,7 @@ export default function Logo() {
     <>
       <Avatar
         alt="logo MyCryptoFolio"
+        loading='lazy'
         src={logoNB}
         sx={{
           width: hide ? 30 : 70,

@@ -113,7 +113,7 @@ function CryptoList() {
                 <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
                 <TableCell sx={{borderBottom: 0}}>
                   <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                    <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
+                    <Avatar loading={'lazy'} src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
 
                       variant="body1"
