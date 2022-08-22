@@ -1,6 +1,6 @@
 /* eslint-disable react/function-component-definition */
 // == Import
-//import Home from 'src/pages/Home';
+import Home from 'src/pages/Home';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,7 +9,6 @@ import React, { Suspense, lazy } from 'react';
 
 import Loading from '/src/components/Loading';
 
-const Home = lazy(() => import('src/pages/Home'));
 const CryptoPage = lazy(() => import('../../pages/CryptoPage'));
 const Wallet = lazy(() => import('../../pages/Wallet'));
 const Portfolio = lazy(() => import('../../pages/Portfolio'));
@@ -127,16 +126,8 @@ const App = () => {
         <CssBaseline />
         <AlertMsg />
         <Routes>
-            <Route path="/" element={
-              <Suspense fallback={<Loading/>}>
-                <Home />
-              </Suspense>
-            } />
-            <Route path="/login" element={
-              <Suspense fallback={<Loading/>}>
-                <Home displayLogin />
-              </Suspense>
-            } />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Home displayLogin />} />
             <Route path="/market" element={
               <Suspense fallback={<Loading/>}>
                 <MarketPage />
