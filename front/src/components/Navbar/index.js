@@ -3,7 +3,6 @@ import MyAccount from 'src/components/Navbar/MyAccount';
 import SearchCrypto from 'src/components/Navbar/SearchBar/SearchCrypto';
 
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {  useSelector } from 'react-redux';

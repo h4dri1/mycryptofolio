@@ -49,6 +49,7 @@ const App = () => {
   // DARK MODE
   const { darkMode } = useSelector((state) => state.settings);
   const { logged } = useSelector((state) => state.user);
+  const { walletAddress } = useSelector((state) => state.connectWallet)
 
   // COLOR PALETTE for LIGHT & DARK modes
   let theme = createTheme({
@@ -121,9 +122,10 @@ const App = () => {
     if (logged) {
       await dispatch(checkToken());
     }
-    //dispatch(getAllCryptos());
-    getChangeWallet();
-    getChangeNetwork();
+    if (walletAddress !== 'Wallet') {
+      getChangeWallet();
+      getChangeNetwork();
+    }
   }, []);
 
 
