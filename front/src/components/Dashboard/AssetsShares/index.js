@@ -2,14 +2,7 @@ import {
   Chart as ChartJS, ArcElement, Tooltip, Legend,
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import Container from '@mui/material/Container';
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import { Container, Table, TableHead, TableBody, TableRow, TableCell, Divider, Typography } from '@mui/material';
 
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';

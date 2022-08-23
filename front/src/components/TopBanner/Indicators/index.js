@@ -1,9 +1,8 @@
 /* eslint-disable react/function-component-definition */
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
+import { Typography, Container, Box }  from '@mui/material';
+
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import PercentIcon from '@mui/icons-material/Percent';
@@ -11,9 +10,6 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import { getIndicators } from '../../../actions/indicators';
 
 import { useEffect } from 'react';
-
-import { useDispatch } from 'react-redux';
-
 
 // const useStyles = makeStyles((theme) => ({
 //   indicator: {

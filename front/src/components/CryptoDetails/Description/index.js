@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Box, Typography }  from '@mui/material';
 
 import { useSelector } from 'react-redux';
 

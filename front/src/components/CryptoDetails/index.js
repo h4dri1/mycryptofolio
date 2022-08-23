@@ -1,11 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Typography, Grid, Box, ToggleButton, ToggleButtonGroup, Chip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 // import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
@@ -15,7 +10,6 @@ import { fetchCryptoData, fetchChartData } from 'src/actions/cryptoDetails';
 import Graph from './Graph';
 import Description from './Description';
 import Indicators from './Indicators';
-import Chip from '@mui/material/Chip';
 
 const useStyles = makeStyles({
   grid: {

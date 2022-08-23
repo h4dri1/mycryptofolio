@@ -1,18 +1,10 @@
 import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
-  import Container from '@mui/material/Container';
-  import { TableContainer, Paper, Skeleton } from '@mui/material';
-  import Table from '@mui/material/Table';
-  import TableHead from '@mui/material/TableHead';
-  import TableBody from '@mui/material/TableBody';
-  import TableRow from '@mui/material/TableRow';
-  import TableCell from '@mui/material/TableCell';
-  import Typography from '@mui/material/Typography';
-  import useMediaQuery from '@mui/material/useMediaQuery';
+  import { TableContainer, Paper, Skeleton, Container, Table, TableHead, TableBody, TableRow, TableCell, Typography, useMediaQuery, Box, Avatar } from '@mui/material';
+
   import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-  import Box from '@mui/material/Box';
-  import { Avatar } from '@mui/material';
+
   import { useSelector } from 'react-redux';
 
   import MoodBadIcon from '@mui/icons-material/MoodBad';

@@ -1,12 +1,11 @@
 /* eslint-disable react/function-component-definition */
-import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 import AssetsShares from './AssetsShares';
 import Nft from './Nft';

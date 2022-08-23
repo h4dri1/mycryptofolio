@@ -1,20 +1,13 @@
 import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
-  import Container from '@mui/material/Container';
-  import Typography from '@mui/material/Typography';
-  import useMediaQuery from '@mui/material/useMediaQuery';
-  import Box from '@mui/material/Box';
-  import Card from '@mui/material/Card';
-  import CardMedia from '@mui/material/CardMedia';
-  import CardContent from '@mui/material/CardContent';
+  import { Container, Typography, useMediaQuery, Box, Card, CardMedia, CardContent, Skeleton } from '@mui/material';
 
   import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 
   import PhotoIcon from '@mui/icons-material/Photo';
 
   import { useSelector } from 'react-redux';
-import { Skeleton } from '@mui/material';
 
   ChartJS.register(ArcElement, Tooltip, Legend);
   

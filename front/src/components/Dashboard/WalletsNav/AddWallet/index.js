@@ -1,13 +1,7 @@
 /* eslint-disable react/function-component-definition */
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import TextField from '@mui/material/TextField';
+import { IconButton, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField }  from '@mui/material';
+
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 
 import { useSelector, useDispatch } from 'react-redux';
 

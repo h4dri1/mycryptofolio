@@ -1,18 +1,23 @@
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
-import Logout from '@mui/icons-material/Logout';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import { 
+  ClickAwayListener, 
+  Grow, 
+  Paper, 
+  Popper, 
+  MenuItem, 
+  MenuList, 
+  Stack, 
+  Avatar, 
+  Divider, 
+  ListItemIcon,
+  Container, 
+  Link, 
+  useMediaQuery
+} from '@mui/material';
+
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
+import Logout from '@mui/icons-material/Logout';
 
-import { Container, Link, TextField, Typography, useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { logout } from '../../../../actions/user';

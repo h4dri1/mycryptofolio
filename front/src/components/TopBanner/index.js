@@ -1,21 +1,14 @@
 /* eslint-disable react/function-component-definition */
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
+import { AppBar, Toolbar, Container, Button, useMediaQuery, Box, Link } from '@mui/material';
+
 import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 import Color from './Color';
-import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { useMediaQuery, Box } from '@mui/material';
 
 import Logo from 'src/components/Navbar/Logo';
-import Link from '@mui/material/Link';
-import { Link as RouterLink } from 'react-router-dom';
-
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { getWalletAddress, getWalletENS } from '../../actions/connectWallet';
 

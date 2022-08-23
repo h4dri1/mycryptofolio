@@ -1,6 +1,5 @@
 import logoNB from 'src/assets/logo/logo_MyCryptoFolio_linear-removebg.png';
-import Avatar from '@mui/material/Avatar';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, Avatar } from '@mui/material';
 
 export default function Logo() {
 

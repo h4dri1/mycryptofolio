@@ -1,11 +1,9 @@
 import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
-  import React from 'react';
-  import { Container, Typography, useMediaQuery, List, ListItem, Box, ListItemIcon }  from '@mui/material';
-  import { useSelector } from 'react-redux';
 
-  import Loading from '../../Loading'
+  import { Container, Typography, List, ListItem }  from '@mui/material';
+  import { useSelector } from 'react-redux';
 
   import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 

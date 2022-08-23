@@ -11,8 +11,7 @@ import {
   Container,
   InputAdornment,
   Typography,
-  Avatar,
-  Badge
+  Avatar
 } from '@mui/material';
 
 import Visibility from '@mui/icons-material/Visibility';
@@ -23,15 +22,11 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 import { PropTypes } from 'prop-types';
 
-import { setPending } from 'src/actions/settings';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, existingUserToggle } from 'src/actions/user';
 import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-
-import Loading from '../Loading';
 
 import { useMediaQuery } from '@mui/material'
 

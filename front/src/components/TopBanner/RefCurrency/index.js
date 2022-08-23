@@ -1,5 +1,4 @@
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import { MenuItem, Select } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCryptoList, updateCurrency } from 'src/actions/cryptos';
 import { fetchPortfolio } from 'src/actions/portfolio';

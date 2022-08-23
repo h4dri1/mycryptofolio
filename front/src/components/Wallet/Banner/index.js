@@ -1,16 +1,13 @@
 import React from 'react';
-import { Box, Container, Avatar, Typography, IconButton, Skeleton } from '@mui/material';
+import { Box, Container, Avatar, Typography, IconButton, Skeleton, Badge } from '@mui/material';
 import Identicon from '../../Identicon';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { setDisplaySnackBar } from 'src/actions/settings';
-import { useDispatch } from 'react-redux';
-import Badge from '@mui/material/Badge';
-
 
 export default function Banner({tokens}) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);

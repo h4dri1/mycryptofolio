@@ -1,24 +1,26 @@
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Link as RouterLink } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { makeStyles, useTheme } from '@mui/styles';
-import {useState} from 'react';
+import { 
+  Table, 
+  TableHead, 
+  TableBody, 
+  TableRow, 
+  TableCell, 
+  TableSortLabel, 
+  Avatar, 
+  Box, 
+  Typography,
+  Grid,
+  Skeleton
+} from '@mui/material';
 
-import { useEffect } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+
+import { LoadingButton } from '@mui/lab';
+import { makeStyles, useTheme } from '@mui/styles';
+import {useState, useEffect} from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
-
-import { Skeleton } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {
