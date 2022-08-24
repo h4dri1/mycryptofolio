@@ -71,7 +71,7 @@ export default function TopFlop() {
         >
             <Container sx={{ marginBottom: 3 }}>
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center'}}>
-                <WhatshotIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending</Typography>
+                <WhatshotIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending Cryptos</Typography>
             </Container>
             { newCryptos.length > 0 ? (
                 <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px'}}>
