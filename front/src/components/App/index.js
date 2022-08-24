@@ -34,7 +34,7 @@ const App = () => {
   // DARK MODE
   const { darkMode } = useSelector((state) => state.settings);
   const { logged } = useSelector((state) => state.user);
-  const { walletAddress } = useSelector((state) => state.connectWallet)
+
 
   // COLOR PALETTE for LIGHT & DARK modes
   let theme = createTheme({

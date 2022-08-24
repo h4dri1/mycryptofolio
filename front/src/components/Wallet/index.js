@@ -11,7 +11,7 @@ import AssetsShares from './AssetsShares';
 import Nft from './Nft';
 import Banner from './Banner';
 
-import { getWalletBalance, getWalletHistory } from '../../actions/connectWallet';
+import { getWalletBalance, getWalletHistory, updateWalletAddress } from '../../actions/connectWallet';
 
 const useStyles = makeStyles({
   grid: {
