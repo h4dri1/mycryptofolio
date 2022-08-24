@@ -72,22 +72,22 @@ export default function TopNFT() {
                                 <TableRow>
                                     <TableCell></TableCell>
                                     <TableCell>Nom</TableCell>
-                                    <TableCell>Value</TableCell>
+                                    <TableCell>Owners</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                             {nfts.map((nft) => (
                                 <TableRow 
-                                key={nft.rank}
+                                key={nft.attributes.address}
                                 hover
                                 >
                                 <TableCell sx={{borderBottom: 0 }}>
-                                <Box component={RouterLink} to={`/nft/${nft.productPath.replaceAll('-', '')}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                                    <Avatar src={nft.iconUrl} alt={nft.contractName} sx={{ width: 38, height: 38, marginLeft: 1 }} />
+                                <Box component={RouterLink} to={`#`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                                    <Avatar src={nft.attributes.image_url} alt={nft.attributes.name} sx={{ width: 38, height: 38, marginLeft: 1 }} />
                                 </Box>
                                 </TableCell>
-                                <TableCell sx={{borderBottom: 0 }}>{nft.contractName}</TableCell>
-                                <TableCell sx={{borderBottom: 0 }}>${Math.round(nft.valueUSD).toLocaleString()}</TableCell>
+                                <TableCell sx={{borderBottom: 0 }}>{nft.attributes.name}</TableCell>
+                                <TableCell sx={{borderBottom: 0 }}>{nft.attributes.unique_owners}</TableCell>
                                 </TableRow >
                             ))}
                             </TableBody>
