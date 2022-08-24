@@ -25,17 +25,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import AlertMsg from 'src/components/common/AlertMessage';
 
-import { useNavigate } from 'react-router-dom';
-
 import { checkToken } from 'src/actions/user';
-
-import { getWalletBalance, updateWalletAddress, getWalletHistory } from '../../actions/connectWallet';
 
 // == Composant
 
 const App = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   // DARK MODE
   const { darkMode } = useSelector((state) => state.settings);
   const { logged } = useSelector((state) => state.user);
@@ -72,52 +67,11 @@ const App = () => {
 
   theme = responsiveFontSizes(theme);
 
-  const changeDispatch = () => {
-    dispatch(getWalletBalance());
-    dispatch(getWalletHistory());
-  }
-
-  const getChangeWallet = () => {
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
-        if (accounts.length > 0) {
-          console.log("accountsChanged", accounts);
-          dispatch(updateWalletAddress(accounts[0]));
-          changeDispatch();
-        } else {
-          localStorage.setItem('wallet', 'Wallet');
-          dispatch(updateWalletAddress('Wallet'));
-          navigate('/');
-        }
-      });
-    }
-  }
-
-  const getChangeNetwork = () => {
-    if (window.ethereum) {
-      window.ethereum.on("chainChanged", (networkId) => {
-        if (networkId.length > 0) {
-          console.log("network change", networkId);
-          changeDispatch();
-        } else {
-          localStorage.setItem('wallet', 'Wallet');
-          dispatch(updateWalletAddress('Wallet'));
-          navigate('/');
-        }
-      });
-    }
-  }
-
   useEffect(async () => {
     if (logged) {
       await dispatch(checkToken());
     }
-    if (walletAddress !== 'Wallet') {
-      getChangeWallet();
-      getChangeNetwork();
-    }
   }, []);
-
 
   return (
     <div className="app">

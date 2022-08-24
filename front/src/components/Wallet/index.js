@@ -57,11 +57,49 @@ const Wallet = () => {
     } else {
         var color = colorTheme
     }
+
+    const changeDispatch = () => {
+      dispatch(getWalletBalance());
+      dispatch(getWalletHistory());
+    }
+  
+    const getChangeWallet = () => {
+      if (window.ethereum) {
+        window.ethereum.on("accountsChanged", (accounts) => {
+          if (accounts.length > 0) {
+            console.log("accountsChanged", accounts);
+            dispatch(updateWalletAddress(accounts[0]));
+            changeDispatch();
+          } else {
+            localStorage.setItem('wallet', 'Wallet');
+            dispatch(updateWalletAddress('Wallet'));
+            navigate('/');
+          }
+        });
+      }
+    }
+  
+    const getChangeNetwork = () => {
+      if (window.ethereum) {
+        window.ethereum.on("chainChanged", (networkId) => {
+          if (networkId.length > 0) {
+            console.log("network change", networkId);
+            changeDispatch();
+          } else {
+            localStorage.setItem('wallet', 'Wallet');
+            dispatch(updateWalletAddress('Wallet'));
+            navigate('/');
+          }
+        });
+      }
+    }
   
   useEffect(() => {
     if (walletAddress !== 'Wallet') {
         dispatch(getWalletBalance())
         dispatch(getWalletHistory())
+        getChangeWallet();
+        getChangeNetwork();
     } else {
         navigate('/');
     }
