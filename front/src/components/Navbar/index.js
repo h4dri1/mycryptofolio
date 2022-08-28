@@ -22,7 +22,7 @@ import {
 export default function PrimarySearchAppBar() {
 
   const { homeIcon } = useSelector((state) => state.settings);
-  const { walletAddress } = useSelector((state) => state.connectWallet);
+  const { walletAddress } = useSelector((state) => state.wallet);
 
   const { darkMode } = useSelector((state) => state.settings);
 

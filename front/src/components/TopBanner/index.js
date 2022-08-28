@@ -10,9 +10,8 @@ import { useEffect } from 'react';
 import Logo from 'src/components/Navbar/Logo';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import { getWalletAddress, getWalletENS } from '../../actions/connectWallet';
-
 import Indicators from './Indicators';
+import ConnectWallet from './ConnectWallet'
 
 function TopBanner() {
     const dispatch = useDispatch();
@@ -21,22 +20,8 @@ function TopBanner() {
     const navigate = useNavigate();
 
     const { darkMode } = useSelector((state) => state.settings);
-    const { walletAddress, walletENS, walletNetwork } = useSelector((state) => state.connectWallet);
-
-    const onClick = () => {
-        dispatch(getWalletAddress());
-        dispatch(getWalletENS());
-        if (walletAddress !== 'Wallet') {
-            navigate('/wallet');
-        }
-    };
-
-    useEffect(() => {
-        if (walletAddress !== 'Wallet') {
-            dispatch(getWalletAddress());
-            dispatch(getWalletENS());
-        }
-    }, []);
+    const wallet = useSelector((state) => state.wallet);
+    const wallets = JSON.parse(localStorage.getItem('wallets'));
 
     return (
         <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF' }}>
@@ -54,11 +39,8 @@ function TopBanner() {
                         alignItems: 'center',
                     }}
                 >
-                    <Button onClick={onClick} variant="outlined" sx={{ fontSize: {xs: '0.5em', md: '0.7em'}, margin: '5px', width: { xs: '75px', md: '140px' } }}>
-                        {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' && walletENS !== undefined ? `${walletENS}` : `${walletAddress.substring(0, 6)}...${ !hide500 ? walletAddress.substring(38, 42) : ''}`}
-                        <Box sx={{width: 18, height: 18, borderRadius: '50%', marginLeft: 1}} component={'img'} src={Number(walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>
-                    </Button>
                     
+                    <ConnectWallet wallet={wallet} wallets={wallets}/>
                     <RefCurrency />
                     <Color />
                     <ToggleMode />

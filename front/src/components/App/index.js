@@ -27,14 +27,15 @@ import AlertMsg from 'src/components/common/AlertMessage';
 
 import { checkToken } from 'src/actions/user';
 
+import { getCurrentAccount } from 'src/actions/metamask';
+
 // == Composant
 
-const App = () => {
+const App = (provider) => {
   const dispatch = useDispatch();
   // DARK MODE
   const { darkMode } = useSelector((state) => state.settings);
   const { logged } = useSelector((state) => state.user);
-
 
   // COLOR PALETTE for LIGHT & DARK modes
   let theme = createTheme({
@@ -67,10 +68,19 @@ const App = () => {
 
   theme = responsiveFontSizes(theme);
 
+  const changeAccount = (accounts) => {
+    dispatch(getCurrentAccount(accounts));
+  }
+
   useEffect(async () => {
     if (logged) {
       await dispatch(checkToken());
     }
+    ethereum.on('accountsChanged', (accounts) => {
+      if (accounts.length > 0) {
+        changeAccount(accounts)
+      }
+    });
   }, []);
 
   return (

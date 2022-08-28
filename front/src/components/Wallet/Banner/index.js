@@ -11,7 +11,7 @@ import { setDisplaySnackBar } from 'src/actions/settings';
 
 export default function Banner({tokens}) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
-    const { walletAddress, walletENS, walletNetwork } = useSelector((state) => state.connectWallet);
+    const { walletAddress, walletENS, walletNetwork } = useSelector((state) => state.wallet);
     const dispatch = useDispatch();
 
     let sum = 0;

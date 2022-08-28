@@ -5,7 +5,6 @@ import { fetchPortfolio } from 'src/actions/portfolio';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
 
 import {useLocation, useNavigate } from 'react-router-dom'
-import { getWalletAddress, getWalletBalance, getWalletENS } from '../../../actions/connectWallet';
 
 // export default function SelectAutoWidth() {
 export default function RefCurrency() {
@@ -14,7 +13,7 @@ export default function RefCurrency() {
   const dispatch = useDispatch();
   const selected = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
   const { days, data } = useSelector((state) => state.cryptoDetails);
-  const { walletAddress } = useSelector((state) => state.connectWallet);
+  const { walletAddress } = useSelector((state) => state.wallet);
   const wallet = useSelector((state) => state.portfolio.wallet);
   const navigate = useNavigate();
 
@@ -28,11 +27,11 @@ export default function RefCurrency() {
       dispatch(fetchCryptoData(data.id, days));
     }
     dispatch(getCryptoList());
-    if (walletAddress) {
-      dispatch(getWalletAddress());
-      dispatch(getWalletBalance());
-      dispatch(getWalletENS());
-    }
+    //if (walletAddress) {
+    //  dispatch(getWalletAddress());
+    //  dispatch(getWalletBalance());
+    //  dispatch(getWalletENS());
+    //}
   };
 
   return (

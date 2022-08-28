@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import { makeStyles } from '@mui/styles';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
@@ -11,7 +11,8 @@ import AssetsShares from './AssetsShares';
 import Nft from './Nft';
 import Banner from './Banner';
 
-import { getWalletBalance, getWalletHistory, updateWalletAddress } from '../../actions/connectWallet';
+import { getWalletBalance, getChainId, getCurrentAccount } from '../../actions/metamask';
+import { getWalletTokens } from '../../actions/wallet';
 
 const useStyles = makeStyles({
   grid: {
@@ -37,8 +38,8 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletTokens, walletAddress } = useSelector((state) => state.connectWallet);
-  const { walletNFT } = useSelector((state) => state.connectWallet);
+  const { walletTokens, walletAddress } = useSelector((state) => state.wallet);
+  const { walletNFT } = useSelector((state) => state.wallet);
   const { darkMode } = useSelector((state) => state.settings);
 
   const { colorTheme } = useSelector((state) => state.settings);
@@ -58,53 +59,12 @@ const Wallet = () => {
         var color = colorTheme
     }
 
-    const changeDispatch = () => {
-      dispatch(getWalletBalance());
-      dispatch(getWalletHistory());
-    }
-  
-    const getChangeWallet = () => {
-      if (window.ethereum) {
-        window.ethereum.on("accountsChanged", (accounts) => {
-          if (accounts.length > 0) {
-            console.log("accountsChanged", accounts);
-            dispatch(updateWalletAddress(accounts[0]));
-            changeDispatch();
-          } else {
-            localStorage.setItem('wallet', 'Wallet');
-            dispatch(updateWalletAddress('Wallet'));
-            navigate('/');
-          }
-        });
+    useEffect(() => {
+      if (walletAddress !== 'Wallet') {
+          dispatch(getCurrentAccount())
       }
-    }
-  
-    const getChangeNetwork = () => {
-      if (window.ethereum) {
-        window.ethereum.on("chainChanged", (networkId) => {
-          if (networkId.length > 0) {
-            console.log("network change", networkId);
-            changeDispatch();
-          } else {
-            localStorage.setItem('wallet', 'Wallet');
-            dispatch(updateWalletAddress('Wallet'));
-            navigate('/');
-          }
-        });
-      }
-    }
-  
-  useEffect(() => {
-    if (walletAddress !== 'Wallet') {
-        dispatch(getWalletBalance())
-        dispatch(getWalletHistory())
-        getChangeWallet();
-        getChangeNetwork();
-    } else {
-        navigate('/');
-    }
-  }, []);
-  
+  },[])
+
   return (
     <div className="">
       <ConfirmDelete />
