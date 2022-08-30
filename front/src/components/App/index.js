@@ -68,8 +68,12 @@ const App = (provider) => {
 
   theme = responsiveFontSizes(theme);
 
-  const changeAccount = (accounts) => {
-    dispatch(getCurrentAccount(accounts));
+  const changeAccount = (accounts, change) => {
+    dispatch(getCurrentAccount(accounts, change));
+  }
+
+  const changeNetork = () => {
+    dispatch(getCurrentAccount());
   }
 
   useEffect(async () => {
@@ -78,7 +82,13 @@ const App = (provider) => {
     }
     ethereum.on('accountsChanged', (accounts) => {
       if (accounts.length > 0) {
-        changeAccount(accounts)
+        const change = true
+        changeAccount(accounts, change)
+      }
+    });
+    ethereum.on('chainChanged', (networkId) => {
+      if (networkId.length > 0) {
+        changeNetork(networkId)
       }
     });
   }, []);

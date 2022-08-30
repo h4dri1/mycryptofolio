@@ -18,8 +18,19 @@ const wallet = (store) => (next) => async (action) => {
                     url: `/ens/${walletAddress}`,
                 })
                 .then(async (res) => {
-                    localStorage.setItem('walletENS', res.data.name);
-                    await store.dispatch(updateWalletENS(res.data.name));
+                        const wallets = JSON.parse(localStorage.getItem('wallets'));
+                        const wallet = wallets.find(w => w.address === walletAddress);
+                        if (!wallet.name) {
+                            const newWallets = wallets.map(w => {
+                                if (w.address === walletAddress) {
+                                    w.name = res.data.name;
+                                }
+                                return w;
+                            })
+                            localStorage.setItem('wallets', JSON.stringify(newWallets));
+                        }
+                        localStorage.setItem('walletENS', res.data.name);
+                        await store.dispatch(updateWalletENS(res.data.name));
                 }).catch((err) => {
                     console.log(err)
                 });

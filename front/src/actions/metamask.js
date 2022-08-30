@@ -7,9 +7,9 @@ export const getChainId = () => ({
     type: GET_CHAIN_ID
 });
 
-export const getCurrentAccount = (payload) => ({
+export const getCurrentAccount = (payload, change) => ({
     type: GET_CURRENT_ACCOUNT,
-    payload
+    payload, change
 });
 
 export const getConnectAccount = () => ({

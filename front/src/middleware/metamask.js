@@ -28,8 +28,7 @@ const metamask = (store) => (next) => async (action) => {
                 console.log('Please connect to MetaMask.');
             //}
         } else if (accounts[0] !== walletAddress && accounts.length > 0 && !localStorage.getItem('wallet')) {
-            console.log(accounts[0])
-            localStorage.setItem('wallets', JSON.stringify(accounts));
+            localStorage.setItem('wallets', JSON.stringify([{address: accounts[0]}]));
             localStorage.setItem('wallet', accounts[0]);
             await store.dispatch(getChainId())
             await store.dispatch(updateConnectAccount(accounts[0]))
@@ -72,12 +71,19 @@ const metamask = (store) => (next) => async (action) => {
                 // If account disconnect but present in localstorage keep the wallet address
                 if (localStorage.getItem('wallets')) {
                     const wallets = JSON.parse(localStorage.getItem('wallets'));
-                    if (!wallets.includes(action.payload[0])) {
-                        wallets.push(action.payload[0]);
+                    if (wallets.filter(w => w.address === action.payload[0]).length === 0) {
+                        wallets.push({address: action.payload[0]});
                         localStorage.setItem('wallets', JSON.stringify(wallets));
                         localStorage.setItem('wallet', action.payload[0]);
                         await store.dispatch(updateConnectAccount(action.payload[0]))
                         handleAccountsChanged(action.payload)
+                    } else if (!action.change) {
+                        localStorage.setItem('wallet', action.payload[0]);
+                        await store.dispatch(updateConnectAccount(action.payload[0]))
+                        handleAccountsChanged(action.payload[0])
+                    } else {
+                        await store.dispatch(updateConnectAccount(action.payload[0]))
+                        handleAccountsChanged(action.payload[0])
                     }
                 }
             }

@@ -111,8 +111,8 @@ import {
             <ImageNotSupportedIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
             <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
           </Container>) : (
-            (img_url.map((nft) => (
-              <Card key={nft.image} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
+            (img_url.map((nft, index) => (
+              <Card key={index} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
                   <CardMedia
                       component="img"
                       image={(nft.image).replace('ipfs://', 'https://ipfs.io/ipfs/')}
