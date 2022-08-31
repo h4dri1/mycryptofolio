@@ -94,7 +94,7 @@ function TopBanner() {
                         }
                     />
                     <RefCurrency />
-                    <Color />
+                    {!hide500 && <Color />}
                     <ToggleMode />
                 </Container>
             </Toolbar>
