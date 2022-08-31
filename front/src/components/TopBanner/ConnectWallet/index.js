@@ -1,14 +1,11 @@
-import { Button, Box, useMediaQuery, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import { getWalletENS } from '../../../actions/wallet';
-import { getChainId, getConnectAccount, getCurrentAccount, getWalletBalance } from '../../../actions/metamask';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Select, MenuItem, FormControl } from '@mui/material';
+import { getConnectAccount, getCurrentAccount } from '../../../actions/metamask';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function ConnectWallet(wallet, wallets) {
-    const navigate = useNavigate();
     const dispatch = useDispatch()
-    const hide500 = useMediaQuery('(max-width:600px)');
     const location = useLocation();
     
     const handleChange = (event) => {

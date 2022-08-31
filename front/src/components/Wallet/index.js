@@ -1,18 +1,17 @@
 /* eslint-disable react/function-component-definition */
 import { makeStyles } from '@mui/styles';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
 import { Box, Grid } from '@mui/material';
+import { createSelector } from 'reselect' 
 
 import AssetsShares from './AssetsShares';
 import Nft from './Nft';
 import Banner from './Banner';
 
-import { getWalletBalance, getChainId, getCurrentAccount } from '../../actions/metamask';
-import { getWalletTokens } from '../../actions/wallet';
+import { getCurrentAccount } from '../../actions/metamask';
 
 const useStyles = makeStyles({
   grid: {
@@ -36,7 +35,6 @@ const useStyles = makeStyles({
 const Wallet = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { walletTokens, walletAddress } = useSelector((state) => state.wallet);
   const { walletNFT } = useSelector((state) => state.wallet);

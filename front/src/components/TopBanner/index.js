@@ -1,15 +1,10 @@
 /* eslint-disable react/function-component-definition */
-import { AppBar, Toolbar, Container, Button, useMediaQuery, Box, Link } from '@mui/material';
+import { AppBar, Toolbar, Container, useMediaQuery, Box, Link } from '@mui/material';
 
 import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
 import Color from './Color';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-
-import SettingsIcon from '@mui/icons-material/Settings';
-
-import { getCurrentAccount } from '../../actions/metamask';
+import { useSelector } from 'react-redux';
 
 import Logo from 'src/components/Navbar/Logo';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -19,10 +14,8 @@ import ConnectWallet from './ConnectWallet'
 
 
 function TopBanner() {
-    const dispatch = useDispatch();
     const data = useSelector((state) => state.indicators);
     const hide500 = useMediaQuery('(max-width:600px)');
-    const navigate = useNavigate();
 
     const { darkMode } = useSelector((state) => state.settings);
     const wallet = useSelector((state) => state.wallet);

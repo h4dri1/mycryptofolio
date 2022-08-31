@@ -1,13 +1,17 @@
 /* eslint-disable react/function-component-definition */
 // == Import
 import Home from 'src/pages/Home';
-
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
-
 import Loading from '/src/components/Loading';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import AlertMsg from 'src/components/common/AlertMessage';
+import { checkToken } from 'src/actions/user';
+import { getCurrentAccount } from 'src/actions/metamask';
+import MetaTags from 'react-meta-tags';
 
 const CryptoPage = lazy(() => import('../../pages/CryptoPage'));
 const Wallet = lazy(() => import('../../pages/Wallet'));
@@ -20,20 +24,9 @@ const ForgotPass = lazy(() => import('../../pages/ForgotPass'));
 const ProfilPage = lazy(() => import('../../pages/ProfilPage'));
 const UnknowRoute = lazy(() => import('../../pages/404'));
 
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-import AlertMsg from 'src/components/common/AlertMessage';
-
-import { checkToken } from 'src/actions/user';
-
-import { getCurrentAccount } from 'src/actions/metamask';
-
-import MetaTags from 'react-meta-tags';
-
 // == Composant
 
-const App = (provider) => {
+const App = () => {
   const dispatch = useDispatch();
   // DARK MODE
   const { darkMode } = useSelector((state) => state.settings);
