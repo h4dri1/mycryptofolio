@@ -16,7 +16,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import Indicators from './Indicators';
 import ConnectWallet from './ConnectWallet'
-import MetaTags from 'react-meta-tags';
+
 
 function TopBanner() {
     const dispatch = useDispatch();
@@ -64,11 +64,6 @@ function TopBanner() {
 
     return (
         <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF' }}>
-            <MetaTags>
-                <meta name="theme-color" content="#3A0CA3"/>
-                <meta name="msapplication-navbutton-color" content="#3A0CA3"/>
-                <meta name="apple-mobile-web-app-status-bar-style" content="#3A0CA3"/>
-            </MetaTags>
             <Toolbar disableGutters>
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />

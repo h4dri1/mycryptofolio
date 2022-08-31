@@ -29,6 +29,8 @@ import { checkToken } from 'src/actions/user';
 
 import { getCurrentAccount } from 'src/actions/metamask';
 
+import MetaTags from 'react-meta-tags';
+
 // == Composant
 
 const App = (provider) => {
@@ -95,6 +97,11 @@ const App = (provider) => {
 
   return (
     <div className="app">
+      <MetaTags>
+        <meta name="theme-color" content="#3A0CA3"/>
+        <meta name="msapplication-navbutton-color" content="#3A0CA3"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="#3A0CA3"/>
+      </MetaTags>
       <ThemeProvider theme={theme}>
         {/* <Paper> */}
         <CssBaseline />
