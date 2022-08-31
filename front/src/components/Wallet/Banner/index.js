@@ -94,6 +94,21 @@ export default function Banner({tokens}) {
       ))
     }
 
+    const Typo = () => {
+      if (Number(walletNetwork) === 1) {
+        return (
+          <Typography variant="h6" color={'custom.main'}>
+            {walletENS}
+          </Typography>
+        )
+      } else {
+        return (
+          null
+        )
+      }
+    }
+
+
     return (
         <Box disableGutters sx={{flexDirection: {xs: 'column', md: 'row'}, display: 'flex', borderRadius: '10px', height: 'auto', width: 'auto', padding: 2 }}>
             <Container sx={{display: 'flex', flexDirection: 'row'}}>
@@ -105,7 +120,7 @@ export default function Banner({tokens}) {
                         <Typography component="a" href={Number(walletNetwork) === 137 ? `https://polygonscan.com/address/${walletAddress}` : `https://etherscan.io/address/${walletAddress}`} rel="noopener" target="_blank" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>
                         <ContentCopyIcon onClick={() => {navigator.clipboard.writeText(walletAddress), dispatch(setDisplaySnackBar({ severity: 'success', message: `Address copied` }))}} sx={{ marginTop: 1, marginLeft: 1, cursor: 'pointer' }}></ContentCopyIcon>
                     </Box>
-                    {walletENS ? <Typography variant="h6" sx={{ marginTop: 1 }}>{walletENS}</Typography> : walletENS !== '' && walletENS !== undefined && walletENS !== 'Wallet' ? <Skeleton sx={{marginTop: 1}} variant="text" width={100} height={40} /> : null}
+                    <Typo/>
                 </Box>
             </Container>
             <Container sx={{display: 'flex', justifyContent: 'right', alignItems: 'center'}}>

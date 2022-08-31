@@ -13,7 +13,6 @@ export default function ConnectWallet(wallet, wallets) {
     
     const handleChange = (event) => {
         dispatch(getCurrentAccount([event.target.value]));
-        navigate('/wallet')
     }
 
     const onClick = () => {
@@ -30,8 +29,9 @@ export default function ConnectWallet(wallet, wallets) {
 
     return (
         <>
-        <FormControl sx={{ minWidth: 120 }} size="small"> 
+        <FormControl size="small"> 
         <Select
+            variant='outlined'
             onOpen={onClick}
             displayEmpty
             inputProps={{ 'aria-label': 'Without label' }}
@@ -43,17 +43,19 @@ export default function ConnectWallet(wallet, wallets) {
             value={
                 wallet.wallet.walletAddress !== 'Wallet' ? wallet.wallet.walletAddress : ''
             }
-            sx={{m: 0.5,
+            sx={{
+                m: 0.5,
                 border: 0,
                 color: 'secondary.main',
                 fontSize: '0.8rem',
-                height: '32px',}}
+                height: '32px'
+            }}
       >
         {wallet.wallets ? wallet.wallets.map((wal, index) => {
             return (
                 <MenuItem value={wal.address} key={index}>
                     {
-                        wal.name ? wal.name : `${wal.address.substring(0,6)}...${wal.address.substring(wal.address.length - 4)}`
+                        wal.name && Number(wallet.wallet.walletNetwork) === 1 ? wal.name : `${wal.address.substring(0,6)}...${wal.address.substring(wal.address.length - 4)}`
                     }
                 </MenuItem>
             );
@@ -62,7 +64,7 @@ export default function ConnectWallet(wallet, wallets) {
         }
       </Select>
       </FormControl>
-      <Box sx={{width: 22, height: 22, borderRadius: '50%', marginLeft: 1}} component={'img'} src={Number(wallet.wallet.walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>
+      
         </>
     )
 }

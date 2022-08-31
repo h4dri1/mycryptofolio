@@ -72,7 +72,7 @@ const App = (provider) => {
     dispatch(getCurrentAccount(accounts, change));
   }
 
-  const changeNetork = () => {
+  const changeNetwork = () => {
     dispatch(getCurrentAccount());
   }
 
@@ -88,7 +88,7 @@ const App = (provider) => {
     });
     ethereum.on('chainChanged', (networkId) => {
       if (networkId.length > 0) {
-        changeNetork(networkId)
+        changeNetwork(networkId)
       }
     });
   }, []);
