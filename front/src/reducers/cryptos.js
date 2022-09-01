@@ -1,4 +1,5 @@
 import {
+  UPDATE_ALL_CRYPTOS,
   UPDATE_CRYPTO_LIST,
   UPDATE_CRYPTO_TREND,
   UPDATE_CRYPTO_QUANTITY,
@@ -18,6 +19,7 @@ if (curr === null || !curr || curr === 'undefined') {
 }
 
 const initialState = {
+  allCryptos: [],
   cryptoList: {
     selectedCurrency: currency,
     quantity: 10,
@@ -38,6 +40,11 @@ const initialState = {
 
 const cryptosReducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case UPDATE_ALL_CRYPTOS:
+      return {
+        ...state,
+        allCryptos: action.payload,
+      };
     case UPDATE_CURRENCY:
       return {
         ...state,

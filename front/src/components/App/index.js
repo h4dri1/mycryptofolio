@@ -46,7 +46,7 @@ const App = () => {
   }
 
   useEffect(async () => {
-    if (logged) {
+    if (localStorage.getItem('refreshToken')) {
       await dispatch(checkToken());
     }
     if (walletAddress !== 'Wallet') {

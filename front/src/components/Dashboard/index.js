@@ -13,6 +13,7 @@ import AssetsShares from './AssetsShares';
 import Performance from './Performance';
 import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
+import { getAllCryptos } from '../../actions/cryptos';
 
 const useStyles = makeStyles({
   grid: {
@@ -46,6 +47,7 @@ const Dashboard = ({ logged, verify }) => {
     }
     else  {
       dispatch(fetchPortfolio());
+      dispatch(getAllCryptos());
     }
   }, []);
 
