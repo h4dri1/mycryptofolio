@@ -8,10 +8,8 @@ import {
     DialogContentText,
     TextField,
     IconButton,
-    Container,
     InputAdornment,
     Typography,
-    Avatar
   } from '@mui/material';
   
   import Visibility from '@mui/icons-material/Visibility';
@@ -32,16 +30,11 @@ import {
   
   import { useLocation, useNavigate } from 'react-router-dom';
   
-  import MenuIcon from '@mui/icons-material/Menu';
-  import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-  
   import {
     Link
   } from '@mui/material';
   
   import axios from 'axios';
-  
-  import Identicon from '../../Identicon';
   
   // const Alert = React.forwardRef(function Alert(props, ref) {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -64,8 +57,6 @@ import {
     const [ showPassCheck, setShowPassCheck ] = useState(false);
   
     const { darkMode } = useSelector((state) => state.settings);
-  
-    const { walletAddress } = useSelector((state) => state.wallet);
   
     const dispatch = useDispatch();
   

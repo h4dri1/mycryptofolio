@@ -1,45 +1,17 @@
 // import
 import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  TextField,
-  IconButton,
   Container,
-  InputAdornment,
-  Typography,
   Avatar
 } from '@mui/material';
-
-import Visibility from '@mui/icons-material/Visibility';
-
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 import { PropTypes } from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, existingUserToggle } from 'src/actions/user';
-import { toggleLoginModal, setDisplaySnackBar } from 'src/actions/settings';
-import { useState } from 'react';
+import { toggleLoginModal } from 'src/actions/settings';
 import Box from '@mui/material/Box';
-
-import { useMediaQuery } from '@mui/material'
-
-import { useLocation, useNavigate } from 'react-router-dom';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-
-import {
-  Link
-} from '@mui/material';
-
-import axios from 'axios';
 
 import Identicon from '../Identicon';
 
@@ -62,17 +34,14 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   const { loginIsOpen } = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
-  const [ forgotPassword, setForgotPassword ] = useState(false);
 
   // handle to open and close login modal
   // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
   const handleToggleLoginModal = () => {
-    setForgotPassword(false);
     dispatch(toggleLoginModal());
   };
   // Update state on change of fields value
   
-    
   return (
     <Box>
       <Container>
