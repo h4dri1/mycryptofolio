@@ -17,7 +17,6 @@ import Identicon from '../Identicon';
 
 import React, { Suspense, lazy } from 'react';
 
-//import Modal from './modal'
 const Modal = lazy(() => import('./modal'));
 
 // const Alert = React.forwardRef(function Alert(props, ref) {
@@ -60,8 +59,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>
       </Container>
       { loginIsOpen && (
-          <Suspense fallback={<div>Loading...</div>}>
-          <Modal type={type} handleFormSubmit={handleFormSubmit} />
+          <Suspense fallback={<></>}>
+            <Modal type={type} handleFormSubmit={handleFormSubmit} />
           </Suspense>
         )
       }
