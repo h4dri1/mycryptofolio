@@ -46,7 +46,6 @@ import {
   // const Alert = React.forwardRef(function Alert(props, ref) {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });
-  
   export default function Modal({ type, handleFormSubmit }) {
     // get the user state
     const {

@@ -59,6 +59,8 @@ export default function LoginRegister({ type, handleFormSubmit }) {
 
   const { walletAddress } = useSelector((state) => state.wallet);
 
+  const { loginIsOpen } = useSelector((state) => state.settings);
+
   const dispatch = useDispatch();
   const [ forgotPassword, setForgotPassword ] = useState(false);
 
@@ -88,9 +90,13 @@ export default function LoginRegister({ type, handleFormSubmit }) {
     }
         <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>
       </Container>
-      <Suspense fallback={<div>Loading...</div>}>
-      <Modal type={type} handleFormSubmit={handleFormSubmit} />
-      </Suspense>
+      { loginIsOpen && (
+          <Suspense fallback={<div>Loading...</div>}>
+          <Modal type={type} handleFormSubmit={handleFormSubmit} />
+          </Suspense>
+        )
+      }
+
     </Box>
   );
 }
