@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
 import { Box, Grid } from '@mui/material';
-import { createSelector } from 'reselect' 
 import colors from '../../services/getColors'
 
 import AssetsShares from './AssetsShares';

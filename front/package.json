@@ -76,7 +76,6 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "redux": "^4.1.2",
-    "reselect": "^4.1.6",
     "yarn-audit-fix": "^9.3.1"
   },
   "resolutions": {

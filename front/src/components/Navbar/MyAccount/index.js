@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import LoginRegister from 'src/components/LoginRegister';
 import { login, register } from 'src/actions/user';
 import AvatarIcon from './AvatarIcon';
-import { useDispatch } from 'react-redux';
 
 export default function MyAccount() {
 

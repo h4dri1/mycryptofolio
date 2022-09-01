@@ -8,12 +8,11 @@ import { Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 
 import Loading from '/src/components/Loading';
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AlertMsg from 'src/components/common/AlertMessage';
 import { checkToken } from 'src/actions/user';
 import { getCurrentAccount } from 'src/actions/metamask';
-import MetaTags from 'react-meta-tags';
 
 const CryptoPage = lazy(() => import('../../pages/CryptoPage'));
 const Wallet = lazy(() => import('../../pages/Wallet'));
@@ -67,11 +66,6 @@ const App = () => {
 
   return (
     <div className="app">
-      <MetaTags>
-        <meta name="theme-color" content="#3A0CA3"/>
-        <meta name="msapplication-navbutton-color" content="#3A0CA3"/>
-        <meta name="apple-mobile-web-app-status-bar-style" content="#3A0CA3"/>
-      </MetaTags>
       <ThemeProvider theme={theme}>
         {/* <Paper> */}
         <CssBaseline />
