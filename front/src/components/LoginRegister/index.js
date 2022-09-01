@@ -56,7 +56,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
             sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}
         /></Suspense>
         }
-        {hide500 && <MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon>}
+        {hide500 && <Suspense fallback={<></>}><MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon></Suspense>}
       </Container>
       { loginIsOpen && (
           <Suspense fallback={<></>}>
