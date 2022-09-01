@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
 import { Box, Grid } from '@mui/material';
 import { createSelector } from 'reselect' 
+import colors from '../../services/getColors'
 
 import AssetsShares from './AssetsShares';
 import Nft from './Nft';
@@ -36,28 +37,10 @@ const Wallet = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { walletTokens, walletAddress } = useSelector((state) => state.wallet);
-  const { walletNFT } = useSelector((state) => state.wallet);
-  const { darkMode } = useSelector((state) => state.settings);
+  const { walletTokens, walletAddress, walletNFT } = useSelector((state) => state.wallet);
+  const { color, image } = colors()
 
-  const { colorTheme } = useSelector((state) => state.settings);
-
-    if (colorTheme === 'gradient') {
-        var color = '#FF3CAC'
-        var image = 'linear-gradient(180deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
-    } else if (colorTheme === 'original') {
-        if (!darkMode) {
-            var color = 'rgb(58,12,163)'
-            var image = 'linear-gradient(180deg, rgba(58,12,163,1) 0%, rgba(96,50,201,1) 100%)'
-        } else {
-            var color = 'rgba(2,50,107)'
-            var image = 'linear-gradient(180deg, rgba(0,47,84,1) 0%, rgba(2,50,107,1) 100%)'
-        }
-    } else {
-        var color = colorTheme
-    }
-
-    useEffect(() => {
+  useEffect(() => {
       if (walletAddress !== 'Wallet') {
           dispatch(getCurrentAccount())
       }

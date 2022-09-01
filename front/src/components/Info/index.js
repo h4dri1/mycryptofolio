@@ -15,6 +15,8 @@ import News from './News'
 import TopNFT from './TopNFT'
 import CryptoList from '../CryptoList'
 
+import colors from '../../services/getColors'
+
 const useStyles = makeStyles({
     grid: {
       justifyContent: 'center',
@@ -33,12 +35,13 @@ const useStyles = makeStyles({
     },
   });
 
-
 export default function Info() {
 
   const dispatch = useDispatch();
 
   const classes = useStyles();
+
+  const { color, image } = colors()
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -48,7 +51,6 @@ export default function Info() {
     dispatch(getNFTList());
   }, []);
 
-
     return (
 
         <Grid
@@ -56,9 +58,9 @@ export default function Info() {
             className={classes.grid}  
         >
             <Grid item className={classes.gridItem}>
-                <TopFlop/>
-                <News/>
-                <TopNFT/>
+                <TopFlop color={color} image={image}/>
+                <News color={color} image={image}/>
+                <TopNFT color={color} image={image}/>
             </Grid>
             <CryptoList/>
         </Grid >
