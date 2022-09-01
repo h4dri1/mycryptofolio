@@ -50,6 +50,7 @@ export default function TopNFT(colors) {
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>
                 { fearAndGreed.name !== undefined ? (
                     <GaugeChart
+                        animate={false} 
                         id="gauge-chart5"
                         nrOfLevels={10}
                         arcsLength={[1, 1, 1]}
