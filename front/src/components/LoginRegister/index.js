@@ -44,7 +44,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   return (
     <Box>
       <Container>
-        {walletAddress !== 'Wallet' && <Box onClick={handleToggleLoginModal} sx={{ aligItems: 'center', justifyContent: 'center', display: {xs: 'none', md: 'flex'}, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}>
+        {walletAddress !== 'Wallet' && !hide500 && <Box onClick={handleToggleLoginModal} sx={{ aligItems: 'center', justifyContent: 'center', display: {xs: 'none', md: 'flex'}, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: !darkMode ? 'secondary.main' : '#07f3d5' }}>
           <Suspense fallback={<></>}><Identicon address={walletAddress} diam={56}></Identicon></Suspense>
         </Box>}
         {walletAddress === 'Wallet' && !hide500 && <Suspense fallback={<></>}><Avatar
