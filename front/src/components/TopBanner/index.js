@@ -78,7 +78,7 @@ function TopBanner() {
                         sx={{width: 22, height: 22, borderRadius: '50%', marginLeft: 1, cursor: 'pointer'}}
                         component={'img'} 
                         src={
-                            Number(wallet.walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" 
+                            Number(wallet.walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/24/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/24/7016/7016523.png" 
                         }
                     />
                     <RefCurrency />
