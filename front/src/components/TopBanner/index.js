@@ -1,17 +1,18 @@
 /* eslint-disable react/function-component-definition */
 import { AppBar, Toolbar, Container, useMediaQuery, Box, Link } from '@mui/material';
+import React, { Suspense, lazy } from 'react';
 
 import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
-import Color from './Color';
 import { useSelector } from 'react-redux';
 
 import Logo from 'src/components/Navbar/Logo';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import Indicators from './Indicators';
 import ConnectWallet from './ConnectWallet'
 
+const Indicators = lazy(() => import('./Indicators'));
+const Color = lazy(() => import('./Color'));
 
 function TopBanner() {
     const data = useSelector((state) => state.indicators);
@@ -61,7 +62,7 @@ function TopBanner() {
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />
                 </Link>}
-                {!hide500 && <Indicators data={data} />}
+                {!hide500 && <Suspense fallback={<></>}><Indicators data={data} /></Suspense>}
                 <Container
                     disableGutters
                     maxWidth="100%"
@@ -82,7 +83,7 @@ function TopBanner() {
                         }
                     />
                     <RefCurrency />
-                    {!hide500 && <Color />}
+                    {!hide500 && <Suspense fallback={<></>}><Color/></Suspense>}
                     <ToggleMode />
                 </Container>
             </Toolbar>
