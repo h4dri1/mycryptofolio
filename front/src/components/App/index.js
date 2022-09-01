@@ -1,10 +1,12 @@
 /* eslint-disable react/function-component-definition */
 // == Import
 import Home from 'src/pages/Home';
+
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
+
 import Loading from '/src/components/Loading';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -24,45 +26,18 @@ const ForgotPass = lazy(() => import('../../pages/ForgotPass'));
 const ProfilPage = lazy(() => import('../../pages/ProfilPage'));
 const UnknowRoute = lazy(() => import('../../pages/404'));
 
+import Theme from '../../theming/Theme';
+
 // == Composant
 
 const App = () => {
   const dispatch = useDispatch();
   // DARK MODE
-  const { darkMode } = useSelector((state) => state.settings);
   const { logged } = useSelector((state) => state.user);
-
+  const { walletAddress } = useSelector((state) => state.wallet);
+  const theme = Theme()
   // COLOR PALETTE for LIGHT & DARK modes
-  let theme = createTheme({
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-      background: {
-        default: darkMode ? '#00244F' : 'white',
-      },
-      primary: {
-        light: '#7f5cce',
-        main: '#3A0CA3',
-        dark: '#280872',
-        contrastText: 'white'
-      },
-      secondary: {
-        light: '#c345b1',
-        main: '#B5179E',
-        dark: '#7e106e'
-      },
-      neutral: {
-        main: '#a9b0ba',
-      },
-      custom: {
-        main: '#07f3d5',
-      },
-      contrastThreshold: 3,
-      tonalOffset: 0.2,
-    },
-  });
-
-  theme = responsiveFontSizes(theme);
-
+  
   const changeAccount = (accounts, change) => {
     dispatch(getCurrentAccount(accounts, change));
   }
@@ -75,17 +50,19 @@ const App = () => {
     if (logged) {
       await dispatch(checkToken());
     }
-    ethereum.on('accountsChanged', (accounts) => {
-      if (accounts.length > 0) {
-        const change = true
-        changeAccount(accounts, change)
-      }
-    });
-    ethereum.on('chainChanged', (networkId) => {
-      if (networkId.length > 0) {
-        changeNetwork(networkId)
-      }
-    });
+    if (walletAddress !== 'Wallet') {
+      ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length > 0) {
+          const change = true
+          changeAccount(accounts, change)
+        }
+      });
+      ethereum.on('chainChanged', (networkId) => {
+        if (networkId.length > 0) {
+          changeNetwork(networkId)
+        }
+      });
+    }
   }, []);
 
   return (
