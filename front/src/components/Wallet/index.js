@@ -3,7 +3,6 @@ import { makeStyles } from '@mui/styles';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ConfirmDelete from 'src/components/common/ConfirmDelete';
 import { Box, Grid } from '@mui/material';
 import colors from '../../services/getColors'
 
@@ -47,7 +46,6 @@ const Wallet = () => {
 
   return (
     <div className="">
-      <ConfirmDelete />
       <Box sx={{minHeight: '80vh'}}>
       <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={8.1} className={classes.gridItem}>

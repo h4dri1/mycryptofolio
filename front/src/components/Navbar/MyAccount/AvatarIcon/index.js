@@ -62,8 +62,8 @@ export default function TestAvatar() {
   const hide500 = useMediaQuery('(max-width:900px)');
 
   // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
+  const prevOpen = useRef(open);
+  useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
