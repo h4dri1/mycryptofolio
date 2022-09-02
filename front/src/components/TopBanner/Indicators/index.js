@@ -25,7 +25,6 @@ import { useEffect } from 'react';
 
 const Indicators = ({ data }) => {
   const dispatch = useDispatch();
-
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
 
   useEffect(() => {

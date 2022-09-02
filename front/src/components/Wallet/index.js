@@ -42,7 +42,7 @@ const Wallet = () => {
       if (walletAddress !== 'Wallet') {
           dispatch(getCurrentAccount())
       }
-  },[])
+  },[walletAddress]);
 
   return (
     <div className="">
