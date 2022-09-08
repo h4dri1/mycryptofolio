@@ -112,15 +112,15 @@ import {
             <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
           </Container>) : (
             (img_url.map((nft, index) => (
-              <Card key={index} sx={{marginBottom: 2, boxShadow: 4, maxWidth: '150px', maxHeight: '210px'}}>
+              <Card key={index} sx={{marginBottom: 2, marginRight: 1, marginLeft: 1, boxShadow: 4, maxWidth: '130px', maxHeight: '210px'}}>
                   <CardMedia
                       component="img"
                       image={(nft.image).replace('ipfs://', 'https://ipfs.io/ipfs/')}
                       alt={nft.name}
-                      sx={{width: '150px', height: '150px'}}/>
+                      sx={{width: '130px', height: '130px'}}/>
                   <CardContent sx={{backgroundColor: 'custom.main'}}>
-                      <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center'}}>
-                          {nft.name}
+                      <Box sx={{fontSize:'0.8em', color: 'primary.dark', textAlign: 'center', height: '30px'}}>
+                          {nft.name ? nft.name : 'NFT'}
                       </Box>
                   </CardContent>
 

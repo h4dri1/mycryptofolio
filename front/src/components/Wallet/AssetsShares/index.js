@@ -88,7 +88,7 @@ import {
     const TableContainerFunct = (props) => {
       return (
       distribution[0].balance !== '0x0' && distribution[0].name !== 'Ethereum' ? (
-        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '580px'}}>
+        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px'}}>
           <Table size='small' aria-label="a dense table" stickyHeader sx={{ maxWidth: '100%', p: '10'}}>
             <TableHead align="left">
               <TableRow align="left">
