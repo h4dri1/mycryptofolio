@@ -12,6 +12,8 @@ import Banner from './Banner';
 
 import { getCurrentAccount } from '../../actions/metamask';
 
+import HistoryToken from './HistoryToken';
+
 
 const Wallet = () => {
   const { color, image } = colors()
@@ -39,7 +41,7 @@ const Wallet = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { walletTokens, walletAddress, walletNFT } = useSelector((state) => state.wallet);
+  const { walletTokens, walletAddress, walletNFT, walletHistory } = useSelector((state) => state.wallet);
 
   useEffect(() => {
       if (walletAddress !== 'Wallet') {
@@ -60,12 +62,12 @@ const Wallet = () => {
         <Grid item xs={12} md={4} className={classes.gridItem}>
             <Nft collection={walletNFT} />
         </Grid>
-        {/*<Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
+        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
             <HistoryToken history={walletHistory}/>
         </Grid>
         <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
             
-        </Grid>*/}
+        </Grid>
       </Grid>
       </Box>
     </div>

@@ -6,8 +6,10 @@ export const UPDATE_CURRENT_ACCOUNT = 'UPDATE_CURRENT_ACCOUNT';
 export const UPDATE_WALLET_BALANCE = 'UPDATE_WALLET_BALANCE';
 export const GET_WALLET_TOKENS = 'GET_WALLET_TOKENS';
 export const UPDATE_WALLET_TOKENS = 'UPDATE_WALLET_TOKENS';
-export const GET_WALLET_NFT = 'GET_WALLET_NFT'
-export const UPDATE_WALLET_NFT = 'UPDATE_WALLET_NFT'
+export const GET_WALLET_NFT = 'GET_WALLET_NFT';
+export const UPDATE_WALLET_NFT = 'UPDATE_WALLET_NFT';
+export const GET_WALLET_HISTORY = 'GET_WALLET_HISTORY';
+export const UPDATE_WALLET_HISTORY = 'UPDATE_WALLET_HISTORY';
 
 export const updateChainId = (payload) => ({
     type: UPDATE_CHAIN_ID,
@@ -53,6 +55,15 @@ export const getWalletNFT = () => ({
 
 export const updateWalletNFT = (payload) => ({
     type: UPDATE_WALLET_NFT,
+    payload,
+});
+
+export const getWalletHistory = () => ({
+    type: GET_WALLET_HISTORY,
+});
+
+export const updateWalletHistory = (payload) => ({
+    type: UPDATE_WALLET_HISTORY,
     payload,
 });
 

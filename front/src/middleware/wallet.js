@@ -1,5 +1,14 @@
 import axios from 'axios';
-import { GET_WALLET_ENS, updateWalletENS, GET_WALLET_TOKENS, updateWalletTokens, GET_WALLET_NFT, updateWalletNFT } from '../actions/wallet';
+import { 
+    GET_WALLET_ENS, 
+    updateWalletENS, 
+    GET_WALLET_TOKENS, 
+    updateWalletTokens, 
+    GET_WALLET_NFT, 
+    updateWalletNFT,
+    GET_WALLET_HISTORY,
+    updateWalletHistory
+} from '../actions/wallet';
 
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
@@ -60,6 +69,19 @@ const wallet = (store) => (next) => async (action) => {
                 })
                 .then(async (res) => {
                    await store.dispatch(updateWalletNFT(res.data));   
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        next(action);
+        case GET_WALLET_HISTORY:
+            axios({
+                    method: 'get',
+                    baseURL,
+                    url: `/tokens/history/${walletAddress}`,
+                })
+                .then(async (res) => {
+                    await store.dispatch(updateWalletHistory(res.data));
                 })
                 .catch((err) => {
                     console.log(err)

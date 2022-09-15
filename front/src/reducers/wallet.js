@@ -1,5 +1,11 @@
 import {
-    UPDATE_WALLET_ENS, UPDATE_CHAIN_ID, UPDATE_CONNECT_ACCOUNT, UPDATE_WALLET_BALANCE, UPDATE_WALLET_TOKENS, UPDATE_WALLET_NFT
+    UPDATE_WALLET_ENS, 
+    UPDATE_CHAIN_ID, 
+    UPDATE_CONNECT_ACCOUNT, 
+    UPDATE_WALLET_BALANCE,
+    UPDATE_WALLET_TOKENS, 
+    UPDATE_WALLET_NFT,
+    UPDATE_WALLET_HISTORY
 } from 'src/actions/wallet';
 
 export const initialState = {
@@ -44,6 +50,11 @@ const wallet = (state = initialState, action = {}) => {
                 ...state,
                 walletNFT: action.payload
             }
+        case UPDATE_WALLET_HISTORY:
+            return {
+                ...state,
+                walletHistory: action.payload,
+            };
         default:
         return state;
     }

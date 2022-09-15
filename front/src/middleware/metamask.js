@@ -13,7 +13,8 @@ import {
     getWalletENS,
     updateWalletBalance,
     getWalletTokens,
-    getWalletNFT
+    getWalletNFT,
+    getWalletHistory
 } from "../actions/wallet"
 
 const metamask = (store) => (next) => async (action) => {
@@ -39,6 +40,7 @@ const metamask = (store) => (next) => async (action) => {
             await store.dispatch(getWalletENS());
             await store.dispatch(getWalletBalance('getTokens'));
             await store.dispatch(getWalletNFT());
+            await store.dispatch(getWalletHistory());
         }
     }
 
