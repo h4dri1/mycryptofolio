@@ -60,8 +60,6 @@ function NFTList() {
     dispatch(getNFTList());
   }, []);
 
-  console.log(nfts);
-
   return (
     <Box sx={{minHeight: '82.5vh'}}>
     <Grid container justifyContent="center" className={classes.root}>

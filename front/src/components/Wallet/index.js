@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import { makeStyles } from '@mui/styles';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Grid } from '@mui/material';
 import colors from '../../services/getColors'
@@ -12,49 +12,52 @@ import Banner from './Banner';
 
 import { getCurrentAccount } from '../../actions/metamask';
 
-const useStyles = makeStyles({
-  grid: {
-    height: '100%',
-    marginTop: '20px',
-    marginBottom: '50px',
-  },
-  gridItem: {
-    borderColor: '#E7EBF0',
-    borderRadius: '10px',
-    margin: '10px',
-    
-
-  },
-  gridSubItem: {
-    // border: 'solid 2px gold',
-    // height: '100%',
-  }
-});
 
 const Wallet = () => {
+  const { color, image } = colors()
+
+  const useStyles = makeStyles({
+    grid: {
+      height: '100%',
+      marginTop: '20px',
+      marginBottom: '50px',
+    },
+    gridItem: {
+      borderColor: '#E7EBF0',
+      borderRadius: '10px',
+      margin: '10px',
+      boxShadow: 4, 
+      backgroundColor: image ? '#FF3CAC' : color,
+      backgroundImage: image
+    },
+    gridSubItem: {
+      // border: 'solid 2px gold',
+      // height: '100%',
+    }
+  });
+  
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const { walletTokens, walletAddress, walletNFT } = useSelector((state) => state.wallet);
-  const { color, image } = colors()
 
   useEffect(() => {
       if (walletAddress !== 'Wallet') {
-          dispatch(getCurrentAccount())
+        dispatch(getCurrentAccount())
       }
-  },[walletAddress]);
+  },[]);
 
   return (
     <div className="">
       <Box sx={{minHeight: '80vh'}}>
       <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={8.1} className={classes.gridItem}>
+        <Grid item xs={12} md={8.1} className={classes.gridItem}>
           <Banner tokens={walletTokens}/>
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
+        <Grid item xs={12} md={4} className={classes.gridItem}>
             <AssetsShares distribution={walletTokens} />
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>
+        <Grid item xs={12} md={4} className={classes.gridItem}>
             <Nft collection={walletNFT} />
         </Grid>
         {/*<Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={4} className={classes.gridItem}>

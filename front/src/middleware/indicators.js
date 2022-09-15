@@ -16,7 +16,6 @@ const indicators = (store) => (next) => (action) => {
             })
                 .then((res) => {
                     const { total_market_cap, total_volume, market_cap_percentage } = res.data.data;
-
                     store.dispatch(getIndicatorsSuccess({ total_market_cap, total_volume, market_cap_percentage }));
                 })
                 .catch((err) => console.log('error', err));

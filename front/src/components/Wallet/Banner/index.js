@@ -19,13 +19,10 @@ export default function Banner({tokens}) {
 
     for (const item of tokens) {
         sum += item.value;
-    }
-  
-    for (const item of tokens) {
         sum24h += item.value24h;
     }
 
-    if (sum === 0) {
+    if (sum === 0) { 
       var dayChange = 0;
     } else {
       var dayChange = ((sum - sum24h) / sum) * 100;
@@ -107,7 +104,6 @@ export default function Banner({tokens}) {
         )
       }
     }
-
 
     return (
         <Box disableGutters sx={{flexDirection: {xs: 'column', md: 'row'}, display: 'flex', borderRadius: '10px', height: 'auto', width: 'auto', padding: 2 }}>

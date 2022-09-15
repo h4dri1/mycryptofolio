@@ -19,7 +19,6 @@ const cryptoDetails = (store) => (next) => (action) => {
         .then((res) => {
           // fetchCryptoDataSuccess(res.data)
           store.dispatch(updateCryptoData(res.data));
-    
         })
         .catch((err) => {
           console.log(err)
