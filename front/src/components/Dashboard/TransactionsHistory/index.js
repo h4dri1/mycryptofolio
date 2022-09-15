@@ -1,13 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import Divider from '@mui/material/Divider';
-import Modal from '@mui/material/Modal';
+import { Box, Typography, Table, TableHead, TableBody, TableRow, TableCell, Divider, Modal } from '@mui/material';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 import TransactionCreator from 'src/components/Dashboard/TransactionCreator';

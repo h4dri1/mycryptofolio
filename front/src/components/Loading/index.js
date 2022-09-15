@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { CircularProgress, Backdrop, Fade, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 

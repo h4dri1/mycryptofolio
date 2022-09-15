@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 
 export default function Indicators({ data }) {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
-  const { loading } = useSelector((state) => state.cryptoDetails);
 
   const { darkMode } = useSelector((state) => state.settings);
 

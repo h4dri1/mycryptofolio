@@ -16,8 +16,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getNFTList, getMoreNFT } from 'src/actions/nft';
 
-import Loading from '../Loading'
-
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: '0 auto', 
@@ -73,30 +71,24 @@ function NFTList() {
               <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : ''}}></TableCell>
               <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'table-cell', sm: 'table-cell' } }}>Nom</TableCell>
               <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', lg: 'table-cell' } }}>Blockchain</TableCell>
-              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', md: 'table-cell' } }}>Buyers</TableCell>
-              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', md: 'table-cell' } }}>Sellers</TableCell>
               <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' } }}>Owners</TableCell>
-              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' } }}>Transactions</TableCell>
-              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' } }}>Valeur</TableCell>
+              <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' } }}>Tokens</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
 
-            {nfts.map((nft) => (
-              <TableRow key={nft.rank} hover>
-                <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' } }}>{nft.rank}</TableCell>
+            {nfts.map((nft, index) => (
+              <TableRow key={index} hover>
+                <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' } }}>{index + 1}</TableCell>
                 <TableCell>
                 <Box component={RouterLink} to={`/nft`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                  <Avatar src={nft.iconUrl} alt={nft.productPath} sx={{ width: 75, height: 75, marginLeft: 1 }} />
+                  <Avatar src={nft.attributes.image_preview_icon_url} alt={nft.attributes.name} sx={{ width: 75, height: 75, marginLeft: 1 }} />
                 </Box>
                 </TableCell>
-                <TableCell sx={{ display: { xs: 'table-cell', sm: 'table-cell' } }}>{nft.contractName}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>{nft.baseCurrency}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>{nft.buyers}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>{nft.sellers}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{nft.owners}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{nft.transactions}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>${Math.round(nft.valueUSD).toLocaleString()}</TableCell>
+                <TableCell sx={{ display: { xs: 'table-cell', sm: 'table-cell' } }}>{nft.attributes.name}</TableCell>
+                <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>{nft.attributes.network}</TableCell>
+                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{nft.attributes.unique_owners}</TableCell>
+                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{nft.attributes.tokens}</TableCell>
               </TableRow>
             ))}
           </TableBody>

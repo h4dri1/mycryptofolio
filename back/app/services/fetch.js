@@ -3,8 +3,8 @@ const { PublicApiError } = require('../error');
 
 // Fetch service
 
-module.exports = async (url, header) => {
-    const res = await fetch(url, header);
+module.exports = async (url, header, body) => {
+    const res = await fetch(url, header, body);
     if (!res) {
         throw new PublicApiError(url);
     }

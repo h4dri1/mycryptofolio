@@ -1,11 +1,13 @@
-import * as React from 'react';
-import {
-    Link as RouterLink, useNavigate, useLocation, useParams,
-} from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+
+import { Fragment } from 'react';
+
+import axios from 'axios';
 
 // import TextField from '@mui/material/TextField';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
-import { Typography, useMediaQuery } from '@mui/material';
+import { Typography } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import {
     Autocomplete,
@@ -16,26 +18,68 @@ import {
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { setHomeIcon, toggleHomeIcon } from '../../../../actions/settings';
+import { setHomeIcon } from '../../../../actions/settings';
+
+const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
 export default function SearchCrypto() {
+    const dispatch = useDispatch();
     const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
     const { days } = useSelector((state) => state.cryptoDetails);
     const { darkMode } = useSelector((state) => state.settings);
+    //const { allCryptos } = useSelector((state) => state.cryptos)
+
+    const [open, setOpen] = useState(false);
+    const [options, setOptions] = useState([]);
+    const loading = open && options.length === 0;
+
+    useEffect(() => {
+        let active = true
+        if (!loading) {
+            return undefined
+        }
+
+        (async () => {
+            let someCryptos
+            await axios({
+                method: 'get',
+                baseURL,
+                url: '/cryptos/usd/100',
+              })
+                .then((res) => {
+                    someCryptos = res.data.filter((_, index) => {
+                        if(index < 200) {
+                            return true;
+                        }
+                        return false
+                    })
+                })
+                .catch((err) => console.log(err));
+            if (active) {
+                setOptions([...someCryptos]);
+            }
+        })();
+
+        return () => {
+            active = false
+        }
+    }, [loading]);
+
+    useEffect(() => {
+        if (!open) {
+            setOptions([]);
+        }
+    }, [open]);
 
     // Get all 20k cryptos
-    const allCryptos = useSelector((state) => state.cryptos.allCryptos);
-
-    const someCryptos = allCryptos.filter((_, index) => {
-        if (index < 200) {
-            return true;
-        }
-        return false;
-    });
-
-    const dispatch = useDispatch();
-    const slug = useParams();
-    const hide = useMediaQuery('(max-width:500px)');
+    //const allCryptos = useSelector((state) => state.cryptos.allCryptos);
+//
+    //const someCryptos = allCryptos.filter((_, index) => {
+    //    if (index < 200) {
+    //        return true;
+    //    }
+    //    return false;
+    //});
 
     return (
         <Box
@@ -62,10 +106,17 @@ export default function SearchCrypto() {
             <Autocomplete
                 disablePortal
                 id="cryptoCurrency"
-                options={someCryptos}
-                onClose={() => dispatch(setHomeIcon(true))}
+                onOpen={() => {
+                    setOpen(true)
+                }}
+                onClose={() => {
+                    dispatch(setHomeIcon(true))
+                    setOpen(false)
+                }}
+                isOptionEqualToValue={(option, value) => option.name === value.name}
                 getOptionLabel={(option) => `${option.symbol.toUpperCase()} : ${option.name}`}
-
+                options={options}
+                loading={loading}
                 // ! For later, to enhance list aspect
 
                 renderOption={(props, option) => (
@@ -92,7 +143,16 @@ export default function SearchCrypto() {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        placeholder= {!hide ? "Rechercher une crypto" : ""}
+                        label="Rechercher une crypto..."
+                        InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                            <Fragment>
+                                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                {params.InputProps.endAdornment}
+                            </Fragment>
+                            ),
+                        }}
                     />
                 )}
                 selectOnFocus

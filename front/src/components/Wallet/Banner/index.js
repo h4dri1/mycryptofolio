@@ -1,19 +1,17 @@
 import React from 'react';
-import { Box, Container, Avatar, Typography, IconButton, Skeleton } from '@mui/material';
+import { Box, Container, Avatar, Typography, IconButton, Skeleton, Badge } from '@mui/material';
 import Identicon from '../../Identicon';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { setDisplaySnackBar } from 'src/actions/settings';
-import { useDispatch } from 'react-redux';
-
 
 export default function Banner({tokens}) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
-    const { walletAddress, walletENS } = useSelector((state) => state.connectWallet);
+    const { walletAddress, walletENS, walletNetwork } = useSelector((state) => state.wallet);
     const dispatch = useDispatch();
 
     let sum = 0;
@@ -21,13 +19,10 @@ export default function Banner({tokens}) {
 
     for (const item of tokens) {
         sum += item.value;
-    }
-  
-    for (const item of tokens) {
         sum24h += item.value24h;
     }
 
-    if (sum === 0) {
+    if (sum === 0) { 
       var dayChange = 0;
     } else {
       var dayChange = ((sum - sum24h) / sum) * 100;
@@ -96,17 +91,32 @@ export default function Banner({tokens}) {
       ))
     }
 
+    const Typo = () => {
+      if (Number(walletNetwork) === 1) {
+        return (
+          <Typography variant="h6" color={'custom.main'}>
+            {walletENS}
+          </Typography>
+        )
+      } else {
+        return (
+          null
+        )
+      }
+    }
+
     return (
         <Box disableGutters sx={{flexDirection: {xs: 'column', md: 'row'}, display: 'flex', borderRadius: '10px', height: 'auto', width: 'auto', padding: 2 }}>
             <Container sx={{display: 'flex', flexDirection: 'row'}}>
+              <Badge sx={{"& .MuiBadge-badge": { height: '28px', width: '28px', borderRadius: '50%' }}} badgeContent={<Box sx={{width: 25, height: 25, borderRadius: '50%'}} component={'img'} src={Number(walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>} overlap="circular" color="success">
                 <Identicon address={walletAddress} diam={100} />
-                
+              </Badge> 
                 <Box sx={{display: 'flex', flexDirection: 'column', marginLeft: 2, marginTop: 1}}>
                     <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                        <Typography component="a" href={`https://etherscan.io/address/${walletAddress}`} rel="noopener" target="_blank" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>
+                        <Typography component="a" href={Number(walletNetwork) === 137 ? `https://polygonscan.com/address/${walletAddress}` : `https://etherscan.io/address/${walletAddress}`} rel="noopener" target="_blank" variant="h6" sx={{ cursor: 'pointer', marginTop: 1, color: 'white', textDecoration: 'none' }}>{`${walletAddress.substring(0, 6)}...${walletAddress.substring(38, 42)}`}</Typography>
                         <ContentCopyIcon onClick={() => {navigator.clipboard.writeText(walletAddress), dispatch(setDisplaySnackBar({ severity: 'success', message: `Address copied` }))}} sx={{ marginTop: 1, marginLeft: 1, cursor: 'pointer' }}></ContentCopyIcon>
                     </Box>
-                    {walletENS ? <Typography variant="h6" sx={{ marginTop: 1 }}>{walletENS}</Typography> : walletENS !== '' && walletENS !== undefined ? <Skeleton sx={{marginTop: 1}} variant="text" width={100} height={40} /> : null}
+                    <Typo/>
                 </Box>
             </Container>
             <Container sx={{display: 'flex', justifyContent: 'right', alignItems: 'center'}}>

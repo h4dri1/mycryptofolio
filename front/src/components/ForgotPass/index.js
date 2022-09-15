@@ -1,12 +1,6 @@
 /* eslint-disable react/function-component-definition */
-import * as React from 'react';
-
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import { useDispatch } from 'react-redux';
-
-import Loading from '../Loading';
 
 import axios  from 'axios';
 
@@ -37,8 +31,6 @@ const useStyles = makeStyles({
   });
 
 export default function Profil(){
-
-  const dispatch = useDispatch();
 
   const classes = useStyles();
 

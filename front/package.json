@@ -50,6 +50,7 @@
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
+    "@metamask/detect-provider": "^1.2.0",
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.74",
     "@mui/material": "^5.5.2",
@@ -71,10 +72,10 @@
     "react-gauge-chart": "^0.4.0",
     "react-identicons": "^1.2.5",
     "react-jazzicon": "^1.0.4",
+    "react-meta-tags": "^1.0.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "redux": "^4.1.2",
-    "swiper": "^8.3.1",
     "yarn-audit-fix": "^9.3.1"
   },
   "resolutions": {

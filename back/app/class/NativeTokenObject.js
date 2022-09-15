@@ -1,15 +1,15 @@
 const { ethers } = require('ethers');
 
 class NativeTokenObject {
-    constructor(name, symbol, balance, price, share, thumbnail, change24h) {
-        this.name = name;
-        this.symbol = symbol;
-        this.balance = balance;
-        this.price = price;
+    constructor(tokenObj) {
+        this.name = tokenObj.name;
+        this.symbol = tokenObj.symbol;
+        this.balance = tokenObj.balance;
+        this.price = tokenObj.price;
         this.value = this.getNativeValue();
-        this.share = this.getShare(share);
-        this.thumbnail = thumbnail;
-        this.change24h = change24h;
+        this.share = this.getShare(tokenObj.share);
+        this.thumbnail = tokenObj.thumbnail;
+        this.change24h = tokenObj.change24h;
         this.value24h = this.getValue24h();
     }
 

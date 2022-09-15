@@ -1,10 +1,6 @@
-import * as React from 'react';
-
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton'
-import { Fragment } from 'react';
+import { Avatar, IconButton } from '@mui/material';
+import { Fragment, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRef } from 'react';
 import { change_avatar } from '../../../actions/user';
 
 export default function AvatarP() {

@@ -1,49 +1,60 @@
 /* eslint-disable react/function-component-definition */
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
+import { AppBar, Toolbar, Container, useMediaQuery, Box, Link } from '@mui/material';
+import React, { Suspense, lazy } from 'react';
 
-import Indicators from './Indicators';
 import ToggleMode from './ToggleMode';
 import RefCurrency from './RefCurrency';
-import Color from './Color';
-import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useMediaQuery } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 import Logo from 'src/components/Navbar/Logo';
-import Link from '@mui/material/Link';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
+import ConnectWallet from './ConnectWallet'
 
-import { getWalletAddress, getWalletENS } from '../../actions/connectWallet';
+const Indicators = lazy(() => import('./Indicators'));
+const Color = lazy(() => import('./Color'));
 
 function TopBanner() {
-    const dispatch = useDispatch();
     const data = useSelector((state) => state.indicators);
     const hide500 = useMediaQuery('(max-width:600px)');
-    const navigate = useNavigate();
 
     const { darkMode } = useSelector((state) => state.settings);
-    const { walletAddress, walletENS } = useSelector((state) => state.connectWallet);
+    const wallet = useSelector((state) => state.wallet);
+    const wallets = JSON.parse(localStorage.getItem('wallets'));
 
-    const onClick = () => {
-        dispatch(getWalletAddress());
-        dispatch(getWalletENS());
-        if (walletAddress !== 'Wallet') {
-            navigate('/wallet');
-        }
-    };
-
-    useEffect(() => {
-        if (walletAddress !== 'Wallet') {
-            dispatch(getWalletAddress());
-            dispatch(getWalletENS());
-        }
-    }, []);
+    const onClick = async () => {
+        try {
+            await ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: wallet.walletNetwork !== '1' ? '0x1' : '0x89' }],
+            });
+          } catch (switchError) {
+            // This error code indicates that the chain has not been added to MetaMask.
+            if (switchError.code === 4902) {
+              try {
+                await ethereum.request({
+                  method: 'wallet_addEthereumChain',
+                  params: [
+                    {
+                        chainId: "0x89",
+                        rpcUrls: ["https://rpc-mainnet.matic.network/"],
+                        chainName: "Matic Mainnet",
+                        nativeCurrency: {
+                            name: "MATIC",
+                            symbol: "MATIC",
+                            decimals: 18
+                        },
+                        blockExplorerUrls: ["https://polygonscan.com/"]
+                    },
+                  ],
+                });
+              } catch (addError) {
+                // handle "add" error
+              }
+            }
+            // handle other "switch" errors
+          }
+    }
 
     return (
         <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF' }}>
@@ -51,7 +62,7 @@ function TopBanner() {
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />
                 </Link>}
-                <Indicators data={data} />
+                {!hide500 && <Suspense fallback={<></>}><Indicators data={data} /></Suspense>}
                 <Container
                     disableGutters
                     maxWidth="100%"
@@ -61,11 +72,18 @@ function TopBanner() {
                         alignItems: 'center',
                     }}
                 >
-                    <Button onClick={onClick} variant="outlined" sx={{ fontSize: '0.7em', margin: '5px', width: { xs: '75px', md: '140px' } }}>
-                        {walletAddress === 'Wallet' ? `${walletAddress}` : walletENS !== '' && walletENS !== undefined ? `${walletENS}` : `${walletAddress.substring(0, 8)}...`}
-                    </Button>
+                    
+                    <ConnectWallet wallet={wallet} wallets={wallets}/>
+                    <Box 
+                        onClick={onClick} 
+                        sx={{width: 22, height: 22, borderRadius: '50%', marginLeft: 1, cursor: 'pointer'}}
+                        component={'img'} 
+                        src={
+                            Number(wallet.walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/24/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/24/7016/7016523.png" 
+                        }
+                    />
                     <RefCurrency />
-                    <Color />
+                    {!hide500 && <Suspense fallback={<></>}><Color/></Suspense>}
                     <ToggleMode />
                 </Container>
             </Toolbar>

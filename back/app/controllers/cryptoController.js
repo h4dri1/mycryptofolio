@@ -1,6 +1,7 @@
 const { Crypto } = require('../models');
 const service_fetch = require('../services/fetch');
 const { NoCryptoFound } = require('../error');
+const { OneCryptoObject } = require('../class');
 
 module.exports = {
     getAllCryptos: async (req, res, next) => {
@@ -31,37 +32,9 @@ module.exports = {
             if (req.params.nbd) {
                 days = req.params.nbd
             }
-            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=${req.params.cur}&days=${req.params.nbd}`);
-            const superObj = {'data': {
-                'id': data.id,
-                'symbol': data.symbol,
-                'name': data.name,
-                'description': data.description.en,
-                'links': data.links.homepage[0],
-                'explorer': data.links.blockchain_site[0],
-                'repos_url': data.links.repos_url.github,
-                'image': {'thumb': [data.image.thumb][0], 'small': [data.image.small][0], 'large': [data.image.large][0]},
-                'market_data': {'current_price': {'btc': data.market_data.current_price.btc, 
-                                                'eth': data.market_data.current_price.eth, 'eur': data.market_data.current_price.eur,
-                                                'usd': data.market_data.current_price.usd}, 
-                                'market_cap': {'btc': data.market_data.market_cap.btc, 
-                                                'eth': data.market_data.market_cap.eth, 'eur': data.market_data.market_cap.eur,
-                                                'usd': data.market_data.market_cap.usd},
-                                'fully_diluted_valuation': {'usd': data.market_data.fully_diluted_valuation.usd, 'eur': data.market_data.fully_diluted_valuation.eur, 
-                                                             'eth': data.market_data.fully_diluted_valuation.eth, 'btc': data.market_data.fully_diluted_valuation.btc}, 
-                                'total_volume': {'btc': data.market_data.total_volume.btc, 
-                                                'eth': data.market_data.total_volume.eth, 'eur': data.market_data.total_volume.eur,
-                                                'usd': data.market_data.total_volume.usd},  
-                                'market_cap_rank': data.market_data.market_cap_rank, 
-                                'market_cap_change_percentage_24h': data.market_data.market_cap_change_percentage_24h, 
-                                'total_supply': data.market_data.total_supply, 
-                                'max_supply': data.market_data.max_supply, 
-                                'circulating_supply': data.market_data.circulating_supply, 
-                                'last_updated': data.market_data.last_updated}
-            },
-                chart
-            }
-            res.status(200).json(superObj);
+            const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=${req.params.cur}&days=${days}`);
+            const oneCrypto = new OneCryptoObject(data);
+            res.status(200).json({data: oneCrypto, chart: chart});
         } catch (err) {
             next(err);
         }

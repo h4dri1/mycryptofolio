@@ -2,6 +2,8 @@
 import axios from 'axios';
 
 import {
+  GET_ALL_CRYPTOS,
+  updateAllCryptos,
   GET_NFT_TREND,
   updateNFTTrend,
   GET_CRYPTO_LIST,
@@ -12,8 +14,6 @@ import {
   getMoreCryptosLoading,
   updateCryptoQuantity,
   getCryptoList,
-  GET_ALL_CRYPTOS,
-  updateAllCryptos,
   GET_CURRENT_PRICE,
   setPrice,
 } from 'src/actions/cryptos';

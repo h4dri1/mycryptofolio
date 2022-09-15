@@ -4,8 +4,6 @@ import { FETCH_NFT_DATA, fetchNFTDataSuccess } from 'src/actions/nftDetails';
 
 import { setDisplaySnackBar } from 'src/actions/settings';
 
-import { setPending } from 'src/actions/settings';
-
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
 const nftDetails = (store) => (next) => (action) => {

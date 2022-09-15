@@ -1,24 +1,15 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Typography, Grid, Box, ToggleButton, ToggleButtonGroup, Chip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
 // import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCryptoData, fetchChartData } from 'src/actions/cryptoDetails';
 import Graph from './Graph';
 import Description from './Description';
 import Indicators from './Indicators';
-import Chip from '@mui/material/Chip';
-
-import Loading from '../Loading';
 
 const useStyles = makeStyles({
   grid: {
@@ -35,13 +26,13 @@ function CryptoDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { data, chart, days } = useSelector((state) => state.cryptoDetails);
+  const { data, chart } = useSelector((state) => state.cryptoDetails);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { slug } = useParams();
 
   const { darkMode } = useSelector((state) => state.settings);
 
-  const [range, setRange] = React.useState(1);
+  const [range, setRange] = useState(1);
 
   if (selectedCurrency === 'BTC') {
     var curParams = {

@@ -1,18 +1,10 @@
 import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
-  import Container from '@mui/material/Container';
-  import { TableContainer, Paper, Skeleton, Divider } from '@mui/material';
-  import Table from '@mui/material/Table';
-  import TableHead from '@mui/material/TableHead';
-  import TableBody from '@mui/material/TableBody';
-  import TableRow from '@mui/material/TableRow';
-  import TableCell from '@mui/material/TableCell';
-  import Typography from '@mui/material/Typography';
-  import useMediaQuery from '@mui/material/useMediaQuery';
+  import { TableContainer, Paper, Skeleton, Container, Table, TableHead, TableBody, TableRow, TableCell, Typography, useMediaQuery, Box, Avatar } from '@mui/material';
+
   import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-  import Box from '@mui/material/Box';
-  import { Avatar } from '@mui/material';
+
   import { useSelector } from 'react-redux';
 
   import MoodBadIcon from '@mui/icons-material/MoodBad';
@@ -96,7 +88,7 @@ import {
     const TableContainerFunct = (props) => {
       return (
       distribution[0].balance !== '0x0' && distribution[0].name !== 'Ethereum' ? (
-        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '580px'}}>
+        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px'}}>
           <Table size='small' aria-label="a dense table" stickyHeader sx={{ maxWidth: '100%', p: '10'}}>
             <TableHead align="left">
               <TableRow align="left">
@@ -106,6 +98,7 @@ import {
                 <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>Quantity</TableCell>
                 <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Value</TableCell>
                 <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}>%</TableCell>
+                <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', display: { xs: 'none', sm: 'table-cell' }}}></TableCell>
               </TableRow>
             </TableHead>
               <TableBody align="left">

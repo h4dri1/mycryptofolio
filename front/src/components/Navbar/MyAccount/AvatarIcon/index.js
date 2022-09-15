@@ -1,34 +1,38 @@
-import * as React from 'react';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
-import Logout from '@mui/icons-material/Logout';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import { 
+  ClickAwayListener, 
+  Grow, 
+  Paper, 
+  Popper, 
+  MenuItem, 
+  MenuList, 
+  Stack, 
+  Avatar, 
+  Divider, 
+  ListItemIcon,
+  Container, 
+  Link, 
+  useMediaQuery
+} from '@mui/material';
+
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
+import Logout from '@mui/icons-material/Logout';
 
-import { Container, Link, TextField, Typography, useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { logout } from '../../../../actions/user';
+import { useState, useRef, useEffect } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 export default function TestAvatar() {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
   const { nickname, avatar } = useSelector((state) => state.user);
 
   const { darkMode } = useSelector((state) => state.settings);
-  const { walletAddress } = useSelector((state) => state.connectWallet);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -58,8 +62,8 @@ export default function TestAvatar() {
   const hide500 = useMediaQuery('(max-width:900px)');
 
   // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
+  const prevOpen = useRef(open);
+  useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }

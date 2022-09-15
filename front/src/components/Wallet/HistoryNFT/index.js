@@ -2,9 +2,7 @@ import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
   import React from 'react';
-  import Container from '@mui/material/Container';
-  import Typography from '@mui/material/Typography';
-  import useMediaQuery from '@mui/material/useMediaQuery';
+  import { Container, Typography } from '@mui/material/Container';
   import { useSelector } from 'react-redux';
   import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
@@ -33,19 +31,6 @@ import {
         maximumSignificantDigits: 4
       }
       var cryptoSym = ''
-    }
-  
-    const hide500 = useMediaQuery('(max-width:600px)');
-
-    const [show, setShow] = React.useState(true);
-    const [change, setChange] = React.useState('percent');
-
-    const handleClickHide = () => {
-      setShow(!show);
-    }
-
-    const handleClickChange = () => {
-      setChange(change === 'percent' ? 'value' : 'percent');
     }
 
     return (

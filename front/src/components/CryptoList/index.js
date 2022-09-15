@@ -1,25 +1,26 @@
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Link as RouterLink } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { makeStyles, useTheme } from '@mui/styles';
-import {useState} from 'react';
+import { 
+  Table, 
+  TableHead, 
+  TableBody, 
+  TableRow, 
+  TableCell, 
+  TableSortLabel, 
+  Avatar, 
+  Box, 
+  Typography,
+  Grid,
+  Skeleton
+} from '@mui/material';
 
-import { useEffect } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+
+import { LoadingButton } from '@mui/lab';
+import { makeStyles, useTheme } from '@mui/styles';
+import {useState, useEffect} from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
-
-import Loading from '../Loading'
-import { Skeleton } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -114,7 +115,7 @@ function CryptoList() {
                 <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
                 <TableCell sx={{borderBottom: 0}}>
                   <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                    <Avatar src={crypto.image} alt={crypto.name} sx={{ mr: 2 }} />
+                    <Avatar loading={'lazy'} src={crypto.image.replace('large', 'small')} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
 
                       variant="body1"

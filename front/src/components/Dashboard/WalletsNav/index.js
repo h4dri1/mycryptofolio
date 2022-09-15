@@ -1,11 +1,7 @@
 /* eslint-disable react/function-component-definition */
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import Typography from '@mui/material/Typography';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import IconButton from '@mui/material/IconButton';
+import { Grid, Box, List, ListItemButton, Typography, IconButton } from '@mui/material';
+
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

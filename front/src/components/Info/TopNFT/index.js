@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { useSelector } from 'react-redux';
 
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
@@ -22,31 +20,14 @@ import {
     Skeleton    
 } from '@mui/material';
 
-export default function TopNFT() {
+export default function TopNFT(colors) {
 
     const { list: nfts } = useSelector((state) => state.nft.NFTList);
 
     const { darkMode } = useSelector((state) => state.settings);
 
-    const { colorTheme } = useSelector((state) => state.settings);
-
-    if (colorTheme === 'gradient') {
-        var color = '#FF3CAC'
-        var image = 'linear-gradient(180deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)'
-    } else if (colorTheme === 'original') {
-        if (!darkMode) {
-            var color = 'rgb(58,12,163)'
-            var image = 'linear-gradient(180deg, rgba(58,12,163,1) 0%, rgba(96,50,201,1) 100%)'
-        } else {
-            var color = 'rgba(2,50,107)'
-            var image = 'linear-gradient(180deg, rgba(0,47,84,1) 0%, rgba(2,50,107,1) 100%)'
-        }
-    } else {
-        var color = colorTheme
-    }
-
-    const hideButton = useMediaQuery('(min-width:900px)');
-    const hide1100 = useMediaQuery('(max-width:1100px)');
+    const { color, image } = colors
+    
     const hide500 = useMediaQuery('(max-width:600px)');
 
     return (
@@ -67,7 +48,7 @@ export default function TopNFT() {
         >
             <Container sx={{ marginBottom: 3 }}>
                 <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                    <InsertPhotoIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Top NFT</Typography>
+                    <InsertPhotoIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending NFT</Typography>
                 </Container>
                 { nfts.length > 0 ? (
                     <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px' }}>
@@ -76,22 +57,22 @@ export default function TopNFT() {
                                 <TableRow>
                                     <TableCell></TableCell>
                                     <TableCell>Nom</TableCell>
-                                    <TableCell>Value</TableCell>
+                                    <TableCell>Owners</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                             {nfts.map((nft) => (
                                 <TableRow 
-                                key={nft.rank}
+                                key={nft.attributes.address}
                                 hover
                                 >
                                 <TableCell sx={{borderBottom: 0 }}>
-                                <Box component={RouterLink} to={`/nft/${nft.productPath.replaceAll('-', '')}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                                    <Avatar src={nft.iconUrl} alt={nft.contractName} sx={{ width: 38, height: 38, marginLeft: 1 }} />
+                                <Box component={RouterLink} to={`#`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                                    <Avatar loading='lazy' src={nft.attributes.image_preview_icon_url} alt={nft.attributes.name} sx={{ width: 38, height: 38, marginLeft: 1 }} />
                                 </Box>
                                 </TableCell>
-                                <TableCell sx={{borderBottom: 0 }}>{nft.contractName}</TableCell>
-                                <TableCell sx={{borderBottom: 0 }}>${Math.round(nft.valueUSD).toLocaleString()}</TableCell>
+                                <TableCell sx={{borderBottom: 0 }}>{nft.attributes.name}</TableCell>
+                                <TableCell sx={{borderBottom: 0 }}>{nft.attributes.unique_owners}</TableCell>
                                 </TableRow >
                             ))}
                             </TableBody>

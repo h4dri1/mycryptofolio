@@ -1,7 +1,4 @@
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
+import { Grid, Box, Typography, Divider } from '@mui/material';
 
 import { useSelector } from 'react-redux';
 

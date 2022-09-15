@@ -1,14 +1,10 @@
 /* eslint-disable react/function-component-definition */
-import * as React from 'react';
-
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
 import { deleteUser } from '../../actions/user';
-
-import Loading from '../Loading';
 
 import {
     Grid,

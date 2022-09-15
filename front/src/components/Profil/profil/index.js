@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import { TextField, Divider, Typography, Grid, Button, Box, MenuItem } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,11 +32,11 @@ export default function Profil() {
     
     const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
 
-    const [currency, setCur] = React.useState(selectedCurrency);
+    const [currency, setCur] = useState(selectedCurrency);
 
-    const [nicknameValue, setNicknameValue] = React.useState(nickname);
+    const [nicknameValue, setNicknameValue] = useState(nickname);
 
-    const [emailValue, setEmailValue] = React.useState(email);
+    const [emailValue, setEmailValue] = useState(email);
 
     const { darkMode } = useSelector((state) => state.settings);
 

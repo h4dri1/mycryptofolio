@@ -1,27 +1,21 @@
 /* eslint-disable react/function-component-definition */
-import * as React from 'react';
-
 import { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
-
-import Loading from '../Loading';
 
 import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
 
 import { getNFTList, resetNFTQuantity } from '../../actions/nft';
 
-
-import {
-    Grid,
-    Link
-  } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import { makeStyles } from '@mui/styles';
 import TopFlop from './TopFlop'
 import News from './News'
 import TopNFT from './TopNFT'
 import CryptoList from '../CryptoList'
+
+import colors from '../../services/getColors'
 
 const useStyles = makeStyles({
     grid: {
@@ -41,21 +35,21 @@ const useStyles = makeStyles({
     },
   });
 
-
 export default function Info() {
 
   const dispatch = useDispatch();
 
   const classes = useStyles();
 
+  const { color, image } = colors()
+
   useEffect(() => {
     window.scrollTo(0, 0)
-    dispatch(resetNFTQuantity())
+    //dispatch(resetNFTQuantity())
     dispatch(getCryptoTrend());
     dispatch(getFearGreedIndex());
     dispatch(getNFTList());
   }, []);
-
 
     return (
 
@@ -64,9 +58,9 @@ export default function Info() {
             className={classes.grid}  
         >
             <Grid item className={classes.gridItem}>
-                <TopFlop/>
-                <News/>
-                <TopNFT/>
+                <TopFlop color={color} image={image}/>
+                <News color={color} image={image}/>
+                <TopNFT color={color} image={image}/>
             </Grid>
             <CryptoList/>
         </Grid >

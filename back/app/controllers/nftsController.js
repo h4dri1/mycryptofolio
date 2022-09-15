@@ -16,9 +16,18 @@ module.exports = {
 
     getTopNFT: async (req, res, next) => {
         try {
-            const top = await service_fetch(`//api.cryptoslam.io/v1/collections/top-100?timeRange=week`);
-            //const img = 
-            const newData = top.slice(0, req.params.nb);
+            const details = {
+                'insights_trend.period': '7d',
+                'include': 'insights_trend',
+                'sort': '-insights_trends.volume_change_percent',
+                'page[limit]': 3
+            }
+            const formBody = Object.keys(details).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])).join('&');
+            const top = await service_fetch(`//api.rarify.tech/data/contracts`, {headers: {
+                'Authorization': `${process.env.RARIFY_API_KEY}`,    
+            }}, formBody);
+            const data = top.data.filter((nft) => nft.attributes.image_url && !nft.attributes.name.includes('Uniswap'))
+            const newData = data.slice(0, req.params.nb);
             res.status(200).json(newData);
         } catch (err) {
             next(err);
@@ -28,7 +37,7 @@ module.exports = {
     getTestNFT: async (req, res, next) => {
         try {
             const data = await service_fetch(`//api.rarify.tech/data/contracts?include=insights&page[limit]=100&filter[has_metadata]=true`, {headers: {
-                'Authorization': 'ce600aec-ad38-4e4f-b034-76ffda6730f3',
+                'Authorization': `${process.env.RARIFY_API_KEY}`,
                 'Content-Type': 'application/json'
             }});
 
