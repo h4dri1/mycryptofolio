@@ -2,14 +2,14 @@ const { ethers } = require('ethers');
 
 class NativeTokenObject {
     constructor(tokenObj) {
-        this.name = tokenObj.name;
-        this.symbol = tokenObj.symbol;
+        this.name = tokenObj.networkName;
+        this.symbol = tokenObj.networkSymbol;
         this.balance = tokenObj.balance;
-        this.price = tokenObj.price;
+        this.price = tokenObj.nativeTokenPrice;
         this.value = this.getNativeValue();
-        this.share = this.getShare(tokenObj.share);
-        this.thumbnail = tokenObj.thumbnail;
-        this.change24h = tokenObj.change24h;
+        this.share = this.getShare(tokenObj.walletTotalBalance);
+        this.thumbnail = 'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880';
+        this.change24h = tokenObj.nativeTokenChange24h;
         this.value24h = this.getValue24h();
     }
 

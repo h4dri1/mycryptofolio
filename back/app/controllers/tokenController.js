@@ -25,5 +25,18 @@ module.exports = {
         } catch (err) {
             next(err);
         };
-    }
+    },
+
+    checkToken: async (req, res, next) => {
+        try {
+           const token = await redis.get(req.params.token);
+           if (token) {
+            res.status(200)
+           } else {
+            res.status(204).json()
+           }
+        } catch (err) {
+            next(err);
+        }
+    },
 }; 

@@ -1,5 +1,5 @@
 const auth = require('./auth');
-const blockchain = require('./blockchain');
+const blockchainService = require('./blockchain.service');
 const {cache, flush } = require('./cache');
 const fetch = require('./fetch');
 const guards = require('./guards');
@@ -16,5 +16,5 @@ module.exports = {
     jwt,
     update,
     mailer,
-    blockchain
+    blockchainService
 }

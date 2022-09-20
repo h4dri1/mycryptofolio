@@ -17,7 +17,7 @@ const {
 } = require('../error');
 
 module.exports = {
-    validLoginJwt: async (req, res, next) => {
+    login: async (req, res, next) => {
         try {
             const user = await User.findOne(req.body.email);
             if (!user.id) {
@@ -134,19 +134,6 @@ module.exports = {
             await redis.set(token, user.id);
             await redis.expire(token, 60*10);
             res.status(201).json({message: "Email with instructions sent"});
-        } catch (err) {
-            next(err);
-        }
-    },
-
-    checkToken: async (req, res, next) => {
-        try {
-           const token = await redis.get(req.params.token);
-           if (token) {
-            res.status(200)
-           } else {
-            res.status(204).json()
-           }
         } catch (err) {
             next(err);
         }

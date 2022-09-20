@@ -1,6 +1,6 @@
 const { NativeTokenObject, Erc20TokensObject } = require('../class');
 const service_fetch = require('../services/fetch');
-const { blockchain } = require('../services');
+const { blockchainService } = require('../services');
 const { Network } = require('../models');
 
 require('dotenv').config();
@@ -9,31 +9,10 @@ const header = {headers: {'X-API-Key': `${process.env.MORALIS_API_KEY}`}};
 
 module.exports = {
     getERC20Tokens: async (req, res, next) => {
-        try {
-            await blockchain.getWalletNetwork(req, res, next);
-            await blockchain.getNativeToken(req, res, next);
-            await blockchain.getWalletBalance(req, res, next);   
-            await blockchain.getERC20Token(req, res, next);
+        try {  
+            const tokens = await blockchainService.getERC20Token(req, res, next);
 
-            const whiteListToken = req.erc20Token.filter((token) => req.whiteListAddress.includes(token.token_address)).map((token) => {
-                return new Erc20TokensObject(req, token)
-            })
-
-            for (const token of whiteListToken) {
-                token.share = (token.value / req.walletTotalBalance) * 100;
-            }
-    
-            whiteListToken.push(new NativeTokenObject({
-                name: req.network[0].name,
-                symbol: req.network[0].symbol,
-                balance: req.params.net,
-                price: req.nativeTokenPrice,
-                share: req.walletTotalBalance,
-                thumbnail: 'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880',
-                change24h: req.nativeTokenChange24h,
-            }))
-
-            res.status(200).json(whiteListToken);
+            res.status(200).json(tokens);
         } catch (err) {
             next(err);        
         }
@@ -42,6 +21,8 @@ module.exports = {
     getHistoryTransactionToken: async (req, res, next) => {
         try {
             const data = await service_fetch(`https://api.etherscan.io/api?module=account&action=tokentx&contractaddress&address=${req.params.address}&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=${process.env.ETHERSCAN_API_KEY}`);
+            
+            //const icons = await service_fetch(`//deep-index.moralis.io/api/v2/erc20/metadata/symbols?chain=eth&symbols=`, header);
             for (const transaction of data.result) {
                 if(transaction.from === req.params.address) {
                     transaction.type = 'send'

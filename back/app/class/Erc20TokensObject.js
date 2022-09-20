@@ -2,24 +2,24 @@ const { ethers } = require('ethers');
 
 class Erc20TokensObject {
 
-    constructor(req, obj={}) {
+    constructor(walletData, obj={}) {
         for (const propname in obj) {
             this[propname] = obj[propname];
         }
 
-        this.change24h = this.getChange24h(req, obj)
-        this.price = this.getPrice(req, obj)
+        this.change24h = this.getChange24h(walletData, obj)
+        this.price = this.getPrice(walletData, obj)
         this.value = this.getValue()
         this.value24h = this.getValue24h()
-        req.walletTotalBalance += this.value
+        walletData.walletTotalBalance += this.value
     }
 
-    getChange24h(req, obj) {
-        return req.tokensPrices[`${obj.token_address}`][`${req.params.vs}_24h_change`]
+    getChange24h(walletData, obj) {
+        return walletData.tokensPrices[`${obj.token_address}`][`${walletData.vsCurrency}_24h_change`]
     }
 
-    getPrice(req, obj) {
-        return req.tokensPrices[`${obj.token_address}`][req.params.vs]
+    getPrice(walletData, obj) {
+        return walletData.tokensPrices[`${obj.token_address}`][walletData.vsCurrency]
     }
 
     getValue() {
