@@ -11,10 +11,10 @@ import {
   Typography,
 } from '@mui/material';
 // import { useStyles } from '@mui/styles';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 //import MobileDatePicker from '@mui/lab/DatePicker';
-import DatePicker from '@mui/lab/DatePicker';
+import { DatePicker } from '@mui/x-date-pickers'
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
