@@ -1,29 +1,64 @@
-const { NativeTokenObject, Erc20TokensObject } = require('../class');
+const { NativeTokenObject, Erc20TokensObject } = require('../objects');
 
 class Blockchain {
-    constructor(obj={}) {
-        for (const propName in obj) {
-            this[propName] = obj[propName];
-        }
+    constructor(obj) {
+        this.tokens = obj
     }
 
-    static getERC20Tokens = async (walletData, next) => {
+    static getTokens = async (req, res, next) => {
         try {
-            const whiteListToken = walletData.erc20Token.filter((token) => walletData.whiteListAddress.includes(token.token_address)).map((token) => {
-                return new Erc20TokensObject(walletData, token)
+            const erc20Tokens = res.locals.whiteListTokens.map((token) => {
+                return new Erc20TokensObject(req, res, token)
             })
-
-            for (const token of whiteListToken) {
-                token.share = (token.value / walletData.walletTotalBalance) * 100;
+            
+            for (const token of erc20Tokens) {
+                token.share = (token.value / res.locals.walletTotalBalance) * 100;
             }
-    
-            whiteListToken.push(new NativeTokenObject(walletData));
 
-            return whiteListToken;
+            const tokens = new Array(new NativeTokenObject(req, res), ...erc20Tokens)
+
+            return new Blockchain(tokens).tokens;
         } catch (err) {
             next(err);
         }
     }
+
+    static getHistoryTransactionToken = async (req, transactions, next) => {
+        try {
+            for (const transaction of transactions.result) {
+                if(transaction.from === req.params.address) {
+                    transaction.type = 'send'
+                } else if (transaction.to === req.params.address) {
+                    transaction.type = 'receive'
+                }
+            }
+            return new Blockchain(transactions).tokens;
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    static getNFTbyAddress = async (req, nfts, next) => {
+        try {
+            if (nfts.result.length === 0) {
+                nfts.result = [{nft: 'no'}]
+            }
+            return new Blockchain(nfts.result).tokens;
+        } catch (err) {
+            next(err);        
+        }
+    }
+
+    static getENSbyAddress = async (req, ens, next) => {
+        try {
+            const ensName = {name: ens.name}
+            return new Blockchain(ensName).tokens;
+        } catch (err) {
+            next(err);        
+        }
+    }
+
+
 
 }
 

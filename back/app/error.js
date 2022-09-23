@@ -330,6 +330,17 @@ class NoCryptoFound extends Error {
     }
 }
 
+class RateLimitError extends Error {
+    constructor (ip) {
+        super();
+        this.name = this.constructor.name;
+        this.level = 'warn';
+        this.ip = ip;
+        this.message = 'You have reached the max request for this route';
+        this.statusCode = 429;  
+    }
+}
+
 module.exports = {
     NoUserWithThisMail,
     NoTransactionId,
@@ -362,5 +373,6 @@ module.exports = {
     ForgotPasswordNoMail,
     SamePasswordAsOld,
     VerifyYourMail,
-    NoCryptoFound
+    NoCryptoFound,
+    RateLimitError
 };

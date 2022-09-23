@@ -1,7 +1,7 @@
 const { Crypto } = require('../models');
 const service_fetch = require('../services/fetch');
 const { NoCryptoFound } = require('../error');
-const { OneCryptoObject } = require('../class');
+const { OneCryptoObject } = require('../objects');
 
 module.exports = {
     getAllCryptos: async (req, res, next) => {

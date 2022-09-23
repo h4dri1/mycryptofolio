@@ -4,13 +4,16 @@ const router = Router();
 
 const { tokenController } = require('../controllers');
 
-const { validateParams } = require('../middlewares');
+const { validateParams, jwtMW } = require('../middlewares');
 
 const rateLimit = require('express-rate-limit');
 
 const { schemas } = require('../schemas');
 
+const { auth } = require('../services');
+
 router
+    .get('/logout/:token', validateParams(schemas.tokenSchema), jwtMW.logout, auth.logout)
     .get(
         '/jwt/login/check/:token',
         rateLimit(schemas.signupSchemaLim),
