@@ -1,4 +1,5 @@
 const { pool } = require('../database');
+const { OneCryptoObject } = require('../objects');
 
 class Crypto {
 
@@ -6,6 +7,16 @@ class Crypto {
         for (const propName in obj) {
             this[propName] = obj[propName];
         }
+    }
+
+    static async topCryptos(cryptos) {
+        const rows  = cryptos
+        return rows.map(row => new Crypto(row));
+    }
+
+    static async getOneCrypto(one, chart) {
+        const rows = new Array({data: new OneCryptoObject(one), chart: chart});
+        return new Crypto(rows)[0];
     }
 
     static async checkEthAddress(network, address) {

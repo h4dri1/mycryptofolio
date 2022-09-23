@@ -1,4 +1,4 @@
-const Crypto = require('./crypto');
+const Crypto = require('./crypto.model');
 const Transaction = require('./transaction');
 const User = require('./user');
 const Wallet = require('./wallet');

@@ -47,11 +47,6 @@ router
         validateParams(schemas.getHistorySchema), 
         cache, 
         cryptoController.getHistoricalData
-    )
-    .get('/cryptoprice/:id/:vs/:include_market_cap?/:include_24hr_vol?/:include_24hr_change?/:include_last_updated_at?',
-        validateParams(schemas.getOnePriceSchema),
-        cache,
-        cryptoController.getOnePrice
     );
 
 module.exports = router;

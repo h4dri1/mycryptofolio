@@ -5,7 +5,7 @@ const pattern = /^0x[a-fA-F0-9]{40}$/
 
 const blockchainLimiter = {
     windowMs: 60 * 1000,
-    max: 10,
+    max: 50,
     standardHeaders: true,
     legacyHeaders: false,
     handler: (req, res, next, options) => {

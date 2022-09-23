@@ -5,7 +5,7 @@ class Blockchain {
         this.tokens = obj
     }
 
-    static getTokens = async (req, res, next) => {
+    static async getTokens(req, res, next) {
         try {
             const erc20Tokens = res.locals.whiteListTokens.map((token) => {
                 return new Erc20TokensObject(req, res, token)
@@ -23,7 +23,7 @@ class Blockchain {
         }
     }
 
-    static getHistoryTransactionToken = async (req, transactions, next) => {
+    static async getHistoryTransactionToken(req, transactions, next) {
         try {
             for (const transaction of transactions.result) {
                 if(transaction.from === req.params.address) {
@@ -38,7 +38,7 @@ class Blockchain {
         }
     }
 
-    static getNFTbyAddress = async (req, nfts, next) => {
+    static async getNFTbyAddress(req, nfts, next) {
         try {
             if (nfts.result.length === 0) {
                 nfts.result = [{nft: 'no'}]
@@ -49,7 +49,7 @@ class Blockchain {
         }
     }
 
-    static getENSbyAddress = async (req, ens, next) => {
+    static async getENSbyAddress(req, ens, next) {
         try {
             const ensName = {name: ens.name}
             return new Blockchain(ensName).tokens;
