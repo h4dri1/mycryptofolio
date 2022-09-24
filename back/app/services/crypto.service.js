@@ -1,6 +1,6 @@
 const { Crypto } = require('../models');
-
 const service_fetch = require('../services/fetch');
+const { NoCryptoFound } = require('../error');
 
 module.exports = {
     getAllCryptos: async (req, res, next) => {
@@ -40,5 +40,43 @@ module.exports = {
         }
     },
 
+    getTrendingCryptos: async (req, res, next) => {
+        try {
+            const trendingCryptosData = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
+            const trendingCryptos = await Crypto.getTrendingCryptos(trendingCryptosData);
+            return trendingCryptos
+        } catch (err) {
+            next(err);
+        }
+    },
 
+    getFearAndGreed: async (req, res, next) => {
+        try {
+            const fearAndGreedData = await service_fetch(`//api.alternative.me/fng/?limit=1`);
+            const fearAndGreed = await Crypto.getFearAndGreed(fearAndGreedData);
+            return fearAndGreed;
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    getGlobalData: async (req, res, next) => {
+        try {
+            const globalMarketData = await service_fetch(`//api.coingecko.com/api/v3/global`);
+            const globalMarket = await Crypto.getGlobalData(globalMarketData);
+            return globalMarket;
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    getHistoricalData: async (req, res, next) => {
+        try {
+            const historicalData = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
+            const history = await Crypto.getHistoricalData(historicalData);
+            return history;
+        } catch (err) {
+            next(err);        
+        }
+    }
 }

@@ -1,6 +1,5 @@
 const service_fetch = require('../services/fetch');
-const { NoCryptoFound } = require('../error');
-const { OneCryptoObject } = require('../objects');
+
 const { cryptoService } = require('../services');
 
 module.exports = {
@@ -33,8 +32,8 @@ module.exports = {
  
     getTrendingCryptos: async (req, res, next) => {
         try {
-            const data = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
-            res.status(200).json(data);
+            const trendingCryptos = await cryptoService.getTrendingCryptos(req, res, next);
+            res.status(200).json(trendingCryptos);
         } catch (err) {
             next(err);
         }
@@ -42,8 +41,8 @@ module.exports = {
 
     getFearAndGreed: async (req, res, next) => {
         try {
-            const data = await service_fetch(`//api.alternative.me/fng/?limit=1`);
-            res.status(200).json(data);
+            const fearAndGreedIndex = await cryptoService.getFearAndGreed(req, res, next);
+            res.status(200).json(fearAndGreedIndex);
         } catch (err) {
             next(err);
         }
@@ -51,8 +50,8 @@ module.exports = {
 
     getGlobalData: async (req, res, next) => {
         try {
-            const data = await service_fetch(`//api.coingecko.com/api/v3/global`);
-            res.status(200).json(data);
+            const globalData = await cryptoService.getGlobalData(req, res, next);
+            res.status(200).json(globalData);
         } catch (err) {
             next(err);
         }
@@ -60,8 +59,8 @@ module.exports = {
 
     getHistoricalData: async (req, res, next) => {
         try {
-            const data = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
-            res.status(200).json(data);
+            const historicalData = await cryptoService.getHistoricalData(req, res, next);
+            res.status(200).json(historicalData);
         } catch (err) {
             next(err);        
         }

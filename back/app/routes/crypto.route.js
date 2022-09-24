@@ -8,42 +8,51 @@ const { schemas } = require('../schemas');
 
 const { validateParams } = require('../middlewares');
 
+const rateLimit = require('express-rate-limit');
+
 const { cache } = require('../services');
 
 router
     .get(
-        '/index/fearandgreed', 
+        '/index/fearandgreed',
+        rateLimit(schemas.cryptoLimiter),
         cache, 
         cryptoController.getFearAndGreed
     )
     .get(
-        '/cryptos/:vs/:nb(\\d+)', 
-        validateParams(schemas.getTopCryptoSchema), 
+        '/cryptos/:vs/:nb(\\d+)',
+        rateLimit(schemas.cryptoLimiter),
+        validateParams(schemas.getTopCrypto), 
         cache, 
         cryptoController.getTopCrypto
     )
     .get(
-        '/crypto/:id/:cur?/:nbd?', 
-        validateParams(schemas.getOneCryptoSchema), 
+        '/crypto/:id/:cur?/:nbd?',
+        rateLimit(schemas.cryptoLimiter),
+        validateParams(schemas.getOneCrypto), 
         cache, 
         cryptoController.getOneCrypto
     )
-    .get('/cryptos', 
+    .get('/cryptos',
+        rateLimit(schemas.cryptoLimiter),
         cache, 
         cryptoController.getAllCryptos
     )
     .get(
         '/trending',
+        rateLimit(schemas.cryptoLimiter),
         cache, 
         cryptoController.getTrendingCryptos
     )
     .get(
-        '/global', 
+        '/global',
+        rateLimit(schemas.cryptoLimiter),
         cache, 
         cryptoController.getGlobalData
     )
     .get(
-        '/history/:coinId/:day(\\d+)/:month(\\d+)/:year(\\d+)', 
+        '/history/:coinId/:day(\\d+)/:month(\\d+)/:year(\\d+)',
+        rateLimit(schemas.cryptoLimiter),
         validateParams(schemas.getHistorySchema), 
         cache, 
         cryptoController.getHistoricalData

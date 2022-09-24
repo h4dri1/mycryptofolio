@@ -5,8 +5,6 @@ const changeAvatarSchema = require('./body/changeAvatarSchema');
 const signupSchema = require('./body/signupSchema');
 const transactionSchema = require('./body/transactionSchema');
 const walletSchema = require('./body/walletSchema');
-const getTopCryptoSchema = require('./params/getTopCryptoSchema');
-const getOneCryptoSchema = require('./params/getOneCryptoSchema');
 const getOnePriceSchema =  require('./params/getOnePriceSchema');
 const getWalletSchema = require('./params/getWalletSchema');
 const getPortfolioSchema = require('./params/getPortfolioSchema');
@@ -18,11 +16,11 @@ const refreshSchemaLim = require('./limiter/refreshSchema');
 const transactionSchemaLim = require('./limiter/transactionSchema');
 const deleteUserSchemaLim = require('./limiter/deleteUserSchema');
 const tokenSchema = require('./params/tokenSchema');
-const getHistorySchema = require('./params/getHistorySchema');
 const forgotPasswordSchema = require('./body/forgotPasswordSchema');
 const checkForgotTokenSchema = require('./params/checkForgotTokenSchema');
 const changeForgotPasswordSchema = require('./body/changeForgotPasswordSchema');
 const { getHistoryTransactionToken, getERC20Tokens, getNFTbyAddress, getENSbyAddress, blockchainLimiter } = require('./params/blockchain.schema');
+const { getTopCrypto, cryptoLimiter, getOneCrypto, getHistory } = require('./params/crypto.schema');
 
 module.exports = { schemas: {
         loginSchema,
@@ -30,8 +28,6 @@ module.exports = { schemas: {
         signupSchema,
         transactionSchema,
         walletSchema,
-        getTopCryptoSchema,
-        getOneCryptoSchema,
         getOnePriceSchema,
         getWalletSchema,
         getPortfolioSchema,
@@ -42,7 +38,6 @@ module.exports = { schemas: {
         refreshSchemaLim,
         transactionSchemaLim,
         deleteUserSchemaLim,
-        getHistorySchema,
         changeUserSchema,
         changePasswordSchema,
         changeAvatarSchema,
@@ -53,6 +48,10 @@ module.exports = { schemas: {
         getHistoryTransactionToken,
         getERC20Tokens,
         getNFTbyAddress,
-        getENSbyAddress
+        getENSbyAddress,
+        getTopCrypto,
+        cryptoLimiter,
+        getOneCrypto,
+        getHistory
     }
 }

@@ -9,9 +9,24 @@ class Crypto {
         }
     }
 
+    static async getHistoricalData(history) {
+        return new Crypto(history);
+    }
+
+    static async getGlobalData(marketData) {
+        return new Crypto(marketData);
+    }
+
+    static async getFearAndGreed(data) {
+        return new Crypto(data);
+    }
+
+    static async getTrendingCryptos(trending) {
+        return new Crypto(trending);
+    }
+
     static async topCryptos(cryptos) {
-        const rows  = cryptos
-        return rows.map(row => new Crypto(row));
+        return cryptos.map(row => new Crypto(row));
     }
 
     static async getOneCrypto(one, chart) {

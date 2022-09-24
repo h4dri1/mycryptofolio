@@ -5,7 +5,6 @@ const header = {headers: {'X-API-Key': `${process.env.MORALIS_API_KEY}`}};
 module.exports = {
     
     getTokens: async (req, res, next) => {
-        
         try {
             res.locals.walletNetwork = await Network.getNetworkBychainId(req.params.network);
 
@@ -16,25 +15,22 @@ module.exports = {
             )
 
             res.locals.erc20Token = await service_fetch(`//deep-index.moralis.io/api/v2/${req.params.address}/erc20?chain=${(res.locals.walletNetwork[0].hex)}`, header);
-
-            res.locals.whiteListAddress = []
             
-            res.locals.whiteListTokens = await Promise.all(
-                    res.locals.erc20Token.map(async (token) => {
-                        if (await Crypto.checkEthAddress(((res.locals.walletNetwork[0].symbol).toLowerCase()), token.token_address)) {
-                            res.locals.whiteListAddress.push(token.token_address)
-                            return token
-                        }
+            res.locals.whiteListAddress = await Promise.all(
+                res.locals.erc20Token.map(async (token) => {
+                    if (await Crypto.checkEthAddress((res.locals.walletNetwork[0].symbol).toLowerCase(), token.token_address)) {
+                        return token.token_address
                     }
-                )
+                })
             )
 
+            res.locals.whiteListTokens = res.locals.erc20Token.filter((token) => res.locals.whiteListAddress.includes(token.token_address))
+            
             res.locals.tokensPrices = await service_fetch(
                 `//api.coingecko.com/api/v3/simple/token_price/${res.locals.walletNetwork[0].name}?contract_addresses=${res.locals.whiteListAddress}&vs_currencies=${req.params.vs}&include_24hr_change=true`
             );
 
             const tokens = await Blockchain.getTokens(req, res, next);
-            
             return tokens;
         } catch (err) {
             next(err);
