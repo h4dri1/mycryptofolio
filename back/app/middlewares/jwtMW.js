@@ -1,6 +1,6 @@
 const jwt = require('../services/jwt');
 const { InvalidToken } = require('../error');
-const { checkRT } = require('../services/auth');
+const { checkRT } = require('./auth.middleware');
 
 module.exports = {
     changing: (req, res, next) => {

@@ -6,78 +6,79 @@ const { userController } = require('../controllers');
 
 const { schemas } = require('../schemas');
 
-const { jwtMW, validateBody, validateParams } = require('../middlewares');
+const { auth, jwtMW, validateBody, validateParams } = require('../middlewares');
 
 const rateLimit = require('express-rate-limit');
 
-const { auth, flush } = require('../services');
+const { flush } = require('../services');
 
 router
     .post(
         '/jwt/login',
-        rateLimit(schemas.loginSchemaLim), 
-        validateBody(schemas.loginSchema), 
+        rateLimit(schemas.userLimiter), 
+        validateBody(schemas.login), 
         auth.login, 
         userController.login
     )
     .post(
         '/signup',
-        rateLimit(schemas.signupSchemaLim), 
-        validateBody(schemas.signupSchema),
+        rateLimit(schemas.userLimiter), 
+        validateBody(schemas.signUp),
         userController.addUser
     )
     .get(
         '/verify/resend/:email', 
-        rateLimit(schemas.refreshSchemaLim), 
+        rateLimit(schemas.userLimiter), 
+        validateParams(schemas.resendToken),
         userController.resendMail
     )
     .get(
         '/verify/:token',
-        rateLimit(schemas.signupSchemaLim),
-        validateParams(schemas.checkForgotTokenSchema),
+        rateLimit(schemas.userLimiter),
+        validateParams(schemas.checkForgotToken),
         userController.verifyEmail
     )
     .post(
         '/jwt/login/forgot',
-        rateLimit(schemas.signupSchemaLim),
-        validateBody(schemas.forgotPasswordSchema),
+        rateLimit(schemas.userLimiter),
+        validateBody(schemas.forgotPassword),
         userController.forgotPassword
     )
     .post(
         '/signup/change/user',
         jwtMW.routing,
-        rateLimit(schemas.signupSchemaLim), 
-        validateBody(schemas.changeUserSchema), 
+        rateLimit(schemas.userLimiter), 
+        validateBody(schemas.changeUser), 
         flush, 
         userController.modifyUser
     )
     .post(
         '/signup/change/forgot/password',
-        rateLimit(schemas.signupSchemaLim),
-        validateBody(schemas.changeForgotPasswordSchema),
+        rateLimit(schemas.userLimiter),
+        validateBody(schemas.changeForgotPassword),
         flush, 
         userController.modifyPasswordForgot
     )
     .post(
         '/signup/change/password',
         jwtMW.routing,
-        rateLimit(schemas.signupSchemaLim), 
-        validateBody(schemas.changePasswordSchema), 
+        rateLimit(schemas.userLimiter), 
+        validateBody(schemas.changePassword), 
         flush, 
         userController.modifyPassword
     )
     .post(
         '/signup/change/avatar',
         jwtMW.routing,
-        rateLimit(schemas.signupSchemaLim), 
-        validateBody(schemas.changeAvatarSchema), 
+        rateLimit(schemas.userLimiter), 
+        validateBody(schemas.changeAvatar), 
         flush, 
         userController.modifyAvatar
     )
     .delete(
         '/delete/user',
         jwtMW.routing,
-        rateLimit(schemas.deleteUserSchemaLim),
+        rateLimit(schemas.userLimiter),
         flush,
         userController.deleteUser
     )

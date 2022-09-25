@@ -38,24 +38,20 @@ module.exports = {
             }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(token));
-            const response = {
-                "status": `(JWT) Bienvenue ${user.nickname}`,
-                "refreshToken": jwt.makeRefreshToken(token),
-                "id": user.id,
-                "nickname": user.nickname,
-                "email": user.email,
-                "picture": user.picture,
-                "currency": userCurrency,
-                "verify": user.verify,
-            };
-            res.status(200).json(response);
+            const login = await User.login(user, userCurrency, token)
+            return login
         } catch (err) {
-            next(err)
-        };
+            if (err.level) {
+                throw err;
+            } else {
+                throw Error('Login error');
+            }       
+        }
+        
     },
 
     addUser: async (req, res, next) => {
-        try {
+        try {  
             const instance = new User(req.body);   
             const user = await User.findOne(instance.email);
             if (user.id) {
@@ -78,12 +74,16 @@ module.exports = {
                 await mailer.sendMailCheck(req, res, next);
                 await redis.set(checkToken, newUser.id);
                 await redis.expire(checkToken, 60*10);
-                res.status(201).json(response);
+                return new User(response);
             } else {
                 throw new CreateUserError();
             }
         } catch (err) {
-            next(err);
+            if (err.level) {
+                throw err;
+            } else {
+                throw Error('Add user error');
+            }  
         }
     },
 
@@ -91,15 +91,13 @@ module.exports = {
         try {
             const id = await redis.get(req.params.token);
             if (id) {
-                await User.verify(id);
+                const verify = await User.verify(id);
                 await redis.del(req.params.token);
-                res.status(200).redirect('https://mycryptofolio.fr/login');
-            } else {
-                res.status(500).json('Token invalide');
+                return verify;
             }
-         } catch (err) {
-             next(err);
-         }
+        } catch (err) {
+            throw err;
+        }
     },
 
     resendMail: async (req, res, next) => {
@@ -113,12 +111,16 @@ module.exports = {
             await mailer.sendMailCheck(req, res, next);
             await redis.set(checkToken, user.id);
             await redis.expire(checkToken, 60*10);
-            res.status(200).redirect('https://mycryptofolio.fr/login');
+            return user;
         } catch (err) {
-            next(err);
+            if (err.level) {
+                throw err;
+            } else {
+                throw Error('Resend Mail error');
+            }  
         }
     },
-    
+
     forgotPassword: async (req, res, next) => {
         try {
             const user = await User.findOne(req.body.email);
@@ -133,9 +135,13 @@ module.exports = {
             await mailer.sendMail(req, res, next);
             await redis.set(token, user.id);
             await redis.expire(token, 60*10);
-            res.status(201).json({message: "Email with instructions sent"});
+            return {message: "Email with instructions sent"};
         } catch (err) {
-            next(err);
+            if (err.level) {
+                throw err;
+            } else {
+                throw Error('Forgot password error');
+            }  
         }
     },
 
@@ -143,9 +149,9 @@ module.exports = {
         try {
             const instance = new User(req.body);
             await instance.save();
-            res.status(201).json("Modification effectuée");
-        } catch(err) {
-            next(err);
+            return {message: "User modified"};
+        } catch (err) {
+            throw err;
         }
     },
 
@@ -162,12 +168,16 @@ module.exports = {
             }
             const newHash = await bcrypt.hash(req.body.pass, 10);
             await User.updatePass(newHash, req.userId.id);
-            return res.status('201').json({"status": "Mot de passe modifié"});
-        } catch(err) {
-            next(err);
+            return {"status": "Mot de passe modifié"}
+        } catch (err) {
+            if (err.level) {
+                throw err;
+            } else {
+                throw Error('Modify password error');
+            }  
         }
     },
-
+    
     modifyPasswordForgot: async (req, res, next) => {
         try {
             const id = await redis.get(req.body.token);
@@ -183,19 +193,23 @@ module.exports = {
             await User.updatePass(newHash, id);
             await redis.del(req.body.token);
             await redis.del(id);
-            return res.status('201').json({"status": "Mot de passe modifié"});
-        } catch(err) {
-            next(err);
+            return {"status": "Mot de passe modifié"};
+        } catch (err) {
+            if (err.level) {
+                throw err;
+            } else {
+                throw Error('Forgot password error');
+            }  
         }
     },
 
     modifyAvatar: async (req, res, next) => {
         try {
             await User.updateAvatar(req.body.avatar, req.userId.id);
-            return res.status(201).json('Avatar modifié');
-        } catch(err) {
-            next(err);
-        } 
+            return {'status': 'Avatar modifié'};
+        } catch (err) {
+            throw err;
+        }
     },
 
     deleteUser: async (req, res, next) => {
@@ -209,9 +223,9 @@ module.exports = {
                 await Wallet.delete(wallet.id);
             }
             await User.deleteOne(req.userId.id);
-            return res.status(201).json({"status": "Compte supprimé"});
-        } catch(err) {
-            next(err);
+            return {"status": "Compte supprimé"};
+        } catch (err) {
+            throw err;
         }
     }
-};
+}

@@ -1,5 +1,5 @@
 const tokenController = require('./tokenController');
-const userController = require('./userController');
+const userController = require('./user.controller');
 const cryptoController = require('./crypto.controller');
 const portfolioController = require('./portfolioController');
 const walletController = require('./walletController');

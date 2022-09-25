@@ -1,10 +1,10 @@
 const { redis } = require('../database')
 
-const jwt = require('./jwt');
+const jwt = require('../services/jwt');
 
 // Must require logger from Winston framework on errorMW because i use it after with bind function
 
-const { logger } = require('../middlewares/errorMW')
+const { logger } = require('./errorMW')
 
 // Require specific error 
 

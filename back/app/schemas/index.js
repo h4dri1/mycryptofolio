@@ -21,6 +21,18 @@ const checkForgotTokenSchema = require('./params/checkForgotTokenSchema');
 const changeForgotPasswordSchema = require('./body/changeForgotPasswordSchema');
 const { getHistoryTransactionToken, getERC20Tokens, getNFTbyAddress, getENSbyAddress, blockchainLimiter } = require('./params/blockchain.schema');
 const { getTopCrypto, cryptoLimiter, getOneCrypto, getHistory } = require('./params/crypto.schema');
+const { 
+    login, 
+    signUp, 
+    resend, 
+    checkForgotToken, 
+    forgotPassword, 
+    changeUser, 
+    changeForgotPassword, 
+    userLimiter,
+    changePassword,
+    changeAvatar
+} = require('./params/user.schema');
 
 module.exports = { schemas: {
         loginSchema,
@@ -52,6 +64,16 @@ module.exports = { schemas: {
         getTopCrypto,
         cryptoLimiter,
         getOneCrypto,
-        getHistory
+        getHistory,
+        login, 
+        signUp, 
+        resend, 
+        checkForgotToken, 
+        forgotPassword, 
+        changeUser, 
+        changeForgotPassword, 
+        userLimiter,
+        changePassword,
+        changeAvatar
     }
 }

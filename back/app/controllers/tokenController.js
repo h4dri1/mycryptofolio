@@ -1,5 +1,5 @@
 const jwt = require('../services/jwt');
-const { checkRT } = require('../services/auth');
+const { checkRT } = require('../middlewares/auth.middleware');
 const { User } = require('../models')
 
 module.exports = {

@@ -1,4 +1,5 @@
 const { pool } = require('../database');
+const jwt = require('../services/jwt');
 
 class User {
     constructor(obj={}) {
@@ -7,13 +8,27 @@ class User {
         }
     }
 
+    static async login(userData, userCurrency, token) {
+        const user = {
+            "status": `(JWT) Bienvenue ${userData.nickname}`,
+            "refreshToken": jwt.makeRefreshToken(token),
+            "id": userData.id,
+            "nickname": userData.nickname,
+            "email": userData.email,
+            "picture": userData.picture,
+            "currency": userCurrency,
+            "verify": userData.verify,
+        };
+        return new User(user)
+    }
+
     static async findOne(email) {
         const {rows} = await pool.query('SELECT * FROM "user" WHERE email=$1;', [email]);
         return new User(rows[0]);
     }
 
     static async verify(id) {
-        const {rows} = await pool.query('UPDATE "user" SET verify=true WHERE id=$1;', [id]);
+        const {rows} = await pool.query('UPDATE "user" SET verify=true WHERE id=$1 RETURNING verify;', [id]);
         return new User(rows[0]);
     }
 

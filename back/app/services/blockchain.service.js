@@ -25,7 +25,7 @@ module.exports = {
             )
 
             res.locals.whiteListTokens = res.locals.erc20Token.filter((token) => res.locals.whiteListAddress.includes(token.token_address))
-            
+
             res.locals.tokensPrices = await service_fetch(
                 `//api.coingecko.com/api/v3/simple/token_price/${res.locals.walletNetwork[0].name}?contract_addresses=${res.locals.whiteListAddress}&vs_currencies=${req.params.vs}&include_24hr_change=true`
             );
@@ -33,7 +33,7 @@ module.exports = {
             const tokens = await Blockchain.getTokens(req, res, next);
             return tokens;
         } catch (err) {
-            next(err);
+            throw err;       
         }
     },
 
@@ -43,7 +43,7 @@ module.exports = {
             const history = await Blockchain.getHistoryTransactionToken(req, transactions, next);
             return history;
         } catch (err) {
-            next(err);
+            throw err;       
         }
     },
 
@@ -54,7 +54,7 @@ module.exports = {
             const nftList = await Blockchain.getNFTbyAddress(req, nfts, next);
             return nftList
         } catch (err) {
-            next(err);        
+            throw err;       
         }
     },
     
@@ -64,7 +64,7 @@ module.exports = {
             const ensName = await Blockchain.getENSbyAddress(req, ens, next);
             return ensName
         } catch (err) {
-            next(err);        
+            throw err;       
         }
     }
 }

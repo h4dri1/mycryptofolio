@@ -10,7 +10,7 @@ const rateLimit = require('express-rate-limit');
 
 const { schemas } = require('../schemas');
 
-const { auth } = require('../services');
+const { auth } = require('../middlewares');
 
 router
     .get('/logout/:token', validateParams(schemas.tokenSchema), jwtMW.logout, auth.logout)

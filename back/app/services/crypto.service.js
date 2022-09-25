@@ -1,6 +1,7 @@
 const { Crypto } = require('../models');
 const service_fetch = require('../services/fetch');
 const { NoCryptoFound } = require('../error');
+const { OneCryptoObject } = require('../objects');
 
 module.exports = {
     getAllCryptos: async (req, res, next) => {
@@ -8,17 +9,16 @@ module.exports = {
             const AllCryptos = await Crypto.findAll();
             return AllCryptos;
         } catch (err) {
-            next(err);
+            throw err;
         }
     },
 
     getTopCryptos: async (req, res, next) => {
         try {
             const cryptos = await service_fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);
-            const topCryptos = await Crypto.topCryptos(cryptos)
-            return topCryptos;
+            return cryptos.map(row => new Crypto(row));
         } catch (err) {
-            next(err);
+            throw err;
         }
     },
 
@@ -33,50 +33,50 @@ module.exports = {
                 days = req.params.nbd
             }
             const chart = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.id}/market_chart?vs_currency=${req.params.cur}&days=${days}`);
-            const oneCrypto = await Crypto.getOneCrypto(oneCryptoData, chart);
-            return oneCrypto;
+            const rows = new Array({data: new OneCryptoObject(oneCryptoData), chart: chart});
+            return new Crypto(rows)[0];
         } catch (err) {
-            next(err);
+            if (err.level) {
+                throw err;
+            } else {
+                throw Error('Get Crypto Error');
+            }  
         }
     },
 
     getTrendingCryptos: async (req, res, next) => {
         try {
             const trendingCryptosData = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
-            const trendingCryptos = await Crypto.getTrendingCryptos(trendingCryptosData);
-            return trendingCryptos
+            return new Crypto(trendingCryptosData)
         } catch (err) {
-            next(err);
+            throw err;
         }
     },
 
     getFearAndGreed: async (req, res, next) => {
         try {
             const fearAndGreedData = await service_fetch(`//api.alternative.me/fng/?limit=1`);
-            const fearAndGreed = await Crypto.getFearAndGreed(fearAndGreedData);
-            return fearAndGreed;
+            return new Crypto(fearAndGreedData);
         } catch (err) {
-            next(err);
+            throw err;
         }
     },
 
     getGlobalData: async (req, res, next) => {
         try {
             const globalMarketData = await service_fetch(`//api.coingecko.com/api/v3/global`);
-            const globalMarket = await Crypto.getGlobalData(globalMarketData);
-            return globalMarket;
+            return new Crypto(globalMarketData);
         } catch (err) {
-            next(err);
+            throw err;
         }
     },
 
     getHistoricalData: async (req, res, next) => {
         try {
             const historicalData = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
-            const history = await Crypto.getHistoricalData(historicalData);
-            return history;
+            return new Crypto(historicalData);
         } catch (err) {
-            next(err);        
+            throw err;
         }
     }
 }
