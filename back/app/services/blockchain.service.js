@@ -33,6 +33,7 @@ module.exports = {
             const tokens = await Blockchain.getTokens(req, res, next);
             return tokens;
         } catch (err) {
+            err.name = 'get Tokens error'
             throw err;       
         }
     },
@@ -43,7 +44,8 @@ module.exports = {
             const history = await Blockchain.getHistoryTransactionToken(req, transactions, next);
             return history;
         } catch (err) {
-            throw err;       
+            err.name = 'get history transactions error'
+            throw err       
         }
     },
 
@@ -54,7 +56,8 @@ module.exports = {
             const nftList = await Blockchain.getNFTbyAddress(req, nfts, next);
             return nftList
         } catch (err) {
-            throw err;       
+            err.name = 'get NFT error'
+            throw err     
         }
     },
     
@@ -64,7 +67,8 @@ module.exports = {
             const ensName = await Blockchain.getENSbyAddress(req, ens, next);
             return ensName
         } catch (err) {
-            throw err;       
+            err.name = 'get ENS error'
+            throw err      
         }
     }
 }

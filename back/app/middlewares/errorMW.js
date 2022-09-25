@@ -45,11 +45,17 @@ const errorLogger = (err, req, res, next) => {
 // Error Responder
 // Respond error to user
 const errorResponder = (err, req, res, next) => {
+    let message = {}
     if (!err.statusCode) {
         err.statusCode = 500
     }
+    if (process.env.NODE_ENV !== 'production' && !process.env.JEST_WORKER_ID) {
+        message = `${err.name}: ${err.message}`
+    } else {
+        message = err.name
+    }
     res.header("Content-Type", 'application/json');
-    res.status(err.statusCode).send(JSON.stringify({message: err.message}, null, 4));
+    res.status(err.statusCode).send(JSON.stringify({message: message}, null, 4));
 }
 
 module.exports = { errorLogger, errorResponder, logger }

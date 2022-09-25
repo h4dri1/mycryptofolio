@@ -41,11 +41,8 @@ module.exports = {
             const login = await User.login(user, userCurrency, token)
             return login
         } catch (err) {
-            if (err.level) {
-                throw err;
-            } else {
-                throw Error('Login error');
-            }       
+            err.name = 'login error'
+            throw err 
         }
         
     },
@@ -79,11 +76,8 @@ module.exports = {
                 throw new CreateUserError();
             }
         } catch (err) {
-            if (err.level) {
-                throw err;
-            } else {
-                throw Error('Add user error');
-            }  
+            err.name = 'add user error'
+            throw err 
         }
     },
 
@@ -113,11 +107,8 @@ module.exports = {
             await redis.expire(checkToken, 60*10);
             return user;
         } catch (err) {
-            if (err.level) {
-                throw err;
-            } else {
-                throw Error('Resend Mail error');
-            }  
+            err.name = 'resend mail error'
+            throw err 
         }
     },
 
@@ -137,11 +128,8 @@ module.exports = {
             await redis.expire(token, 60*10);
             return {message: "Email with instructions sent"};
         } catch (err) {
-            if (err.level) {
-                throw err;
-            } else {
-                throw Error('Forgot password error');
-            }  
+            err.name = 'forgot password error'
+            throw err
         }
     },
 
@@ -151,7 +139,8 @@ module.exports = {
             await instance.save();
             return {message: "User modified"};
         } catch (err) {
-            throw err;
+            err.name = 'modify user error'
+            throw err
         }
     },
 
@@ -170,11 +159,8 @@ module.exports = {
             await User.updatePass(newHash, req.userId.id);
             return {"status": "Mot de passe modifié"}
         } catch (err) {
-            if (err.level) {
-                throw err;
-            } else {
-                throw Error('Modify password error');
-            }  
+            err.name = 'modify password error'
+            throw err
         }
     },
     
@@ -195,11 +181,8 @@ module.exports = {
             await redis.del(id);
             return {"status": "Mot de passe modifié"};
         } catch (err) {
-            if (err.level) {
-                throw err;
-            } else {
-                throw Error('Forgot password error');
-            }  
+            err.name = 'modify forgot password error'
+            throw err
         }
     },
 
@@ -208,7 +191,8 @@ module.exports = {
             await User.updateAvatar(req.body.avatar, req.userId.id);
             return {'status': 'Avatar modifié'};
         } catch (err) {
-            throw err;
+            err.name = 'modify avatar error'
+            throw err
         }
     },
 
@@ -225,7 +209,8 @@ module.exports = {
             await User.deleteOne(req.userId.id);
             return {"status": "Compte supprimé"};
         } catch (err) {
-            throw err;
+            err.name = 'delete user error'
+            throw err
         }
     }
 }

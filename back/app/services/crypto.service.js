@@ -9,7 +9,8 @@ module.exports = {
             const AllCryptos = await Crypto.findAll();
             return AllCryptos;
         } catch (err) {
-            throw err;
+            err.name = 'getAllCryptos error';
+            throw err
         }
     },
 
@@ -18,7 +19,8 @@ module.exports = {
             const cryptos = await service_fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);
             return cryptos.map(row => new Crypto(row));
         } catch (err) {
-            throw err;
+            err.name = 'getTopCryptos error'
+            throw err
         }
     },
 
@@ -36,11 +38,8 @@ module.exports = {
             const rows = new Array({data: new OneCryptoObject(oneCryptoData), chart: chart});
             return new Crypto(rows)[0];
         } catch (err) {
-            if (err.level) {
-                throw err;
-            } else {
-                throw Error('Get Crypto Error');
-            }  
+            err.name = 'getOneCrypto error'
+            throw err
         }
     },
 
@@ -49,7 +48,8 @@ module.exports = {
             const trendingCryptosData = await service_fetch(`//api.coingecko.com/api/v3/search/trending`);
             return new Crypto(trendingCryptosData)
         } catch (err) {
-            throw err;
+            err.name = 'getTrendingCrypto error'
+            throw err
         }
     },
 
@@ -58,7 +58,8 @@ module.exports = {
             const fearAndGreedData = await service_fetch(`//api.alternative.me/fng/?limit=1`);
             return new Crypto(fearAndGreedData);
         } catch (err) {
-            throw err;
+            err.name = 'getFearAndGreed error'
+            throw err
         }
     },
 
@@ -67,7 +68,8 @@ module.exports = {
             const globalMarketData = await service_fetch(`//api.coingecko.com/api/v3/global`);
             return new Crypto(globalMarketData);
         } catch (err) {
-            throw err;
+            err.name = 'getGlobalData mail error'
+            throw err
         }
     },
 
@@ -76,7 +78,8 @@ module.exports = {
             const historicalData = await service_fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
             return new Crypto(historicalData);
         } catch (err) {
-            throw err;
+            err.name = 'getHistoricalData error'
+            throw err
         }
     }
 }
