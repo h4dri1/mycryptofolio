@@ -6,26 +6,30 @@ const { userController } = require('../controllers');
 
 const { schemas } = require('../schemas');
 
-const { auth, validateBody, validateParams } = require('../middlewares');
+const { auth, validateBody, validateParams, flush } = require('../middlewares');
 
 const { authUtils } = require('../utils');
 
 const rateLimit = require('express-rate-limit');
 
-const { flush } = require('../middlewares');
-
 router
-    .get('/logout/:token', auth.logout, authUtils.logout)
+    .get(
+        '/logout/:token', 
+        rateLimit(schemas.userLimiter),
+        validateParams(schemas.token),
+        auth.logout, 
+        authUtils.logout
+    )
     .get(
         '/jwt/login/check/:token',
-        rateLimit(schemas.signupSchemaLim),
-        validateParams(schemas.checkForgotTokenSchema),
+        rateLimit(schemas.userLimiter),
+        validateParams(schemas.token),
         userController.checkToken
     )
     .get(
         '/jwt/refresh/:token', 
-        validateParams(schemas.tokenSchema), 
-        rateLimit(schemas.refreshSchemaLim), 
+        rateLimit(schemas.userLimiter), 
+        validateParams(schemas.token), 
         userController.refresh
     )
     .post(

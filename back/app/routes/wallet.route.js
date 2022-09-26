@@ -15,16 +15,17 @@ const { flush } = require('../middlewares');
 router
     .post(
         '/portfolio/wallet',
-        rateLimit(schemas.transactionSchemaLim),
+        rateLimit(schemas.walletLimiter),
         auth.routing,
-        validateBody(schemas.walletSchema), 
+        validateBody(schemas.wallet), 
         flush, 
         walletController.addWallet
     )
     .delete(
         '/portfolio/wallet/:wid(\\d+)', 
+        rateLimit(schemas.walletLimiter),
         auth.routing,
-        validateParams(schemas.deleteWalletSchema),
+        validateParams(schemas.deleteWallet),
         guardMW.deleteWallet,
         flush,
         walletController.deleteWallet

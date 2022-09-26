@@ -8,11 +8,13 @@ module.exports = {
             const wallet = await instance.save();
             if (wallet) {
                 wallet.sum = 0;
-                return res.status(201).json(wallet);
+                res.status(201);
             }
-            res.status(204).json(wallet);
+            res.status(204);
+            return wallet
         } catch (err) {
-            next(err);
+            err.name = 'add wallet error'
+            throw err 
         }
     },
 
@@ -23,9 +25,10 @@ module.exports = {
                 await Transaction.delete(transaction.transaction_id);
             }
             await Wallet.delete(req.params.wid);
-            return res.status(204).json();
+            return transactions
         } catch (err) {
-            next(err);
+            err.name = 'delete wallet error'
+            throw err 
         }
     }
 };

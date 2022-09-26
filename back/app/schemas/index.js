@@ -4,12 +4,10 @@ const changePasswordSchema = require('./body/changePasswordSchema');
 const changeAvatarSchema = require('./body/changeAvatarSchema');
 const signupSchema = require('./body/signupSchema');
 const transactionSchema = require('./body/transactionSchema');
-const walletSchema = require('./body/walletSchema');
 const getOnePriceSchema =  require('./params/getOnePriceSchema');
 const getWalletSchema = require('./params/getWalletSchema');
 const getPortfolioSchema = require('./params/getPortfolioSchema');
 const deleteTransactionSchema = require('./params/deleteTransactionSchema');
-const deleteWalletSchema = require('./params/deleteWalletSchema');
 const loginSchemaLim = require('./limiter/loginSchema');
 const signupSchemaLim = require('./limiter/signupSchema');
 const refreshSchemaLim = require('./limiter/refreshSchema');
@@ -19,8 +17,19 @@ const tokenSchema = require('./params/tokenSchema');
 const forgotPasswordSchema = require('./body/forgotPasswordSchema');
 const checkForgotTokenSchema = require('./params/checkForgotTokenSchema');
 const changeForgotPasswordSchema = require('./body/changeForgotPasswordSchema');
-const { getHistoryTransactionToken, getERC20Tokens, getNFTbyAddress, getENSbyAddress, blockchainLimiter } = require('./params/blockchain.schema');
-const { getTopCrypto, cryptoLimiter, getOneCrypto, getHistory } = require('./params/crypto.schema');
+const { 
+    getHistoryTransactionToken, 
+    getERC20Tokens, 
+    getNFTbyAddress, 
+    getENSbyAddress, 
+    blockchainLimiter 
+} = require('./params/blockchain.schema');
+const { 
+    getTopCrypto,
+    cryptoLimiter, 
+    getOneCrypto, 
+    getHistory 
+} = require('./params/crypto.schema');
 const { 
     login, 
     signUp, 
@@ -31,20 +40,25 @@ const {
     changeForgotPassword, 
     userLimiter,
     changePassword,
-    changeAvatar
+    changeAvatar,
+    token
 } = require('./params/user.schema');
+const {
+    walletLimiter,
+    deleteWallet,
+    wallet
+} = require('./params/wallet.schema');
+
 
 module.exports = { schemas: {
         loginSchema,
         tokenSchema,
         signupSchema,
         transactionSchema,
-        walletSchema,
         getOnePriceSchema,
         getWalletSchema,
         getPortfolioSchema,
         deleteTransactionSchema,
-        deleteWalletSchema,
         loginSchemaLim,
         signupSchemaLim,
         refreshSchemaLim,
@@ -74,6 +88,10 @@ module.exports = { schemas: {
         changeForgotPassword, 
         userLimiter,
         changePassword,
-        changeAvatar
+        changeAvatar,
+        token,
+        walletLimiter,
+        deleteWallet,
+        wallet
     }
 }

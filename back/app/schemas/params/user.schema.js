@@ -30,6 +30,10 @@ const login = Joi.object({
     password: Joi.string().required(),
 });
 
+const token = Joi.object({
+    token: Joi.string().min(3).max(500).required()
+});
+
 const resend = Joi.object({
     email: Joi.string().email().required(),
 });
@@ -87,5 +91,6 @@ module.exports = {
     changeForgotPassword, 
     userLimiter,
     changePassword,
-    changeAvatar
+    changeAvatar,
+    token
 };
