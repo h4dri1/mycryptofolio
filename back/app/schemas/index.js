@@ -3,15 +3,12 @@ const changeUserSchema = require('./body/changeUserSchema');
 const changePasswordSchema = require('./body/changePasswordSchema');
 const changeAvatarSchema = require('./body/changeAvatarSchema');
 const signupSchema = require('./body/signupSchema');
-const transactionSchema = require('./body/transactionSchema');
 const getOnePriceSchema =  require('./params/getOnePriceSchema');
 const getWalletSchema = require('./params/getWalletSchema');
 const getPortfolioSchema = require('./params/getPortfolioSchema');
-const deleteTransactionSchema = require('./params/deleteTransactionSchema');
 const loginSchemaLim = require('./limiter/loginSchema');
 const signupSchemaLim = require('./limiter/signupSchema');
 const refreshSchemaLim = require('./limiter/refreshSchema');
-const transactionSchemaLim = require('./limiter/transactionSchema');
 const deleteUserSchemaLim = require('./limiter/deleteUserSchema');
 const tokenSchema = require('./params/tokenSchema');
 const forgotPasswordSchema = require('./body/forgotPasswordSchema');
@@ -48,21 +45,23 @@ const {
     deleteWallet,
     wallet
 } = require('./params/wallet.schema');
+const {
+    transaction,
+    deleteTransaction,
+    transactionLimiter
+} = require('./params/transaction.schema');
 
 
 module.exports = { schemas: {
         loginSchema,
         tokenSchema,
         signupSchema,
-        transactionSchema,
         getOnePriceSchema,
         getWalletSchema,
         getPortfolioSchema,
-        deleteTransactionSchema,
         loginSchemaLim,
         signupSchemaLim,
         refreshSchemaLim,
-        transactionSchemaLim,
         deleteUserSchemaLim,
         changeUserSchema,
         changePasswordSchema,
@@ -92,6 +91,9 @@ module.exports = { schemas: {
         token,
         walletLimiter,
         deleteWallet,
-        wallet
+        wallet,
+        transaction,
+        deleteTransaction,
+        transactionLimiter
     }
 }

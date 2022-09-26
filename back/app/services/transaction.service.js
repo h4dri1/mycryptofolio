@@ -12,11 +12,12 @@ module.exports = {
             const transaction = await instance.save();
             // Create new transaction
             if (transaction) {
-                return res.status(201).json(transaction);
+                res.status(201)
+            } else {
+                transaction = 'Update ok'
+                res.status(204)
             }
-            // Update transaction
-            // id in body
-            res.status(204).json('Update ok')
+            return transaction
         } catch (err) {
             next(err);
         }
@@ -24,8 +25,8 @@ module.exports = {
 
     deleteTransaction: async (req, res, next) => {
         try {
-            await Transaction.delete(req.params.tid);
-            res.status(204).json('delete ok');
+            const tid = await Transaction.delete(req.params.tid);
+            return tid
         } catch (err) {
             next(err);
         } 

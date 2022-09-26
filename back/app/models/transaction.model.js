@@ -114,7 +114,7 @@ class Transaction {
     }
 
     static async delete(id) {
-        await pool.query('DELETE FROM transaction WHERE id=$1;', [id]);
+        await pool.query('DELETE FROM transaction WHERE id=$1 RETURNING id;', [id]);
     }
 }
 
