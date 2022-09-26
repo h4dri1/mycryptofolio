@@ -4,8 +4,6 @@ const changePasswordSchema = require('./body/changePasswordSchema');
 const changeAvatarSchema = require('./body/changeAvatarSchema');
 const signupSchema = require('./body/signupSchema');
 const getOnePriceSchema =  require('./params/getOnePriceSchema');
-const getWalletSchema = require('./params/getWalletSchema');
-const getPortfolioSchema = require('./params/getPortfolioSchema');
 const loginSchemaLim = require('./limiter/loginSchema');
 const signupSchemaLim = require('./limiter/signupSchema');
 const refreshSchemaLim = require('./limiter/refreshSchema');
@@ -50,6 +48,11 @@ const {
     deleteTransaction,
     transactionLimiter
 } = require('./params/transaction.schema');
+const {
+    getPortfolio,
+    getWallet,
+    portfolioLimiter
+} = require('./params/portfolio.schema');
 
 
 module.exports = { schemas: {
@@ -57,8 +60,6 @@ module.exports = { schemas: {
         tokenSchema,
         signupSchema,
         getOnePriceSchema,
-        getWalletSchema,
-        getPortfolioSchema,
         loginSchemaLim,
         signupSchemaLim,
         refreshSchemaLim,
@@ -94,6 +95,9 @@ module.exports = { schemas: {
         wallet,
         transaction,
         deleteTransaction,
-        transactionLimiter
+        transactionLimiter,
+        getPortfolio,
+        getWallet,
+        portfolioLimiter
     }
 }

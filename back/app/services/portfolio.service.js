@@ -57,7 +57,7 @@ module.exports = {
             portfolio.performance = objPerformance;
             portfolio.wallet = objWallet;
             /////////////////////////////////////////////////////////////////////////////////
-            res.status(200).json(portfolio);
+            return portfolio
         } catch (err) {
             next(err);
         }

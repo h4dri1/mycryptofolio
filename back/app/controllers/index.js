@@ -1,6 +1,6 @@
 const userController = require('./user.controller');
 const cryptoController = require('./crypto.controller');
-const portfolioController = require('./portfolioController');
+const portfolioController = require('./portfolio.controller');
 const walletController = require('./wallet.controller');
 const transactionController = require('./transaction.controller');
 const nftsController = require('./nftsController');
