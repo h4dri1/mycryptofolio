@@ -1,9 +1,9 @@
-const service_fetch = require('../services/fetch');
+const { fetch } = require('../utils');
 
 module.exports = {
     getNFTCollection: async (req, res, next) => {
         try {
-            var list = await service_fetch(`//api.opensea.io/api/v1/collection/${req.params.collection}`);
+            var list = await fetch(`//api.opensea.io/api/v1/collection/${req.params.collection}`);
             if (list.status === 'Not Found') {
                 return res.status(200).json(list);
             }
@@ -23,7 +23,7 @@ module.exports = {
                 'page[limit]': 3
             }
             const formBody = Object.keys(details).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])).join('&');
-            const top = await service_fetch(`//api.rarify.tech/data/contracts`, {headers: {
+            const top = await fetch(`//api.rarify.tech/data/contracts`, {headers: {
                 'Authorization': `${process.env.RARIFY_API_KEY}`,    
             }}, formBody);
             const data = top.data.filter((nft) => nft.attributes.image_url && !nft.attributes.name.includes('Uniswap'))
@@ -36,7 +36,7 @@ module.exports = {
 
     getTestNFT: async (req, res, next) => {
         try {
-            const data = await service_fetch(`//api.rarify.tech/data/contracts?include=insights&page[limit]=100&filter[has_metadata]=true`, {headers: {
+            const data = await fetch(`//api.rarify.tech/data/contracts?include=insights&page[limit]=100&filter[has_metadata]=true`, {headers: {
                 'Authorization': `${process.env.RARIFY_API_KEY}`,
                 'Content-Type': 'application/json'
             }});

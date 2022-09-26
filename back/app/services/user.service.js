@@ -1,7 +1,7 @@
 const { User, Wallet, Transaction } = require('../models');
 const bcrypt = require('bcrypt');
-const jwt = require('../services/jwt');
-const mailer = require('../services/mailer');
+const jwt = require('../utils/jwt.utils');
+const { mailer } = require('../utils');
 
 const { redis } = require('../database')
 
@@ -38,8 +38,7 @@ module.exports = {
             }
             res.setHeader('Access-Control-Expose-Headers', 'Authorization');
             res.setHeader('Authorization', jwt.makeToken(token));
-            const login = await User.login(user, userCurrency, token)
-            return login
+            return await User.login(user, userCurrency, token)
         } catch (err) {
             err.name = 'login error'
             throw err 

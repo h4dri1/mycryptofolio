@@ -1,5 +1,3 @@
-const service_fetch = require('../services/fetch');
-
 const { cryptoService } = require('../services');
 
 module.exports = {

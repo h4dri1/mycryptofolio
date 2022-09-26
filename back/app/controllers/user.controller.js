@@ -1,4 +1,8 @@
 const { userService } = require('../services');
+const { redis } = require('../database');
+const jwt = require('../utils/jwt.utils');
+const { authUtils } = require('../utils');
+const { User } = require('../models')
 
 module.exports = {
     login: async (req, res, next) => {
@@ -95,5 +99,42 @@ module.exports = {
         } catch(err) {
             next(err);
         }
-    }
+    },
+
+    refresh: async (req, res, next) => {
+        try {
+            const refreshPayload = await authUtils.checkRT(req, res);
+            if (refreshPayload) {
+                const userData = await User.findById(refreshPayload.user.id);
+                const userObj= {
+                    id: userData.id
+                }
+                res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+                res.setHeader('Authorization', jwt.makeToken(userObj));
+                res.status(201).json({
+                    id: userData.id, 
+                    nickname: userData.nickname,
+                    email: userData.email, 
+                    picture: userData.picture, 
+                    currency: userData.currency, 
+                    verify: userData.verify
+                });
+            }   
+        } catch (err) {
+            next(err);
+        };
+    },
+
+    checkToken: async (req, res, next) => {
+        try {
+           const token = await redis.get(req.params.token);
+           if (token) {
+            res.status(200)
+           } else {
+            res.status(204).json()
+           }
+        } catch (err) {
+            next(err);
+        }
+    },
 };

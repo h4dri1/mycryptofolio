@@ -6,13 +6,28 @@ const { userController } = require('../controllers');
 
 const { schemas } = require('../schemas');
 
-const { auth, jwtMW, validateBody, validateParams } = require('../middlewares');
+const { auth, validateBody, validateParams } = require('../middlewares');
+
+const { authUtils } = require('../utils');
 
 const rateLimit = require('express-rate-limit');
 
-const { flush } = require('../services');
+const { flush } = require('../middlewares');
 
 router
+    .get('/logout/:token', auth.logout, authUtils.logout)
+    .get(
+        '/jwt/login/check/:token',
+        rateLimit(schemas.signupSchemaLim),
+        validateParams(schemas.checkForgotTokenSchema),
+        userController.checkToken
+    )
+    .get(
+        '/jwt/refresh/:token', 
+        validateParams(schemas.tokenSchema), 
+        rateLimit(schemas.refreshSchemaLim), 
+        userController.refresh
+    )
     .post(
         '/jwt/login',
         rateLimit(schemas.userLimiter), 
@@ -46,7 +61,7 @@ router
     )
     .post(
         '/signup/change/user',
-        jwtMW.routing,
+        auth.routing,
         rateLimit(schemas.userLimiter), 
         validateBody(schemas.changeUser), 
         flush, 
@@ -61,7 +76,7 @@ router
     )
     .post(
         '/signup/change/password',
-        jwtMW.routing,
+        auth.routing,
         rateLimit(schemas.userLimiter), 
         validateBody(schemas.changePassword), 
         flush, 
@@ -69,7 +84,7 @@ router
     )
     .post(
         '/signup/change/avatar',
-        jwtMW.routing,
+        auth.routing,
         rateLimit(schemas.userLimiter), 
         validateBody(schemas.changeAvatar), 
         flush, 
@@ -77,7 +92,7 @@ router
     )
     .delete(
         '/delete/user',
-        jwtMW.routing,
+        auth.routing,
         rateLimit(schemas.userLimiter),
         flush,
         userController.deleteUser

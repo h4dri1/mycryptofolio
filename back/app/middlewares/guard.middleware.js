@@ -1,5 +1,5 @@
 const { Transaction } = require("../models");
-const { transactionGuard, walletGuard, coinGuard, buySellSign } = require("../services/guards");
+const { guard } = require('../utils')
 const { NoTransactionId, NotYourTransaction, DeleteFirstSell, NotYourWallet } = require('../error');
 
 module.exports = {
@@ -12,19 +12,19 @@ module.exports = {
         try {
             if (req.body.buy) {
                 if (req.body.id) {
-                   await transactionGuard(req, res);
+                   await guard.transactionGuard(req, res);
                 } else {
-                    await walletGuard(req, res);
+                    await guard.walletGuard(req, res);
                 }
             } else {
                 if (req.body.id) {
-                    await transactionGuard(req, res);
+                    await guard.transactionGuard(req, res);
                 } else {
-                    await walletGuard(req, res);
+                    await guard.walletGuard(req, res);
                 }
-                await coinGuard(req, res);
+                await guard.coinGuard(req, res);
             }
-            await buySellSign(req, res);
+            await guard.buySellSign(req, res);
             next();
         } catch (err) {
             next(err);
@@ -59,7 +59,7 @@ module.exports = {
     // If one check fail it throw a new error
     deleteWallet: async (req, res, next) => {
         try {
-            const youShallNotPass = await walletGuard(req, res);
+            const youShallNotPass = await guard.walletGuard(req, res);
             if (youShallNotPass) {
                 throw new NotYourWallet(req.params.wid);
             } else {

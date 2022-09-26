@@ -1,10 +1,10 @@
 const { Crypto } = require('../models');
-const service_fetch = require('./fetch');
+const fetch = require('./fetch.utils');
 const { CurrencyError } = require('../error')
 
 module.exports = {
     price: async (strCryptos, cur) => {
-        const data = await service_fetch(`//api.coingecko.com/api/v3/simple/price?ids=${strCryptos.toString()}&vs_currencies=${cur}`);
+        const data = await fetch(`//api.coingecko.com/api/v3/simple/price?ids=${strCryptos.toString()}&vs_currencies=${cur}`);
         const newData = {}
         for (const price in data) {        
             newData.coin_id = price;
@@ -18,8 +18,8 @@ module.exports = {
         for (const transac in transacs) {
             if (cur !== (transacs[transac].fiat)) {
                 const coinId = await Crypto.getCryptoId(transacs[transac].symbol)
-                const usdChange = await service_fetch(`//api.coingecko.com/api/v3/coins/tether/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
-                const cryptosChange = await service_fetch(`//api.coingecko.com/api/v3/coins/${coinId[0].coin_id}/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
+                const usdChange = await fetch(`//api.coingecko.com/api/v3/coins/tether/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
+                const cryptosChange = await fetch(`//api.coingecko.com/api/v3/coins/${coinId[0].coin_id}/history?date=${(transacs[transac].buy_date).getUTCDate()}-${(transacs[transac].buy_date).getUTCMonth() + 1}-${(transacs[transac].buy_date).getUTCFullYear()}`);
                 const fiatPrice = usdChange.market_data.current_price;
                 const cryptoPrice = cryptosChange.market_data.current_price[cur];
                 const newData = {};

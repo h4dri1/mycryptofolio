@@ -6,17 +6,17 @@ const { transactionController } = require('../controllers');
 
 const { schemas } = require('../schemas');
 
-const { jwtMW, guardMW, validateBody, validateParams } = require('../middlewares');
+const { auth, guardMW, validateBody, validateParams } = require('../middlewares');
 
 const rateLimit = require('express-rate-limit');
 
-const { flush } = require('../services');
+const { flush } = require('../middlewares');
 
 router
     .post(
         '/portfolio/wallet/:wid(\\d+)/transaction',
         rateLimit(schemas.transactionSchemaLim),
-        jwtMW.routing,
+        auth.routing,
         validateBody(schemas.transactionSchema),
         guardMW.transactionGuard, 
         flush,
@@ -24,7 +24,7 @@ router
     )
     .delete(
         '/portfolio/transaction/:tid(\\d+)', 
-        jwtMW.routing,
+        auth.routing,
         validateParams(schemas.deleteTransactionSchema), 
         guardMW.deleteTransaction,
         flush,

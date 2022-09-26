@@ -1,5 +1,5 @@
 const { pool } = require('../database');
-const jwt = require('../services/jwt');
+const jwt = require('../utils/jwt.utils');
 
 class User {
     constructor(obj={}) {

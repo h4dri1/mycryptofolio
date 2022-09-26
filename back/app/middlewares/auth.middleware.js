@@ -1,10 +1,10 @@
 const { redis } = require('../database')
 
-const jwt = require('../services/jwt');
+const jwt = require('../utils/jwt.utils');
 
 // Must require logger from Winston framework on errorMW because i use it after with bind function
 
-const { logger } = require('./errorMW')
+const { logger } = require('./error.middleware')
 
 // Require specific error 
 
@@ -13,6 +13,8 @@ const { BanUser, UseRevokedRefreshToken, BadGuy, InvalidToken } = require('../er
 // Bind original logger
 
 const originalLogger = logger.log.bind(logger);
+
+const { authUtils } = require('../utils');
 
 module.exports = {
     // Signup Case new user
@@ -85,35 +87,52 @@ module.exports = {
         }
     },
 
-    logout: async (req, res, next) => {
-        // Case Logout
+    routing : (req, res, next) => {
         try {
-            // Remove the logout session refresh token
-            const [head, pay, sign] = req.params.token.split('.')
-            if (await redis.hExists(`${req.userId.id}`, sign)) {
-                await redis.hDel(`${req.userId.id}`, sign);
-            } else {
-                throw new UseRevokedRefreshToken();
+            const token = req.headers['authorization'];
+            let newToken = token;
+            if (!token) {
+                throw new InvalidToken();
             }
-            return res.status(200).json({message: 'logout ok'})
-        } catch (err) {
-            next(err);
-        }
+            // For Swagger doc
+            if (token.includes('Bearer')) {
+                newToken = token.replace('Bearer', '')
+            }
+            const payload = jwt.validateToken(newToken.trim());
+            req.userId = payload.user;
+            res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+            res.setHeader('Authorization', jwt.makeToken(req.userId));
+            next();
+        } catch(err) {
+            next(err)
+        };
     },
 
-    checkRT: async (req, res, next) => {
-        // Check Refresh Token in Redis
-        const refreshPayload = jwt.validateRefreshToken(req.params.token);
-        if (!refreshPayload.user) {
-            throw new InvalidToken();
-        }
-        const [head, pay, sign] = req.params.token.split('.');
-        // Check if the refresh token is in Redis
-        // If it's not the case and if the token is valid the refresh token is revoked after logout
-        if (!await redis.hExists(`${refreshPayload.user.id}`, sign)) {
-            throw new UseRevokedRefreshToken();
-        } else {
-            return refreshPayload;
+    logout : async (req, res, next) => {
+        // Case Logout
+        var tempToken;
+        try {
+            const refreshPayload = await authUtils.checkRT(req, res);
+            if (refreshPayload) {
+                tempToken = jwt.makeToken(refreshPayload.user);
+            }
+            const token = req.headers['authorization'];
+            if (!token) {
+                throw new InvalidToken();
+            }
+            const payload  = jwt.validateToken(token);
+            req.userId = payload.user;
+            next();
+        } catch (err) {
+            if (err.message === 'jwt expired') {
+                if (tempToken) {
+                    const payload = jwt.validateToken(tempToken);
+                    req.userId = payload.user;
+                    next();
+                }
+            } else {
+                next(err);
+            }
         }
     }
 }

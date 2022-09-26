@@ -4,7 +4,7 @@ const router = Router();
 
 const { nftsController } = require('../controllers');
 
-const { cache } = require('../services');
+const { cache } = require('../middlewares');
 
 router
     .get(

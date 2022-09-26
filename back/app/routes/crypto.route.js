@@ -10,7 +10,7 @@ const { validateParams } = require('../middlewares');
 
 const rateLimit = require('express-rate-limit');
 
-const { cache } = require('../services');
+const { cache } = require('../middlewares');
 
 router
     .get(

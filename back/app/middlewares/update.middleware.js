@@ -1,5 +1,5 @@
 const { Transaction } = require('../models');
-const update = require('../services/update');
+const { update } = require('../utils');
 
 module.exports = async (req, res, next) => {
     // Get all cryptos owned by user

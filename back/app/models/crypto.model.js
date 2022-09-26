@@ -1,5 +1,4 @@
 const { pool } = require('../database');
-const { OneCryptoObject } = require('../objects');
 
 class Crypto {
 

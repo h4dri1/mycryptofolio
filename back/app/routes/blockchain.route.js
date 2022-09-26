@@ -4,7 +4,7 @@ const router = Router();
 
 const { blockchainController } = require('../controllers');
 
-const { cache } = require('../services');
+const { cache } = require('../middlewares');
 
 const rateLimit = require('express-rate-limit');
 

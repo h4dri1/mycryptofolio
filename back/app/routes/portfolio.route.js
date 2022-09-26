@@ -6,14 +6,14 @@ const { portfolioController } = require('../controllers');
 
 const { schemas } = require('../schemas');
 
-const { jwtMW, updateMW, validateParams } = require('../middlewares');
+const { auth, updateMW, validateParams } = require('../middlewares');
 
-const { cache } = require('../services');
+const { cache } = require('../middlewares');
 
 router
     .get(
         '/portfolio/:cur?', 
-        jwtMW.routing, 
+        auth.routing, 
         validateParams(schemas.getPortfolioSchema),
         cache, //--> Need to see for working with toogle currency
         updateMW, 
@@ -21,7 +21,7 @@ router
     )
     .get(
         '/portfolio/wallet/:wid(\\d+)/:cur?',
-        jwtMW.routing,
+        auth.routing,
         validateParams(schemas.getWalletSchema),
         cache, 
         updateMW, 
