@@ -1,14 +1,17 @@
-const updateMW = require('./updateMW');
-const jwtMW = require('./jwtMW');
-const guardMW = require('./guardMW');
-const errorMW = require('./errorMW');
-const { validateBody, validateParams } = require('./validateMW');
+const updateMW = require('./update.middleware');
+const guardMW = require('./guard.middleware');
+const errorMW = require('./error.middleware');
+const auth = require('./auth.middleware')
+const { validateBody, validateParams } = require('./validate.middleware');
+const { cache, flush } = require('./cache.middleware');
 
 module.exports = {
     updateMW,
-    jwtMW,
     guardMW,
     errorMW,
     validateBody, 
-    validateParams
+    validateParams,
+    auth,
+    cache,
+    flush
 }

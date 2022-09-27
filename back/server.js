@@ -12,8 +12,6 @@ const { swaggerUi, swaggerSpec } = require('./app/docs/swagger');
 
 const { errorMW } = require('./app/middlewares');
 
-const router = require('./app/router');
-
 const { app, corsOptions } = require('./config');
 
 app.use(cors(corsOptions));
@@ -22,7 +20,19 @@ app.use(express.json());
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use('/v1', router);
+// Routes
+
+const fs = require('fs');
+const routes_directory = require('path').resolve(__dirname) + '/app/routes/'
+
+fs.readdirSync(routes_directory).forEach(route_file => {
+  try {
+    app.use('/v1', require(routes_directory + route_file.slice(0, -3)));
+  } catch (error) {
+    console.log(`Encountered Error initializing routes from ${route_file}`);
+    console.log(error);
+  }
+});
 
 // Error Logger MW
 

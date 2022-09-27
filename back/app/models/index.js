@@ -1,10 +1,11 @@
-const Crypto = require('./crypto');
-const Transaction = require('./transaction');
-const User = require('./user');
-const Wallet = require('./wallet');
-const Portfolio = require('./portfolio');
-const Nfts = require('./nfts');
-const Network = require('./network');
+const Crypto = require('./crypto.model');
+const Transaction = require('./transaction.model');
+const User = require('./user.model');
+const Wallet = require('./wallet.model');
+const Portfolio = require('./portfolio.model');
+const Nfts = require('./nfts.model');
+const Network = require('./network.model');
+const Blockchain = require('./blockchain.model');
 
 module.exports = {
     Crypto,
@@ -13,5 +14,6 @@ module.exports = {
     Wallet,
     Portfolio,
     Nfts,
-    Network
+    Network,
+    Blockchain
 }

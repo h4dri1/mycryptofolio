@@ -1,20 +1,17 @@
-const auth = require('./auth');
-const blockchain = require('./blockchain');
-const {cache, flush } = require('./cache');
-const fetch = require('./fetch');
-const guards = require('./guards');
-const jwt = require('./jwt');
-const update = require('./update');
-const mailer = require('./mailer');
+const blockchainService = require('./blockchain.service');
+const cryptoService = require('./crypto.service');
+const userService = require('./user.service');
+const walletService = require('./wallet.service');
+const transactionService = require('./transaction.service');
+const portfolioService = require('./portfolio.service');
+const nftsService = require('./nfts.service');
 
 module.exports = {
-    auth,
-    cache,
-    flush,
-    fetch,
-    guards,
-    jwt,
-    update,
-    mailer,
-    blockchain
+    blockchainService,
+    cryptoService,
+    userService,
+    walletService,
+    transactionService,
+    portfolioService,
+    nftsService
 }
