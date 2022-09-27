@@ -1,4 +1,5 @@
 const { Network, Blockchain, Crypto } = require('../models');
+const { BlockchainService } = require('../error/error.services');
 const { fetch } = require('../utils');
 const header = {headers: {'X-API-Key': `${process.env.MORALIS_API_KEY}`}};
 
@@ -32,12 +33,7 @@ module.exports = {
 
             return await Blockchain.getTokens(req, res, next);
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'getTokens.blockchain.service';
-                err.messageSafe = 'getTokens error';
-            }    
-            throw err;  
+            throw new BlockchainService(err);
         }
     },
 
@@ -46,12 +42,7 @@ module.exports = {
             const transactions = await fetch(`https://api.etherscan.io/api?module=account&action=tokentx&contractaddress&address=${req.params.address}&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=${process.env.ETHERSCAN_API_KEY}`);
             return await Blockchain.getHistoryTransactionToken(req, transactions, next);
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'getHistoryTransactionToken.blockchain.service';
-                err.messageSafe = 'getHistory error';
-            }    
-            throw err;   
+            throw new BlockchainService(err);
         }
     },
 
@@ -61,12 +52,7 @@ module.exports = {
             const nfts = await fetch(`//deep-index.moralis.io/api/v2/${req.params.address}/nft?chain=${network[0].hex}&format=decimal`, header);
             return await Blockchain.getNFTbyAddress(req, nfts, next);
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'getNFTbyAddress.blockchain.service';
-                err.messageSafe = 'token error';
-            } 
-            throw err;
+            throw new BlockchainService(err);
         }
     },
     
@@ -75,12 +61,7 @@ module.exports = {
             const ens = await fetch(`//deep-index.moralis.io/api/v2/resolve/${req.params.address}/reverse`, header);
             return await Blockchain.getENSbyAddress(req, ens, next);
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'getENSbyAddress.blockchain.service';
-                err.messageSafe = 'getENS error';
-            } 
-            throw err;  
+            throw new BlockchainService(err);
         }
     }
 }

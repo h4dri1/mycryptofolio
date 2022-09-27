@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { RateLimitError } = require('../error');
+const { RateLimitError } = require('../error/error');
 
 const pattern = /^0x[a-fA-F0-9]{40}$/
 

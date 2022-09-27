@@ -1,6 +1,6 @@
 const { Crypto } = require('../models');
 const fetch = require('./fetch.utils');
-const { CurrencyError } = require('../error')
+const { CurrencyError } = require('../error/error')
 
 module.exports = {
     price: async (strCryptos, cur) => {

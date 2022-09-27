@@ -1,4 +1,5 @@
 const { User, Wallet, Transaction } = require('../models');
+const { UserService } = require('../error/error.services');
 const bcrypt = require('bcrypt');
 const jwt = require('../utils/jwt.utils');
 const { mailer } = require('../utils');
@@ -14,7 +15,7 @@ const {
     SamePasswordAsOld,
     VerifyYourMail,
     NoUserWithThisMail
-} = require('../error');
+} = require('../error/error');
 
 module.exports = {
     login: async (req, res, next) => {
@@ -40,11 +41,7 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(token));
             return await User.login(user, userCurrency, token)
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'login.service';
-                err.messageSafe = 'login error';
-            } 
+            throw new UserService(err);
         }
         
     },
@@ -78,11 +75,7 @@ module.exports = {
                 throw new CreateUserError();
             }
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'addUser.service';
-                err.messageSafe = 'add user error';
-            } 
+            throw new UserService(err);
         }
     },
 
@@ -95,11 +88,8 @@ module.exports = {
                 return verify;
             }
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'verifyEmail.service';
-                err.messageSafe = 'verify email error';
-            } 
+            throw new UserService(err);
+
         }
     },
 
@@ -116,11 +106,8 @@ module.exports = {
             await redis.expire(checkToken, 60*10);
             return user;
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'resendMail.service';
-                err.messageSafe = 'resend mail error';
-            } 
+            throw new UserService(err);
+
         }
     },
 
@@ -140,11 +127,8 @@ module.exports = {
             await redis.expire(token, 60*10);
             return {message: "Email with instructions sent"};
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'forgotPassword.service';
-                err.messageSafe = 'forgot password error';
-            } 
+            throw new UserService(err);
+
         }
     },
 
@@ -154,11 +138,8 @@ module.exports = {
             await instance.save();
             return {message: "User modified"};
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'modifyUser.service';
-                err.messageSafe = 'modify user error';
-            } 
+            throw new UserService(err);
+
         }
     },
 
@@ -177,11 +158,8 @@ module.exports = {
             await User.updatePass(newHash, req.userId.id);
             return {"status": "Mot de passe modifié"}
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'modifyPassword.service';
-                err.messageSafe = 'modify password error';
-            } 
+            throw new UserService(err);
+
         }
     },
     
@@ -202,11 +180,8 @@ module.exports = {
             await redis.del(id);
             return {"status": "Mot de passe modifié"};
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'modifyPasswordForgot.service';
-                err.messageSafe = 'modify password forgot error';
-            } 
+            throw new UserService(err);
+
         }
     },
 
@@ -215,11 +190,8 @@ module.exports = {
             await User.updateAvatar(req.body.avatar, req.userId.id);
             return {'status': 'Avatar modifié'};
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'modifyAvatar.service';
-                err.messageSafe = 'modify avatar error';
-            } 
+            throw new UserService(err);
+
         }
     },
 
@@ -236,12 +208,8 @@ module.exports = {
             await User.deleteOne(req.userId.id);
             return {"status": "Compte supprimé"};
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'deleteUser.service';
-                err.messageSafe = 'delete user error';
-            } 
-            throw err;
+            throw new UserService(err);
+
         }
     }
 }

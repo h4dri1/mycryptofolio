@@ -4,7 +4,8 @@ const jwt = require('./jwt.utils');
 
 // Require specific error 
 
-const {  UseRevokedRefreshToken, InvalidToken } = require('../error');
+const {  UseRevokedRefreshToken, InvalidToken } = require('../error/error');
+const { AuthUtils } = require('../error/error.utils');
 
 module.exports = {
     logout: async (req, res, next) => {
@@ -20,11 +21,10 @@ module.exports = {
             return res.status(200).json({message: 'logout ok'})
         } catch (err) {
             if (!err.level) {
-                err.level = 'error';
-                err.name = this;
-                err.messageSafe = 'lougout error';
-            } 
-            throw err;
+                throw new AuthUtils(err);
+            } else {
+                throw err;
+            }
         }
     },
 
@@ -44,12 +44,7 @@ module.exports = {
                 return refreshPayload;
             }
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'checkRT.utils';
-                err.messageSafe = 'token error';
-            } 
-            throw err
+            throw new AuthUtils(err);
         }
 
     }

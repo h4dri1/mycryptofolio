@@ -1,4 +1,4 @@
-const { FormError } = require('../error')
+const { FormError } = require('../error/error')
 
 const validator = {
     validateBody: (schema) => (req, res, next) => {

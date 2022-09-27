@@ -1,6 +1,7 @@
 const { Transaction } = require("../models");
 const { guard } = require('../utils')
-const { NoTransactionId, NotYourTransaction, DeleteFirstSell, NotYourWallet } = require('../error');
+const { NoTransactionId, NotYourTransaction, DeleteFirstSell, NotYourWallet } = require('../error/error');
+const { GuardMiddleware } = require('../error/error.middleware');
 
 module.exports = {
     // Use guard service for check and validate transaction
@@ -27,12 +28,7 @@ module.exports = {
             await guard.buySellSign(req, res);
             next();
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'transactionGuard.middleware';
-                err.messageSafe = 'transaction guard error';
-            } 
-            throw err;
+            throw new GuardMiddleware(err);
         }
     },
     // Delete transaction guard
@@ -56,12 +52,7 @@ module.exports = {
                 next();
             }
         } catch (err) { 
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'deleteTransaction.middleware';
-                err.messageSafe = 'delete transaction error';
-            } 
-            throw err;
+            throw new GuardMiddleware(err);
         }
     },
     // Delete wallet guard
@@ -76,12 +67,7 @@ module.exports = {
                 next();
             }
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'deleteWallet.middleware';
-                err.messageSafe = 'delete wallet error';
-            } 
-            throw err;
+            throw new GuardMiddleware(err);
         }
     }
 }

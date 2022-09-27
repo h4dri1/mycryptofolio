@@ -8,7 +8,8 @@ const { logger } = require('./error.middleware')
 
 // Require specific error 
 
-const { BanUser, UseRevokedRefreshToken, BadGuy, InvalidToken } = require('../error');
+const { BanUser, InvalidToken } = require('../error/error');
+const { AuthMiddleware } = require('../error/error.middleware');
 
 // Bind original logger
 
@@ -33,12 +34,7 @@ module.exports = {
         }
         next();
     } catch (err) {
-        if (!err.level) {
-            err.level = 'error';
-            err.name = 'signup.middleware';
-            err.messageSafe = 'signup error';
-        } 
-        throw err;
+        throw new AuthMiddleware(err);
     }
     },
     // Login case
@@ -92,12 +88,7 @@ module.exports = {
             }
             next();
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'login.middleware';
-                err.messageSafe = 'login error';
-            } 
-            throw err;
+            throw new AuthMiddleware(err);
         }
     },
 
@@ -118,12 +109,7 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             next();
         } catch(err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'routing.middleware';
-                err.messageSafe = 'routing error';
-            } 
-            throw err;
+            throw new AuthMiddleware(err);
         };
     },
 
@@ -150,12 +136,7 @@ module.exports = {
                     next();
                 }
             } else {
-                if (!err.level) {
-                    err.level = 'error';
-                    err.name = 'logout.middleware';
-                    err.messageSafe = 'logout error';
-                } 
-                throw err;
+                throw new AuthMiddleware(err);
             }
         }
     }

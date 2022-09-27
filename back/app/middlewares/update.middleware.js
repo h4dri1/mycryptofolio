@@ -1,5 +1,6 @@
 const { Transaction } = require('../models');
 const { update } = require('../utils');
+const { UpdateMiddleware } = require('../error/error.middleware');
 
 module.exports = async (req, res, next) => {
     // Get all cryptos owned by user
@@ -26,11 +27,6 @@ module.exports = async (req, res, next) => {
         }
         next();
     } catch (err) {
-        if (!err.level) {
-            err.level = 'error';
-            err.name = 'update.middleware';
-            err.messageSafe = 'update error';
-        } 
-        throw err;
+        throw new UpdateMiddleware(err);
     }
 }

@@ -1,4 +1,5 @@
 const { Transaction, Wallet, Portfolio } = require('../models');
+const { PortfolioService } = require('../error/error.services'); 
 
 module.exports = {
     getPortfolio: async (req, res, next) => {
@@ -59,12 +60,7 @@ module.exports = {
             /////////////////////////////////////////////////////////////////////////////////
             return new Portfolio(portfolio);
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'portfolio.service';
-                err.messageSafe = 'Error in portfolio';
-            } 
-            throw err;
+            throw new PortfolioService(err);
         }
     }
 };

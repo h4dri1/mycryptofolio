@@ -41,9 +41,6 @@ class Blockchain {
         const ensName = {name: ens.name}
         return new Blockchain(ensName).tokens;
     }
-
-
-
 }
 
 module.exports = Blockchain;

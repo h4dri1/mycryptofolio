@@ -1,5 +1,5 @@
 const fetch = require('cross-fetch');
-const { PublicApiError } = require('../error');
+const { PublicApiError } = require('../error/error');
 
 // Fetch service
 

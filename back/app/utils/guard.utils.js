@@ -7,7 +7,7 @@ const { NoTransactionId,
         SellMustBeNegative,
         BuyMustBePositive,
         MoreCoinThanYouHave 
-        } = require('../error');
+        } = require('../error/error');
 
 module.exports = {
     // Transaction check

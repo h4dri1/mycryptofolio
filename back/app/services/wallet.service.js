@@ -1,4 +1,5 @@
 const { Wallet, Transaction } = require('../models');
+const { WalletService } = require('../error/error.services');
 
 module.exports = {
     addWallet: async (req, res, next) => {
@@ -11,12 +12,7 @@ module.exports = {
             }
             return wallet
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'addWallet.service';
-                err.messageSafe = 'add wallet error';
-            }
-            throw err; 
+            throw new WalletService(err);
         }
     },
 
@@ -29,12 +25,7 @@ module.exports = {
             await Wallet.delete(req.params.wid);
             return transactions
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'deleteWallet.service';
-                err.messageSafe = 'delete wallet error';
-            } 
-            throw err;
+            throw new WalletService(err);
         }
     }
 };

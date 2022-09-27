@@ -1,5 +1,7 @@
 const { redis } = require('../database')
 
+const { CacheMiddleware } = require('../error/error.middleware')
+
 const prefix = 'mycryptofolio:';
 
 let timeout = 60;
@@ -46,12 +48,7 @@ const cache = async (req, res, next) => {
         }
         next();
     } catch(err) {
-        if (!err.level) {
-            err.level = 'error';
-            err.name = 'cache.middleware';
-            err.messageSafe = 'cache error';
-        } 
-        throw err;
+        throw new CacheMiddleware(err);
     }
 
 }
@@ -68,12 +65,7 @@ const flush = async (req, res, next) => {
         await redis.del('keys')
         next();
     } catch(err) {
-        if (!err.level) {
-            err.level = 'error';
-            err.name = 'flush.middleware';
-            err.messageSafe = 'flush error';
-        } 
-        throw err;
+        throw new CacheMiddleware(err);
     }
 }
 

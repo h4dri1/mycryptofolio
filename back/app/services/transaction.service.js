@@ -1,4 +1,5 @@
 const { Transaction, Crypto } = require('../models');
+const { TransactionService } = require('../error/error.services')
 
 module.exports = {
     addTransaction: async (req, res, next) => {
@@ -16,12 +17,7 @@ module.exports = {
             }
             return transaction
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'addTransaction.service';
-                err.messageSafe = 'add transaction error';
-            } 
-            throw err;
+            throw new TransactionService(err);
         }
     },
 
@@ -30,12 +26,7 @@ module.exports = {
             const tid = await Transaction.delete(req.params.tid);
             return tid
         } catch (err) {
-            if (!err.level) {
-                err.level = 'error';
-                err.name = 'deleteTransaction.service';
-                err.messageSafe = 'delete transaction error';
-            } 
-            throw err;
+            throw new TransactionService(err);
         } 
     }
 };
