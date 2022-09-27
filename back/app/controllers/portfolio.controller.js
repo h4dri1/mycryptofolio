@@ -1,4 +1,4 @@
-const { portfolioService } = require('../utils');
+const { portfolioService } = require('../services');
 
 module.exports = {
     getPortfolio: async (req, res, next) => {

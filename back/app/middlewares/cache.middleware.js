@@ -46,7 +46,12 @@ const cache = async (req, res, next) => {
         }
         next();
     } catch(err) {
-        next(err)
+        if (!err.level) {
+            err.level = 'error';
+            err.name = 'cache.middleware';
+            err.messageSafe = 'cache error';
+        } 
+        throw err;
     }
 
 }
@@ -63,7 +68,12 @@ const flush = async (req, res, next) => {
         await redis.del('keys')
         next();
     } catch(err) {
-        next(err)
+        if (!err.level) {
+            err.level = 'error';
+            err.name = 'flush.middleware';
+            err.messageSafe = 'flush error';
+        } 
+        throw err;
     }
 }
 

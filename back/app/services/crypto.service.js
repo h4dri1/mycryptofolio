@@ -9,8 +9,12 @@ module.exports = {
             const AllCryptos = await Crypto.findAll();
             return AllCryptos;
         } catch (err) {
-            err.name = 'getAllCryptos error';
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getAllCryptos.service';
+                err.messageSafe = 'get Cryptos error';
+            } 
+            throw err;
         }
     },
 
@@ -19,8 +23,12 @@ module.exports = {
             const cryptos = await fetch(`//api.coingecko.com/api/v3/coins/markets?vs_currency=${req.params.vs}&order=market_cap_desc&per_page=${req.params.nb}&page=1&sparkline=false`);
             return cryptos.map(row => new Crypto(row));
         } catch (err) {
-            err.name = 'getTopCryptos error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getTopCryptos.service';
+                err.messageSafe = 'get top cryptos error';
+            } 
+            throw err;
         }
     },
 
@@ -38,8 +46,12 @@ module.exports = {
             const rows = new Array({data: new OneCryptoObject(oneCryptoData), chart: chart});
             return new Crypto(rows)[0];
         } catch (err) {
-            err.name = 'getOneCrypto error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getOneCrypto.service';
+                err.messageSafe = 'get one crypto error';
+            } 
+            throw err;
         }
     },
 
@@ -48,8 +60,12 @@ module.exports = {
             const trendingCryptosData = await fetch(`//api.coingecko.com/api/v3/search/trending`);
             return new Crypto(trendingCryptosData)
         } catch (err) {
-            err.name = 'getTrendingCrypto error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getTrendingCryptos.service';
+                err.messageSafe = 'get trending cryptos error';
+            } 
+            throw err;
         }
     },
 
@@ -58,8 +74,12 @@ module.exports = {
             const fearAndGreedData = await fetch(`//api.alternative.me/fng/?limit=1`);
             return new Crypto(fearAndGreedData);
         } catch (err) {
-            err.name = 'getFearAndGreed error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getFearAndGreed.service';
+                err.messageSafe = 'get fear and greed error';
+            } 
+            throw err;
         }
     },
 
@@ -68,8 +88,12 @@ module.exports = {
             const globalMarketData = await fetch(`//api.coingecko.com/api/v3/global`);
             return new Crypto(globalMarketData);
         } catch (err) {
-            err.name = 'getGlobalData mail error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getGlobalData.service';
+                err.messageSafe = 'get global data error';
+            } 
+            throw err;
         }
     },
 
@@ -78,8 +102,12 @@ module.exports = {
             const historicalData = await fetch(`//api.coingecko.com/api/v3/coins/${req.params.coinId}/history?date=${req.params.day}-${req.params.month}-${req.params.year}`);
             return new Crypto(historicalData);
         } catch (err) {
-            err.name = 'getHistoricalData error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getHistoricalData.service';
+                err.messageSafe = 'get historical data error';
+            } 
+            throw err;
         }
     }
 }

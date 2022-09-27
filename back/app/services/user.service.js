@@ -40,8 +40,11 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(token));
             return await User.login(user, userCurrency, token)
         } catch (err) {
-            err.name = 'login error'
-            throw err 
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'login.service';
+                err.messageSafe = 'login error';
+            } 
         }
         
     },
@@ -75,8 +78,11 @@ module.exports = {
                 throw new CreateUserError();
             }
         } catch (err) {
-            err.name = 'add user error'
-            throw err 
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'addUser.service';
+                err.messageSafe = 'add user error';
+            } 
         }
     },
 
@@ -89,7 +95,11 @@ module.exports = {
                 return verify;
             }
         } catch (err) {
-            throw err;
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'verifyEmail.service';
+                err.messageSafe = 'verify email error';
+            } 
         }
     },
 
@@ -106,8 +116,11 @@ module.exports = {
             await redis.expire(checkToken, 60*10);
             return user;
         } catch (err) {
-            err.name = 'resend mail error'
-            throw err 
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'resendMail.service';
+                err.messageSafe = 'resend mail error';
+            } 
         }
     },
 
@@ -127,8 +140,11 @@ module.exports = {
             await redis.expire(token, 60*10);
             return {message: "Email with instructions sent"};
         } catch (err) {
-            err.name = 'forgot password error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'forgotPassword.service';
+                err.messageSafe = 'forgot password error';
+            } 
         }
     },
 
@@ -138,8 +154,11 @@ module.exports = {
             await instance.save();
             return {message: "User modified"};
         } catch (err) {
-            err.name = 'modify user error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'modifyUser.service';
+                err.messageSafe = 'modify user error';
+            } 
         }
     },
 
@@ -158,8 +177,11 @@ module.exports = {
             await User.updatePass(newHash, req.userId.id);
             return {"status": "Mot de passe modifié"}
         } catch (err) {
-            err.name = 'modify password error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'modifyPassword.service';
+                err.messageSafe = 'modify password error';
+            } 
         }
     },
     
@@ -180,8 +202,11 @@ module.exports = {
             await redis.del(id);
             return {"status": "Mot de passe modifié"};
         } catch (err) {
-            err.name = 'modify forgot password error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'modifyPasswordForgot.service';
+                err.messageSafe = 'modify password forgot error';
+            } 
         }
     },
 
@@ -190,8 +215,11 @@ module.exports = {
             await User.updateAvatar(req.body.avatar, req.userId.id);
             return {'status': 'Avatar modifié'};
         } catch (err) {
-            err.name = 'modify avatar error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'modifyAvatar.service';
+                err.messageSafe = 'modify avatar error';
+            } 
         }
     },
 
@@ -208,8 +236,12 @@ module.exports = {
             await User.deleteOne(req.userId.id);
             return {"status": "Compte supprimé"};
         } catch (err) {
-            err.name = 'delete user error'
-            throw err
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'deleteUser.service';
+                err.messageSafe = 'delete user error';
+            } 
+            throw err;
         }
     }
 }

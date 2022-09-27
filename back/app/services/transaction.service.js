@@ -11,15 +11,17 @@ module.exports = {
             instance.crypto_id = crypto_id[0].id;
             const transaction = await instance.save();
             // Create new transaction
-            if (transaction) {
-                res.status(201)
-            } else {
+            if (!transaction) {
                 transaction = 'Update ok'
-                res.status(204)
             }
             return transaction
         } catch (err) {
-            next(err);
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'addTransaction.service';
+                err.messageSafe = 'add transaction error';
+            } 
+            throw err;
         }
     },
 
@@ -28,7 +30,12 @@ module.exports = {
             const tid = await Transaction.delete(req.params.tid);
             return tid
         } catch (err) {
-            next(err);
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'deleteTransaction.service';
+                err.messageSafe = 'delete transaction error';
+            } 
+            throw err;
         } 
     }
 };

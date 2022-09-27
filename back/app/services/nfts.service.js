@@ -10,7 +10,12 @@ module.exports = {
             //const test = data.find(x => x.id === req.params.collection);
             return list.collection
         } catch (err) {
-            next(err);
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getNFTCollection.service';
+                err.messageSafe = 'get NFT collection error';
+            } 
+            throw err;
         } 
     },
 
@@ -30,7 +35,12 @@ module.exports = {
             const newData = data.slice(0, req.params.nb);
             return newData
         } catch (err) {
-            next(err);
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getTopNFT.service';
+                err.messageSafe = 'get top NFT error';
+            } 
+            throw err;
         }
     },
 
@@ -66,7 +76,12 @@ module.exports = {
               console.log(collectionsWithTradingVolume);
             return collectionsWithTradingVolume
         } catch (err) {
-            next(err);
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'getTestNFT.service';
+                err.messageSafe = 'get test NFT error';
+            } 
+            throw err;
         }
     }
 };

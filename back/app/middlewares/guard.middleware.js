@@ -27,7 +27,12 @@ module.exports = {
             await guard.buySellSign(req, res);
             next();
         } catch (err) {
-            next(err);
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'transactionGuard.middleware';
+                err.messageSafe = 'transaction guard error';
+            } 
+            throw err;
         }
     },
     // Delete transaction guard
@@ -51,7 +56,12 @@ module.exports = {
                 next();
             }
         } catch (err) { 
-            next(err)
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'deleteTransaction.middleware';
+                err.messageSafe = 'delete transaction error';
+            } 
+            throw err;
         }
     },
     // Delete wallet guard
@@ -66,7 +76,12 @@ module.exports = {
                 next();
             }
         } catch (err) {
-            next(err)
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'deleteWallet.middleware';
+                err.messageSafe = 'delete wallet error';
+            } 
+            throw err;
         }
     }
 }

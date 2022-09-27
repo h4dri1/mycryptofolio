@@ -53,7 +53,7 @@ router
     .get(
         '/history/:coinId/:day(\\d+)/:month(\\d+)/:year(\\d+)',
         rateLimit(schemas.cryptoLimiter),
-        validateParams(schemas.getHistorySchema), 
+        validateParams(schemas.getHistory), 
         cache, 
         cryptoController.getHistoricalData
     );

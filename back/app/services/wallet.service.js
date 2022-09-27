@@ -8,13 +8,15 @@ module.exports = {
             const wallet = await instance.save();
             if (wallet) {
                 wallet.sum = 0;
-                res.status(201);
             }
-            res.status(204);
             return wallet
         } catch (err) {
-            err.name = 'add wallet error'
-            throw err 
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'addWallet.service';
+                err.messageSafe = 'add wallet error';
+            }
+            throw err; 
         }
     },
 
@@ -27,8 +29,12 @@ module.exports = {
             await Wallet.delete(req.params.wid);
             return transactions
         } catch (err) {
-            err.name = 'delete wallet error'
-            throw err 
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'deleteWallet.service';
+                err.messageSafe = 'delete wallet error';
+            } 
+            throw err;
         }
     }
 };

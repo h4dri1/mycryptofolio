@@ -26,6 +26,11 @@ module.exports = async (req, res, next) => {
         }
         next();
     } catch (err) {
-        next(err);
+        if (!err.level) {
+            err.level = 'error';
+            err.name = 'update.middleware';
+            err.messageSafe = 'update error';
+        } 
+        throw err;
     }
 }

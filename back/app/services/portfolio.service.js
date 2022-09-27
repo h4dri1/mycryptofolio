@@ -57,9 +57,14 @@ module.exports = {
             portfolio.performance = objPerformance;
             portfolio.wallet = objWallet;
             /////////////////////////////////////////////////////////////////////////////////
-            return portfolio
+            return new Portfolio(portfolio);
         } catch (err) {
-            next(err);
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'portfolio.service';
+                err.messageSafe = 'Error in portfolio';
+            } 
+            throw err;
         }
     }
 };

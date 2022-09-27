@@ -4,7 +4,11 @@ module.exports = {
     addWallet: async (req, res, next) => {
         try {
             const wallet = await walletService.addWallet(req, res, next);
-            res.json(wallet);
+            if (wallet) {
+                res.status(201).json(wallet);
+            } else {
+                res.status(204).json('wallet modified');
+            }
         } catch (err) {
             next(err);
         }

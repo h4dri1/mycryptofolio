@@ -19,6 +19,7 @@ const { authUtils } = require('../utils');
 module.exports = {
     // Signup Case new user
     signup: async (req, res, next) => {
+        try {
         // Bind original response in Json
         const originalResponseJson = res.json.bind(res);
         // res.json is only used in the last controller if the new user is created
@@ -31,6 +32,14 @@ module.exports = {
             originalResponseJson(data);
         }
         next();
+    } catch (err) {
+        if (!err.level) {
+            err.level = 'error';
+            err.name = 'signup.middleware';
+            err.messageSafe = 'signup error';
+        } 
+        throw err;
+    }
     },
     // Login case
     login: async (req, res, next) => {
@@ -83,7 +92,12 @@ module.exports = {
             }
             next();
         } catch (err) {
-            next(err)
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'login.middleware';
+                err.messageSafe = 'login error';
+            } 
+            throw err;
         }
     },
 
@@ -104,7 +118,12 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             next();
         } catch(err) {
-            next(err)
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'routing.middleware';
+                err.messageSafe = 'routing error';
+            } 
+            throw err;
         };
     },
 
@@ -131,7 +150,12 @@ module.exports = {
                     next();
                 }
             } else {
-                next(err);
+                if (!err.level) {
+                    err.level = 'error';
+                    err.name = 'logout.middleware';
+                    err.messageSafe = 'logout error';
+                } 
+                throw err;
             }
         }
     }

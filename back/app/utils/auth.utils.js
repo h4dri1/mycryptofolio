@@ -19,24 +19,39 @@ module.exports = {
             }
             return res.status(200).json({message: 'logout ok'})
         } catch (err) {
-            next(err);
+            if (!err.level) {
+                err.level = 'error';
+                err.name = this;
+                err.messageSafe = 'lougout error';
+            } 
+            throw err;
         }
     },
 
     checkRT: async (req, res, next) => {
-        // Check Refresh Token in Redis
-        const refreshPayload = jwt.validateRefreshToken(req.params.token);
-        if (!refreshPayload.user) {
-            throw new InvalidToken();
+        try {
+            // Check Refresh Token in Redis
+            const refreshPayload = jwt.validateRefreshToken(req.params.token);
+            if (!refreshPayload.user) {
+                throw new InvalidToken();
+            }
+            const [head, pay, sign] = req.params.token.split('.');
+            // Check if the refresh token is in Redis
+            // If it's not the case and if the token is valid the refresh token is revoked after logout
+            if (!await redis.hExists(`${refreshPayload.user.id}`, sign)) {
+                throw new UseRevokedRefreshToken();
+            } else {
+                return refreshPayload;
+            }
+        } catch (err) {
+            if (!err.level) {
+                err.level = 'error';
+                err.name = 'checkRT.utils';
+                err.messageSafe = 'token error';
+            } 
+            throw err
         }
-        const [head, pay, sign] = req.params.token.split('.');
-        // Check if the refresh token is in Redis
-        // If it's not the case and if the token is valid the refresh token is revoked after logout
-        if (!await redis.hExists(`${refreshPayload.user.id}`, sign)) {
-            throw new UseRevokedRefreshToken();
-        } else {
-            return refreshPayload;
-        }
+
     }
 }
 

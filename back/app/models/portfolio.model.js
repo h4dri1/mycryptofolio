@@ -1,6 +1,6 @@
 const { pool } = require('../database');
 
-class Transaction {
+class Portfolio {
 
     constructor(obj={}) {
         for (const propName in obj) {
@@ -20,7 +20,7 @@ class Transaction {
         user_id=$1;', 
         [id]
         );
-        return new Transaction(rows[0]);
+        return new Portfolio(rows[0]);
     }
 
     static async getPerformanceByWallet(id, wid) {
@@ -35,7 +35,7 @@ class Transaction {
         user_id=$1 AND wallet_id=$2;', 
         [id, wid]
         );
-        return new Transaction(rows[0]);
+        return new Portfolio(rows[0]);
     }
 
     static async getDistribution(id) {
@@ -51,7 +51,7 @@ class Transaction {
         name, quantity, value;', 
         [id]
         );
-        return rows.map(row => new Transaction(row));
+        return rows.map(row => new Portfolio(row));
     }
 
     static async getDistributionByWallet(id, wid) {
@@ -67,8 +67,8 @@ class Transaction {
         name, quantity, value;', 
         [id, wid]
         );
-        return rows.map(row => new Transaction(row));
+        return rows.map(row => new Portfolio(row));
     }
 }
 
-module.exports = Transaction;
+module.exports = Portfolio;
