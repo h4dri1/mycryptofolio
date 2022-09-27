@@ -53,6 +53,7 @@ const {
     getWallet,
     portfolioLimiter
 } = require('./params/portfolio.schema');
+const { nftsLimiter } = require('./params/nfts.schema');
 
 
 module.exports = { schemas: {
@@ -98,6 +99,7 @@ module.exports = { schemas: {
         transactionLimiter,
         getPortfolio,
         getWallet,
-        portfolioLimiter
+        portfolioLimiter,
+        nftsLimiter
     }
 }

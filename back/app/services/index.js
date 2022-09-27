@@ -4,6 +4,7 @@ const userService = require('./user.service');
 const walletService = require('./wallet.service');
 const transactionService = require('./transaction.service');
 const portfolioService = require('./portfolio.service');
+const nftsService = require('./nfts.service');
 
 module.exports = {
     blockchainService,
@@ -11,5 +12,6 @@ module.exports = {
     userService,
     walletService,
     transactionService,
-    portfolioService
+    portfolioService,
+    nftsService
 }

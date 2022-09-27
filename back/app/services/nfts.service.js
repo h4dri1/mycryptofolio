@@ -5,10 +5,10 @@ module.exports = {
         try {
             var list = await fetch(`//api.opensea.io/api/v1/collection/${req.params.collection}`);
             if (list.status === 'Not Found') {
-                return res.status(200).json(list);
+                return list
             }
             //const test = data.find(x => x.id === req.params.collection);
-            res.status(200).json(list.collection);
+            return list.collection
         } catch (err) {
             next(err);
         } 
@@ -28,7 +28,7 @@ module.exports = {
             }}, formBody);
             const data = top.data.filter((nft) => nft.attributes.image_url && !nft.attributes.name.includes('Uniswap'))
             const newData = data.slice(0, req.params.nb);
-            res.status(200).json(newData);
+            return newData
         } catch (err) {
             next(err);
         }
@@ -64,7 +64,7 @@ module.exports = {
                         avgPrice: avgPrice, token: token, uniqueOwners: uniqueOwners, network: network, maxPrice: maxPrice, minPrice: minPrice, trade: trades };
                 });
               console.log(collectionsWithTradingVolume);
-            res.status(200).json(collectionsWithTradingVolume);
+            return collectionsWithTradingVolume
         } catch (err) {
             next(err);
         }

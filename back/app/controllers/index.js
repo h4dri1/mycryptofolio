@@ -3,7 +3,7 @@ const cryptoController = require('./crypto.controller');
 const portfolioController = require('./portfolio.controller');
 const walletController = require('./wallet.controller');
 const transactionController = require('./transaction.controller');
-const nftsController = require('./nftsController');
+const nftsController = require('./nfts.controller');
 const blockchainController = require('./blockchain.controller');
 
 module.exports = {
