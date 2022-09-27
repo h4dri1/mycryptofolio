@@ -30,8 +30,6 @@ function CryptoDetails() {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { slug } = useParams();
 
-  console.log('data', data);
-
   const { darkMode } = useSelector((state) => state.settings);
 
   const [range, setRange] = useState(1);

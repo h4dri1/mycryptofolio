@@ -40,8 +40,6 @@ import {
       var cryptoSym = ''
     }
 
-    console.log(history)
-
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: '100%'}}>
         <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
