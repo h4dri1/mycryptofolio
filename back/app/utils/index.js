@@ -11,5 +11,5 @@ module.exports = {
     jwt,
     mailer,
     update,
-    guard
+    guard,
 }

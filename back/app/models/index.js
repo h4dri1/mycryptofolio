@@ -4,7 +4,7 @@ const User = require('./user.model');
 const Wallet = require('./wallet.model');
 const Portfolio = require('./portfolio.model');
 const Nfts = require('./nfts.model');
-const Network = require('./network');
+const Network = require('./network.model');
 const Blockchain = require('./blockchain.model');
 
 module.exports = {
