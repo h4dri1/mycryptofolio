@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { RateLimitError } = require('../../error');
+const { RateLimitError } = require('../error');
 
 const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 

@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { RateLimitError } = require('../../error');
+const { RateLimitError } = require('../error');
 
 const portfolioLimiter = {
     windowMs: 60 * 1000,
