@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production node index.js",
     "dev": "redis-cli flushall;NODE_ENV=dev node-dev index.js --trace-warnings",
-    "test": "jest",
+    "test": "redis-cli flushall;jest",
     "install_dev": "sqitch revert -y;sqitch deploy;node data/importJson.js;psql -U postgres -d mycryptofolio -f data/test.sql",
     "install_prod": "sqitch revert -y;sqitch deploy;node data/importJson.js",
     "clean": "sqitch revert -y"

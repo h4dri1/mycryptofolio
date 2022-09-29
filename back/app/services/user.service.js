@@ -67,7 +67,11 @@ module.exports = {
                     "nickname": newUser.nickname,
                     "email": newUser.email,
                 };
-                await mailer.sendMailCheck(req, res, next);
+                if (process.env.NODE_ENV === 'production' && !process.env.JEST_WORKER_ID) {
+                    await mailer.sendMailCheck(req, res, next);
+                } else {
+                    console.log('Mail sent token: ' + checkToken);
+                }
                 await redis.set(checkToken, newUser.id);
                 await redis.expire(checkToken, 60*10);
                 return new User(response);

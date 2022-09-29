@@ -1,7 +1,7 @@
 class AuthMiddleware extends Error {
     constructor (err) {
         super();
-        if (!err.level) {
+        if (!err.level && process.env.NODE_ENV !== 'dev') {
             this.name = this.constructor.name;
             this.level = 'error';
             this.message = 'Error on the auth middleware';
@@ -18,7 +18,7 @@ class AuthMiddleware extends Error {
 class CacheMiddleware extends Error {
     constructor (err) {
         super();
-        if (!err.level) {
+        if (!err.level && process.env.NODE_ENV !== 'dev') {
             this.name = this.constructor.name;
             this.level = 'error';
             this.message = 'Error on the cache middleware';
@@ -35,7 +35,7 @@ class CacheMiddleware extends Error {
 class GuardMiddleware extends Error {
     constructor (err) {
         super();
-        if (!err.level) {
+        if (!err.level && process.env.NODE_ENV !== 'dev') {
             this.name = this.constructor.name;
             this.level = 'error';
             this.message = 'Error on the guard middleware';
@@ -52,7 +52,7 @@ class GuardMiddleware extends Error {
 class UpdateMiddleware extends Error {
     constructor (err) {
         super();
-        if (!err.level) {
+        if (!err.level && process.env.NODE_ENV !== 'dev') {
             this.name = this.constructor.name;
             this.level = 'error';
             this.message = 'Error on the update middleware';

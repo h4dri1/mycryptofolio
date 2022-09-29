@@ -7,7 +7,7 @@ module.exports = {
             if (transaction) {
                 res.status(201).json(transaction);
             } else {
-                res.status(204).json(transaction);
+                res.status(204).json({ message: 'transaction modified' });
             }
         } catch (err) {
             next(err);

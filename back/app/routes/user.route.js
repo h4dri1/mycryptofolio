@@ -14,17 +14,29 @@ const rateLimit = require('express-rate-limit');
 
 router
     .get(
-        '/logout/:token', 
+        '/verify/resend/:email', 
+        rateLimit(schemas.userLimiter), 
+        validateParams(schemas.resendToken),
+        userController.resendMail
+    )
+    .get(
+        '/verify/:token',
         rateLimit(schemas.userLimiter),
-        validateParams(schemas.token),
-        auth.logout, 
-        authUtils.logout
+        validateParams(schemas.checkForgotToken),
+        userController.verifyEmail
     )
     .get(
         '/jwt/login/check/:token',
         rateLimit(schemas.userLimiter),
         validateParams(schemas.token),
         userController.checkToken
+    )
+    .get(
+        '/logout/:token', 
+        rateLimit(schemas.userLimiter),
+        validateParams(schemas.token),
+        auth.logout, 
+        authUtils.logout
     )
     .get(
         '/jwt/refresh/:token', 
@@ -44,18 +56,6 @@ router
         rateLimit(schemas.userLimiter), 
         validateBody(schemas.signUp),
         userController.addUser
-    )
-    .get(
-        '/verify/resend/:email', 
-        rateLimit(schemas.userLimiter), 
-        validateParams(schemas.resendToken),
-        userController.resendMail
-    )
-    .get(
-        '/verify/:token',
-        rateLimit(schemas.userLimiter),
-        validateParams(schemas.checkForgotToken),
-        userController.verifyEmail
     )
     .post(
         '/jwt/login/forgot',

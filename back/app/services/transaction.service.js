@@ -11,10 +11,6 @@ module.exports = {
             instance.wallet_id = req.params.wid;
             instance.crypto_id = crypto_id[0].id;
             const transaction = await instance.save();
-            // Create new transaction
-            if (!transaction) {
-                transaction = 'Update ok'
-            }
             return transaction
         } catch (err) {
             throw new TransactionService(err);

@@ -1,7 +1,7 @@
 class AuthUtils extends Error {
     constructor (err) {
         super();
-        if (!err.level) {
+        if (!err.level && process.env.NODE_ENV !== 'dev') {
             this.name = this.constructor.name;
             this.level = 'error';
             this.message = 'Error on the auth utils';

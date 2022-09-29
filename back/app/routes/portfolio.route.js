@@ -10,6 +10,8 @@ const { auth, updateMW, validateParams, cache } = require('../middlewares');
 
 const rateLimit = require('express-rate-limit');
 
+const { guardMW } = require('../middlewares');
+
 router
     .get(
         '/portfolio/:cur?',

@@ -12,7 +12,7 @@ const { schemas } = require('../schemas');
 
 router
     .get(
-        '/nft/collections/:collection', 
+        '/nftcollections/:collection', 
         rateLimit(schemas.nftsLimiter),
         cache, 
         nftsController.getNFTCollection

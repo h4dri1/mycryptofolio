@@ -1,5 +1,6 @@
 const { Transaction, Wallet, Portfolio } = require('../models');
 const { PortfolioService } = require('../error/error.services'); 
+const { guard } = require('../utils')
 
 module.exports = {
     getPortfolio: async (req, res, next) => {
@@ -16,6 +17,7 @@ module.exports = {
             // All 4 blocks (wallets, distribution, performance, transaction) are calculate with sql
             // If user choose one wallet
             if (req.params.wid) {
+                await guard.walletGuard(req, res);
                 objTransactions = await Transaction.getUserTransactionByWallet(req.userId.id, req.params.wid);
                 objRepartition = await Portfolio.getDistributionByWallet(req.userId.id, req.params.wid);
                 objWallet = await Wallet.findSumWalletByWallet(req.userId.id, req.params.wid);
