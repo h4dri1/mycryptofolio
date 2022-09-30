@@ -58,6 +58,7 @@
     "@mui/x-date-pickers": "^5.0.3",
     "axios": "^0.25.0",
     "chart.js": "^3.7.1",
+    "d3-color": "^3.1.0",
     "date-fns": "^2.28.0",
     "dompurify": "^2.3.6",
     "ethers": "^5.6.9",
@@ -81,6 +82,7 @@
   },
   "resolutions": {
     "json5": "^2.2.1",
-    "minimist": "^1.2.6"
+    "minimist": "^1.2.6",
+    "d3-color": "^3.1.0"
   }
 }
