@@ -10,6 +10,9 @@ import {
   import FileUploadIcon from '@mui/icons-material/FileUpload';
   import DownloadIcon from '@mui/icons-material/Download';
 
+  import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+  import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+
   import { ethers } from 'ethers';
 
   ChartJS.register(ArcElement, Tooltip, Legend);
@@ -37,8 +40,6 @@ import {
       var cryptoSym = ''
     }
 
-    console.log(history)
-
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: '100%'}}>
         <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
@@ -62,19 +63,9 @@ import {
         <List sx={{height: '400px'}}>
           {history['result'] && history['result'].map((transaction) => (
             <ListItem key={transaction.hash}>
-              <Container sx={{display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '10px', padding: 2, justifyContent: 'center', height: '50px', alignItems: 'center'}}>
+              <Container sx={{display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '50%', justifyContent: 'center', height: '50px', width: '50px', alignItems: 'center', mr: 1}}>
                 {transaction.type &&
-                  <><Avatar sx={{backgroundColor: 'primary.light', width: '1em', height: '1em', marginRight: 1}}>{transaction.tokenName.slice(0,1)}</Avatar><Typography>{Intl.NumberFormat('en-US', {
-                    style: 'decimal',
-                    maximumSignificantDigits: 4,
-                    minimumSignificantDigits: 2,
-                  }).format(ethers.utils.formatEther(transaction.value))}</Typography></>
-                }
-              </Container>
-              <Container sx={{marginLeft: 1, marginRight: 1, display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '10px', padding: 2, justifyContent: 'center', minWidth: '180px', height: '50px', alignItems: 'center'}}>
-                {transaction.type === 'send' ? 
-                  <><Typography>{transaction.tokenName}</Typography></> :
-                  <><Typography>{transaction.tokenName}</Typography></>
+                  <><Avatar sx={{backgroundColor: 'primary.light', width: '1.5em', height: '1.5em'}}>{transaction.tokenName.slice(0,1)}</Avatar></>
                 }
               </Container>
               <Container sx={{display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '10px', padding: 2, minWidth: '220px', justifyContent: 'center', height: '50px', alignItems: 'center'}}>
@@ -82,6 +73,21 @@ import {
                   <><FileUploadIcon sx={{color: 'secondary.main'}}/>
                   <Typography>To {transaction.to.substring(0, 6)}...{transaction.to.substring(38, 42)}</Typography></> : 
                     <><DownloadIcon sx={{color: 'secondary.main'}}/><Typography>From {transaction.from.substring(0, 6)}...{transaction.from.substring(38, 42)}</Typography></>}
+              </Container>
+              <KeyboardDoubleArrowRightIcon sx={{color: 'custom.main', marginLeft: 1, marginRight: 1}}/>
+              <Container sx={{display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '10px', padding: 2, justifyContent: 'center', minWidth: '250px', height: '50px', alignItems: 'center'}}>
+                {transaction.type === 'send' ? 
+                  <><Typography>-{Intl.NumberFormat('en-US', {
+                    style: 'decimal',
+                    maximumSignificantDigits: 4,
+                    minimumSignificantDigits: 2,
+                  }).format(ethers.utils.formatEther(transaction.value))} {transaction.tokenSymbol}</Typography></> :
+                  <><Typography>+{Intl.NumberFormat('en-US', {
+                    style: 'decimal',
+                    maximumSignificantDigits: 4,
+                    minimumSignificantDigits: 2,
+                  }).format(ethers.utils.formatEther(transaction.value))} {transaction.tokenSymbol}</Typography></>
+                }
               </Container>
             </ListItem>
           ))}

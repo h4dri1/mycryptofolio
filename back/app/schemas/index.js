@@ -1,51 +1,77 @@
-const loginSchema = require('./body/loginSchema');
-const changeUserSchema = require('./body/changeUserSchema');
-const changePasswordSchema = require('./body/changePasswordSchema');
-const changeAvatarSchema = require('./body/changeAvatarSchema');
-const signupSchema = require('./body/signupSchema');
-const transactionSchema = require('./body/transactionSchema');
-const walletSchema = require('./body/walletSchema');
-const getTopCryptoSchema = require('./params/getTopCryptoSchema');
-const getOneCryptoSchema = require('./params/getOneCryptoSchema');
-const getOnePriceSchema =  require('./params/getOnePriceSchema');
-const getWalletSchema = require('./params/getWalletSchema');
-const getPortfolioSchema = require('./params/getPortfolioSchema');
-const deleteTransactionSchema = require('./params/deleteTransactionSchema');
-const deleteWalletSchema = require('./params/deleteWalletSchema');
-const loginSchemaLim = require('./limiter/loginSchema');
-const signupSchemaLim = require('./limiter/signupSchema');
-const refreshSchemaLim = require('./limiter/refreshSchema');
-const transactionSchemaLim = require('./limiter/transactionSchema');
-const deleteUserSchemaLim = require('./limiter/deleteUserSchema');
-const tokenSchema = require('./params/tokenSchema');
-const getHistorySchema = require('./params/getHistorySchema');
-const forgotPasswordSchema = require('./body/forgotPasswordSchema');
-const checkForgotTokenSchema = require('./params/checkForgotTokenSchema');
-const changeForgotPasswordSchema = require('./body/changeForgotPasswordSchema');
+const { 
+    getHistoryTransactionToken, 
+    getERC20Tokens, 
+    getNFTbyAddress, 
+    getENSbyAddress, 
+    blockchainLimiter 
+} = require('./blockchain.schema');
+const { 
+    getTopCrypto,
+    cryptoLimiter, 
+    getOneCrypto, 
+    getHistory 
+} = require('./crypto.schema');
+const { 
+    login, 
+    signUp, 
+    resend, 
+    checkForgotToken, 
+    forgotPassword, 
+    changeUser, 
+    changeForgotPassword, 
+    userLimiter,
+    changePassword,
+    changeAvatar,
+    token
+} = require('./user.schema');
+const {
+    walletLimiter,
+    deleteWallet,
+    wallet
+} = require('./wallet.schema');
+const {
+    transaction,
+    deleteTransaction,
+    transactionLimiter
+} = require('./transaction.schema');
+const {
+    getPortfolio,
+    getWallet,
+    portfolioLimiter
+} = require('./portfolio.schema');
+const { nftsLimiter } = require('./nfts.schema');
+
 
 module.exports = { schemas: {
-    loginSchema,
-    tokenSchema,
-    signupSchema,
-    transactionSchema,
-    walletSchema,
-    getTopCryptoSchema,
-    getOneCryptoSchema,
-    getOnePriceSchema,
-    getWalletSchema,
-    getPortfolioSchema,
-    deleteTransactionSchema,
-    deleteWalletSchema,
-    loginSchemaLim,
-    signupSchemaLim,
-    refreshSchemaLim,
-    transactionSchemaLim,
-    deleteUserSchemaLim,
-    getHistorySchema,
-    changeUserSchema,
-    changePasswordSchema,
-    changeAvatarSchema,
-    forgotPasswordSchema,
-    checkForgotTokenSchema,
-    changeForgotPasswordSchema}
+        getHistoryTransactionToken,
+        getERC20Tokens,
+        getNFTbyAddress,
+        getENSbyAddress,
+        getTopCrypto,
+        cryptoLimiter,
+        getOneCrypto,
+        getHistory,
+        login, 
+        signUp, 
+        resend, 
+        checkForgotToken, 
+        forgotPassword, 
+        changeUser, 
+        changeForgotPassword, 
+        userLimiter,
+        changePassword,
+        changeAvatar,
+        token,
+        walletLimiter,
+        deleteWallet,
+        wallet,
+        transaction,
+        deleteTransaction,
+        transactionLimiter,
+        getPortfolio,
+        getWallet,
+        portfolioLimiter,
+        nftsLimiter,
+        blockchainLimiter
+    }
 }

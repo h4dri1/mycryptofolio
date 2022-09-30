@@ -11,8 +11,6 @@ import {
   export default function HistoryToken({ history }) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
     const { darkMode } = useSelector((state) => state.settings);
-   
-    console.log(history);
 
     if (selectedCurrency === 'BTC') {
       var curParams = {

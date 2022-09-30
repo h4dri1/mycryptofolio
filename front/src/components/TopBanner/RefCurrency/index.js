@@ -5,6 +5,7 @@ import { fetchPortfolio } from 'src/actions/portfolio';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
 
 import {useLocation, useNavigate } from 'react-router-dom'
+import { getCurrentAccount } from '../../../actions/metamask';
 
 // export default function SelectAutoWidth() {
 export default function RefCurrency() {
@@ -27,11 +28,9 @@ export default function RefCurrency() {
       dispatch(fetchCryptoData(data.id, days));
     }
     dispatch(getCryptoList());
-    //if (walletAddress) {
-    //  dispatch(getWalletAddress());
-    //  dispatch(getWalletBalance());
-    //  dispatch(getWalletENS());
-    //}
+    if (location.pathname.split('/')[1] === 'wallet') {
+      dispatch(getCurrentAccount())
+    }
   };
 
   return (
