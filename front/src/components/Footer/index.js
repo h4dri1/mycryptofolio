@@ -16,7 +16,7 @@ const Footer = () => {
     return (
 <Grid sx={{}}>
 
-<Box disableGutters
+<Box 
     sx={{ justifyContent: 'center', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF', alignItems: "center", display: "flex", width: '100%', height: '50px' }}
 >
     <Typography
