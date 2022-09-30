@@ -84,9 +84,7 @@ export default function SearchCrypto() {
     return (
         <Box
             component="form"
-            item
             xs={12}
-            container
             gap={1}
             ml={{ xs: 2, sm: 3 }}
             onTouchStart ={() => dispatch(setHomeIcon(false))}
