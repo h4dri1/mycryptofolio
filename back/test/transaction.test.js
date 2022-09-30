@@ -1,5 +1,6 @@
 const request = require('supertest')
 const { app } = require('../server')
+require('dotenv').config()
 
 let token = '';
 let transaction = '';
@@ -8,7 +9,7 @@ beforeAll(async () => {
   const res = await request(app)
   .post('/v1/jwt/login')
   .send({
-    email: process.env.TEST_EMAIL,
+    email: process.env.TEST_MAIL,
     password: process.env.TEST_PASSWORD,
   })
   token = res.header.authorization
