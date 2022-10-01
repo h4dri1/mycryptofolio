@@ -58,7 +58,8 @@ class Portfolio {
         const {rows} = await pool.query(
         'SELECT \
         name, quantity,  value, \
-        (100 * coins_value_wallet.value) / (SELECT SUM(value) FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2 AND coins_value_wallet.quantity!=0) AS distribution \
+        (100 * coins_value_wallet.value) / \
+        NULLIF(coins_value_wallet.value * (SELECT SUM(value) FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2 AND coins_value_wallet.quantity!=0),0) AS distribution \
         FROM \
         coins_value_wallet \
         WHERE \
