@@ -106,7 +106,7 @@ export default function Banner({tokens}) {
     }
 
     return (
-        <Box disableGutters sx={{flexDirection: {xs: 'column', md: 'row'}, display: 'flex', borderRadius: '10px', height: 'auto', width: 'auto', padding: 2 }}>
+        <Box sx={{flexDirection: {xs: 'column', md: 'row'}, display: 'flex', borderRadius: '10px', height: 'auto', width: 'auto', padding: 2 }}>
             <Container sx={{display: 'flex', flexDirection: 'row'}}>
               <Badge sx={{"& .MuiBadge-badge": { height: '28px', width: '28px', borderRadius: '50%' }}} badgeContent={<Box sx={{width: 25, height: 25, borderRadius: '50%'}} component={'img'} src={Number(walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>} overlap="circular" color="success">
                 <Identicon address={walletAddress} diam={100} />
