@@ -82,11 +82,16 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
     }
   };
 
-  useEffect(() => dispatch(getCurrentPrice({
-    coinId: currency.id,
-    dateValue,
-    refCurrency,
-  })), [currency, dateValue]);
+  useEffect(() => {
+    async function fetchCurrentPrice() {
+      dispatch(await getCurrentPrice({
+        coinId: currency.id,
+        dateValue,
+        refCurrency,
+      })), [currency, dateValue]
+    }
+    fetchCurrentPrice();
+  });
 
   // ! Do not remove next commented code, may be useful later
   // useEffect(() => {

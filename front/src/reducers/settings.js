@@ -59,6 +59,7 @@ const settings = (state = initialState, action = {}) => {
     }
 
     case TOGGLE_LOGIN_MODAL: {
+      console.log('TOGGLE_LOGIN_MODAL', state.loginIsOpen);
       return ({
         ...state,
         loginIsOpen: !state.loginIsOpen,

@@ -45,23 +45,26 @@ const App = () => {
     dispatch(getCurrentAccount());
   }
 
-  useEffect(async () => {
-    if (localStorage.getItem('refreshToken')) {
-      await dispatch(checkToken());
+  useEffect(() => {
+    async function asyncCheck() {
+      if (localStorage.getItem('refreshToken')) {
+        await dispatch(checkToken());
+      }
+      if (walletAddress !== 'Wallet') {
+        ethereum.on('accountsChanged', (accounts) => {
+          if (accounts.length > 0) {
+            const change = true
+            changeAccount(accounts, change)
+          }
+        });
+        ethereum.on('chainChanged', (networkId) => {
+          if (networkId.length > 0) {
+            changeNetwork(networkId)
+          }
+        });
+      }
     }
-    if (walletAddress !== 'Wallet') {
-      ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0) {
-          const change = true
-          changeAccount(accounts, change)
-        }
-      });
-      ethereum.on('chainChanged', (networkId) => {
-        if (networkId.length > 0) {
-          changeNetwork(networkId)
-        }
-      });
-    }
+    asyncCheck();
   }, []);
 
   return (
