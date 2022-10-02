@@ -77,8 +77,6 @@ function CryptoDetails() {
           sx={{
             p: 1, borderRadius: 5, fontSize: '0.875rem', fontWeight: '700', margin: '0 auto 50px auto'
           }}
-          container
-          rowSpacing={{ xs: 1, md: 2 }}
           className={classes.grid}
         >
           <Grid container sx={{ justifyContent: 'center', display: 'flex', gridAutoFlow: 'row', flexDirection: 'row', flexWrap: 'wrap' }}>
