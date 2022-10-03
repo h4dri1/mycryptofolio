@@ -80,7 +80,7 @@ import {
           }
         }}
         >
-        <List sx={{maxHeight: '400px', width:'100%'}}>
+        {history.status === '1' && <List sx={{maxHeight: '400px', width:'100%'}}>
           {history['result'] && history['result'].map((transaction) => (          
             <ListItem sx={{display:'flex', flexDirection:'column', padding:0}} key={transaction.hash}>
               <Container sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2}}>
@@ -129,7 +129,7 @@ import {
               </Container>
             </ListItem>
           ))}
-        </List>
+        </List>}
         {history.status === '0' && <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
           <ManageSearchIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
           <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No transactions to display</Typography>
