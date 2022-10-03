@@ -109,12 +109,12 @@ import {
                 {transaction.type === 'send' && <RemoveIcon sx={{display: {xs:'none', md:'block'}, margin: 1, color:'custom.main'}}/>}
                 <Container sx={{display: 'flex', border: 'solid 1px #07f3d5', borderRadius: '10px', justifyContent: 'center', minWidth: '200px', height: '50px', alignItems: 'center'}}>
                   {transaction.type === 'send' ? 
-                    <><Typography sx={{fontWeight:'bold', color:'custom.main'}}>{Intl.NumberFormat('en-US', {
+                    <><RemoveIcon sx={{display: {xs:'block', md:'none'}, margin: 1, color:'custom.main'}}/><Typography sx={{fontWeight:'bold', color:'custom.main'}}>{Intl.NumberFormat('en-US', {
                       style: 'decimal',
                       maximumSignificantDigits: 4,
                       minimumSignificantDigits: 2,
                     }).format(ethers.utils.formatEther(transaction.value))} {transaction.tokenSymbol}</Typography></> :
-                    <><Typography sx={{fontWeight:'bold', color:'custom.main'}}>{Intl.NumberFormat('en-US', {
+                    <><AddIcon sx={{display: {xs:'block', md:'none'}, margin: 1, color:'custom.main'}}/><Typography sx={{fontWeight:'bold', color:'custom.main'}}>{Intl.NumberFormat('en-US', {
                       style: 'decimal',
                       maximumSignificantDigits: 4,
                       minimumSignificantDigits: 2,
