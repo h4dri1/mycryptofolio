@@ -2,7 +2,7 @@ import {
     Chart as ChartJS, ArcElement, Tooltip, Legend,
   } from 'chart.js';
 
-  import { Container, Typography, List, ListItem, Avatar, Divider, ListItemAvatar, ListItemText, Box }  from '@mui/material';
+  import { Container, Typography, List, ListItem, Avatar, Divider, ListItemAvatar, ListItemText, Box, Skeleton }  from '@mui/material';
   import { useSelector } from 'react-redux';
 
   import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
@@ -60,28 +60,10 @@ import {
       return time;
     }
 
-    return (
-      <Container disableGutters sx={{ borderRadius: '10px', height: '100%', width:'100%'}}>
-        <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center', width:'100%' }}>
-            <FormatListBulletedIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Token Transfert History</Typography>
-        </Container>
-        <Container disableGutters sx={{
-          marginTop: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', width:'100%', overflowY: 'auto',
-          '&::-webkit-scrollbar': {
-            width: '0.4em'
-          },
-          '&::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)', 
-            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#7f5cce',
-            outline: '1px solid slategrey'
-          }
-        }}
-        >
-        {history.status === '1' && <List sx={{maxHeight: '400px', width:'100%'}}>
-          {history['result'] && history['result'].map((transaction) => (          
+    const TransactionsList = () => {
+      return (
+        <List sx={{maxHeight: '400px', width:'100%'}}>
+          {history['result'] !== undefined ? history['result'].map((transaction) => (          
             <ListItem sx={{display:'flex', flexDirection:'column', padding:0}} key={transaction.hash}>
               <Container sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2}}>
                 <Box sx={{width: 25, height: 25, borderRadius: '50%'}} component={'img'} src={Number(walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>
@@ -128,8 +110,59 @@ import {
                 </Container>
               </Container>
             </ListItem>
-          ))}
-        </List>}
+          )) :
+          <ListItem sx={{display:'flex', flexDirection:'column', padding:0}}>
+          <Container sx={{display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: 2}}>
+            <Skeleton sx={{marginRight:0.5}} variant="circular" width={25} height={25}/>
+            <Skeleton sx={{marginRight:0.5}} variant="circular" width={25} height={25}/>
+            <Skeleton variant='text' width={100} height={30}/>
+          </Container>
+          <Divider sx={{width: '100%', marginBottom: 1.5}}/>
+          <Container sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <ListItemAvatar sx={{display: 'flex', borderRadius: '50%', justifyContent: 'center', height: '50px', width: '50px', alignItems: 'center', mr: 1}}>
+              <Skeleton variant='circular' width={50} height={50}/>
+            </ListItemAvatar>
+            <Container sx={{display:'flex', borderRadius: '10px', minWidth: '220px', justifyContent: 'center', height: '50px', alignItems: 'center'}}>
+              <Skeleton sx={{borderRadius: '10px'}} variant='rectangle' width={200} height={50}/>
+            </Container>
+            <Container sx={{display: {xs:'none', md:'flex'}, borderRadius: '10px', minWidth: '220px', justifyContent: 'center', height: '50px', alignItems: 'center'}}>
+              <Skeleton sx={{borderRadius: '10px'}} variant='rectangle' width={200} height={50}/>
+            </Container>
+            <Container sx={{display: {xs:'none', md:'flex'}, borderRadius: '10px', minWidth: '220px', justifyContent: 'center', height: '50px', alignItems: 'center'}}>
+              <Skeleton sx={{borderRadius: '10px'}} variant='rectangle' width={200} height={50}/>
+            </Container>
+            <Container sx={{display: {xs:'none', md:'flex'}, borderRadius: '10px', minWidth: '220px', justifyContent: 'center', height: '50px', alignItems: 'center'}}>
+              <Skeleton sx={{borderRadius: '10px'}} variant='rectangle' width={200} height={50}/>
+            </Container>
+          </Container>
+        </ListItem>
+          }
+        </List>
+      )
+    }
+
+    return (
+      <Container disableGutters sx={{ borderRadius: '10px', height: '100%', width:'100%'}}>
+        <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center', width:'100%' }}>
+            <FormatListBulletedIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Token Transfert History</Typography>
+        </Container>
+        <Container disableGutters sx={{
+          marginTop: 1, marginBottom: 1,  display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', width:'100%', overflowY: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '0.4em'
+          },
+          '&::-webkit-scrollbar-track': {
+            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)', 
+            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#7f5cce',
+            outline: '1px solid slategrey'
+          }
+        }}
+        >
+        {history['result'] === undefined && <TransactionsList/>}
+        {history.status === '1' && <TransactionsList/>}
         {history.status === '0' && <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
           <ManageSearchIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
           <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No transactions to display</Typography>

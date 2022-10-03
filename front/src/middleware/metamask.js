@@ -17,9 +17,9 @@ import {
     getWalletHistory
 } from "../actions/wallet"
 
-const metamask = (store) => (next) => async (action) => {
+import detectEthereumProvider from '@metamask/detect-provider';
 
-    const state = store.getState();
+const metamask = (store) => (next) => async (action) => {
 
     const handleAccountsChanged = async (accounts) => {
         var { walletAddress } = store.getState().wallet;
@@ -58,14 +58,19 @@ const metamask = (store) => (next) => async (action) => {
             // Payload is the current account when wallet change
             // If no payload get the current account with metamask
             if (!action.payload) {
-                window.ethereum
-                    .request({ method: 'eth_accounts' })
-                    .then((accounts) => {
-                        handleAccountsChanged(accounts)
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
+                const provider = await detectEthereumProvider();
+                if (provider) {
+                    window.ethereum
+                        .request({ method: 'eth_accounts' })
+                        .then((accounts) => {
+                            handleAccountsChanged(accounts)
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                    } else {
+                        console.log('Please install MetaMask!');
+                    }
             } else {
                 // Get changing wallet address
                 // Set new wallet address to localStorage

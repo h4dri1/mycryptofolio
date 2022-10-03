@@ -178,7 +178,7 @@ import {
                 options={options}
             />
         </Container>*/}
-        {distribution.length > 0 ? <TableContainerFunct/> : <Skeleton sx={{borderRadius: '10px', marginBottom: 2}} variant="rectangle" width="580px" height="83px" />}
+        {distribution.length > 0 ? <TableContainerFunct/> : <Skeleton sx={{width:{xs:'300px', md:"580px"}, height:{xs:"83px", md:'200px'}, borderRadius: '10px', marginBottom: 2}} variant="rectangle"/>}
         </Container>
       </Container>
     );
