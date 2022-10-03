@@ -130,7 +130,7 @@ import {
             </ListItem>
           ))}
         </List>
-        {history.status === 0 && <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
+        {history.status === '0' && <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
           <ManageSearchIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
           <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No transactions to display</Typography>
         </Container>}
