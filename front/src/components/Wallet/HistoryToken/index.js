@@ -18,6 +18,7 @@ import {
   import AddIcon from '@mui/icons-material/Add';
   import RemoveIcon from '@mui/icons-material/Remove';
   import TagIcon from '@mui/icons-material/Tag';
+  import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
   import { ethers } from 'ethers';
 
@@ -65,7 +66,7 @@ import {
             <FormatListBulletedIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Token Transfert History</Typography>
         </Container>
         <Container disableGutters sx={{
-          marginTop: 3, display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', width:'100%', overflowY: 'auto',
+          marginTop: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', width:'100%', overflowY: 'auto',
           '&::-webkit-scrollbar': {
             width: '0.4em'
           },
@@ -79,7 +80,7 @@ import {
           }
         }}
         >
-        <List sx={{height: '400px', width:'100%'}}>
+        <List sx={{maxHeight: '400px', width:'100%'}}>
           {history['result'] && history['result'].map((transaction) => (          
             <ListItem sx={{display:'flex', flexDirection:'column', padding:0}} key={transaction.hash}>
               <Container sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2}}>
@@ -129,6 +130,10 @@ import {
             </ListItem>
           ))}
         </List>
+        {history.length > 0 && <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
+          <ManageSearchIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+          <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No transactions to display</Typography>
+        </Container>}
         </Container>
       </Container>
     );
