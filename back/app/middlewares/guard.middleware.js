@@ -28,7 +28,7 @@ module.exports = {
             await guard.buySellSign(req, res);
             next();
         } catch (err) {
-            throw new GuardMiddleware(err);
+            next(err)
         }
     },
     // Delete transaction guard
@@ -52,7 +52,7 @@ module.exports = {
                 next();
             }
         } catch (err) { 
-            throw new GuardMiddleware(err);
+            next(err)
         }
     },
     // Delete wallet guard
@@ -67,7 +67,7 @@ module.exports = {
                 next();
             }
         } catch (err) {
-            throw new GuardMiddleware(err);
+            next(err)
         }
     }
 }

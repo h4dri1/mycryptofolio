@@ -21,21 +21,21 @@ module.exports = {
     // Signup Case new user
     signup: async (req, res, next) => {
         try {
-        // Bind original response in Json
-        const originalResponseJson = res.json.bind(res);
-        // res.json is only used in the last controller if the new user is created
-        // add a function to res.json for save refreshtoken in redis with user.Id for key
-        // and send original response  
-        res.json = async (data) => {
-            const [head, pay, sign] = data.refreshToken.split('.');
-            const payload = jwt.validateRefreshToken(data.refreshToken.trim());
-            await redis.hSet(`${payload.user.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
-            originalResponseJson(data);
+            // Bind original response in Json
+            const originalResponseJson = res.json.bind(res);
+            // res.json is only used in the last controller if the new user is created
+            // add a function to res.json for save refreshtoken in redis with user.Id for key
+            // and send original response  
+            res.json = async (data) => {
+                const [head, pay, sign] = data.refreshToken.split('.');
+                const payload = jwt.validateRefreshToken(data.refreshToken.trim());
+                await redis.hSet(`${payload.user.id}`, sign, data.refreshToken, {EX: 2592000, NX: true});
+                originalResponseJson(data);
+            }
+            next();
+        } catch (err) {
+            next(err);
         }
-        next();
-    } catch (err) {
-        throw new AuthMiddleware(err);
-    }
     },
     // Login case
     login: async (req, res, next) => {
@@ -88,7 +88,7 @@ module.exports = {
             }
             next();
         } catch (err) {
-            throw new AuthMiddleware(err);
+            next(err);
         }
     },
 
@@ -109,7 +109,7 @@ module.exports = {
             res.setHeader('Authorization', jwt.makeToken(req.userId));
             next();
         } catch(err) {
-            throw new AuthMiddleware(err);
+            next(err)
         };
     },
 
@@ -136,7 +136,7 @@ module.exports = {
                     next();
                 }
             } else {
-                throw new AuthMiddleware(err);
+                next(err)
             }
         }
     }

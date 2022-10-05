@@ -27,6 +27,6 @@ module.exports = async (req, res, next) => {
         }
         next();
     } catch (err) {
-        throw new UpdateMiddleware(err);
+        next(err)
     }
 }

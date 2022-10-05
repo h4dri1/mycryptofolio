@@ -195,46 +195,13 @@ class FormError extends Error {
     }
 }
 
-class RateLimitSignup extends Error {
+class RateLimitError extends Error {
     constructor (ip) {
         super();
         this.name = this.constructor.name;
         this.level = 'warn';
         this.ip = ip;
-        this.message = 'You have reached the max new user/ip';
-        this.statusCode = 429;  
-    }
-}
-
-class RateLimitLogin extends Error {
-    constructor (ip) {
-        super();
-        this.name = this.constructor.name;
-        this.level = 'warn';
-        this.ip = ip;
-        this.message = 'You have reached the max request for login';
-        this.statusCode = 429;  
-    }
-}
-
-class RateLimitRefresh extends Error {
-    constructor (ip) {
-        super();
-        this.name = this.constructor.name;
-        this.level = 'warn';
-        this.ip = ip;
-        this.message = 'You have reached the max request for refresh token';
-        this.statusCode = 429;  
-    }
-}
-
-class RateLimitTransaction extends Error {
-    constructor (ip) {
-        super();
-        this.name = this.constructor.name;
-        this.level = 'warn';
-        this.ip = ip;
-        this.message = 'You have reached the max request for add transaction';
+        this.message = 'You have reached the max request per minute';
         this.statusCode = 429;  
     }
 }
@@ -266,17 +233,6 @@ class CurrencyError extends Error {
         this.level = 'error';
         this.message = `${cur} is not supported by the moment`;
         this.statusCode = 500;  
-    }
-}
-
-class RateLimitDeleteUser extends Error {
-    constructor (ip) {
-        super();
-        this.name = this.constructor.name;
-        this.level = 'warn';
-        this.ip = ip;
-        this.message = 'You have reached the max request for deleting user';
-        this.statusCode = 429;  
     }
 }
 
@@ -350,12 +306,8 @@ module.exports = {
     BanUser,
     UseRevokedRefreshToken,
     BadGuy,
-    RateLimitSignup,
-    RateLimitLogin,
+    RateLimitError,
     UnExeptedError,
-    RateLimitRefresh,
-    RateLimitTransaction,
-    RateLimitDeleteUser,
     DbConnectionError,
     CurrencyError,
     CreateUserError,

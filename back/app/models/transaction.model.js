@@ -68,7 +68,7 @@ class Transaction {
     static async getUserTransactionByWallet(user_id, wallet_id) {
         const {rows} = await pool.query(
         'SELECT \
-        id, symbol, buy, price, quantity, buy_date \
+        id, symbol, buy, price, quantity, buy_date, fiat \
         FROM \
         view_transaction \
         WHERE \
@@ -102,19 +102,29 @@ class Transaction {
     }
 
     async save() {
-        if(this.id) {
-            await pool.query('SELECT * FROM update_transaction($1)', [this]);
-        } else {
-            const {rows} = await pool.query('SELECT * FROM add_transaction($1)', [this]);
-            if (rows) {
-                this.id = rows[0].id;
-                return this;
+        try {
+            if(this.id) {
+                await pool.query('SELECT * FROM update_transaction($1)', [this]);
+            } else {
+                const {rows} = await pool.query('SELECT * FROM add_transaction($1)', [this]);
+                if (rows) {
+                    this.id = rows[0].id;
+                    return this;
+                }
             }
+        } catch (error) {
+            console.log(error);
         }
+        
     }
 
     static async delete(id) {
-        await pool.query('DELETE FROM transaction WHERE id=$1 RETURNING id;', [id]);
+        try {
+            await pool.query('DELETE FROM transaction WHERE id=$1 RETURNING id;', [id]);
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
 }
 

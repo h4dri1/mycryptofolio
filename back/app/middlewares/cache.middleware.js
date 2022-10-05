@@ -4,7 +4,7 @@ const { CacheMiddleware } = require('../error/error.middleware')
 
 const prefix = 'mycryptofolio:';
 
-let timeout = 60;
+let timeout = 120;
 
 let newKey;
 
@@ -48,7 +48,7 @@ const cache = async (req, res, next) => {
         }
         next();
     } catch(err) {
-        throw new CacheMiddleware(err);
+        next(err)
     }
 
 }
@@ -65,7 +65,7 @@ const flush = async (req, res, next) => {
         await redis.del('keys')
         next();
     } catch(err) {
-        throw new CacheMiddleware(err);
+        next(err)
     }
 }
 

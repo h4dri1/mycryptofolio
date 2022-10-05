@@ -41,10 +41,7 @@ class GuardMiddleware extends Error {
             this.message = 'Error on the guard middleware';
             this.statusCode = 500;
         } else {
-            this.name = err.name;
-            this.level = err.level;
-            this.message = err.message;
-            this.statusCode = err.statusCode;
+            next(err);
         }
     }
 }
