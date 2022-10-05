@@ -19,7 +19,7 @@ export default function ConnectWallet(wallet, wallets) {
     };
 
     useEffect(() => {
-        if (wallet.wallet.walletAddress !== 'Wallet' && location.pathname.split('/')[1] !== 'wallet') {
+        if (wallet.wallet.walletAddress !== 'Wallet' && location.pathname.split('/')[1] === 'wallet') {
             dispatch(getCurrentAccount())
         }
     },[])
@@ -43,7 +43,7 @@ export default function ConnectWallet(wallet, wallets) {
             sx={{
                 m: 0.5,
                 border: 0,
-                color: 'secondary.main',
+                color: 'primary.main',
                 fontSize: '0.8rem',
                 height: '32px'
             }}

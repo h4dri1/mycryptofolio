@@ -15,9 +15,9 @@ export default function Description({ data }) {
 
   return (
     <Box sx={{ padding: '1em 2em', display: 'flex', flexDirection: 'column', minWidth: '100%'}}>
-      <Typography sx={{marginBottom: 2, color: !darkMode ? 'primary.main' : '#07f3d5'}} variant="h5" component="h1">What is {data.name}?</Typography>
+      <Typography sx={{marginBottom: 2, color: 'secondary.dark'}} variant="h5" component="h1">What is {data.name}?</Typography>
       <Box
-        sx={{ color: 'text.secondary', fontSize: 12, fontWeight: 'small' }}
+        sx={{ color: 'primaryTextColor.main', fontSize: 12, fontWeight: 'small' }}
         dangerouslySetInnerHTML={createMarkup(data.description)}
       />
     </Box>

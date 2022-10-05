@@ -91,8 +91,8 @@ function CryptoList() {
   return (
     <Grid container justifyContent="center" className={classes.root}>
       <Grid item xs={12} className={classes.cryptoList}>
-        <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
-          <TableHead >
+        <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: 'primary.main', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
+          <TableHead>
             <TableRow >
               <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center">
                 <TableSortLabel active={true} direction={orderDirection}>
@@ -112,24 +112,22 @@ function CryptoList() {
 
             {cryptos.length > 0 ? cryptos.map((crypto) => (
               <TableRow key={crypto.id} hover>
-                <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
+                <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
                 <TableCell sx={{borderBottom: 0}}>
                   <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
                     <Avatar loading='lazy' src={crypto.image.replace('large', 'small')} alt={crypto.name} sx={{ mr: 2 }} />
                     <Typography
-
-                      variant="body1"
-                      sx={{ mr: 1, display: { xs: 'none', sm: 'block', color: !darkMode ? "neutral.contrastText" : '#07f3d5' } }}
+                      sx={{ mr: 1, display: { xs: 'none', sm: 'block'}, color:'secondary.light' }}
                     >{crypto.name}
                     </Typography>
-                    <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{crypto.symbol.toUpperCase()}</Typography>
+                    <Typography sx={{color: "primary.light", fontWeight:'bold'}}>{crypto.symbol.toUpperCase()}</Typography>
                   </Box>
                 </TableCell>
-                <TableCell sx= {{borderBottom: 0}} align="right">{`${cryptoSym}${crypto.current_price.toLocaleString("en-US", curParams)}`}</TableCell>
+                <TableCell sx= {{borderBottom: 0, color:'secondary.main'}} align="right">{`${cryptoSym}${crypto.current_price.toLocaleString("en-US", curParams)}`}</TableCell>
                 <TableCell align="right" sx={{ ...(crypto.price_change_percentage_24h > 0 ? { color: '#1cb344' } : { color: '#eb3b5a' }), borderBottom: 0 }}>{crypto.price_change_percentage_24h.toLocaleString()}%</TableCell>
-                <TableCell align="right" sx={{ borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{`${cryptoSym}${crypto.market_cap.toLocaleString("en-US", curParams)}`}</TableCell>
-                <TableCell align="right" sx={{ borderBottom: 0, display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.total_volume.toLocaleString("en-US", curParams)}`}</TableCell>
-                <TableCell align="right" sx={{ borderBottom: 0, display: { xs: 'none', lg: 'table-cell' } }}>{`${cryptoSym}${crypto.circulating_supply.toLocaleString()}`}</TableCell>
+                <TableCell align="right" sx={{ color:'secondary.main', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{`${cryptoSym}${crypto.market_cap.toLocaleString("en-US", curParams)}`}</TableCell>
+                <TableCell align="right" sx={{ color:'secondary.main', borderBottom: 0, display: { xs: 'none', md: 'table-cell' } }}>{`${cryptoSym}${crypto.total_volume.toLocaleString("en-US", curParams)}`}</TableCell>
+                <TableCell align="right" sx={{ color:'secondary.main', borderBottom: 0, display: { xs: 'none', lg: 'table-cell' } }}>{`${cryptoSym}${crypto.circulating_supply.toLocaleString()}`}</TableCell>
               </TableRow>
             )) : <TableRow>
                     <TableCell sx={{borderBottom: 0}} align="center"><Skeleton variant='text' sx={{marginLeft: 3, width: 20, height: 30}}/></TableCell>
@@ -147,7 +145,7 @@ function CryptoList() {
       <Grid item>
         <LoadingButton
           variant="outlined"
-          sx={{ mb: 7, color: !darkMode ? "primary.light" :  '#07f3d5', borderColor: !darkMode ? "primary.light" : '#002F54' }}
+          sx={{ mt:2, mb: 7, color: "primary.main", borderColor: "primary.main"}}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
         >

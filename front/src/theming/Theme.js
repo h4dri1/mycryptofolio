@@ -8,21 +8,27 @@ export default function Theme() {
         palette: {
           mode: darkMode ? 'dark' : 'light',
           background: {
-            default: darkMode ? '#00244F' : 'white',
+            default: darkMode ? '#00244F' : '#EEEEEE',
           },
           primary: {
-            light: '#7f5cce',
-            main: '#3A0CA3',
-            dark: '#280872',
+            light: '#a255ff',
+            main: darkMode ? '#002F54' : '#651fff',
+            dark: '#0100ca',
             contrastText: 'white'
           },
           secondary: {
-            light: '#c345b1',
-            main: '#B5179E',
-            dark: '#7e106e'
+            light: '#6effff',
+            main: '#00e5ff',
+            dark: '#00b2cc'
           },
           neutral: {
-            main: '#a9b0ba',
+            main: darkMode ? '#002F54' : '#EEEEEE',
+          },
+          primaryTextColor:{
+            main:'#ffffff'
+          },
+          secondaryTextColor:{
+            main:'#000000'
           },
           custom: {
             main: '#07f3d5',

@@ -10,7 +10,6 @@ import {
   
   export default function HistoryToken({ history }) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
-    const { darkMode } = useSelector((state) => state.settings);
 
     if (selectedCurrency === 'BTC') {
       var curParams = {
@@ -34,7 +33,7 @@ import {
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: '100%'}}>
         <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-            <FormatListBulletedIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>History NFT</Typography>
+            <FormatListBulletedIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: 'primaryTextColor.main' }}>History NFT</Typography>
         </Container>
         <Container sx={{
           marginTop: 3, display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', overflowY: 'auto', justifyContent: 'space-around',

@@ -24,15 +24,13 @@ export default function PrimarySearchAppBar() {
   const { homeIcon } = useSelector((state) => state.settings);
   const { walletAddress } = useSelector((state) => state.wallet);
 
-  const { darkMode } = useSelector((state) => state.settings);
-
   const hideButton = useMediaQuery('(min-width:900px)');
   const hide1100 = useMediaQuery('(max-width:1100px)');
   const hide500 = useMediaQuery('(max-width:600px)');
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ bgcolor: !darkMode ? '' : '#002F54' }}>
+      <AppBar position="static" sx={{ bgcolor: 'primary.main' }}>
         <Toolbar
           disableGutters
         >
@@ -58,8 +56,8 @@ export default function PrimarySearchAppBar() {
               underline="none"
               sx={{ color: 'white'}}
             >
-            {hideButton && <Button sx={{textTransform: "none" }} color="secondary" startIcon={
-              <CurrencyBitcoinIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
+            {hideButton && <Button sx={{textTransform: "none" }} startIcon={
+              <CurrencyBitcoinIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
             <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
             </Button>}
@@ -75,8 +73,8 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={
-            <ColorLensIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
+            <ColorLensIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
           }>
           <Typography fontSize={'1.2em'}  color="white">NFT</Typography>
           </Button>}
@@ -93,8 +91,8 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={
-            <SavedSearchIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
+            <SavedSearchIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
           }>
           <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
           </Button>}
@@ -110,8 +108,8 @@ export default function PrimarySearchAppBar() {
             underline="none"
             sx={{ color: 'white'}}
           >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} color="secondary" startIcon={
-            <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: !darkMode ? 'secondary' : '#07f3d5', ':hover': {color: !darkMode ? 'secondary.dark' : '#0BA794' }}}/>
+          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
+            <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
           }>
           <Typography fontSize={'1.2em'}  color="white">{walletAddress !== 'Wallet' ? 'Wallet' : 'Portfolio'}</Typography>
           </Button>}

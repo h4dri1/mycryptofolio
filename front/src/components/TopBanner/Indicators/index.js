@@ -46,7 +46,7 @@ const Indicators = ({ data }) => {
       }}
     >
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-      <MonetizationOnIcon sx={{ color: 'secondary.dark' }}/>
+      <MonetizationOnIcon sx={{ color: 'primary.main' }}/>
         <Typography
           variant="subtitle"
           component="p"
@@ -57,7 +57,7 @@ const Indicators = ({ data }) => {
         <Typography
           sx={{
             ml: 0.8,
-            color: 'secondary.main',
+            color: 'primary.main',
             fontSize: '0.8rem',
           }}
         >
@@ -70,14 +70,14 @@ const Indicators = ({ data }) => {
               maximumSignificantDigits: 4,
               minimumSignificantDigits: 2,
             }).format(data.total_market_cap[refCurrency.toLowerCase()]) :
-            (<Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width='50px' height='15px' />)
+            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)
           }
 
         </Typography>
       </Box>
 
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-      <CurrencyExchangeIcon sx={{ color: 'secondary.dark' }} />
+      <CurrencyExchangeIcon sx={{ color: 'primary.main' }} />
         <Typography
           variant="subtitle"
           sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
@@ -87,7 +87,7 @@ const Indicators = ({ data }) => {
         <Typography
           sx={{
             ml: 0.8,
-            color: 'secondary.main',
+            color: 'primary.main',
             fontSize: '0.8rem',
           }}
         >
@@ -99,14 +99,14 @@ const Indicators = ({ data }) => {
               maximumSignificantDigits: 4,
               minimumSignificantDigits: 2,
             }).format(data.total_volume[refCurrency.toLowerCase()]) :
-            (<Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width='50px' height='15px' />)
+            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)
           }
 
         </Typography>
       </Box>
 
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-        <PercentIcon sx={{ color: 'secondary.dark' }} />
+        <PercentIcon sx={{ color: 'primary.main' }} />
         <Typography
           variant="subtitle"
           component="p"
@@ -117,7 +117,7 @@ const Indicators = ({ data }) => {
         <Typography
           sx={{
             ml: 0.8,
-            color: 'secondary.main',
+            color: 'primary.main',
             fontSize: '0.8rem',
           }}
         >
@@ -128,7 +128,7 @@ const Indicators = ({ data }) => {
               maximumSignificantDigits: 4,
               minimumSignificantDigits: 2,
             }).format(data.market_cap_percentage.btc) :
-            (<Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width='50px' height='15px' />)}
+            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)}
         </Typography>
       </Box>
     </Container>

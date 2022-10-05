@@ -92,7 +92,7 @@ export default function TestAvatar() {
               aria-expanded={open ? 'true' : undefined}
               aria-haspopup="true"
               onClick={handleToggle}
-              sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10, border: darkMode ? "1px solid #07f3d5" : "1px solid #7932a8", cursor: 'pointer' }}
+              sx={{ display: {xs: 'none', md: 'flex'}, backgroundColor: 'primary.light',width: 56, height: 56, boxShadow: 10, border: darkMode ? "1px solid #07f3d5" : "1px solid #7932a8", cursor: 'pointer' }}
             />
           }
           
@@ -113,7 +113,7 @@ export default function TestAvatar() {
                   transformOrigin: placement === 'bottom-start' ? 'bottom' : 'top',
                 }}
               >
-                <Paper sx={{marginTop: {xs: 4, md: 1}, backgroundColor: !darkMode ? 'white' : '#00244F', boxShadow: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px'}}>
+                <Paper sx={{marginTop: {xs: 4, md: 1}, backgroundColor: 'secondary.light', boxShadow: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px'}}>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       autoFocusItem={open}
@@ -127,55 +127,52 @@ export default function TestAvatar() {
                           to="/profil"
                           underline="none"
                         >
-                          <Avatar sx={{ bgcolor: darkMode ? 'secondary.light' : 'secondary.main' }} src={hide500 ? avatar : nickname} alt={nickname}/>
+                          <Avatar sx={{ bgcolor: 'primary.light' }} src={hide500 ? avatar : nickname} alt={nickname}/>
                         </Link>
                         <Link
                           component={RouterLink}
                           to="/profil"
                           underline="none"
-                          sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5', paddingLeft: '0.5rem' }}
+                          sx={{ paddingLeft: '0.5rem' }}
                         >
                         Profil
                         </Link>
                       </MenuItem>
-                      <Divider />
+                      <Divider color={'primary.main'}/>
                       <MenuItem>
                         <ListItemIcon>
-                          <AccountBalanceWalletIcon fontSize="small" sx={{color: !darkMode ? 'primary.dark' : '#07f3d5'}}/>
+                          <AccountBalanceWalletIcon fontSize="small" sx={{color: 'primary.main'}}/>
                         </ListItemIcon>
                         <Link
                           component={RouterLink}
                           to="/portfolio"
                           underline="none"
-                          sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}
                         >
                           Portfolio
                         </Link>
                       </MenuItem>
                       <MenuItem>
                         <ListItemIcon>
-                          <SavedSearchIcon fontSize="small" sx={{color: !darkMode ? 'primary.dark' : '#07f3d5'}}/>
+                          <SavedSearchIcon fontSize="small" sx={{color: 'primary.main'}}/>
                         </ListItemIcon>
                         <Link
                           component={RouterLink}
                           to="/"
                           underline="none"
-                          sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}
                         >
                           Watchlist
                         </Link>
                       </MenuItem>
-                      <Divider />
+                      <Divider color={'primary.main'}/>
                       <MenuItem>
                         <ListItemIcon>
-                          <Logout fontSize="small" sx={{color: !darkMode ? 'primary.dark' : '#07f3d5'}}/>
+                          <Logout fontSize="small" sx={{color: 'primary.main'}}/>
                         </ListItemIcon>
                         <Link
                           onClick={handleLogout}
                           component={RouterLink}
                           to="/"
                           underline="none" // redirection to HOME when click on LOGOUT
-                          sx={{ color: !darkMode ? 'primary.dark' : '#07f3d5' }}
                         >
                           Logout
                         </Link>

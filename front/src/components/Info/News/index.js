@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 
 export default function TopNFT(colors) {
-    const { darkMode } = useSelector((state) => state.settings);
 
     const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
 
@@ -44,7 +43,7 @@ export default function TopNFT(colors) {
         >
             <Container >
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                <DeviceThermostatIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
+                <DeviceThermostatIcon sx={{color: 'secondary.main'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
             </Container>
             <Divider sx={{ marginBottom: 2 }} />
             <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>
@@ -57,6 +56,7 @@ export default function TopNFT(colors) {
                         percent={value}
                         arcPadding={0.02}
                         hideText={true}
+                        animate={false}
                     />
                     ) : (
                         <Skeleton sx={{borderRadius: '10px'}} variant="rectangle" width={'200px'} height={'100px'} />

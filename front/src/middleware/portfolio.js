@@ -222,7 +222,6 @@ const portfolio = (store) => (next) => async (action) => {
 
       privateRoute.request(config)
         .then((res) => {
-          console.log(res);
           store.dispatch(fetchSpecificWallet(walletId));
     
         })

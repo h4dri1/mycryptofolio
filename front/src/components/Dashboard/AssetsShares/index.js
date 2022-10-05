@@ -2,16 +2,18 @@ import {
   Chart as ChartJS, ArcElement, Tooltip, Legend,
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { Container, Table, TableHead, TableBody, TableRow, TableCell, Divider, Typography } from '@mui/material';
+import { Container, Table, TableHead, TableBody, TableRow, TableCell, Divider, Typography, TableContainer } from '@mui/material';
 
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+
+import { styled } from '@mui/material/styles';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AssetsShares({ distribution }) {
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
-  
+  const { darkMode } = useSelector((state) => state.settings);
   const labelsList = distribution.map((item) => (
     item.name
   ));
@@ -61,20 +63,26 @@ export default function AssetsShares({ distribution }) {
     ],
   };
 
+  const StyledTableHead = styled(TableHead)`
+  & .MuiTableCell-root {
+    background-color: #00b2cc;
+  }
+`;
+
   return (
     <Container disableGutters sx={{ border: 0, borderColor: 'grey', margin: { xs: '2em 0', md: '0' } }}>
-      <Typography color="primary.light" variant="h6" align="center">Répartition de vos actifs</Typography>
+      <Typography color="secondary.light" variant="h6" align="center">Répartition de vos actifs</Typography>
       <Divider sx={{ width: '100%' }} />
       <Container
-        sx={{ width: '40%', height: '40%', mt: 1 }}
+        sx={{ width: '40%', height: '40%', mt: 1, mb:1 }}
       >
         <Pie
           data={data}
           options={options}
         />
       </Container>
-      <Container sx={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '30vh', overflowY: 'auto',
+      <TableContainer sx={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '25vh', overflowY: 'auto', borderRadius: '10px', bgcolor: 'neutral.main',
         '&::-webkit-scrollbar': {
           width: '0.4em'
         },
@@ -89,26 +97,26 @@ export default function AssetsShares({ distribution }) {
       }}
       >
         <Table stickyHeader sx={{ maxWidth: '100%', p: '10' }}>
-          <TableHead align="left">
+          <StyledTableHead>
             <TableRow align="left">
-              <TableCell align="center" sx={{ padding: '1em 0' }}>Devise</TableCell>
-              <TableCell align="center" sx={{ padding: '1em 0' }}>Quantité</TableCell>
-              <TableCell align="center" sx={{ padding: '1em 0' }}>Total</TableCell>
-              <TableCell align="center" sx={{ padding: '1em 0' }}>%</TableCell>
+              <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Devise</TableCell>
+              <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Quantité</TableCell>
+              <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Total</TableCell>
+              <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>%</TableCell>
             </TableRow>
-          </TableHead>
+          </StyledTableHead>
           <TableBody align="left">
             {distribution.map((asset, index) => (
               <TableRow key={index}>
-                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{asset.name.toUpperCase()}</TableCell>
-                <TableCell align="center" sx={{ padding: '0.5em 0' }}>{Intl.NumberFormat('en-US', {
+                <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0  }}>{asset.name.toUpperCase()}</TableCell>
+                <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0  }}>{Intl.NumberFormat('en-US', {
                   style: 'decimal',
                   maximumSignificantDigits: 4,
                   minimumSignificantDigits: 2,
                 }).format(asset.quantity)}
                 </TableCell>
 
-                <TableCell align="center" sx={{ padding: '0.5em 0' }}>
+                <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0  }}>
                   {Intl.NumberFormat('en-US', {
                     style: 'currency',
                     currency: refCurrency,
@@ -117,12 +125,12 @@ export default function AssetsShares({ distribution }) {
                   }).format(asset.value)}
                 </TableCell>
 
-                <TableCell align="center" sx={{ padding: '0.5em 0.1em' }}>{Intl.NumberFormat('en-US', { style: 'percent', maximumSignificantDigits: 2 }).format((asset.distribution / 100))}</TableCell>
+                <TableCell align="center" sx={{ padding: '0.5em 0.1em', borderBottom: 0  }}>{Intl.NumberFormat('en-US', { style: 'percent', maximumSignificantDigits: 2 }).format((asset.distribution / 100))}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      </Container>
+      </TableContainer>
     </Container>
   );
 }

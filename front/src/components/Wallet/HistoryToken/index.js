@@ -26,7 +26,6 @@ import {
   
   export default function HistoryToken({ history }) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
-    const { darkMode } = useSelector((state) => state.settings);
     const { walletNetwork } = useSelector((state) => state.wallet);
 
     if (selectedCurrency === 'BTC') {
@@ -79,14 +78,14 @@ import {
                   {transaction.type === 'send' ? 
                     <><FileUploadIcon sx={{color: 'secondary.main'}}/>
                     <Typography>To {transaction.to.substring(0, 6)}...{transaction.to.substring(38, 42)}</Typography></> : 
-                      <><DownloadIcon sx={{color: 'secondary.main'}}/><Typography>From {transaction.from.substring(0, 6)}...{transaction.from.substring(38, 42)}</Typography></>}
+                      <><DownloadIcon sx={{color: 'secondary.main'}}/><Typography color={'primaryTextColor.main'}>From {transaction.from.substring(0, 6)}...{transaction.from.substring(38, 42)}</Typography></>}
                 </Container>
                 <KeyboardDoubleArrowRightIcon sx={{color: 'custom.main', marginLeft: 1, marginRight: 1}}/>
                 <Container sx={{display: {xs:'none', md:'flex'}, border: 'solid 1px #07f3d5', borderRadius: '10px', minWidth: '220px', justifyContent: 'center', height: '50px', alignItems: 'center'}}>
                   {transaction.type === 'send' ? 
                     <><FileUploadIcon sx={{color: 'secondary.main'}}/>
                     <Typography>From {transaction.from.substring(0, 6)}...{transaction.to.substring(38, 42)}</Typography></> : 
-                      <><DownloadIcon sx={{color: 'secondary.main'}}/><Typography>To {transaction.to.substring(0, 6)}...{transaction.from.substring(38, 42)}</Typography></>}
+                      <><DownloadIcon sx={{color: 'secondary.main'}}/><Typography color={'primaryTextColor.main'}>To {transaction.to.substring(0, 6)}...{transaction.from.substring(38, 42)}</Typography></>}
                 </Container>
                 {transaction.type === 'receive' && <AddIcon sx={{display: {xs:'none', md:'block'}, margin: 1, color:'custom.main'}}/>}
                 {transaction.type === 'send' && <RemoveIcon sx={{display: {xs:'none', md:'block'}, margin: 1, color:'custom.main'}}/>}
@@ -144,7 +143,7 @@ import {
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: '100%', width:'100%'}}>
         <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center', width:'100%' }}>
-            <FormatListBulletedIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Token Transfert History</Typography>
+            <FormatListBulletedIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Token Transfert History</Typography>
         </Container>
         <Container disableGutters sx={{
           marginTop: 1, marginBottom: 1,  display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', width:'100%', overflowY: 'auto',
@@ -164,8 +163,8 @@ import {
         {history['result'] === undefined && <TransactionsList/>}
         {history.status === '1' && <TransactionsList/>}
         {history.status === '0' && <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
-          <ManageSearchIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
-          <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No transactions to display</Typography>
+          <ManageSearchIcon sx={{fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+          <Typography sx={{textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No transactions to display</Typography>
         </Container>}
         </Container>
       </Container>

@@ -35,7 +35,7 @@ const EditOrDeleteItem = ({
 
   return (
     <Box sx={{ ...(positionAbsolute && { position: 'absolute' }), right: '0' }}>
-      <Button ref={anchorRef} onClick={handleButtonToggle}>
+      <Button sx={{color:'secondary.light'}} ref={anchorRef} onClick={handleButtonToggle}>
         <ExpandMoreIcon />
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} placement="bottom-end">

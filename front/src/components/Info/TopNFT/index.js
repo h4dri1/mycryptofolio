@@ -24,8 +24,6 @@ export default function TopNFT(colors) {
 
     const { list: nfts } = useSelector((state) => state.nft.NFTList);
 
-    const { darkMode } = useSelector((state) => state.settings);
-
     const { color, image } = colors
     
     const hide500 = useMediaQuery('(max-width:600px)');
@@ -48,12 +46,12 @@ export default function TopNFT(colors) {
         >
             <Container sx={{ marginBottom: 3 }}>
                 <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                    <InsertPhotoIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending NFT</Typography>
+                    <InsertPhotoIcon sx={{color: 'secondary.main'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending NFT</Typography>
                 </Container>
                 { nfts.length > 0 ? (
-                    <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px' }}>
+                    <TableContainer component={Paper} sx={{backgroundColor: 'neutral.main', borderRadius: '10px', width: hide500 ? '320px' : '472px' }}>
                         <Table size='small' aria-label="a dense table">
-                            <TableHead sx={{backgroundColor: '#B197FF'}}>
+                            <TableHead sx={{backgroundColor: 'secondary.dark'}}>
                                 <TableRow>
                                     <TableCell></TableCell>
                                     <TableCell>Nom</TableCell>

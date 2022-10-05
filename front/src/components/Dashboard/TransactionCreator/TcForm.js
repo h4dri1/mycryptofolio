@@ -82,16 +82,33 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
     }
   };
 
-  useEffect(() => {
-    async function fetchCurrentPrice() {
-      dispatch(await getCurrentPrice({
-        coinId: currency.id,
-        dateValue,
-        refCurrency,
-      })), [currency, dateValue]
+  function changeTimeZone(date, timeZone) {
+    if (typeof date === 'string') {
+      return new Date(
+        new Date(date).toLocaleString('en-US', {
+          timeZone,
+        }),
+      );
     }
-    fetchCurrentPrice();
-  });
+  
+    return new Date(
+      date.toLocaleString('en-US', {
+        timeZone,
+      }),
+    );
+  }
+
+  useEffect(() => {
+    async function fetchPrice() {
+      const usDate = changeTimeZone(dateValue, 'America/New_York');
+      await dispatch(getCurrentPrice({
+        coinId: currency.id,
+        usDate,
+        refCurrency,
+      })); 
+    }
+    fetchPrice();
+  }, [currency, dateValue]);
 
   // ! Do not remove next commented code, may be useful later
   // useEffect(() => {

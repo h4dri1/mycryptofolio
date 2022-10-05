@@ -59,8 +59,8 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                   width: '30%',
                   maxWidth: '40vw',
                   borderRadius: '60%',
-                  border: 'solid 2px primary.main',
-                  bgcolor: 'primary.main',
+                  border: 'solid 2px primary.dark',
+                  bgcolor: 'primary.light',
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',
@@ -113,10 +113,10 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                           borderRadius: '50%',
                           border: 'solid 2px',
                           borderColor: 'primary.light',
-                          backgroundColor: 'white',
+                          backgroundColor: 'secondary.dark',
                           marginLeft: '5%',
                           ...(wallet.id === selectedWallet && {
-                            backgroundColor: 'primary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold',
+                            backgroundColor: 'secondary.light', color: 'black', width: '25%', marginLeft: '2.5%', fontWeight: 'bold',
                           }),
                           display: 'flex',
                           alignItems: 'center',
@@ -162,7 +162,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
         </Grid>
         <Grid item xs={12}>
           <IconButton sx={{ marginLeft: '11.5%', padding: '1%' }} onClick={() => dispatch(toggleCreateWalletModal())}>
-            <AddCircleIcon sx={{ color: 'primary.main' }} fontSize="large" />
+            <AddCircleIcon sx={{ color: 'secondary.light' }} fontSize="large" />
           </IconButton>
         </Grid>
       </Grid>

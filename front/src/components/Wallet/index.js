@@ -53,16 +53,16 @@ const Wallet = () => {
     <div className="">
       <Box sx={{minHeight: '80vh'}}>
       <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
-        <Grid item xs={12} md={8.1} className={classes.gridItem}>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
           <Banner tokens={walletTokens}/>
         </Grid>
-        <Grid item xs={12} md={4} className={classes.gridItem}>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
             <AssetsShares distribution={walletTokens} />
         </Grid>
-        <Grid item xs={12} md={4} className={classes.gridItem}>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
             <Nft collection={walletNFT} />
         </Grid>
-        <Grid item xs={12} md={8.1} className={classes.gridItem}>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
             <HistoryToken history={walletHistory}/>
         </Grid>
       </Grid>
