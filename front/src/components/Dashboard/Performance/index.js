@@ -1,132 +1,85 @@
-import { Grid, Box, Typography, Divider } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 
-import { useSelector } from 'react-redux';
+import {
+  Chart as ChartJS, ArcElement, Tooltip, Legend,
+} from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
 
-function Performance() {
-  const { performance } = useSelector((state) => state.portfolio);
-  const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+import PieChartIcon from '@mui/icons-material/PieChart';
 
-  let perfPercentage = (
-    (
-      (performance.actual_value - performance.investment) / performance.investment) * 100
-  ).toFixed(2);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-  isNaN(perfPercentage) ? perfPercentage = 0 : perfPercentage;
+function Performance({chartData}) {
+  const labelsList = chartData.map((item) => (
+    item.name
+  ));
+
+  const dataList = chartData.map((item) => (
+    item.distribution
+  ));
+
+  const options = {
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          color: 'white',
+        }
+      },
+    },
+    responsive: true,
+  };
+
+  // DATA PIE GRAPH
+  const data = {
+    type: 'doughnut',
+    // TODO: LABEL à dynamiser
+    labels: labelsList,
+    // labels: ['BTC', 'ETH',...]
+    datasets: [
+      {
+        // TODO: DATA à dynamiser
+        data: dataList,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
 
   return (
-    <Grid container rowSpacing={3}>
-      <Grid item xs={12}>
-        <Typography color="primary.light" variant="h6" align="center">Performance</Typography>
-        <Divider sx={{ width: '100%' }} />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-evenly',
-          alignItems: 'right',
-          padding: { xs: '.5em', md: '3em' },
-          height: '100%',
+    <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
+      <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
+        <PieChartIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Token allocation</Typography>
+      </Container>
+      <Container sx={{
+          display: 'flex', flexDirection: 'row', alignItems: 'center', maxHeight: '60vh', overflowY: 'auto', justifyContent: 'center'
         }}
         >
-          <Box sx={{
-            display: 'inline-flex',
-            justifyContent: 'space-between',
-            margin: { xs: '0 1em', md: '0' },
-          }}
-          >
-            <Typography>
-              Investissement :
-            </Typography>
-            <Typography color="secondary.main" component="span">
-              {Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: refCurrency,
-                maximumSignificantDigits: 4,
-                minimumSignificantDigits: 2,
-              }).format(performance.investment)}
-            </Typography>
-          </Box>
-
-          <Box sx={{
-            display: 'inline-flex',
-            justifyContent: 'space-between',
-            margin: { xs: '0 1em', md: '0' },
-          }}
-          >
-            <Typography>
-              Valeur actuelle :
-            </Typography>
-            <Typography color="secondary.main" component="span" ml={2}>
-              {Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: refCurrency,
-                maximumSignificantDigits: 4,
-                minimumSignificantDigits: 2,
-              }).format(performance.actual_value)}
-            </Typography>
-          </Box>
-
-          <Box sx={{
-            display: 'inline-flex',
-            justifyContent: 'space-between',
-            margin: { xs: '0 1em', md: '0' },
-          }}
-          >
-            <Typography>
-              PnL :
-            </Typography>
-            <Typography color="secondary.main" component="span" ml={2}>
-              {Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: refCurrency,
-                maximumSignificantDigits: 4,
-                minimumSignificantDigits: 2,
-              }).format(performance.pnl)}
-            </Typography>
-          </Box>
-
-        </Box>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        sm={6}
-        sx={{
-          display: 'flex', justifyContent: 'center', alignItems: 'center',
-        }}
-      >
-        <Box
-          component="span"
-          sx={[{
-            marginBottom: '15px',
-            width: '70%',
-            maxWidth: '40vw',
-            borderRadius: '50%',
-            border: 'solid 3px',
-            borderColor: 'primary.light',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-          {
-            '::after': {
-              display: 'block',
-              paddingBottom: '100%',
-              content: '""',
-            },
-          },
-          ]}
+        <Container
+          sx={{ width: '50%', height: '50%'}}
         >
-          <Typography
-            variant="h3"
-            color={perfPercentage >= 0 ? '#1cb344' : '#eb3b5a'}
-          >
-            {perfPercentage > 0 ? `+${perfPercentage}%` : `${perfPercentage}%`}
-          </Typography>
-        </Box>
-      </Grid>
-    </Grid>
+          <Doughnut
+            data={data}
+            options={options}
+          />
+        </Container>
+      </Container>
+    </Container>
   );
 }
 

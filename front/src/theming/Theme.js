@@ -36,6 +36,37 @@ export default function Theme() {
           contrastThreshold: 3,
           tonalOffset: 0.2,
         },
+        components: {
+          MuiCssBaseline: {
+            styleOverrides: {
+              body: {
+                scrollbarColor: darkMode ? '#002F54' : '#651fff',
+                "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
+                  backgroundColor: darkMode ? '#00244F' : '#EEEEEE',
+                  width: '8px',
+                  borderRadius: 8,
+                },
+                "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
+                  backgroundColor: '#00b2cc',
+                  minHeight: 20,
+                  borderRadius: 4,
+                },
+                "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus": {
+                  backgroundColor: '#651fff',
+                },
+                "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active": {
+                  backgroundColor: "#959595",
+                },
+                "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
+                  backgroundColor: '#651fff',
+                },
+                "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
+                  backgroundColor: '#651fff',
+                },
+              },
+            },
+          },
+        },
       });
 
       theme = responsiveFontSizes(theme);

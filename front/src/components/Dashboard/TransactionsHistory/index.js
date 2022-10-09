@@ -1,12 +1,16 @@
 /* eslint-disable react/function-component-definition */
-import { Box, Typography, Table, TableHead, TableBody, TableRow, TableCell, Divider, Modal } from '@mui/material';
+import { Box, Typography, Table, TableHead, TableBody, TableRow, TableCell, Divider, Modal, Container, Skeleton, TableContainer, Paper } from '@mui/material';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
 
+import { makeStyles } from '@mui/styles';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settings';
+
+import HistoryIcon from '@mui/icons-material/History';
 import { useState } from 'react';
 
 const modalBoxStyle = {
@@ -21,11 +25,11 @@ const modalBoxStyle = {
   p: 4,
 };
 
-const TransactionsHistory = () => {
+export default function TransactionsHistory({transactions}) {
   const dispatch = useDispatch();
-  const { transactions } = useSelector((state) => state.portfolio);
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  const { darkMode } = useSelector((state) => state.settings);
 
   const [selectedTransaction, setSelectedTransaction] = useState(undefined);
 
@@ -34,56 +38,52 @@ const TransactionsHistory = () => {
     dispatch(toggleTransactionEditor());
   };
 
-  return (
-    <Box sx={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto', 
-      '&::-webkit-scrollbar': {
-        width: '0.4em'
-      },
-      '&::-webkit-scrollbar-track': {
-        boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-        webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-      },
-      '&::-webkit-scrollbar-thumb': {
-        backgroundColor: '#7f5cce',
-        outline: '1px solid slategrey'
-      }
-    }}
-    >
-      <Typography color="primary.light" variant="h6">Historique des transactions</Typography>
-      <Divider sx={{ width: '100%' }} />
-      <Table stickyHeader sx={{ maxWidth: '90%' }}>
+  const useStyles = makeStyles({
+
+    root: {
+        "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "#00b2cc;"
+        },
+    }
+});
+
+const classes = useStyles();
+
+  const TableContainerFunction = () => {
+    return (
+      <TableContainer component={Paper} sx={{marginBottom: 2, backgroundColor: 'neutral.main', borderRadius: '10px', maxHeight: '25vh', maxWidth: '95%'}}>
+      <Table stickyHeader size='small' aria-label="a dense table" sx={{ maxWidth: '100%', p: '10'}}>
         <TableHead>
-          <TableRow>
-            <TableCell align="left" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Nom</TableCell>
-            <TableCell align="center" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Prix d'achat</TableCell>
-            <TableCell align="center" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Prix de vente</TableCell>
-            <TableCell align="center" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Quantité</TableCell>
-            <TableCell align="center" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>Date</TableCell>
-            {/* <TableCell align="right" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }}>%</TableCell> */}
-            <TableCell align="right" sx={{ padding: { xs: '0', sm: '1em 0' }, fontSize: { xs: '.8rem', sm: '.875rem' } }} />
+        <TableRow className={classes.root}>
+          <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
+          <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Prix d'achat</TableCell>
+          <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Prix de vente</TableCell>
+          <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Quantité</TableCell>
+          <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Date</TableCell>          
+          <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}/>
           </TableRow>
         </TableHead>
         <TableBody>
           {transactions.map((transaction) => (
             <TableRow key={transaction.id}>
-              <TableCell align="left" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{transaction.symbol.toUpperCase()}</TableCell>
+              <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{transaction.symbol.toUpperCase()}</TableCell>
               {transaction.buy
-                ? <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
+                ? <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                 : <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
               {!transaction.buy
-                ? <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
-                : <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
-              <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
+                ? <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
+                : <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
+              <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
                 {Intl.NumberFormat('en-US', {
                   style: 'decimal',
                   maximumSignificantDigits: 4,
                   minimumSignificantDigits: 2,
                 }).format(transaction.buy ? transaction.quantity : (transaction.quantity * -1))}
               </TableCell>
-              <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
+              <TableCell align="center" sx={{ borderBottom: 0, borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
               {/* <TableCell align="right" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{transaction.rentability}%</TableCell> */}
-              <TableCell align="right" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
+              <TableCell align="right" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
                 <EditOrDeleteItem
                   positionAbsolute={false}
                   editItem={handleEditTransaction}
@@ -95,13 +95,31 @@ const TransactionsHistory = () => {
           ))}
         </TableBody>
       </Table>
+    </TableContainer>
+    )
+  }
+
+  return (
+    <Container disableGutters sx={{ borderRadius: '10px', height: '100%', width:'100%'}}>
+        <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center', width:'100%' }}>
+            <HistoryIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Token Transfert History</Typography>
+        </Container>
+        <Container sx={{
+        display: 'flex', 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        overflowY: 'auto', 
+        justifyContent: 'center',
+        padding: '0',
+      }}>
+        {transactions.length > 0 ? <TableContainerFunction/> : <Skeleton sx={{width:{xs:'300px', md:"580px"}, height:{xs:"83px", md:'200px'}, borderRadius: '10px', marginBottom: 2}} variant="rectangle"/>}
+      </Container>
+
       <Modal open={transactionEditorIsOpen} onClose={() => dispatch(toggleTransactionEditor())}>
         <Box sx={modalBoxStyle}>
           <TransactionCreator id={selectedTransaction} />
         </Box>
       </Modal>
-    </Box>
+    </Container>
   );
 };
-
-export default TransactionsHistory;

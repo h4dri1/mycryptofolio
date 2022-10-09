@@ -28,7 +28,7 @@ const Wallet = () => {
       borderColor: '#E7EBF0',
       borderRadius: '10px',
       margin: '10px',
-      boxShadow: 4, 
+      boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
       backgroundColor: image ? '#FF3CAC' : color,
       backgroundImage: image
     },
@@ -51,7 +51,7 @@ const Wallet = () => {
 
   return (
     <div className="">
-      <Box sx={{minHeight: '80vh'}}>
+    <Box sx={{minHeight: '80vh'}}>
       <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
         <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
           <Banner tokens={walletTokens}/>
@@ -66,7 +66,7 @@ const Wallet = () => {
             <HistoryToken history={walletHistory}/>
         </Grid>
       </Grid>
-      </Box>
+    </Box>
     </div>
   ); 
 };

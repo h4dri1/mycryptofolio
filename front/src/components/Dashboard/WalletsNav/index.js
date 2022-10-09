@@ -56,7 +56,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
               <Box
                 component="span"
                 sx={[{
-                  width: '30%',
+                  width: '10%',
                   maxWidth: '40vw',
                   borderRadius: '60%',
                   border: 'solid 2px primary.dark',
@@ -83,19 +83,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
             </ListItemButton>
           </Link>
         </Grid>
-        <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '30vh',
-        '&::-webkit-scrollbar': {
-          width: '0.4em'
-        },
-        '&::-webkit-scrollbar-track': {
-          boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-          webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: '#7f5cce',
-          outline: '1px solid slategrey'
-        }
-       }}>
+        <Grid item xs={12} sx={{ overflowY: 'auto', maxHeight: '30vh'}}>
           <List>
             {
               wallets.map((wallet) => (
@@ -108,7 +96,7 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
                       <Box
                         component="span"
                         sx={[{
-                          width: '20%',
+                          width: '5%',
                           maxWidth: '40vw',
                           borderRadius: '50%',
                           border: 'solid 2px',
@@ -166,8 +154,6 @@ const WalletsNav = ({ wallets, selectedWallet }) => {
           </IconButton>
         </Grid>
       </Grid>
-      <AddWallet />
-      <EditWallet />
     </>
   );
 };

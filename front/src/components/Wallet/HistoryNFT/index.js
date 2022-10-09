@@ -36,19 +36,7 @@ import {
             <FormatListBulletedIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color: 'primaryTextColor.main' }}>History NFT</Typography>
         </Container>
         <Container sx={{
-          marginTop: 3, display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', overflowY: 'auto', justifyContent: 'space-around',
-          '&::-webkit-scrollbar': {
-            width: '0.4em'
-          },
-          '&::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)', 
-            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#7f5cce',
-            outline: '1px solid slategrey'
-          }
-        }}
+          marginTop: 3, display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', overflowY: 'auto', justifyContent: 'space-around'}}
         >
         
 

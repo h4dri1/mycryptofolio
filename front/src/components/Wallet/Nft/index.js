@@ -136,19 +136,7 @@ import {
             <PhotoIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>NFT</Typography>
         </Container>
         <Container sx={{
-          marginTop: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto', justifyContent: 'space-around',
-          '&::-webkit-scrollbar': {
-            width: '0.4em'
-          },
-          '&::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)', 
-            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#7f5cce',
-            outline: '1px solid slategrey'
-          }
-        }}
+          marginTop: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto', justifyContent: 'space-around'}}
         >
         {collection.length >  0 ? <NFTList/> : <Container sx={{display: 'flex', justifyContent: 'space-around', marginBottom: 4}}>
           <Skeleton variant="rectangle" width={150} height={210}/>

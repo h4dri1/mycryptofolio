@@ -1,7 +1,6 @@
 /* eslint-disable react/function-component-definition */
-import Grid from '@mui/material/Grid';
+import { Grid, Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolio } from 'src/actions/portfolio';
@@ -15,30 +14,40 @@ import TransactionsHistory from './TransactionsHistory';
 import TransactionCreator from './TransactionCreator';
 import { getAllCryptos } from '../../actions/cryptos';
 
-const useStyles = makeStyles({
-  grid: {
-    height: '100%',
-    marginTop: '20px',
-    marginBottom: '50px',
-  },
-  gridItem: {
-    borderColor: '#E7EBF0',
-    borderRadius: '10px',
-    margin: '10px',
+import Banner from './Banner'
 
-  },
-  gridSubItem: {
-    // border: 'solid 2px gold',
-    // height: '100%',
-  }
-});
+import colors from '../../services/getColors'
 
 const Dashboard = ({ logged, verify }) => {
+  const useStyles = makeStyles({
+    grid: {
+      height: '100%',
+      marginTop: '20px',
+      marginBottom: '50px',
+    },
+    gridItem: {
+      borderColor: '#E7EBF0',
+      borderRadius: '10px',
+      margin: '10px',
+      boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
+      backgroundColor: image ? '#FF3CAC' : color,
+      backgroundImage: image
+    },
+    gridSubItem: {
+      // border: 'solid 2px gold',
+      // height: '100%',
+    }
+  });
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
+  const { performance } = useSelector((state) => state.portfolio);
+  const { transactions } = useSelector((state) => state.portfolio);
+
+  const { color, image } = colors()
   
   useEffect(() => {
     if (!logged) {
@@ -53,27 +62,25 @@ const Dashboard = ({ logged, verify }) => {
   return (
     <div className="">
       <ConfirmDelete />
-      <Grid maxHeight={'80%'} container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
-        <Grid sx={{ boxShadow: 4, backgroundColor: 'primary.main' }} item xs={12} md={5.5} className={classes.gridItem}>
-          <Grid container sx={{ padding: 0 }}>
-            <Grid item xs={12} md={6} className={classes.gridSubItem}>
-              <WalletsNav wallets={wallets} selectedWallet={selectedWallet} />
-            </Grid>
-            <Grid item xs={12} md={6} className={classes.gridSubItem}>
-              <AssetsShares distribution={distribution} />
-            </Grid>
-          </Grid>
+      <Box sx={{minHeight: '80vh'}}>
+      <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
+      <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
+          <Banner wallets={wallets} selectedWallet={selectedWallet} performance={performance}/>
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: 'primary.main' }} item xs={12} md={5.5} className={classes.gridItem}>
-          <Performance />
+        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
+            <AssetsShares distribution={distribution} />
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: 'primary.main' }} item xs={12} md={5.5} className={classes.gridItem}>
-          <TransactionsHistory />
+        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
+          <Performance chartData={distribution}/>
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: 'primary.main' }} item xs={12} md={5.5} className={classes.gridItem}>
-          <TransactionCreator disabled={!selectedWallet} />
+        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
+          <TransactionsHistory transactions={transactions}/>
         </Grid>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
+          <TransactionCreator />
+        </Grid>    
       </Grid>
+    </Box>
     </div>
   );
 };

@@ -15,7 +15,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 
 import { LoadingButton } from '@mui/lab';
-import { makeStyles, useTheme } from '@mui/styles';
+import { makeStyles, useTheme, styled } from '@mui/styles';
 import {useState, useEffect} from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,6 +44,12 @@ function CryptoList() {
   
   const [rowData, setRowData] = useState(cryptos);
   const [orderDirection, setOrderDirection] = useState("asc");
+
+  const StyledTableHead = styled(TableHead)`
+& .MuiTableCell-root {
+  background-color: #00b2cc;
+}
+`;
 
   if (selectedCurrency === 'BTC') {
     var curParams = {
@@ -92,7 +98,7 @@ function CryptoList() {
     <Grid container justifyContent="center" className={classes.root}>
       <Grid item xs={12} className={classes.cryptoList}>
         <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: 'primary.main', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
-          <TableHead>
+          <StyledTableHead>
             <TableRow >
               <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center">
                 <TableSortLabel active={true} direction={orderDirection}>
@@ -106,7 +112,7 @@ function CryptoList() {
               <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Volume 24h</TableCell>
               <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Circulating supply</TableCell>
             </TableRow>
-          </TableHead>
+          </StyledTableHead>
 
           <TableBody>
 

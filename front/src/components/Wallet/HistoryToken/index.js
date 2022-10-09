@@ -146,19 +146,7 @@ import {
             <FormatListBulletedIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Token Transfert History</Typography>
         </Container>
         <Container disableGutters sx={{
-          marginTop: 1, marginBottom: 1,  display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', width:'100%', overflowY: 'auto',
-          '&::-webkit-scrollbar': {
-            width: '0.4em'
-          },
-          '&::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)', 
-            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#7f5cce',
-            outline: '1px solid slategrey'
-          }
-        }}
+          marginTop: 1, marginBottom: 1,  display: 'flex', flexDirection: 'row', alignItems: 'center', height: 'auto', width:'100%', overflowY: 'auto'}}
         >
         {history['result'] === undefined && <TransactionsList/>}
         {history.status === '1' && <TransactionsList/>}
