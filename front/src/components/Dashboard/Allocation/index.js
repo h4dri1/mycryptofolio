@@ -9,7 +9,7 @@ import PieChartIcon from '@mui/icons-material/PieChart';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function Performance({chartData}) {
+export default function Allocation({chartData}) {
   const labelsList = chartData.map((item) => (
     item.name
   ));
@@ -26,8 +26,7 @@ function Performance({chartData}) {
           color: 'white',
         }
       },
-    },
-    responsive: true,
+    }
   };
 
   // DATA PIE GRAPH
@@ -82,5 +81,3 @@ function Performance({chartData}) {
     </Container>
   );
 }
-
-export default Performance;

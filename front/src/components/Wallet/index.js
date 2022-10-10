@@ -25,6 +25,7 @@ const Wallet = () => {
       marginBottom: '50px',
     },
     gridItem: {
+      width: '95%',
       borderColor: '#E7EBF0',
       borderRadius: '10px',
       margin: '10px',

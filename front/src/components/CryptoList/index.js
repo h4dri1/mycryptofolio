@@ -9,7 +9,9 @@ import {
   Box, 
   Typography,
   Grid,
-  Skeleton
+  Skeleton,
+  TableContainer,
+  Paper,
 } from '@mui/material';
 
 import { Link as RouterLink } from 'react-router-dom';
@@ -28,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       maxWidth: '78%'
     },
+    "& .MuiTableCell-head": {
+      backgroundColor: "#00b2cc"
+  },
   },
   cryptoList: {
     margin: '0% 1% 3% 1%',
@@ -44,12 +49,6 @@ function CryptoList() {
   
   const [rowData, setRowData] = useState(cryptos);
   const [orderDirection, setOrderDirection] = useState("asc");
-
-  const StyledTableHead = styled(TableHead)`
-& .MuiTableCell-root {
-  background-color: #00b2cc;
-}
-`;
 
   if (selectedCurrency === 'BTC') {
     var curParams = {
@@ -97,9 +96,10 @@ function CryptoList() {
   return (
     <Grid container justifyContent="center" className={classes.root}>
       <Grid item xs={12} className={classes.cryptoList}>
-        <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: 'primary.main', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
-          <StyledTableHead>
-            <TableRow >
+      <TableContainer component={Paper} sx={{borderRadius: '10px', marginTop: 2, boxShadow: 5}}>
+        <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: 'primary.main'}}>
+          <TableHead>
+            <TableRow>
               <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center">
                 <TableSortLabel active={true} direction={orderDirection}>
                   #
@@ -112,7 +112,7 @@ function CryptoList() {
               <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Volume 24h</TableCell>
               <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Circulating supply</TableCell>
             </TableRow>
-          </StyledTableHead>
+          </TableHead>
 
           <TableBody>
 
@@ -147,6 +147,7 @@ function CryptoList() {
 
           </TableBody>
         </Table>
+        </TableContainer>
       </Grid>
       <Grid item>
         <LoadingButton

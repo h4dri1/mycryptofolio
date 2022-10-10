@@ -1,4 +1,4 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -10,8 +10,8 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-const EditOrDeleteItem = ({
-  editItem, deleteItem, positionAbsolute, itemId,
+const AddWalletOrTransac = ({
+  addWallet, addTransaction
 }) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef();
@@ -25,24 +25,24 @@ const EditOrDeleteItem = ({
     setOpen(false);
   };
 
-  const handleEditItem = () => {
-    dispatch(editItem(itemId));
+  const handleAddWallet = () => {
+    dispatch(addWallet());
   };
 
-  const displayConfirmDelete = () => {
-    dispatch(deleteItem());
+  const handleAddTransaction = () => {
+    dispatch(addTransaction());
   };
 
   return (
-    <Box sx={{right: '0', height:'50px', width:'50px', display: 'flex', justifyItems:'center' }}>
+    <Box sx={{right: '0' }}>
       <Button sx={{color:'primary.light'}} ref={anchorRef} onClick={handleButtonToggle}>
-        <ExpandMoreIcon />
+        <AddCircleIcon sx={{ color: 'secondary.light' }} fontSize="large" />
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} placement="bottom-end">
         <ClickAwayListener onClickAway={handleClose}>
           <Paper>
-            <ListItemButton onClick={handleEditItem}>Modifier</ListItemButton>
-            <ListItemButton onClick={displayConfirmDelete}>Supprimer</ListItemButton>
+            <ListItemButton onClick={handleAddWallet}>Add wallet</ListItemButton>
+            <ListItemButton onClick={handleAddTransaction}>Add transaction</ListItemButton>
           </Paper>
         </ClickAwayListener>
       </Popper>
@@ -50,14 +50,4 @@ const EditOrDeleteItem = ({
   );
 };
 
-EditOrDeleteItem.propTypes = {
-  editItem: PropTypes.func.isRequired,
-  deleteItem: PropTypes.func.isRequired,
-  itemId: PropTypes.number,
-};
-
-EditOrDeleteItem.defaultProps = {
-  itemId: null,
-};
-
-export default EditOrDeleteItem;
+export default AddWalletOrTransac;

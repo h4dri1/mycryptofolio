@@ -7,11 +7,9 @@ import { fetchPortfolio } from 'src/actions/portfolio';
 import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
-import WalletsNav from './WalletsNav';
 import AssetsShares from './AssetsShares';
-import Performance from './Performance';
+import Performance from './Allocation';
 import TransactionsHistory from './TransactionsHistory';
-import TransactionCreator from './TransactionCreator';
 import { getAllCryptos } from '../../actions/cryptos';
 
 import Banner from './Banner'
@@ -26,6 +24,7 @@ const Dashboard = ({ logged, verify }) => {
       marginBottom: '50px',
     },
     gridItem: {
+      maxWidth: '95%',
       borderColor: '#E7EBF0',
       borderRadius: '10px',
       margin: '10px',
@@ -63,24 +62,21 @@ const Dashboard = ({ logged, verify }) => {
     <div className="">
       <ConfirmDelete />
       <Box sx={{minHeight: '80vh'}}>
-      <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
-      <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
-          <Banner wallets={wallets} selectedWallet={selectedWallet} performance={performance}/>
-        </Grid>
-        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
-            <AssetsShares distribution={distribution} />
-        </Grid>
-        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
-          <Performance chartData={distribution}/>
-        </Grid>
+        <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
         <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
-          <TransactionsHistory transactions={transactions}/>
+            <Banner wallets={wallets} selectedWallet={selectedWallet} performance={performance}/>
+          </Grid>
+          <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
+              <AssetsShares distribution={distribution} />
+          </Grid>
+          <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
+            <Performance chartData={distribution}/>
+          </Grid>
+          <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
+            <TransactionsHistory transactions={transactions}/>
+          </Grid>
         </Grid>
-        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
-          <TransactionCreator />
-        </Grid>    
-      </Grid>
-    </Box>
+      </Box>
     </div>
   );
 };

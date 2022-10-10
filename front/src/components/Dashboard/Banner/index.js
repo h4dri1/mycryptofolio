@@ -1,17 +1,15 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
-import { Tabs, Tab, Typography, Box, Container, IconButton, Skeleton, AppBar } from '@mui/material';
+import { Tabs, Tab, Typography, Box, Container, IconButton, Skeleton, AppBar, Modal, useMediaQuery } from '@mui/material';
 import nFormatter from 'src/services/nFormatter';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useSelector, useDispatch } from 'react-redux';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-
-import { toggleConfirmDelete } from 'src/actions/settings';
-
-import AddCircleIcon from '@mui/icons-material/AddCircle'
+import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
+import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settings';
 
 import {
   toggleCreateWalletModal, updateSelectedWallet, fetchSpecificWallet, fetchPortfolio,
@@ -19,11 +17,25 @@ import {
 } from 'src/actions/portfolio';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
+import AddWalletOrTransac from 'src/components/common/AddWalletOrTransac';
 import AddWallet from './AddWallet';
 import EditWallet from './EditWallet';
 import Identicon from '../../Identicon';
 
 import ReplayIcon from '@mui/icons-material/Replay';
+
+const modalBoxStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  maxWidth: 800,
+  bgcolor: 'background.paper',
+  // border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  borderRadius: '10px'
+};
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -36,7 +48,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: {xs:1, md:2} }}>
           {children}
         </Box>
       )}
@@ -72,6 +84,7 @@ export default function Banner(wallets) {
   const [show, setShow] = React.useState(true);
   const [change, setChange] = React.useState('percent');
   const { darkMode } = useSelector((state) => state.settings);
+  const { transactionEditorIsOpen } = useSelector((state) => state.settings);
 
   if (selectedCurrency === 'BTC') {
     var cryptoSym = '₿'
@@ -82,6 +95,8 @@ export default function Banner(wallets) {
   } else if (selectedCurrency === 'EUR') {
     var cryptoSym = '€'
   }
+
+  const hide500 = useMediaQuery('(max-width:600px)');
 
   const dispatch = useDispatch();
 
@@ -166,8 +181,8 @@ export default function Banner(wallets) {
     return (
       wallets.performance.actual_value !== 0 ? (
         <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: 'center'}}>
-          {wallets.performance.actual_value > wallets.performance.investment && <ArrowCircleUpIcon onClick={handleClickChange} color={'success'} sx={{cursor: 'pointer', marginRight: {xs:0, md:2}, height: '30px', width: '30px'}}></ArrowCircleUpIcon>}
-          {wallets.performance.actual_value < wallets.performance.investment && <ArrowCircleDownIcon onClick={handleClickChange} color={'error'} sx={{cursor: 'pointer', marginRight: {xs:0, md:2}, height: '30px', width: '30px'}}></ArrowCircleDownIcon>}
+          {wallets.performance.actual_value > wallets.performance.investment && <ArrowCircleUpIcon onClick={handleClickChange} color={'success'} sx={{cursor: 'pointer', height: '30px', width: '30px'}}></ArrowCircleUpIcon>}
+          {wallets.performance.actual_value < wallets.performance.investment && <ArrowCircleDownIcon onClick={handleClickChange} color={'error'} sx={{cursor: 'pointer', height: '30px', width: '30px'}}></ArrowCircleDownIcon>}
           <Typography
             variant="h6"
             color={'custom.main'}
@@ -186,21 +201,36 @@ export default function Banner(wallets) {
     ))
   }
 
+  const buttonBackGroundColor = darkMode ? '#194478' : '#8752fa';
+  const appBarBackGroundColor = darkMode ? 'transparent' : '#8752fa';
+
+  const handleEditTransaction = () => {
+    dispatch(toggleTransactionEditor());
+  };
+
   const ButtonTabs = () => {
     return (
-      <Box sx={{ display:'flex',justifyContent: 'right', borderBottom: 1, borderColor: 'divider'}}>
-      <IconButton onClick={() => {
-        if (wallets.selectedWallet === '') {
-          handleMainLinkClick()
-        } else {
-          handleLinkClick(wallets.selectedWallet)
-        }
-      }}>
-      <ReplayIcon sx={{ color: 'secondary.light' }} fontSize="large" />
-      </IconButton>
-        <IconButton onClick={() => dispatch(toggleCreateWalletModal())}>
-          <AddCircleIcon sx={{ color: 'secondary.light' }} fontSize="large" />
+      <Box sx={{ 
+        display:'flex',
+        justifyContent: 'space-between', 
+        height: '48px', 
+        backgroundColor: {xs:'', md:buttonBackGroundColor},
+        marginTop: {xs:-7, md:0},
+        borderTopRightRadius: {xs:0, md:'10px'} }}
+      >
+        <IconButton sx={{height:'47px', width:'64px'}} onClick={() => {
+          if (wallets.selectedWallet === '') {
+            handleMainLinkClick()
+          } else {
+            handleLinkClick(wallets.selectedWallet)
+          }
+        }}>
+          <ReplayIcon sx={{ color: 'secondary.light' }} fontSize="large" />
         </IconButton>
+        <AddWalletOrTransac
+          addWallet={toggleCreateWalletModal}
+          addTransaction={handleEditTransaction}
+        />
       </Box>
     )
   }
@@ -213,9 +243,9 @@ export default function Banner(wallets) {
 
   return (
     <Box >
-      <Box sx={{ display:'flex', justifyContent: 'left', borderBottom: 1, borderColor: 'divider'}}>
+      <Box sx={{ display:'flex', justifyContent: 'left'}}>
         <Box sx={{ width:{xs:'100%', md:'95%'} }}>
-          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', borderRadius: '10px', borderBottom: 'none'}}>
+          <AppBar position="static" sx={{ backgroundColor: appBarBackGroundColor, boxShadow: 'none', borderTopLeftRadius: '10px', borderTopRightRadius: {xs: '10px', md: 0}}}>
             <Tabs 
               value={value} 
               onChange={handleChange}
@@ -228,7 +258,7 @@ export default function Banner(wallets) {
               aria-label="basic tabs example"
             >
               {wallets.wallets.length > 0 && wallets.wallets.map((wallet, index) => (
-                <Tab onClick={() => handleLinkClick(wallet.id)} sx={{color:'white'}} key={index} label={wallet.label} {...a11yProps(index)} />
+                <Tab onClick={() => handleLinkClick(wallet.id)} sx={{color:'white'}} key={index} label={wallet.label.length > 10 ? `${wallet.label.slice(0,5)}...` : wallet.label} {...a11yProps(index)} />
               ))}
               <Tab onClick={handleMainLinkClick} sx={{color:'white'}} label="All" {...a11yProps(wallets.wallets.length)}/>
             </Tabs>
@@ -240,15 +270,15 @@ export default function Banner(wallets) {
       </Box>
         {wallets.wallets.length > 0 && wallets.wallets.map((wallet, index) => (
         <TabPanel value={value} index={index} key={index}>
-          <Container sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: {xs: 'column', md: 'row'}}}>
-            <Box sx={{display: 'flex', alignItems:'center', justifyContent: 'left'}}>
-              <Identicon address={`454554${wallet.id}7878989`} diam={100}/>
-            </Box>
-            <Typography variant={'h4'}sx={{fontWeight:'bold', marginLeft:{xs:0, md:1}}} color={'primaryTextColor.main'}>{wallet.label}</Typography>
+          <Container sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: {xs: 'column', md: 'row'}, paddingRight: 0, paddingLeft: 0}}>
+          <Box sx={{display: 'flex', alignItems:'center', justifyContent: {xs:'space-between', md:'left'}, width: '100%'}}>
+            <Identicon address={`454554${wallet.id}7878989`} diam={hide500 ? 50 : 100}/>
+            <Typography variant={'h4'} sx={{fontWeight:'bold', marginLeft:{xs:0, md:1}}} color={'primaryTextColor.main'}>{wallet.label.length > 15 ? `${wallet.label.slice(0,5)}...` : wallet.label}</Typography>
             <EditOrDeleteItem
-                editItem={toggleUpdateWalletModal}
-                deleteItem={() => toggleConfirmDelete({ type: 'wallet', itemId: wallet.id })}
-              />
+              editItem={toggleUpdateWalletModal}
+              deleteItem={() => toggleConfirmDelete({ type: 'wallet', itemId: wallet.id })}
+            />
+          </Box>
             <Box sx={{display: 'flex', alignItems:'center', flexDirection: {xs:'column', md:'row'}, justifyContent: 'right', width: {xs:'50%', md:'80%'}}}>
               {wallets.performance ? <PerfWallet wallet={wallet}/> : 
               <Box sx={{display:'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -264,18 +294,18 @@ export default function Banner(wallets) {
                 </IconButton>
               </Box>
             </Box>
-            <Box sx={{display:{xs:'inline-block', md:'none'}}}>
-              <ButtonTabs/>
+            <Box sx={{display:{xs:'inline-block', md:'none'}, width:'100%'}}>
+              <ButtonTabs />
             </Box>
           </Container>
         </TabPanel>
       ))}
       <TabPanel value={value} index={wallets.wallets.length}>
-        <Container sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: {xs: 'column', md: 'row'}}}>
+        <Container sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: {xs: 'column', md: 'row'}, paddingRight: 0, paddingLeft: 0}}>
           <Box sx={{display: 'flex', alignItems:'center', justifyContent: 'left'}}>
-            <Identicon address={'155156165456465516'} diam={100}/>
+            <Identicon address={'155156165456465516'} diam={hide500 ? 50 : 100}/>
+            <Typography variant={'h4'} sx={{fontWeight:'bold', marginLeft:1}} color={'primaryTextColor.main'}>Portfolio</Typography>
           </Box>
-          <Typography variant={'h4'} sx={{fontWeight:'bold', marginLeft:{xs:0, md:1}}} color={'primaryTextColor.main'}>Portfolio</Typography>
           <Box sx={{display: 'flex', alignItems:'center', flexDirection: {xs:'column', md:'row'}, justifyContent: 'right', width: {xs:'50%', md:'80%'}}}>
             {wallets.performance ? <Perf/> : 
               <Box sx={{display:'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -291,13 +321,18 @@ export default function Banner(wallets) {
               </IconButton>
             </Box>
           </Box>
-          <Box sx={{display:{xs:'inline-block', md:'none'}}}>
+          <Box sx={{display:{xs:'inline-block', md:'none'}, width:'100%'}}>
             <ButtonTabs/>
           </Box>
         </Container>
       </TabPanel>
       <AddWallet />
       <EditWallet />
+      <Modal open={transactionEditorIsOpen} onClose={() => dispatch(toggleTransactionEditor())}>
+        <Box sx={modalBoxStyle}>
+          <TransactionCreator/>
+        </Box>
+      </Modal>
     </Box>
   );
 }

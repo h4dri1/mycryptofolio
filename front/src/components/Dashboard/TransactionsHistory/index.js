@@ -23,6 +23,7 @@ const modalBoxStyle = {
   // border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  borderRadius: '10px'
 };
 
 export default function TransactionsHistory({transactions}) {
@@ -39,14 +40,12 @@ export default function TransactionsHistory({transactions}) {
   };
 
   const useStyles = makeStyles({
-
     root: {
         "& .MuiTableCell-head": {
-            color: "white",
             backgroundColor: "#00b2cc;"
         },
     }
-});
+  });
 
 const classes = useStyles();
 

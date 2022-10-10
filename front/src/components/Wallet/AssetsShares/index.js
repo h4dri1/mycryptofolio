@@ -153,7 +153,7 @@ import {
     const hide500 = useMediaQuery('(max-width:600px)');
 
     return (
-      <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', padding:2}}>
+      <Container disableGutters sx={{ borderRadius: '10px', height: 'auto'}}>
         <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
             <AccountBalanceWalletIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Tokens</Typography>
         </Container>
