@@ -153,45 +153,21 @@ export default function Banner(wallets) {
     setValue(newValue);
   };
 
-  const Perf = () => {
-    return (
-      wallets.performance.actual_value !== 0 ? (
-        <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: 'center'}}>
-        {wallets.performance.actual_value > wallets.performance.investment && <ArrowCircleUpIcon onClick={handleClickChange} color={'success'} sx={{cursor: 'pointer', height: '30px', width: '30px'}}></ArrowCircleUpIcon>}
-        {wallets.performance.actual_value < wallets.performance.investment && <ArrowCircleDownIcon onClick={handleClickChange} color={'error'} sx={{cursor: 'pointer', height: '30px', width: '30px'}}></ArrowCircleDownIcon>}
-        <Typography
-          variant="h6"
-          color={'custom.main'}
-          onClick={handleClickChange}
-          sx={{cursor: 'pointer', marginRight: {xs:0, md:1}}}
-        >
-        {wallets.performance.actual_value > wallets.performance.investment ? `+` : ''}{Intl.NumberFormat('en-US', {
-                  style: 'decimal',
-                  maximumSignificantDigits: 2,
-                  minimumSignificantDigits: 2,
-                }).format(change === 'percent' ? perfPercentage : wallets.performance.pnl)}{change === 'percent' ? '%' : selectedCurrency}
-        </Typography>
-        </Box>
-      ) : (
-        null
-    ))
-  }
-
   const PerfWallet = () => {
     return (
       wallets.performance.actual_value !== 0 ? (
         <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'center', alignItems: 'center'}}>
-          {wallets.performance.actual_value > wallets.performance.investment && <ArrowCircleUpIcon onClick={handleClickChange} color={'success'} sx={{cursor: 'pointer', height: '30px', width: '30px'}}></ArrowCircleUpIcon>}
-          {wallets.performance.actual_value < wallets.performance.investment && <ArrowCircleDownIcon onClick={handleClickChange} color={'error'} sx={{cursor: 'pointer', height: '30px', width: '30px'}}></ArrowCircleDownIcon>}
+          {Number(wallets.performance.actual_value) > Number(wallets.performance.investment) && <ArrowCircleUpIcon onClick={handleClickChange} color={'success'} sx={{cursor: 'pointer', height: '30px', width: '30px'}}></ArrowCircleUpIcon>}
+          {Number(wallets.performance.actual_value) < Number(wallets.performance.investment) && <ArrowCircleDownIcon onClick={handleClickChange} color={'error'} sx={{cursor: 'pointer', height: '30px', width: '30px'}}></ArrowCircleDownIcon>}
           <Typography
             variant="h6"
             color={'custom.main'}
             onClick={handleClickChange}
             sx={{cursor: 'pointer', marginRight: {xs:0, md:1}}}
           >
-          {wallets.performance.actual_value > wallets.performance.investment ? `+` : ''}{Intl.NumberFormat('en-US', {
+          {Number(wallets.performance.actual_value) > Number(wallets.performance.investment) ? `+` : ''}{Intl.NumberFormat('en-US', {
             style: 'decimal',
-            maximumSignificantDigits: 2,
+            maximumSignificantDigits: 4,
             minimumSignificantDigits: 2,
           }).format(change === 'percent' ? perfPercentage : wallets.performance.pnl)}{change === 'percent' ? '%' : selectedCurrency}
           </Typography>
@@ -280,7 +256,7 @@ export default function Banner(wallets) {
             />
           </Box>
             <Box sx={{display: 'flex', alignItems:'center', flexDirection: {xs:'column', md:'row'}, justifyContent: 'right', width: {xs:'50%', md:'80%'}}}>
-              {wallets.performance ? <PerfWallet wallet={wallet}/> : 
+              {wallets.performance ? <PerfWallet/> : 
               <Box sx={{display:'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <Skeleton sx={{marginRight: 1}} variant="text" width={50} height={40} />
                 <Skeleton sx={{marginRight: 3}} variant="circular" width={25} height={25} />
@@ -307,7 +283,7 @@ export default function Banner(wallets) {
             <Typography variant={'h4'} sx={{fontWeight:'bold', marginLeft:1}} color={'primaryTextColor.main'}>Portfolio</Typography>
           </Box>
           <Box sx={{display: 'flex', alignItems:'center', flexDirection: {xs:'column', md:'row'}, justifyContent: 'right', width: {xs:'50%', md:'80%'}}}>
-            {wallets.performance ? <Perf/> : 
+            {wallets.performance ? <PerfWallet /> : 
               <Box sx={{display:'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <Skeleton sx={{marginRight: 1}} variant="text" width={50} height={40} />
                 <Skeleton sx={{marginRight: 3}} variant="circular" width={25} height={25} />
