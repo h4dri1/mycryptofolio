@@ -202,15 +202,15 @@ const portfolio = (store) => (next) => async (action) => {
       break;
 
     case SAVE_TRANSACTION:
-
-      const walletId = store.getState().portfolio.selectedWallet;
-
-      // * Pour éviter d'envoyer une transaction orpheline à l'API
+      const walletId = action.payload.wallet
       if (!walletId) {
         store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez selectionner un portefeuille pour votre transaction' }));
         next(action);
         break;
       }
+      delete action.payload.wallet;
+      // * Pour éviter d'envoyer une transaction orpheline à l'API
+
       const config = {
         method: 'post',
         url: `/portfolio/wallet/${walletId}/transaction`,

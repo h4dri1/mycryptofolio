@@ -1,6 +1,6 @@
 /* eslint-disable react/function-component-definition */
 import { PropTypes } from 'prop-types';
-
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Tabs,
@@ -50,12 +50,14 @@ TabPanel.propTypes = {
 function Props(index) {
   return {
     id: `tab-${index}`,
-    'aria-controls': `tabpanel-${index}`,
+    'aria-controls': `tabpanel-${index}`
   };
 }
 
 const TransactionCreator = (props) => {
+
   const [value, setValue] = useState(0);
+  const { wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
 
   const handleChange = (_, newValue) => {
     setValue(newValue);
@@ -79,10 +81,10 @@ const TransactionCreator = (props) => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <TcForm buy={value === 0} disabled={false} {...props} />
+        <TcForm buy={value === 0} disabled={!selectedWallet} wallets={wallets} selectedWallet={selectedWallet} {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TcForm buy={value === 0} disabled={false} {...props} />
+        <TcForm buy={value === 0} disabled={!selectedWallet} wallets={wallets} selectedWallet={selectedWallet} {...props} />
       </TabPanel>
     </Box>
   );

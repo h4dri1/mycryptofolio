@@ -17,8 +17,6 @@ import getNewAccessToken from 'src/services/getNewAccessToken';
 import isTokenExpired from 'src/services/isTokenExpired';
 import dompurify from 'dompurify';
 
-import { setPending } from 'src/actions/settings';
-
 const auth = (store) => (next) => async (action) => {
   const state = store.getState();
   const refreshToken = localStorage.getItem('refreshToken');

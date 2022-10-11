@@ -26,11 +26,11 @@ const EditOrDeleteItem = ({
   };
 
   const handleEditItem = () => {
-    dispatch(editItem(itemId));
+    return editItem(itemId);
   };
 
   const displayConfirmDelete = () => {
-    dispatch(deleteItem());
+    return deleteItem();
   };
 
   return (

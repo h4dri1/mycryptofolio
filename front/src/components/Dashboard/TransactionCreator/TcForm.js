@@ -9,6 +9,10 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
 } from '@mui/material';
 // import { useStyles } from '@mui/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -21,7 +25,7 @@ import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 import { saveTransaction } from 'src/actions/portfolio';
 import { toggleTransactionEditor } from 'src/actions/settings';
 
-const TransactionCreatorForm = ({ buy, id, disabled }) => {
+const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) => {
   const dispatch = useDispatch();
 
   // Get all 20k cryptos
@@ -44,6 +48,14 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
   // eslint-disable-next-line max-len
   const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
 
+  const [selectWallet, setSelectWallet] = useState(selectedWallet);
+  const [disable, setDisable] = useState(disabled);
+  
+  const handleChange = (event) => {
+    setDisable(false);
+    setSelectWallet(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -55,7 +67,8 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
       // ref_currency: refCurrency.toLowerCase(),
       quantity,
       buy_date: dateValue.toUTCString(),
-      fiat: refCurrency
+      fiat: refCurrency,
+      wallet: selectWallet
     };
     // change sign of quantity in case of selling transaction
     if (!newTransaction.buy) {
@@ -112,7 +125,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
 
   // ! Do not remove next commented code, may be useful later
   // useEffect(() => {
-  //   let active = true;
+  //   let active = true; wallets={wallets}
 
   //   if (!autocompleteService.current && window.google) {
   //     autocompleteService.current =
@@ -132,10 +145,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
   //       let newOptions = [];
 
   //       if (value) {
-  //         newOptions = [value];
-  //       }
-
-  //       if (results) {
+  //         newOptions = [value];wallets
   //         newOptions = [...newOptions, ...results];
   //       }
 
@@ -156,8 +166,24 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
       <Divider sx={{ width: '100%' }} />
       <Grid component="form" onSubmit={handleSubmit} container gap={2} mt={3}>
         <Grid item xs={12}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Wallet</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectWallet}
+              label="Wallet"
+              onChange={handleChange}
+            >
+              {wallets.length > 0 && wallets.map((wallet) => (
+                <MenuItem key={wallet.id} value={wallet.id}>{wallet.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>  
+        <Grid item xs={12}>
           <Autocomplete
-            disabled={disabled}
+            disabled={disable}
             disablePortal
             id="cryptoCurrency"
             options={someCryptos}
@@ -196,7 +222,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
             className="transaction__field"
           >
             <TextField
-              disabled={disabled}
+              disabled={disable}
               required
               fullWidth
               name="quatity"
@@ -219,7 +245,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
             xs={6}
           >
             <TextField
-              disabled
+              disabled={disable}
               required
               fullWidth
               name="price"
@@ -242,7 +268,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                disabled={disabled}
+                disabled={disable}
                 disableFuture
                 label={buy ? 'Date de l\'achat' : 'Date de la vente'}
                 value={dateValue}
@@ -261,7 +287,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
             >
               <Grid item xs={12} md={6}>
                 <Button
-                  disabled={disabled}
+                  disabled={disable}
                   variant="outlined"
                   onClick={handleCancel}
                   sx={{ color: 'primary.light' }}
@@ -271,7 +297,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Button
-                  disabled={disabled}
+                  disabled={disable}
                   variant="contained"
                   type="submit"
                   onSubmit={handleSubmit}
