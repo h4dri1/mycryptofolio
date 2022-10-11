@@ -57,11 +57,11 @@ module.exports = {
             // Check if some coins on portfolio have 0 value
             // Add value 0 if
             //==> Moche
-            if (objRepartition.length > 0 && objRepartition[0].distribution === null) {
-                for (const rep of objRepartition) {
-                    rep.distribution = '0';
-                }
-            };
+            //if (objRepartition.length > 0 && objRepartition[0].distribution === null) {
+            //    for (const rep of objRepartition) {
+            //        rep.distribution = '0';
+            //    }
+            //};
             /////////////////////////////////////////////////////////////////////////////////
             // Construct portfolio Object
             portfolio.transactions = Object.values(objTransactions);
