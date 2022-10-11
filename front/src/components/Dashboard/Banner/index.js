@@ -205,7 +205,7 @@ export default function Banner(wallets) {
         </IconButton>
         <AddWalletOrTransac
           addWallet={toggleCreateWalletModal}
-          addTransaction={handleEditTransaction}
+          addTransaction={toggleTransactionEditor}
         />
       </Box>
     )

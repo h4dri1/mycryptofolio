@@ -79,10 +79,10 @@ const TransactionCreator = (props) => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <TcForm buy={value === 0} {...props} />
+        <TcForm buy={value === 0} disabled={false} {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TcForm buy={value === 0} {...props} />
+        <TcForm buy={value === 0} disabled={false} {...props} />
       </TabPanel>
     </Box>
   );

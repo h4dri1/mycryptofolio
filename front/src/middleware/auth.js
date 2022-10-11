@@ -6,7 +6,8 @@ import {
   saveUser,
   CHECK_TOKEN,
   REGISTER,
-  existingUserToggle
+  existingUserToggle,
+  saveNewToken
 } from 'src/actions/user';
 import { updateCurrency } from '../actions/cryptos';
 import { getCryptoList } from '../actions/cryptos';
@@ -140,7 +141,6 @@ const auth = (store) => (next) => async (action) => {
         const { newAccessToken, userData } = await getNewAccessToken(refreshToken);
         const { user } = parseJwt(newAccessToken);
         const { id } = user;
-
         const userObj = {
           id,
           email: userData.email,
