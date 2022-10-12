@@ -7,3 +7,4 @@ functions 2022-03-30T15:26:39Z h4dri1 <hadrien.vuillaume@gmail.com> # add functi
 replace_view_transaction 2022-10-11T13:20:43Z h4dri1,,, <h4dri1@debian> # change view transaction
 replace_view_coin_value 2022-10-11T13:20:06Z h4dri1,,, <h4dri1@debian> # change view coin_value
 replace_view_coin_value_wallet 2022-10-11T13:21:30Z h4dri1,,, <h4dri1@debian> # change view coin_value_wallet
+add_favorite 2022-10-12T16:42:51Z h4dri1,,, <h4dri1@debian> # add favorite table

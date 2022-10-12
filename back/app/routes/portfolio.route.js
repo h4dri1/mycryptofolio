@@ -30,6 +30,6 @@ router
         cache, 
         updateMW, 
         portfolioController.getPortfolio
-    )
+    );
 
 module.exports = router;
