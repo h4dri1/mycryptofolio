@@ -19,6 +19,8 @@ import {
 
 import detectEthereumProvider from '@metamask/detect-provider';
 
+import { setDisplaySnackBar } from 'src/actions/settings';
+
 const metamask = (store) => (next) => async (action) => {
 
     const handleAccountsChanged = async (accounts) => {
@@ -69,7 +71,7 @@ const metamask = (store) => (next) => async (action) => {
                             console.error(err);
                         });
                     } else {
-                        console.log('Please install MetaMask!');
+                        store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
                     }
             } else {
                 // Get changing wallet address
@@ -97,20 +99,26 @@ const metamask = (store) => (next) => async (action) => {
         next(action);
         break;
         case GET_CONNECT_ACCOUNT:
-            window.ethereum
-                .request({ method: 'eth_requestAccounts' })
-                .then((accounts) => {
-                    handleAccountsChanged(accounts)
-                })
+            const provider = await detectEthereumProvider();
+            if (provider) {
+                window.ethereum
+                    .request({ method: 'eth_requestAccounts' })
+                    .then((accounts) => {
+                        handleAccountsChanged(accounts)
+                    })
+
                 .catch((err) => {
                     if (err.code === 4001) {
                         // EIP-1193 userRejectedRequest error
                         // If this happens, the user rejected the connection request.
-                        console.log('Please connect to MetaMask.');
+                        store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Please install connect to Metamask' }));
                     } else {
                         console.error(err);
                     }
                 });
+            } else {
+                store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Please install Metamask Extention' }));
+            }
         next(action);
         break;
         case GET_WALLET_BALANCE:
