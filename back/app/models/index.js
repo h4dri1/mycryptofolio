@@ -6,6 +6,7 @@ const Portfolio = require('./portfolio.model');
 const Nfts = require('./nfts.model');
 const Network = require('./network.model');
 const Blockchain = require('./blockchain.model');
+const Favorite = require('./favorite.model');
 
 module.exports = {
     Crypto,
@@ -15,5 +16,6 @@ module.exports = {
     Portfolio,
     Nfts,
     Network,
-    Blockchain
+    Blockchain,
+    Favorite
 }

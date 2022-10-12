@@ -26,7 +26,7 @@ const EditOrDeleteItem = ({
   };
 
   const handleEditItem = () => {
-    dispatch(editItem(itemId));
+    return editItem(itemId);
   };
 
   const displayConfirmDelete = () => {
@@ -34,8 +34,8 @@ const EditOrDeleteItem = ({
   };
 
   return (
-    <Box sx={{ ...(positionAbsolute && { position: 'absolute' }), right: '0' }}>
-      <Button ref={anchorRef} onClick={handleButtonToggle}>
+    <Box sx={{right: '0', height:'50px', width:'50px', display: 'flex', justifyItems:'center' }}>
+      <Button sx={{color:'primary.light'}} ref={anchorRef} onClick={handleButtonToggle}>
         <ExpandMoreIcon />
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} placement="bottom-end">
@@ -53,7 +53,6 @@ const EditOrDeleteItem = ({
 EditOrDeleteItem.propTypes = {
   editItem: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
-  positionAbsolute: PropTypes.bool.isRequired,
   itemId: PropTypes.number,
 };
 

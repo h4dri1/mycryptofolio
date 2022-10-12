@@ -25,10 +25,11 @@ const Wallet = () => {
       marginBottom: '50px',
     },
     gridItem: {
+      width: '95%',
       borderColor: '#E7EBF0',
       borderRadius: '10px',
       margin: '10px',
-      boxShadow: 4, 
+      boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
       backgroundColor: image ? '#FF3CAC' : color,
       backgroundImage: image
     },
@@ -51,22 +52,22 @@ const Wallet = () => {
 
   return (
     <div className="">
-      <Box sx={{minHeight: '80vh'}}>
+    <Box sx={{minHeight: '80vh'}}>
       <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
-        <Grid item xs={12} md={8.1} className={classes.gridItem}>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
           <Banner tokens={walletTokens}/>
         </Grid>
-        <Grid item xs={12} md={4} className={classes.gridItem}>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
             <AssetsShares distribution={walletTokens} />
         </Grid>
-        <Grid item xs={12} md={4} className={classes.gridItem}>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
             <Nft collection={walletNFT} />
         </Grid>
-        <Grid sx={{ boxShadow: 4, backgroundColor: image ? '#FF3CAC' : color, backgroundImage: image }} item xs={12} md={8.1} className={classes.gridItem}>
+        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
             <HistoryToken history={walletHistory}/>
         </Grid>
       </Grid>
-      </Box>
+    </Box>
     </div>
   ); 
 };

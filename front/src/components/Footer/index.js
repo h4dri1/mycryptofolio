@@ -11,19 +11,17 @@ import { useSelector } from 'react-redux';
 
 const Footer = () => {
 
-    const { darkMode } = useSelector((state) => state.settings);
-
     return (
 <Grid sx={{}}>
 
 <Box 
-    sx={{ justifyContent: 'center', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF', alignItems: "center", display: "flex", width: '100%', height: '50px' }}
+    sx={{ justifyContent: 'center', bgcolor: "secondary.dark", alignItems: "center", display: "flex", width: '100%', height: '50px' }}
 >
     <Typography
         variant="subtitle"
         noWrap
         color="black"
-        sx={{ display: { xs: 'none', sm: 'flex' }, fontSize: 14, color: 'primary.light' }}
+        sx={{ display: { xs: 'none', sm: 'flex' }, fontSize: 14, color: 'primary.main' }}
     >
         <Link component={RouterLink} to="/contact"
             color='primary.light'
@@ -36,7 +34,7 @@ const Footer = () => {
             variant="subtitle"
             // noWrap
             color="black"
-            sx={{ fontSize: 14, color: 'primary.light', ml: 15 }}
+            sx={{ fontSize: 14, color: 'primary.main', ml: 15 }}
         >
             ETH address :
         </Typography>
@@ -44,7 +42,7 @@ const Footer = () => {
             variant="subtitle"
             // noWrap
             color="black"
-            sx={{ fontSize: 14, color: 'primary.light', ml: 2 }}
+            sx={{ fontSize: 14, color: 'primary.main', ml: 2 }}
         >0xDDA2391e6Aab2E8FFcE903196b7899D7795130A1
         </Typography>
     </Box>

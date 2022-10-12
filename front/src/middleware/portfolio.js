@@ -7,10 +7,8 @@ import {
   FETCH_SPECIFIC_WALLET, fetchSpecificWalletSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
   SAVE_TRANSACTION, DELETE_TRANSACTION,
-  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet,
+  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet, fetchPortfolio
 } from 'src/actions/portfolio';
-
-import { setPending } from 'src/actions/settings';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
 import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
@@ -50,6 +48,7 @@ const portfolio = (store) => (next) => async (action) => {
   });
 
   const { selectedCurrency } = store.getState().cryptos.cryptoList;
+  const { selectedWallet } = store.getState().portfolio;
 
   switch (action.type) {
     case CREATE_NEW_WALLET:
@@ -116,7 +115,6 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case DELETE_WALLET:
-
       if (action.payload !== undefined) {
         privateRoute({
           method: 'delete',
@@ -131,9 +129,9 @@ const portfolio = (store) => (next) => async (action) => {
               const updatedWalletList = wallets.filter((wallet) => wallet.id !== action.payload);
               store.dispatch(deleteOrUpdateWalletSuccess(updatedWalletList));
               store.dispatch(toggleConfirmDelete());
-        
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
+              store.dispatch(fetchPortfolio());
             }
           })
           .catch((err) => {
@@ -202,15 +200,15 @@ const portfolio = (store) => (next) => async (action) => {
       break;
 
     case SAVE_TRANSACTION:
-
-      const walletId = store.getState().portfolio.selectedWallet;
-
-      // * Pour éviter d'envoyer une transaction orpheline à l'API
-      if (!walletId) {
+      const walletId = action.payload.wallet
+      if (!walletId && !action.payload.id) {
         store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez selectionner un portefeuille pour votre transaction' }));
         next(action);
         break;
       }
+      delete action.payload.wallet;
+      // * Pour éviter d'envoyer une transaction orpheline à l'API
+
       const config = {
         method: 'post',
         url: `/portfolio/wallet/${walletId}/transaction`,
@@ -222,9 +220,11 @@ const portfolio = (store) => (next) => async (action) => {
 
       privateRoute.request(config)
         .then((res) => {
-          console.log(res);
-          store.dispatch(fetchSpecificWallet(walletId));
-    
+          if (selectedWallet !== '') {
+            store.dispatch(fetchPortfolio());
+          } else { 
+            store.dispatch(fetchSpecificWallet(walletId));
+          }
         })
         .catch((err) => {
           console.log(err.response);
@@ -234,8 +234,6 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case DELETE_TRANSACTION:
-      const { selectedWallet } = store.getState().portfolio;
-
       if (action.payload !== undefined) {
         privateRoute({
           method: 'delete',
@@ -246,7 +244,11 @@ const portfolio = (store) => (next) => async (action) => {
         })
           .then((res) => {
             if (res.status === 204) {
-              store.dispatch(fetchSpecificWallet(selectedWallet));
+              if (selectedWallet) {
+                store.dispatch(fetchSpecificWallet(selectedWallet));
+              } else {
+                store.dispatch(fetchPortfolio());
+              }
               store.dispatch(toggleConfirmDelete());
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));

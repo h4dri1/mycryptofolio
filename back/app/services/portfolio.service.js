@@ -53,6 +53,24 @@ module.exports = {
                     objWallet.push({'id':emp.id, 'sum': 0, 'label':emp.label});
                 }
             };
+            if(objRepartition.length === 0) {
+                objRepartition.push({name: 'empty',
+                    value: 'empty',
+                    quantity: 'empty',
+                    distribution: 'empty'})
+            }
+            if(Object.keys(objTransactions).length === 0) {
+                objTransactions.id = 'empty'
+            }
+            /////////////////////////////////////////////////////////////////////////////////
+            // Check if some coins on portfolio have 0 value
+            // Add value 0 if
+            //==> Moche
+            //if (objRepartition.length > 0 && objRepartition[0].distribution === null) {
+            //    for (const rep of objRepartition) {
+            //        rep.distribution = '0';
+            //    }
+            //};
             /////////////////////////////////////////////////////////////////////////////////
             // Construct portfolio Object
             portfolio.transactions = Object.values(objTransactions);

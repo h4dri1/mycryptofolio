@@ -13,7 +13,6 @@ import {
   
   export default function Nft({collection}) {
     const {selectedCurrency} = useSelector((state) => state.cryptos.cryptoList);
-    const { darkMode } = useSelector((state) => state.settings);
     let sum = 0;
     let sum24h = 0;
 
@@ -108,8 +107,8 @@ import {
     const NFTList = () => {
       return (
         collection[0].nft ? (<Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 2}}>
-            <ImageNotSupportedIcon sx={{color: !darkMode ? "neutral.contrastText" : 'white', fontSize: '4em', textAlign: 'center', width: '100%'}}/>
-            <Typography sx={{color: !darkMode ? "neutral.contrastText" : 'custom.main', textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
+            <ImageNotSupportedIcon sx={{fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+            <Typography sx={{ textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No NFT to display</Typography>
           </Container>) : (
             (img_url.map((nft, index) => (
               <Card key={index} sx={{marginBottom: 2, marginRight: 1, marginLeft: 1, boxShadow: 4, maxWidth: '130px', maxHeight: '210px'}}>
@@ -134,22 +133,10 @@ import {
     return (
       <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
         <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
-            <PhotoIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>NFT</Typography>
+            <PhotoIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>NFT</Typography>
         </Container>
         <Container sx={{
-          marginTop: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto', justifyContent: 'space-around',
-          '&::-webkit-scrollbar': {
-            width: '0.4em'
-          },
-          '&::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)', 
-            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#7f5cce',
-            outline: '1px solid slategrey'
-          }
-        }}
+          marginTop: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center', maxHeight: '50vh', overflowY: 'auto', justifyContent: 'space-around'}}
         >
         {collection.length >  0 ? <NFTList/> : <Container sx={{display: 'flex', justifyContent: 'space-around', marginBottom: 4}}>
           <Skeleton variant="rectangle" width={150} height={210}/>

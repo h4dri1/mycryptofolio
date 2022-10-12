@@ -17,9 +17,11 @@ import {
     getWalletHistory
 } from "../actions/wallet"
 
-const metamask = (store) => (next) => async (action) => {
+import detectEthereumProvider from '@metamask/detect-provider';
 
-    const state = store.getState();
+import { setDisplaySnackBar } from 'src/actions/settings';
+
+const metamask = (store) => (next) => async (action) => {
 
     const handleAccountsChanged = async (accounts) => {
         var { walletAddress } = store.getState().wallet;
@@ -58,14 +60,19 @@ const metamask = (store) => (next) => async (action) => {
             // Payload is the current account when wallet change
             // If no payload get the current account with metamask
             if (!action.payload) {
-                window.ethereum
-                    .request({ method: 'eth_accounts' })
-                    .then((accounts) => {
-                        handleAccountsChanged(accounts)
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
+                const provider = await detectEthereumProvider();
+                if (provider) {
+                    window.ethereum
+                        .request({ method: 'eth_accounts' })
+                        .then((accounts) => {
+                            handleAccountsChanged(accounts)
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                    } else {
+                        store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+                    }
             } else {
                 // Get changing wallet address
                 // Set new wallet address to localStorage
@@ -92,20 +99,26 @@ const metamask = (store) => (next) => async (action) => {
         next(action);
         break;
         case GET_CONNECT_ACCOUNT:
-            window.ethereum
-                .request({ method: 'eth_requestAccounts' })
-                .then((accounts) => {
-                    handleAccountsChanged(accounts)
-                })
+            const provider = await detectEthereumProvider();
+            if (provider) {
+                window.ethereum
+                    .request({ method: 'eth_requestAccounts' })
+                    .then((accounts) => {
+                        handleAccountsChanged(accounts)
+                    })
+
                 .catch((err) => {
                     if (err.code === 4001) {
                         // EIP-1193 userRejectedRequest error
                         // If this happens, the user rejected the connection request.
-                        console.log('Please connect to MetaMask.');
+                        store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Please install connect to Metamask' }));
                     } else {
                         console.error(err);
                     }
                 });
+            } else {
+                store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Please install Metamask Extention' }));
+            }
         next(action);
         break;
         case GET_WALLET_BALANCE:

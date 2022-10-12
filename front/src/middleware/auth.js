@@ -6,7 +6,8 @@ import {
   saveUser,
   CHECK_TOKEN,
   REGISTER,
-  existingUserToggle
+  existingUserToggle,
+  saveNewToken
 } from 'src/actions/user';
 import { updateCurrency } from '../actions/cryptos';
 import { getCryptoList } from '../actions/cryptos';
@@ -15,8 +16,6 @@ import parseJwt from 'src/services/parseJwt';
 import getNewAccessToken from 'src/services/getNewAccessToken';
 import isTokenExpired from 'src/services/isTokenExpired';
 import dompurify from 'dompurify';
-
-import { setPending } from 'src/actions/settings';
 
 const auth = (store) => (next) => async (action) => {
   const state = store.getState();
@@ -140,7 +139,6 @@ const auth = (store) => (next) => async (action) => {
         const { newAccessToken, userData } = await getNewAccessToken(refreshToken);
         const { user } = parseJwt(newAccessToken);
         const { id } = user;
-
         const userObj = {
           id,
           email: userData.email,

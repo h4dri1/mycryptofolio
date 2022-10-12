@@ -40,7 +40,8 @@ export default function Graph({ chart }) {
           maxTicksLimit: 12,
           maxRotation: 360,
           minRotation: 360,
-          labelOffset: 40
+          labelOffset: 40,
+          color: '#E8F9FD',
         },
         grid: {
           display: false,
@@ -49,6 +50,7 @@ export default function Graph({ chart }) {
       y: {
         ticks: {
           beginAtZero: true,
+          color: '#E8F9FD',
         },
         grid: {
           display: true

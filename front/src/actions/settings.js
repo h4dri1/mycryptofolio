@@ -5,6 +5,7 @@ export const TOGGLE_CONFIRM_DELETE = 'TOGGLE_CONFIRM_DELETE';
 export const TOGGLE_TRANSACTION_EDITOR = 'TOGGLE_TRANSACTION_EDITOR';
 export const CHANGE_COLOR = 'CHANGE_COLOR';
 export const SET_HOME_ICON = 'SET_HOME_ICON';
+export const TOOGLE_TRANSACTION_CREATOR = 'TOOGLE_TRANSACTION_CREATOR';
 
 export const changeColor = (payload) => ({
   type: CHANGE_COLOR,
@@ -36,4 +37,8 @@ export const toggleConfirmDelete = (payload) => ({
 
 export const toggleTransactionEditor = () => ({
   type: TOGGLE_TRANSACTION_EDITOR,
+});
+
+export const toggleTransactionCreator = () => ({
+  type: TOOGLE_TRANSACTION_CREATOR,
 });

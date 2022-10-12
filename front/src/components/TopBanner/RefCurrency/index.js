@@ -39,7 +39,7 @@ export default function RefCurrency() {
         sx={{
           m: 2,
           border: 0,
-          color: 'secondary.main',
+          color: 'primary.main',
           fontSize: '0.8rem',
           height: '32px',
         }}

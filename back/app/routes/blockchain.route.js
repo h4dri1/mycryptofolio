@@ -39,6 +39,6 @@ router
         validateParams(schemas.getENSbyAddress),
         cache, 
         blockchainController.getENSbyAddress
-    )
+    );
 
 module.exports = router;

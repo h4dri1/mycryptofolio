@@ -26,8 +26,6 @@ export default function TopFlop(colors) {
 
     const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
 
-    const { darkMode } = useSelector((state) => state.settings);
-
     const { color, image } = colors
 
     const newCryptos = []
@@ -56,12 +54,12 @@ export default function TopFlop(colors) {
         >
             <Container sx={{ marginBottom: 3 }}>
             <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center'}}>
-                <WhatshotIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending Cryptos</Typography>
+                <WhatshotIcon sx={{color: 'secondary.main'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending Cryptos</Typography>
             </Container>
             { newCryptos.length > 0 ? (
-                <TableContainer component={Paper} sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px', width: hide500 ? '320px' : '472px'}}>
+                <TableContainer component={Paper} sx={{backgroundColor: 'neutral.main', borderRadius: '10px', width: hide500 ? '320px' : '472px'}}>
                     <Table size='small' aria-label="a dense table">
-                        <TableHead sx={{backgroundColor: '#B197FF'}}>
+                        <TableHead sx={{backgroundColor: 'secondary.dark'}}>
                             <TableRow>
                                 <TableCell ></TableCell>
                                 <TableCell>Nom</TableCell>
@@ -76,8 +74,8 @@ export default function TopFlop(colors) {
                             >
                             <TableCell sx={{borderBottom: 0 }}>
                             <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
-                                <Avatar loading={'lazy'} src={crypto.small} alt={crypto.name} sx={{ mr: 2, width: 20, height: 20, marginLeft: 1 }} />
-                                <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{crypto.symbol.toUpperCase()}</Typography>
+                                <Avatar loading='lazy' src={crypto.small} alt={crypto.name} sx={{ mr: 2, width: 20, height: 20, marginLeft: 1 }} />
+                                <Typography sx={{color: 'secondary.dark'}}>{crypto.symbol.toUpperCase()}</Typography>
                             </Box>
                             </TableCell>
                             <TableCell sx={{borderBottom: 0 }}>{crypto.id}</TableCell>

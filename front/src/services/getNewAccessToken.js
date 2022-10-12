@@ -14,6 +14,9 @@ const getNewAccessToken = async (token) => {
     }
   }
   catch (error) {
+    if (error.response.status === 403) {
+      localStorage.removeItem('refreshToken');
+    }
     return error;
   }
 };

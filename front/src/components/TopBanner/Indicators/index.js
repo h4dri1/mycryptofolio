@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import { Typography, Container, Box }  from '@mui/material';
+import { Typography, Container, Box, Skeleton }  from '@mui/material';
 
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -46,7 +46,7 @@ const Indicators = ({ data }) => {
       }}
     >
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-      <MonetizationOnIcon sx={{ color: 'secondary.dark' }}/>
+      <MonetizationOnIcon sx={{ color: 'primary.main' }}/>
         <Typography
           variant="subtitle"
           component="p"
@@ -57,22 +57,27 @@ const Indicators = ({ data }) => {
         <Typography
           sx={{
             ml: 0.8,
-            color: 'secondary.main',
+            color: 'primary.main',
             fontSize: '0.8rem',
           }}
         >
-          {Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: refCurrency,
-            maximumSignificantDigits: 4,
-            minimumSignificantDigits: 2,
-          }).format(data.total_market_cap[refCurrency.toLowerCase()])}
+
+          {
+            Object.keys(data.total_market_cap).length !== 0 ?
+            Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: refCurrency,
+              maximumSignificantDigits: 4,
+              minimumSignificantDigits: 2,
+            }).format(data.total_market_cap[refCurrency.toLowerCase()]) :
+            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)
+          }
 
         </Typography>
       </Box>
 
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-      <CurrencyExchangeIcon sx={{ color: 'secondary.dark' }} />
+      <CurrencyExchangeIcon sx={{ color: 'primary.main' }} />
         <Typography
           variant="subtitle"
           sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
@@ -82,22 +87,26 @@ const Indicators = ({ data }) => {
         <Typography
           sx={{
             ml: 0.8,
-            color: 'secondary.main',
+            color: 'primary.main',
             fontSize: '0.8rem',
           }}
         >
-          {Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: refCurrency,
-            maximumSignificantDigits: 4,
-            minimumSignificantDigits: 2,
-          }).format(data.total_volume[refCurrency.toLowerCase()])}
+          {
+            Object.keys(data.total_volume).length !== 0 ?
+          Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: refCurrency,
+              maximumSignificantDigits: 4,
+              minimumSignificantDigits: 2,
+            }).format(data.total_volume[refCurrency.toLowerCase()]) :
+            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)
+          }
 
         </Typography>
       </Box>
 
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-        <PercentIcon sx={{ color: 'secondary.dark' }} />
+        <PercentIcon sx={{ color: 'primary.main' }} />
         <Typography
           variant="subtitle"
           component="p"
@@ -108,15 +117,18 @@ const Indicators = ({ data }) => {
         <Typography
           sx={{
             ml: 0.8,
-            color: 'secondary.main',
+            color: 'primary.main',
             fontSize: '0.8rem',
           }}
         >
-          {Intl.NumberFormat('en-US', {
-            // style: 'percent',
-            maximumSignificantDigits: 4,
-            minimumSignificantDigits: 2,
-          }).format(data.market_cap_percentage.btc)}%
+          {
+            Object.keys(data.market_cap_percentage).length !== 0 ?
+            Intl.NumberFormat('en-US', {
+              //style: 'percent',
+              maximumSignificantDigits: 4,
+              minimumSignificantDigits: 2,
+            }).format(data.market_cap_percentage.btc) :
+            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)}
         </Typography>
       </Box>
     </Container>

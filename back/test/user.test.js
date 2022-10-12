@@ -2,6 +2,7 @@ const request = require('supertest')
 const { app } = require('../server')
 const { redis } = require('../app/database')
 const { faker } = require('@faker-js/faker');
+require('dotenv').config()
 
 let token = '';
 let refreshToken = '';
@@ -10,8 +11,8 @@ beforeAll(async () => {
   const res = await request(app)
   .post('/v1/jwt/login')
   .send({
-    email: 'hadri1@ik.me',
-    password: '#0clock$0087',
+    email: process.env.TEST_MAIL,
+    password: process.env.TEST_PASSWORD,
   })
   token = res.header.authorization
   refreshToken = res.body.refreshToken

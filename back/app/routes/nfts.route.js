@@ -21,6 +21,6 @@ router
         rateLimit(schemas.nftsLimiter),
         cache,
         nftsController.getTopNFT
-    )
+    );
 
 module.exports = router;

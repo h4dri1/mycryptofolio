@@ -88,9 +88,9 @@ import {
     const TableContainerFunct = (props) => {
       return (
       distribution[0].balance !== '0x0' && distribution[0].name !== 'Ethereum' ? (
-        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', borderRadius: '10px'}}>
-          <Table size='small' aria-label="a dense table" stickyHeader sx={{ maxWidth: '100%', p: '10'}}>
-            <TableHead align="left">
+        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: 'neutral.main', borderRadius: '10px'}}>
+          <Table size='small' aria-label="a dense table" sx={{ maxWidth: '100%', p: '10'}}>
+            <TableHead sx={{backgroundColor:'secondary.dark'}} align="left">
               <TableRow align="left">
                 <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0', paddingLeft: 5}}>Token</TableCell>
                 <TableCell align="left" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', padding: '1em 0'}}>Price</TableCell>
@@ -108,7 +108,7 @@ import {
                     <TableCell align='center' sx={{borderBottom: 0 }}>
                       <Box component={RouterLink} to={`/crypto/${asset.name}`} sx={{ justifyContent: 'left', color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
                           <Avatar src={asset.thumbnail ? asset.thumbnail : asset.name.slice(0,1)} alt={asset.symbol.slice(0,1)} sx={{ mr: {xs: 1, md: 3}, width: 20, height: 20, marginLeft: 1, backgroundColor: 'custom.main', color: 'secondary.light' }} />
-                          <Typography sx={{color: !darkMode ? "neutral.contrastText" : '#07f3d5'}}>{hide500 ? asset.symbol.toUpperCase() : asset.name}</Typography>
+                          <Typography sx={{color: 'secondary.dark'}}>{hide500 ? asset.symbol.toUpperCase() : asset.name}</Typography>
                       </Box>
                     </TableCell>
                     <TableCell align="left" sx={{ padding: '0.5em 0', borderBottom: 0 }}>{cryptoSym}{asset.price.toLocaleString("en-US", curParams)}
@@ -153,9 +153,9 @@ import {
     const hide500 = useMediaQuery('(max-width:600px)');
 
     return (
-      <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
+      <Container disableGutters sx={{ borderRadius: '10px', height: 'auto'}}>
         <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
-            <AccountBalanceWalletIcon sx={{color: !darkMode ? 'secondary.dark' : '#07f3d5'}}/><Typography sx={{ fontWeight: 'bold' }}>Tokens</Typography>
+            <AccountBalanceWalletIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Tokens</Typography>
         </Container>
         <Container sx={{
           display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '100vh', overflowY: 'auto', justifyContent: 'center',
@@ -178,7 +178,7 @@ import {
                 options={options}
             />
         </Container>*/}
-        {distribution.length > 0 ? <TableContainerFunct/> : <Skeleton sx={{borderRadius: '10px', marginBottom: 2}} variant="rectangle" width="580px" height="83px" />}
+        {distribution.length > 0 ? <TableContainerFunct/> : <Skeleton sx={{width:{xs:'300px', md:"580px"}, height:{xs:"83px", md:'200px'}, borderRadius: '10px', marginBottom: 2}} variant="rectangle"/>}
         </Container>
       </Container>
     );

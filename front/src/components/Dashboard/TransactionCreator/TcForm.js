@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import {
   Autocomplete,
   Box,
@@ -9,6 +9,10 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem
 } from '@mui/material';
 // import { useStyles } from '@mui/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -19,43 +23,56 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 import { saveTransaction } from 'src/actions/portfolio';
-import { toggleTransactionEditor } from 'src/actions/settings';
+import { toggleTransactionEditor, toggleTransactionCreator } from 'src/actions/settings';
 
-const TransactionCreatorForm = ({ buy, id, disabled }) => {
+const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, transaction }) => {
   const dispatch = useDispatch();
 
   // Get all 20k cryptos
   const allCryptos = useSelector((state) => state.cryptos.allCryptos);
 
   // ! //  If needed filter only the X first ones (ex: 5000)
-  const someCryptos = allCryptos.filter((_, index) => {
+  let someCryptos = allCryptos.filter((_, index) => {
     if (index < 200) {
       return true;
     }
     return false;
   });
 
+  if (transaction !== undefined) {
+    someCryptos = [someCryptos.find(crypto => crypto.symbol === transaction.symbol)];
+  }
+
   const { currentPrice } = useSelector((state) => state.cryptos);
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
-
-  const [currency, setCurrency] = useState({ id: '', symbol: '' });
-  const [quantity, setQuantity] = useState('');
-  const [dateValue, setDateValue] = useState(new Date());
+  const { transactionCreatorIsOpen } = useSelector((state) => state.settings);
+  const [currency, setCurrency] = useState(someCryptos.length === 1 ? { id: someCryptos[0].id, symbol: someCryptos[0].symbol } : { id: '', symbol: '' });
+  const [quantity, setQuantity] = useState(someCryptos.length === 1 ? transaction.quantity : 0);
+  const [dateValue, setDateValue] = useState(someCryptos.length === 1 ? transaction.buy_date : new Date());
   // eslint-disable-next-line max-len
   const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
+  const [oldPrice, setOldPrice] = useState(someCryptos.length === 1 ? transaction.price : 0);
+
+  const [selectWallet, setSelectWallet] = useState(selectedWallet);
+  const [disable, setDisable] = useState(someCryptos.length === 1 && selectWallet !== '' ? false : disabled);
+
+  const handleChange = (event) => {
+    setDisable(false);
+    setSelectWallet(event.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const newTransaction = {
       coin_id: currency.id,
       symbol: currency.symbol,
       buy,
-      price: currentPrice,
+      price: `${oldPrice !== 0 ? oldPrice : currentPrice}`,
       // ref_currency: refCurrency.toLowerCase(),
       quantity,
-      buy_date: dateValue.toUTCString(),
-      fiat: refCurrency
+      buy_date: typeof(dateValue) === 'string' ? dateValue : dateValue.toUTCString(),
+      fiat: refCurrency,
+      wallet: selectWallet
     };
     // change sign of quantity in case of selling transaction
     if (!newTransaction.buy) {
@@ -70,6 +87,9 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
     if (transactionEditorIsOpen) {
       dispatch(toggleTransactionEditor());
     }
+    if (transactionCreatorIsOpen) {
+      dispatch(toggleTransactionCreator());
+    }
   };
 
   const handleCancel = () => {
@@ -82,15 +102,41 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
     }
   };
 
-  useEffect(() => dispatch(getCurrentPrice({
-    coinId: currency.id,
-    dateValue,
-    refCurrency,
-  })), [currency, dateValue]);
+  function changeTimeZone(date, timeZone) {
+    if (typeof date === 'string') {
+      return new Date(
+        new Date(date).toLocaleString('en-US', {
+          timeZone,
+        }),
+      );
+    }
+  
+    return new Date(
+      date.toLocaleString('en-US', {
+        timeZone,
+      }),
+    );
+  }
+
+  useEffect(() => {
+    async function fetchPrice() {
+      if (someCryptos.length > 1 || oldPrice === 0) {
+        const usDate = changeTimeZone(dateValue, 'America/New_York');
+        await dispatch(getCurrentPrice({
+          coinId: currency.id,
+          usDate,
+          refCurrency,
+        })); 
+      } else {
+        dispatch(setPrice(0));
+      }
+    }
+    fetchPrice();
+  }, [currency, dateValue]);
 
   // ! Do not remove next commented code, may be useful later
   // useEffect(() => {
-  //   let active = true;
+  //   let active = true; wallets={wallets}
 
   //   if (!autocompleteService.current && window.google) {
   //     autocompleteService.current =
@@ -110,10 +156,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
   //       let newOptions = [];
 
   //       if (value) {
-  //         newOptions = [value];
-  //       }
-
-  //       if (results) {
+  //         newOptions = [value];wallets
   //         newOptions = [...newOptions, ...results];
   //       }
 
@@ -129,13 +172,29 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
   return (
     <div>
       <Typography color="primary.light" variant="h6" component="h2">
-        Enregistrer {buy ? 'un achat' : 'une vente'}
+        {someCryptos.length === 1 ? 'Modifier' : 'Enregistrer'} {buy ? 'un achat' : 'une vente'}
       </Typography>
       <Divider sx={{ width: '100%' }} />
       <Grid component="form" onSubmit={handleSubmit} container gap={2} mt={3}>
         <Grid item xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Wallet</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectWallet}
+              label="Wallet"
+              onChange={handleChange}
+            >
+              {wallets.length > 0 && wallets.map((wallet) => (
+                <MenuItem key={wallet.id} value={wallet.id}>{wallet.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
           <Autocomplete
-            disabled={disabled}
+            disabled={disable}
             disablePortal
             id="cryptoCurrency"
             options={someCryptos}
@@ -152,7 +211,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
                 {option.symbol.toUpperCase()} : {option.name}
               </Box>
             )}
-            renderInput={(params) => <TextField {...params} label={buy ? 'Crypto achetée' : 'Crypto vendue'} />}
+            renderInput={(params) => <TextField {...params} label={someCryptos.length === 1 ? `${someCryptos[0].symbol.toUpperCase()} : ${someCryptos[0].name}` : buy ? 'Crypto achetée' : 'Crypto vendue'} />}
             selectOnFocus
             clearOnBlur
             handleHomeEndKeys
@@ -174,7 +233,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
             className="transaction__field"
           >
             <TextField
-              disabled={disabled}
+              disabled={disable}
               required
               fullWidth
               name="quatity"
@@ -197,15 +256,18 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
             xs={6}
           >
             <TextField
-              disabled
+              disabled={disable}
               required
               fullWidth
               name="price"
               label="Prix"
               type="number"
               id="price"
-              value={(Math.ceil(currentPrice * 100) / 100)}
-              onChange={(e) => setPrice(e.target.value)}
+              value={oldPrice !== 0 ? Math.ceil(oldPrice * 100) / 100 : (Math.ceil(currentPrice * 100) / 100)}
+              onChange={(e) => {
+                  setOldPrice(e.target.value);
+                }
+              }
               InputProps={{
                 startAdornment: <InputAdornment position="start">{refCurrency.toUpperCase()}</InputAdornment>,
               }}
@@ -220,11 +282,12 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                disabled={disabled}
+                disabled={disable}
                 disableFuture
                 label={buy ? 'Date de l\'achat' : 'Date de la vente'}
                 value={dateValue}
                 onChange={(newValue) => {
+                  setOldPrice(0);
                   setDateValue(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} />}
@@ -239,7 +302,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
             >
               <Grid item xs={12} md={6}>
                 <Button
-                  disabled={disabled}
+                  disabled={disable}
                   variant="outlined"
                   onClick={handleCancel}
                   sx={{ color: 'primary.light' }}
@@ -249,7 +312,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Button
-                  disabled={disabled}
+                  disabled={disable}
                   variant="contained"
                   type="submit"
                   onSubmit={handleSubmit}
@@ -274,7 +337,7 @@ const TransactionCreatorForm = ({ buy, id, disabled }) => {
                 Montant de la transaction
               </Typography>
               <Typography variant="overline" sx={{ fontSize: { xs: 15, sm: 25 } }}>
-                {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * currentPrice)}
+                {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * (oldPrice === 0 ? currentPrice : oldPrice))}
               </Typography>
             </Grid>
           </Grid>

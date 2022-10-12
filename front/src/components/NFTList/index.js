@@ -64,7 +64,7 @@ function NFTList() {
     <Box sx={{minHeight: '82.5vh'}}>
     <Grid container justifyContent="center" className={classes.root}>
       <Grid item xs={12} className={classes.NFTList}>
-        <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: !darkMode ? '#EAE3FF' : '#002F54', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
+        <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: 'primary.main', marginTop: 2, boxShadow: 5, borderRadius: '10px'}}>
           <TableHead >
             <TableRow>
               <TableCell sx={{ borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center"><TableSortLabel />#</TableCell>
@@ -79,16 +79,16 @@ function NFTList() {
 
             {nfts.map((nft, index) => (
               <TableRow key={index} hover>
-                <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' } }}>{index + 1}</TableCell>
+                <TableCell align="center" sx={{ padding: { xs: ' 0 -16px', sm: '0px' }, color:'primaryTextColor.main' }}>{index + 1}</TableCell>
                 <TableCell>
                 <Box component={RouterLink} to={`/nft`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
                   <Avatar src={nft.attributes.image_preview_icon_url} alt={nft.attributes.name} sx={{ width: 75, height: 75, marginLeft: 1 }} />
                 </Box>
                 </TableCell>
-                <TableCell sx={{ display: { xs: 'table-cell', sm: 'table-cell' } }}>{nft.attributes.name}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>{nft.attributes.network}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{nft.attributes.unique_owners}</TableCell>
-                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{nft.attributes.tokens}</TableCell>
+                <TableCell sx={{ display: { xs: 'table-cell', sm: 'table-cell' }, color:'primaryTextColor.main'  }}>{nft.attributes.name}</TableCell>
+                <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' }, color:'primaryTextColor.main' }}>{nft.attributes.network}</TableCell>
+                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' }, color:'primaryTextColor.main' }}>{nft.attributes.unique_owners}</TableCell>
+                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' }, color:'primaryTextColor.main' }}>{nft.attributes.tokens}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -100,6 +100,6 @@ router
         rateLimit(schemas.userLimiter),
         flush,
         userController.deleteUser
-    )
+    );
 
 module.exports = router;

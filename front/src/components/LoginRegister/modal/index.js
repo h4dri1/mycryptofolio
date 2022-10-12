@@ -56,8 +56,6 @@ import {
   
     const [ showPassCheck, setShowPassCheck ] = useState(false);
   
-    const { darkMode } = useSelector((state) => state.settings);
-  
     const dispatch = useDispatch();
   
     const location = useLocation();
@@ -143,13 +141,13 @@ import {
       
     return (
         <Dialog fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
-          <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: !darkMode ? 'white' : '#002F54' }}>
+          <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'secondary.dark' }}>
             { type === 'login' ? 'Connexion' : 'S\'inscrire' }
             <IconButton edge="end" aria-label="Fermer" onClick={handleToggleLoginModal}>
               <CloseRoundedIcon />
             </IconButton>
           </DialogTitle>
-          <DialogContent sx={{backgroundColor: !darkMode ? 'white' : '#002F54'}}>
+          <DialogContent sx={{backgroundColor: 'secondary.dark'}}>
             {!forgotPassword && <DialogContentText>
               Pour accéder aux fonctionnalités avancées,
               { type === 'login' ? ' il faut vous connecter.' : ' il faut vous créer un compte et vous connecter.' }
@@ -168,7 +166,6 @@ import {
                 variant="outlined"
                 value={nickname}
                 onChange={handleChange}
-                color={!darkMode ? 'secondary' : 'custom'}
               />
             )}
             <TextField
@@ -181,7 +178,6 @@ import {
               variant="outlined"
               value={email}
               onChange={handleChange}
-              color={!darkMode ? 'secondary' : 'custom'}
             />
             {!forgotPassword && 
               <TextField
@@ -193,7 +189,6 @@ import {
               variant="outlined"
               value={password}
               onChange={handleChange}
-              color={!darkMode ? 'secondary' : 'custom'}
               InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -220,7 +215,6 @@ import {
                 variant="outlined"
                 value={passwordCheck}
                 onChange={handleChange}
-                color={!darkMode ? 'secondary' : 'custom'}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -238,7 +232,7 @@ import {
               />
             )}
             <Link
-              sx={{ width: '100%', color: !darkMode ? '' : '#07f3d5'}}
+              sx={{ width: '100%'}}
               component="button"
               variant="body2"
               onClick={() => {
@@ -248,13 +242,9 @@ import {
               Mot de passe oublié ?
             </Link>
           </DialogContent>
-          <DialogActions sx={{display: 'flex', flexDirection: {xs: 'column', md: 'row'}, backgroundColor: !darkMode ? 'white' : '#002F54'}} >
+          <DialogActions sx={{display: 'flex', flexDirection: {xs: 'column', md: 'row'}, backgroundColor: 'secondary.dark'}} >
             <Box sx={{width: '100%', display: 'flex', justifyContent: {xs: 'space-around', md: 'end'}, height: '100%', alignContent: 'center'}}>
-              {!forgotPassword && (<Button sx={{':hover': {
-                  bgcolor: !darkMode ? '' : 'primary.main',
-                  color: !darkMode ? '' : 'white',
-                },
-                color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
+              {!forgotPassword && (<Button sx={{
                 marginRight: {xs: 0, md: 2},
                 maxHeight: '50px',
                 width: '140px'
@@ -262,11 +252,7 @@ import {
                 onClick={handleToogleClick}><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Typography>
               </Button>)}
               {!forgotPassword && (<Button 
-                sx={{':hover': {
-                  bgcolor: !darkMode ? '' : 'primary.main', 
-                  color: !darkMode ? '' : 'white',
-                },
-                color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',
+                sx={{
                 maxHeight: '50px',
                 width: '140px'
                 }}
@@ -275,11 +261,6 @@ import {
               </Button>)}
             </Box>
             {forgotPassword && (<Button 
-              sx={{':hover': {
-                bgcolor: !darkMode ? '' : 'primary.main',
-                color: !darkMode ? '' : 'white',
-              },
-              color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} 
               onClick={handleSubmit} 
               variant="contained">Envoyer
             </Button>)}

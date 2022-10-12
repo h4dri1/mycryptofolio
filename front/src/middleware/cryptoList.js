@@ -24,6 +24,7 @@ import { GET_FEAR_GREED_INDEX, updateFearGreedIndex } from '../actions/cryptos';
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
 const cryptoList = (store) => (next) => (action) => {
+  const { logged } = store.getState().user;
   switch (action.type) {
     case GET_ALL_CRYPTOS:
       axios({
@@ -110,15 +111,14 @@ const cryptoList = (store) => (next) => (action) => {
       break;
 
     case GET_CURRENT_PRICE:
-      const { coinId, dateValue, refCurrency } = action.payload;
-
+      const { coinId, usDate, refCurrency } = action.payload;
       if (!coinId) {
         break;
       }
 
-      const day = dateValue.getDate() < 10 ? `0${dateValue.getDate()}` : dateValue.getDate();
-      const month = dateValue.getMonth() < 9 ? `0${dateValue.getMonth() + 1}` : `${dateValue.getMonth() + 1}`;
-      const year = dateValue.getFullYear();
+      const day = usDate.getDate() < 10 ? `0${usDate.getDate()}` : usDate.getDate();
+      const month = usDate.getMonth() < 9 ? `0${usDate.getMonth() + 1}` : `${usDate.getMonth() + 1}`;
+      const year = usDate.getFullYear();
 
       const requestOptions = {
         method: 'get',

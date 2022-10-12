@@ -30,7 +30,7 @@ function TopBanner() {
             });
           } catch (switchError) {
             // This error code indicates that the chain has not been added to MetaMask.
-            if (switchError.code === 4902) {
+            if (switchError.code === 4902 || switchError.code === -32603) {
               try {
                 await ethereum.request({
                   method: 'wallet_addEthereumChain',
@@ -57,7 +57,7 @@ function TopBanner() {
     }
 
     return (
-        <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: !darkMode ? "#f6eaf7" : '#B197FF' }}>
+        <AppBar position="static" sx={{ justifyContent: 'center', maxHeight: '38px', color: 'black', bgcolor: 'secondary.dark' }}>
             <Toolbar disableGutters>
                 {hide500 && <Link component={RouterLink} to="/">
                     <Logo />

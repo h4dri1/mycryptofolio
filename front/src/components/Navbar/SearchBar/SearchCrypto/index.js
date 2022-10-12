@@ -26,7 +26,6 @@ export default function SearchCrypto() {
     const dispatch = useDispatch();
     const [currency, setCurrency] = useState({ id: 'bitcoin', symbol: 'btc' });
     const { days } = useSelector((state) => state.cryptoDetails);
-    const { darkMode } = useSelector((state) => state.settings);
     //const { allCryptos } = useSelector((state) => state.cryptos)
 
     const [open, setOpen] = useState(false);
@@ -91,9 +90,9 @@ export default function SearchCrypto() {
             sx={{
                 width: {xs: '100%', md: 260},
                 borderRadius: '4px',
-                backgroundColor: 'primary.light',
+                backgroundColor: 'secondary.dark',
                 '&:hover': {
-                    backgroundColor: '#8b6ad8',
+                    backgroundColor: 'secondary.main',
                     textColor: 'white',
                 },
                 marginTop: '10px',
@@ -124,7 +123,7 @@ export default function SearchCrypto() {
                         key={option.id}
                         component={RouterLink}
                         to={`/crypto/${option.id}`}
-                        sx={{ color: !darkMode ? 'primary.light' : '#07f3d5' }}
+                        sx={{ color: 'secondary.dark'}}
                     >
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img

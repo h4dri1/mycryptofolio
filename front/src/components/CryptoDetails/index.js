@@ -30,8 +30,6 @@ function CryptoDetails() {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { slug } = useParams();
 
-  const { darkMode } = useSelector((state) => state.settings);
-
   const [range, setRange] = useState(1);
 
   if (selectedCurrency === 'BTC') {
@@ -77,15 +75,13 @@ function CryptoDetails() {
           sx={{
             p: 1, borderRadius: 5, fontSize: '0.875rem', fontWeight: '700', margin: '0 auto 50px auto'
           }}
-          container
-          rowSpacing={{ xs: 1, md: 2 }}
           className={classes.grid}
         >
           <Grid container sx={{ justifyContent: 'center', display: 'flex', gridAutoFlow: 'row', flexDirection: 'row', flexWrap: 'wrap' }}>
-            <Box xs={11} sx={{backgroundColor: !darkMode ? '' : '#002F54', flex: 2, marginLeft: { xs: 1, lg: 1, xl: 6.5}, marginRight: { xs: 1, lg: 1,  xl: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, minWidth: '55%'}}>
+            <Box xs={11} sx={{backgroundColor: 'primary.main', flex: 2, marginLeft: { xs: 1, lg: 1, xl: 6.5}, marginRight: { xs: 1, lg: 1,  xl: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, minWidth: '55%'}}>
               <Box sx={{justifyContent: {xs: 'center', lg: 'space-between', xl: 'space-between'}, display: 'flex', flexWrap: 'wrap', marginTop: {xs: 0, lg: 2, xl: 2}, marginBottom: 2}}>
                 <Box sx={{ marginBottom: {xs: 1}, display: 'flex'}}>
-                  <Typography sx={{fontSize: '1.5rem', color: !darkMode ? 'primary.main' : '#07f3d5', mr: 1}}>{cryptoSym}{currentPrice}</Typography>
+                  <Typography sx={{fontSize: '1.5rem', color: 'secondary.light', mr: 1}}>{cryptoSym}{currentPrice}</Typography>
                   <Chip sx={{marginRight: 1}} color={priceChange < 0 ? 'secondary' : 'success'} label={`${Math.round(priceChange * 100) / 100}%`}/>
                 </Box>
                 <ToggleButtonGroup sx={{maxHeight: '30px'}} value={range} onChange={handleChange} variant="contained" exclusive aria-label="outlined primary button group">
@@ -103,12 +99,12 @@ function CryptoDetails() {
                 data={data}
               />
             </Box>
-            <Box xs={11} sx={{backgroundColor: !darkMode ? '' : '#002F54', boxShadow: 4, borderRadius: '10px', padding: 2,  marginRight: {xs: 1, lg: 1, xl: 6.5}, marginTop: {xs: 4, md: 0, lg: 0, xl: 0}, marginLeft: {xs: 1, lg: 1, xl: 0}}}>
+            <Box xs={11} sx={{backgroundColor: 'primary.main', boxShadow: 4, borderRadius: '10px', padding: 2,  marginRight: {xs: 1, lg: 1, xl: 6.5}, marginTop: {xs: 4, md: 0, lg: 0, xl: 0}, marginLeft: {xs: 1, lg: 1, xl: 0}}}>
               <Indicators
                 data={data}
               />
             </Box>
-            <Box xs={11} sx={{backgroundColor: !darkMode ? '' : '#002F54', marginTop: 4, marginLeft: {xs: 1, xl: 6.5}, marginRight: {xs: 1, xl: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, width: 1}}>
+            <Box xs={11} sx={{backgroundColor: 'primary.main', marginTop: 4, marginLeft: {xs: 1, xl: 6.5}, marginRight: {xs: 1, xl: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, width: 1}}>
               <Description
                 sx={{ gridAutoRows: '100px' }}
                 data={data}
