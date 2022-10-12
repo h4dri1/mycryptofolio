@@ -12,7 +12,7 @@ import {
   Select,
   FormControl,
   InputLabel,
-  MenuItem,
+  MenuItem
 } from '@mui/material';
 // import { useStyles } from '@mui/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -172,7 +172,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
   return (
     <div>
       <Typography color="primary.light" variant="h6" component="h2">
-        Enregistrer {buy ? 'un achat' : 'une vente'}
+        {someCryptos.length === 1 ? 'Modifier' : 'Enregistrer'} {buy ? 'un achat' : 'une vente'}
       </Typography>
       <Divider sx={{ width: '100%' }} />
       <Grid component="form" onSubmit={handleSubmit} container gap={2} mt={3}>

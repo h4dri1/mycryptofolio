@@ -5,7 +5,12 @@ import {
   Box,
   Tabs,
   Tab,
+  IconButton
 } from '@mui/material';
+
+import { toggleTransactionEditor, toggleTransactionCreator } from 'src/actions/settings';
+
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 import { useState } from 'react';
 
@@ -55,7 +60,7 @@ function Props(index) {
 }
 
 const TransactionCreator = (props) => {
-
+  const dispatch = useDispatch();
   const [value, setValue] = useState(0);
   const { wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
 
@@ -74,6 +79,16 @@ const TransactionCreator = (props) => {
         padding: { xs: '0 0 2em 0', sm: '0 .5em 2em .5em' },
       }}
     >
+      <Box sx={{display:'flex', width: '100%', justifyContent: 'right', cursor: 'pointer', marginBottom: -5}} edge="end" aria-label="Fermer" onClick={() => {
+        if (props.id) {
+          dispatch(toggleTransactionEditor());
+        } else {
+          dispatch(toggleTransactionCreator());
+        }
+      }
+      }>
+        <CloseRoundedIcon />
+      </Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="Panneau ">
           <Tab label="Achat" {...Props(0)} />
