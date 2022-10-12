@@ -10,8 +10,6 @@ import {
   UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet, fetchPortfolio
 } from 'src/actions/portfolio';
 
-import { setPending } from 'src/actions/settings';
-
 import { saveNewToken, saveUser } from 'src/actions/user';
 import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
 
@@ -50,6 +48,7 @@ const portfolio = (store) => (next) => async (action) => {
   });
 
   const { selectedCurrency } = store.getState().cryptos.cryptoList;
+  const { selectedWallet } = store.getState().portfolio;
 
   switch (action.type) {
     case CREATE_NEW_WALLET:
@@ -116,7 +115,6 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case DELETE_WALLET:
-
       if (action.payload !== undefined) {
         privateRoute({
           method: 'delete',
@@ -131,9 +129,9 @@ const portfolio = (store) => (next) => async (action) => {
               const updatedWalletList = wallets.filter((wallet) => wallet.id !== action.payload);
               store.dispatch(deleteOrUpdateWalletSuccess(updatedWalletList));
               store.dispatch(toggleConfirmDelete());
-        
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
+              store.dispatch(fetchPortfolio());
             }
           })
           .catch((err) => {
@@ -222,8 +220,11 @@ const portfolio = (store) => (next) => async (action) => {
 
       privateRoute.request(config)
         .then((res) => {
-          store.dispatch(fetchSpecificWallet(walletId));
-    
+          if (selectedWallet !== '') {
+            store.dispatch(fetchPortfolio());
+          } else { 
+            store.dispatch(fetchSpecificWallet(walletId));
+          }
         })
         .catch((err) => {
           console.log(err.response);
@@ -233,8 +234,6 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case DELETE_TRANSACTION:
-      const { selectedWallet } = store.getState().portfolio;
-
       if (action.payload !== undefined) {
         privateRoute({
           method: 'delete',
