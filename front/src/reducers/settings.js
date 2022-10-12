@@ -5,7 +5,8 @@ import {
   TOGGLE_CONFIRM_DELETE,
   TOGGLE_TRANSACTION_EDITOR,
   CHANGE_COLOR,
-  SET_HOME_ICON
+  SET_HOME_ICON,
+  TOOGLE_TRANSACTION_CREATOR
 } from 'src/actions/settings';
 
 if (localStorage.getItem('darkMode')) {
@@ -32,6 +33,7 @@ export const initialState = {
     link: ''
   },
   transactionEditorIsOpen: false,
+  transactionCreatorIsOpen: false,
 };
 
 const settings = (state = initialState, action = {}) => {
@@ -91,6 +93,13 @@ const settings = (state = initialState, action = {}) => {
       return ({
         ...state,
         transactionEditorIsOpen: !state.transactionEditorIsOpen,
+      });
+    }
+
+    case TOOGLE_TRANSACTION_CREATOR: {
+      return ({
+        ...state,
+        transactionCreatorIsOpen: !state.transactionCreatorIsOpen,
       });
     }
 

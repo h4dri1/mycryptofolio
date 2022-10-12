@@ -23,6 +23,7 @@ import EditWallet from './EditWallet';
 import Identicon from '../../Identicon';
 
 import ReplayIcon from '@mui/icons-material/Replay';
+import { toggleTransactionCreator } from '../../../actions/settings';
 
 const modalBoxStyle = {
   position: 'absolute',
@@ -84,7 +85,7 @@ export default function Banner(wallets) {
   const [show, setShow] = React.useState(true);
   const [change, setChange] = React.useState('percent');
   const { darkMode } = useSelector((state) => state.settings);
-  const { transactionEditorIsOpen } = useSelector((state) => state.settings);
+  const { transactionCreatorIsOpen } = useSelector((state) => state.settings);
 
   if (selectedCurrency === 'BTC') {
     var cryptoSym = '₿'
@@ -181,7 +182,7 @@ export default function Banner(wallets) {
   const appBarBackGroundColor = darkMode ? 'transparent' : '#8752fa';
 
   const handleEditTransaction = () => {
-    dispatch(toggleTransactionEditor());
+    dispatch(toggleTransactionCreator());
   };
 
   const ButtonTabs = () => {
@@ -304,7 +305,7 @@ export default function Banner(wallets) {
       </TabPanel>
       <AddWallet />
       <EditWallet />
-      <Modal open={transactionEditorIsOpen} onClose={() => dispatch(toggleTransactionEditor())}>
+      <Modal open={transactionCreatorIsOpen} onClose={() => dispatch(toggleTransactionCreator())}>
         <Box sx={modalBoxStyle}>
           <TransactionCreator/>
         </Box>

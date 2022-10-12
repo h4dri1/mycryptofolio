@@ -116,7 +116,7 @@ const classes = useStyles();
 
       <Modal open={transactionEditorIsOpen} onClose={() => dispatch(toggleTransactionEditor())}>
         <Box sx={modalBoxStyle}>
-          <TransactionCreator id={selectedTransaction} />
+          <TransactionCreator id={selectedTransaction} transaction={transactions.find(e => e.id === selectedTransaction)} />
         </Box>
       </Modal>
     </Container>

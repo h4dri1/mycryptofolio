@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import {
   Autocomplete,
   Box,
@@ -23,34 +23,39 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 import { saveTransaction } from 'src/actions/portfolio';
-import { toggleTransactionEditor } from 'src/actions/settings';
+import { toggleTransactionEditor, toggleTransactionCreator } from 'src/actions/settings';
 
-const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) => {
+const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, transaction }) => {
   const dispatch = useDispatch();
 
   // Get all 20k cryptos
   const allCryptos = useSelector((state) => state.cryptos.allCryptos);
 
   // ! //  If needed filter only the X first ones (ex: 5000)
-  const someCryptos = allCryptos.filter((_, index) => {
+  let someCryptos = allCryptos.filter((_, index) => {
     if (index < 200) {
       return true;
     }
     return false;
   });
 
+  if (transaction !== undefined) {
+    someCryptos = [someCryptos.find(crypto => crypto.symbol === transaction.symbol)];
+  }
+
   const { currentPrice } = useSelector((state) => state.cryptos);
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
-
-  const [currency, setCurrency] = useState({ id: '', symbol: '' });
-  const [quantity, setQuantity] = useState('');
-  const [dateValue, setDateValue] = useState(new Date());
+  const { transactionCreatorIsOpen } = useSelector((state) => state.settings);
+  const [currency, setCurrency] = useState(someCryptos.length === 1 ? { id: someCryptos[0].id, symbol: someCryptos[0].symbol } : { id: '', symbol: '' });
+  const [quantity, setQuantity] = useState(someCryptos.length === 1 ? transaction.quantity : 0);
+  const [dateValue, setDateValue] = useState(someCryptos.length === 1 ? transaction.buy_date : new Date());
   // eslint-disable-next-line max-len
   const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
+  const [oldPrice, setOldPrice] = useState(someCryptos.length === 1 ? transaction.price : 0);
 
   const [selectWallet, setSelectWallet] = useState(selectedWallet);
-  const [disable, setDisable] = useState(disabled);
-  
+  const [disable, setDisable] = useState(someCryptos.length === 1 && selectWallet !== '' ? false : disabled);
+
   const handleChange = (event) => {
     setDisable(false);
     setSelectWallet(event.target.value);
@@ -58,7 +63,6 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const newTransaction = {
       coin_id: currency.id,
       symbol: currency.symbol,
@@ -66,7 +70,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
       price: currentPrice,
       // ref_currency: refCurrency.toLowerCase(),
       quantity,
-      buy_date: dateValue.toUTCString(),
+      buy_date: typeof(dateValue) === 'string' ? dateValue : dateValue.toUTCString(),
       fiat: refCurrency,
       wallet: selectWallet
     };
@@ -82,6 +86,9 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
 
     if (transactionEditorIsOpen) {
       dispatch(toggleTransactionEditor());
+    }
+    if (transactionCreatorIsOpen) {
+      dispatch(toggleTransactionCreator());
     }
   };
 
@@ -113,12 +120,16 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
 
   useEffect(() => {
     async function fetchPrice() {
-      const usDate = changeTimeZone(dateValue, 'America/New_York');
-      await dispatch(getCurrentPrice({
-        coinId: currency.id,
-        usDate,
-        refCurrency,
-      })); 
+      if (someCryptos.length > 1 || oldPrice === 0) {
+        const usDate = changeTimeZone(dateValue, 'America/New_York');
+        await dispatch(getCurrentPrice({
+          coinId: currency.id,
+          usDate,
+          refCurrency,
+        })); 
+      } else {
+        dispatch(setPrice(0));
+      }
     }
     fetchPrice();
   }, [currency, dateValue]);
@@ -166,8 +177,8 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
       <Divider sx={{ width: '100%' }} />
       <Grid component="form" onSubmit={handleSubmit} container gap={2} mt={3}>
         <Grid item xs={12}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Wallet</InputLabel>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Wallet</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -180,7 +191,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
               ))}
             </Select>
           </FormControl>
-        </Grid>  
+        </Grid>
         <Grid item xs={12}>
           <Autocomplete
             disabled={disable}
@@ -200,7 +211,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
                 {option.symbol.toUpperCase()} : {option.name}
               </Box>
             )}
-            renderInput={(params) => <TextField {...params} label={buy ? 'Crypto achetée' : 'Crypto vendue'} />}
+            renderInput={(params) => <TextField {...params} label={someCryptos.length === 1 ? `${someCryptos[0].symbol.toUpperCase()} : ${someCryptos[0].name}` : buy ? 'Crypto achetée' : 'Crypto vendue'} />}
             selectOnFocus
             clearOnBlur
             handleHomeEndKeys
@@ -252,7 +263,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
               label="Prix"
               type="number"
               id="price"
-              value={(Math.ceil(currentPrice * 100) / 100)}
+              value={oldPrice !== 0 ? Math.ceil(oldPrice * 100) / 100 : (Math.ceil(currentPrice * 100) / 100)}
               onChange={(e) => setPrice(e.target.value)}
               InputProps={{
                 startAdornment: <InputAdornment position="start">{refCurrency.toUpperCase()}</InputAdornment>,
@@ -273,6 +284,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
                 label={buy ? 'Date de l\'achat' : 'Date de la vente'}
                 value={dateValue}
                 onChange={(newValue) => {
+                  setOldPrice(0);
                   setDateValue(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} />}
@@ -322,7 +334,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet }) 
                 Montant de la transaction
               </Typography>
               <Typography variant="overline" sx={{ fontSize: { xs: 15, sm: 25 } }}>
-                {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * currentPrice)}
+                {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * (oldPrice === 0 ? currentPrice : oldPrice))}
               </Typography>
             </Grid>
           </Grid>

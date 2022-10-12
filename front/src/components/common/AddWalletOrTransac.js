@@ -26,7 +26,7 @@ const AddWalletOrTransac = ({
   };
 
   const handleAddWallet = () => {
-    return addWallet();
+    dispatch(addWallet());
   };
 
   const handleAddTransaction = () => {

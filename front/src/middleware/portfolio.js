@@ -203,7 +203,7 @@ const portfolio = (store) => (next) => async (action) => {
 
     case SAVE_TRANSACTION:
       const walletId = action.payload.wallet
-      if (!walletId) {
+      if (!walletId && !action.payload.id) {
         store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez selectionner un portefeuille pour votre transaction' }));
         next(action);
         break;

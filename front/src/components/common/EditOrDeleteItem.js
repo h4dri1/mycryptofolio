@@ -30,7 +30,7 @@ const EditOrDeleteItem = ({
   };
 
   const displayConfirmDelete = () => {
-    return deleteItem();
+    dispatch(deleteItem());
   };
 
   return (
