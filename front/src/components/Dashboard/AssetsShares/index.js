@@ -1,9 +1,11 @@
-import { Container, Table, TableHead, TableBody, TableRow, TableCell, Divider, Typography, TableContainer, Skeleton, Paper } from '@mui/material';
+import { Container, Table, TableHead, TableBody, TableRow, TableCell, Divider, Typography, TableContainer, Skeleton, Paper, Box } from '@mui/material';
 
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import { styled } from '@mui/material/styles';
+
+import MoodBadIcon from '@mui/icons-material/MoodBad';
 
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
@@ -19,7 +21,8 @@ export default function AssetsShares({ distribution }) {
 
 const TableContainerFunction = () => {
   return (
-    <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: 'neutral.main', borderRadius: '10px', maxHeight: '25vh', maxWidth: '95%'}}>
+      distribution[0]?.name !== 'empty' ? (
+        <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: 'neutral.main', borderRadius: '10px', maxHeight: '25vh', maxWidth: '95%'}}>
         <Table stickyHeader size='small' aria-label="a dense table" sx={{ maxWidth: '100%', p: '10'}}>
           <StyledTableHead>
             <TableRow align="left">
@@ -48,13 +51,19 @@ const TableContainerFunction = () => {
                     minimumSignificantDigits: 2,
                   }).format(asset.value)}
                 </TableCell>
-
                 <TableCell align="center" sx={{ padding: '0.5em 0.1em', borderBottom: 0  }}>{Intl.NumberFormat('en-US', { style: 'percent', maximumSignificantDigits: 2 }).format((asset.distribution / 100))}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      ) :
+      (
+        <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 4}}>
+          <MoodBadIcon sx={{fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+          <Typography sx={{textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No assets to display</Typography>
+        </Container>
+      )
   );
 }
 
@@ -71,7 +80,7 @@ const TableContainerFunction = () => {
         justifyContent: 'center',
         padding: '0',
       }}>
-        {distribution.length > 0 ? <TableContainerFunction/> : <Skeleton sx={{width:{xs:'300px', md:"580px"}, height:{xs:"83px", md:'200px'}, borderRadius: '10px', marginBottom: 2}} variant="rectangle"/>}
+        { distribution.length > 0  ? <TableContainerFunction/> : <Skeleton sx={{width:{xs:'300px', md:"580px"}, height:{xs:"83px", md:'200px'}, borderRadius: '10px', marginBottom: 2}} variant="rectangle"/>}
       </Container>
     </Container>
   );

@@ -1,5 +1,5 @@
-import { Typography, Container } from '@mui/material';
-
+import { Typography, Container, Skeleton, Box } from '@mui/material';
+import MoodBadIcon from '@mui/icons-material/MoodBad';
 import {
   Chart as ChartJS, ArcElement, Tooltip, Legend,
 } from 'chart.js';
@@ -69,14 +69,32 @@ export default function Allocation({chartData}) {
           display: 'flex', flexDirection: 'row', alignItems: 'center', maxHeight: '60vh', overflowY: 'auto', justifyContent: 'center'
         }}
         >
-        <Container
+        {data.labels[0] !== 'empty' ? (
+          <Container
           sx={{ width: '50%', height: '50%'}}
         >
-          <Doughnut
+          {data.datasets[0].data.length > 0 ? <Doughnut
             data={data}
             options={options}
-          />
+          /> : <Box sx={{display: 'flex', alignItems: 'center'}}>
+                <Skeleton variant="circular" width={150} height={150} sx={{marginTop: 2}}/>
+                <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                  <Skeleton variant="text" width={60} height={20} sx={{marginTop: 2, marginLeft: 1}}/>
+                  <Skeleton variant="text" width={60} height={20} sx={{marginTop: 1, marginLeft: 1}}/>
+                  <Skeleton variant="text" width={60} height={20} sx={{marginTop: 1, marginLeft: 1}}/>
+                </Box>
+              </Box>
+          }
+          
         </Container>
+        ) : (
+          <Container sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', marginTop: 1, marginBottom: 4}}>
+            <MoodBadIcon sx={{ fontSize: '4em', textAlign: 'center', width: '100%'}}/>
+            <Typography sx={{ textAlign: 'center', width: '100%', fontSize: '0.8em'}}>No assets to display</Typography>
+          </Container>
+        )
+        }
+        
       </Container>
     </Container>
   );
