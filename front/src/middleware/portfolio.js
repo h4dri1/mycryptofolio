@@ -7,7 +7,7 @@ import {
   FETCH_SPECIFIC_WALLET, fetchSpecificWalletSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
   SAVE_TRANSACTION, DELETE_TRANSACTION,
-  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet,
+  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet, fetchPortfolio
 } from 'src/actions/portfolio';
 
 import { setPending } from 'src/actions/settings';
@@ -245,7 +245,11 @@ const portfolio = (store) => (next) => async (action) => {
         })
           .then((res) => {
             if (res.status === 204) {
-              store.dispatch(fetchSpecificWallet(selectedWallet));
+              if (selectedWallet) {
+                store.dispatch(fetchSpecificWallet(selectedWallet));
+              } else {
+                store.dispatch(fetchPortfolio());
+              }
               store.dispatch(toggleConfirmDelete());
               const newAccessToken = res.headers.authorization;
               store.dispatch(saveNewToken(newAccessToken));
