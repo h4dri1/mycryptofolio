@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
-import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settings';
+import { toggleConfirmDelete } from 'src/actions/settings';
 
 import {
   toggleCreateWalletModal, updateSelectedWallet, fetchSpecificWallet, fetchPortfolio,
@@ -24,6 +24,8 @@ import Identicon from '../../Identicon';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import { toggleTransactionCreator } from '../../../actions/settings';
+
+import { setDisplaySnackBar } from 'src/actions/settings';
 
 const modalBoxStyle = {
   position: 'absolute',
@@ -182,7 +184,12 @@ export default function Banner(wallets) {
   const appBarBackGroundColor = darkMode ? 'transparent' : '#8752fa';
 
   const handleEditTransaction = () => {
-    dispatch(toggleTransactionCreator());
+    if (wallets.wallets.length > 0) {
+      dispatch(toggleTransactionCreator());
+    } else {
+      dispatch(setDisplaySnackBar({ severity: 'error', message: 'Créez un wallet en premier' }));
+      dispatch(toggleCreateWalletModal());
+    }
   };
 
   const ButtonTabs = () => {
