@@ -13,6 +13,7 @@ import nftList from '../middleware/nftList';
 import nftDetails from '../middleware/nftDetails';
 import metamask from '../middleware/metamask';
 import wallet from '../middleware/wallet';
+import favorite from '../middleware/favorite';
 
 // == Enhancers
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -28,7 +29,8 @@ const enhancers = composeEnhancers(
     nftList,
     nftDetails,
     metamask,
-    wallet
+    wallet,
+    favorite,
   ),
 );
 

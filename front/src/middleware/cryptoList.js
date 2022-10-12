@@ -24,6 +24,7 @@ import { GET_FEAR_GREED_INDEX, updateFearGreedIndex } from '../actions/cryptos';
 const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
 const cryptoList = (store) => (next) => (action) => {
+  const { logged } = store.getState().user;
   switch (action.type) {
     case GET_ALL_CRYPTOS:
       axios({

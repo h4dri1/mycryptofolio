@@ -8,6 +8,7 @@ import indicatorsReducer from './indicators';
 import NFTReducer from './nft';
 import nftDetailsReducer from './nftDetails';
 import walletReducer from './wallet';
+import favoriteReducer from './favorite';
 
 export default combineReducers({
   user: userReducer,
@@ -18,6 +19,7 @@ export default combineReducers({
   indicators: indicatorsReducer,
   nft: NFTReducer,
   nftDetails: nftDetailsReducer,
-  wallet: walletReducer
+  wallet: walletReducer,
+  favorite: favoriteReducer,
 });
 

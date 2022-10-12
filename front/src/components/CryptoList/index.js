@@ -12,6 +12,7 @@ import {
   Skeleton,
   TableContainer,
   Paper,
+  IconButton,
 } from '@mui/material';
 
 import { Link as RouterLink } from 'react-router-dom';
@@ -23,6 +24,9 @@ import {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { addFavoriteCrypto, deleteFavoriteCrypto, fetchFavoriteCryptos } from '../../actions/favorite';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +50,8 @@ function CryptoList() {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { darkMode } = useSelector((state) => state.settings);
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
+  const { logged } = useSelector((state) => state.user);
+  const { favorite } = useSelector((state) => state.favorite);
   
   const [rowData, setRowData] = useState(cryptos);
   const [orderDirection, setOrderDirection] = useState("asc");
@@ -89,9 +95,12 @@ function CryptoList() {
   };
 
   useEffect(() => {
+    if (logged) {
+      dispatch(fetchFavoriteCryptos());
+    }
     dispatch(getCryptoList());
     handleSortRequest()
-  }, []);
+  }, [logged]);
 
   return (
     <Grid container justifyContent="center" className={classes.root}>
@@ -100,6 +109,7 @@ function CryptoList() {
         <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: 'primary.main'}}>
           <TableHead>
             <TableRow>
+              {logged && (<TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Favoris</TableCell>)}
               <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="center">
                 <TableSortLabel active={true} direction={orderDirection}>
                   #
@@ -118,6 +128,19 @@ function CryptoList() {
 
             {cryptos.length > 0 ? cryptos.map((crypto) => (
               <TableRow key={crypto.id} hover>
+                {logged && (
+                <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>
+                  {favorite.cryptos.length > 0 && favorite.cryptos.some(e => e.coin_id === crypto.id) ? (
+                    <IconButton color='secondary' value={crypto.id} onClick={e => dispatch(deleteFavoriteCrypto(crypto.id))}>
+                      <StarIcon/>
+                    </IconButton>) : (
+                    <IconButton color='secondary' value={crypto.id} onClick={() => dispatch(addFavoriteCrypto(crypto.id))}>
+                      <StarOutlineIcon/>
+                    </IconButton>
+                    )
+                  }
+                </TableCell>
+                )}
                 <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
                 <TableCell sx={{borderBottom: 0}}>
                   <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
