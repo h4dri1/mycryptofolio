@@ -67,7 +67,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
       coin_id: currency.id,
       symbol: currency.symbol,
       buy,
-      price: currentPrice,
+      price: `${oldPrice !== 0 ? oldPrice : currentPrice}`,
       // ref_currency: refCurrency.toLowerCase(),
       quantity,
       buy_date: typeof(dateValue) === 'string' ? dateValue : dateValue.toUTCString(),
@@ -264,7 +264,10 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
               type="number"
               id="price"
               value={oldPrice !== 0 ? Math.ceil(oldPrice * 100) / 100 : (Math.ceil(currentPrice * 100) / 100)}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                  setOldPrice(e.target.value);
+                }
+              }
               InputProps={{
                 startAdornment: <InputAdornment position="start">{refCurrency.toUpperCase()}</InputAdornment>,
               }}
