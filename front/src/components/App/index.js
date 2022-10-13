@@ -45,6 +45,8 @@ const App = () => {
     dispatch(getCurrentAccount());
   }
 
+  console.log(window.devicePixelRatio)
+
   useEffect(() => {
     async function asyncCheck() {
       if (localStorage.getItem('refreshToken')) {
