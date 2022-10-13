@@ -176,7 +176,7 @@ function CryptoList() {
       <Box>
         <LoadingButton
           variant="outlined"
-          sx={{ mt:2, mb: 7, color: "primary.main", borderColor: "primary.main"}}
+          sx={{ mt:2, mb: 7, color: "secondary.dark", borderColor: "secondary.dark"}}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
         >
