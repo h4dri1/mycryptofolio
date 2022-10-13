@@ -29,27 +29,19 @@ export default function TopNFT(colors) {
     const hide500 = useMediaQuery('(max-width:600px)');
 
     return (
-<Box
-        sx={{
-            width: 'auto',
-            height: 'auto',
-            boxShadow: 5,
-            display: 'flex',
-            flexDirection: 'column',
-            margin: '5px',
-            flexWrap: 'wrap',
-            marginTop: '20px',
-            borderRadius: '10px',
-            backgroundColor: image ? '#FF3CAC' : color,
-            backgroundImage: image
-        }}
-        >
-            <Container sx={{ marginBottom: 3 }}>
-                <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                    <InsertPhotoIcon sx={{color: 'secondary.main'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Trending NFT</Typography>
-                </Container>
+<Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2}}>
+      <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
+        <InsertPhotoIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Trending NFT</Typography>
+      </Container>
+      <Container sx={{
+        display: 'flex', 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        overflowY: 'auto', 
+        justifyContent: 'center'
+      }}>
                 { nfts.length > 0 ? (
-                    <TableContainer component={Paper} sx={{backgroundColor: 'neutral.main', borderRadius: '10px', width: hide500 ? '320px' : '472px' }}>
+                    <TableContainer component={Paper} sx={{backgroundColor: 'neutral.main', borderRadius: '10px'}}>
                         <Table size='small' aria-label="a dense table">
                             <TableHead sx={{backgroundColor: 'secondary.dark'}}>
                                 <TableRow>
@@ -81,6 +73,7 @@ export default function TopNFT(colors) {
                     )
                 }
             </Container>
-        </Box>
+        </Container>
     );
 }
+
