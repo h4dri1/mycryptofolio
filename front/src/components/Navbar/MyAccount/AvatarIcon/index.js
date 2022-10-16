@@ -157,7 +157,7 @@ export default function TestAvatar() {
                         </ListItemIcon>
                         <Link
                           component={RouterLink}
-                          to="/"
+                          to="/watchlist"
                           underline="none"
                         >
                           Watchlist
