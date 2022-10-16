@@ -49,6 +49,7 @@ export default function WatchList({logged}) {
   const { favorite } = useSelector((state) => state.favorite);
   const { allCryptos } = useSelector((state) => state.cryptos);
   const [cryptoList, setCryptoList] = useState([]);
+  const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
 
   useEffect(() => {
     if (!logged) {
@@ -56,7 +57,7 @@ export default function WatchList({logged}) {
     } else  {
         dispatch(getAllCryptos())
     }
-  }, []);
+  }, [logged, selectedCurrency]);
 
   useEffect(() => {
     if (allCryptos.length  > 0) {
@@ -67,7 +68,7 @@ export default function WatchList({logged}) {
             })
         ])
     }
-  }, [favorite.cryptos])
+  }, [favorite.cryptos, allCryptos])
 
     return (
     <div className="">

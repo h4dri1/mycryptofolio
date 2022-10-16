@@ -104,7 +104,7 @@ function CryptoList({favoritePage}) {
     }
     dispatch(getCryptoList());
     handleSortRequest()
-  }, [logged, allCryptos]);
+  }, [logged, allCryptos, selectedCurrency]);
 
   const handleDisplayFav = () => {
     setFavClick(!favClick);
