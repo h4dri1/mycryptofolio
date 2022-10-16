@@ -72,7 +72,7 @@ export default function WatchList({logged}) {
 
     return (
     <div className="">
-      <Box sx={{display: 'flex', flexDirection:'column', minHeight: '80vh', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+      <Box sx={{display: 'flex', flexDirection:'column', minHeight: '80vh', alignItems: 'center', width: '100%'}}>
         <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
         {
             cryptoList.length > 0 && cryptoList[0].map((crypto, index) => (
