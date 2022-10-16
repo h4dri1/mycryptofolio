@@ -67,7 +67,7 @@ export default function TopFlop({pixelRatio}) {
                                 <Typography sx={{color: 'secondary.dark'}}>{crypto.symbol.toUpperCase()}</Typography>
                             </Box>
                             </TableCell>
-                            <TableCell sx={{borderBottom: 0, fontSize: size }}>{crypto.id}</TableCell>
+                            <TableCell sx={{borderBottom: 0, fontSize: size }}>{crypto.id.length > 13 ? `${crypto.id.slice(0,10)}...` : crypto.id}</TableCell>
                             <TableCell sx={{borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
                             </TableRow >
                         ))}
