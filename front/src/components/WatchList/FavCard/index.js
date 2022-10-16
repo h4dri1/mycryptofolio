@@ -1,23 +1,60 @@
-import { Box, Button, Grid, Link, Typography, Container } from '@mui/material';
+import { Typography, Container, Avatar, Divider } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import { Box } from '@mui/system';
+import { useSelector } from 'react-redux';
 
 export default function FavCard({ crypto }) {
+    const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
 
- return (
-    <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2}}>
-      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems:'center' }}>
-        <StarIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontSize: '0.8em', fontWeight: 'bold', color:'primaryTextColor.main' }}>{crypto.coin_id}</Typography>
-      </Container>
-      <Container sx={{
-        display: 'flex', 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        overflowY: 'auto', 
-        justifyContent: 'center'
-      }}>
-        
-        <Typography sx={{ fontSize: '0.8em', fontWeight: 'bold', color:'primaryTextColor.main' }}></Typography>
-      </Container>
-    </Container>
- )   
+    if (selectedCurrency === 'BTC') {
+        var curParams = {
+          maximumSignificantDigits: 4
+        }
+        var cryptoSym = '₿'
+      } else if (selectedCurrency === 'ETH') {
+        var curParams = {
+          maximumSignificantDigits: 4
+        }
+        var cryptoSym = 'Ξ'
+      } else {
+        var curParams = {
+          style: "currency",
+          currency: selectedCurrency,
+          maximumSignificantDigits: 4
+        }
+        var cryptoSym = ''
+      }
+
+    return (
+        <Container 
+            disableGutters 
+            sx={{ 
+                borderRadius: '10px', 
+                height: '100%'
+            }}>
+            <Container sx={{ display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+                <StarIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontSize: '0.8em', fontWeight: 'bold', color:'primaryTextColor.main' }}>{crypto.name}</Typography>
+            </Container>
+            <Container sx={{
+            display: 'flex', 
+            flexDirection: 'row', 
+            alignItems: 'center', 
+            overflowY: 'auto', 
+            justifyContent: 'space-between',
+            mb: 2,
+            mt: 2
+            }}>
+                <Box sx={{...(crypto.price_change_percentage_24h > 0 ? { backgroundColor: '#1cb344' } : { backgroundColor: '#eb3b5a' }), display: 'flex', alignItem:'center', justifyContent: 'center', borderRadius: '50%', width: '50px', height: '50px'}}>
+                    <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.7em', fontWeight: 'bold'}}>{`${cryptoSym}${crypto.current_price.toLocaleString("en-US", curParams)}`}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Avatar loading='lazy' src={crypto.image.replace('large', 'small')} alt={crypto.name} sx={{ display: {xs: 'none', md: 'inline-block'} ,width:{xs:'30px', md: '40px'}, height:{xs:'30px', md: '41px'} }} />            
+                </Box>
+                <Box sx={{...(crypto.price_change_percentage_24h > 0 ? { backgroundColor: '#1cb344' } : { backgroundColor: '#eb3b5a' }), display: 'flex', alignItem:'center', justifyContent: 'center', borderRadius: '50%', width: '50px', height: '50px'}}>
+                    <Typography sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.7em', fontWeight: 'bold'}}>{crypto.price_change_percentage_24h.toFixed(2)}%</Typography>
+                </Box>
+                
+            </Container>
+        </Container>
+    )   
 }
