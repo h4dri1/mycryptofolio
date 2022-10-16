@@ -42,7 +42,6 @@ export default function chooseColor() {
             </Box>
             }
             <Box onClick={() => setDisplay(!display)} sx={{ cursor: 'pointer', backgroundColor: `${color}`, borderRadius: '50%', border: 1, width: "20px", height: "20px", marginRight: 1 }} />
-            <Box onClick={handleClick} sx={{ cursor: 'pointer', marginRight: 1, backgroundColor: '#FF3CAC', backgroundImage: 'linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)', borderRadius: '50%', border: 1, width: "20px", height: "20px" }} />
         </Box>
     );
 } 

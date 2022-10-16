@@ -28,8 +28,6 @@ export default function Info() {
       borderColor: '#E7EBF0',
       borderRadius: '10px',
       boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
-      backgroundColor: image ? '#FF3CAC' : color,
-      backgroundImage: image
     },
     gridSubItem: {
       // border: 'solid 2px gold',
@@ -43,7 +41,7 @@ export default function Info() {
 
   const classes = useStyles();
 
-  const { color, image } = colors()
+  const { color } = colors()
 
   useEffect(() => {
     window.scrollTo(0, 0)
