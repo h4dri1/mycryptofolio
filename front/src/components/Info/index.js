@@ -58,13 +58,13 @@ export default function Info() {
       <Box sx={{minHeight: '80vh'}}>
         <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
           <Grid sx={{backgroundColor: color, marginBottom:{xs: 1, md: 0}, marginLeft:{xs: 1, md: 0}, marginRight:{xs: 1, md: 0}}} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
-            <TopFlop/>
+            <TopFlop pixelRatio={pixelRatio}/>
           </Grid>
           <Grid sx={{backgroundColor: color, marginBottom:{xs: 1, md: 0}, marginLeft:{xs: 1, md: 2}, marginRight:{xs: 1, md: 2}}} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
             <News/>
           </Grid>
           <Grid sx={{backgroundColor: color, marginBottom:{xs: 1, md: 0}, marginLeft:{xs: 1, md: 0}, marginRight:{xs: 1, md: 0}}} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
-            <TopNFT/>
+            <TopNFT pixelRatio={pixelRatio}/>
           </Grid>
             <CryptoList/>
         </Grid>

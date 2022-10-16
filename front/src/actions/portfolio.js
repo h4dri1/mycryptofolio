@@ -8,6 +8,7 @@ export const UPDATE_WALLET = 'UPDATE_WALLET';
 export const DELETE_WALLET = 'DELETE_WALLET';
 export const DELETE_OR_UPDATE_WALLET_SUCCESS = 'DELETE_OR_UPDATE_WALLET_SUCCESS';
 export const UPDATE_SELECTED_WALLET = 'UPDATE_SELECTED_WALLET';
+export const UPDATE_SELECTED_TRANSACTION = 'UPDATE_SELECTED_TRANSACTION';
 // get portfolio data
 export const FETCH_PORTFOLIO = 'FETCH_PORTFOLIO';
 export const FETCH_PORTFOLIO_SUCCESS = 'FETCH_PORTFOLIO_SUCCESS';
@@ -60,6 +61,11 @@ export const updateWalletList = (payload) => ({
 
 export const updateSelectedWallet = (payload) => ({
   type: UPDATE_SELECTED_WALLET,
+  payload,
+});
+
+export const updateSelectedTransaction = (payload) => ({
+  type: UPDATE_SELECTED_TRANSACTION,
   payload,
 });
 

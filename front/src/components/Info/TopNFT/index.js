@@ -20,11 +20,9 @@ import {
     Skeleton    
 } from '@mui/material';
 
-export default function TopNFT(colors) {
+export default function TopNFT({pixelRatio}) {
 
     const { list: nfts } = useSelector((state) => state.nft.NFTList);
-
-    const { color, image } = colors
     
     const hide500 = useMediaQuery('(max-width:600px)');
 

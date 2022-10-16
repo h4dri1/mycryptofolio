@@ -1,16 +1,19 @@
 import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
-import Wallet from 'src/components/Wallet';
+import WatchList from 'src/components/WatchList';
 import Footer from 'src/components/Footer';
 
-export default function WalletPage() {
+import { useSelector } from 'react-redux';
+
+export default function WatchListPage() {
+    const { logged } = useSelector((state) => state.user);
 
     return (
         <>
             <div className="">
                 <TopBanner />
                 <Navbar />
-                <Wallet />
+                <WatchList logged={logged}/>
                 <Footer />
             </div>
         </>

@@ -20,13 +20,10 @@ import {
     Skeleton
 } from '@mui/material';
 
-
-
-export default function TopFlop(colors) {
+export default function TopFlop({pixelRatio}) {
 
     const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
-
-    const { color, image } = colors
+    const size = pixelRatio > 1 ? '0.8em' : '0.9em'
 
     const newCryptos = []
 
@@ -70,7 +67,7 @@ export default function TopFlop(colors) {
                                 <Typography sx={{color: 'secondary.dark'}}>{crypto.symbol.toUpperCase()}</Typography>
                             </Box>
                             </TableCell>
-                            <TableCell sx={{borderBottom: 0 }}>{crypto.id}</TableCell>
+                            <TableCell sx={{borderBottom: 0, fontSize: size }}>{crypto.id}</TableCell>
                             <TableCell sx={{borderBottom: 0 }}>{crypto.market_cap_rank}</TableCell>
                             </TableRow >
                         ))}

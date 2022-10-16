@@ -6,9 +6,10 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { updateSelectedTransaction } from '../../actions/portfolio';
 
 const EditOrDeleteItem = ({
   editItem, deleteItem, positionAbsolute, itemId,
@@ -26,7 +27,8 @@ const EditOrDeleteItem = ({
   };
 
   const handleEditItem = () => {
-    return editItem(itemId);
+    dispatch(updateSelectedTransaction(itemId));
+    dispatch(editItem(itemId));
   };
 
   const displayConfirmDelete = () => {

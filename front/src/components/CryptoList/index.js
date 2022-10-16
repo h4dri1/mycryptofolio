@@ -28,11 +28,12 @@ import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { addFavoriteCrypto, deleteFavoriteCrypto, fetchFavoriteCryptos } from '../../actions/favorite';
+import { getAllCryptos } from '../../actions/cryptos';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTableCell-head": {
-      backgroundColor: "#00b2cc"
+      backgroundColor: "#00b2cc",
   },
   },
   cryptoList: {
@@ -40,18 +41,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CryptoList() {
+function CryptoList({favoritePage}) {
   const dispatch = useDispatch();
   const theme = useTheme();
   const classes = useStyles(theme);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { darkMode } = useSelector((state) => state.settings);
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
+  const { allCryptos } = useSelector((state) => state.cryptos);
   const { logged } = useSelector((state) => state.user);
   const { favorite } = useSelector((state) => state.favorite);
   
   const [rowData, setRowData] = useState(cryptos);
   const [orderDirection, setOrderDirection] = useState("asc");
+  const [favClick, setFavClick] = useState(false);
+  const [cryptoListFav, setCryptoListFav] = useState(cryptos);
 
   if (selectedCurrency === 'BTC') {
     var curParams = {
@@ -95,17 +99,37 @@ function CryptoList() {
     if (logged) {
       dispatch(fetchFavoriteCryptos());
     }
+    if (favoritePage) {
+      setCryptoListFav(allCryptos);
+    }
     dispatch(getCryptoList());
     handleSortRequest()
-  }, [logged]);
+  }, [logged, allCryptos]);
+
+  const handleDisplayFav = () => {
+    setFavClick(!favClick);
+    favTable();
+  }
+
+  const favTable = () => {
+    if (favoritePage || favClick) {
+      return cryptoListFav.filter((crypto) => {
+        if (favorite.cryptos.find(e => e.coin_id === crypto.id)) {
+          return crypto
+        }
+      })
+    } else {
+      return cryptos
+    }
+  }
 
   const TableCont = () => {
     return (
       <TableContainer component={Paper} sx={{borderRadius: '10px', marginTop: 2, boxShadow: 5, width: {xs:'auto', md:'1220px'}, minWidth:'344px'}}>
-      <Table stickyHeader size='medium' aria-label="a dense table" sx={{backgroundColor: 'primary.main'}}>
+      <Table size='medium' sx={{backgroundColor: 'primary.main'}}>
         <TableHead>
           <TableRow>
-            {logged && (<TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Favoris</TableCell>)}
+            {logged && (<TableCell onClick={handleDisplayFav} align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}><TableSortLabel active={true}>Favoris</TableSortLabel></TableCell>)}
             <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' }}} align="center">
               <TableSortLabel active={true} direction={orderDirection}>
                 #
@@ -122,7 +146,7 @@ function CryptoList() {
 
         <TableBody>
 
-          {cryptos.length > 0 ? cryptos.map((crypto) => (
+          {cryptos.length > 0 ? favTable().map((crypto) => (
             <TableRow key={crypto.id} hover>
               {logged && (
               <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>
@@ -173,7 +197,7 @@ function CryptoList() {
   return (
     <Container className={classes.root} sx={{display:'flex', flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
       <TableCont/>
-      <Box>
+      {!favoritePage && <Box>
         <LoadingButton
           variant="outlined"
           sx={{ mt:2, mb: 7, color: "secondary.dark", borderColor: "secondary.dark"}}
@@ -182,7 +206,7 @@ function CryptoList() {
         >
           Charger plus de cryptos
         </LoadingButton>
-      </Box>
+      </Box>}
     </Container>
   );
 }

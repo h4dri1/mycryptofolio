@@ -87,7 +87,7 @@ export default function PrimarySearchAppBar() {
           {homeIcon && 
           <Link
             component={RouterLink}
-            to="/"
+            to="/watchlist"
             underline="none"
             sx={{ color: 'white'}}
           >

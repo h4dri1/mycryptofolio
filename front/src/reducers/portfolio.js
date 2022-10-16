@@ -2,7 +2,7 @@ import {
   TOGGLE_CREATE_WALLET_MODAL, UPDATE_CREATE_WALLET_INPUT,
   UPDATE_SELECTED_WALLET, FETCH_PORTFOLIO_SUCCESS, FETCH_SPECIFIC_WALLET_SUCCESS,
   UPDATE_WALLET_LIST, DELETE_OR_UPDATE_WALLET_SUCCESS, TOGGLE_UPDATE_WALLET_MODAL,
-  UPDATE_UPDATE_WALLET_INPUT,
+  UPDATE_UPDATE_WALLET_INPUT, UPDATE_SELECTED_TRANSACTION,
 } from 'src/actions/portfolio';
 
 const initialState = {
@@ -15,6 +15,7 @@ const initialState = {
     inputText: '',
   },
   selectedWallet: '',
+  selectedTransaction: '',
   distribution: [],
   performance: [],
   transactions: [],
@@ -69,6 +70,11 @@ const portfolioReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         selectedWallet: action.payload ? action.payload : '',
+      };
+    case UPDATE_SELECTED_TRANSACTION:
+      return {
+        ...state,
+        selectedTransaction: action.payload ? action.payload : '',
       };
     case FETCH_PORTFOLIO_SUCCESS:
       return {

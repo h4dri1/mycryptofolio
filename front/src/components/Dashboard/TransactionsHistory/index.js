@@ -13,6 +13,7 @@ import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settin
 
 import HistoryIcon from '@mui/icons-material/History';
 import { useState } from 'react';
+import { updateSelectedTransaction } from '../../../actions/portfolio';
 
 const modalBoxStyle = {
   position: 'absolute',
@@ -33,12 +34,7 @@ export default function TransactionsHistory({transactions}) {
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
   const { darkMode } = useSelector((state) => state.settings);
 
-  const [selectedTransaction, setSelectedTransaction] = useState(undefined);
-
-  const handleEditTransaction = (id) => {
-    setSelectedTransaction(id);
-    dispatch(toggleTransactionEditor());
-  };
+  const { selectedTransaction } = useSelector((state) => state.portfolio);
 
   const useStyles = makeStyles({
     root: {
@@ -48,7 +44,7 @@ export default function TransactionsHistory({transactions}) {
     }
   });
 
-const classes = useStyles();
+  const classes = useStyles();
 
   const TableContainerFunction = () => {
     return (
@@ -87,7 +83,7 @@ const classes = useStyles();
                 <TableCell align="right" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
                   <EditOrDeleteItem
                     positionAbsolute={false}
-                    editItem={handleEditTransaction}
+                    editItem={toggleTransactionEditor}
                     deleteItem={() => toggleConfirmDelete({ type: 'transaction', itemId: transaction.id })}
                     itemId={transaction.id}
                   />
