@@ -25,6 +25,8 @@ export default function Home({ displayLogin }) {
       navigate('/portfolio');
     } else if (logged && location.search == '?continue=/profil') {
       navigate('/profil');
+    } else if (logged && location.search == '?continue=/watchlist') {
+      navigate('/watchlist');
     }
   }, [logged]);
 
