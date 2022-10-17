@@ -73,9 +73,11 @@ const favorite = (store) => (next) => async (action) => {
 
       })
         .then((res) => {
-          store.dispatch(fetchFavoriteCryptos());
-          const newAccessToken = res.headers.authorization
-          store.dispatch(saveNewToken(newAccessToken));
+          if (res.status === 204) {
+            store.dispatch(fetchFavoriteCryptos());
+            const newAccessToken = res.headers.authorization
+            store.dispatch(saveNewToken(newAccessToken));
+          }
         })
         .catch((err) => {
           console.log(err);

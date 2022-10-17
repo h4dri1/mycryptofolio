@@ -113,7 +113,8 @@ function CryptoList({favoritePage}) {
 
   const favTable = () => {
     if (favoritePage || favClick) {
-      return cryptoListFav.filter((crypto) => {
+      const newCryptoList = favClick ? cryptos : cryptoListFav;
+      return newCryptoList.filter((crypto) => {
         if (favorite.cryptos.find(e => e.coin_id === crypto.id)) {
           return crypto
         }
@@ -151,7 +152,7 @@ function CryptoList({favoritePage}) {
               {logged && (
               <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>
                 {favorite.cryptos.length > 0 && favorite.cryptos.some(e => e.coin_id === crypto.id) ? (
-                  <IconButton color='secondary' value={crypto.id} onClick={e => dispatch(deleteFavoriteCrypto(crypto.id))}>
+                  <IconButton color='secondary' value={crypto.id} onClick={() => dispatch(deleteFavoriteCrypto(crypto.id))}>
                     <StarIcon/>
                   </IconButton>) : (
                   <IconButton color='secondary' value={crypto.id} onClick={() => dispatch(addFavoriteCrypto(crypto.id))}>

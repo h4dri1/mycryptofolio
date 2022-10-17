@@ -16,6 +16,7 @@ import TopNFT from './TopNFT'
 import CryptoList from '../CryptoList'
 
 import colors from '../../services/getColors'
+import { fetchFavoriteCryptos } from '../../actions/favorite';
 
 export default function Info() {
   const useStyles = makeStyles({
