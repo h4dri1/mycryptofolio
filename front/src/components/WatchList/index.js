@@ -14,6 +14,7 @@ import CryptoList from '../CryptoList'
 import colors from '../../services/getColors'
 import { getAllCryptos } from '../../actions/cryptos';
 import { setDisplaySnackBar } from 'src/actions/settings';
+import { fetchFavoriteCryptos } from '../../actions/favorite';
 
 export default function WatchList({logged}) {
   const useStyles = makeStyles({
@@ -56,21 +57,20 @@ export default function WatchList({logged}) {
     if (!logged) {
         navigate('/login?continue=/watchlist');   
     } else {
-      if (favorite.cryptos.length === 0) {
-        navigate('/market?continue=/addfav');
-      }
         dispatch(getAllCryptos()) 
     }
   }, [logged, selectedCurrency]);
 
   useEffect(() => {
-    if (allCryptos.length  > 0 && favorite.cryptos.length > 0) {
+    if (allCryptos.length  > 0 || favorite.cryptos.length > 0) {
       setCryptoList([allCryptos.filter((crypto) => {
           if (favorite.cryptos.find(e => e.coin_id === crypto.id)) {
               return crypto
           }
         })
       ])
+    } else {
+      navigate('/market?continue=/addfav');
     }
   }, [favorite.cryptos, allCryptos])
 

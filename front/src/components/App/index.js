@@ -27,6 +27,7 @@ const UnknowRoute = lazy(() => import('../../pages/404'));
 const WatchList = lazy(() => import('../../pages/WatchList'));
 
 import Theme from '../../theming/Theme';
+import { fetchFavoriteCryptos } from '../../actions/favorite';
 
 // == Composant
 
@@ -35,6 +36,7 @@ const App = () => {
   // DARK MODE
   const { logged } = useSelector((state) => state.user);
   const { walletAddress } = useSelector((state) => state.wallet);
+  const { favorite } = useSelector((state) => state.favorite);
   const theme = Theme()
   // COLOR PALETTE for LIGHT & DARK modes
   
@@ -66,6 +68,7 @@ const App = () => {
       }
     }
     asyncCheck();
+    dispatch(fetchFavoriteCryptos());
   }, []);
 
   return (
