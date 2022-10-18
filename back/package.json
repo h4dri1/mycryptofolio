@@ -34,7 +34,7 @@
     "prompt": "^1.2.2",
     "redis": "^4.2.0",
     "supertest": "^6.2.2",
-    "swagger-jsdoc": "^6.1.0",
+    "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.3.0",
     "winston": "^3.6.0"
   },
