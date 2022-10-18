@@ -225,7 +225,7 @@ const MainContainer = ({noButton}) => {
 
   return (
     <>
-    { backdropOpen && favorite.cryptos.length === 0 ?
+    { backdropOpen && favorite.cryptos[0]?.coin_id === 'none' ?
       <Backdrop
         sx={{ display: 'flex', justifyContent: 'left', color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={true}

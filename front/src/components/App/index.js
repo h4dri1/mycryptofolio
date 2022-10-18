@@ -68,7 +68,6 @@ const App = () => {
       }
     }
     asyncCheck();
-    dispatch(fetchFavoriteCryptos());
   }, []);
 
   return (

@@ -57,19 +57,20 @@ export default function WatchList({logged}) {
     if (!logged) {
         navigate('/login?continue=/watchlist');   
     } else {
+        dispatch(fetchFavoriteCryptos());
         dispatch(getAllCryptos()) 
     }
   }, [logged, selectedCurrency]);
 
   useEffect(() => {
-    if (allCryptos.length  > 0 || favorite.cryptos.length > 0) {
+    if (favorite.cryptos.length > 0 && favorite.cryptos[0]?.coin_id !== 'none') {
       setCryptoList([allCryptos.filter((crypto) => {
           if (favorite.cryptos.find(e => e.coin_id === crypto.id)) {
               return crypto
           }
         })
       ])
-    } else {
+    } else if (favorite.cryptos[0]?.coin_id === 'none') {
       navigate('/market?continue=/addfav');
     }
   }, [favorite.cryptos, allCryptos])
