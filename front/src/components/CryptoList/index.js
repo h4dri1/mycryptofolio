@@ -182,6 +182,7 @@ function CryptoList({favoritePage}) {
           )) : <TableRow>
                   <TableCell sx={{borderBottom: 0}} align="center"><Skeleton variant='text' sx={{marginLeft: 3, width: 20, height: 30}}/></TableCell>
                   <TableCell sx={{borderBottom: 0}} align="right"><Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}><Skeleton variant='circular' sx={{width: 40, height: 40}}/><Skeleton variant='text' sx={{marginLeft: 1, width: 50, height: 30}}></Skeleton></Box></TableCell>
+                  <TableCell sx={{borderBottom: 0}} align="right"><Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}><Skeleton variant='circular' sx={{width: 40, height: 40}}/><Skeleton variant='text' sx={{marginLeft: 1, width: 50, height: 30}}></Skeleton></Box></TableCell>
                   <TableCell sx={{borderBottom: 0}} align="right"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 50, height: 40}}/></Box></TableCell>
                   <TableCell sx={{borderBottom: 0}} align="center"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 50, height: 40}}/></Box></TableCell>
                   <TableCell sx={{display: { xs: 'none', sm: 'table-cell' }, borderBottom: 0}} align="center"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 100, height: 40}}/></Box></TableCell>
