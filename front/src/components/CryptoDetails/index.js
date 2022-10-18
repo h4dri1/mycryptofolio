@@ -10,6 +10,8 @@ import { fetchCryptoData, fetchChartData } from 'src/actions/cryptoDetails';
 import Graph from './Graph';
 import Description from './Description';
 import Indicators from './Indicators';
+import { fetchFavoriteCryptos } from '../../actions/favorite';
+
 
 const useStyles = makeStyles({
   grid: {
@@ -28,6 +30,7 @@ function CryptoDetails() {
 
   const { data, chart } = useSelector((state) => state.cryptoDetails);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
+  const { favorite } = useSelector((state) => state.favorite);
   const { slug } = useParams();
 
   const [range, setRange] = useState(1);
@@ -53,8 +56,9 @@ function CryptoDetails() {
 
   useEffect(() => {
       dispatch(fetchCryptoData(slug, range));
+      dispatch(fetchFavoriteCryptos());
   }, []);
-
+ 
   const handleClick = (event) => {
     dispatch(fetchChartData(slug, event.target.value));
   }
@@ -102,6 +106,7 @@ function CryptoDetails() {
             <Box xs={11} sx={{backgroundColor: 'primary.main', boxShadow: 4, borderRadius: '10px', padding: 2,  marginRight: {xs: 1, lg: 1, xl: 6.5}, marginTop: {xs: 4, md: 0, lg: 0, xl: 0}, marginLeft: {xs: 1, lg: 1, xl: 0}}}>
               <Indicators
                 data={data}
+                favorite={favorite}
               />
             </Box>
             <Box xs={11} sx={{backgroundColor: 'primary.main', marginTop: 4, marginLeft: {xs: 1, xl: 6.5}, marginRight: {xs: 1, xl: 6.5}, boxShadow: 4, borderRadius: '10px', padding: 2, width: 1}}>

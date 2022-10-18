@@ -1,19 +1,22 @@
 /* eslint-disable no-dupe-keys */
 import PropTypes from 'prop-types';
 
-import { Box, Typography, Chip, Divider } from '@mui/material';
+import { Box, Typography, Chip, Divider, IconButton } from '@mui/material';
 
 import PaidIcon from '@mui/icons-material/Paid';
 import BatteryCharging90Icon from '@mui/icons-material/BatteryCharging90';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import FactoryIcon from '@mui/icons-material/Factory';
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { deleteFavoriteCrypto, addFavoriteCrypto } from '../../../actions/favorite';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useSelector } from 'react-redux';
-
-export default function Indicators({ data }) {
+export default function Indicators({ data, favorite }) {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
-
+  const dispatch = useDispatch();
+  
   if (selectedCurrency === 'BTC') {
     var curParams = {
       maximumSignificantDigits: 4
@@ -53,7 +56,7 @@ if (data.market_data) {
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'left'}}>
-        <Box sx={{ display: 'flex', flexDirection: 'row', minWidth: '100%', justifyContent: 'center'}}> 
+        <Box sx={{ display: 'flex', flexDirection: 'row', minWidth: '100%', justifyContent: 'center', alignItems: 'center'}}> 
           <Box>
               <img
                 src={data.image ? `${data.image.small}?w=248&fit=crop&auto=format` : 'https://via.placeholder.com/24x24?text=No+Image'}
@@ -89,6 +92,17 @@ if (data.market_data) {
           <Chip color='secondary' label="Website" component="a" href={data.links ? data.links : '#'} clickable/>
           <Chip sx={{marginLeft: 1}} color='secondary' label="GitHub" component="a" href={data.repos_url ? data.repos_url[0] : '#'} clickable/>
           <Chip sx={{marginLeft: 1}} color='secondary' label="Explorer" component="a" href={data.explorer ? data.explorer : '#'} clickable/>
+        </Box>
+        <Box sx={{ display: 'flex', color: 'secondary.dark', width: '100%', justifyContent:'center', mt: 3}}>
+          {favorite.cryptos.length > 0 && favorite.cryptos.some(e => e.coin_id === data.id) ? (
+            <IconButton color='secondary' value={data.id} onClick={() => dispatch(deleteFavoriteCrypto(data.id))}>
+              <StarIcon sx={{fontSize: '2em'}}/>
+            </IconButton>) : (
+            <IconButton color='secondary' value={data.id} onClick={() => dispatch(addFavoriteCrypto(data.id))}>
+              <StarOutlineIcon sx={{fontSize: '2em'}}/>
+            </IconButton>
+            )
+          }
         </Box>
       </Box>
     </>
