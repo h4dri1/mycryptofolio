@@ -77,6 +77,7 @@ const TransactionCreator = (props) => {
         // maxHeight: '50vh',
         overflowY: 'auto',
         padding: { xs: '0 0 2em 0', sm: '0 .5em 2em .5em' },
+        backgroundColor: 'background.default'
       }}
     >
       <Box sx={{display:'flex', width: '100%', justifyContent: 'right', cursor: 'pointer', marginBottom: -5}} edge="end" aria-label="Fermer" onClick={() => {
@@ -89,8 +90,8 @@ const TransactionCreator = (props) => {
       }>
         <CloseRoundedIcon />
       </Box>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="Panneau ">
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 1 }}>
+        <Tabs textColor="secondary" indicatorColor="secondary" value={value} onChange={handleChange} aria-label="Panneau ">
           <Tab label="Achat" {...Props(0)} />
           <Tab label="Vente" {...Props(1)} />
         </Tabs>
