@@ -56,24 +56,21 @@ export default function WatchList({logged}) {
     if (!logged) {
         navigate('/login?continue=/watchlist');   
     } else {
-        if (favorite.cryptos.length === 0) {
-          dispatch(setDisplaySnackBar({ severity: 'error', message: 'Ajouter des favoris !' }));
-          navigate('/market');
-        } else {
-          dispatch(getAllCryptos())
-        }
-        
+      if (favorite.cryptos.length === 0) {
+        navigate('/market?continue=/addfav');
+      }
+        dispatch(getAllCryptos()) 
     }
   }, [logged, selectedCurrency]);
 
   useEffect(() => {
-    if (allCryptos.length  > 0) {
-        setCryptoList([allCryptos.filter((crypto) => {
-            if (favorite.cryptos.find(e => e.coin_id === crypto.id)) {
-                return crypto
-            }
-            })
-        ])
+    if (allCryptos.length  > 0 && favorite.cryptos.length > 0) {
+      setCryptoList([allCryptos.filter((crypto) => {
+          if (favorite.cryptos.find(e => e.coin_id === crypto.id)) {
+              return crypto
+          }
+        })
+      ])
     }
   }, [favorite.cryptos, allCryptos])
 

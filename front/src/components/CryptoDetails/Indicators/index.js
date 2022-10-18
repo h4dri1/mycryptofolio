@@ -16,11 +16,11 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function Indicators({ data, favorite }) {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const dispatch = useDispatch();
-  
+
   if (selectedCurrency === 'BTC') {
     var curParams = {
       maximumSignificantDigits: 4
-    }
+    } 
     var cryptoSym = '₿'
   } else if (selectedCurrency === 'ETH') {
     var curParams = {

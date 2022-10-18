@@ -12,8 +12,13 @@ import {
   TableContainer,
   Paper,
   IconButton,
-  Container
+  Container,
+  Backdrop,
+  Slide,
+  Fade
 } from '@mui/material';
+
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -22,12 +27,12 @@ import { makeStyles, useTheme, styled } from '@mui/styles';
 import {useState, useEffect} from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { addFavoriteCrypto, deleteFavoriteCrypto, fetchFavoriteCryptos } from '../../actions/favorite';
-import { getAllCryptos } from '../../actions/cryptos';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CryptoList({favoritePage}) {
+function CryptoList({favoritePage, showTutorial}) {
   const dispatch = useDispatch();
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -55,6 +60,8 @@ function CryptoList({favoritePage}) {
   const [orderDirection, setOrderDirection] = useState("asc");
   const [favClick, setFavClick] = useState(false);
   const [cryptoListFav, setCryptoListFav] = useState(cryptos);
+  const [backdropOpen, setBackdropOpen] = useState(showTutorial);
+  const navigate = useNavigate();
 
   if (selectedCurrency === 'BTC') {
     var curParams = {
@@ -104,6 +111,10 @@ function CryptoList({favoritePage}) {
     dispatch(getCryptoList());
     handleSortRequest()
   }, [logged, allCryptos, selectedCurrency]);
+
+  useEffect(() => {
+    setBackdropOpen(showTutorial);
+  }, [showTutorial]);
 
   const handleDisplayFav = () => {
     setFavClick(!favClick);
@@ -181,7 +192,6 @@ function CryptoList({favoritePage}) {
           )) : <TableRow>
                   <TableCell sx={{borderBottom: 0}} align="center"><Skeleton variant='text' sx={{marginLeft: 3, width: 20, height: 30}}/></TableCell>
                   <TableCell sx={{borderBottom: 0}} align="right"><Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}><Skeleton variant='circular' sx={{width: 40, height: 40}}/><Skeleton variant='text' sx={{marginLeft: 1, width: 50, height: 30}}></Skeleton></Box></TableCell>
-                  <TableCell sx={{borderBottom: 0}} align="right"><Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}><Skeleton variant='circular' sx={{width: 40, height: 40}}/><Skeleton variant='text' sx={{marginLeft: 1, width: 50, height: 30}}></Skeleton></Box></TableCell>
                   <TableCell sx={{borderBottom: 0}} align="right"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 50, height: 40}}/></Box></TableCell>
                   <TableCell sx={{borderBottom: 0}} align="center"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 50, height: 40}}/></Box></TableCell>
                   <TableCell sx={{display: { xs: 'none', sm: 'table-cell' }, borderBottom: 0}} align="center"><Box sx={{display: 'flex', justifyContent: 'right'}}><Skeleton variant='text' sx={{width: 100, height: 40}}/></Box></TableCell>
@@ -195,10 +205,11 @@ function CryptoList({favoritePage}) {
   );
 };
 
+const MainContainer = ({noButton}) => {
   return (
     <Container className={classes.root} sx={{display:'flex', flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
       <TableCont/>
-      {!favoritePage && <Box>
+      {!favoritePage && !noButton &&<Box>
         <LoadingButton
           variant="outlined"
           sx={{ mt:2, mb: 7, color: "secondary.dark", borderColor: "secondary.dark"}}
@@ -209,6 +220,35 @@ function CryptoList({favoritePage}) {
         </LoadingButton>
       </Box>}
     </Container>
+  )
+}
+
+  return (
+    <>
+    { backdropOpen && favorite.cryptos.length === 0 ?
+      <Backdrop
+        sx={{ display: 'flex', justifyContent: 'left', color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+        onClick={() => setBackdropOpen(!backdropOpen)}
+        >
+        <Box sx={{display: 'flex'}}>
+          <Fade in={true} sx={{ color: 'white', fontSize: 20, fontWeight: 'bold', marginRight: 2, height: '0px', mt: 11.5, ml: 2}} timeout={{ enter: 3000, exit: 1}}>
+
+              <Typography >Ajouter d'abors des favoris</Typography>
+ 
+          </Fade>
+          <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={{ enter: 1000, exit: 1}}>
+
+              <ArrowForwardIcon sx={{ fontSize: 50, marginTop: 10.5, marginRight: 1 }} />
+ 
+          </Slide>
+          <MainContainer noButton={true}/>
+        </Box>
+
+      </Backdrop> : <MainContainer/>
+    } 
+    </>
+
   );
 }
 

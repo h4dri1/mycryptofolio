@@ -56,7 +56,7 @@ export default function TopFlop({pixelRatio}) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                        {newCryptos.map((crypto) => (
+                        {newCryptos.slice(0,7).map((crypto) => (
                             <TableRow 
                             key={crypto.id}
                             hover
