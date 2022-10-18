@@ -13,6 +13,7 @@ import CryptoList from '../CryptoList'
 
 import colors from '../../services/getColors'
 import { getAllCryptos } from '../../actions/cryptos';
+import { setDisplaySnackBar } from 'src/actions/settings';
 
 export default function WatchList({logged}) {
   const useStyles = makeStyles({
@@ -54,8 +55,14 @@ export default function WatchList({logged}) {
   useEffect(() => {
     if (!logged) {
         navigate('/login?continue=/watchlist');   
-    } else  {
-        dispatch(getAllCryptos())
+    } else {
+        if (favorite.cryptos.length === 0) {
+          dispatch(setDisplaySnackBar({ severity: 'error', message: 'Ajouter des favoris !' }));
+          navigate('/market');
+        } else {
+          dispatch(getAllCryptos())
+        }
+        
     }
   }, [logged, selectedCurrency]);
 

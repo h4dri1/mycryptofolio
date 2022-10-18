@@ -44,7 +44,7 @@ export default function FavCard({ crypto }) {
               mb: 2,
               mt: 2
             }}>
-                {crypto?.price_change_percentage_24h ? <Box sx={{...(crypto.price_change_percentage_24h > 0 ? { backgroundColor: '#1cb344' } : { backgroundColor: '#eb3b5a' }), display: 'flex', alignItem:'center', justifyContent: 'center', borderRadius: '50%', width: '50px', height: '50px'}}>
+                {crypto?.current_price ? <Box sx={{...(crypto.price_change_percentage_24h > 0 ? { backgroundColor: '#1cb344' } : { backgroundColor: '#eb3b5a' }), display: 'flex', alignItem:'center', justifyContent: 'center', borderRadius: '50%', width: '50px', height: '50px'}}>
                     <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.7em', fontWeight: 'bold'}}>{`${cryptoSym}${crypto.current_price.toLocaleString("en-US", curParams)}`}</Typography>
                 </Box> : <Skeleton variant="circular" width={50} height={50} />}
                 {crypto?.image ? <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
