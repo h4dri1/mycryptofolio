@@ -2,13 +2,14 @@ import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
 import SearchCrypto from 'src/components/Navbar/SearchBar/SearchCrypto';
 import { Link as RouterLink } from 'react-router-dom';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, Fragment } from 'react';
 
 import { useSelector } from 'react-redux';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import { Home } from '@mui/icons-material';
 
 import {
   AppBar,
@@ -26,6 +27,7 @@ import {
   MenuList,
   ListItemIcon
 } from '@mui/material';
+
 
 export default function PrimarySearchAppBar() {
 
@@ -92,11 +94,28 @@ export default function PrimarySearchAppBar() {
           {homeIcon && 
             <Link
               component={RouterLink}
-              to="/market"
+              to="/"
               underline="none"
-              sx={{ color: 'white'}}
+              sx={{ color: 'white', mt: {xs:1, md: 0}}}
             >
             {hideButton && <Button sx={{textTransform: "none" }} startIcon={
+              <Home sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
+            }>
+            <Typography fontSize={'1.2em'}  color="white">Home</Typography>
+            </Button>}
+            {!hideButton && <Home
+              sx={{ width: 25, height: 25, ml: 1, mr: 0}} 
+              color="primary.light"/>}
+            </Link>
+          }
+          {homeIcon && 
+            <Link
+              component={RouterLink}
+              to="/market"
+              underline="none"
+              sx={{ color: 'white', mt: {xs:1, md: 0}}}
+            >
+            {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
               <CurrencyBitcoinIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
             <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
@@ -111,7 +130,7 @@ export default function PrimarySearchAppBar() {
             component={RouterLink}
             to="/nft"
             underline="none"
-            sx={{ color: 'white'}}
+            sx={{ color: 'white', mt: {xs:1, md: 0}}}
           >
           {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
             <ColorLensIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
@@ -124,28 +143,41 @@ export default function PrimarySearchAppBar() {
 
           </Link>
           }
-          {homeIcon && 
-          <Link
-            component={RouterLink}
-            to="/watchlist"
-            underline="none"
-            sx={{ color: 'white'}}
-          >
-          {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
-            <SavedSearchIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
-          }>
-          <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
-          </Button>}
-          {!hideButton && <SavedSearchIcon 
-            sx={{ width: 25, height: 25, mr: 1 }} 
-            color="primary.light"/>}
-          </Link>
+          {
+            homeIcon && 
+            <Link
+              component={RouterLink}
+              to="/watchlist"
+              underline="none"
+              sx={{ color: 'white', mt: {xs:1, md: 0}}}
+            >
+            {
+              hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
+              <SavedSearchIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
+            }>
+              <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
+              </Button>}
+              {
+              !hideButton && <SavedSearchIcon 
+                sx={{ width: 25, height: 25, mr: 1 }} 
+                color="primary.light"/>
+              }
+            </Link>
           }
-          {hideButton && <Button onClick={handleToggle} sx={{textTransform: "none", ml: 5 }} startIcon={
-            <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
-          }>
-            
-          <Typography fontSize={'1.2em'} ref={anchorRef} color="white">Wallet</Typography>
+        {homeIcon && <Fragment>
+          {
+            hideButton && <Button onClick={handleToggle} sx={{textTransform: "none", ml: 5 }} startIcon={
+              <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
+            }>       
+              <Typography fontSize={'1.2em'} ref={anchorRef} color="white">Wallet</Typography>
+            </Button>
+          }
+          {!hideButton && <AccountBalanceWalletIcon 
+            onClick={handleToggle}
+            ref={anchorRef}
+            sx={{ width: 25, height: 25 }} 
+            color="primary.light"/>}
+          <Box sx={{ flexGrow: 1 }} />
           <Popper
             open={open}
             anchorEl={anchorRef.current}
@@ -194,12 +226,7 @@ export default function PrimarySearchAppBar() {
               </Grow>
             )}
           </Popper>
-          </Button>}
-          {!hideButton && <AccountBalanceWalletIcon 
-            onClick={handleToggle}
-            sx={{ width: 25, height: 25 }} 
-            color="primary.light"/>}
-          <Box sx={{ flexGrow: 1 }} />
+        </Fragment>}
           <SearchCrypto/>
           <MyAccount />
         </Toolbar>
