@@ -23,6 +23,27 @@ import {
     IconButton
 } from '@mui/material';
 
+const textFieldStyle = {
+  "& .MuiInputLabel-root.Mui-focused": 
+  {
+    color: 'secondary.main'
+  },//styles the label
+  "& .MuiInputLabel-root": 
+  {
+    color: 'white'
+  },//styles the label
+    "& .MuiOutlinedInput-root": 
+  {
+    "& > fieldset": { borderColor: "primary.light" },
+  },
+  "& .MuiOutlinedInput-root.Mui-focused": {
+    "& > fieldset": {
+      borderColor: "secondary.main",
+    }
+  },
+  margin: '10px'
+}
+
 export default function Password() {
 
     const dispatch = useDispatch();
@@ -89,7 +110,7 @@ export default function Password() {
             <Divider sx={{ marginBottom: '10px' }} />
             <TextField 
                 onChange={(e) => setPassword(e.target.value)} 
-                sx={{ margin: '10px' }} 
+                sx={textFieldStyle} 
                 type={showPass ? 'text' : 'password'}
                 id="newPass" 
                 label="New Password" 
@@ -112,7 +133,7 @@ export default function Password() {
              />
             <TextField 
                 onChange={(e) => setPasswordConfirm(e.target.value)} 
-                sx={{ margin: '10px' }} 
+                sx={textFieldStyle} 
                 type={showPassCheck ? 'text' : 'password'}
                 id="newPassCheck" 
                 label="Verify Password" 
