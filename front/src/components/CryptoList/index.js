@@ -144,22 +144,22 @@ function CryptoList({favoritePage, showTutorial}) {
       <Table stickyHeader size='medium' sx={{backgroundColor: 'primary.main', borderRadius: '10px'}}>
         <TableHead>
           <TableRow>
-            {logged && (<TableCell onClick={() => {favorite.cryptos[0]?.coin_id !== 'none' ? handleDisplayFav() : null}} align="center" sx={{borderTopLeftRadius: '10px',borderTopLeftRadius: '10px', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>
+            {logged && (<TableCell onClick={() => {favorite.cryptos[0]?.coin_id !== 'none' ? handleDisplayFav() : null}} align="center" sx={{borderTopLeftRadius: '10px', padding: 0}}>
               <TableSortLabel active={favorite.cryptos[0]?.coin_id !== 'none'}>
                 Favoris
               </TableSortLabel>
             </TableCell>)}
-            <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' }}} align="center">
+            <TableCell onClick={handleSortRequest} sx={{borderTopLeftRadius: logged ? '0px' : '10px', display: { xs: 'none', sm: 'table-cell' }}} align="center">
               <TableSortLabel active={true} direction={orderDirection}>
                 #
               </TableSortLabel>
             </TableCell>
-            <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
-            <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">Prix</TableCell>
-            <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">24h %</TableCell>
-            <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Market Cap</TableCell>
-            <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Volume 24h</TableCell>
-            <TableCell align="right" sx={{ borderTopRightRadius: '10px', display: { xs: 'none', lg: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Circulating supply</TableCell>
+            <TableCell sx={{borderTopLeftRadius: !logged ? {xs: '10px', md:'0px'} : '0px'}} align='center'>Nom</TableCell>
+            <TableCell align="right">Prix</TableCell>
+            <TableCell sx={{borderTopRightRadius: {xs:'10px', md:'0px'}}} align="right">24h %</TableCell>
+            <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Market Cap</TableCell>
+            <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Volume 24h</TableCell>
+            <TableCell align="right" sx={{ borderTopRightRadius: '10px', display: { xs: 'none', lg: 'table-cell' } }}>Circulating supply</TableCell>
           </TableRow>
         </TableHead>
 
@@ -168,7 +168,7 @@ function CryptoList({favoritePage, showTutorial}) {
           {cryptos.length > 0 ? favTable().map((crypto) => (
             <TableRow key={crypto.id} hover>
               {logged && (
-              <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>
+              <TableCell align="center" sx={{ color: 'primaryTextColor.main', borderBottom: 0 }}>
                 {favorite.cryptos.length > 0 && favorite.cryptos.some(e => e.coin_id === crypto.id) ? (
                   <IconButton color='secondary' value={crypto.id} onClick={() => dispatch(deleteFavoriteCrypto(crypto.id))}>
                     <StarIcon/>
@@ -180,9 +180,9 @@ function CryptoList({favoritePage, showTutorial}) {
                 }
               </TableCell>
               )}
-              <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{crypto.market_cap_rank}</TableCell>
+              <TableCell align="center" sx={{ color: 'primaryTextColor.main', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{crypto.market_cap_rank}</TableCell>
               <TableCell sx={{borderBottom: 0}}>
-                <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: '0px', sm: '0px' } }}>
                   <Avatar loading='lazy' src={crypto.image.replace('large', 'small')} alt={crypto.name} sx={{ mr: 1, width:{xs:'20px', md: '40px'}, height:{xs:'20px', md: '40px'} }} />
                   <Typography
                     sx={{ mr: 1, display: { xs: 'none', sm: 'block'}, color:'secondary.light' }}
