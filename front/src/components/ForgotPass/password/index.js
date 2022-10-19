@@ -44,7 +44,7 @@ const textFieldStyle = {
   margin: '10px'
 }
 
-export default function Password() {
+export default function Password({color}) {
 
     const dispatch = useDispatch();
 
@@ -103,7 +103,8 @@ export default function Password() {
             margin: '10px',
             padding: '10px',
             paddingRight: '35px',
-            paddingLeft: '35px'
+            paddingLeft: '35px',
+            backgroundColor: color,
         }}
         > 
             <Typography sx={{marginTop:"5px"}} color={darkMode ? "custom.main" : "primary.dark"} variant="h5" align="center">Password</Typography>
@@ -155,16 +156,8 @@ export default function Password() {
                     }}
               />
             <Grid container justifyContent={'center'}>
-                <Button onClick={handleClick} sx={{':hover': {
-                bgcolor: !darkMode ? '' : 'primary.main', 
-                color: !darkMode ? '' : 'white',
-              },
-              color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
-                <Button onClick={handleClick} sx={{':hover': {
-                bgcolor: !darkMode ? '' : 'primary.main', 
-                color: !darkMode ? '' : 'white',
-              },
-              color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5',margin: '5px', width: '45%'}} variant="contained">Save</Button>
+                <Button onClick={handleClick} sx={{backgroundColor: 'primary.light', margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
+                <Button onClick={handleClick} sx={{backgroundColor: 'primary.light', margin: '5px', width: '45%'}} variant="contained">Save</Button>
             </Grid>
         </Box>
     );
