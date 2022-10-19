@@ -1,4 +1,4 @@
-import { Typography, Container, Skeleton, Box } from '@mui/material';
+import { Typography, Container, Skeleton, Box, useMediaQuery } from '@mui/material';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
 import {
   Chart as ChartJS, ArcElement, Tooltip, Legend,
@@ -10,6 +10,7 @@ import PieChartIcon from '@mui/icons-material/PieChart';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Allocation({chartData}) {
+  const hide500 = useMediaQuery('(max-width:500px)');
   const labelsList = chartData.map((item) => (
     item.name
   ));
@@ -21,7 +22,8 @@ export default function Allocation({chartData}) {
   const options = {
     plugins: {
       legend: {
-        position: 'bottom',
+        display: !hide500,
+        position: 'right',
         labels: {
           color: 'white',
         }
@@ -62,7 +64,7 @@ export default function Allocation({chartData}) {
 
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto' }}>
-      <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
+      <Container sx={{ display: 'flex',  marginTop: 1, justifyContent: 'center' }}>
         <PieChartIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Token allocation</Typography>
       </Container>
       <Container sx={{
@@ -71,7 +73,7 @@ export default function Allocation({chartData}) {
         >
         {data.labels[0] !== 'empty' ? (
           <Container
-          sx={{ width: '50%', height: '50%'}}
+          sx={{ width: '60%', height: '60%', margin:{xs: 1, md: 0}}}
         >
           {data.datasets[0].data.length > 0 ? <Doughnut
             data={data}
