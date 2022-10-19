@@ -140,7 +140,11 @@ function CryptoList({favoritePage, showTutorial}) {
       <Table size='medium' sx={{backgroundColor: 'primary.main'}}>
         <TableHead>
           <TableRow>
-            {logged && (<TableCell onClick={handleDisplayFav} align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}><TableSortLabel active={true}>Favoris</TableSortLabel></TableCell>)}
+            {logged && (<TableCell onClick={() => {favorite.cryptos[0]?.coin_id !== 'none' ? handleDisplayFav() : null}} align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>
+              <TableSortLabel active={favorite.cryptos[0]?.coin_id !== 'none'}>
+                Favoris
+              </TableSortLabel>
+            </TableCell>)}
             <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' }}} align="center">
               <TableSortLabel active={true} direction={orderDirection}>
                 #
@@ -212,7 +216,7 @@ const MainContainer = ({noButton}) => {
       {!favoritePage && !noButton &&<Box>
         <LoadingButton
           variant="outlined"
-          sx={{ mt:2, mb: 7, color: "primary.main", borderColor: "primary.main"}}
+          sx={{ mt:2, mb: 7, color: "primary.light", borderColor: "primary.light"}}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
         >
@@ -234,7 +238,7 @@ const MainContainer = ({noButton}) => {
         <Box sx={{display: 'flex'}}>
           <Fade in={true} sx={{ color: 'white', fontSize: 20, fontWeight: 'bold', marginRight: 2, height: '0px', mt: {xs: 25, md: 11.5}, ml: 2}} timeout={{ enter: 3000, exit: 1}}>
 
-              <Typography >Ajouter d'abors des favoris</Typography>
+              <Typography >Ajouter d'abord des favoris</Typography>
  
           </Fade>
           <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={{ enter: 1000, exit: 1}}>

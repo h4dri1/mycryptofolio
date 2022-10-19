@@ -248,8 +248,8 @@ import {
                 marginRight: {xs: 0, md: 2},
                 maxHeight: '50px',
                 width: '140px',
-                color: "primary.main", 
-                borderColor: "primary.main"
+                color: "primary.light", 
+                borderColor: "primary.light"
               }}
                 variant="outlined"
                 onClick={handleToogleClick}><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Typography>
