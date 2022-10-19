@@ -171,7 +171,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
 
   return (
     <div>
-      <Typography color="primary.light" variant="h6" component="h2">
+      <Typography sx={{mt: 2}} color="primary.light" variant="h6" component="h2">
         {someCryptos.length === 1 ? 'Modifier' : 'Enregistrer'} {buy ? 'un achat' : 'une vente'}
       </Typography>
       <Divider sx={{ width: '100%' }} />
@@ -294,33 +294,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
               />
               </LocalizationProvider>
             </Grid>
-            <Grid
-              item
-              container
-              xs={12}
-              // sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' } }}
-            >
-              <Grid item xs={12} md={6}>
-                <Button
-                  disabled={disable}
-                  variant="outlined"
-                  onClick={handleCancel}
-                  sx={{ color: 'primary.light' }}
-                >
-                  Annuler
-                </Button>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Button
-                  disabled={disable}
-                  variant="contained"
-                  type="submit"
-                  onSubmit={handleSubmit}
-                >
-                  Ajouter
-                </Button>
-              </Grid>
-            </Grid>
+            
           </Grid>
           <Grid
             item
@@ -332,14 +306,34 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
               textAlign: 'center',
             }}
           >
-            <Grid item xs={12} p={0.5} sx={{ border: 'solid 1px grey', borderRadius: '1em' }}>
-              <Typography variant="h6">
-                Montant de la transaction
-              </Typography>
+            <Grid item xs={12} sx={{ border: 'solid 1px grey', borderRadius: '1em' }}>
               <Typography variant="overline" sx={{ fontSize: { xs: 15, sm: 25 } }}>
                 {Intl.NumberFormat('fr-FR', { style: 'currency', currency: refCurrency }).format(quantity * (oldPrice === 0 ? currentPrice : oldPrice))}
               </Typography>
             </Grid>
+          </Grid>
+          <Grid
+            item
+            container
+            xs={12}
+            sx={{ display: 'flex', justifyContent: 'space-around' }}
+          >
+            <Button
+              disabled={disable}
+              variant="outlined"
+              onClick={handleCancel}
+              sx={{ color: 'primary.light' }}
+            >
+              Annuler
+            </Button>
+            <Button
+              disabled={disable}
+              variant="contained"
+              type="submit"
+              onSubmit={handleSubmit}
+            >
+              Ajouter
+            </Button>
           </Grid>
         </Grid>
       </Grid>

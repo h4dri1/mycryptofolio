@@ -27,7 +27,6 @@ export default function RefCurrency() {
     if (location.pathname.split('/')[1] === 'crypto') {
       dispatch(fetchCryptoData(data.id, days));
     }
-    dispatch(getCryptoList());
     if (location.pathname.split('/')[1] === 'wallet') {
       dispatch(getCurrentAccount())
     }

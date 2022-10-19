@@ -5,6 +5,9 @@ module.exports = {
     getFavoriteByUserId: async (req, res, next) => {
         try {
             const favorite = await Favorite.getFavoriteByUserId(req.userId.id);
+            if (favorite.length === 0) {
+                favorite.push({ coin_id: 'none' });
+            }
             return favorite
         } catch (err) {
             throw new WalletService(err);

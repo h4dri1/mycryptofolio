@@ -13,15 +13,15 @@ const AddWallet = () => {
   const dispatch = useDispatch();
 
   return (
-    <Dialog open={toggle} onClose={() => dispatch(toggleCreateWalletModal())}>
-      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: 'primary.main' }}>
+    <Dialog PaperProps={{style: { borderRadius: '10px' }}} open={toggle} onClose={() => dispatch(toggleCreateWalletModal())}>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', backgroundColor: 'secondary.dark' }}>
         Créer un wallet
         <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleCreateWalletModal())}>
           <CloseRoundedIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
+      <DialogContent sx={{backgroundColor: 'background.default'}}>
+        <DialogContentText sx={{mt: 2}}>
           Nom
         </DialogContentText>
         <TextField
@@ -35,7 +35,7 @@ const AddWallet = () => {
           onChange={(e) => dispatch(updateCreateWalletInput(e.target.value))}
         />
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{backgroundColor: 'background.default'}}>
         <Button variant="contained" onClick={() => dispatch(createNewWallet())}>Créer</Button>
         <Button variant="contained" onClick={() => dispatch(toggleCreateWalletModal())}>Annuler</Button>
       </DialogActions>

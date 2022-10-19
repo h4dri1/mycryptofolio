@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
-import { Tabs, Tab, Typography, Box, Container, IconButton, Skeleton, AppBar, Modal, useMediaQuery } from '@mui/material';
+import { Tabs, Tab, Typography, Box, Container, IconButton, Skeleton, AppBar, Modal, useMediaQuery, Dialog, DialogTitle, DialogContent } from '@mui/material';
 import nFormatter from 'src/services/nFormatter';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -9,7 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
-import { toggleConfirmDelete } from 'src/actions/settings';
+import { toggleConfirmDelete, toggleTransactionCreator } from 'src/actions/settings';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 
 import {
   toggleCreateWalletModal, updateSelectedWallet, fetchSpecificWallet, fetchPortfolio,
@@ -23,22 +24,8 @@ import EditWallet from './EditWallet';
 import Identicon from '../../Identicon';
 
 import ReplayIcon from '@mui/icons-material/Replay';
-import { toggleTransactionCreator } from '../../../actions/settings';
 
 import { setDisplaySnackBar } from 'src/actions/settings';
-
-const modalBoxStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  maxWidth: 800,
-  bgcolor: 'background.paper',
-  // border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: '10px'
-};
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -242,7 +229,7 @@ export default function Banner(wallets) {
               aria-label="basic tabs example"
             >
               {wallets.wallets.length > 0 && wallets.wallets.map((wallet, index) => (
-                <Tab onClick={() => handleLinkClick(wallet.id)} sx={{color:'white'}} key={index} label={wallet.label.length > 10 ? `${wallet.label.slice(0,5)}...` : wallet.label} {...a11yProps(index)} />
+                <Tab onClick={() => handleLinkClick(wallet.id)} sx={{color:'white'}} key={index} label={wallet.label.length > 10 && hide500 ? `${wallet.label.slice(0,5)}...` : wallet.label} {...a11yProps(index)} />
               ))}
               <Tab onClick={handleMainLinkClick} sx={{color:'white'}} label="All" {...a11yProps(wallets.wallets.length)}/>
             </Tabs>
@@ -312,11 +299,16 @@ export default function Banner(wallets) {
       </TabPanel>
       <AddWallet />
       <EditWallet />
-      <Modal open={transactionCreatorIsOpen} onClose={() => dispatch(toggleTransactionCreator())}>
-        <Box sx={modalBoxStyle}>
+      <Dialog fullScreen={hide500 ? true : false} PaperProps={{style: { borderRadius: '10px' }}} sx={{ margin: 0, padding: 0, backdropColor: 'background.default'}} open={transactionCreatorIsOpen} onClose={() => dispatch(toggleTransactionCreator())}>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'secondary.dark' }}>   
+          Transactions
+          <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleTransactionCreator())}>
+            <CloseRoundedIcon />
+          </IconButton></DialogTitle>
+        <DialogContent sx={{margin: 0, padding: 0, backgroundColor: 'background.default'}}>
           <TransactionCreator/>
-        </Box>
-      </Modal>
+        </DialogContent>   
+      </Dialog>
     </Box>
   );
 }

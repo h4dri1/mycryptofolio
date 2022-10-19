@@ -25,7 +25,7 @@ class Favorite {
     static async addFavorite(userId, cryptoId) {
         try{
             const { rows } = await pool.query(
-                'INSERT INTO favorite (user_id, crypto_id) VALUES ($1, (SELECT id as crypto_id FROM crypto WHERE coin_id=$2)) RETURNING *',
+                'INSERT INTO favorite (user_id, crypto_id) VALUES ($1, (SELECT id as crypto_id FROM crypto WHERE coin_id=$2))',
                 [userId, cryptoId]);
             return rows.map(row => new Favorite(row));        
         } catch (err) {

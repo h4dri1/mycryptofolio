@@ -37,6 +37,22 @@ export default function Theme() {
           tonalOffset: 0.2,
         },
         components: {
+          MuiButton: {
+            styleOverrides: {
+              contained: {
+                backgroundColor: "#651fff",
+                '&:hover': {
+                  backgroundColor: '#a255ff',
+                },
+                '&:active': {
+                  backgroundColor: '#651fff',
+                },
+                '&:focus': {
+                  boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+                },
+              }
+            }
+          },
           MuiCssBaseline: {
             styleOverrides: {
               body: {

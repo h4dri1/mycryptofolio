@@ -140,15 +140,15 @@ import {
       const hide500 = useMediaQuery('(max-width:600px)');  
       
     return (
-        <Dialog fullScreen={hide500 ? true : false} open={loginIsOpen} onClose={handleToggleLoginModal}>
-          <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'secondary.dark' }}>
+        <Dialog fullScreen={hide500 ? true : false} PaperProps={{style: { borderRadius: '10px' }}} sx={{margin: 0, padding: 0, backdropColor: 'background.default'}} open={loginIsOpen} onClose={handleToggleLoginModal}>
+          <DialogTitle sx={{ height: '50px', display: 'flex', justifyContent: 'space-between', backgroundColor: 'secondary.dark' }}>
             { type === 'login' ? 'Connexion' : 'S\'inscrire' }
             <IconButton edge="end" aria-label="Fermer" onClick={handleToggleLoginModal}>
               <CloseRoundedIcon />
             </IconButton>
           </DialogTitle>
-          <DialogContent sx={{backgroundColor: 'secondary.dark'}}>
-            {!forgotPassword && <DialogContentText>
+          <DialogContent sx={{backgroundColor: 'background.default'}}>
+            {!forgotPassword && <DialogContentText sx={{mt: 2}}>
               Pour accéder aux fonctionnalités avancées,
               { type === 'login' ? ' il faut vous connecter.' : ' il faut vous créer un compte et vous connecter.' }
             </DialogContentText>}
@@ -232,7 +232,7 @@ import {
               />
             )}
             <Link
-              sx={{ width: '100%'}}
+              sx={{ width: '100%', color: 'primary.light'}}
               component="button"
               variant="body2"
               onClick={() => {
@@ -242,19 +242,22 @@ import {
               Mot de passe oublié ?
             </Link>
           </DialogContent>
-          <DialogActions sx={{display: 'flex', flexDirection: {xs: 'column', md: 'row'}, backgroundColor: 'secondary.dark'}} >
+          <DialogActions sx={{display: 'flex', flexDirection: {xs: 'column', md: 'row'}, backgroundColor: 'background.default'}} >
             <Box sx={{width: '100%', display: 'flex', justifyContent: {xs: 'space-around', md: 'end'}, height: '100%', alignContent: 'center'}}>
               {!forgotPassword && (<Button sx={{
                 marginRight: {xs: 0, md: 2},
                 maxHeight: '50px',
-                width: '140px'
+                width: '140px',
+                color: "primary.light", 
+                borderColor: "primary.light"
               }}
+                variant="outlined"
                 onClick={handleToogleClick}><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Typography>
               </Button>)}
               {!forgotPassword && (<Button 
                 sx={{
                 maxHeight: '50px',
-                width: '140px'
+                width: '140px',
                 }}
                 onClick={handleSubmit} 
                 variant="contained"><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }</Typography>

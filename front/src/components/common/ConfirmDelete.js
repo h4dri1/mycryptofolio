@@ -18,19 +18,19 @@ const ConfirmDelete = () => {
   const { toggle, type, itemId } = useSelector((state) => state.settings.deleteItem);
 
   return (
-    <Dialog open={toggle} onClose={() => dispatch(toggleConfirmDelete())}>
-      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: 'primary.main' }}>
+    <Dialog PaperProps={{style: { borderRadius: '10px' }}} open={toggle} onClose={() => dispatch(toggleConfirmDelete())}>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', backgroundColor: 'secondary.dark' }}>
         Confirmer la suppression
         <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleConfirmDelete())}>
           <CloseRoundedIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
+      <DialogContent sx={{backgroundColor: 'background.default'}}>
+        <DialogContentText sx={{mt: 2}}>
           Êtes-vous sûr de vouloir supprimer {type === 'wallet' ? `ce ${type}` : `cette ${type}`} ?
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{backgroundColor: 'background.default'}}>
         <Button
           variant="contained"
           onClick={() => dispatch(type === 'wallet' ? deleteWallet(itemId) : deleteTransaction(itemId))}

@@ -25,12 +25,13 @@ const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
 const cryptoList = (store) => (next) => (action) => {
   const { logged } = store.getState().user;
+  const { selectedCurrency, quantity } = store.getState().cryptos.cryptoList;
   switch (action.type) {
     case GET_ALL_CRYPTOS:
       axios({
         method: 'get',
         baseURL,
-        url: '/cryptos/usd/100',
+        url: `/cryptos/${selectedCurrency}/100`,
       })
         .then((res) => {
           store.dispatch(updateAllCryptos(res.data));
@@ -81,8 +82,6 @@ const cryptoList = (store) => (next) => (action) => {
         next(action);
       break;
     case GET_CRYPTO_LIST:
-
-      const { selectedCurrency, quantity } = store.getState().cryptos.cryptoList;
 
       axios({
         method: 'get',

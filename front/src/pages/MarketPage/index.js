@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -12,21 +12,16 @@ import Navbar from 'src/components/Navbar';
 import CryptoList from 'src/components/CryptoList';
 import Footer from 'src/components/Footer';
 
-export default function Home({ displayLogin }) {
+export default function MarketPage() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const { logged } = useSelector((state) => state.user);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   useEffect(() => {
-    if (displayLogin) dispatch(toggleLoginModal());
-  }, []);
-
-  useEffect(() => {
-    if (logged && location.search === '?continue=/portfolio') {
-      navigate('/portfolio');
-    } else if (logged && location.search == '?continue=/profil') {
-      navigate('/profil');
+    if (logged && location.search === '?continue=/addfav') {
+      setShowTutorial(true);
     }
   }, [logged]);
 
@@ -34,16 +29,8 @@ export default function Home({ displayLogin }) {
     <div className="">
       <TopBanner />
       <Navbar />
-      <CryptoList/>
+      <CryptoList showTutorial={showTutorial}/>
       <Footer />
     </div>
   );
 }
-
-Home.defaultProps = {
-  displayLogin: false,
-};
-
-Home.propTypes = {
-  displayLogin: PropTypes.bool,
-};

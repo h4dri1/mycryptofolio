@@ -24,8 +24,10 @@ const ContactPage = lazy(() => import('../../pages/ContactPage'));
 const ForgotPass = lazy(() => import('../../pages/ForgotPass'));
 const ProfilPage = lazy(() => import('../../pages/ProfilPage'));
 const UnknowRoute = lazy(() => import('../../pages/404'));
+const WatchList = lazy(() => import('../../pages/WatchList'));
 
 import Theme from '../../theming/Theme';
+import { fetchFavoriteCryptos } from '../../actions/favorite';
 
 // == Composant
 
@@ -34,6 +36,7 @@ const App = () => {
   // DARK MODE
   const { logged } = useSelector((state) => state.user);
   const { walletAddress } = useSelector((state) => state.wallet);
+  const { favorite } = useSelector((state) => state.favorite);
   const theme = Theme()
   // COLOR PALETTE for LIGHT & DARK modes
   
@@ -129,6 +132,11 @@ const App = () => {
             <Route path="/reset/:token" element={
               <Suspense fallback={<Loading/>}>
                 <ForgotPass />
+              </Suspense>
+            } />
+            <Route path="/watchlist" element={
+              <Suspense fallback={<Loading/>}>
+                <WatchList />
               </Suspense>
             } />
             <Route path="*" element={

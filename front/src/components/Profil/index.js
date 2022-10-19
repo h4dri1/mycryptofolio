@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { deleteUser } from '../../actions/user';
 
+import colors from '../../services/getColors';
+
 import {
     Grid,
     Link
@@ -46,6 +48,8 @@ export default function Profil({ logged, verify }) {
 
   const { darkMode } = useSelector((state) => state.settings);
 
+  const { color } = colors();
+
   const handleClick = () => {
     dispatch(deleteUser());
     navigate('/');
@@ -70,8 +74,8 @@ export default function Profil({ logged, verify }) {
               <AvatarP />
             <Grid/>
             <Grid className={classes.gridItem}>
-              <ProfilP/>
-              <Password/>
+              <ProfilP color={color}/>
+              <Password color={color}/>
             </Grid>
             <Link
               sx={{ marginTop: '50px', color: darkMode ? 'custom.main' : 'secondary.main'}}

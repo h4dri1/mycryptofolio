@@ -16,7 +16,7 @@ import HistoryToken from './HistoryToken';
 
 
 const Wallet = () => {
-  const { color, image } = colors()
+  
 
   const useStyles = makeStyles({
     grid: {
@@ -30,14 +30,14 @@ const Wallet = () => {
       borderRadius: '10px',
       margin: '10px',
       boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
-      backgroundColor: image ? '#FF3CAC' : color,
-      backgroundImage: image
     },
     gridSubItem: {
       // border: 'solid 2px gold',
       // height: '100%',
     }
   });
+
+  const { color } = colors()
   
   const classes = useStyles();
   const dispatch = useDispatch();

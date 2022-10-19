@@ -21,15 +21,15 @@ const EditWallet = () => {
   }, [selectedWallet]);
 
   return (
-    <Dialog open={toggle} onClose={() => dispatch(toggleUpdateWalletModal())}>
-      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: 'primary.main' }}>
+    <Dialog PaperProps={{style: { borderRadius: '10px' }}} open={toggle} onClose={() => dispatch(toggleUpdateWalletModal())}>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', backgroundColor: 'secondary.dark' }}>
         Modifier un wallet
         <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleUpdateWalletModal())}>
           <CloseRoundedIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
+      <DialogContent sx={{backgroundColor: 'background.default'}}>
+        <DialogContentText sx={{mt: 2}}>
           Nom
         </DialogContentText>
         <TextField
@@ -43,7 +43,7 @@ const EditWallet = () => {
           onChange={(e) => dispatch(updateUpdateWalletInput(e.target.value))}
         />
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{backgroundColor: 'background.default'}}>
         <Button variant="contained" onClick={() => dispatch(updateWallet(selectedWallet))}>Modifier</Button>
         <Button variant="contained" onClick={() => dispatch(toggleUpdateWalletModal())}>Annuler</Button>
       </DialogActions>

@@ -29,8 +29,6 @@ const Dashboard = ({ logged, verify }) => {
       borderRadius: '10px',
       margin: '10px',
       boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
-      backgroundColor: image ? '#FF3CAC' : color,
-      backgroundImage: image
     },
     gridSubItem: {
       // border: 'solid 2px gold',
@@ -46,7 +44,7 @@ const Dashboard = ({ logged, verify }) => {
   const { performance } = useSelector((state) => state.portfolio);
   const { transactions } = useSelector((state) => state.portfolio);
 
-  const { color, image } = colors()
+  const { color } = colors()
   
   useEffect(() => {
     if (!logged) {

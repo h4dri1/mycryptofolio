@@ -62,8 +62,8 @@ import {
     const TransactionsList = () => {
       return (
         <List sx={{maxHeight: '400px', width:'100%'}}>
-          {history['result'] !== undefined ? history['result'].map((transaction) => (          
-            <ListItem sx={{display:'flex', flexDirection:'column', padding:0}} key={transaction.hash}>
+          {history['result'] !== undefined ? history['result'].map((transaction, index) => (          
+            <ListItem sx={{display:'flex', flexDirection:'column', padding:0}} key={index}>
               <Container sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2}}>
                 <Box sx={{width: 25, height: 25, borderRadius: '50%'}} component={'img'} src={Number(walletNetwork) === 137 ? "https://cdn-icons-png.flaticon.com/512/7016/7016537.png" : "https://cdn-icons-png.flaticon.com/512/7016/7016523.png" }/>
                 <WatchLaterIcon sx={{color: 'secondary.main'}}/>

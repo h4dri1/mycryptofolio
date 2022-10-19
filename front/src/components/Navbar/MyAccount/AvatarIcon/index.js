@@ -67,7 +67,6 @@ export default function TestAvatar() {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
-
     prevOpen.current = open;
   }, [open]);
 
@@ -157,7 +156,7 @@ export default function TestAvatar() {
                         </ListItemIcon>
                         <Link
                           component={RouterLink}
-                          to="/"
+                          to="/watchlist"
                           underline="none"
                         >
                           Watchlist

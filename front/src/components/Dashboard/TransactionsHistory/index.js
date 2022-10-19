@@ -1,5 +1,21 @@
 /* eslint-disable react/function-component-definition */
-import { Box, Typography, Table, TableHead, TableBody, TableRow, TableCell, Divider, Modal, Container, Skeleton, TableContainer, Paper } from '@mui/material';
+import { 
+  Typography, 
+  Table, 
+  TableHead, 
+  TableBody, 
+  TableRow, 
+  TableCell, 
+  Container, 
+  Skeleton, 
+  TableContainer, 
+  Paper, 
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  useMediaQuery,
+  IconButton
+} from '@mui/material';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
 import TransactionCreator from 'src/components/Dashboard/TransactionCreator';
@@ -12,20 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settings';
 
 import HistoryIcon from '@mui/icons-material/History';
-import { useState } from 'react';
-
-const modalBoxStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  maxWidth: 800,
-  bgcolor: 'background.paper',
-  // border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: '10px'
-};
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 
 export default function TransactionsHistory({transactions}) {
   const dispatch = useDispatch();
@@ -33,12 +36,7 @@ export default function TransactionsHistory({transactions}) {
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
   const { darkMode } = useSelector((state) => state.settings);
 
-  const [selectedTransaction, setSelectedTransaction] = useState(undefined);
-
-  const handleEditTransaction = (id) => {
-    setSelectedTransaction(id);
-    dispatch(toggleTransactionEditor());
-  };
+  const { selectedTransaction } = useSelector((state) => state.portfolio);
 
   const useStyles = makeStyles({
     root: {
@@ -48,21 +46,21 @@ export default function TransactionsHistory({transactions}) {
     }
   });
 
-const classes = useStyles();
+  const classes = useStyles();
 
   const TableContainerFunction = () => {
     return (
       transactions[0] !== 'empty' ? (
         <TableContainer component={Paper} sx={{marginBottom: 2, backgroundColor: 'neutral.main', borderRadius: '10px', maxHeight: '25vh', maxWidth: '95%'}}>
-        <Table stickyHeader size='small' aria-label="a dense table" sx={{ maxWidth: '100%', p: '10'}}>
+        <Table stickyHeader size='small' aria-label="a dense table" >
           <TableHead>
           <TableRow className={classes.root}>
-            <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
-            <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Prix d'achat</TableCell>
-            <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Prix de vente</TableCell>
-            <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Quantité</TableCell>
-            <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Date</TableCell>          
-            <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}/>
+            <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
+            <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Prix d'achat</TableCell>
+            <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Prix de vente</TableCell>
+            <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Quantité</TableCell>
+            <TableCell align="center" sx={{padding: '.5em 0', display: {xs: 'none', md:'table-cell'}, borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Date</TableCell>          
+            <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}/>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,12 +80,12 @@ const classes = useStyles();
                     minimumSignificantDigits: 2,
                   }).format(transaction.buy ? transaction.quantity : (transaction.quantity * -1))}
                 </TableCell>
-                <TableCell align="center" sx={{ borderBottom: 0, borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
+                <TableCell align="center" sx={{ display: {xs: 'none', md:'table-cell'}, borderBottom: 0, borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{new Date(transaction.buy_date).toLocaleDateString('en-GB')}</TableCell>
                 {/* <TableCell align="right" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{transaction.rentability}%</TableCell> */}
                 <TableCell align="right" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}> {/* sx={{ padding: { xs: '0', md: '16px' } }} */}
                   <EditOrDeleteItem
                     positionAbsolute={false}
-                    editItem={handleEditTransaction}
+                    editItem={toggleTransactionEditor}
                     deleteItem={() => toggleConfirmDelete({ type: 'transaction', itemId: transaction.id })}
                     itemId={transaction.id}
                   />
@@ -106,6 +104,8 @@ const classes = useStyles();
     );
   }
 
+  const hide500 = useMediaQuery('(max-width:600px)');
+
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: '100%', width:'100%'}}>
         <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center', width:'100%' }}>
@@ -122,11 +122,17 @@ const classes = useStyles();
         {transactions.length > 0 ? <TableContainerFunction/> : <Skeleton sx={{width:{xs:'300px', md:"1200px"}, height:{xs:"83px", md:'200px'}, borderRadius: '10px', marginBottom: 2}} variant="rectangle"/>}
       </Container>
 
-      <Modal open={transactionEditorIsOpen} onClose={() => dispatch(toggleTransactionEditor())}>
-        <Box sx={modalBoxStyle}>
+      <Dialog fullScreen={hide500 ? true : false} PaperProps={{style: { borderRadius: '10px' }}} sx={{margin: 0, padding: 0, backdropColor: 'background.default'}} open={transactionEditorIsOpen} onClose={() => dispatch(toggleTransactionEditor())}>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'secondary.dark' }}>
+        Transactions
+        <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleTransactionEditor())}>
+          <CloseRoundedIcon />
+        </IconButton>
+        </DialogTitle>
+        <DialogContent sx={{margin: 0, padding: 0, backgroundColor: 'background.default'}}>
           <TransactionCreator id={selectedTransaction} transaction={transactions.find(e => e.id === selectedTransaction)} />
-        </Box>
-      </Modal>
+        </DialogContent>
+      </Dialog>
     </Container>
   );
 };

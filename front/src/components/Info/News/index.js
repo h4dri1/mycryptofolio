@@ -26,27 +26,19 @@ export default function TopNFT(colors) {
     const classification = fearAndGreed.data !== undefined ? (fearAndGreed.data[0].value_classification) : 0
 
     return (
-<Box
-        sx={{
-            width: hide500 ? '350px': 'auto',
-            height: 'auto',
-            boxShadow: 5,
-            display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-            margin: '5px',
-            marginTop: '20px',
-            borderRadius: '10px',
-            backgroundColor: image ? '#FF3CAC' : color,
-            backgroundImage: image
-        }}
-        >
-            <Container >
-            <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center' }}>
-                <DeviceThermostatIcon sx={{color: 'secondary.main'}}/><Typography sx={{ fontWeight: 'bold', color: color === 'white' ? 'primary.main' : 'white' }}>Sentiment</Typography>
-            </Container>
+<Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2}}>
+      <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center' }}>
+        <DeviceThermostatIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Sentiment</Typography>
+      </Container>
+      <Container sx={{
+        display: 'flex', 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        overflowY: 'auto', 
+        justifyContent: 'center'
+      }}>
             <Divider sx={{ marginBottom: 2 }} />
-            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: "100px", minHeight: "100px" }}>
+            <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: "200px", maxHeight: "200x" }}>
                 { fearAndGreed.name !== undefined ? (
                     <GaugeChart 
                         id="gauge-chart5"
@@ -68,6 +60,7 @@ export default function TopNFT(colors) {
             </Container>
 
             </Container>
-        </Box>
+        </Container>
     );
 }
+
