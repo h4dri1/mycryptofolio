@@ -40,7 +40,7 @@ const AddWalletOrTransac = ({
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} placement="bottom-end">
         <ClickAwayListener onClickAway={handleClose}>
-          <Paper>
+          <Paper sx={{backgroundColor: 'secondary.dark', boxShadow: 4}}>
             <ListItemButton onClick={handleAddWallet}>Add wallet</ListItemButton>
             <ListItemButton onClick={handleAddTransaction}>Add transaction</ListItemButton>
           </Paper>

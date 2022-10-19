@@ -212,7 +212,7 @@ const MainContainer = ({noButton}) => {
       {!favoritePage && !noButton &&<Box>
         <LoadingButton
           variant="outlined"
-          sx={{ mt:2, mb: 7, color: "secondary.dark", borderColor: "secondary.dark"}}
+          sx={{ mt:2, mb: 7, color: "primary.main", borderColor: "primary.main"}}
           loading={cryptoListLoading}
           onClick={() => dispatch(getMoreCryptos())}
         >

@@ -13,7 +13,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  useMediaQuery
+  useMediaQuery,
+  IconButton
 } from '@mui/material';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
@@ -27,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleTransactionEditor, toggleConfirmDelete } from 'src/actions/settings';
 
 import HistoryIcon from '@mui/icons-material/History';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 
 export default function TransactionsHistory({transactions}) {
   const dispatch = useDispatch();
@@ -121,7 +123,12 @@ export default function TransactionsHistory({transactions}) {
       </Container>
 
       <Dialog fullScreen={hide500 ? true : false} PaperProps={{style: { borderRadius: '10px' }}} sx={{margin: 0, padding: 0, backdropColor: 'background.default'}} open={transactionEditorIsOpen} onClose={() => dispatch(toggleTransactionEditor())}>
-        <DialogTitle sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'secondary.dark' }}>Transactions</DialogTitle>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'secondary.dark' }}>
+        Transactions
+        <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleTransactionEditor())}>
+          <CloseRoundedIcon />
+        </IconButton>
+        </DialogTitle>
         <DialogContent sx={{margin: 0, padding: 0, backgroundColor: 'background.default'}}>
           <TransactionCreator id={selectedTransaction} transaction={transactions.find(e => e.id === selectedTransaction)} />
         </DialogContent>

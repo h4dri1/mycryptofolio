@@ -248,15 +248,16 @@ import {
                 marginRight: {xs: 0, md: 2},
                 maxHeight: '50px',
                 width: '140px',
-                color: 'white'
+                color: "primary.main", 
+                borderColor: "primary.main"
               }}
+                variant="outlined"
                 onClick={handleToogleClick}><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'S\'inscrire' : 'J\'ai déjà un compte' }</Typography>
               </Button>)}
               {!forgotPassword && (<Button 
                 sx={{
                 maxHeight: '50px',
                 width: '140px',
-                color: 'white'
                 }}
                 onClick={handleSubmit} 
                 variant="contained"><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }</Typography>

@@ -4,13 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Tabs,
-  Tab,
-  IconButton
+  Tab
 } from '@mui/material';
-
-import { toggleTransactionEditor, toggleTransactionCreator } from 'src/actions/settings';
-
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 import { useState } from 'react';
 
@@ -80,16 +75,6 @@ const TransactionCreator = (props) => {
         backgroundColor: 'background.default'
       }}
     >
-      <Box sx={{display:'flex', width: '100%', justifyContent: 'right', cursor: 'pointer', marginBottom: -5}} edge="end" aria-label="Fermer" onClick={() => {
-        if (props.id) {
-          dispatch(toggleTransactionEditor());
-        } else {
-          dispatch(toggleTransactionCreator());
-        }
-      }
-      }>
-        <CloseRoundedIcon />
-      </Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 1 }}>
         <Tabs textColor="secondary" indicatorColor="secondary" value={value} onChange={handleChange} aria-label="Panneau ">
           <Tab label="Achat" {...Props(0)} />

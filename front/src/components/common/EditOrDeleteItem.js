@@ -42,7 +42,7 @@ const EditOrDeleteItem = ({
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} placement="bottom-end">
         <ClickAwayListener onClickAway={handleClose}>
-          <Paper>
+          <Paper sx={{backgroundColor: 'secondary.dark', boxShadow: 4}}>
             <ListItemButton onClick={handleEditItem}>Modifier</ListItemButton>
             <ListItemButton onClick={displayConfirmDelete}>Supprimer</ListItemButton>
           </Paper>

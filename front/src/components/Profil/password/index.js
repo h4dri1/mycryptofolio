@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { change_password } from '../../../actions/user';
 
-import { setDisplaySnackBar } from 'src/actions/settings';
-
 import { 
     TextField, 
     Divider, 
@@ -15,7 +13,7 @@ import {
     Box
 } from '@mui/material';
 
-export default function Password() {
+export default function Password({color}) {
 
     const dispatch = useDispatch();
 
@@ -60,7 +58,9 @@ export default function Password() {
             margin: '10px',
             padding: '10px',
             paddingRight: '35px',
-            paddingLeft: '35px'
+            paddingLeft: '35px',
+            borderRadius: '10px',
+            bgcolor: color
         }}
         > 
             <Typography sx={{marginTop:"5px", color: !darkMode ? 'primary.light' : '#07f3d5'}} variant="h5" align="center">Password</Typography>
@@ -69,16 +69,8 @@ export default function Password() {
             <TextField color={!darkMode ? 'secondary' : 'custom'} onChange={(e) => setPassword(e.target.value)} sx={{ margin: '10px' }} type="password" id="newPass" label="New Password" defaultValue="" variant="outlined"/>
             <TextField color={!darkMode ? 'secondary' : 'custom'} onChange={(e) => setPasswordConfirm(e.target.value)} sx={{ margin: '10px' }} type="password" id="newPassCheck" label="New Password" defaultValue="" variant="outlined"/>
             <Grid container justifyContent={'center'}>
-                <Button sx={{margin: '5px', width: '45%',':hover': {
-              bgcolor: !darkMode ? '' : '#00244F',
-              color: !darkMode ? '' : 'white',
-            },
-            color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5' }} variant="contained">Cancel</Button>
-                <Button onClick={handleClick} sx={{margin: '5px', width: '45%', ':hover': {
-              bgcolor: !darkMode ? '' : '#00244F',
-              color: !darkMode ? '' : 'white',
-            },
-            color: !darkMode ? '' : 'primary.dark', backgroundColor: !darkMode ? '' : '#07f3d5'}} variant="contained">Save</Button>
+                <Button sx={{margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
+                <Button onClick={handleClick} sx={{margin: '5px', width: '45%'}} variant="contained">Save</Button>
             </Grid>
         </Box>
     );
