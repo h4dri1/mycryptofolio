@@ -113,8 +113,12 @@ function CryptoList({favoritePage, showTutorial}) {
   }, [logged, allCryptos, selectedCurrency]);
 
   useEffect(() => {
-    setBackdropOpen(showTutorial);
-  }, [showTutorial]);
+    if (favorite.cryptos[0]?.coin_id === 'none') {
+      setBackdropOpen(showTutorial);
+    } else if (favorite.cryptos.length > 0 && showTutorial) {
+      navigate('/watchlist')
+    }
+  }, [showTutorial, favorite.cryptos]);
 
   const handleDisplayFav = () => {
     setFavClick(!favClick);
@@ -229,7 +233,7 @@ const MainContainer = ({noButton}) => {
 
   return (
     <>
-    { backdropOpen && favorite.cryptos[0]?.coin_id === 'none' ?
+    { backdropOpen ?
       <Backdrop
         sx={{ display: 'flex', justifyContent: 'left', color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={true}
