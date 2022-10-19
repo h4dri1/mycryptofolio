@@ -19,6 +19,7 @@ function TopBanner() {
     const hide500 = useMediaQuery('(max-width:600px)');
 
     const { darkMode } = useSelector((state) => state.settings);
+  
     const wallet = useSelector((state) => state.wallet);
     const wallets = JSON.parse(localStorage.getItem('wallets'));
 
