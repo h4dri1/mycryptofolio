@@ -10,6 +10,7 @@ import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import { Home } from '@mui/icons-material';
+import { useLocation } from 'react-router-dom';
 
 import {
   AppBar,
@@ -39,6 +40,10 @@ export default function PrimarySearchAppBar() {
   const hideButton = useMediaQuery('(min-width:900px)');
   const hide1100 = useMediaQuery('(max-width:1100px)');
   const hide500 = useMediaQuery('(max-width:600px)');
+
+  const location = useLocation();
+
+  const selectedMenu = location.pathname.split('/')[1]
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -101,7 +106,7 @@ export default function PrimarySearchAppBar() {
             {hideButton && <Button sx={{textTransform: "none" }} startIcon={
               <Home sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-            <Typography fontSize={'1.2em'}  color="white">Home</Typography>
+            <Typography fontSize={'1.2em'} fontWeight={selectedMenu === '' ? 'bold' : ''} color={selectedMenu === '' ? "secondary.light" : 'white'}>Home</Typography>
             </Button>}
             {!hideButton && <Home
               sx={{ width: 25, height: 25, ml: 1, mr: 0}} 
@@ -118,7 +123,7 @@ export default function PrimarySearchAppBar() {
             {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
               <CurrencyBitcoinIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-            <Typography fontSize={'1.2em'}  color="white">Cryptocurrencies</Typography>
+            <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'market' ? 'bold' : ''} color={selectedMenu === 'market' ? "secondary.light" : 'white'}>Cryptocurrencies</Typography>
             </Button>}
             {!hideButton && <CurrencyBitcoinIcon
               sx={{ width: 25, height: 25, ml: 1, mr: 1}} 
@@ -135,7 +140,7 @@ export default function PrimarySearchAppBar() {
           {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
             <ColorLensIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
           }>
-          <Typography fontSize={'1.2em'}  color="white">NFT</Typography>
+          <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'nft' ? 'bold' : ''} color={selectedMenu === 'nft' ? "secondary.light" : 'white'}>NFT</Typography>
           </Button>}
           {!hideButton && <ColorLensIcon 
             sx={{ width: 25, height: 25, mr: 1 }} 
@@ -155,7 +160,7 @@ export default function PrimarySearchAppBar() {
               hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
               <SavedSearchIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-              <Typography fontSize={'1.2em'}  color="white">Watchlist</Typography>
+              <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'watchlist' ? 'bold' : ''} color={selectedMenu === 'watchlist' ? "secondary.light" : 'white'}>Watchlist</Typography>
               </Button>}
               {
               !hideButton && <SavedSearchIcon 
@@ -169,7 +174,7 @@ export default function PrimarySearchAppBar() {
             hideButton && <Button onClick={handleToggle} sx={{textTransform: "none", ml: 5 }} startIcon={
               <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>       
-              <Typography fontSize={'1.2em'} ref={anchorRef} color="white">Wallet</Typography>
+              <Typography fontSize={'1.2em'} ref={anchorRef} fontWeight={selectedMenu === 'wallet' || selectedMenu === 'portfolio' ? 'bold' : ''} color={selectedMenu === 'wallet' || selectedMenu === 'portfolio' ? "secondary.light" : 'white'}>Wallet</Typography>
             </Button>
           }
           {!hideButton && <AccountBalanceWalletIcon 
