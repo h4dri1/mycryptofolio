@@ -44,7 +44,7 @@ const textFieldStyle = {
   margin: '10px'
 }
 
-export default function Password({color}) {
+export default function Password() {
 
     const dispatch = useDispatch();
 
@@ -103,8 +103,7 @@ export default function Password({color}) {
             margin: '10px',
             padding: '10px',
             paddingRight: '35px',
-            paddingLeft: '35px',
-            backgroundColor: color,
+            paddingLeft: '35px'
         }}
         > 
             <Typography sx={{marginTop:"5px"}} color={darkMode ? "custom.main" : "primary.dark"} variant="h5" align="center">Password</Typography>

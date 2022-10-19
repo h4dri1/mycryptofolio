@@ -12,10 +12,13 @@ import { makeStyles } from '@mui/styles';
 import Password from './password';
 import colors from '../../services/getColors';
 
+const color = colors();
+
 const useStyles = makeStyles({
     grid: {
       minHeight: '84vh',
-      marginTop: '100px'
+      marginTop: '100px',
+      backgroundColor: color
     },
     gridItem: {
       borderColor: '#E7EBF0',
@@ -32,8 +35,6 @@ const useStyles = makeStyles({
   });
 
 export default function Profil(){
-
-  const color = colors();
 
   const classes = useStyles();
 
