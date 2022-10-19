@@ -33,7 +33,7 @@ export default function FavCard({ crypto }) {
                 height: '100%'
             }}>
             <Container sx={{ display: 'flex', justifyContent: 'center', alignItems:'center' }}>
-                <StarIcon sx={{color: 'secondary.dark'}}/>{crypto?.name ? <Typography sx={{ fontSize: '0.8em', fontWeight: 'bold', color:'primaryTextColor.main' }}>{crypto.name}</Typography> : <Skeleton variant="text" width={60} />}
+                <StarIcon sx={{color: 'secondary.dark'}}/>{crypto?.name ? <Typography sx={{ fontSize: '0.8em', fontWeight: 'bold', color:'primaryTextColor.main' }}>{crypto.name.length > 12 ? `${crypto.name.slice(0,12)}...` : crypto.name}</Typography> : <Skeleton variant="text" width={60} />}
             </Container>
             <Container sx={{
               display: 'flex', 

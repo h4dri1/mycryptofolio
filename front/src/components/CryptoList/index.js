@@ -37,8 +37,8 @@ import { addFavoriteCrypto, deleteFavoriteCrypto, fetchFavoriteCryptos } from '.
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTableCell-head": {
-      backgroundColor: "#00b2cc",
-  },
+      backgroundColor: "#00b2cc"
+    },
   },
   cryptoList: {
     margin: '0% 1% 3% 1%',
@@ -140,11 +140,11 @@ function CryptoList({favoritePage, showTutorial}) {
 
   const TableCont = () => {
     return (
-      <TableContainer component={Paper} sx={{borderRadius: '10px', marginTop: 2, boxShadow: 5, width: {xs:'auto', md:'1220px'}, minWidth:'344px'}}>
-      <Table size='medium' sx={{backgroundColor: 'primary.main'}}>
+      <TableContainer component={Paper} sx={{ borderRadius: '10px', overflowX: 'initial', marginTop: 2, boxShadow: 5, width: {xs:'auto', md:'1220px'}, minWidth:'344px'}}>
+      <Table stickyHeader size='medium' sx={{backgroundColor: 'primary.main', borderRadius: '10px'}}>
         <TableHead>
           <TableRow>
-            {logged && (<TableCell onClick={() => {favorite.cryptos[0]?.coin_id !== 'none' ? handleDisplayFav() : null}} align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>
+            {logged && (<TableCell onClick={() => {favorite.cryptos[0]?.coin_id !== 'none' ? handleDisplayFav() : null}} align="center" sx={{borderTopLeftRadius: '10px',borderTopLeftRadius: '10px', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>
               <TableSortLabel active={favorite.cryptos[0]?.coin_id !== 'none'}>
                 Favoris
               </TableSortLabel>
@@ -159,11 +159,11 @@ function CryptoList({favoritePage, showTutorial}) {
             <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">24h %</TableCell>
             <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Market Cap</TableCell>
             <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Volume 24h</TableCell>
-            <TableCell align="right" sx={{ display: { xs: 'none', lg: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Circulating supply</TableCell>
+            <TableCell align="right" sx={{ borderTopRightRadius: '10px', display: { xs: 'none', lg: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Circulating supply</TableCell>
           </TableRow>
         </TableHead>
 
-        <TableBody>
+        <TableBody >
 
           {cryptos.length > 0 ? favTable().map((crypto) => (
             <TableRow key={crypto.id} hover>

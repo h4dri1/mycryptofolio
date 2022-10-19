@@ -24,7 +24,7 @@ const TableContainerFunction = () => {
       distribution[0]?.name !== 'empty' ? (
         <TableContainer component={Paper} sx={{marginBottom: 2,backgroundColor: 'neutral.main', borderRadius: '10px', maxHeight: '25vh', maxWidth: '95%'}}>
         <Table stickyHeader size='small' aria-label="a dense table" sx={{ maxWidth: '100%', p: '10'}}>
-          <StyledTableHead>
+          <StyledTableHead >
             <TableRow align="left">
               <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Devise</TableCell>
               <TableCell align="center" sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Quantité</TableCell>
