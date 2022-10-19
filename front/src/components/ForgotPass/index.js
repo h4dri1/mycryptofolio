@@ -12,28 +12,6 @@ import { makeStyles } from '@mui/styles';
 import Password from './password';
 import colors from '../../services/getColors';
 
-const color = colors();
-
-const useStyles = makeStyles({
-    grid: {
-      minHeight: '84vh',
-      marginTop: '100px',
-      backgroundColor: color
-    },
-    gridItem: {
-      borderColor: '#E7EBF0',
-      borderRadius: 2,
-      margin: '10px',
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center'
-    },
-    gridSubItem: {
-      border: 'solid 2px gold',
-      height: '100%',
-    },
-  });
-
 export default function Profil(){
 
   const classes = useStyles();
@@ -43,6 +21,28 @@ export default function Profil(){
   const { token } = useParams();
 
   const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
+
+  const color = colors();
+
+  const useStyles = makeStyles({
+      grid: {
+        minHeight: '84vh',
+        marginTop: '100px',
+        backgroundColor: color
+      },
+      gridItem: {
+        borderColor: '#E7EBF0',
+        borderRadius: 2,
+        margin: '10px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+      },
+      gridSubItem: {
+        border: 'solid 2px gold',
+        height: '100%',
+      },
+    });
   
  useEffect(() => {
     axios({
