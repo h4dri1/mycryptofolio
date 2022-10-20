@@ -10,7 +10,7 @@ import AssetsShares from './AssetsShares';
 import Nft from './Nft';
 import Banner from './Banner';
 
-import { getCurrentAccount } from '../../actions/metamask';
+import { getConnectAccount, getCurrentAccount } from '../../actions/metamask';
 
 import HistoryToken from './HistoryToken';
 
@@ -47,8 +47,10 @@ const Wallet = () => {
   useEffect(() => {
       if (walletAddress !== 'Wallet') {
         dispatch(getCurrentAccount())
+      } else {
+        dispatch(getConnectAccount())
       }
-  },[]);
+  },[walletAddress]);
 
   return (
     <div className="">

@@ -133,9 +133,17 @@ function CryptoList({favoritePage, showTutorial}) {
           return crypto
         }
       })
-    } else {
-      return cryptos
+    } else if (showTutorial) {
+      let someCryptos
+      someCryptos = cryptos.filter((_, index) => {
+        if(index < 10) {
+            return true;
+        }
+        return false
+      })
+      return someCryptos
     }
+    return cryptos
   }
 
   const TableCont = () => {
