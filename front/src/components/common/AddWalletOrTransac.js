@@ -4,9 +4,7 @@ import { Box, Popper, ListItemButton, Paper, Button, ClickAwayListener } from '@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
-const AddWalletOrTransac = ({
-  addWallet, addTransaction
-}) => {
+const AddWalletOrTransac = ({ addWallet, addTransaction }) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef();
   const dispatch = useDispatch();

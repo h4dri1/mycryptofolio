@@ -53,9 +53,7 @@ function CryptoList({favoritePage, showTutorial}) {
   const { allCryptos } = useSelector((state) => state.cryptos);
   const { logged } = useSelector((state) => state.user);
   const { favorite } = useSelector((state) => state.favorite);
-  
-  const [rowData, setRowData] = useState(cryptos);
-  const [orderDirection, setOrderDirection] = useState("asc");
+  const [orderDirection, setOrderDirection] = useState("desc");
   const [favClick, setFavClick] = useState(false);
   const [cryptoListFav, setCryptoListFav] = useState(cryptos);
   const [backdropOpen, setBackdropOpen] = useState(showTutorial);
@@ -80,22 +78,18 @@ function CryptoList({favoritePage, showTutorial}) {
     var cryptoSym = ''
   }
 
-  const sortArray = (arr, orderBy) => {
+  const sortArray = (arr, key, orderBy) => {
     switch (orderBy) {
       case "asc":
       default:
-        return arr.sort((a, b) =>
-          a.market_cap_rank > b.market_cap_rank ? 1 : b.market_cap_rank > a.market_cap_rank ? -1 : 0
-        );
+        return arr.sort((a, b) => a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0);
       case "desc":
-        return arr.sort((a, b) =>
-          a.market_cap_rank < b.market_cap_rank ? 1 : b.market_cap_rank < a.market_cap_rank ? -1 : 0
-        );
+        return arr.sort((a, b) => a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0);
     }
   };
    
-  const handleSortRequest = () => {
-    setRowData(sortArray(cryptos, orderDirection));
+  const handleSortRequest = (key) => {
+    sortArray(cryptos, key, orderDirection)
     setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
   };
 
@@ -107,7 +101,6 @@ function CryptoList({favoritePage, showTutorial}) {
       setCryptoListFav(allCryptos);
     }
     dispatch(getCryptoList());
-    handleSortRequest()
   }, [logged, allCryptos, selectedCurrency]);
 
   useEffect(() => {
@@ -155,17 +148,37 @@ function CryptoList({favoritePage, showTutorial}) {
                 Favoris
               </TableSortLabel>
             </TableCell>)}
-            <TableCell onClick={handleSortRequest} sx={{borderTopLeftRadius: logged ? '0px' : '10px', display: { xs: 'none', sm: 'table-cell' }}} align="center">
+            <TableCell onClick={() => handleSortRequest('market_cap_rank')} sx={{borderTopLeftRadius: logged ? '0px' : '10px', display: { xs: 'none', sm: 'table-cell' }}} align="center">
               <TableSortLabel active={true} direction={orderDirection}>
                 #
               </TableSortLabel>
             </TableCell>
             <TableCell sx={{borderTopLeftRadius: !logged ? {xs: '10px', md:'0px'} : '0px'}} align='center'>Nom</TableCell>
-            <TableCell align="right">Prix</TableCell>
-            <TableCell sx={{borderTopRightRadius: {xs:'10px', md:'0px'}}} align="right">24h %</TableCell>
-            <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>Market Cap</TableCell>
-            <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>Volume 24h</TableCell>
-            <TableCell align="right" sx={{ borderTopRightRadius: '10px', display: { xs: 'none', lg: 'table-cell' } }}>Circulating supply</TableCell>
+            <TableCell onClick={() => handleSortRequest('current_price')} align="right">
+              <TableSortLabel active={true} direction={orderDirection}>
+                Prix
+              </TableSortLabel>  
+            </TableCell>
+            <TableCell onClick={() => handleSortRequest('price_change_percentage_24h')} sx={{borderTopRightRadius: {xs:'10px', md:'0px'}}} align="right">
+              <TableSortLabel active={true} direction={orderDirection}>
+                24h %
+              </TableSortLabel>
+            </TableCell>
+            <TableCell onClick={() => handleSortRequest('market_cap')} align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
+              <TableSortLabel active={true} direction={orderDirection}>
+                Market Cap
+              </TableSortLabel>  
+            </TableCell>
+            <TableCell onClick={() => handleSortRequest('crypto.total_volume')} align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+              <TableSortLabel active={true} direction={orderDirection}>
+                Volume 24h
+              </TableSortLabel>
+            </TableCell>
+            <TableCell onClick={() => handleSortRequest('circulating_supply')} align="right" sx={{ borderTopRightRadius: '10px', display: { xs: 'none', lg: 'table-cell' } }}>
+              <TableSortLabel active={true} direction={orderDirection}>
+                Circulating supply
+              </TableSortLabel>
+            </TableCell>
           </TableRow>
         </TableHead>
 
