@@ -1,6 +1,5 @@
-import { Typography, Container, Avatar, Skeleton } from '@mui/material';
+import { Typography, Container, Avatar, Skeleton, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import { Box } from '@mui/system';
 import { useSelector } from 'react-redux';
 
 export default function FavCard({ crypto }) {

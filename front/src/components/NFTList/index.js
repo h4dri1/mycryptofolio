@@ -1,13 +1,5 @@
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
+import { Table, TableHead, TableBody, TableRow, TableCell, TableSortLabel, Avatar, Box, Grid } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { makeStyles, useTheme } from '@mui/styles';
 

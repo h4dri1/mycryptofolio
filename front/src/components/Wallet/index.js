@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import { makeStyles } from '@mui/styles';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Grid } from '@mui/material';
 import colors from '../../services/getColors'

@@ -1,12 +1,6 @@
 /* eslint-disable react/function-component-definition */
-import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import { Card, Grid, CardActions, CardContent, Typography, Link, Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Avatar from '@mui/material/Avatar';
-import Link from '@mui/material/Link';
 
 const useStyles = makeStyles({
     grid: {

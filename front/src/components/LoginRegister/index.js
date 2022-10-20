@@ -2,13 +2,13 @@
 import {
   Container,
   useMediaQuery,
+  Box
 } from '@mui/material';
 
 import { PropTypes } from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLoginModal } from 'src/actions/settings';
-import Box from '@mui/material/Box';
 
 import React, { Suspense, lazy } from 'react';
 

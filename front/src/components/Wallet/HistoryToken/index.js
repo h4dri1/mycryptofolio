@@ -11,7 +11,6 @@ import {
   import DownloadIcon from '@mui/icons-material/Download';
 
   import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-  import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 
   import WatchLaterIcon from '@mui/icons-material/WatchLater';
 

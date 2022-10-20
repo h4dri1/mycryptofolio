@@ -20,14 +20,13 @@ import {
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { LoadingButton } from '@mui/lab';
-import { makeStyles, useTheme, styled } from '@mui/styles';
+import { makeStyles, useTheme  } from '@mui/styles';
 import {useState, useEffect} from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 import StarIcon from '@mui/icons-material/Star';
@@ -50,7 +49,6 @@ function CryptoList({favoritePage, showTutorial}) {
   const theme = useTheme();
   const classes = useStyles(theme);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
-  const { darkMode } = useSelector((state) => state.settings);
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
   const { allCryptos } = useSelector((state) => state.cryptos);
   const { logged } = useSelector((state) => state.user);
