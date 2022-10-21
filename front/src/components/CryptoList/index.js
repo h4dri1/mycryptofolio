@@ -151,7 +151,7 @@ function CryptoList({favoritePage, showTutorial}) {
             <TableCell sx={{borderTopLeftRadius: logged ? '0px' : '10px', display: { xs: 'none', sm: 'table-cell' }}} align="center">
                 #
             </TableCell>
-            <TableCell sx={{borderTopLeftRadius: !logged ? {xs: '10px', md:'0px'} : '0px'}} align='center'>Nom</TableCell>
+            <TableCell sx={{borderTopLeftRadius: !logged ? {xs: '10px', md:'0px'} : '0px'}} align='left'>Nom</TableCell>
             <TableCell onClick={() => handleSortRequest('current_price')} align="right">
               <TableSortLabel active={true} direction={orderDirection}>
                 Prix
