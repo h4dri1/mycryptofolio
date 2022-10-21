@@ -53,7 +53,7 @@ function CryptoList({favoritePage, showTutorial}) {
   const { allCryptos } = useSelector((state) => state.cryptos);
   const { logged } = useSelector((state) => state.user);
   const { favorite } = useSelector((state) => state.favorite);
-  const [orderDirection, setOrderDirection] = useState("desc");
+  const [orderDirection, setOrderDirection] = useState('asc');
   const [favClick, setFavClick] = useState(false);
   const [cryptoListFav, setCryptoListFav] = useState(cryptos);
   const [backdropOpen, setBackdropOpen] = useState(showTutorial);
@@ -80,10 +80,10 @@ function CryptoList({favoritePage, showTutorial}) {
 
   const sortArray = (arr, key, orderBy) => {
     switch (orderBy) {
-      case "asc":
+      case "desc":
       default:
         return arr.sort((a, b) => a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0);
-      case "desc":
+      case "asc":
         return arr.sort((a, b) => a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0);
     }
   };
@@ -148,10 +148,8 @@ function CryptoList({favoritePage, showTutorial}) {
                 Favoris
               </TableSortLabel>
             </TableCell>)}
-            <TableCell onClick={() => handleSortRequest('market_cap_rank')} sx={{borderTopLeftRadius: logged ? '0px' : '10px', display: { xs: 'none', sm: 'table-cell' }}} align="center">
-              <TableSortLabel active={true} direction={orderDirection}>
+            <TableCell sx={{borderTopLeftRadius: logged ? '0px' : '10px', display: { xs: 'none', sm: 'table-cell' }}} align="center">
                 #
-              </TableSortLabel>
             </TableCell>
             <TableCell sx={{borderTopLeftRadius: !logged ? {xs: '10px', md:'0px'} : '0px'}} align='center'>Nom</TableCell>
             <TableCell onClick={() => handleSortRequest('current_price')} align="right">
@@ -169,7 +167,7 @@ function CryptoList({favoritePage, showTutorial}) {
                 Market Cap
               </TableSortLabel>  
             </TableCell>
-            <TableCell onClick={() => handleSortRequest('crypto.total_volume')} align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+            <TableCell onClick={() => handleSortRequest('total_volume')} align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>
               <TableSortLabel active={true} direction={orderDirection}>
                 Volume 24h
               </TableSortLabel>
