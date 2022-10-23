@@ -1,6 +1,6 @@
 /* eslint-disable react/function-component-definition */
 import { PropTypes } from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Tabs,
@@ -55,10 +55,8 @@ function Props(index) {
 }
 
 const TransactionCreator = (props) => {
-  const dispatch = useDispatch();
   const [value, setValue] = useState(0);
-  const { wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
-
+  const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
   const handleChange = (_, newValue) => {
     setValue(newValue);
   };
@@ -85,7 +83,7 @@ const TransactionCreator = (props) => {
         <TcForm buy={value === 0} disabled={!selectedWallet} wallets={wallets} selectedWallet={selectedWallet} {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TcForm buy={value === 0} disabled={!selectedWallet} wallets={wallets} selectedWallet={selectedWallet} {...props} />
+        <TcForm buy={value === 0} disabled={!selectedWallet} wallets={wallets} selectedWallet={selectedWallet} distribution={distribution} {...props} />
       </TabPanel>
     </Box>
   );

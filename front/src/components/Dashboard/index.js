@@ -40,9 +40,7 @@ const Dashboard = ({ logged, verify }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
-  const { performance } = useSelector((state) => state.portfolio);
-  const { transactions } = useSelector((state) => state.portfolio);
+  const { wallet: wallets, selectedWallet, distribution, performance, transactions } = useSelector((state) => state.portfolio);
 
   const { color } = colors()
   
