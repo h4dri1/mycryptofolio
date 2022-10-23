@@ -55,11 +55,27 @@ function Props(index) {
 }
 
 const TransactionCreator = (props) => {
-  const [value, setValue] = useState(0);
+
+  const valueState = () => {
+    if (props.transaction?.buy || props.transaction === undefined) {
+      return 0
+    } else {
+      return 1
+    }
+  }
+
+  const [value, setValue] = useState(valueState());
   const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
+
   const handleChange = (_, newValue) => {
     setValue(newValue);
   };
+
+  const isDisabled = () => {
+    if (props.transaction && props.transaction.buy) {
+      return false
+    }
+  }
 
   return (
     <Box
@@ -83,7 +99,7 @@ const TransactionCreator = (props) => {
         <TcForm buy={value === 0} disabled={!selectedWallet} wallets={wallets} selectedWallet={selectedWallet} {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TcForm buy={value === 0} disabled={!selectedWallet} wallets={wallets} selectedWallet={selectedWallet} distribution={distribution} {...props} />
+        <TcForm buy={value === 0} disabled={isDisabled()} wallets={wallets} selectedWallet={selectedWallet} distribution={distribution} {...props} />
       </TabPanel>
     </Box>
   );

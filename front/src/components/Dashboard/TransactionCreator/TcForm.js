@@ -66,7 +66,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
 
   const dateState = () => {
     if (transaction !== undefined) {
-      return transaction.date;
+      return transaction.buy_date;
     } else if (distribution !== undefined) {
       return new Date();
     } else {
@@ -95,17 +95,19 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
   const [oldPrice, setOldPrice] = useState(priceState());
 
   const [selectWallet, setSelectWallet] = useState(selectedWallet);
-  const [disable, setDisable] = useState(someCryptos.length === 1 && selectWallet !== '' ? false : disabled);
+  const [disable, setDisable] = useState(disabled);
 
   const handleChange = (event) => {
-    dispatch(fetchSpecificWallet(event.target.value));
+    dispatch(updateSelectedWallet(event.target.value));
+    if (!transaction) {
+      dispatch(fetchSpecificWallet(event.target.value));
+    }
     setDisable(false);
     setSelectWallet(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(currency)
     const newTransaction = {
       coin_id: currency.id,
       symbol: currency.symbol,
@@ -123,8 +125,10 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
     }
     if (id) {
       newTransaction.id = id;
+      newTransaction.wallet = selectedWallet === '' ? transaction.wallet_id : selectedWallet;
     }
     // DONE: Replace console log by a dispatch of an action to send a transaction to API
+
     dispatch(saveTransaction(newTransaction));
 
     if (transactionEditorIsOpen) {
@@ -223,10 +227,10 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Wallet</InputLabel>
             <Select
-              disabled={selectWallet === '' || id ? false : true}
+              
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={selectWallet}
+              value={selectWallet === '' && transaction ? transaction.wallet_id : selectWallet}
               label="Wallet"
               onChange={handleChange}
             >
@@ -281,7 +285,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
             className="transaction__field"
           >
             <TextField
-              disabled={disable}
+              disabled={transaction ? false : disable}
               required
               fullWidth
               name="quatity"
@@ -295,6 +299,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
               id="quatity"
               value={quantity}
               onChange={(e) => {
+                setDisable(false);
                 setQuantity(Number(e.target.value));
               }}
             />
@@ -304,7 +309,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
             xs={6}
           >
             <TextField
-              disabled={disable}
+              disabled={transaction ? false : disable}
               required
               fullWidth
               name="price"
@@ -313,6 +318,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
               id="price"
               value={oldPrice !== 0 ? Math.ceil(oldPrice * 100) / 100 : (Math.ceil(currentPrice * 100) / 100)}
               onChange={(e) => {
+                  setDisable(false)
                   setOldPrice(e.target.value);
                 }
               }
@@ -330,12 +336,13 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                disabled={disable}
+                disabled={transaction ? false : disable}
                 disableFuture
                 label={buy ? 'Date de l\'achat' : 'Date de la vente'}
                 value={dateValue}
                 onChange={(newValue) => {
                   setOldPrice(0);
+                  setDisable(false)
                   setDateValue(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} />}
