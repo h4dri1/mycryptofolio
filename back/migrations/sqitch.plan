@@ -8,3 +8,5 @@ replace_view_transaction 2022-10-11T13:20:43Z h4dri1,,, <h4dri1@debian> # change
 replace_view_coin_value 2022-10-11T13:20:06Z h4dri1,,, <h4dri1@debian> # change view coin_value
 replace_view_coin_value_wallet 2022-10-11T13:21:30Z h4dri1,,, <h4dri1@debian> # change view coin_value_wallet
 add_favorite 2022-10-12T16:42:51Z h4dri1,,, <h4dri1@debian> # add favorite table
+replace_view_coin_value2 2022-10-22T22:31:54Z h4dri1 <h4dri1@h4dri1-dev> # add coin_id column
+replace_view_coin_value_wallet2 2022-10-22T22:34:15Z h4dri1 <h4dri1@h4dri1-dev> # add coin_id column
