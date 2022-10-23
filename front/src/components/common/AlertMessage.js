@@ -1,6 +1,4 @@
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import Link from '@mui/material/Link';
+import { Snackbar, Alert, Link } from '@mui/material';
 
 import { useSelector, useDispatch } from 'react-redux';
 

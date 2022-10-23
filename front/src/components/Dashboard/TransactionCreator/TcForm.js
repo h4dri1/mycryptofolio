@@ -24,14 +24,14 @@ import { useEffect, useState } from 'react';
 import { getCurrentPrice, setPrice } from 'src/actions/cryptos';
 import { saveTransaction } from 'src/actions/portfolio';
 import { toggleTransactionEditor, toggleTransactionCreator } from 'src/actions/settings';
+import { updateSelectedWallet, fetchSpecificWallet } from 'src/actions/portfolio';
 
-const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, transaction }) => {
+const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, transaction, distribution }) => {
   const dispatch = useDispatch();
 
   // Get all 20k cryptos
   const allCryptos = useSelector((state) => state.cryptos.allCryptos);
 
-  // ! //  If needed filter only the X first ones (ex: 5000)
   let someCryptos = allCryptos.filter((_, index) => {
     if (index < 200) {
       return true;
@@ -39,24 +39,73 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
     return false;
   });
 
-  if (transaction !== undefined) {
-    someCryptos = [someCryptos.find(crypto => crypto.symbol === transaction.symbol)];
+  const cryptoState = () => {
+    if (transaction) {
+      someCryptos = [someCryptos.find(crypto => crypto.symbol === transaction.symbol)];
+      return ({ id: someCryptos[0].id, symbol: someCryptos[0].symbol })
+    } else if (distribution) {
+        someCryptos = distribution.map(d => ({ 
+          id: d.coin_id, 
+          symbol: d.name,
+          name: someCryptos.find(c => c.symbol === d.name).name,
+          image: someCryptos.find(c => c.symbol === d.name).image
+        })
+      );
+      return ({ id: '', symbol: '' })
+    } else {
+      return ({ id: '', symbol: '' })
+    }
+  }
+
+  const quantityState = () => {
+    if (transaction) {
+      if (buy && transaction.quantity < 0) {
+        return transaction.quantity * -1;
+      } else {
+        return transaction.quantity;
+      }
+    }
+    return 0;
+  }
+
+  const dateState = () => {
+    if (transaction) {
+      return transaction.buy_date;
+    } else if (distribution) {
+      return new Date();
+    } else {
+      return new Date();
+    }
+  }
+
+  const priceState = () => {
+    if (transaction) {
+      return transaction.price;
+    } else if (distribution) {
+      return 0;
+    } else {
+      return 0;
+    }
   }
 
   const { currentPrice } = useSelector((state) => state.cryptos);
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
   const { transactionCreatorIsOpen } = useSelector((state) => state.settings);
-  const [currency, setCurrency] = useState(someCryptos.length === 1 ? { id: someCryptos[0].id, symbol: someCryptos[0].symbol } : { id: '', symbol: '' });
-  const [quantity, setQuantity] = useState(someCryptos.length === 1 ? transaction.quantity : 0);
-  const [dateValue, setDateValue] = useState(someCryptos.length === 1 ? transaction.buy_date : new Date());
+  const [currency, setCurrency] = useState(cryptoState());
+  const [quantity, setQuantity] = useState(quantityState());
+  const [dateValue, setDateValue] = useState(dateState());
   // eslint-disable-next-line max-len
   const [refCurrency, setRefCurrency] = useState(useSelector((state) => state.cryptos.cryptoList.selectedCurrency));
-  const [oldPrice, setOldPrice] = useState(someCryptos.length === 1 ? transaction.price : 0);
+  const [oldPrice, setOldPrice] = useState(priceState());
 
   const [selectWallet, setSelectWallet] = useState(selectedWallet);
-  const [disable, setDisable] = useState(someCryptos.length === 1 && selectWallet !== '' ? false : disabled);
+  const [disable, setDisable] = useState(disabled);
 
   const handleChange = (event) => {
+    dispatch(updateSelectedWallet(event.target.value));
+    if (!transaction) {
+      dispatch(fetchSpecificWallet(event.target.value));
+    }
     setDisable(false);
     setSelectWallet(event.target.value);
   };
@@ -80,8 +129,10 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
     }
     if (id) {
       newTransaction.id = id;
+      newTransaction.wallet = selectedWallet === '' ? transaction.wallet_id : selectedWallet;
     }
     // DONE: Replace console log by a dispatch of an action to send a transaction to API
+
     dispatch(saveTransaction(newTransaction));
 
     if (transactionEditorIsOpen) {
@@ -134,41 +185,6 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
     fetchPrice();
   }, [currency, dateValue]);
 
-  // ! Do not remove next commented code, may be useful later
-  // useEffect(() => {
-  //   let active = true; wallets={wallets}
-
-  //   if (!autocompleteService.current && window.google) {
-  //     autocompleteService.current =
-  //       new window.google.maps.places.AutocompleteService();
-  //   }
-  //   if (!autocompleteService.current) {
-  //     return undefined;
-  //   }
-
-  //   if (inputValue === '') {
-  //     setOptions(value ? [value] : []);
-  //     return undefined;
-  //   }
-
-  //   fetch({ input: inputValue }, (results) => {
-  //     if (active) {
-  //       let newOptions = [];
-
-  //       if (value) {
-  //         newOptions = [value];wallets
-  //         newOptions = [...newOptions, ...results];
-  //       }
-
-  //       setOptions(newOptions);
-  //     }
-  //   });
-
-  //   return () => {
-  //     active = false;
-  //   };
-  // }, [value, inputValue, fetch]);
-
   return (
     <div>
       <Typography sx={{mt: 2}} color="primary.light" variant="h6" component="h2">
@@ -180,9 +196,10 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Wallet</InputLabel>
             <Select
+              
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={selectWallet}
+              value={selectWallet === '' && transaction ? transaction.wallet_id : selectWallet}
               label="Wallet"
               onChange={handleChange}
             >
@@ -216,12 +233,16 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
             clearOnBlur
             handleHomeEndKeys
             required
+            isOptionEqualToValue={(option, value) => option.value === value.value}
             onChange={(_, value) => {
               if (!value) {
                 setCurrency({ id: '', symbol: '' });
               }
               else {
                 setCurrency(value);
+                if (distribution) {
+                  setQuantity(distribution.find(d => d.name === value.symbol).quantity)
+                }
               }
             }}
           />
@@ -233,7 +254,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
             className="transaction__field"
           >
             <TextField
-              disabled={disable}
+              disabled={transaction ? false : disable}
               required
               fullWidth
               name="quatity"
@@ -247,6 +268,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
               id="quatity"
               value={quantity}
               onChange={(e) => {
+                setDisable(false);
                 setQuantity(Number(e.target.value));
               }}
             />
@@ -256,7 +278,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
             xs={6}
           >
             <TextField
-              disabled={disable}
+              disabled={transaction ? false : disable}
               required
               fullWidth
               name="price"
@@ -265,6 +287,7 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
               id="price"
               value={oldPrice !== 0 ? Math.ceil(oldPrice * 100) / 100 : (Math.ceil(currentPrice * 100) / 100)}
               onChange={(e) => {
+                  setDisable(false)
                   setOldPrice(e.target.value);
                 }
               }
@@ -282,12 +305,13 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                disabled={disable}
+                disabled={transaction ? false : disable}
                 disableFuture
                 label={buy ? 'Date de l\'achat' : 'Date de la vente'}
                 value={dateValue}
                 onChange={(newValue) => {
                   setOldPrice(0);
+                  setDisable(false)
                   setDateValue(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} />}
@@ -346,7 +370,7 @@ export default TransactionCreatorForm;
 TransactionCreatorForm.propTypes = {
   buy: PropTypes.bool.isRequired,
   id: PropTypes.number,
-  disabled: PropTypes.bool.isRequired,
+  //disabled: PropTypes.bool.isRequired,
 };
 
 TransactionCreatorForm.defaultProps = {

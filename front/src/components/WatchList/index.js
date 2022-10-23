@@ -13,7 +13,6 @@ import CryptoList from '../CryptoList'
 
 import colors from '../../services/getColors'
 import { getAllCryptos } from '../../actions/cryptos';
-import { setDisplaySnackBar } from 'src/actions/settings';
 import { fetchFavoriteCryptos } from '../../actions/favorite';
 
 export default function WatchList({logged}) {

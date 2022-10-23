@@ -14,7 +14,9 @@ import {
   DialogTitle,
   DialogContent,
   useMediaQuery,
-  IconButton
+  IconButton,
+  Box,
+  Avatar
 } from '@mui/material';
 
 import EditOrDeleteItem from 'src/components/common/EditOrDeleteItem';
@@ -35,6 +37,7 @@ export default function TransactionsHistory({transactions}) {
   const { transactionEditorIsOpen } = useSelector((state) => state.settings);
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
   const { darkMode } = useSelector((state) => state.settings);
+  const allCryptos = useSelector((state) => state.cryptos.allCryptos);
 
   const { selectedTransaction } = useSelector((state) => state.portfolio);
 
@@ -48,6 +51,10 @@ export default function TransactionsHistory({transactions}) {
 
   const classes = useStyles();
 
+  const addIcon = transactions.map(d => {
+    return allCryptos.find(c => c.symbol === d.symbol)?.image
+  })
+
   const TableContainerFunction = () => {
     return (
       transactions[0] !== 'empty' ? (
@@ -55,7 +62,7 @@ export default function TransactionsHistory({transactions}) {
         <Table stickyHeader size='small' aria-label="a dense table" >
           <TableHead>
           <TableRow className={classes.root}>
-            <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
+            <TableCell align="left" sx={{padding: '.5em 0 0 3', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
             <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Prix d'achat</TableCell>
             <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Prix de vente</TableCell>
             <TableCell align="center" sx={{padding: '.5em 0', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Quantité</TableCell>
@@ -64,15 +71,22 @@ export default function TransactionsHistory({transactions}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {transactions.map((transaction) => (
+            {transactions.map((transaction, index) => (
               <TableRow key={transaction.id}>
-                <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{transaction.symbol.toUpperCase()}</TableCell>
+                <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
+                  <Box sx={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+                    <Avatar src={addIcon[index]} alt="crypto icon" style={{width: '30px', height: '30px', marginLeft: 10}} />
+                    <Typography ml={2} variant="body2" sx={{ color: darkMode ? '#07f3d5' : '' }}>
+                      {transaction.symbol.toUpperCase()}
+                    </Typography>
+                  </Box>
+                </TableCell>
                 {transaction.buy
-                  ? <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
-                  : <TableCell align="center" sx={{ padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
-                {!transaction.buy
-                  ? <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
+                  ? <TableCell align="center" sx={{ color:'#3aa832', borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                   : <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
+                {!transaction.buy
+                  ? <TableCell align="center" sx={{ color: '#bf2a2a', borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
+                  : <TableCell align="center" sx={{ borderBottom: 0, borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
                 <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
                   {Intl.NumberFormat('en-US', {
                     style: 'decimal',

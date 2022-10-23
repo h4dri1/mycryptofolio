@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { TextField, Divider, Typography, Grid, Button, Box, MenuItem } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { change_user } from '../../../actions/user';
+import { makeStyles } from '@mui/styles';
 
 import { setDisplaySnackBar } from 'src/actions/settings';
 
@@ -24,6 +25,12 @@ const currencies = [
       label: '¥',
     },
   ];
+
+  const useStyles = makeStyles({
+    input: {
+      color: "white"
+    }
+  });
 
 export default function Profil({color}) {
     const dispatch = useDispatch();
@@ -56,9 +63,33 @@ export default function Profil({color}) {
       }
     };
 
+    const classes = useStyles();
+
     const handleChange = (event) => {
       setCur(event.target.value);
     };
+
+    const textFieldStyle = {
+      "& .MuiInputLabel-root.Mui-focused": 
+      {
+        color: 'secondary.main'
+      },//styles the label
+      "& .MuiInputLabel-root": 
+      {
+        color: 'primary.light'
+      },//styles the label
+        "& .MuiOutlinedInput-root": 
+      {
+        "& > fieldset": { borderColor: "primary.light" },
+      },
+      "& .MuiOutlinedInput-root.Mui-focused": {
+        "& > fieldset": {
+          borderColor: "secondary.main",
+        }
+      },
+      margin: '10px'
+    }
+       
 
     return (
         <Box
@@ -79,15 +110,32 @@ export default function Profil({color}) {
             <Typography sx={{marginTop:"5px", color: 'white'}} variant="h5" align="center">Profil</Typography>
             <Divider sx={{ marginBottom: '10px' }} />
             
-            <TextField onChange={(e) => setNicknameValue(e.target.value)} sx={{ margin: '10px' }} id="nickname" label="User Name" defaultValue={nickname} variant="outlined"/>
-            <TextField onChange={(e) => setEmailValue(e.target.value)} sx={{ margin: '10px' }} id="email" label="Email" defaultValue={email} variant="outlined"/>
+            <TextField 
+              onChange={(e) => setNicknameValue(e.target.value)}
+              id="nickname" 
+              label="User Name" 
+              defaultValue={nickname} 
+              variant="outlined"
+              sx={ textFieldStyle } 
+              inputProps={{ className: classes.input }}
+            />
+            <TextField 
+              onChange={(e) => setEmailValue(e.target.value)}
+              id="email" 
+              label="Email" 
+              defaultValue={email} 
+              variant="outlined"
+              sx={ textFieldStyle }
+              inputProps={{ className: classes.input }}
+            />
             <TextField
-            sx={{ margin: '10px' }}
             id="outlined-select-currency"
             select
             label="Currency"
             value={currency}
             onChange={handleChange}
+            sx={ textFieldStyle } 
+            inputProps={{ className: classes.input }}
             >
             {currencies.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -97,8 +145,8 @@ export default function Profil({color}) {
             </TextField>
 
             <Grid container justifyContent={'center'}>
-                <Button sx={{margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
-                <Button onClick={handleClick} sx={{margin: '5px', width: '45%'}} variant="contained">Save</Button>
+                <Button sx={{backgroundColor: 'primary.light', margin: '5px', width: '45%'}} variant="contained">Cancel</Button>
+                <Button onClick={handleClick} sx={{backgroundColor: 'primary.light', margin: '5px', width: '45%'}} variant="contained">Save</Button>
             </Grid>
 
         </Box>

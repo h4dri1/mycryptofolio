@@ -6,14 +6,14 @@ import axios from 'axios';
 
 // import TextField from '@mui/material/TextField';
 import { fetchCryptoData } from 'src/actions/cryptoDetails';
-import { Typography } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import {
     Autocomplete,
     Box,
     Link,
     TextField,
+    Typography, 
+    CircularProgress
 } from '@mui/material';
 
 import { useSelector, useDispatch } from 'react-redux';

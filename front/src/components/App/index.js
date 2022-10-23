@@ -2,10 +2,9 @@
 // == Import
 import Home from 'src/pages/Home';
 
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 
 import Loading from '/src/components/Loading';
 import { ThemeProvider } from '@mui/material/styles';
@@ -27,16 +26,15 @@ const UnknowRoute = lazy(() => import('../../pages/404'));
 const WatchList = lazy(() => import('../../pages/WatchList'));
 
 import Theme from '../../theming/Theme';
-import { fetchFavoriteCryptos } from '../../actions/favorite';
 
 // == Composant
 
 const App = () => {
   const dispatch = useDispatch();
   // DARK MODE
-  const { logged } = useSelector((state) => state.user);
+
   const { walletAddress } = useSelector((state) => state.wallet);
-  const { favorite } = useSelector((state) => state.favorite);
+
   const theme = Theme()
   // COLOR PALETTE for LIGHT & DARK modes
   

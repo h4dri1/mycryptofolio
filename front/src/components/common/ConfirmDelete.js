@@ -1,14 +1,7 @@
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
+import { IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 
 import { deleteTransaction, deleteWallet } from 'src/actions/portfolio';
 import { toggleConfirmDelete } from 'src/actions/settings';

@@ -1,7 +1,7 @@
 import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
 import SearchCrypto from 'src/components/Navbar/SearchBar/SearchCrypto';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useRef, useState, useEffect, Fragment } from 'react';
 
 import { useSelector } from 'react-redux';
@@ -10,7 +10,6 @@ import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import { Home } from '@mui/icons-material';
-import { useLocation } from 'react-router-dom';
 
 import {
   AppBar,

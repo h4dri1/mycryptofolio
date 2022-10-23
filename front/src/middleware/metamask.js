@@ -111,7 +111,7 @@ const metamask = (store) => (next) => async (action) => {
                     if (err.code === 4001) {
                         // EIP-1193 userRejectedRequest error
                         // If this happens, the user rejected the connection request.
-                        store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Please install connect to Metamask' }));
+                        store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Please connect to Metamask' }));
                     } else {
                         console.error(err);
                     }

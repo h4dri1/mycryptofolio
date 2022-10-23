@@ -20,14 +20,13 @@ import {
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { LoadingButton } from '@mui/lab';
-import { makeStyles, useTheme, styled } from '@mui/styles';
+import { makeStyles, useTheme  } from '@mui/styles';
 import {useState, useEffect} from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import { getCryptoList, getMoreCryptos } from 'src/actions/cryptos';
 import StarIcon from '@mui/icons-material/Star';
@@ -50,14 +49,11 @@ function CryptoList({favoritePage, showTutorial}) {
   const theme = useTheme();
   const classes = useStyles(theme);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
-  const { darkMode } = useSelector((state) => state.settings);
   const { list: cryptos, cryptoListLoading } = useSelector((state) => state.cryptos.cryptoList);
   const { allCryptos } = useSelector((state) => state.cryptos);
   const { logged } = useSelector((state) => state.user);
   const { favorite } = useSelector((state) => state.favorite);
-  
-  const [rowData, setRowData] = useState(cryptos);
-  const [orderDirection, setOrderDirection] = useState("asc");
+  const [orderDirection, setOrderDirection] = useState('asc');
   const [favClick, setFavClick] = useState(false);
   const [cryptoListFav, setCryptoListFav] = useState(cryptos);
   const [backdropOpen, setBackdropOpen] = useState(showTutorial);
@@ -82,22 +78,18 @@ function CryptoList({favoritePage, showTutorial}) {
     var cryptoSym = ''
   }
 
-  const sortArray = (arr, orderBy) => {
+  const sortArray = (arr, key, orderBy) => {
     switch (orderBy) {
-      case "asc":
-      default:
-        return arr.sort((a, b) =>
-          a.market_cap_rank > b.market_cap_rank ? 1 : b.market_cap_rank > a.market_cap_rank ? -1 : 0
-        );
       case "desc":
-        return arr.sort((a, b) =>
-          a.market_cap_rank < b.market_cap_rank ? 1 : b.market_cap_rank < a.market_cap_rank ? -1 : 0
-        );
+      default:
+        return arr.sort((a, b) => a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0);
+      case "asc":
+        return arr.sort((a, b) => a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0);
     }
   };
    
-  const handleSortRequest = () => {
-    setRowData(sortArray(cryptos, orderDirection));
+  const handleSortRequest = (key) => {
+    sortArray(cryptos, key, orderDirection)
     setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
   };
 
@@ -109,7 +101,6 @@ function CryptoList({favoritePage, showTutorial}) {
       setCryptoListFav(allCryptos);
     }
     dispatch(getCryptoList());
-    handleSortRequest()
   }, [logged, allCryptos, selectedCurrency]);
 
   useEffect(() => {
@@ -133,9 +124,17 @@ function CryptoList({favoritePage, showTutorial}) {
           return crypto
         }
       })
-    } else {
-      return cryptos
+    } else if (showTutorial) {
+      let someCryptos
+      someCryptos = cryptos.filter((_, index) => {
+        if(index < 10) {
+            return true;
+        }
+        return false
+      })
+      return someCryptos
     }
+    return cryptos
   }
 
   const TableCont = () => {
@@ -144,22 +143,40 @@ function CryptoList({favoritePage, showTutorial}) {
       <Table stickyHeader size='medium' sx={{backgroundColor: 'primary.main', borderRadius: '10px'}}>
         <TableHead>
           <TableRow>
-            {logged && (<TableCell onClick={() => {favorite.cryptos[0]?.coin_id !== 'none' ? handleDisplayFav() : null}} align="center" sx={{borderTopLeftRadius: '10px',borderTopLeftRadius: '10px', borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>
+            {logged && (<TableCell onClick={() => {favorite.cryptos[0]?.coin_id !== 'none' ? handleDisplayFav() : null}} align="center" sx={{borderTopLeftRadius: '10px', padding: 0}}>
               <TableSortLabel active={favorite.cryptos[0]?.coin_id !== 'none'}>
                 Favoris
               </TableSortLabel>
             </TableCell>)}
-            <TableCell onClick={handleSortRequest} sx={{borderBottom: darkMode ? '1px solid #07f3d5' : '', display: { xs: 'none', sm: 'table-cell' }}} align="center">
-              <TableSortLabel active={true} direction={orderDirection}>
+            <TableCell sx={{borderTopLeftRadius: logged ? '0px' : '10px', display: { xs: 'none', sm: 'table-cell' }}} align="center">
                 #
+            </TableCell>
+            <TableCell sx={{borderTopLeftRadius: !logged ? {xs: '10px', md:'0px'} : '0px'}} align='left'>Nom</TableCell>
+            <TableCell onClick={() => handleSortRequest('current_price')} align="right">
+              <TableSortLabel active={true} direction={orderDirection}>
+                Prix
+              </TableSortLabel>  
+            </TableCell>
+            <TableCell onClick={() => handleSortRequest('price_change_percentage_24h')} sx={{borderTopRightRadius: {xs:'10px', md:'0px'}}} align="right">
+              <TableSortLabel active={true} direction={orderDirection}>
+                24h %
               </TableSortLabel>
             </TableCell>
-            <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}}>Nom</TableCell>
-            <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">Prix</TableCell>
-            <TableCell sx={{borderBottom: darkMode ? '1px solid #07f3d5' : ''}} align="right">24h %</TableCell>
-            <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Market Cap</TableCell>
-            <TableCell align="right" sx={{ display: { xs: 'none', md: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Volume 24h</TableCell>
-            <TableCell align="right" sx={{ borderTopRightRadius: '10px', display: { xs: 'none', lg: 'table-cell' }, borderBottom: darkMode ? '1px solid #07f3d5' : '' }}>Circulating supply</TableCell>
+            <TableCell onClick={() => handleSortRequest('market_cap')} align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
+              <TableSortLabel active={true} direction={orderDirection}>
+                Market Cap
+              </TableSortLabel>  
+            </TableCell>
+            <TableCell onClick={() => handleSortRequest('total_volume')} align="right" sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+              <TableSortLabel active={true} direction={orderDirection}>
+                Volume 24h
+              </TableSortLabel>
+            </TableCell>
+            <TableCell onClick={() => handleSortRequest('circulating_supply')} align="right" sx={{ borderTopRightRadius: '10px', display: { xs: 'none', lg: 'table-cell' } }}>
+              <TableSortLabel active={true} direction={orderDirection}>
+                Circulating supply
+              </TableSortLabel>
+            </TableCell>
           </TableRow>
         </TableHead>
 
@@ -168,7 +185,7 @@ function CryptoList({favoritePage, showTutorial}) {
           {cryptos.length > 0 ? favTable().map((crypto) => (
             <TableRow key={crypto.id} hover>
               {logged && (
-              <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0 }}>
+              <TableCell align="center" sx={{ color: 'primaryTextColor.main', borderBottom: 0 }}>
                 {favorite.cryptos.length > 0 && favorite.cryptos.some(e => e.coin_id === crypto.id) ? (
                   <IconButton color='secondary' value={crypto.id} onClick={() => dispatch(deleteFavoriteCrypto(crypto.id))}>
                     <StarIcon/>
@@ -180,9 +197,9 @@ function CryptoList({favoritePage, showTutorial}) {
                 }
               </TableCell>
               )}
-              <TableCell align="center" sx={{ color: 'primaryTextColor.main', padding: { xs: ' 0 -16px', sm: '0px' }, borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{crypto.market_cap_rank}</TableCell>
+              <TableCell align="center" sx={{ color: 'primaryTextColor.main', borderBottom: 0, display: { xs: 'none', sm: 'table-cell' } }}>{crypto.market_cap_rank}</TableCell>
               <TableCell sx={{borderBottom: 0}}>
-                <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: ' 0 -16px', sm: '0px' } }}>
+                <Box component={RouterLink} to={`/crypto/${crypto.id}`} sx={{ color: "primary.light", display: 'flex', alignItems: 'center', textDecoration: 'none', margin: { xs: '0px', sm: '0px' } }}>
                   <Avatar loading='lazy' src={crypto.image.replace('large', 'small')} alt={crypto.name} sx={{ mr: 1, width:{xs:'20px', md: '40px'}, height:{xs:'20px', md: '40px'} }} />
                   <Typography
                     sx={{ mr: 1, display: { xs: 'none', sm: 'block'}, color:'secondary.light' }}
