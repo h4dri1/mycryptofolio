@@ -7,48 +7,56 @@ import {
     Typography
 } from '@mui/material';
 
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { setDisplaySnackBar } from '../../actions/settings';
+import CoffeeIcon from '@mui/icons-material/Coffee';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
 const Footer = () => {
+    //Footer of website keep bottom of page
+    const walletAddress = '0xEc496bA02a1efeD1B7966cac89210F2894CEE54b'
+    const dispatch = useDispatch();
 
     return (
-<Grid sx={{}}>
-
-<Box 
-    sx={{ justifyContent: 'center', bgcolor: "secondary.dark", alignItems: "center", display: "flex", width: '100%', height: '50px' }}
->
-    <Typography
-        variant="subtitle"
-        noWrap
-        color="black"
-        sx={{ display: { xs: 'none', sm: 'flex' }, fontSize: 14, color: 'primary.main' }}
-    >
-        <Link component={RouterLink} to="/contact"
-            color='primary.light'
-        >
-            Contact
-        </Link>
-    </Typography>
-    <Box>
-        <Typography
-            variant="subtitle"
-            // noWrap
-            color="black"
-            sx={{ fontSize: 14, color: 'primary.main', ml: 15 }}
-        >
-            ETH address :
-        </Typography>
-        <Typography
-            variant="subtitle"
-            // noWrap
-            color="black"
-            sx={{ fontSize: 14, color: 'primary.main', ml: 2 }}
-        >0xDDA2391e6Aab2E8FFcE903196b7899D7795130A1
-        </Typography>
-    </Box>
-</Box>
-
-</Grid >
+        <Box 
+            sx={{
+                bottom: 0,
+                width: '100%',
+                height: '50px',
+                backgroundColor: 'secondary.dark',
+                color: 'primary.contrastText',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                zIndex: 1000,
+                marginTop: 2
+            }}>
+            <Box display={'flex'} ml={'25%'}>
+                <AlternateEmailIcon color={'primary'}/>
+                <Link 
+                    component={RouterLink} 
+                    to="/contact" 
+                    color='primary'
+                    underline="none"
+                    ml={1}
+                >
+                    Contact
+                </Link>
+            </Box>
+            <Box display={'flex'} mr={'25%'}>
+                <CoffeeIcon color={'primary'}/>
+                <Typography
+                    ml={1}
+                    display={{xs: 'none', sm: 'none', md: 'block'}}
+                    color='primary'
+                    sx={{cursor: 'pointer'}}
+                    onClick={() => {navigator.clipboard.writeText(walletAddress), dispatch(setDisplaySnackBar({ severity: 'success', message: `Address copied you can buy me a cofee if you want ;)` }))}}
+                >
+                    {walletAddress}
+                </Typography>
+            </Box>
+        </Box>
     )
 };
 export default Footer;

@@ -85,7 +85,7 @@ export default function TransactionsHistory({transactions}) {
                   ? <TableCell align="center" sx={{ color:'#3aa832', borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                   : <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
                 {!transaction.buy
-                  ? <TableCell align="center" sx={{ color: '#bf2a2a', borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
+                  ? <TableCell align="center" sx={{ color: '#e65555', borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                   : <TableCell align="center" sx={{ borderBottom: 0, borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
                 <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
                   {Intl.NumberFormat('en-US', {
@@ -122,7 +122,7 @@ export default function TransactionsHistory({transactions}) {
 
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: '100%', width:'100%'}}>
-        <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center', width:'100%' }}>
+        <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center', width:'100%' }}>
             <HistoryIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Token Transfert History</Typography>
         </Container>
         <Container sx={{

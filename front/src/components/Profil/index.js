@@ -78,7 +78,7 @@ export default function Profil({ logged, verify }) {
               <Password color={color}/>
             </Grid>
             <Link
-              sx={{ marginTop: '50px', color: darkMode ? 'custom.main' : 'secondary.main'}}
+              sx={{ marginTop: '50px', color: darkMode ? 'custom.main' : 'primary.main'}}
               component="button"
               underline='none'
               variant="body2"
