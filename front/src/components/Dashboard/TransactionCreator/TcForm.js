@@ -58,16 +58,20 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
   }
 
   const quantityState = () => {
-    if (transaction !== undefined) {
-      return transaction.quantity;
+    if (transaction) {
+      if (buy && transaction.quantity < 0) {
+        return transaction.quantity * -1;
+      } else {
+        return transaction.quantity;
+      }
     }
     return 0;
   }
 
   const dateState = () => {
-    if (transaction !== undefined) {
+    if (transaction) {
       return transaction.buy_date;
-    } else if (distribution !== undefined) {
+    } else if (distribution) {
       return new Date();
     } else {
       return new Date();
@@ -75,9 +79,9 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
   }
 
   const priceState = () => {
-    if (transaction !== undefined) {
+    if (transaction) {
       return transaction.price;
-    } else if (distribution !== undefined) {
+    } else if (distribution) {
       return 0;
     } else {
       return 0;
@@ -180,41 +184,6 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
     }
     fetchPrice();
   }, [currency, dateValue]);
-
-  // ! Do not remove next commented code, may be useful later
-  // useEffect(() => {
-  //   let active = true; wallets={wallets}
-
-  //   if (!autocompleteService.current && window.google) {
-  //     autocompleteService.current =
-  //       new window.google.maps.places.AutocompleteService();
-  //   }
-  //   if (!autocompleteService.current) {
-  //     return undefined;
-  //   }
-
-  //   if (inputValue === '') {
-  //     setOptions(value ? [value] : []);
-  //     return undefined;
-  //   }
-
-  //   fetch({ input: inputValue }, (results) => {
-  //     if (active) {
-  //       let newOptions = [];
-
-  //       if (value) {
-  //         newOptions = [value];wallets
-  //         newOptions = [...newOptions, ...results];
-  //       }
-
-  //       setOptions(newOptions);
-  //     }
-  //   });
-
-  //   return () => {
-  //     active = false;
-  //   };
-  // }, [value, inputValue, fetch]);
 
   return (
     <div>
@@ -401,7 +370,7 @@ export default TransactionCreatorForm;
 TransactionCreatorForm.propTypes = {
   buy: PropTypes.bool.isRequired,
   id: PropTypes.number,
-  disabled: PropTypes.bool.isRequired,
+  //disabled: PropTypes.bool.isRequired,
 };
 
 TransactionCreatorForm.defaultProps = {

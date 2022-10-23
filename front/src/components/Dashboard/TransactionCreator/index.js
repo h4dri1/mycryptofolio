@@ -71,8 +71,16 @@ const TransactionCreator = (props) => {
     setValue(newValue);
   };
 
-  const isDisabled = () => {
-    if (props.transaction && props.transaction.buy) {
+  const isDisabled = (value) => {
+    if (props.transaction) {
+      if (props.transaction.buy && value === 1) {
+        return false
+      } else if (!props.transaction.buy && value === 0) {
+        return false
+      } else {
+        return true
+      }
+    } else {
       return false
     }
   }
@@ -96,10 +104,10 @@ const TransactionCreator = (props) => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <TcForm buy={value === 0} disabled={!selectedWallet} wallets={wallets} selectedWallet={selectedWallet} {...props} />
+        <TcForm buy={value === 0} disabled={isDisabled(value)} wallets={wallets} selectedWallet={selectedWallet} {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TcForm buy={value === 0} disabled={isDisabled()} wallets={wallets} selectedWallet={selectedWallet} distribution={distribution} {...props} />
+        <TcForm buy={value === 0} disabled={isDisabled(value)} wallets={wallets} selectedWallet={selectedWallet} distribution={distribution} {...props} />
       </TabPanel>
     </Box>
   );
