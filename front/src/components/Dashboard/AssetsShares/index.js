@@ -1,4 +1,4 @@
-import { Container, Table, TableHead, TableBody, TableRow, TableCell, Divider, Typography, TableContainer, Skeleton, Paper, Box } from '@mui/material';
+import { Container, Table, TableHead, TableBody, TableRow, TableCell, Divider, Typography, TableContainer, Skeleton, Paper, Box, Avatar } from '@mui/material';
 
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -9,8 +9,11 @@ import MoodBadIcon from '@mui/icons-material/MoodBad';
 
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
+import { Link as RouterLink } from 'react-router-dom';
+
 export default function AssetsShares({ distribution }) {
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);
+  const allCryptos = useSelector((state) => state.cryptos.allCryptos);
   const { darkMode } = useSelector((state) => state.settings);
   
   const StyledTableHead = styled(TableHead)`
@@ -18,6 +21,10 @@ export default function AssetsShares({ distribution }) {
     background-color: #00b2cc;
   }
 `;
+
+const addIcon = distribution.map(d => {
+  return allCryptos.find(c => c.symbol === d.name)?.image
+})
 
 const TableContainerFunction = () => {
   return (
@@ -34,8 +41,15 @@ const TableContainerFunction = () => {
           </StyledTableHead>
           <TableBody align="left">
             {distribution.map((asset, index) => (
-              <TableRow key={index}>
-                <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0  }}>{asset.name.toUpperCase()}</TableCell>
+              <TableRow hover key={index}>
+                <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0  }}>
+                  <Box component={RouterLink} to={`/crypto/${asset.coin_id}`} sx={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+                    <Avatar src={addIcon[index]} alt="crypto icon" style={{width: '20px', height: '20px', marginLeft: 10}} />
+                    <Typography ml={2} variant="body2" sx={{ color: darkMode ? '#07f3d5' : '' }}>
+                      {asset.name.toUpperCase()}
+                    </Typography>
+                  </Box>
+                </TableCell>
                 <TableCell align="center" sx={{ padding: '0.5em 0', borderBottom: 0  }}>{Intl.NumberFormat('en-US', {
                   style: 'decimal',
                   maximumSignificantDigits: 4,

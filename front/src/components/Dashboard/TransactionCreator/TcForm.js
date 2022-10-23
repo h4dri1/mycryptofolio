@@ -40,10 +40,10 @@ const TransactionCreatorForm = ({ buy, id, disabled, wallets, selectedWallet, tr
   });
 
   const cryptoState = () => {
-    if (transaction !== undefined) {
+    if (transaction) {
       someCryptos = [someCryptos.find(crypto => crypto.symbol === transaction.symbol)];
       return ({ id: someCryptos[0].id, symbol: someCryptos[0].symbol })
-    } else if (distribution !== undefined) {
+    } else if (distribution) {
         someCryptos = distribution.map(d => ({ 
           id: d.coin_id, 
           symbol: d.name,
