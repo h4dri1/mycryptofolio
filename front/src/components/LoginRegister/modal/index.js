@@ -139,6 +139,7 @@ import {
   
       const hide500 = useMediaQuery('(max-width:600px)');  
       
+      
     return (
         <Dialog fullScreen={hide500 ? true : false} PaperProps={{style: { borderRadius: '10px' }}} sx={{margin: 0, padding: 0, backdropColor: 'background.default'}} open={loginIsOpen} onClose={handleToggleLoginModal}>
           <DialogTitle sx={{ height: '50px', display: 'flex', justifyContent: 'space-between', backgroundColor: 'secondary.dark' }}>
@@ -157,7 +158,6 @@ import {
             </DialogContentText>}
             {type === 'register' && !forgotPassword && (
               <TextField
-                // autoFocus
                 margin="dense"
                 id="nickname"
                 label="Pseudo"
@@ -169,7 +169,6 @@ import {
               />
             )}
             <TextField
-              // autoFocus
               margin="dense"
               id="email"
               label="Email Address"
@@ -189,6 +188,11 @@ import {
               variant="outlined"
               value={password}
               onChange={handleChange}
+              onKeyPress= {(e) => {
+                if (e.key === 'Enter') {
+                  handleSubmit();
+                }
+              }}
               InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -259,7 +263,7 @@ import {
                 maxHeight: '50px',
                 width: '140px',
                 }}
-                onClick={handleSubmit} 
+                onClick={handleSubmit}
                 variant="contained"><Typography sx={{fontSize: '0.8em'}}>{ type === 'login' ? 'Se connecter' : 'S\'inscrire' }</Typography>
               </Button>)}
             </Box>

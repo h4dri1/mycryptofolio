@@ -72,7 +72,7 @@ export default function TransactionsHistory({transactions}) {
           </TableHead>
           <TableBody>
             {transactions.map((transaction, index) => (
-              <TableRow key={transaction.id}>
+              <TableRow hover key={transaction.id}>
                 <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
                   <Box sx={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
                     <Avatar src={addIcon[index]} alt="crypto icon" style={{width: '30px', height: '30px', marginLeft: 10}} />
