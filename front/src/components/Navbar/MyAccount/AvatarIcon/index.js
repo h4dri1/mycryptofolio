@@ -80,7 +80,7 @@ export default function TestAvatar() {
           alignItems: 'center',
         }}
       >
-        <Fragment>
+        <div>
           {!hide500 &&
             <Avatar
               src={avatar}
@@ -183,7 +183,7 @@ export default function TestAvatar() {
               </Grow>
             )}
           </Popper>
-        </Fragment>
+        </div>
       </Stack>
     </Container>
   );

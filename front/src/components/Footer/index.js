@@ -45,7 +45,7 @@ const Footer = () => {
                 </Link>
             </Box>
             <Box display={'flex'} mr={'25%'}>
-                <CoffeeIcon color={'primary'}/>
+                <CoffeeIcon color={'primary'} onClick={() => {navigator.clipboard.writeText(walletAddress), dispatch(setDisplaySnackBar({ severity: 'success', message: `Address copied you can buy me a cofee if you want ;)` }))}}/>
                 <Typography
                     ml={1}
                     display={{xs: 'none', sm: 'none', md: 'block'}}

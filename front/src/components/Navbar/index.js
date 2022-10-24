@@ -42,7 +42,24 @@ export default function PrimarySearchAppBar() {
 
   const location = useLocation();
 
-  const selectedMenu = location.pathname.split('/')[1]
+  const selectedMenu = () => {
+    const path = location.pathname.split('/')[1]
+    switch (path) {
+      case 'market':
+        return 'Market';
+      case 'portfolio':
+        return 'Portfolio';
+      case 'wallet':
+        return 'Portfolio';
+      case 'watchlist':
+        return 'Watchlist';
+      case '':
+        return 'Home';
+      case 'nft':
+        return 'NFT';
+      default:
+    }
+  }
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -109,7 +126,7 @@ export default function PrimarySearchAppBar() {
             </Button>}
             {!hideButton && <Home
               sx={{ width: 25, height: 25, ml: 1, mr: 0}} 
-              color="primary.light"/>}
+              color={selectedMenu() === 'Home' ? "secondary" : 'white'}/>}
             </Link>
           }
           {homeIcon && 
@@ -126,7 +143,7 @@ export default function PrimarySearchAppBar() {
             </Button>}
             {!hideButton && <CurrencyBitcoinIcon
               sx={{ width: 25, height: 25, ml: 1, mr: 1}} 
-              color="primary.light"/>}
+              color={selectedMenu() === 'Market' ? "secondary" : 'white'}/>}
             </Link>
           }
           {homeIcon && 
@@ -143,7 +160,7 @@ export default function PrimarySearchAppBar() {
           </Button>}
           {!hideButton && <ColorLensIcon 
             sx={{ width: 25, height: 25, mr: 1 }} 
-            color="primary.light"/>}
+            color={selectedMenu() === 'nft' ? "secondary" : 'white'}/>}
 
           </Link>
           }
@@ -164,7 +181,7 @@ export default function PrimarySearchAppBar() {
               {
               !hideButton && <SavedSearchIcon 
                 sx={{ width: 25, height: 25, mr: 1 }} 
-                color="primary.light"/>
+                color={selectedMenu() === 'Watchlist' ? "secondary" : 'white'}/>
               }
             </Link>
           }
@@ -180,7 +197,7 @@ export default function PrimarySearchAppBar() {
             onClick={handleToggle}
             ref={anchorRef}
             sx={{ width: 25, height: 25 }} 
-            color="primary.light"/>}
+            color={selectedMenu() === 'Portfolio' ? "secondary" : 'white'}/>}
           <Box sx={{ flexGrow: 1 }} />
           <Popper
             open={open}
