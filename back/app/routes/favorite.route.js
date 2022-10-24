@@ -6,7 +6,7 @@ const { favoriteController } = require('../controllers');
 
 const { schemas } = require('../schemas');   
 
-const { auth, guardMW, validateBody, validateParams } = require('../middlewares');
+const { auth, guardMW, validateParams } = require('../middlewares');
 
 const rateLimit = require('express-rate-limit');
 
@@ -17,7 +17,6 @@ router
         '/favorite',
         rateLimit(schemas.walletLimiter),
         auth.routing,
-        //validateBody(schemas.wallet), 
         cache, 
         favoriteController.getFavoriteByUserId
     )
@@ -25,8 +24,7 @@ router
         '/favorite/:id', 
         rateLimit(schemas.walletLimiter),
         auth.routing,
-        //validateParams(schemas.deleteWallet),
-        //guardMW.deleteWallet,
+        validateParams(schemas.postFavorite),
         flush,
         favoriteController.addFavorite
     )
@@ -34,8 +32,7 @@ router
         '/favorite/:id',
         rateLimit(schemas.walletLimiter),
         auth.routing,
-        //validateParams(schemas.deleteWallet),
-        //guardMW.deleteWallet,
+        validateParams(schemas.deleteFavorite),
         flush,
         favoriteController.deleteFavorite
     );
