@@ -21,7 +21,7 @@ import Logout from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { logout } from '../../../../actions/user';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Fragment } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
@@ -80,7 +80,7 @@ export default function TestAvatar() {
           alignItems: 'center',
         }}
       >
-        <div>
+        <Fragment>
           {!hide500 &&
             <Avatar
               src={avatar}
@@ -183,7 +183,7 @@ export default function TestAvatar() {
               </Grow>
             )}
           </Popper>
-        </div>
+        </Fragment>
       </Stack>
     </Container>
   );

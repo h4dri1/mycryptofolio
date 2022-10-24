@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -31,12 +31,12 @@ export default function Home({ displayLogin }) {
   }, [logged]);
 
   return (
-    <div className="">
+    <Fragment>
       <TopBanner />
       <Navbar />
       <NFTList/>
       <Footer />
-    </div>
+    </Fragment>
   );
 }
 

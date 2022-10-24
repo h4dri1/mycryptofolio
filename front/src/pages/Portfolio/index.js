@@ -4,16 +4,17 @@ import Dashboard from 'src/components/Dashboard';
 import Footer from 'src/components/Footer';
 
 import { useSelector } from 'react-redux';
+import { Fragment } from 'react';
 
 export default function Portfolio() {
   const { logged } = useSelector((state) => state.user);
 
   return (
-    <div className="">
+    <Fragment>
       <TopBanner />
       <Navbar />
       <Dashboard logged={logged}/>
       <Footer />
-    </div>
+    </Fragment>
   );
 }

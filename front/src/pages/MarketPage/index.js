@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -26,11 +26,11 @@ export default function MarketPage() {
   }, [logged]);
 
   return (
-    <div className="">
+    <Fragment>
       <TopBanner />
       <Navbar />
       <CryptoList showTutorial={showTutorial}/>
       <Footer />
-    </div>
+    </Fragment>
   );
 }

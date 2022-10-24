@@ -69,10 +69,10 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app">
+    <div style = {{height:"100vh"}} className="app">
       <ThemeProvider theme={theme}>
         {/* <Paper> */}
-        <CssBaseline />
+        <CssBaseline enableColorScheme/>
         <AlertMsg />
         <Routes>
             <Route path="/" element={<Home />} />

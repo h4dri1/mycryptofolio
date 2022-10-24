@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import { Grid, Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolio } from 'src/actions/portfolio';
 import { PropTypes } from 'prop-types';
@@ -55,7 +55,7 @@ const Dashboard = ({ logged, verify }) => {
   }, []);
 
   return (
-    <div className="">
+    <Fragment>
       <ConfirmDelete />
       <Box sx={{minHeight: '80vh'}}>
         <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
@@ -73,7 +73,7 @@ const Dashboard = ({ logged, verify }) => {
           </Grid>
         </Grid>
       </Box>
-    </div>
+    </Fragment>
   );
 };
 
