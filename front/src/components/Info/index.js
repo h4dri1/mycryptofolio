@@ -1,46 +1,34 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect } from 'react';
-
 import { useDispatch } from 'react-redux';
-
 import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
-
 import { getNFTList, resetNFTQuantity } from '../../actions/nft';
-
 import { Grid, Box } from '@mui/material';
-
 import { makeStyles } from '@mui/styles';
 import TopFlop from './TopFlop'
-import News from './News'
+import News from './Sentiment'
 import TopNFT from './TopNFT'
 import CryptoList from '../CryptoList'
-
 import colors from '../../services/getColors'
 
+const useStyles = makeStyles({
+  grid: {
+    height: '100%',
+    marginTop: '20px',
+    marginBottom: '50px',
+  },
+  gridItem: {
+    borderColor: '#E7EBF0',
+    borderRadius: '10px',
+    boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
+  }
+});
+
+const pixelRatio = window.devicePixelRatio
+
 export default function Info() {
-  const useStyles = makeStyles({
-    grid: {
-      height: '100%',
-      marginTop: '20px',
-      marginBottom: '50px',
-    },
-    gridItem: {
-      borderColor: '#E7EBF0',
-      borderRadius: '10px',
-      boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
-    },
-    gridSubItem: {
-      // border: 'solid 2px gold',
-      // height: '100%',
-    }
-  });
-
-  const pixelRatio = window.devicePixelRatio
-
   const dispatch = useDispatch();
-
   const classes = useStyles();
-
   const { color } = colors()
 
   useEffect(() => {
