@@ -12,12 +12,11 @@ const favortiteLimiter = {
 }
 
 const postFavorite = Joi.object({
-    vs: Joi.string().required(),
-    id: Joi.number().required(),
+    id: Joi.string().required(),
 });
 
 const deleteFavorite = Joi.object({
-    id: Joi.number().required(),
+    id: Joi.string().required(),
 });
 
 module.exports = { favortiteLimiter, postFavorite, deleteFavorite };
