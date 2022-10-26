@@ -21,7 +21,6 @@ export default function Info() {
       marginBottom: '50px',
     },
     gridItem: {
-      backgroundColor: color,
       borderColor: '#E7EBF0',
       borderRadius: '10px',
       boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
@@ -47,13 +46,13 @@ export default function Info() {
   return (
     <Box sx={{ minHeight: '80vh' }}>
       <Grid maxHeight="80%" container justifyContent="center" className={classes.grid}>
-        <Grid sx={{ margin: { xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' } }} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
+        <Grid sx={{ backgroundColor: color, margin: { xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' } }} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
           <TopFlop cryptos={cryptos} pixelRatio={pixelRatio} />
         </Grid>
-        <Grid sx={{ margin: { xs: '0px 10px 10px 10px', md: '0px 20px 0px 20px' } }} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
+        <Grid sx={{ backgroundColor: color, margin: { xs: '0px 10px 10px 10px', md: '0px 20px 0px 20px' } }} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
           <Sentiment fearAndGreed={fearAndGreed} />
         </Grid>
-        <Grid sx={{ margin: { xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' } }} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
+        <Grid sx={{ backgroundColor: color, margin: { xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' } }} item xs={12} md={pixelRatio > 1 ? 3 : 2.5} className={classes.gridItem}>
           <TopNFT nfts={nfts} pixelRatio={pixelRatio} />
         </Grid>
         <CryptoList />
