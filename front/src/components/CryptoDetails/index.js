@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 function CryptoDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const { logged } = useSelector((state) => state.user);
   const { data, chart } = useSelector((state) => state.cryptoDetails);
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const { favorite } = useSelector((state) => state.favorite);
@@ -55,8 +55,10 @@ function CryptoDetails() {
   }
 
   useEffect(() => {
-      dispatch(fetchCryptoData(slug, range));
+    if (logged) {
       dispatch(fetchFavoriteCryptos());
+    }
+    dispatch(fetchCryptoData(slug, range));
   }, []);
  
   const handleClick = (event) => {
