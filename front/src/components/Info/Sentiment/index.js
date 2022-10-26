@@ -80,7 +80,8 @@ export default function Sentiment({ fearAndGreed }) {
         display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center',
       }}
       >
-        <DeviceThermostatIcon sx={{ color: 'secondary.dark' }} /><Typography sx={{ fontWeight: 'bold', color: 'primaryTextColor.main' }}>Sentiment</Typography>
+        <DeviceThermostatIcon sx={{ color: 'secondary.dark' }} />
+        <Typography sx={{ fontWeight: 'bold', color: 'primaryTextColor.main' }}>Sentiment</Typography>
       </Container>
       <Container sx={{
         display: 'flex',
