@@ -58,6 +58,7 @@ export default function PrimarySearchAppBar() {
       case 'nft':
         return 'NFT';
       default:
+        return 'Home';
     }
   }
 
@@ -122,7 +123,7 @@ export default function PrimarySearchAppBar() {
             {hideButton && <Button sx={{textTransform: "none" }} startIcon={
               <Home sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-            <Typography fontSize={'1.2em'} fontWeight={selectedMenu === '' ? 'bold' : ''} color={selectedMenu === '' ? "secondary.light" : 'white'}>Home</Typography>
+            <Typography fontSize={'1.2em'} fontWeight={selectedMenu() === 'Home' ? 'bold' : ''} color={selectedMenu() === 'Home' ? "secondary.light" : 'white'}>Home</Typography>
             </Button>}
             {!hideButton && <Home
               sx={{ width: 25, height: 25, ml: 1, mr: 0}} 
@@ -139,7 +140,7 @@ export default function PrimarySearchAppBar() {
             {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
               <CurrencyBitcoinIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-            <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'market' ? 'bold' : ''} color={selectedMenu === 'market' ? "secondary.light" : 'white'}>Cryptocurrencies</Typography>
+            <Typography fontSize={'1.2em'} fontWeight={selectedMenu() === 'Market' ? 'bold' : ''} color={selectedMenu() === 'Market' ? "secondary.light" : 'white'}>Cryptocurrencies</Typography>
             </Button>}
             {!hideButton && <CurrencyBitcoinIcon
               sx={{ width: 25, height: 25, ml: 1, mr: 1}} 
@@ -156,11 +157,11 @@ export default function PrimarySearchAppBar() {
           {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
             <ColorLensIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
           }>
-          <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'nft' ? 'bold' : ''} color={selectedMenu === 'nft' ? "secondary.light" : 'white'}>NFT</Typography>
+          <Typography fontSize={'1.2em'} fontWeight={selectedMenu() === 'NFT' ? 'bold' : ''} color={selectedMenu() === 'NFT' ? "secondary.light" : 'white'}>NFT</Typography>
           </Button>}
           {!hideButton && <ColorLensIcon 
             sx={{ width: 25, height: 25, mr: 1 }} 
-            color={selectedMenu() === 'nft' ? "secondary" : 'white'}/>}
+            color={selectedMenu() === 'NFT' ? "secondary" : 'white'}/>}
 
           </Link>
           }
@@ -176,7 +177,7 @@ export default function PrimarySearchAppBar() {
               hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
               <SavedSearchIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-              <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'watchlist' ? 'bold' : ''} color={selectedMenu === 'watchlist' ? "secondary.light" : 'white'}>Watchlist</Typography>
+              <Typography fontSize={'1.2em'} fontWeight={selectedMenu() === 'Watchlist' ? 'bold' : ''} color={selectedMenu() === 'Watchlist' ? "secondary.light" : 'white'}>Watchlist</Typography>
               </Button>}
               {
               !hideButton && <SavedSearchIcon 
@@ -190,7 +191,7 @@ export default function PrimarySearchAppBar() {
             hideButton && <Button onClick={handleToggle} sx={{textTransform: "none", ml: 5 }} startIcon={
               <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>       
-              <Typography fontSize={'1.2em'} ref={anchorRef} fontWeight={selectedMenu === 'wallet' || selectedMenu === 'portfolio' ? 'bold' : ''} color={selectedMenu === 'wallet' || selectedMenu === 'portfolio' ? "secondary.light" : 'white'}>Wallet</Typography>
+              <Typography fontSize={'1.2em'} ref={anchorRef} fontWeight={selectedMenu() === 'Portfolio' || selectedMenu() === 'Portfolio' ? 'bold' : ''} color={selectedMenu() === 'Portfolio' || selectedMenu === 'Portfolio' ? "secondary.light" : 'white'}>Wallet</Typography>
             </Button>
           }
           {!hideButton && <AccountBalanceWalletIcon 
