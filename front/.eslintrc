@@ -4,7 +4,7 @@
   // [START] config for windows
   "parserOptions": {
     "babelOptions": { 
-      "configFile": "./front/.babelrc"
+      "configFile": "./.babelrc"
     }
   },
   // [END] config for windows

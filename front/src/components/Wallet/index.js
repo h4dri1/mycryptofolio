@@ -53,7 +53,6 @@ const Wallet = () => {
   },[walletAddress]);
 
   return (
-    <div className="">
     <Box sx={{minHeight: '80vh'}}>
       <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
         <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
@@ -70,7 +69,6 @@ const Wallet = () => {
         </Grid>
       </Grid>
     </Box>
-    </div>
   ); 
 };
 

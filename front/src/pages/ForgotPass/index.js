@@ -4,17 +4,16 @@ import ForgotPass from 'src/components/ForgotPass';
 import Footer from 'src/components/Footer';
 
 import { useSelector } from 'react-redux';
+import { Fragment } from 'react';
 
 export default function ForgotPassword() {
 
     return (
-        <>
-            <div className="">
-                <TopBanner />
-                <Navbar />
-                <ForgotPass />
-                <Footer />
-            </div>
-        </>
+        <Fragment>
+            <TopBanner />
+            <Navbar />
+            <ForgotPass />
+            <Footer />
+        </Fragment>
     );
 }

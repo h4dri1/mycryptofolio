@@ -42,7 +42,25 @@ export default function PrimarySearchAppBar() {
 
   const location = useLocation();
 
-  const selectedMenu = location.pathname.split('/')[1]
+  const selectedMenu = () => {
+    const path = location.pathname.split('/')[1]
+    switch (path) {
+      case 'market':
+        return 'Market';
+      case 'portfolio':
+        return 'Portfolio';
+      case 'wallet':
+        return 'Portfolio';
+      case 'watchlist':
+        return 'Watchlist';
+      case '':
+        return 'Home';
+      case 'nft':
+        return 'NFT';
+      default:
+        return 'Home';
+    }
+  }
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -105,11 +123,11 @@ export default function PrimarySearchAppBar() {
             {hideButton && <Button sx={{textTransform: "none" }} startIcon={
               <Home sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-            <Typography fontSize={'1.2em'} fontWeight={selectedMenu === '' ? 'bold' : ''} color={selectedMenu === '' ? "secondary.light" : 'white'}>Home</Typography>
+            <Typography fontSize={'1.2em'} fontWeight={selectedMenu() === 'Home' ? 'bold' : ''} color={selectedMenu() === 'Home' ? "secondary.light" : 'white'}>Home</Typography>
             </Button>}
             {!hideButton && <Home
               sx={{ width: 25, height: 25, ml: 1, mr: 0}} 
-              color="primary.light"/>}
+              color={selectedMenu() === 'Home' ? "secondary" : 'white'}/>}
             </Link>
           }
           {homeIcon && 
@@ -122,11 +140,11 @@ export default function PrimarySearchAppBar() {
             {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
               <CurrencyBitcoinIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-            <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'market' ? 'bold' : ''} color={selectedMenu === 'market' ? "secondary.light" : 'white'}>Cryptocurrencies</Typography>
+            <Typography fontSize={'1.2em'} fontWeight={selectedMenu() === 'Market' ? 'bold' : ''} color={selectedMenu() === 'Market' ? "secondary.light" : 'white'}>Cryptocurrencies</Typography>
             </Button>}
             {!hideButton && <CurrencyBitcoinIcon
               sx={{ width: 25, height: 25, ml: 1, mr: 1}} 
-              color="primary.light"/>}
+              color={selectedMenu() === 'Market' ? "secondary" : 'white'}/>}
             </Link>
           }
           {homeIcon && 
@@ -139,11 +157,11 @@ export default function PrimarySearchAppBar() {
           {hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
             <ColorLensIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
           }>
-          <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'nft' ? 'bold' : ''} color={selectedMenu === 'nft' ? "secondary.light" : 'white'}>NFT</Typography>
+          <Typography fontSize={'1.2em'} fontWeight={selectedMenu() === 'NFT' ? 'bold' : ''} color={selectedMenu() === 'NFT' ? "secondary.light" : 'white'}>NFT</Typography>
           </Button>}
           {!hideButton && <ColorLensIcon 
             sx={{ width: 25, height: 25, mr: 1 }} 
-            color="primary.light"/>}
+            color={selectedMenu() === 'NFT' ? "secondary" : 'white'}/>}
 
           </Link>
           }
@@ -159,12 +177,12 @@ export default function PrimarySearchAppBar() {
               hideButton && <Button sx={{textTransform: "none", ml: 5 }} startIcon={
               <SavedSearchIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>
-              <Typography fontSize={'1.2em'} fontWeight={selectedMenu === 'watchlist' ? 'bold' : ''} color={selectedMenu === 'watchlist' ? "secondary.light" : 'white'}>Watchlist</Typography>
+              <Typography fontSize={'1.2em'} fontWeight={selectedMenu() === 'Watchlist' ? 'bold' : ''} color={selectedMenu() === 'Watchlist' ? "secondary.light" : 'white'}>Watchlist</Typography>
               </Button>}
               {
               !hideButton && <SavedSearchIcon 
                 sx={{ width: 25, height: 25, mr: 1 }} 
-                color="primary.light"/>
+                color={selectedMenu() === 'Watchlist' ? "secondary" : 'white'}/>
               }
             </Link>
           }
@@ -173,14 +191,14 @@ export default function PrimarySearchAppBar() {
             hideButton && <Button onClick={handleToggle} sx={{textTransform: "none", ml: 5 }} startIcon={
               <AccountBalanceWalletIcon sx={{ width: 30, height: 30, color: 'secondary.main', ':hover': {color: 'secondary.dark' }}}/>
             }>       
-              <Typography fontSize={'1.2em'} ref={anchorRef} fontWeight={selectedMenu === 'wallet' || selectedMenu === 'portfolio' ? 'bold' : ''} color={selectedMenu === 'wallet' || selectedMenu === 'portfolio' ? "secondary.light" : 'white'}>Wallet</Typography>
+              <Typography fontSize={'1.2em'} ref={anchorRef} fontWeight={selectedMenu() === 'Portfolio' || selectedMenu() === 'Portfolio' ? 'bold' : ''} color={selectedMenu() === 'Portfolio' || selectedMenu === 'Portfolio' ? "secondary.light" : 'white'}>Wallet</Typography>
             </Button>
           }
           {!hideButton && <AccountBalanceWalletIcon 
             onClick={handleToggle}
             ref={anchorRef}
             sx={{ width: 25, height: 25 }} 
-            color="primary.light"/>}
+            color={selectedMenu() === 'Portfolio' ? "secondary" : 'white'}/>}
           <Box sx={{ flexGrow: 1 }} />
           <Popper
             open={open}

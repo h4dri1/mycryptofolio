@@ -1,12 +1,12 @@
 /* eslint-disable react/function-component-definition */
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import FavCard from './FavCard';
 
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Container } from '@mui/material';
 
 import { makeStyles } from '@mui/styles';
 import CryptoList from '../CryptoList'
@@ -75,8 +75,8 @@ export default function WatchList({logged}) {
   }, [favorite.cryptos, allCryptos])
 
     return (
-    <div className="">
-      <Box sx={{display: 'flex', flexDirection:'column', minHeight: '80vh', alignItems: 'center', width: '100%'}}>
+    <Fragment>
+      <Box sx={{display: 'flex', flexDirection:'column', minHeight: 'calc(100% - (130px + 50px))', alignItems: 'center', width: '100%'}}>
         <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
         {
             cryptoList.length > 0 && cryptoList[0].map((crypto, index) => (
@@ -94,7 +94,7 @@ export default function WatchList({logged}) {
         <Box mb={2}>
             <CryptoList favoritePage={true}/>
         </Box>
-      </Box>
-    </div>
+      </Box>  
+    </Fragment>
     );
 }

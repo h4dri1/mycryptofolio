@@ -72,7 +72,7 @@ export default function TransactionsHistory({transactions}) {
           </TableHead>
           <TableBody>
             {transactions.map((transaction, index) => (
-              <TableRow key={transaction.id}>
+              <TableRow hover key={transaction.id}>
                 <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
                   <Box sx={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
                     <Avatar src={addIcon[index]} alt="crypto icon" style={{width: '30px', height: '30px', marginLeft: 10}} />
@@ -85,7 +85,7 @@ export default function TransactionsHistory({transactions}) {
                   ? <TableCell align="center" sx={{ color:'#3aa832', borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                   : <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
                 {!transaction.buy
-                  ? <TableCell align="center" sx={{ color: '#bf2a2a', borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
+                  ? <TableCell align="center" sx={{ color: '#e65555', borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: refCurrency, maximumSignificantDigits: 4, minimumSignificantDigits: 2 }).format(transaction.price)}</TableCell>
                   : <TableCell align="center" sx={{ borderBottom: 0, borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>-</TableCell>}
                 <TableCell align="center" sx={{ borderBottom: 0, padding: '.5em 0', fontSize: { xs: '.7rem', sm: '.875rem' } }}>
                   {Intl.NumberFormat('en-US', {
@@ -122,7 +122,7 @@ export default function TransactionsHistory({transactions}) {
 
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: '100%', width:'100%'}}>
-        <Container sx={{ display: 'flex', marginBottom: 1, marginTop: 1, justifyContent: 'center', width:'100%' }}>
+        <Container sx={{ display: 'flex', marginBottom: 2, marginTop: 1, justifyContent: 'center', width:'100%' }}>
             <HistoryIcon sx={{color: 'secondary.dark'}}/><Typography sx={{ fontWeight: 'bold', color:'primaryTextColor.main' }}>Token Transfert History</Typography>
         </Container>
         <Container sx={{

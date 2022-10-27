@@ -4,18 +4,17 @@ import WatchList from 'src/components/WatchList';
 import Footer from 'src/components/Footer';
 
 import { useSelector } from 'react-redux';
+import { Fragment } from 'react';
 
 export default function WatchListPage() {
     const { logged } = useSelector((state) => state.user);
 
     return (
-        <>
-            <div className="">
-                <TopBanner />
-                <Navbar />
-                <WatchList logged={logged}/>
-                <Footer />
-            </div>
-        </>
+        <Fragment>
+            <TopBanner />
+            <Navbar />
+            <WatchList logged={logged}/>
+            <Footer />
+        </Fragment>
     );
 }

@@ -73,7 +73,7 @@ export default function Allocation({chartData}) {
         >
         {data.labels[0] !== 'empty' ? (
           <Container
-          sx={{ width: '60%', height: '60%', margin:{xs: 1, md: 0}}}
+          sx={{ width: '55%', height: '55%', margin:{xs: 1, md: 0}}}
         >
           {data.datasets[0].data.length > 0 ? <Doughnut
             data={data}

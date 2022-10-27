@@ -8,7 +8,7 @@ export default function Theme() {
         palette: {
           mode: darkMode ? 'dark' : 'light',
           background: {
-            default: darkMode ? '#00244F' : '#EEEEEE',
+            default: darkMode ? '#00244F' : '#dcd2fa',
           },
           primary: {
             light: '#a255ff',
@@ -22,7 +22,7 @@ export default function Theme() {
             dark: '#00b2cc'
           },
           neutral: {
-            main: darkMode ? '#002F54' : '#EEEEEE',
+            main: darkMode ? '#002F54' : '#dcd2fa',
           },
           primaryTextColor:{
             main:'#ffffff'

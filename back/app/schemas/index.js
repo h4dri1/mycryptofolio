@@ -40,6 +40,10 @@ const {
     portfolioLimiter
 } = require('./portfolio.schema');
 const { nftsLimiter } = require('./nfts.schema');
+const {
+    postFavorite,
+    deleteFavorite
+} = require('./favorite.schema');
 
 
 module.exports = { schemas: {
@@ -72,6 +76,8 @@ module.exports = { schemas: {
         getWallet,
         portfolioLimiter,
         nftsLimiter,
-        blockchainLimiter
+        blockchainLimiter,
+        postFavorite,
+        deleteFavorite
     }
 }

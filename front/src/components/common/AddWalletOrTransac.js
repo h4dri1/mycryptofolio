@@ -1,10 +1,12 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Box, Popper, ListItemButton, Paper, Button, ClickAwayListener } from '@mui/material';
+import {
+  Box, Popper, ListItemButton, Paper, Button, ClickAwayListener,
+} from '@mui/material';
 
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
-const AddWalletOrTransac = ({ addWallet, addTransaction }) => {
+function AddWalletOrTransac({ addWallet, addTransaction }) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef();
   const dispatch = useDispatch();
@@ -21,18 +23,16 @@ const AddWalletOrTransac = ({ addWallet, addTransaction }) => {
     dispatch(addWallet());
   };
 
-  const handleAddTransaction = () => {
-    return addTransaction();
-  };
+  const handleAddTransaction = () => addTransaction();
 
   return (
-    <Box sx={{right: '0' }}>
-      <Button sx={{color:'primary.light'}} ref={anchorRef} onClick={handleButtonToggle}>
+    <Box sx={{ right: '0' }}>
+      <Button sx={{ color: 'primary.light' }} ref={anchorRef} onClick={handleButtonToggle}>
         <AddCircleIcon sx={{ color: 'secondary.light' }} fontSize="large" />
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} placement="bottom-end">
         <ClickAwayListener onClickAway={handleClose}>
-          <Paper sx={{backgroundColor: 'secondary.dark', boxShadow: 4}}>
+          <Paper sx={{ backgroundColor: 'secondary.dark', boxShadow: 4 }}>
             <ListItemButton onClick={handleAddWallet}>Add wallet</ListItemButton>
             <ListItemButton onClick={handleAddTransaction}>Add transaction</ListItemButton>
           </Paper>
@@ -40,6 +40,6 @@ const AddWalletOrTransac = ({ addWallet, addTransaction }) => {
       </Popper>
     </Box>
   );
-};
+}
 
 export default AddWalletOrTransac;

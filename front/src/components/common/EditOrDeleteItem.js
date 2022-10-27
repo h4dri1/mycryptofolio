@@ -1,14 +1,16 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Popper, ListItemButton, Paper, Button, ClickAwayListener } from '@mui/material';
+import {
+  Box, Popper, ListItemButton, Paper, Button, ClickAwayListener,
+} from '@mui/material';
 
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { updateSelectedTransaction } from '../../actions/portfolio';
 
-const EditOrDeleteItem = ({
+function EditOrDeleteItem({
   editItem, deleteItem, positionAbsolute, itemId,
-}) => {
+}) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef();
   const dispatch = useDispatch();
@@ -31,13 +33,16 @@ const EditOrDeleteItem = ({
   };
 
   return (
-    <Box sx={{right: '0', height:'50px', width:'50px', display: 'flex', justifyItems:'center' }}>
-      <Button sx={{color:'primary.light'}} ref={anchorRef} onClick={handleButtonToggle}>
+    <Box sx={{
+      right: '0', height: '50px', width: '50px', display: 'flex', justifyItems: 'center',
+    }}
+    >
+      <Button sx={{ color: 'primary.light' }} ref={anchorRef} onClick={handleButtonToggle}>
         <ExpandMoreIcon />
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} placement="bottom-end">
         <ClickAwayListener onClickAway={handleClose}>
-          <Paper sx={{backgroundColor: 'secondary.dark', boxShadow: 4}}>
+          <Paper sx={{ backgroundColor: 'secondary.dark', boxShadow: 4 }}>
             <ListItemButton onClick={handleEditItem}>Modifier</ListItemButton>
             <ListItemButton onClick={displayConfirmDelete}>Supprimer</ListItemButton>
           </Paper>
@@ -45,7 +50,7 @@ const EditOrDeleteItem = ({
       </Popper>
     </Box>
   );
-};
+}
 
 EditOrDeleteItem.propTypes = {
   editItem: PropTypes.func.isRequired,
