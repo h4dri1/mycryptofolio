@@ -7,16 +7,14 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
 } from 'chart.js';
 
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(Filler);
-
-import PropTypes from 'prop-types';
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +34,7 @@ export default function Graph({ chart }) {
     aspectRatio: window.innerWidth < 600 ? 1 : 3,
     scales: {
       x: {
-        ticks:{
+        ticks: {
           maxTicksLimit: 12,
           maxRotation: 360,
           minRotation: 360,
@@ -45,7 +43,7 @@ export default function Graph({ chart }) {
         },
         grid: {
           display: false,
-        }
+        },
       },
       y: {
         ticks: {
@@ -53,27 +51,29 @@ export default function Graph({ chart }) {
           color: '#E8F9FD',
         },
         grid: {
-          display: true
-        }
+          display: true,
+        },
       },
     },
     plugins: {
       legend: {
         display: false,
         position: 'top',
-      }
+      },
     },
     animation: {
-      duration: 3000
-    } 
+      duration: 3000,
+    },
   };
 
   const { days } = useSelector((state) => state.cryptoDetails);
 
   const addZero = (i) => {
-    if (i < 10) {i = "0" + i}
+    if (i < 10) {
+      i = `0${i}`;
+    }
     return i;
-  }
+  };
 
   const dataDays = (chart.prices.map((element) => {
     const date = new Date(element[0]);
@@ -82,14 +82,17 @@ export default function Graph({ chart }) {
         month: 'short',
         day: 'numeric',
       });
-    } else if (days === 1){
+    }
+    if (days === 1) {
       return `${addZero(date.getUTCHours('en-US'))}:${addZero(date.getUTCMinutes('en-US'))}`;
-    } else if (days === 'max') {
+    }
+    if (days === 'max') {
       return date.toLocaleDateString('en-US', {
         month: 'short',
         year: 'numeric',
       });
     }
+    return null;
   }));
 
   // 3 lines of the GRAPH from API
@@ -100,7 +103,7 @@ export default function Graph({ chart }) {
 
   // const defaultNotChecked = Chart.defaults.datasets.line.showLine = false;
 
-  var chartColors = {
+  const chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
     yellow: 'rgb(255, 205, 86)',
@@ -108,7 +111,7 @@ export default function Graph({ chart }) {
     blue: 'rgb(54, 162, 235)',
     purple: 'rgb(153, 102, 255)',
     grey: 'rgb(231,233,237)',
-    test: '#6EDCD9'
+    test: '#6EDCD9',
   };
 
   const graphData = {
@@ -122,7 +125,7 @@ export default function Graph({ chart }) {
         pointRadius: 0,
         borderColor: chartColors.green,
         backgroundColor: chartColors.test,
-        fill: true
+        fill: true,
       },
       // {
       //     label: 'Market cap.',
@@ -141,7 +144,7 @@ export default function Graph({ chart }) {
   };
 
   return (
-    <Line options={options} data={graphData}/>
+    <Line options={options} data={graphData} />
   );
 }
 

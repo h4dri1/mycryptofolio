@@ -1,12 +1,18 @@
 /* eslint-disable max-len */
-import { useState, useEffect } from 'react';
+import {
+  useState,
+  useEffect,
+  lazy,
+  Suspense,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList } from '../../actions/cryptos';
 import { fetchFavoriteCryptos } from '../../actions/favorite';
 import MainContainer from './mainContainer';
-import TutoPage from './tutoPage';
+
+const TutoPage = lazy(() => import('./tutoPage'));
 
 const sortArray = (arr, key, orderBy) => {
   switch (orderBy) {
@@ -88,18 +94,20 @@ export default function CryptoList({ favoritePage, showTutorial }) {
     <>
       {backdropOpen
         ? (
-          <TutoPage
-            logged={logged}
-            toggleBackdrop={handleToggleBackdrop}
-            favoritePage={favoritePage}
-            cryptoListLoading={cryptoListLoading}
-            orderDirection={orderDirection}
-            sortRequest={handleSortRequest}
-            cryptos={favTable(cryptos)}
-            favorite={favorite}
-            selectedCurrency={selectedCurrency}
-            showTutorial={showTutorial}
-          />
+          <Suspense>
+            <TutoPage
+              logged={logged}
+              toggleBackdrop={handleToggleBackdrop}
+              favoritePage={favoritePage}
+              cryptoListLoading={cryptoListLoading}
+              orderDirection={orderDirection}
+              sortRequest={handleSortRequest}
+              cryptos={favTable(cryptos)}
+              favorite={favorite}
+              selectedCurrency={selectedCurrency}
+              showTutorial={showTutorial}
+            />
+          </Suspense>
         )
         : (
           <MainContainer

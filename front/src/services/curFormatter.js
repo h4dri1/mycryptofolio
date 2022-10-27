@@ -8,6 +8,9 @@ export default function curFormatter(num, selectedCurrency) {
     if (selectedCurrency === 'ETH') {
       return `Ξ${localString(num)}`;
     }
+    if (!selectedCurrency) {
+      return num.toLocaleString();
+    }
     return num.toLocaleString('en-US', { style: 'currency', currency: selectedCurrency, maximumSignificantDigits: 4 });
   };
   return currency(num, selectedCurrency);

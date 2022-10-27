@@ -76,7 +76,7 @@ export default function BodyTable(props) {
             { crypto?.id ? currency(crypto.total_volume, selectedCurrency) : <Skeleton />}
           </TableCell>
           <TableCell align="right" sx={{ color: 'secondary.main', borderBottom: 0, display: { xs: 'none', lg: 'table-cell' } }}>
-            { crypto?.id ? currency(crypto.circulating_supply, selectedCurrency) : <Skeleton />}
+            { crypto?.id ? currency(crypto.circulating_supply) : <Skeleton />}
           </TableCell>
         </TableRow>
       ))}
