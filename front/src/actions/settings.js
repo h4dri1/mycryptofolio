@@ -12,8 +12,9 @@ export const changeColor = (payload) => ({
   payload,
 })
 
-export const toggleLoginModal = () => ({
+export const toggleLoginModal = (payload) => ({
   type: TOGGLE_LOGIN_MODAL,
+  payload,
 });
 
 export const setHomeIcon = (payload) => ({

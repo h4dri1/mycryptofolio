@@ -1,6 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Grid, Box } from '@mui/material';
 import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
 import { getNFTList } from '../../actions/nft';
@@ -25,8 +26,10 @@ const gridStyle = (props) => ({
   },
 });
 
-export default function Info() {
+export default function Info({ displayLogin }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const pixelRatio = window.devicePixelRatio;
 
   const nfts = useSelector((state) => state.nft.NFTList.list);

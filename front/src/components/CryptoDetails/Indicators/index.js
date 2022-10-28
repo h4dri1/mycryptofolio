@@ -20,26 +20,13 @@ export default function Indicators({ data, favorite }) {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
   const dispatch = useDispatch();
 
-  const formatData = (value) => {
-    if (!data.market_data.fully_diluted_valuation.usd || !data.market_data.max_supply) {
-      return '--';
-    }
-    if (value === 'fully_diluted_valuation') {
-      return currency(data.market_data.fully_diluted_valuation[selectedCurrency], selectedCurrency);
-    }
-    if (value === 'max_supply') {
-      return data.market_data.max_supply.toLocaleString();
-    }
-    return '--';
-  };
-
   if (data.market_data) {
     if (!data.market_data.fully_diluted_valuation.usd || !data.market_data.max_supply) {
       var fullyDilutedValuation = '--';
       var maxSupply = '--';
     }
     else {
-      var fullyDilutedValuation = `${ currency(data.market_data.fully_diluted_valuation[selectedCurrency.toLowerCase()], selectedCurrency) }`;
+      var fullyDilutedValuation = `${currency(data.market_data.fully_diluted_valuation[selectedCurrency.toLowerCase()], selectedCurrency)}`;
       var maxSupply = `${data.market_data.max_supply.toLocaleString()}`;
     }
   }
@@ -51,9 +38,18 @@ export default function Indicators({ data, favorite }) {
   var maxSupply = data.market_data ? maxSupply : 'Loading...';
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'left' }}>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'left',
+    }}
+    >
       <Box sx={{
-        display: 'flex', flexDirection: 'row', minWidth: '100%', justifyContent: 'center', alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'row',
+        minWidth: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
       >
         <Box>

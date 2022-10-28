@@ -82,7 +82,7 @@ import {
     // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
     const handleToggleLoginModal = () => {
       setForgotPassword(false);
-      dispatch(toggleLoginModal());
+      dispatch(toggleLoginModal(false));
     };
     // Update state on change of fields value
     const handleChange = (e) => {

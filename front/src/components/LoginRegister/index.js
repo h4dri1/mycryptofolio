@@ -35,7 +35,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
   // handle to open and close login modal
   // TODO: @Gregory-Tannier : to transfer this handle to "Mon Compte" Button in MyAccount component
   const handleToggleLoginModal = () => {
-    dispatch(toggleLoginModal());
+    dispatch(toggleLoginModal(true));
   };
   // Update state on change of fields value
   

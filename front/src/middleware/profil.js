@@ -69,7 +69,7 @@ const profil = (store) => (next) => async (action) => {
           if (res.status === 201) {
             
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
-            store.dispatch(toggleLoginModal());
+            store.dispatch(toggleLoginModal(true));
           }
         })
         .catch((err) => {

@@ -39,7 +39,7 @@ const auth = (store) => (next) => async (action) => {
         .then((res) => {
           if (res.status === 200 && res.data.verify) {
             // close the Login modal
-            store.dispatch(toggleLoginModal());
+            store.dispatch(toggleLoginModal(false));
             // store tokens
             localStorage.setItem('refreshToken', res.data.refreshToken);
             const newAccessToken = res.headers.authorization;
@@ -117,7 +117,7 @@ const auth = (store) => (next) => async (action) => {
         .then((res) => {
           if (res.status === 201) {
             store.dispatch(existingUserToggle())
-            store.dispatch(toggleLoginModal());
+            store.dispatch(toggleLoginModal(false));
 
             const userObj = {
               email: res.data.email,
