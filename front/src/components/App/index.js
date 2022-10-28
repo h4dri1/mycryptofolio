@@ -53,12 +53,14 @@ const App = () => {
         dispatch(checkToken());
       }
       if (walletAddress !== 'Wallet') {
+        // eslint-disable-next-line no-undef
         ethereum.on('accountsChanged', (accounts) => {
           if (accounts.length > 0) {
             const change = true;
             changeAccount(accounts, change);
           }
         });
+        // eslint-disable-next-line no-undef
         ethereum.on('chainChanged', (networkId) => {
           if (networkId.length > 0) {
             changeNetwork(networkId);

@@ -70,6 +70,7 @@ export default function Graph({ chart }) {
 
   const addZero = (i) => {
     if (i < 10) {
+      // eslint-disable-next-line no-param-reassign
       i = `0${i}`;
     }
     return i;
@@ -149,6 +150,5 @@ export default function Graph({ chart }) {
 }
 
 Graph.propTypes = {
-  data: PropTypes.object.isRequired,
   chart: PropTypes.object.isRequired,
 };

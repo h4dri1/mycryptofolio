@@ -13,9 +13,10 @@ import {
 const curr = localStorage.getItem('currency');
 
 if (curr === null || !curr || curr === 'undefined') {
-  var currency = 'USD'
-} else {
-  var currency = curr
+  var currency = 'USD';
+}
+else {
+  var currency = curr;
 }
 
 const initialState = {
@@ -27,13 +28,13 @@ const initialState = {
     list: [],
   },
   cryptoTrend: {
-    list: []
+    list: [],
   },
   NFTTrend: {
-    list: []
+    list: [],
   },
   FearAndGreed: {
-    list: []
+    list: [],
   },
   currentPrice: 0,
 };
@@ -68,7 +69,7 @@ const cryptosReducer = (state = initialState, action = {}) => {
           ...state.cryptoTrend,
           list: action.payload,
         },
-    };
+      };
     case UPDATE_FEAR_GREED_INDEX:
       return {
         ...state,
@@ -76,7 +77,7 @@ const cryptosReducer = (state = initialState, action = {}) => {
           ...state.FearAndGreed,
           list: action.payload,
         },
-    };
+      };
     case UPDATE_NFT_TREND:
       return {
         ...state,
@@ -84,7 +85,7 @@ const cryptosReducer = (state = initialState, action = {}) => {
           ...state.NFTTrend,
           list: action.payload,
         },
-    };
+      };
     case GET_MORE_CRYPTOS_LOADING:
       return {
         ...state,

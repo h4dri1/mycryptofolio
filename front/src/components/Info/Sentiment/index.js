@@ -73,7 +73,7 @@ export default function Sentiment({ fearAndGreed }) {
   const value = fearAndGreed.data !== undefined ? (fearAndGreed.data[0].value) / 100 : 0;
   const classification = fearAndGreed.data !== undefined
     ? (fearAndGreed.data[0].value_classification) : 0;
-
+    
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2 }}>
       <Container sx={{

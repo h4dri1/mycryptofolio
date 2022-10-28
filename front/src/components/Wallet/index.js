@@ -16,30 +16,24 @@ import HistoryToken from './HistoryToken';
 
 
 const Wallet = () => {
-  
+  const { color } = colors()
 
-  const useStyles = makeStyles({
+  const gridStyle = ({
     grid: {
       height: '100%',
       marginTop: '20px',
       marginBottom: '50px',
     },
     gridItem: {
+      backgroundColor: color,
       width: '95%',
       borderColor: '#E7EBF0',
       borderRadius: '10px',
       margin: '10px',
       boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
     },
-    gridSubItem: {
-      // border: 'solid 2px gold',
-      // height: '100%',
-    }
   });
-
-  const { color } = colors()
   
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const { walletTokens, walletAddress, walletNFT, walletHistory } = useSelector((state) => state.wallet);
@@ -54,17 +48,17 @@ const Wallet = () => {
 
   return (
     <Box sx={{minHeight: '80vh'}}>
-      <Grid maxHeight={'80%'} container justifyContent="center" className={classes.grid}>
-        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
+      <Grid maxHeight={'80%'} container justifyContent="center" sx={gridStyle.grid}>
+        <Grid sx={gridStyle.gridItem} item xs={12} md={8.1} >
           <Banner tokens={walletTokens}/>
         </Grid>
-        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
+        <Grid sx={gridStyle.gridItem} item xs={12} md={4} >
             <AssetsShares distribution={walletTokens} />
         </Grid>
-        <Grid sx={{backgroundColor: color}} item xs={12} md={4} className={classes.gridItem}>
+        <Grid sx={gridStyle.gridItem} item xs={12} md={4} >
             <Nft collection={walletNFT} />
         </Grid>
-        <Grid sx={{backgroundColor: color}} item xs={12} md={8.1} className={classes.gridItem}>
+        <Grid sx={gridStyle.gridItem} item xs={12} md={8.1} >
             <HistoryToken history={walletHistory}/>
         </Grid>
       </Grid>
