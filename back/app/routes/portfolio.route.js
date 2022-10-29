@@ -18,7 +18,7 @@ router
         rateLimit(schemas.portfolioLimiter),
         auth.routing, 
         validateParams(schemas.getPortfolio),
-        cache,
+        //cache,
         updateMW, 
         portfolioController.getPortfolio
     )
@@ -27,7 +27,7 @@ router
         rateLimit(schemas.portfolioLimiter),
         auth.routing,
         validateParams(schemas.getWallet),
-        cache, 
+        //cache, 
         updateMW, 
         portfolioController.getPortfolio
     );

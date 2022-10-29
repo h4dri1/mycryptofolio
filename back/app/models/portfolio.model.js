@@ -39,19 +39,24 @@ class Portfolio {
     }
 
     static async getDistribution(id) {
-        const {rows} = await pool.query(
-        'SELECT \
-        name, coin_id, quantity, value, \
-        (100 * coins_value.value) / (SELECT SUM(value) FROM coins_value WHERE user_id=$1 AND coins_value.quantity!=0) as distribution \
-        FROM \
-        coins_value \
-        WHERE \
-        quantity!=0 AND coins_value.user_id=$1\
-        GROUP BY \
-        name, coin_id, quantity, value;', 
-        [id]
-        );
-        return rows.map(row => new Portfolio(row));
+        try {
+            const {rows} = await pool.query(
+            'SELECT \
+            name, coin_id, quantity, value, \
+            (100 * coins_value.value) / (SELECT SUM(value) FROM coins_value WHERE user_id=$1 AND coins_value.quantity!=0) as distribution \
+            FROM \
+            coins_value \
+            WHERE \
+            quantity!=0 AND coins_value.user_id=$1\
+            GROUP BY \
+            name, coin_id, quantity, value;', 
+            [id]
+            );
+            return rows.map(row => new Portfolio(row));
+        } catch (err) {
+            console.log(err);
+        }
+
     }
 
     static async getDistributionByWallet(id, wid) {

@@ -24,6 +24,8 @@ module.exports = async (req, res, next) => {
         await update.price(strCryptos, cur);
         if (Object.entries(transacs).find(element => element[1].fiat !== cur) !== undefined) {
             await update.buyPrice(transacs, cur);
+        } else {
+            await update.buyPrice(transacs, cur);
         }
         next();
     } catch (err) {
