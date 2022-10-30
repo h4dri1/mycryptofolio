@@ -22,7 +22,9 @@ module.exports = async (req, res, next) => {
             var cur = 'usd'
         }
         await update.price(strCryptos, cur);
-        await update.buyPrice(transacs, cur);
+        if (Object.entries(transacs).find(element => element[1].fiat.toLowerCase() !== cur) !== undefined) {     
+            await update.buyPrice(transacs, cur);
+        }
         next();
     } catch (err) {
         next(err)

@@ -30,7 +30,7 @@ module.exports = {
                     const fiatPrice = usdChange.market_data?.current_price;
                     const cryptoPrice = cryptosChange.market_data?.current_price[cur];
 
-                    const newData = {}
+                    const newData = {...transacs[transac]}
                     
                     var newPrice = cryptoPrice;
     
@@ -50,32 +50,8 @@ module.exports = {
                         throw new CurrencyError(cur);
                     }
 
-                    if (transacs[transac].price_usd !== null) {
-                        newData.price_usd = transacs[transac].price_usd;
-                    } else if (cur === 'usd') {
-                        newData.price_usd = newPrice;
-                    }
-
-                    if (transacs[transac].price_eur !== null) {
-                        newData.price_eur = transacs[transac].price_eur;
-                    } else if (cur === 'eur') {
-                        newData.price_eur = newPrice;
-                    }
-
-                    if (transacs[transac].price_btc !== null) {
-                        newData.price_btc = transacs[transac].price_btc;
-                    } else if (cur === 'btc') {
-                        newData.price_btc = newPrice;
-                    }
-
-                    if (transacs[transac].price_eth !== null) {
-                        newData.price_eth = transacs[transac].price_eth;
-                    } else if (cur === 'eth') {
-                        newData.price_eth = newPrice;
-                    }
-                    
-                    newData.id = transacs[transac].id
                     newData.price = newPrice;
+                    newData[`price_${cur}`] = newPrice;
                     newData.fiat = cur;
                     JSON.stringify(newData);
                     await Crypto.updateTransactionBPrice(newData);
