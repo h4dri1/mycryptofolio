@@ -8,12 +8,12 @@ const blockchainController = require('./blockchain.controller');
 const favoriteController = require('./favorite.controller');
 
 module.exports = {
-    userController,
-    cryptoController,
-    portfolioController,
-    walletController,
-    transactionController,
-    nftsController,
-    blockchainController,
-    favoriteController
-}
+  userController,
+  cryptoController,
+  portfolioController,
+  walletController,
+  transactionController,
+  nftsController,
+  blockchainController,
+  favoriteController,
+};

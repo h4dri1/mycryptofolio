@@ -2,37 +2,36 @@ const { ethers } = require('ethers');
 const NativeTokenObject = require('./nativeToken.object');
 
 class Erc20TokensObject extends NativeTokenObject {
-
-    constructor(req, res, obj={}) {
-        super(req, res)
-        for (const propname in obj) {
-            this[propname] = obj[propname];
-        }
-
-        this.change24h = this.getChange24h(req, res, obj)
-        this.price = this.getPrice(req, res, obj)
-        this.value = this.getValue()
-        this.value24h = this.getValue24h()
-        res.locals.walletTotalBalance = res.locals.walletTotalBalance ? res.locals.walletTotalBalance + this.getValue() : super.getNativeBalance(req, res) + this.getValue()
+  constructor(req, res, obj = {}) {
+    super(req, res);
+    for (const propname in obj) {
+      this[propname] = obj[propname];
     }
 
-    getChange24h(req, res, obj) {
-        return res.locals.tokensPrices[`${obj.token_address}`][`${req.params.vs}_24h_change`]
-    }
+    this.change24h = this.getChange24h(req, res, obj);
+    this.price = this.getPrice(req, res, obj);
+    this.value = this.getValue();
+    this.value24h = this.getValue24h();
+    res.locals.walletTotalBalance = res.locals.walletTotalBalance
+      ? res.locals.walletTotalBalance + this.getValue()
+      : super.getNativeBalance(req, res) + this.getValue();
+  }
 
-    getPrice(req, res, obj) {
-        return res.locals.tokensPrices[`${obj.token_address}`][req.params.vs]
-    }
+  getChange24h(req, res, obj) {
+    return res.locals.tokensPrices[`${obj.token_address}`][`${req.params.vs}_24h_change`];
+  }
 
-    getValue() {
-        return ethers.utils.formatEther(this.balance) * this.price
-    }
+  getPrice(req, res, obj) {
+    return res.locals.tokensPrices[`${obj.token_address}`][req.params.vs];
+  }
 
-    getValue24h() {
-        return this.value / (1 + this.change24h / 100)
-    }
+  getValue() {
+    return ethers.utils.formatEther(this.balance) * this.price;
+  }
 
-
+  getValue24h() {
+    return this.value / (1 + this.change24h / 100);
+  }
 }
 
 module.exports = Erc20TokensObject;

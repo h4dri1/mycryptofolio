@@ -1,47 +1,47 @@
+/* eslint-disable no-multi-str */
 const { pool } = require('../database');
 
 class Portfolio {
-
-    constructor(obj={}) {
-        for (const propName in obj) {
-            this[propName] = obj[propName];
-        }
+  constructor(obj = {}) {
+    for (const propName in obj) {
+      this[propName] = obj[propName];
     }
+  }
 
-    static async getPerformance(id) {
-        const {rows} = await pool.query(
-        'SELECT \
+  static async getPerformance(id) {
+    const { rows } = await pool.query(
+      'SELECT \
         SUM (investment) as investment, \
         SUM (value) as actual_value,\
         SUM (value) - SUM (investment) as pnl \
         FROM \
         coins_value \
         WHERE \
-        user_id=$1;', 
-        [id]
-        );
-        return new Portfolio(rows[0]);
-    }
+        user_id=$1;',
+      [id],
+    );
+    return new Portfolio(rows[0]);
+  }
 
-    static async getPerformanceByWallet(id, wid) {
-        const {rows} = await pool.query(
-        'SELECT \
+  static async getPerformanceByWallet(id, wid) {
+    const { rows } = await pool.query(
+      'SELECT \
         SUM (investment) as investment, \
         SUM (value) as actual_value, \
         SUM (value) - SUM (investment) as pnl \
         FROM \
         coins_value_wallet \
         WHERE \
-        user_id=$1 AND wallet_id=$2;', 
-        [id, wid]
-        );
-        return new Portfolio(rows[0]);
-    }
+        user_id=$1 AND wallet_id=$2;',
+      [id, wid],
+    );
+    return new Portfolio(rows[0]);
+  }
 
-    static async getDistribution(id) {
-        try {
-            const {rows} = await pool.query(
-            'SELECT \
+  static async getDistribution(id) {
+    try {
+      const { rows } = await pool.query(
+        'SELECT \
             name, coin_id, quantity, value, \
             (100 * coins_value.value) / (SELECT SUM(value) FROM coins_value WHERE user_id=$1 AND coins_value.quantity!=0) as distribution \
             FROM \
@@ -49,19 +49,18 @@ class Portfolio {
             WHERE \
             quantity!=0 AND coins_value.user_id=$1\
             GROUP BY \
-            name, coin_id, quantity, value;', 
-            [id]
-            );
-            return rows.map(row => new Portfolio(row));
-        } catch (err) {
-            console.log(err);
-        }
-
+            name, coin_id, quantity, value;',
+        [id],
+      );
+      return rows.map((row) => new Portfolio(row));
+    } catch (err) {
+      console.log(err);
     }
+  }
 
-    static async getDistributionByWallet(id, wid) {
-        const {rows} = await pool.query(
-        'SELECT \
+  static async getDistributionByWallet(id, wid) {
+    const { rows } = await pool.query(
+      'SELECT \
         name, coin_id, quantity, value, \
         (100 * coins_value_wallet.value) / (SELECT SUM(value) FROM coins_value_wallet WHERE user_id=$1 AND wallet_id=$2 AND coins_value_wallet.quantity!=0) AS distribution \
         FROM \
@@ -69,11 +68,11 @@ class Portfolio {
         WHERE \
         quantity!=0 AND user_id=$1 AND wallet_id=$2 \
         GROUP BY \
-        name, coin_id, quantity, value;', 
-        [id, wid]
-        );
-        return rows.map(row => new Portfolio(row));
-    }
+        name, coin_id, quantity, value;',
+      [id, wid],
+    );
+    return rows.map((row) => new Portfolio(row));
+  }
 }
 
 module.exports = Portfolio;

@@ -23,9 +23,9 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Routes
 
 const fs = require('fs');
-const routes_directory = require('path').resolve(__dirname) + '/app/routes/'
+const routes_directory = `${require('path').resolve(__dirname)}/app/routes/`;
 
-fs.readdirSync(routes_directory).forEach(route_file => {
+fs.readdirSync(routes_directory).forEach((route_file) => {
   try {
     app.use('/v1', require(routes_directory + route_file.slice(0, -3)));
   } catch (error) {
@@ -43,7 +43,7 @@ app.use(errorMW.errorLogger);
 app.use(errorMW.errorResponder);
 
 app.use((_, res) => {
-    res.status(404).json('404 Not found');
+  res.status(404).json('404 Not found');
 });
 
 module.exports = { app };

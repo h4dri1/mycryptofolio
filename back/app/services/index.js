@@ -8,12 +8,12 @@ const nftsService = require('./nfts.service');
 const favoriteService = require('./favorite.service');
 
 module.exports = {
-    blockchainService,
-    cryptoService,
-    userService,
-    walletService,
-    transactionService,
-    portfolioService,
-    nftsService,
-    favoriteService
-}
+  blockchainService,
+  cryptoService,
+  userService,
+  walletService,
+  transactionService,
+  portfolioService,
+  nftsService,
+  favoriteService,
+};
