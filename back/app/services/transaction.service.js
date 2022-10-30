@@ -10,6 +10,7 @@ module.exports = {
             delete instance.symbol;
             instance.wallet_id = req.params.wid;
             instance.crypto_id = crypto_id[0].id;
+            instance[`price_${req.body.fiat.toLowerCase()}`] = Number(req.body.price);
             const transaction = await instance.save();
             return transaction
         } catch (err) {
