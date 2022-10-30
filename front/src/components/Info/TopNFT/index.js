@@ -104,7 +104,7 @@ NFTArray.defaultProps = {
 };
 
 export default function TopNFT({ nfts }) {
-  
+
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2 }}>
       <Container sx={{

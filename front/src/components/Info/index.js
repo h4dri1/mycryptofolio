@@ -1,10 +1,6 @@
 /* eslint-disable react/function-component-definition */
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Grid, Box } from '@mui/material';
-import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
-import { getNFTList } from '../../actions/nft';
 import TopFlop from './TopFlop';
 import Sentiment from './Sentiment';
 import TopNFT from './TopNFT';
@@ -26,23 +22,12 @@ const gridStyle = (props) => ({
   },
 });
 
-export default function Info({ displayLogin }) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+export default function Info() {
   const pixelRatio = window.devicePixelRatio;
 
   const nfts = useSelector((state) => state.nft.NFTList.list);
   const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
   const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    // dispatch(resetNFTQuantity())
-    dispatch(getCryptoTrend());
-    dispatch(getFearGreedIndex());
-    dispatch(getNFTList());
-  }, []);
 
   return (
     <Box sx={{ minHeight: '80vh' }}>

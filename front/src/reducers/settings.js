@@ -61,7 +61,6 @@ const settings = (state = initialState, action = {}) => {
     }
 
     case TOGGLE_LOGIN_MODAL: {
-      console.log(action.payload)
       return ({
         ...state,
         loginIsOpen: action.payload,

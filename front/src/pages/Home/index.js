@@ -8,9 +8,14 @@ import Navbar from 'src/components/Navbar';
 import Footer from 'src/components/Footer';
 import Info from 'src/components/Info';
 import { toggleLoginModal } from '../../actions/settings';
+import { getCryptoTrend, getFearGreedIndex, getNFTList } from '../../actions/cryptos';
 
 export default function Home({ displayLogin }) {
   const dispatch = useDispatch();
+
+  dispatch(getCryptoTrend());
+  dispatch(getFearGreedIndex());
+  dispatch(getNFTList());
 
   useEffect(() => {
     if (displayLogin) dispatch(toggleLoginModal(true));

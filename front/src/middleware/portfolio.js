@@ -142,7 +142,6 @@ const portfolio = (store) => (next) => async (action) => {
       next(action);
       break;
     case FETCH_PORTFOLIO:
-
       privateRoute({
         method: 'get',
         url: `/portfolio/${selectedCurrency}`,
