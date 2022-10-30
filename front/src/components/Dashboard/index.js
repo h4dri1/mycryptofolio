@@ -1,22 +1,16 @@
 /* eslint-disable react/function-component-definition */
 import { Grid, Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Fragment, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPortfolio } from 'src/actions/portfolio';
-import { PropTypes } from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ConfirmDelete from 'src/components/common/ConfirmDelete';
 import AssetsShares from './AssetsShares';
 import Performance from './Allocation';
 import TransactionsHistory from './TransactionsHistory';
-import { getAllCryptos } from '../../actions/cryptos';
 
 import Banner from './Banner';
 
 import colors from '../../services/getColors';
 
-const Dashboard = ({ logged }) => {
+const Dashboard = () => {
   const { color } = colors();
 
   const gridStyle = () => ({
@@ -35,22 +29,9 @@ const Dashboard = ({ logged }) => {
     },
   });
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const {
     wallet: wallets, selectedWallet, distribution, performance, transactions,
   } = useSelector((state) => state.portfolio);
-
-  useEffect(() => {
-    if (!logged) {
-      navigate('/login?continue=/portfolio');
-    }
-    else {
-      dispatch(fetchPortfolio());
-      dispatch(getAllCryptos());
-    }
-  }, []);
 
   return (
     <>
@@ -73,10 +54,6 @@ const Dashboard = ({ logged }) => {
       </Box>
     </>
   );
-};
-
-Dashboard.propTypes = {
-  logged: PropTypes.bool.isRequired,
 };
 
 export default Dashboard;

@@ -18,6 +18,7 @@ import currency from '../../../services/curFormatter';
 
 export default function Indicators({ data, favorite }) {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
+  const { logged } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   if (data.market_data) {
@@ -110,14 +111,16 @@ export default function Indicators({ data, favorite }) {
         display: 'flex', color: 'secondary.dark', width: '100%', justifyContent: 'center', mt: 3,
       }}
       >
-        {favorite.cryptos.length > 0 && favorite.cryptos.some((e) => e.coin_id === data.id) ? (
-          <IconButton color="secondary" value={data.id} onClick={() => dispatch(deleteFavoriteCrypto(data.id))}>
-            <StarIcon sx={{ fontSize: '2em' }} />
-          </IconButton>
-        ) : (
-          <IconButton color="secondary" value={data.id} onClick={() => dispatch(addFavoriteCrypto(data.id))}>
-            <StarOutlineIcon sx={{ fontSize: '2em' }} />
-          </IconButton>
+        { logged && (
+          favorite.cryptos.length > 0 && favorite.cryptos.some((e) => e.coin_id === data.id) ? (
+            <IconButton color="secondary" value={data.id} onClick={() => dispatch(deleteFavoriteCrypto(data.id))}>
+              <StarIcon sx={{ fontSize: '2em' }} />
+            </IconButton>
+          ) : (
+            <IconButton color="secondary" value={data.id} onClick={() => dispatch(addFavoriteCrypto(data.id))}>
+              <StarOutlineIcon sx={{ fontSize: '2em' }} />
+            </IconButton>
+          )
         )}
       </Box>
     </Box>

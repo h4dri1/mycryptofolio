@@ -1,5 +1,4 @@
 /* eslint-disable react/function-component-definition */
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -54,12 +53,6 @@ export default function Profil({ logged, verify }) {
     dispatch(deleteUser());
     navigate('/');
   }
-
-  useEffect(() => {
-    if (!logged) {
-      navigate('/login?continue=/profil');
-    }
-  }, []);
 
     return (
 

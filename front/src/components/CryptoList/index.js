@@ -71,12 +71,6 @@ export default function CryptoList({ favoritePage, showTutorial }) {
   };
 
   useEffect(() => {
-    if (logged) {
-      dispatch(fetchFavoriteCryptos());
-    }
-  }, [logged]);
-
-  useEffect(() => {
     dispatch(getCryptoList());
   }, [selectedCurrency]);
 

@@ -3,15 +3,13 @@ import { Typography, Grid, Box, ToggleButton, ToggleButtonGroup, Chip } from '@m
 import { makeStyles } from '@mui/styles';
 
 // import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCryptoData, fetchChartData } from 'src/actions/cryptoDetails';
+import { fetchChartData } from 'src/actions/cryptoDetails';
 import Graph from './Graph';
 import Description from './Description';
 import Indicators from './Indicators';
-import { fetchFavoriteCryptos } from '../../actions/favorite';
-
 
 const useStyles = makeStyles({
   grid: {
@@ -54,22 +52,15 @@ function CryptoDetails() {
     var cryptoSym = ''
   }
 
-  useEffect(() => {
-    if (logged) {
-      dispatch(fetchFavoriteCryptos());
-    }
-    dispatch(fetchCryptoData(slug, range));
-  }, []);
- 
   const handleClick = (event) => {
     dispatch(fetchChartData(slug, event.target.value));
-  }
+  };
 
   const handleChange = (event, newRange) => {
     if (newRange !== null) {
       setRange(newRange);
-    }  
-  }
+    }
+  };
 
   const currentPrice = data.market_data ? data.market_data.current_price[selectedCurrency.toLowerCase()].toLocaleString("en-US", curParams) : 0;
   const priceChange = data.market_data ? data.market_data.market_cap_change_percentage_24h : 0;

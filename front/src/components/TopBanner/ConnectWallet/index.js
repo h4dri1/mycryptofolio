@@ -18,12 +18,6 @@ export default function ConnectWallet(wallet, wallets) {
         }
     };
 
-    useEffect(() => {
-        if (wallet.wallet.walletAddress !== 'Wallet' && location.pathname.split('/')[1] === 'wallet') {
-            dispatch(getCurrentAccount())
-        }
-    },[])
-
     return (
         <>
         <FormControl size="small"> 

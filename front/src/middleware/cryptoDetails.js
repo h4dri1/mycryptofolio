@@ -9,7 +9,6 @@ const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 const cryptoDetails = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_CRYPTO_DATA:
-
       var { selectedCurrency } = store.getState().cryptos.cryptoList;
       axios({
         method: 'get',
