@@ -57,10 +57,9 @@ const flush = async (req, res, next) => {
     // Get all key in the key array
     // Del all key in Redis
     const getAllKeys = await redis.hGetAll('keys');
-    for (const key in getAllKeys) {
+    Object.keys(getAllKeys).forEach(async (key) => {
       await redis.del(key);
-    }
-    await redis.del('keys');
+    });
     next();
   } catch (err) {
     next(err);

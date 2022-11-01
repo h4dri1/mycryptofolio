@@ -1,9 +1,12 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
+/* eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const { User, Wallet, Transaction } = require('../models');
 const { UserService } = require('../error/error.services');
 const jwt = require('../utils/jwt.utils');
 const { mailer } = require('../utils');
-const crypto = require('crypto')
 
 const { redis } = require('../database');
 
@@ -90,6 +93,7 @@ module.exports = {
         await redis.del(req.params.token);
         return verify;
       }
+      return false;
     } catch (err) {
       throw new UserService(err);
     }

@@ -1,3 +1,8 @@
+/* eslint-disable import/order */
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable camelcase */
+/* eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 require('dotenv').config();
 
 const express = require('express');

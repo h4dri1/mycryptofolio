@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const { Transaction, Crypto } = require('../models');
 const { TransactionService } = require('../error/error.services');
 

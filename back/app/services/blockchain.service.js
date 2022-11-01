@@ -24,6 +24,7 @@ module.exports = {
           if (await Crypto.checkEthAddress((res.locals.walletNetwork[0].symbol).toLowerCase(), token.token_address)) {
             return token.token_address;
           }
+          return null;
         }),
       );
 

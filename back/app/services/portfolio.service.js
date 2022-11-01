@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
 const { Transaction, Wallet, Portfolio } = require('../models');
 const { PortfolioService } = require('../error/error.services');

@@ -1,3 +1,7 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-useless-catch */
 const { Crypto } = require('../models');
 const fetch = require('./fetch.utils');
 const { CurrencyError } = require('../error/error');

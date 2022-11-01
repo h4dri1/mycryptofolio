@@ -26,7 +26,7 @@ module.exports = {
       // add a function to res.json for save refreshtoken in redis with user.Id for key
       // and send original response
       res.json = async (data) => {
-        const [head, pay, sign] = data.refreshToken.split('.');
+        const [sign] = data.refreshToken.split('.', 3).slice(-1);
         const payload = jwt.validateRefreshToken(data.refreshToken.trim());
         await redis.hSet(`${payload.user.id}`, sign, data.refreshToken, { EX: 2592000, NX: true });
         originalResponseJson(data);
@@ -66,7 +66,7 @@ module.exports = {
         if (redis.get(key)) {
           await redis.del(key);
         }
-        const [head, pay, sign] = data.refreshToken.split('.');
+        const [sign] = data.refreshToken.split('.', 3).slice(-1);
         await redis.hSet(`${data.id}`, sign, data.refreshToken, { EX: 2592000, NX: true });
         originalResponseJson(data);
       };

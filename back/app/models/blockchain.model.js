@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
 const { NativeTokenObject, Erc20TokensObject } = require('../objects');
 
@@ -31,6 +32,7 @@ class Blockchain {
 
   static async getNFTbyAddress(req, nfts) {
     if (nfts.result.length === 0) {
+      // eslint-disable-next-line no-param-reassign
       nfts.result = [{ nft: 'no' }];
     }
     return new Blockchain(nfts.result).tokens;

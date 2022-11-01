@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 const { createLogger, format, transports } = require('winston');
 
 const { UnExeptedError } = require('../error/error');
@@ -44,7 +45,7 @@ const errorLogger = (err, req, res, next) => {
 };
 // Error Responder
 // Respond error to user
-const errorResponder = (err, req, res) => {
+const errorResponder = (err, req, res, next) => {
   let message = {};
   if (!err.statusCode) {
     // eslint-disable-next-line no-param-reassign
@@ -57,6 +58,7 @@ const errorResponder = (err, req, res) => {
   }
   res.header('Content-Type', 'application/json');
   res.status(err.statusCode).send(JSON.stringify({ message }, null, 4));
+  next(err);
 };
 
 module.exports = { errorLogger, errorResponder, logger };

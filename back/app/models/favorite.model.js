@@ -1,4 +1,7 @@
 /* eslint-disable no-multi-str */
+/* eslint-disable camelcase */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 const { pool } = require('../database');
 
 class Favorite {
@@ -11,13 +14,13 @@ class Favorite {
   static async getFavoriteByUserId(userId) {
     const { rows } = await pool.query(
       'SELECT \
-                crypto.coin_id \
-            FROM \
-                favorite \
-            JOIN crypto \
-            ON favorite.crypto_id=crypto.id \
-            WHERE \
-                favorite.user_id = $1',
+            crypto.coin_id \
+        FROM \
+            favorite \
+        JOIN crypto \
+        ON favorite.crypto_id=crypto.id \
+        WHERE \
+            favorite.user_id = $1',
       [userId],
     );
     return rows.map((row) => new Favorite(row));

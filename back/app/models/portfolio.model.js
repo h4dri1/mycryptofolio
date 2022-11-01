@@ -1,3 +1,5 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-multi-str */
 const { pool } = require('../database');
 
@@ -39,9 +41,8 @@ class Portfolio {
   }
 
   static async getDistribution(id) {
-    try {
-      const { rows } = await pool.query(
-        'SELECT \
+    const { rows } = await pool.query(
+      'SELECT \
             name, coin_id, quantity, value, \
             (100 * coins_value.value) / (SELECT SUM(value) FROM coins_value WHERE user_id=$1 AND coins_value.quantity!=0) as distribution \
             FROM \
@@ -50,12 +51,9 @@ class Portfolio {
             quantity!=0 AND coins_value.user_id=$1\
             GROUP BY \
             name, coin_id, quantity, value;',
-        [id],
-      );
-      return rows.map((row) => new Portfolio(row));
-    } catch (err) {
-      console.log(err);
-    }
+      [id],
+    );
+    return rows.map((row) => new Portfolio(row));
   }
 
   static async getDistributionByWallet(id, wid) {

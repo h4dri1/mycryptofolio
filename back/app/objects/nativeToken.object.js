@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable max-len */
 const { ethers } = require('ethers');
 
 class NativeTokenObject {

@@ -1,3 +1,5 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 const { ethers } = require('ethers');
 const NativeTokenObject = require('./nativeToken.object');
 
@@ -17,12 +19,12 @@ class Erc20TokensObject extends NativeTokenObject {
       : super.getNativeBalance(req, res) + this.getValue();
   }
 
-  getChange24h(req, res, obj) {
-    return res.locals.tokensPrices[`${obj.token_address}`][`${req.params.vs}_24h_change`];
+  getChange24h(req, res) {
+    return res.locals.tokensPrices[`${this.token_address}`][`${req.params.vs}_24h_change`];
   }
 
-  getPrice(req, res, obj) {
-    return res.locals.tokensPrices[`${obj.token_address}`][req.params.vs];
+  getPrice(req, res) {
+    return res.locals.tokensPrices[`${this.token_address}`][req.params.vs];
   }
 
   getValue() {

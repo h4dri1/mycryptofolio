@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 require('dotenv').config();
 
 // init express app on server.js

@@ -1,3 +1,5 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable class-methods-use-this */
 class OneCryptoObject {
   constructor(data) {
     this.id = data.id;
@@ -24,19 +26,17 @@ class OneCryptoObject {
 
   getImages(images) {
     const pictures = {};
-    for (const pic in images) {
+    Object.keys(images).forEach((pic) => {
       pictures[pic] = images[pic];
-    }
+    });
     return pictures;
   }
 
   getFilterCurrency(obj) {
     const filteredObj = {};
-    for (const currency in obj) {
-      if (currency === 'usd' || currency === 'eur' || currency === 'btc' || currency === 'eth') {
-        filteredObj[currency] = obj[currency];
-      }
-    }
+    Object.keys(obj).forEach((key) => {
+      filteredObj[key] = obj[key];
+    });
     return filteredObj;
   }
 }

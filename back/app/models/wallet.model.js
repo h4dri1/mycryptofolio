@@ -1,3 +1,5 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-multi-str */
 const { pool } = require('../database');
 
@@ -25,6 +27,7 @@ class Wallet {
     if (rows) {
       return rows.map((row) => new Wallet(row));
     }
+    return null;
   }
 
   async save() {
@@ -37,6 +40,7 @@ class Wallet {
         return this;
       }
     }
+    return null;
   }
 
   static async findWalletWithNoTransaction(id) {
@@ -44,6 +48,7 @@ class Wallet {
     if (rows) {
       return rows.map((row) => new Wallet(row));
     }
+    return null;
   }
 
   static async delete(id) {

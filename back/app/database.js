@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 const { Pool } = require('pg');
 const { createClient } = require('redis');
 

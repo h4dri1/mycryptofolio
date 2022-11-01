@@ -1,4 +1,9 @@
+/* eslint-disable camelcase */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-multi-str */
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
 const { pool } = require('../database');
 
 class Transaction {
@@ -63,6 +68,7 @@ class Transaction {
     if (rows) {
       return new Transaction(rows);
     }
+    return null;
   }
 
   static async getUserTransactionByWallet(user_id, wallet_id) {
@@ -102,27 +108,20 @@ class Transaction {
   }
 
   async save() {
-    try {
-      if (this.id) {
-        await pool.query('SELECT * FROM update_transaction($1)', [this]);
-      } else {
-        const { rows } = await pool.query('SELECT * FROM add_transaction($1)', [this]);
-        if (rows) {
-          this.id = rows[0].id;
-          return this;
-        }
+    if (this.id) {
+      await pool.query('SELECT * FROM update_transaction($1)', [this]);
+    } else {
+      const { rows } = await pool.query('SELECT * FROM add_transaction($1)', [this]);
+      if (rows) {
+        this.id = rows[0].id;
+        return this;
       }
-    } catch (error) {
-      console.log(error);
     }
+    return null;
   }
 
   static async delete(id) {
-    try {
-      await pool.query('DELETE FROM transaction WHERE id=$1 RETURNING id;', [id]);
-    } catch (error) {
-      console.log(error);
-    }
+    await pool.query('DELETE FROM transaction WHERE id=$1 RETURNING id;', [id]);
   }
 }
 

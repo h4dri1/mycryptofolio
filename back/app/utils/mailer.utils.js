@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 const nodemailer = require('nodemailer');
 
 require('dotenv').config();

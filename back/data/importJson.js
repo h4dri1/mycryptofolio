@@ -1,3 +1,6 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
+/* eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 require('dotenv').config();
 
 const cliProgress = require('cli-progress');
