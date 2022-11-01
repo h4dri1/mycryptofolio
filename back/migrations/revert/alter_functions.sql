@@ -13,6 +13,8 @@ CREATE OR REPLACE FUNCTION update_transaction_bprice(json) RETURNS transaction A
 	RETURNING *;
 $$ LANGUAGE SQL STRICT;
 
+DROP VIEW IF EXISTS view_transaction CASCADE;
+
 CREATE OR REPLACE VIEW view_transaction AS
 SELECT
 	transaction.id,
@@ -33,6 +35,39 @@ JOIN wallet
 JOIN crypto
 	ON transaction.crypto_id=crypto.id;
 
+CREATE OR REPLACE VIEW coins_value AS
+SELECT
+	user_id,
+	symbol AS name,
+	SUM (quantity) AS quantity,
+	SUM (investment) AS investment,
+	SUM (quantity * (SELECT price FROM crypto WHERE crypto.coin_id=view_transaction.coin_id)) AS value,
+	coin_id
+FROM 
+	view_transaction
+GROUP BY
+	user_id,
+	symbol, 
+	coin_id;
+
+CREATE OR REPLACE VIEW coins_value_wallet AS
+SELECT
+	wallet_id,
+	wallet_label,
+	user_id,
+	symbol AS name,
+	SUM (quantity) AS quantity,
+	SUM (investment) AS investment,
+	SUM (quantity * (SELECT price FROM crypto WHERE crypto.coin_id=view_transaction.coin_id)) AS value,
+    coin_id
+FROM 
+	view_transaction
+GROUP BY
+	wallet_label,
+	wallet_id,
+	user_id,
+	symbol, 
+	coin_id;
 
 CREATE OR REPLACE FUNCTION add_transaction(json) RETURNS transaction AS $$
 	INSERT INTO transaction (buy_date, buy, price, quantity, wallet_id, crypto_id, fiat)
