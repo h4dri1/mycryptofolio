@@ -13,7 +13,7 @@ const cryptoLimiter = {
 
 const getTopCrypto = Joi.object({
   vs: Joi.string().required(),
-  nb: Joi.number().max(1000).required(),
+  nb: Joi.number().max(250).required(),
 });
 
 const getOneCrypto = Joi.object({
