@@ -5,8 +5,6 @@ import {
   Container,
 } from '@mui/material';
 
-import { getCryptoList, getMoreCryptos } from '../../actions/cryptos';
-import { fetchFavoriteCryptos } from '../../actions/favorite';
 import FullTable from './Table/FullTable';
 import MoreCryptosButton from './moreCryptosButton';
 

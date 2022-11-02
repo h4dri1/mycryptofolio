@@ -54,6 +54,7 @@ const dataDays = (chart, days) => (chart.prices.map((element) => {
   }
   return null;
 }));
+
 export default function Graph({ chart }) {
   const { days } = useSelector((state) => state.cryptoDetails);
   const graphData = {
