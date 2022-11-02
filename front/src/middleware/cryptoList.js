@@ -31,7 +31,7 @@ const cryptoList = (store) => (next) => (action) => {
       axios({
         method: 'get',
         baseURL,
-        url: `/cryptos/${selectedCurrency}/100`,
+        url: `/cryptos/${selectedCurrency}/250`,
       })
         .then((res) => {
           store.dispatch(updateAllCryptos(res.data));

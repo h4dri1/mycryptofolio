@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import { useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Grid, Box } from '@mui/material';
@@ -10,10 +10,8 @@ import FavCard from './FavCard';
 import CryptoList from '../CryptoList';
 
 import colors from '../../services/getColors';
-import { getAllCryptos } from '../../actions/cryptos';
-import { fetchFavoriteCryptos } from '../../actions/favorite';
 
-export default function WatchList({ logged }) {
+export default function WatchList() {
   const { color } = colors();
 
   const gridStyle = () => ({
@@ -40,12 +38,9 @@ export default function WatchList({ logged }) {
 
   const pixelRatio = window.devicePixelRatio;
 
-  const dispatch = useDispatch();
-
   const { favorite } = useSelector((state) => state.favorite);
   const { allCryptos } = useSelector((state) => state.cryptos);
   const [cryptoList, setCryptoList] = useState([]);
-  const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
 
   useEffect(() => {
     if (favorite.cryptos.length > 0 && favorite.cryptos[0]?.coin_id !== 'none') {

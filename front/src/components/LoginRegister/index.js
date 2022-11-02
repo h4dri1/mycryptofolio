@@ -2,7 +2,7 @@
 import {
   Container,
   useMediaQuery,
-  Box
+  Box,
 } from '@mui/material';
 
 import { PropTypes } from 'prop-types';
@@ -10,7 +10,7 @@ import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLoginModal } from 'src/actions/settings';
 
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 
 const Modal = lazy(() => import('./modal'));
 const Identicon = lazy(() => import('../Identicon'));
@@ -38,30 +38,40 @@ export default function LoginRegister({ type, handleFormSubmit }) {
     dispatch(toggleLoginModal(true));
   };
   // Update state on change of fields value
-  
+
   return (
     <Box>
       <Container>
-        {walletAddress !== 'Wallet' && !hide500 && <Box onClick={handleToggleLoginModal} sx={{ aligItems: 'center', justifyContent: 'center', display: {xs: 'none', md: 'flex'}, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: 'secondary.main' }}>
-          <Suspense fallback={<></>}><Identicon address={walletAddress} diam={56}></Identicon></Suspense>
-        </Box>}
-        {walletAddress === 'Wallet' && !hide500 && <Suspense fallback={<></>}><Avatar
-            id="composition-button"
-            aria-controls={open ? 'composition-menu' : undefined}
-            aria-expanded={open ? 'true' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggleLoginModal}
-            sx={{ display: {xs: 'none', md: 'flex'}, width: 56, height: 56, boxShadow: 10, bgcolor: 'secondary.main' }}
-        /></Suspense>
-        }
-        {hide500 && <Suspense fallback={<></>}><MenuIcon onClick={handleToggleLoginModal} sx={{display: {xs: 'block', md: 'none'}}}></MenuIcon></Suspense>}
+        {walletAddress !== 'Wallet' && !hide500 && (
+        <Box
+          onClick={handleToggleLoginModal}
+          sx={{
+            aligItems: 'center', justifyContent: 'center', display: { xs: 'none', md: 'flex' }, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: 'secondary.main',
+          }}
+        >
+          <Suspense fallback={<></>}><Identicon address={walletAddress} diam={56} /></Suspense>
+        </Box>
+        )}
+        {walletAddress === 'Wallet' && !hide500 && (
+        <Suspense fallback={<></>}><Avatar
+          id="composition-button"
+          aria-controls={open ? 'composition-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggleLoginModal}
+          sx={{
+            display: { xs: 'none', md: 'flex' }, width: 56, height: 56, boxShadow: 10, bgcolor: 'secondary.main',
+          }}
+        />
+        </Suspense>
+        )}
+        {hide500 && <Suspense fallback={<></>}><MenuIcon onClick={handleToggleLoginModal} sx={{ display: { xs: 'block', md: 'none' } }} /></Suspense>}
       </Container>
       { loginIsOpen && (
-          <Suspense fallback={<></>}>
-            <Modal type={type} handleFormSubmit={handleFormSubmit} />
-          </Suspense>
-        )
-      }
+      <Suspense fallback={<></>}>
+        <Modal type={type} handleFormSubmit={handleFormSubmit} />
+      </Suspense>
+      )}
 
     </Box>
   );

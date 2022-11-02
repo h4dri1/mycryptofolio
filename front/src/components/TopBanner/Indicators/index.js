@@ -1,5 +1,7 @@
 /* eslint-disable react/function-component-definition */
-import { Typography, Container, Box, Skeleton }  from '@mui/material';
+import {
+  Typography, Container, Box, Skeleton,
+} from '@mui/material';
 
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,9 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import PercentIcon from '@mui/icons-material/Percent';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import { getIndicators } from '../../../actions/indicators';
-
 import { useEffect } from 'react';
+import { getIndicators } from '../../../actions/indicators';
 
 // const useStyles = makeStyles((theme) => ({
 //   indicator: {
@@ -42,11 +43,11 @@ const Indicators = ({ data }) => {
         ml: 0.5,
         fontSize: '0.8rem',
         textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
       }}
     >
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-      <MonetizationOnIcon sx={{ color: 'primary.main' }}/>
+        <MonetizationOnIcon sx={{ color: 'primary.main' }} />
         <Typography
           variant="subtitle"
           component="p"
@@ -63,21 +64,21 @@ const Indicators = ({ data }) => {
         >
 
           {
-            Object.keys(data.total_market_cap).length !== 0 ?
-            Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: refCurrency,
-              maximumSignificantDigits: 4,
-              minimumSignificantDigits: 2,
-            }).format(data.total_market_cap[refCurrency.toLowerCase()]) :
-            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)
+            Object.keys(data.total_market_cap).length !== 0
+              ? Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: refCurrency,
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(data.total_market_cap[refCurrency.toLowerCase()])
+              : (<Skeleton sx={{ borderRadius: '10px', backgroundColor: 'primary.light' }} variant="rectangle" width="50px" height="15px" />)
           }
 
         </Typography>
       </Box>
 
       <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems: 'center' }, marginRight: { xs: '1.5em', md: '3em' } }}>
-      <CurrencyExchangeIcon sx={{ color: 'primary.main' }} />
+        <CurrencyExchangeIcon sx={{ color: 'primary.main' }} />
         <Typography
           variant="subtitle"
           sx={{ marginLeft: '0.5em', fontWeight: 'bold' }}
@@ -92,14 +93,14 @@ const Indicators = ({ data }) => {
           }}
         >
           {
-            Object.keys(data.total_volume).length !== 0 ?
-          Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: refCurrency,
-              maximumSignificantDigits: 4,
-              minimumSignificantDigits: 2,
-            }).format(data.total_volume[refCurrency.toLowerCase()]) :
-            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)
+            Object.keys(data.total_volume).length !== 0
+              ? Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: refCurrency,
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(data.total_volume[refCurrency.toLowerCase()])
+              : (<Skeleton sx={{ borderRadius: '10px', backgroundColor: 'primary.light' }} variant="rectangle" width="50px" height="15px" />)
           }
 
         </Typography>
@@ -122,17 +123,18 @@ const Indicators = ({ data }) => {
           }}
         >
           {
-            Object.keys(data.market_cap_percentage).length !== 0 ?
-            Intl.NumberFormat('en-US', {
-              //style: 'percent',
-              maximumSignificantDigits: 4,
-              minimumSignificantDigits: 2,
-            }).format(data.market_cap_percentage.btc) :
-            (<Skeleton sx={{borderRadius: '10px', backgroundColor: 'primary.light'}} variant="rectangle" width='50px' height='15px' />)}
+            Object.keys(data.market_cap_percentage).length !== 0
+              ? Intl.NumberFormat('en-US', {
+              // style: 'percent',
+                maximumSignificantDigits: 4,
+                minimumSignificantDigits: 2,
+              }).format(data.market_cap_percentage.btc)
+              : (<Skeleton sx={{ borderRadius: '10px', backgroundColor: 'primary.light' }} variant="rectangle" width="50px" height="15px" />)
+}
         </Typography>
       </Box>
     </Container>
-  )
+  );
 };
 
 Indicators.propTypes = {

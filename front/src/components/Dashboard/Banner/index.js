@@ -33,7 +33,7 @@ import {
 import AddWallet from './AddWallet';
 import EditWallet from './EditWallet';
 import ButtonTabs from './TabPanel/buttonTabs';
-import DialogBox from './transaction/transaction';
+import DialogBox from './Transaction/transaction';
 import TabPanelWallet from './TabPanel/walletPanel';
 import MainTabPanel from './TabPanel/mainPanel';
 
