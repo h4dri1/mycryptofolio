@@ -1,11 +1,8 @@
-import { PropTypes } from 'prop-types';
-import { Fragment, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Box } from '@mui/material'
-
-import { toggleLoginModal } from 'src/actions/settings';
+import { fetchFavoriteCryptos } from 'src/actions/favorite';
 
 import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
@@ -15,22 +12,24 @@ import Footer from 'src/components/Footer';
 export default function MarketPage() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
   const { logged } = useSelector((state) => state.user);
   const [showTutorial, setShowTutorial] = useState(false);
 
   useEffect(() => {
+    if (logged) {
+      dispatch(fetchFavoriteCryptos());
+    }
     if (logged && location.search === '?continue=/addfav') {
       setShowTutorial(true);
     }
   }, [logged]);
 
   return (
-    <Fragment>
+    <>
       <TopBanner />
       <Navbar />
-      <CryptoList showTutorial={showTutorial}/>
+      <CryptoList showTutorial={showTutorial} />
       <Footer />
-    </Fragment>
+    </>
   );
 }

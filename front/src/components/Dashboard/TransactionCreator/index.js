@@ -1,10 +1,11 @@
+/* eslint-disable max-len */
 /* eslint-disable react/function-component-definition */
 import { PropTypes } from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
   Box,
   Tabs,
-  Tab
+  Tab,
 } from '@mui/material';
 
 import { useState } from 'react';
@@ -50,19 +51,18 @@ TabPanel.propTypes = {
 function Props(index) {
   return {
     id: `tab-${index}`,
-    'aria-controls': `tabpanel-${index}`
+    'aria-controls': `tabpanel-${index}`,
   };
 }
 
 const TransactionCreator = (props) => {
-
+  const { transaction } = props;
   const valueState = () => {
-    if (props.transaction?.buy || props.transaction === undefined) {
-      return 0
-    } else {
-      return 1
+    if (transaction?.buy || transaction === undefined) {
+      return 0;
     }
-  }
+    return 1;
+  };
 
   const [value, setValue] = useState(valueState());
   const { wallet: wallets, selectedWallet, distribution } = useSelector((state) => state.portfolio);
@@ -72,18 +72,16 @@ const TransactionCreator = (props) => {
   };
 
   const isDisabled = (value) => {
-    if (props.transaction) {
-      if (props.transaction.buy && value === 1) {
-        return false
-      } else if (!props.transaction.buy && value === 0) {
-        return false
-      } else {
-        return true
+    if (transaction) {
+      if (transaction.buy && value === 1) {
+        return false;
+      } if (!transaction.buy && value === 0) {
+        return false;
       }
-    } else {
-      return false
+      return true;
     }
-  }
+    return false;
+  };
 
   return (
     <Box
@@ -94,7 +92,7 @@ const TransactionCreator = (props) => {
         // maxHeight: '50vh',
         overflowY: 'auto',
         padding: { xs: '0 0 2em 0', sm: '0 .5em 2em .5em' },
-        backgroundColor: 'background.default'
+        backgroundColor: 'background.default',
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 1 }}>

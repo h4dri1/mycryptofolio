@@ -9,13 +9,13 @@ const Blockchain = require('./blockchain.model');
 const Favorite = require('./favorite.model');
 
 module.exports = {
-    Crypto,
-    Transaction,
-    User,
-    Wallet,
-    Portfolio,
-    Nfts,
-    Network,
-    Blockchain,
-    Favorite
-}
+  Crypto,
+  Transaction,
+  User,
+  Wallet,
+  Portfolio,
+  Nfts,
+  Network,
+  Blockchain,
+  Favorite,
+};

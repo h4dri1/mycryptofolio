@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import {

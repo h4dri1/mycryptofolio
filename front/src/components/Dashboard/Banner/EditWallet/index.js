@@ -1,4 +1,6 @@
-import { IconButton, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@mui/material';
+import {
+  IconButton, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField,
+} from '@mui/material';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
@@ -9,7 +11,7 @@ import {
 } from 'src/actions/portfolio';
 import { useEffect } from 'react';
 
-const EditWallet = () => {
+function EditWallet() {
   const dispatch = useDispatch();
 
   const { editWallet, wallet: wallets, selectedWallet } = useSelector((state) => state.portfolio);
@@ -21,15 +23,18 @@ const EditWallet = () => {
   }, [selectedWallet]);
 
   return (
-    <Dialog PaperProps={{style: { borderRadius: '10px' }}} open={toggle} onClose={() => dispatch(toggleUpdateWalletModal())}>
-      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', backgroundColor: 'secondary.dark' }}>
+    <Dialog PaperProps={{ style: { borderRadius: '10px' } }} open={toggle} onClose={() => dispatch(toggleUpdateWalletModal())}>
+      <DialogTitle sx={{
+        display: 'flex', justifyContent: 'space-between', color: 'white', backgroundColor: 'secondary.dark',
+      }}
+      >
         Modifier un wallet
         <IconButton edge="end" aria-label="Fermer" onClick={() => dispatch(toggleUpdateWalletModal())}>
           <CloseRoundedIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{backgroundColor: 'background.default'}}>
-        <DialogContentText sx={{mt: 2}}>
+      <DialogContent sx={{ backgroundColor: 'background.default' }}>
+        <DialogContentText sx={{ mt: 2 }}>
           Nom
         </DialogContentText>
         <TextField
@@ -43,12 +48,12 @@ const EditWallet = () => {
           onChange={(e) => dispatch(updateUpdateWalletInput(e.target.value))}
         />
       </DialogContent>
-      <DialogActions sx={{backgroundColor: 'background.default'}}>
+      <DialogActions sx={{ backgroundColor: 'background.default' }}>
         <Button variant="contained" onClick={() => dispatch(updateWallet(selectedWallet))}>Modifier</Button>
         <Button variant="contained" onClick={() => dispatch(toggleUpdateWalletModal())}>Annuler</Button>
       </DialogActions>
     </Dialog>
   );
-};
+}
 
 export default EditWallet;

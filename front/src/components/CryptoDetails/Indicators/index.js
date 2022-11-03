@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 /* eslint-disable no-dupe-keys */
 import PropTypes from 'prop-types';
 
 import {
-  Box, Typography, Chip, Divider, IconButton,
+  Box, Typography, Chip, Divider, IconButton, Skeleton,
 } from '@mui/material';
 
 import PaidIcon from '@mui/icons-material/Paid';
@@ -16,32 +17,59 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteFavoriteCrypto, addFavoriteCrypto } from '../../../actions/favorite';
 import currency from '../../../services/curFormatter';
 
+const formatValue = (data, selectedCurrency) => {
+  if (data.market_data) {
+    const fullyDilutedValuation = !data.market_data.fully_diluted_valuation.usd
+      ? '--'
+      : currency(data.market_data.fully_diluted_valuation[selectedCurrency.toLowerCase()], selectedCurrency);
+    const maxSupply = !data.market_data.max_supply ? '--' : data.market_data.max_supply.toLocaleString();
+    const totalVolume = currency(data.market_data.total_volume[selectedCurrency.toLowerCase()], selectedCurrency);
+    const circulatingSupply = data.market_data.circulating_supply.toLocaleString();
+    const marketCap = currency(data.market_data.market_cap[selectedCurrency.toLowerCase()], selectedCurrency);
+    return {
+      fullyDilutedValuation,
+      maxSupply,
+      totalVolume,
+      circulatingSupply,
+      marketCap,
+    };
+  }
+  return null;
+};
+
+function IndicatorBox(props) {
+  const {
+    data, value, children, name,
+  } = props;
+  return (
+    <Box sx={{
+      padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center',
+    }}
+    >
+      {children}
+      <Typography sx={{ marginLeft: 1, color: 'primaryTextColor.main' }}>{name} : { data.market_data ? value : 'Loading...'}</Typography>
+    </Box>
+  );
+}
+
 export default function Indicators({ data, favorite }) {
   const { selectedCurrency } = useSelector((state) => state.cryptos.cryptoList);
+  const { logged } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  if (data.market_data) {
-    if (!data.market_data.fully_diluted_valuation.usd || !data.market_data.max_supply) {
-      return '--'
-      var fullyDilutedValuation = '--';
-      var maxSupply = '--';
-    }
-    else {
-      var fullyDilutedValuation = `${ currency(data.market_data.fully_diluted_valuation[selectedCurrency.toLowerCase()]) }`;
-      var maxSupply = `${data.market_data.max_supply.toLocaleString()}`;
-    }
-  }
-
-  const marketCap = data.market_data ? `${currency(data.market_data.market_cap[selectedCurrency.toLowerCase()], selectedCurrency)}` : 'Loading...';
-  var fullyDilutedValuation = data.market_data ? fullyDilutedValuation : 'Loading...';
-  const totalVolume = data.market_data ? `${currency(data.market_data.total_volume[selectedCurrency.toLowerCase()], selectedCurrency)}` : 'Loading...';
-  const circulatingSupply = data.market_data ? `${data.market_data.circulating_supply.toLocaleString()}` : 'Loading...';
-  var maxSupply = data.market_data ? maxSupply : 'Loading...';
-
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'left' }}>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'left',
+    }}
+    >
       <Box sx={{
-        display: 'flex', flexDirection: 'row', minWidth: '100%', justifyContent: 'center', alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'row',
+        minWidth: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
       >
         <Box>
@@ -54,42 +82,22 @@ export default function Indicators({ data, favorite }) {
         </Box>
         <Box sx={{ fontSize: '2em', marginLeft: 1, color: 'secondary.dark' }}>{data.name}</Box>
       </Box>
-      <Divider />
-      <Box sx={{
-        padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center', marginTop: 4,
-      }}
-      >
+      <Divider sx={{ marginBottom: 4 }} />
+      <IndicatorBox data={data} value={formatValue(data, selectedCurrency)?.marketCap} name="Market Cap">
         <PaidIcon fontSize="large" sx={{ color: 'primary.light' }} />
-        <Typography sx={{ marginLeft: 1, color: 'primaryTextColor.main' }}>MarketCap : {marketCap}</Typography>
-      </Box>
-      <Box sx={{
-        padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center',
-      }}
-      >
+      </IndicatorBox>
+      <IndicatorBox data={data} value={formatValue(data, selectedCurrency)?.fullyDilutedValuation} name="Fully diluted Valuation">
         <BatteryCharging90Icon fontSize="large" sx={{ color: 'primary.light' }} />
-        <Typography sx={{ marginLeft: 1, color: 'primaryTextColor.main' }}>Fully diluted valuation : {fullyDilutedValuation}</Typography>
-      </Box>
-      <Box sx={{
-        padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center',
-      }}
-      >
+      </IndicatorBox>
+      <IndicatorBox data={data} value={formatValue(data, selectedCurrency)?.totalVolume} name="Total Volume">
         <CurrencyExchangeIcon fontSize="large" sx={{ color: 'primary.light' }} />
-        <Typography sx={{ marginLeft: 1, color: 'primaryTextColor.main' }}>24h Volume : {totalVolume}</Typography>
-      </Box>
-      <Box sx={{
-        padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center',
-      }}
-      >
+      </IndicatorBox>
+      <IndicatorBox data={data} value={formatValue(data, selectedCurrency)?.circulatingSupply} name="Circulating Supply">
         <ChangeCircleIcon fontSize="large" sx={{ color: 'primary.light' }} />
-        <Typography sx={{ marginLeft: 1, color: 'primaryTextColor.main' }}>Circulating supply : {circulatingSupply}</Typography>
-      </Box>
-      <Box sx={{
-        padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'left', alignItems: 'center',
-      }}
-      >
+      </IndicatorBox>
+      <IndicatorBox data={data} value={formatValue(data, selectedCurrency)?.maxSupply} name="Max Supply">
         <FactoryIcon fontSize="large" sx={{ color: 'primary.light' }} />
-        <Typography sx={{ marginLeft: 1, color: 'primaryTextColor.main' }}>Max supply : {maxSupply}</Typography>
-      </Box>
+      </IndicatorBox>
       <Box sx={{
         padding: '.5em 1em', display: 'flex', minHeight: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 4,
       }}
@@ -102,14 +110,16 @@ export default function Indicators({ data, favorite }) {
         display: 'flex', color: 'secondary.dark', width: '100%', justifyContent: 'center', mt: 3,
       }}
       >
-        {favorite.cryptos.length > 0 && favorite.cryptos.some((e) => e.coin_id === data.id) ? (
-          <IconButton color="secondary" value={data.id} onClick={() => dispatch(deleteFavoriteCrypto(data.id))}>
-            <StarIcon sx={{ fontSize: '2em' }} />
-          </IconButton>
-        ) : (
-          <IconButton color="secondary" value={data.id} onClick={() => dispatch(addFavoriteCrypto(data.id))}>
-            <StarOutlineIcon sx={{ fontSize: '2em' }} />
-          </IconButton>
+        { logged && (
+          favorite.cryptos.length > 0 && favorite.cryptos.some((e) => e.coin_id === data.id) ? (
+            <IconButton color="secondary" value={data.id} onClick={() => dispatch(deleteFavoriteCrypto(data.id))}>
+              <StarIcon sx={{ fontSize: '2em' }} />
+            </IconButton>
+          ) : (
+            <IconButton color="secondary" value={data.id} onClick={() => dispatch(addFavoriteCrypto(data.id))}>
+              <StarOutlineIcon sx={{ fontSize: '2em' }} />
+            </IconButton>
+          )
         )}
       </Box>
     </Box>

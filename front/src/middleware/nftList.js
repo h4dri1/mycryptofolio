@@ -7,7 +7,7 @@ import {
   GET_MORE_NFT,
   getMoreNFTLoading,
   getNFTList,
-  updateNFTQuantity
+  updateNFTQuantity,
 } from 'src/actions/nft';
 
 import { setPending } from 'src/actions/settings';
@@ -16,9 +16,8 @@ const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 
 const NFTList = (store) => (next) => (action) => {
   switch (action.type) {
-    
     case GET_NFT_LIST:
- 
+
       const { selectedCurrency, quantity } = store.getState().nft.NFTList;
 
       axios({
@@ -28,10 +27,8 @@ const NFTList = (store) => (next) => (action) => {
       })
         .then((res) => {
           store.dispatch(updateNFTList(res.data));
-     
         })
         .catch((err) => {
-     
           console.log(err);
         })
         .finally(() => {

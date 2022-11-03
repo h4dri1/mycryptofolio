@@ -10,10 +10,11 @@ export const TOOGLE_TRANSACTION_CREATOR = 'TOOGLE_TRANSACTION_CREATOR';
 export const changeColor = (payload) => ({
   type: CHANGE_COLOR,
   payload,
-})
+});
 
-export const toggleLoginModal = () => ({
+export const toggleLoginModal = (payload) => ({
   type: TOGGLE_LOGIN_MODAL,
+  payload,
 });
 
 export const setHomeIcon = (payload) => ({

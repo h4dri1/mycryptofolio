@@ -2,19 +2,31 @@ import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
 import WatchList from 'src/components/WatchList';
 import Footer from 'src/components/Footer';
-
-import { useSelector } from 'react-redux';
-import { Fragment } from 'react';
+import Home from 'src/pages/Home';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getAllCryptos } from '../../actions/cryptos';
 
 export default function WatchListPage() {
-    const { logged } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { logged } = useSelector((state) => state.user);
 
-    return (
-        <Fragment>
-            <TopBanner />
-            <Navbar />
-            <WatchList logged={logged}/>
-            <Footer />
-        </Fragment>
-    );
+  useEffect(() => {
+    if (logged) {
+      dispatch(getAllCryptos());
+    }
+  }, [logged]);
+
+  return (
+    logged ? (
+      <>
+        <TopBanner />
+        <Navbar />
+        <WatchList logged={logged} />
+        <Footer />
+      </>
+    ) : (
+      <Home displayLogin />
+    )
+  );
 }

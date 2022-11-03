@@ -4,13 +4,14 @@ const { PublicApiError } = require('../error/error');
 // Fetch service
 
 module.exports = async (url, header, body) => {
-    const res = await fetch(url, header, body);
-    if (!res) {
-        throw new PublicApiError(url);
-    }
-    if (res.status === 404) {
-        return data = {status: res.statusText};
-    } else {
-        return data = await res.json();
-    }
-}
+  const res = await fetch(url, header, body);
+  if (!res) {
+    throw new PublicApiError(url);
+  }
+  if (res.status === 404) {
+    const data = { status: res.statusText };
+    return data;
+  }
+  const data = await res.json();
+  return data;
+};

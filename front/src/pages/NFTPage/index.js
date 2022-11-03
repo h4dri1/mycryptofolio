@@ -1,49 +1,23 @@
-import { PropTypes } from 'prop-types';
-import { Fragment, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { Box } from '@mui/material'
-
-import { toggleLoginModal } from 'src/actions/settings';
-
 import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
 import NFTList from 'src/components/NFTList';
 import Footer from 'src/components/Footer';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getNFTList } from '../../actions/cryptos';
 
-export default function Home({ displayLogin }) {
+export default function NFTPage() {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { logged } = useSelector((state) => state.user);
-
   useEffect(() => {
-    if (displayLogin) dispatch(toggleLoginModal());
+    dispatch(getNFTList());
   }, []);
 
-  useEffect(() => {
-    if (logged && location.search === '?continue=/portfolio') {
-      navigate('/portfolio');
-    } else if (logged && location.search == '?continue=/profil') {
-      navigate('/profil');
-    }
-  }, [logged]);
-
   return (
-    <Fragment>
+    <>
       <TopBanner />
       <Navbar />
-      <NFTList/>
+      <NFTList />
       <Footer />
-    </Fragment>
+    </>
   );
 }
-
-Home.defaultProps = {
-  displayLogin: false,
-};
-
-Home.propTypes = {
-  displayLogin: PropTypes.bool,
-};

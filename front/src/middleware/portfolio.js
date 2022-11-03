@@ -7,7 +7,7 @@ import {
   FETCH_SPECIFIC_WALLET, fetchSpecificWalletSuccess,
   updateWalletList, DELETE_WALLET, deleteOrUpdateWalletSuccess,
   SAVE_TRANSACTION, DELETE_TRANSACTION,
-  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet, fetchPortfolio
+  UPDATE_WALLET, toggleUpdateWalletModal, fetchSpecificWallet, fetchPortfolio,
 } from 'src/actions/portfolio';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
@@ -68,15 +68,14 @@ const portfolio = (store) => (next) => async (action) => {
         .then((res) => {
           store.dispatch(updateWalletList(res.data));
           const newAccessToken = res.headers.authorization;
-    
+
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
-    
           console.log(err);
         })
         .finally(() => {
-          store.dispatch(toggleCreateWalletModal())
+          store.dispatch(toggleCreateWalletModal());
         });
       next(action);
       break;
@@ -106,11 +105,10 @@ const portfolio = (store) => (next) => async (action) => {
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
-    
           console.log(err);
         })
         .finally(() => {
-          store.dispatch(toggleUpdateWalletModal())
+          store.dispatch(toggleUpdateWalletModal());
         });
       next(action);
       break;
@@ -135,14 +133,12 @@ const portfolio = (store) => (next) => async (action) => {
             }
           })
           .catch((err) => {
-            console.log(err)
-      
+            console.log(err);
           });
       }
       next(action);
       break;
     case FETCH_PORTFOLIO:
-
       privateRoute({
         method: 'get',
         url: `/portfolio/${selectedCurrency}`,
@@ -150,13 +146,12 @@ const portfolio = (store) => (next) => async (action) => {
       })
         .then((res) => {
           store.dispatch(fetchPortfolioSuccess(res.data));
-    
+
           const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
-          console.log(err)
-    
+          console.log(err);
         });
       next(action);
       break;
@@ -170,13 +165,15 @@ const portfolio = (store) => (next) => async (action) => {
         },
       })
         .then((res) => {
-          const { distribution, performance, transactions, wallet: updatedWallet} = res.data;
+          const {
+            distribution, performance, transactions, wallet: updatedWallet,
+          } = res.data;
           const { wallet: wallets } = store.getState().portfolio;
 
           const updatedWallets = wallets.map((wallet) => {
             if (wallet.id === updatedWallet.id) {
               return wallet = updatedWallet;
-            };
+            }
             return wallet;
           });
 
@@ -185,22 +182,21 @@ const portfolio = (store) => (next) => async (action) => {
             performance,
             transactions,
             wallet: updatedWallets,
-          }
+          };
 
           store.dispatch(fetchSpecificWalletSuccess(walletsObj));
-    
+
           const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
           console.log(err);
-    
-        })
+        });
       next(action);
       break;
 
     case SAVE_TRANSACTION:
-      const walletId = action.payload.wallet
+      const walletId = action.payload.wallet;
       if (!walletId && !action.payload.id) {
         store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Veuillez selectionner un portefeuille pour votre transaction' }));
         next(action);
@@ -222,13 +218,14 @@ const portfolio = (store) => (next) => async (action) => {
         .then((res) => {
           if (selectedWallet === '') {
             store.dispatch(fetchPortfolio());
-          } else {
+          }
+          else {
             store.dispatch(fetchSpecificWallet(walletId));
           }
         })
         .catch((err) => {
           console.log(err.response);
-    
+
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
@@ -246,7 +243,8 @@ const portfolio = (store) => (next) => async (action) => {
             if (res.status === 204) {
               if (selectedWallet) {
                 store.dispatch(fetchSpecificWallet(selectedWallet));
-              } else {
+              }
+              else {
                 store.dispatch(fetchPortfolio());
               }
               store.dispatch(toggleConfirmDelete());

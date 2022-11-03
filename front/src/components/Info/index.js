@@ -1,77 +1,60 @@
 /* eslint-disable react/function-component-definition */
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Grid, Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { getCryptoTrend, getFearGreedIndex } from '../../actions/cryptos';
-import { getNFTList, resetNFTQuantity } from '../../actions/nft';
 import TopFlop from './TopFlop';
 import Sentiment from './Sentiment';
 import TopNFT from './TopNFT';
 import CryptoList from '../CryptoList';
 import colors from '../../services/getColors';
 
+const gridStyle = (props) => ({
+  grid: {
+    height: '100%',
+    marginTop: '20px',
+    marginBottom: '50px',
+  },
+  gridItem: {
+    borderColor: '#E7EBF0',
+    borderRadius: '10px',
+    boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
+    backgroundColor: colors().color,
+    margin: props,
+  },
+});
+
 export default function Info() {
-  const { color } = colors();
-
-  const useStyles = makeStyles({
-    grid: {
-      height: '100%',
-      marginTop: '20px',
-      marginBottom: '50px',
-    },
-    gridItem: {
-      borderColor: '#E7EBF0',
-      borderRadius: '10px',
-      boxShadow: '1px 4px 9px 1px rgba(0,0,0,0.3)',
-    },
-  });
-
-  const dispatch = useDispatch();
-  const classes = useStyles();
   const pixelRatio = window.devicePixelRatio;
 
-  const { list: nfts } = useSelector((state) => state.nft.NFTList);
+  const nfts = useSelector((state) => state.nft.NFTList.list);
   const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
   const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    // dispatch(resetNFTQuantity())
-    dispatch(getCryptoTrend());
-    dispatch(getFearGreedIndex());
-    dispatch(getNFTList());
-  }, []);
-
   return (
     <Box sx={{ minHeight: '80vh' }}>
-      <Grid maxHeight="80%" container justifyContent="center" className={classes.grid}>
+      <Grid maxHeight="80%" container justifyContent="center" sx={gridStyle().grid}>
         <Grid
-          sx={{ backgroundColor: color, margin: { xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' } }}
+          sx={gridStyle({ xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' }).gridItem}
           item
           xs={12}
           md={pixelRatio > 1 ? 3 : 2.5}
-          className={classes.gridItem}
         >
           <TopFlop cryptos={cryptos} pixelRatio={pixelRatio} />
         </Grid>
         <Grid
-          sx={{ backgroundColor: color, margin: { xs: '0px 10px 10px 10px', md: '0px 14px 0px 14px' } }}
+          sx={gridStyle({ xs: '0px 10px 10px 10px', md: '0px 14px 0px 14px' }).gridItem}
           item
           xs={12}
           md={pixelRatio > 1 ? 3 : 2.5}
-          className={classes.gridItem}
         >
           <Sentiment fearAndGreed={fearAndGreed} />
         </Grid>
         <Grid
-          sx={{ backgroundColor: color, margin: { xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' } }}
+          sx={gridStyle({ xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' }).gridItem}
           item
           xs={12}
           md={pixelRatio > 1 ? 3 : 2.5}
-          className={classes.gridItem}
         >
-          <TopNFT nfts={nfts} pixelRatio={pixelRatio} />
+          <TopNFT pixelRatio={pixelRatio} nfts={nfts} />
         </Grid>
         <CryptoList />
       </Grid>

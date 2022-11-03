@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 import {
   useState,
@@ -9,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList } from '../../actions/cryptos';
-import { fetchFavoriteCryptos } from '../../actions/favorite';
 import MainContainer from './mainContainer';
 
 const TutoPage = lazy(() => import('./tutoPage'));
@@ -69,12 +69,6 @@ export default function CryptoList({ favoritePage, showTutorial }) {
     sortArray(cryptos, key, orderDirection);
     setOrderDirection(orderDirection === 'asc' ? 'desc' : 'asc');
   };
-
-  useEffect(() => {
-    if (logged) {
-      dispatch(fetchFavoriteCryptos());
-    }
-  }, [logged]);
 
   useEffect(() => {
     dispatch(getCryptoList());

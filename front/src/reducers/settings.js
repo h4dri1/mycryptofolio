@@ -6,13 +6,14 @@ import {
   TOGGLE_TRANSACTION_EDITOR,
   CHANGE_COLOR,
   SET_HOME_ICON,
-  TOOGLE_TRANSACTION_CREATOR
+  TOOGLE_TRANSACTION_CREATOR,
 } from 'src/actions/settings';
 
 if (localStorage.getItem('darkMode')) {
   const darkString = localStorage.getItem('darkMode');
   var dark = (darkString === 'true');
-} else {
+}
+else {
   var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
@@ -30,7 +31,7 @@ export const initialState = {
     open: false,
     severity: 'success',
     message: '',
-    link: ''
+    link: '',
   },
   transactionEditorIsOpen: false,
   transactionCreatorIsOpen: false,
@@ -44,7 +45,7 @@ const settings = (state = initialState, action = {}) => {
         colorTheme: action.payload,
       };
     }
-  
+
     case TOGGLE_DARK_MODE: {
       localStorage.setItem('darkMode', !state.darkMode);
       return ({
@@ -63,7 +64,7 @@ const settings = (state = initialState, action = {}) => {
     case TOGGLE_LOGIN_MODAL: {
       return ({
         ...state,
-        loginIsOpen: !state.loginIsOpen,
+        loginIsOpen: action.payload,
       });
     }
 

@@ -48,10 +48,6 @@ function NFTList() {
   //  var cryptoSym = ''
   //}
 
-  useEffect(() => { 
-    dispatch(getNFTList());
-  }, []);
-
   return (
     <Box sx={{minHeight: '82.5vh'}}>
     <Grid container justifyContent="center" className={classes.root}>

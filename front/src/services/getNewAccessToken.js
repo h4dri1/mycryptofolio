@@ -8,8 +8,8 @@ const getNewAccessToken = async (token) => {
     if (response.status === 201) {
       const data = {
         newAccessToken: response.headers.authorization,
-        userData: response.data
-      }
+        userData: response.data,
+      };
       return data;
     }
   }

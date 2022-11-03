@@ -2,19 +2,35 @@ import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
 import Dashboard from 'src/components/Dashboard';
 import Footer from 'src/components/Footer';
+import Home from 'src/pages/Home';
 
-import { useSelector } from 'react-redux';
-import { Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
+import { fetchPortfolio } from 'src/actions/portfolio';
+import { getAllCryptos } from 'src/actions/cryptos';
 
 export default function Portfolio() {
+  const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.user);
 
+  useEffect(() => {
+    if (logged) {
+      dispatch(fetchPortfolio());
+      dispatch(getAllCryptos());
+    }
+  }, [logged]);
+
   return (
-    <Fragment>
-      <TopBanner />
-      <Navbar />
-      <Dashboard logged={logged}/>
-      <Footer />
-    </Fragment>
+    logged ? (
+      <>
+        <TopBanner />
+        <Navbar />
+        <Dashboard />
+        <Footer />
+      </>
+    ) : (
+      <Home displayLogin />
+    )
   );
 }

@@ -2,36 +2,35 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import axios  from 'axios';
+import axios from 'axios';
 
 import {
-    Grid
-  } from '@mui/material';
+  Grid,
+} from '@mui/material';
 
 import { makeStyles } from '@mui/styles';
 import Password from './password';
 
 const useStyles = makeStyles({
-    grid: {
-      minHeight: '84vh',
-      marginTop: '100px'
-    },
-    gridItem: {
-      borderColor: '#E7EBF0',
-      borderRadius: 2,
-      margin: '10px',
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center'
-    },
-    gridSubItem: {
-      border: 'solid 2px gold',
-      height: '100%',
-    },
-  });
+  grid: {
+    minHeight: '84vh',
+    marginTop: '100px',
+  },
+  gridItem: {
+    borderColor: '#E7EBF0',
+    borderRadius: 2,
+    margin: '10px',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  gridSubItem: {
+    border: 'solid 2px gold',
+    height: '100%',
+  },
+});
 
-export default function Profil(){
-
+export default function Profil() {
   const classes = useStyles();
 
   const navigate = useNavigate();
@@ -39,13 +38,13 @@ export default function Profil(){
   const { token } = useParams();
 
   const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
-  
- useEffect(() => {
+
+  useEffect(() => {
     axios({
       method: 'get',
       baseURL,
-      url: `/jwt/login/check/${token}`
-    }) 
+      url: `/jwt/login/check/${token}`,
+    })
       .then((res) => {
         if (res.status === 204) {
           navigate('/reset');
@@ -53,20 +52,20 @@ export default function Profil(){
       })
       .catch((err) => {
         navigate('/reset');
-      })
+      });
   }, []);
 
-    return (
-        <Grid
-            container
-            display={'flex'}
-            direction={'column'}
-            alignItems={'center'}
-            className={classes.grid}
-        >
-            <Grid className={classes.grid}>
-              <Password/>
-            </Grid>
-        </Grid >
-    );
+  return (
+    <Grid
+      container
+      display="flex"
+      direction="column"
+      alignItems="center"
+      className={classes.grid}
+    >
+      <Grid className={classes.grid}>
+        <Password />
+      </Grid>
+    </Grid>
+  );
 }

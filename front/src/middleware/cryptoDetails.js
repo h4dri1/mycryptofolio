@@ -9,6 +9,23 @@ const baseURL = `${process.env.PRIVATE_API_BASE_URL}`;
 const cryptoDetails = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_CRYPTO_DATA:
+      var { selectedCurrency } = store.getState().cryptos.cryptoList;
+      axios({
+        method: 'get',
+        baseURL,
+        url: `/crypto/${action.payload}/${selectedCurrency}/${action.days}`,
+      })
+        .then((res) => {
+          // fetchCryptoDataSuccess(res.data)
+          store.dispatch(updateCryptoData(res.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      next(action);
+      break;
+    case FETCH_CHART_DATA:
 
       var { selectedCurrency } = store.getState().cryptos.cryptoList;
       axios({
@@ -21,32 +38,11 @@ const cryptoDetails = (store) => (next) => (action) => {
           store.dispatch(updateCryptoData(res.data));
         })
         .catch((err) => {
-          console.log(err)
-    
+          console.log(err);
         });
 
       next(action);
       break;
-      case FETCH_CHART_DATA:
-  
-        var { selectedCurrency } = store.getState().cryptos.cryptoList;
-        axios({
-          method: 'get',
-          baseURL,
-          url: `/crypto/${action.payload}/${selectedCurrency}/${action.days}`,
-        })
-          .then((res) => {
-            // fetchCryptoDataSuccess(res.data)
-            store.dispatch(updateCryptoData(res.data));
-      
-          })
-          .catch((err) => {
-            console.log(err)
-      
-          });
-  
-        next(action);
-        break;
     default:
       next(action);
       break;

@@ -22,7 +22,7 @@ export const initialState = {
   passwordCheck: '',
   avatar: '',
   accessToken: '',
-  verify: false ,
+  verify: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -49,14 +49,14 @@ const reducer = (state = initialState, action = {}) => {
       return ({
         ...state,
         password: '',
-        passwordCheck: ''
+        passwordCheck: '',
       });
     }
     case CHANGE_FORGOT_PASSWORD: {
       return ({
         ...state,
         password: '',
-        passwordCheck: ''
+        passwordCheck: '',
       });
     }
     case LOGIN: {
