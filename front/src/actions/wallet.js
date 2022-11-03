@@ -12,60 +12,57 @@ export const GET_WALLET_HISTORY = 'GET_WALLET_HISTORY';
 export const UPDATE_WALLET_HISTORY = 'UPDATE_WALLET_HISTORY';
 
 export const updateChainId = (payload) => ({
-    type: UPDATE_CHAIN_ID,
-    payload
+  type: UPDATE_CHAIN_ID,
+  payload,
 });
 
 export const updateCurrentAccount = (payload) => ({
-    type: UPDATE_CURRENT_ACCOUNT,
-    payload
+  type: UPDATE_CURRENT_ACCOUNT,
+  payload,
 });
 
 export const updateConnectAccount = (payload) => ({
-    type: UPDATE_CONNECT_ACCOUNT,
-    payload
+  type: UPDATE_CONNECT_ACCOUNT,
+  payload,
 });
 
 export const getWalletENS = () => ({
-    type: GET_WALLET_ENS,
+  type: GET_WALLET_ENS,
 });
 
 export const updateWalletENS = (payload) => ({
-    type: UPDATE_WALLET_ENS,
-    payload,
+  type: UPDATE_WALLET_ENS,
+  payload,
 });
 
 export const updateWalletBalance = (payload) => ({
-    type: UPDATE_WALLET_BALANCE,
-    payload,
+  type: UPDATE_WALLET_BALANCE,
+  payload,
 });
 
 export const getWalletTokens = () => ({
-    type: GET_WALLET_TOKENS,
+  type: GET_WALLET_TOKENS,
 });
 
 export const updateWalletTokens = (payload) => ({
-    type: UPDATE_WALLET_TOKENS,
-    payload,
+  type: UPDATE_WALLET_TOKENS,
+  payload,
 });
 
 export const getWalletNFT = () => ({
-    type: GET_WALLET_NFT,
+  type: GET_WALLET_NFT,
 });
 
 export const updateWalletNFT = (payload) => ({
-    type: UPDATE_WALLET_NFT,
-    payload,
+  type: UPDATE_WALLET_NFT,
+  payload,
 });
 
 export const getWalletHistory = () => ({
-    type: GET_WALLET_HISTORY,
+  type: GET_WALLET_HISTORY,
 });
 
 export const updateWalletHistory = (payload) => ({
-    type: UPDATE_WALLET_HISTORY,
-    payload,
+  type: UPDATE_WALLET_HISTORY,
+  payload,
 });
-
-
-

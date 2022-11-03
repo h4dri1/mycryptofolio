@@ -39,47 +39,47 @@ const cryptoList = (store) => (next) => (action) => {
         .catch((err) => console.log(err));
       next(action);
       break;
-      case GET_CRYPTO_TREND:
-        axios({
-          method: 'get',
-          baseURL,
-          url: `/trending`,
+    case GET_CRYPTO_TREND:
+      axios({
+        method: 'get',
+        baseURL,
+        url: '/trending',
+      })
+        .then((res) => {
+          store.dispatch(updateCryptoTrend(res.data));
         })
-          .then((res) => {
-            store.dispatch(updateCryptoTrend(res.data));
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-        next(action);
+        .catch((err) => {
+          console.log(err);
+        });
+      next(action);
       break;
-      case GET_NFT_TREND:
-        axios({
-          method: 'get',
-          baseURL,
-          url: `/nft/top`,
+    case GET_NFT_TREND:
+      axios({
+        method: 'get',
+        baseURL,
+        url: '/nft/top',
+      })
+        .then((res) => {
+          store.dispatch(updateNFTTrend(res.data));
         })
-          .then((res) => {
-            store.dispatch(updateNFTTrend(res.data));
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-        next(action);
+        .catch((err) => {
+          console.log(err);
+        });
+      next(action);
       break;
-      case GET_FEAR_GREED_INDEX:
-        axios({
-          method: 'get',
-          baseURL,
-          url: `/index/fearandgreed`,
+    case GET_FEAR_GREED_INDEX:
+      axios({
+        method: 'get',
+        baseURL,
+        url: '/index/fearandgreed',
+      })
+        .then((res) => {
+          store.dispatch(updateFearGreedIndex(res.data));
         })
-          .then((res) => {
-            store.dispatch(updateFearGreedIndex(res.data));
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-        next(action);
+        .catch((err) => {
+          console.log(err);
+        });
+      next(action);
       break;
     case GET_CRYPTO_LIST:
 
@@ -92,7 +92,6 @@ const cryptoList = (store) => (next) => (action) => {
           store.dispatch(updateCryptoList(res.data));
         })
         .catch((err) => {
-          
           console.log(err);
         })
         .finally(() => {

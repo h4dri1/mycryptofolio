@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 import {
-    FETCH_FAVORITE_CRYPTOS, updateFavoriteCryptos, ADD_FAVORITE_CRYPTO
+  FETCH_FAVORITE_CRYPTOS, updateFavoriteCryptos, ADD_FAVORITE_CRYPTO,
 } from 'src/actions/favorite';
 
 import { saveNewToken, saveUser } from 'src/actions/user';
@@ -55,12 +55,12 @@ const favorite = (store) => (next) => async (action) => {
       })
         .then((res) => {
           store.dispatch(updateFavoriteCryptos(res.data));
-          const newAccessToken = res.headers.authorization
+          const newAccessToken = res.headers.authorization;
           store.dispatch(saveNewToken(newAccessToken));
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
       next(action);
       break;
     case ADD_FAVORITE_CRYPTO:
@@ -75,33 +75,33 @@ const favorite = (store) => (next) => async (action) => {
         .then((res) => {
           if (res.status === 204) {
             store.dispatch(fetchFavoriteCryptos());
-            const newAccessToken = res.headers.authorization
+            const newAccessToken = res.headers.authorization;
             store.dispatch(saveNewToken(newAccessToken));
           }
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
       next(action);
       break;
     case DELETE_FAVORITE_CRYPTO:
-        privateRoute({
-            method: 'delete',
-            url: `/favorite/${action.payload}`,
-            headers: {
-                Authorization: store.getState().user.accessToken,
-            },
+      privateRoute({
+        method: 'delete',
+        url: `/favorite/${action.payload}`,
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+      })
+        .then((res) => {
+          store.dispatch(fetchFavoriteCryptos());
+          const newAccessToken = res.headers.authorization;
+          store.dispatch(saveNewToken(newAccessToken));
         })
-            .then((res) => {
-                store.dispatch(fetchFavoriteCryptos());
-                const newAccessToken = res.headers.authorization
-                store.dispatch(saveNewToken(newAccessToken));
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        next(action);
-        break;
+        .catch((err) => {
+          console.log(err);
+        });
+      next(action);
+      break;
     default:
       next(action);
       break;

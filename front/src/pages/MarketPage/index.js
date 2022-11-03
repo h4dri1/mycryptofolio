@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchFavoriteCryptos } from 'src/actions/favorite';
@@ -8,7 +8,6 @@ import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
 import CryptoList from 'src/components/CryptoList';
 import Footer from 'src/components/Footer';
-import { getCryptoList } from '../../actions/cryptos';
 
 export default function MarketPage() {
   const dispatch = useDispatch();

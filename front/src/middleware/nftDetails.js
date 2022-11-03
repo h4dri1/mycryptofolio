@@ -16,13 +16,13 @@ const nftDetails = (store) => (next) => (action) => {
       })
         .then((res) => {
           if (res.data.status === 'Not Found') {
-            store.dispatch(setDisplaySnackBar({ severity: 'error', message: `Erreur lors de la récupération des informations` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'error', message: 'Erreur lors de la récupération des informations' }));
           }
           store.dispatch(fetchNFTDataSuccess(res.data));
-            })
+        })
         .catch((err) => {
-          console.log(err)
-            });
+          console.log(err);
+        });
 
       next(action);
       break;

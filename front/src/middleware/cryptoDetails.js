@@ -20,32 +20,29 @@ const cryptoDetails = (store) => (next) => (action) => {
           store.dispatch(updateCryptoData(res.data));
         })
         .catch((err) => {
-          console.log(err)
-    
+          console.log(err);
         });
 
       next(action);
       break;
-      case FETCH_CHART_DATA:
-  
-        var { selectedCurrency } = store.getState().cryptos.cryptoList;
-        axios({
-          method: 'get',
-          baseURL,
-          url: `/crypto/${action.payload}/${selectedCurrency}/${action.days}`,
+    case FETCH_CHART_DATA:
+
+      var { selectedCurrency } = store.getState().cryptos.cryptoList;
+      axios({
+        method: 'get',
+        baseURL,
+        url: `/crypto/${action.payload}/${selectedCurrency}/${action.days}`,
+      })
+        .then((res) => {
+          // fetchCryptoDataSuccess(res.data)
+          store.dispatch(updateCryptoData(res.data));
         })
-          .then((res) => {
-            // fetchCryptoDataSuccess(res.data)
-            store.dispatch(updateCryptoData(res.data));
-      
-          })
-          .catch((err) => {
-            console.log(err)
-      
-          });
-  
-        next(action);
-        break;
+        .catch((err) => {
+          console.log(err);
+        });
+
+      next(action);
+      break;
     default:
       next(action);
       break;

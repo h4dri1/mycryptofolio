@@ -7,18 +7,16 @@ import {
   CHANGE_AVATAR,
   DELETE_USER,
   CHANGE_FORGOT_PASSWORD,
+  saveNewToken, saveUser,
 } from 'src/actions/user';
 
 import { updateCurrency } from 'src/actions/cryptos';
 
-//import { UPDATE_CURRENCY } from '../actions/cryptos';
+// import { UPDATE_CURRENCY } from '../actions/cryptos';
 
-import { saveNewToken, saveUser } from 'src/actions/user';
-import { setDisplaySnackBar, toggleConfirmDelete } from 'src/actions/settings';
-
-import {toggleLoginModal} from 'src/actions/settings';
-
-import { setPending } from 'src/actions/settings';
+import {
+  setDisplaySnackBar, toggleConfirmDelete, toggleLoginModal, setPending,
+} from 'src/actions/settings';
 
 import parseJwt from 'src/services/parseJwt';
 import isTokenExpired from 'src/services/isTokenExpired';
@@ -55,32 +53,31 @@ const profil = (store) => (next) => async (action) => {
 
   switch (action.type) {
     case CHANGE_FORGOT_PASSWORD:
-      
+
       privateRoute({
         method: 'post',
         url: '/signup/change/forgot/password',
         data: {
           token: action.payload.token,
           pass: action.payload.pass,
-          passConfirm: action.payload.passConfirm
+          passConfirm: action.payload.passConfirm,
         },
       })
         .then((res) => {
           if (res.status === 201) {
-            
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: 'Votre mot de passe à bien été mis à jour' }));
             store.dispatch(toggleLoginModal(true));
           }
         })
         .catch((err) => {
           console.log(err);
-          
+
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
     case CHANGE_PASSWORD:
-      
+
       privateRoute({
         method: 'post',
         url: '/signup/change/password',
@@ -90,26 +87,26 @@ const profil = (store) => (next) => async (action) => {
         data: {
           oldPass: action.payload.oldPass,
           pass: action.payload.pass,
-          passConfirm: action.payload.passConfirm
+          passConfirm: action.payload.passConfirm,
         },
       })
         .then((res) => {
           if (res.status === 201) {
             const newAccessToken = res.headers.authorization;
-            
+
             store.dispatch(saveNewToken(newAccessToken));
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre mot de passe à bien été mis à jour` }));
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: 'Votre mot de passe à bien été mis à jour' }));
           }
         })
         .catch((err) => {
           console.log(err);
-          
+
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
-      case CHANGE_USER:
-        
+    case CHANGE_USER:
+
       privateRoute({
         method: 'post',
         url: '/signup/change/user',
@@ -127,93 +124,93 @@ const profil = (store) => (next) => async (action) => {
           if (res.status === 201) {
             const newAccessToken = res.headers.authorization;
             const userObj = {
-                id: action.payload.id,
-                email: action.payload.email,
-                nickname: action.payload.nickname,
-                accessToken: newAccessToken,
-                currency: action.payload.currency,
+              id: action.payload.id,
+              email: action.payload.email,
+              nickname: action.payload.nickname,
+              accessToken: newAccessToken,
+              currency: action.payload.currency,
             };
             localStorage.setItem('currency', action.payload.currency);
             store.dispatch(saveUser(userObj));
             store.dispatch(saveNewToken(newAccessToken));
             store.dispatch(updateCurrency(action.payload.currency));
-            
-            store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Modification réussi` }));
+
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: 'Modification réussi' }));
           }
         })
         .catch((err) => {
           console.log(err);
-          
+
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
       break;
-      case CHANGE_AVATAR:
-        
-        const formData = new FormData();
-        formData.append('file', action.payload.avatar);
-        formData.append('upload_preset', 'profilPic');
-        formData.append('cloud_name', 'mycryptofolio');
-        axios.post('https://api.cloudinary.com/v1_1/mycryptofolio/image/upload', formData)
-          .then(res => {
-            const { url } = res.data;
-            const imgObj = {
-              avatar: url
-            }
-            privateRoute({
-              method: 'post',
-              url: '/signup/change/avatar',
-              headers: {
-                Authorization: store.getState().user.accessToken,
-              },
-              data: {
-                avatar: url
-              }
-            })
+    case CHANGE_AVATAR:
+
+      const formData = new FormData();
+      formData.append('file', action.payload.avatar);
+      formData.append('upload_preset', 'profilPic');
+      formData.append('cloud_name', 'mycryptofolio');
+      axios.post('https://api.cloudinary.com/v1_1/mycryptofolio/image/upload', formData)
+        .then((res) => {
+          const { url } = res.data;
+          const imgObj = {
+            avatar: url,
+          };
+          privateRoute({
+            method: 'post',
+            url: '/signup/change/avatar',
+            headers: {
+              Authorization: store.getState().user.accessToken,
+            },
+            data: {
+              avatar: url,
+            },
+          })
             .then((res) => {
               if (res.status === 201) {
                 const newAccessToken = res.headers.authorization;
                 store.dispatch(saveNewToken(newAccessToken));
                 store.dispatch(saveUser(imgObj));
-                
-                store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre photo de profil à bien été mis à jour` }));
+
+                store.dispatch(setDisplaySnackBar({ severity: 'success', message: 'Votre photo de profil à bien été mis à jour' }));
               }
             })
             .catch((err) => {
               console.log(err);
-              
+
               store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
             });
-          })
-          next(action);
-          break;
-        case DELETE_USER:
-          
-            privateRoute({
-              method: 'delete',
-              url: '/delete/user',
-              headers: {
-                Authorization: store.getState().user.accessToken,
-              },
-            })
-            .then((res) => {
-              if (res.status === 201) {
-                localStorage.clear();
-                
-                store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Votre compte a bien été supprimé` }));
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              
-              store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
-            });
-            next(action);
-            break;
-        default:
-        next(action);
-        break;
-    }
+        });
+      next(action);
+      break;
+    case DELETE_USER:
+
+      privateRoute({
+        method: 'delete',
+        url: '/delete/user',
+        headers: {
+          Authorization: store.getState().user.accessToken,
+        },
+      })
+        .then((res) => {
+          if (res.status === 201) {
+            localStorage.clear();
+
+            store.dispatch(setDisplaySnackBar({ severity: 'success', message: 'Votre compte a bien été supprimé' }));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+
+          store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
+        });
+      next(action);
+      break;
+    default:
+      next(action);
+      break;
+  }
 };
 
 export default profil;
