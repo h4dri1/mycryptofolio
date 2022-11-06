@@ -273,6 +273,7 @@ export default function TransactionCreatorForm(props) {
               }}
               id="quatity"
               value={quantity}
+              onClick={(e) => e.target.select()}
               onChange={(e) => {
                 setDisable(false);
                 setQuantity(Number(e.target.value));

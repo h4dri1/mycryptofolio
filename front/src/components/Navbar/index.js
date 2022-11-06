@@ -225,12 +225,12 @@ export default function PrimarySearchAppBar() {
                     width: 30, height: 30, color: 'secondary.main', ':hover': { color: 'secondary.dark' },
                   }}
                   />
-)}
+              )}
               >
                 <Typography fontSize="1.2em" fontWeight={selectedMenu() === 'Watchlist' ? 'bold' : ''} color={selectedMenu() === 'Watchlist' ? 'secondary.light' : 'white'}>Watchlist</Typography>
               </Button>
               )
-}
+            }
               {
               !hideButton && (
               <SavedSearchIcon
@@ -247,6 +247,8 @@ export default function PrimarySearchAppBar() {
             {
             hideButton && (
             <Button
+              onMouseEnter={handleToggle}
+              onMouseLeave={handleClose}
               onClick={handleToggle}
               sx={{ textTransform: 'none', ml: 5 }}
               startIcon={(
@@ -254,7 +256,7 @@ export default function PrimarySearchAppBar() {
                   width: 30, height: 30, color: 'secondary.main', ':hover': { color: 'secondary.dark' },
                 }}
                 />
-)}
+              )}
             >
               <Typography fontSize="1.2em" ref={anchorRef} fontWeight={selectedMenu() === 'Portfolio' || selectedMenu() === 'Portfolio' ? 'bold' : ''} color={selectedMenu() === 'Portfolio' || selectedMenu === 'Portfolio' ? 'secondary.light' : 'white'}>Wallet</Typography>
             </Button>

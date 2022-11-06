@@ -25,7 +25,6 @@ const auth = (store) => (next) => async (action) => {
   switch (action.type) {
     case LOGIN:
       // TODO: ajouter la fonction cleanObject de DOM-Purify pour nettoyer les valeurs des champs
-
       axios({
         method: 'post',
         baseURL,
@@ -59,7 +58,6 @@ const auth = (store) => (next) => async (action) => {
             store.dispatch(updateCurrency(res.data.currency));
             store.dispatch(getCryptoList());
             store.dispatch(saveUser(userObj));
-
             store.dispatch(setDisplaySnackBar({ severity: 'success', message: `Bonjour ${userObj.nickname}, vous êtes bien connecté` }));
           }
           else if (res.status === 200) {
@@ -68,7 +66,6 @@ const auth = (store) => (next) => async (action) => {
         })
         .catch((err) => {
           console.log(err.response.data.message);
-
           store.dispatch(setDisplaySnackBar({ severity: 'error', message: err.response.data.message }));
         });
       next(action);
