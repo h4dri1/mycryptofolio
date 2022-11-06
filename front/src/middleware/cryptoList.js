@@ -82,7 +82,6 @@ const cryptoList = (store) => (next) => (action) => {
       next(action);
       break;
     case GET_CRYPTO_LIST:
-
       axios({
         method: 'get',
         baseURL,
