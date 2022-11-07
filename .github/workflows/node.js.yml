@@ -29,5 +29,4 @@ jobs:
         cache: 'npm'
         cache-dependency-path: "back/package-lock.json"
     - run: npm i
-    - run: npm test
     - run: pm2 restart mcf
