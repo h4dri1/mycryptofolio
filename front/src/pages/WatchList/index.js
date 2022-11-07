@@ -5,6 +5,7 @@ import Footer from 'src/components/Footer';
 import Home from 'src/pages/Home';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { fetchFavoriteCryptos } from 'src/actions/favorite';
 import { getAllCryptos } from '../../actions/cryptos';
 
 export default function WatchListPage() {
@@ -13,6 +14,7 @@ export default function WatchListPage() {
 
   useEffect(() => {
     if (logged) {
+      dispatch(fetchFavoriteCryptos());
       dispatch(getAllCryptos());
     }
   }, [logged]);
@@ -22,7 +24,7 @@ export default function WatchListPage() {
       <>
         <TopBanner />
         <Navbar />
-        <WatchList logged={logged} />
+        <WatchList />
         <Footer />
       </>
     ) : (
