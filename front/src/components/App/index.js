@@ -79,6 +79,7 @@ const App = () => {
         <AlertMsg />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Home displayLogin />} />
           <Route
             path="/market"
             element={(
