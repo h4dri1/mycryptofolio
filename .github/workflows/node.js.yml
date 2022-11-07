@@ -28,5 +28,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: "back/package-lock.json"
+    - run: git pull
     - run: npm i
     - run: pm2 restart mcf
