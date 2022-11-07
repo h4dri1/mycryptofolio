@@ -28,7 +28,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: "back/package-lock.json"
-    - working-directory: "/home/prod/server/mycryptofolio/back"
     - run: npm i
     - run: npm test
     - run: pm2 restart mcf
