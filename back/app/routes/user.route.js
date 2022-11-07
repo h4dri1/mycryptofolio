@@ -17,7 +17,7 @@ router
   .get(
     '/verify/resend/:email',
     rateLimit(schemas.userLimiter),
-    validateParams(schemas.resendToken),
+    validateParams(schemas.resend),
     userController.resendMail,
   )
   .get(
