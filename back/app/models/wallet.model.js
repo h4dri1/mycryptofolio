@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-multi-str */
 const { pool } = require('../database');
-
+ 
 class Wallet {
   constructor(obj = {}) {
     for (const propName in obj) {
