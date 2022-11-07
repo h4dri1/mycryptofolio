@@ -92,7 +92,7 @@ export default function Sentiment({ fearAndGreed }) {
       }}
       >
         <Divider sx={{ marginBottom: 2 }} />
-        {fearAndGreed.data
+        {fearAndGreed.data?.length > 0
           ? <GaugeChartComponent value={value} classification={classification} />
           : <Loading />}
       </Container>

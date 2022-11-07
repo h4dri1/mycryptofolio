@@ -106,6 +106,7 @@ CryptoArray.defaultProps = {
 };
 
 export default function TopFlop({ pixelRatio, cryptos }) {
+
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2 }}>
       <Container sx={{
@@ -122,7 +123,7 @@ export default function TopFlop({ pixelRatio, cryptos }) {
         justifyContent: 'center',
       }}
       >
-        {cryptos.coins ? (
+        {cryptos.coins?.length > 0 ? (
           <CryptoArray loading={false} cryptos={cryptos} pixelRatio={pixelRatio} />
         ) : (
           <CryptoArray loading pixelRatio={pixelRatio} />
