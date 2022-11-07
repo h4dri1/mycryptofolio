@@ -287,6 +287,16 @@ class NoCryptoFound extends Error {
   }
 }
 
+class AccessDataError extends Error {
+  constructor(component) {
+    super();
+    this.name = this.constructor.name;
+    this.level = 'error';
+    this.message = `${component}=> Can't access to updated data`;
+    this.statusCode = 500;
+  }
+}
+
 module.exports = {
   NoUserWithThisMail,
   NoTransactionId,
@@ -316,4 +326,5 @@ module.exports = {
   SamePasswordAsOld,
   VerifyYourMail,
   NoCryptoFound,
+  AccessDataError,
 };
