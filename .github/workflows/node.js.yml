@@ -32,4 +32,5 @@ jobs:
         cache-dependency-path: "back/package-lock.json"
     - run: git pull
     - run: npm i
+    - run: sqitch deploy
     - run: pm2 restart mcf
