@@ -6,8 +6,8 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   grid: {
-    marginTop: '20%',
-    height: '100%',
+    marginTop: '20vh',
+    height: '62vh',
   },
   gridItem: {
     borderColor: '#E7EBF0',
@@ -21,18 +21,18 @@ export default function Contact() {
 
   return (
 
-    <Grid display="flex" maxHeight="100%" container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
+    <Grid display="flex" container rowSpacing={{ xs: 1, md: 2 }} justifyContent="space-evenly" className={classes.grid}>
 
       <Link href="https://github.com/h4dri1" underline="none">
         <Card sx={{
-          width: 250, display: 'flex', flexDirection: 'column', alignItems: 'center',
+          boxShadow: 4, borderRadius: '10px', justifyContent: 'center', height: 300, width: 300, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'primary.main', color: 'primary.light', border: 1,
         }}
         >
           <Avatar
             alt="photo-avatar"
             src="https://avatars.githubusercontent.com/u/89306281?v=4"
             sx={{
-              mt: 3, display: 'flex', alignItems: 'center', width: 70, height: 70,
+              mt: 3, display: 'flex', alignItems: 'center', width: 120, height: 120,
             }}
           />
           <CardContent>
@@ -40,7 +40,10 @@ export default function Contact() {
               Hadrien Vuillaume
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              Lead dev back & Product owner
+              Actual developer
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              Front / Back / DevOps
             </Typography>
           </CardContent>
           <CardActions>
@@ -52,14 +55,14 @@ export default function Contact() {
 
       <Link href="https://github.com/Augustin-Holguin" underline="none">
         <Card sx={{
-          width: 250, display: 'flex', flexDirection: 'column', alignItems: 'center',
+          boxShadow: 4, borderRadius: '10px', justifyContent: 'center', height: 300, width: 300, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'primary.main', color: 'primary.light', border: 1,
         }}
         >
           <Avatar
             alt="photo-avatar"
             src="https://avatars.githubusercontent.com/u/25201511?v=4"
             sx={{
-              mt: 3, display: 'flex', alignItems: 'center', width: 70, height: 70,
+              mt: 3, display: 'flex', alignItems: 'center', width: 120, height: 120,
             }}
           />
           <CardContent>
@@ -67,7 +70,7 @@ export default function Contact() {
               Augustin Holguín
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              Lead dev front
+              Dev front 
             </Typography>
           </CardContent>
           <CardActions>
@@ -79,14 +82,14 @@ export default function Contact() {
 
       <Link href="https://github.com/vmingam" underline="none">
         <Card sx={{
-          width: 250, display: 'flex', flexDirection: 'column', alignItems: 'center',
+          boxShadow: 4, borderRadius: '10px', justifyContent: 'center', height: 300, width: 300, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'primary.main', color: 'primary.light', border: 1,
         }}
         >
           <Avatar
             alt="photo-avatar"
             src="https://avatars.githubusercontent.com/u/7131900?v=4"
             sx={{
-              mt: 3, display: 'flex', alignItems: 'center', width: 70, height: 70,
+              mt: 3, display: 'flex', alignItems: 'center', width: 120, height: 120,
             }}
           />
           <CardContent>
@@ -94,7 +97,7 @@ export default function Contact() {
               Vincent Mingam
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              Dev front & Git master
+              Dev front
             </Typography>
           </CardContent>
           <CardActions>
@@ -106,14 +109,14 @@ export default function Contact() {
 
       <Link href="https://github.com/GregoryTannier" underline="none">
         <Card sx={{
-          width: 250, display: 'flex', flexDirection: 'column', alignItems: 'center',
+          boxShadow: 4, borderRadius: '10px', justifyContent: 'center', height: 300, width: 300, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'primary.main', color: 'primary.light', border: 1,
         }}
         >
           <Avatar
             alt="photo-avatar"
             src="https://avatars.githubusercontent.com/u/77966553?v=4"
             sx={{
-              mt: 3, display: 'flex', alignItems: 'center', width: 70, height: 70,
+              mt: 3, display: 'flex', alignItems: 'center', width: 120, height: 120,
             }}
           />
           <CardContent>
@@ -121,7 +124,7 @@ export default function Contact() {
               Grégory Tannier
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              Dev front & Scrum master
+              Dev front
             </Typography>
           </CardContent>
           <CardActions>

@@ -1,6 +1,7 @@
 import TopBanner from 'src/components/TopBanner';
 import Navbar from 'src/components/Navbar';
 import Contact from 'src/components/Contact';
+import Footer from '../../components/Footer';
 
 export default function ContactPage() {
   return (
@@ -8,6 +9,7 @@ export default function ContactPage() {
       <TopBanner />
       <Navbar />
       <Contact />
+      <Footer />
     </>
   );
 }
