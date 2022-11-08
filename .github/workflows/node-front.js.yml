@@ -34,3 +34,4 @@ jobs:
     - run: yarn
     - run: yarn clean
     - run: yarn build
+    - run: ./updateMcf.sh
