@@ -7,7 +7,8 @@
     "lint:fix": "eslint --fix src/**/*.js",
     "clean": "rm -rf dist",
     "clean:all": "rm -rf dist node_modules yarn.lock package-lock.json",
-    "save-deps": "node updateDeps.js"
+    "save-deps": "node updateDeps.js",
+    "update": "./updateMcf.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
