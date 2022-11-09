@@ -46,7 +46,7 @@ export default function LoginRegister({ type, handleFormSubmit }) {
         <Box
           onClick={handleToggleLoginModal}
           sx={{
-            aligItems: 'center', justifyContent: 'center', display: { xs: 'none', md: 'flex' }, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: 'secondary.main',
+            cursor: 'pointer', aligItems: 'center', justifyContent: 'center', display: { xs: 'none', md: 'flex' }, borderRadius: '50%', width: 56, height: 56, boxShadow: 10, bgcolor: 'secondary.main',
           }}
         >
           <Suspense fallback={<></>}><Identicon address={walletAddress} diam={56} /></Suspense>

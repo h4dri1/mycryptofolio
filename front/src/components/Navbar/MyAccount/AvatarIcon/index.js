@@ -1,17 +1,17 @@
-import { 
-  ClickAwayListener, 
-  Grow, 
-  Paper, 
-  Popper, 
-  MenuItem, 
-  MenuList, 
-  Stack, 
-  Avatar, 
-  Divider, 
+import {
+  ClickAwayListener,
+  Grow,
+  Paper,
+  Popper,
+  MenuItem,
+  MenuList,
+  Stack,
+  Avatar,
+  Divider,
   ListItemIcon,
-  Container, 
-  Link, 
-  useMediaQuery
+  Container,
+  Link,
+  useMediaQuery,
 } from '@mui/material';
 
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
@@ -20,11 +20,13 @@ import Logout from '@mui/icons-material/Logout';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
-import { logout } from '../../../../actions/user';
-import { useState, useRef, useEffect, Fragment } from 'react';
+import {
+  useState, useRef, useEffect, Fragment,
+} from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import { logout } from '../../../../actions/user';
 
 export default function TestAvatar() {
   const dispatch = useDispatch();
@@ -81,7 +83,8 @@ export default function TestAvatar() {
         }}
       >
         <div>
-          {!hide500 &&
+          {!hide500
+            && (
             <Avatar
               src={avatar}
               alt={nickname}
@@ -91,11 +94,13 @@ export default function TestAvatar() {
               aria-expanded={open ? 'true' : undefined}
               aria-haspopup="true"
               onClick={handleToggle}
-              sx={{ display: {xs: 'none', md: 'flex'}, backgroundColor: 'primary.light',width: 56, height: 56, boxShadow: 10, border: darkMode ? "1px solid #07f3d5" : "1px solid #7932a8", cursor: 'pointer' }}
+              sx={{
+                display: { xs: 'none', md: 'flex' }, backgroundColor: 'primary.light', width: 56, height: 56, boxShadow: 10, border: darkMode ? '1px solid #07f3d5' : '1px solid #7932a8', cursor: 'pointer',
+              }}
             />
-          }
-          
-          {hide500 && <MenuIcon ref={anchorRef} onClick={handleToggle} sx={{display: {md: 'none'}}}></MenuIcon>}
+            )}
+
+          {hide500 && <MenuIcon ref={anchorRef} onClick={handleToggle} sx={{ display: { md: 'none' } }} />}
           <Popper
             open={open}
             anchorEl={anchorRef.current}
@@ -103,7 +108,7 @@ export default function TestAvatar() {
             placement="bottom-end"
             transition
             disablePortal
-            sx={{width: {xs: '100%', md: 'auto'}, zIndex: 99999, position: 'sticky'}}
+            sx={{ width: { xs: '100%', md: 'auto' }, zIndex: 99999, position: 'sticky' }}
           >
             {({ TransitionProps, placement }) => (
               <Grow
@@ -112,21 +117,24 @@ export default function TestAvatar() {
                   transformOrigin: placement === 'bottom-start' ? 'bottom' : 'top',
                 }}
               >
-                <Paper sx={{marginTop: {xs: 4, md: 1}, backgroundColor: 'secondary.light', boxShadow: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px'}}>
+                <Paper sx={{
+                  marginTop: { xs: 4, md: 1 }, backgroundColor: 'secondary.light', boxShadow: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px',
+                }}
+                >
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList
                       autoFocusItem={open}
                       id="composition-menu"
                       aria-labelledby="composition-button"
                       onKeyDown={handleListKeyDown}
-                    > 
-                      <MenuItem >
+                    >
+                      <MenuItem>
                         <Link
                           component={RouterLink}
                           to="/profil"
                           underline="none"
                         >
-                          <Avatar sx={{ bgcolor: 'primary.light' }} src={hide500 ? avatar : nickname} alt={nickname}/>
+                          <Avatar sx={{ bgcolor: 'primary.light' }} src={hide500 ? avatar : nickname} alt={nickname} />
                         </Link>
                         <Link
                           component={RouterLink}
@@ -134,13 +142,13 @@ export default function TestAvatar() {
                           underline="none"
                           sx={{ paddingLeft: '0.5rem' }}
                         >
-                        Profil
+                          Profil
                         </Link>
                       </MenuItem>
-                      <Divider color={'primary.main'}/>
+                      <Divider color="primary.main" />
                       <MenuItem>
                         <ListItemIcon>
-                          <AccountBalanceWalletIcon fontSize="small" sx={{color: 'primary.main'}}/>
+                          <AccountBalanceWalletIcon fontSize="small" sx={{ color: 'primary.main' }} />
                         </ListItemIcon>
                         <Link
                           component={RouterLink}
@@ -152,7 +160,7 @@ export default function TestAvatar() {
                       </MenuItem>
                       <MenuItem>
                         <ListItemIcon>
-                          <SavedSearchIcon fontSize="small" sx={{color: 'primary.main'}}/>
+                          <SavedSearchIcon fontSize="small" sx={{ color: 'primary.main' }} />
                         </ListItemIcon>
                         <Link
                           component={RouterLink}
@@ -162,10 +170,10 @@ export default function TestAvatar() {
                           Watchlist
                         </Link>
                       </MenuItem>
-                      <Divider color={'primary.main'}/>
+                      <Divider color="primary.main" />
                       <MenuItem>
                         <ListItemIcon>
-                          <Logout fontSize="small" sx={{color: 'primary.main'}}/>
+                          <Logout fontSize="small" sx={{ color: 'primary.main' }} />
                         </ListItemIcon>
                         <Link
                           onClick={handleLogout}
