@@ -5,12 +5,12 @@ class BlockchainService extends Error {
     if (!err.level && process.env.NODE_ENV !== 'dev') {
       this.name = this.constructor.name;
       this.level = 'error';
-      this.message = 'Error on the blockchain service';
+      this.message = 'Error when access to wallet info, please try again';
       this.statusCode = 500;
     } else {
       this.name = err.name;
       this.level = err.level;
-      this.message = err.message;
+      this.message = `Blockchain.service: ${err.message}`;
       this.statusCode = err.statusCode;
     }
   }
@@ -22,12 +22,12 @@ class CryptoService extends Error {
     if (!err.level && process.env.NODE_ENV !== 'dev') {
       this.name = this.constructor.name;
       this.level = 'error';
-      this.message = 'Error on the crypto service';
+      this.message = 'Error when access to crypto info, please try again';
       this.statusCode = 500;
     } else {
       this.name = err.name;
       this.level = err.level;
-      this.message = err.message;
+      this.message = `Crypto.service: ${err.message}`;
       this.statusCode = err.statusCode;
     }
   }
@@ -39,12 +39,12 @@ class NftsService extends Error {
     if (!err.level) {
       this.name = this.constructor.name;
       this.level = 'error';
-      this.message = 'Error on the nfts service';
+      this.message = 'Error when access to nfts info, please try again';
       this.statusCode = 500;
     } else {
       this.name = err.name;
       this.level = err.level;
-      this.message = err.message;
+      this.message = `Nfts.service: ${err.message}`;
       this.statusCode = err.statusCode;
     }
   }
@@ -56,12 +56,12 @@ class PortfolioService extends Error {
     if (!err.level) {
       this.name = this.constructor.name;
       this.level = 'error';
-      this.message = 'Error on the portfolio service';
+      this.message = 'Error when access to portfolio info, please try again';
       this.statusCode = 500;
     } else {
       this.name = err.name;
       this.level = err.level;
-      this.message = err.message;
+      this.message = `Portfolio.service: ${err.message}`;
       this.statusCode = err.statusCode;
     }
   }
@@ -73,12 +73,12 @@ class TransactionService extends Error {
     if (!err.level) {
       this.name = this.constructor.name;
       this.level = 'error';
-      this.message = 'Error on the transaction service';
+      this.message = 'Error when process transaction info, please try again';
       this.statusCode = 500;
     } else {
       this.name = err.name;
       this.level = err.level;
-      this.message = err.message;
+      this.message = `Transaction.service: ${err.message}`;
       this.statusCode = err.statusCode;
     }
   }
@@ -90,12 +90,12 @@ class UserService extends Error {
     if (!err.level) {
       this.name = this.constructor.name;
       this.level = 'error';
-      this.message = 'Error on the user service';
+      this.message = 'Error when access to user info, please try again';
       this.statusCode = 500;
     } else {
       this.name = err.name;
       this.level = err.level;
-      this.message = err.message;
+      this.message = `User.service: ${err.message}`;
       this.statusCode = err.statusCode;
     }
   }
@@ -107,12 +107,12 @@ class WalletService extends Error {
     if (!err.level) {
       this.name = this.constructor.name;
       this.level = 'error';
-      this.message = 'Error on the wallet service';
+      this.message = 'Error when access to wallet info, please try again';
       this.statusCode = 500;
     } else {
       this.name = err.name;
       this.level = err.level;
-      this.message = err.message;
+      this.message = `Wallet.service: ${err.message}`;
       this.statusCode = err.statusCode;
     }
   }
