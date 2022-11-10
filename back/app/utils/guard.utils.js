@@ -20,7 +20,7 @@ module.exports = {
   // Check if the connected user own this transaction id
   transactionGuard: async (req) => {
     try {
-      const own = await Transaction.getSumeCoinByWalletWithSell(req.body.id);
+      const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
       if (!own[0].transaction_id) {
         throw new NoTransactionId(req.body.id);
       }
