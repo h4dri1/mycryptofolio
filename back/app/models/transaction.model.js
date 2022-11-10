@@ -5,6 +5,7 @@
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 const { pool } = require('../database');
+const { TransactionModel } = require('../error/error.model');
 
 class Transaction {
   constructor(obj = {}) {
@@ -14,13 +15,18 @@ class Transaction {
   }
 
   static async getTransactionByWallet(wid) {
-    const { rows } = await pool.query('SELECT * FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
-    return rows.map((row) => new Transaction(row));
+    try {
+      const { rows } = await pool.query('SELECT * FROM view_wallet_user_transaction WHERE wallet_id=$1;', [wid]);
+      return rows.map((row) => new Transaction(row));
+    } catch (err) {
+      throw new TransactionModel(err);
+    }
   }
 
   static async getUserCrypto(user_id) {
-    const { rows } = await pool.query(
-      'SELECT \
+    try {
+      const { rows } = await pool.query(
+        'SELECT \
         wallet_id, wallet_label, coin_id, symbol, \
         AVG(price) AS buy_price,\
         SUM (quantity) AS total, (AVG(price) * SUM(quantity)) AS investment\
@@ -30,14 +36,18 @@ class Transaction {
         user_id=$1 \
         GROUP BY \
         symbol, wallet_id, wallet_label, coin_id;',
-      [user_id],
-    );
-    return rows.map((row) => new Transaction(row));
+        [user_id],
+      );
+      return rows.map((row) => new Transaction(row));
+    } catch (err) {
+      throw new TransactionModel(err);
+    }
   }
 
   static async getUserCryptoByWallet(user_id, wallet_id) {
-    const { rows } = await pool.query(
-      'SELECT \
+    try {
+      const { rows } = await pool.query(
+        'SELECT \
         wallet_id, wallet_label, coin_id, symbol, \
         AVG(price) as buy_price, \
         SUM(quantity) AS total,\
@@ -48,14 +58,18 @@ class Transaction {
         user_id=$1 AND wallet_id=$2 \
         GROUP BY \
         wallet_id, wallet_label, symbol, coin_id;',
-      [user_id, wallet_id],
-    );
-    return rows.map((row) => new Transaction(row));
+        [user_id, wallet_id],
+      );
+      return rows.map((row) => new Transaction(row));
+    } catch (err) {
+      throw new TransactionModel(err);
+    }
   }
 
   static async getUserTransaction(user_id) {
-    const { rows } = await pool.query(
-      'SELECT \
+    try {
+      const { rows } = await pool.query(
+        'SELECT \
         id, symbol, buy, price, price_usd, price_eur, price_btc, price_eth, quantity, buy_date, fiat, wallet_id \
         FROM \
         view_transaction \
@@ -63,17 +77,21 @@ class Transaction {
         user_id=$1 \
         ORDER BY \
         buy_date DESC;',
-      [user_id],
-    );
-    if (rows) {
-      return new Transaction(rows);
+        [user_id],
+      );
+      if (rows) {
+        return new Transaction(rows);
+      }
+      return null;
+    } catch (err) {
+      throw new TransactionModel(err);
     }
-    return null;
   }
 
   static async getUserTransactionByWallet(user_id, wallet_id) {
-    const { rows } = await pool.query(
-      'SELECT \
+    try {
+      const { rows } = await pool.query(
+        'SELECT \
         id, symbol, buy, price, price_usd, price_eur, price_btc, price_eth, quantity, buy_date, fiat \
         FROM \
         view_transaction \
@@ -81,14 +99,18 @@ class Transaction {
         user_id=$1 AND wallet_id=$2 \
         ORDER BY \
         buy_date DESC;',
-      [user_id, wallet_id],
-    );
-    return rows.map((row) => new Transaction(row));
+        [user_id, wallet_id],
+      );
+      return rows.map((row) => new Transaction(row));
+    } catch (err) {
+      throw new TransactionModel(err);
+    }
   }
 
   static async getSumCoinByWalletWithSell(tid) {
-    const { rows } = await pool.query(
-      'SELECT \
+    try {
+      const { rows } = await pool.query(
+        'SELECT \
         transaction_id, wallet_id, user_id, coin_id, buy,\
         (SELECT quantity FROM view_transaction WHERE id=$1), \
         (SELECT COUNT (buy = false) FROM view_wallet_user_transaction WHERE buy=false AND \
@@ -102,26 +124,37 @@ class Transaction {
         transaction_id=$1 \
         GROUP BY \
         buy, transaction_id, wallet_id, user_id, coin_id;',
-      [tid],
-    );
-    return rows.map((row) => new Transaction(row));
+        [tid],
+      );
+      return rows.map((row) => new Transaction(row));
+    } catch (err) {
+      throw new TransactionModel(err);
+    }
   }
 
   async save() {
-    if (this.id) {
-      await pool.query('SELECT * FROM update_transaction($1)', [this]);
-    } else {
-      const { rows } = await pool.query('SELECT * FROM add_transaction($1)', [this]);
-      if (rows) {
-        this.id = rows[0].id;
-        return this;
+    try {
+      if (this.id) {
+        await pool.query('SELECT * FROM update_transaction($1)', [this]);
+      } else {
+        const { rows } = await pool.query('SELECT * FROM add_transaction($1)', [this]);
+        if (rows) {
+          this.id = rows[0].id;
+          return this;
+        }
       }
+      return null;
+    } catch (err) {
+      throw new TransactionModel(err);
     }
-    return null;
   }
 
   static async delete(id) {
-    await pool.query('DELETE FROM transaction WHERE id=$1 RETURNING id;', [id]);
+    try {
+      await pool.query('DELETE FROM transaction WHERE id=$1 RETURNING id;', [id]);
+    } catch (err) {
+      throw new TransactionModel(err);
+    }
   }
 }
 

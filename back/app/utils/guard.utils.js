@@ -12,6 +12,7 @@ const {
   BuyMustBePositive,
   MoreCoinThanYouHave,
 } = require('../error/error');
+const { GuardError } = require('../error/error.utils');
 
 module.exports = {
   // Transaction check
@@ -19,7 +20,7 @@ module.exports = {
   // Check if the connected user own this transaction id
   transactionGuard: async (req) => {
     try {
-      const own = await Transaction.getSumCoinByWalletWithSell(req.body.id);
+      const own = await Transaction.getSumeCoinByWalletWithSell(req.body.id);
       if (!own[0].transaction_id) {
         throw new NoTransactionId(req.body.id);
       }
@@ -27,7 +28,7 @@ module.exports = {
         throw new NotYourTransaction(req.ip, req.body.id);
       }
     } catch (err) {
-      throw err;
+      throw new GuardError(err);
     }
   },
   // Wallet check
@@ -45,7 +46,7 @@ module.exports = {
         }
       }
     } catch (err) {
-      throw err;
+      throw new GuardError(err);
     }
   },
   // Coin check
@@ -69,7 +70,7 @@ module.exports = {
         throw new MoreCoinThanYouHave(req.body);
       }
     } catch (err) {
-      throw err;
+      throw new GuardError(err);
     }
   },
   // Sign Check
@@ -85,7 +86,7 @@ module.exports = {
         throw new SellMustBeNegative(req.ip);
       }
     } catch (err) {
-      throw err;
+      throw new GuardError(err);
     }
   },
 };

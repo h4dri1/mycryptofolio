@@ -1,10 +1,11 @@
 /* eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 const nodemailer = require('nodemailer');
+const { MailerUtils } = require('../error/error.utils');
 
 require('dotenv').config();
 
 module.exports = {
-  sendMail: async (req, res, next) => {
+  sendMail: async (req) => {
     try {
       const transporter = nodemailer.createTransport({
         port: 25,
@@ -25,11 +26,11 @@ module.exports = {
       console.log('Message sent: %s', info.messageId);
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     } catch (err) {
-      next(err);
+      throw new MailerUtils(err);
     }
   },
 
-  sendMailCheck: async (req, res, next) => {
+  sendMailCheck: async (req) => {
     try {
       const transporter = nodemailer.createTransport({
         port: 25,
@@ -50,7 +51,7 @@ module.exports = {
       console.log('Message sent: %s', info.messageId);
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     } catch (err) {
-      next(err);
+      throw new MailerUtils(err);
     }
   },
 };

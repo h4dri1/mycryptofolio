@@ -5,6 +5,7 @@
 const { Crypto } = require('../models');
 const fetch = require('./fetch.utils');
 const { CurrencyError } = require('../error/error');
+const { UpdateUtils } = require('../error/error.utils');
 
 module.exports = {
   price: async (strCryptos, cur) => {
@@ -18,7 +19,7 @@ module.exports = {
         await Crypto.updatePrice(newData);
       }
     } catch (err) {
-      throw err;
+      throw new UpdateUtils(err);
     }
   },
 
@@ -68,7 +69,7 @@ module.exports = {
         }
       }
     } catch (err) {
-      throw err;
+      throw new UpdateUtils(err);
     }
   },
 };
