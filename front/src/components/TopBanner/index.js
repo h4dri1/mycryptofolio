@@ -2,12 +2,12 @@
 import {
   AppBar, Toolbar, Container, useMediaQuery, Box, Link,
 } from '@mui/material';
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 
 import { useSelector } from 'react-redux';
 
 import Logo from 'src/components/Navbar/Logo';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import RefCurrency from './RefCurrency';
 import ToggleMode from './ToggleMode';
 
