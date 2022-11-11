@@ -1,3 +1,5 @@
+/* eslint-disable brace-style */
+/* eslint-disable max-len */
 import axios from 'axios';
 import {
   LOGIN,
@@ -130,24 +132,33 @@ const auth = (store) => (next) => async (action) => {
       next(action);
       break;
     case CHECK_TOKEN:
-      if (isTokenExpired(accessToken) && refreshToken) {
-        const { newAccessToken, userData } = await getNewAccessToken(refreshToken);
-        const { user } = parseJwt(newAccessToken);
-        const { id } = user;
-        const userObj = {
-          id,
-          email: userData.email,
-          nickname: userData.nickname,
-          avatar: userData.picture,
-          accessToken: newAccessToken,
-          verify: userData.verify,
-        };
-        store.dispatch(saveUser(userObj));
+      try {
+        if (isTokenExpired(accessToken) && refreshToken) {
+          const { newAccessToken, userData } = await getNewAccessToken(refreshToken);
+          if (newAccessToken) {
+            const { user } = parseJwt(newAccessToken);
+            const { id } = user;
+            const userObj = {
+              id,
+              email: userData.email,
+              nickname: userData.nickname,
+              avatar: userData.picture,
+              accessToken: newAccessToken,
+              verify: userData.verify,
+            };
+            store.dispatch(saveUser(userObj));
+          }
+        }
+        else if ((isTokenExpired(accessToken) && accessToken) && (!refreshToken || isTokenExpired(accessToken))) {
+          store.dispatch(logout());
+        }
+      } catch (err) {
+        if (err.response.status === 403) {
+          store.dispatch(setDisplaySnackBar({ severity: 'warning', message: 'Your session has expired please log in again' }));
+          store.dispatch(toggleLoginModal(true));
+          localStorage.removeItem('refreshToken');
+        }
       }
-      else if ((isTokenExpired(accessToken) && accessToken) && (!refreshToken || isTokenExpired(accessToken))) {
-        store.dispatch(logout());
-      }
-
       next(action);
       break;
 
