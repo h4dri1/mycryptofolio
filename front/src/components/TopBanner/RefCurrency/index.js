@@ -1,11 +1,7 @@
 import { MenuItem, Select } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateCurrency } from 'src/actions/cryptos';
-import { fetchPortfolio } from 'src/actions/portfolio';
-import { fetchCryptoData } from 'src/actions/cryptoDetails';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getCurrentAccount } from '../../../actions/metamask';
 
 // export default function SelectAutoWidth() {
 export default function RefCurrency() {
@@ -17,16 +13,22 @@ export default function RefCurrency() {
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    dispatch(updateCurrency(event.target.value));
+    import('../../../actions/cryptos')
+      .then((module) => dispatch(module.updateCurrency(event.target.value)));
     if (logged && location.pathname.split('/')[1] === 'portfolio') {
-      dispatch(fetchPortfolio());
-      navigate('/portfolio');
+      import('../../../actions/portfolio')
+        .then((module) => {
+          dispatch(module.fetchPortfolio());
+          navigate('/portfolio');
+        });
     }
     if (location.pathname.split('/')[1] === 'crypto') {
-      dispatch(fetchCryptoData(data.id, days));
+      import('../../../actions/cryptoDetails')
+        .then((module) => dispatch(module.fetchCryptoData(data.id, days)));
     }
     if (location.pathname.split('/')[1] === 'wallet') {
-      dispatch(getCurrentAccount());
+      import('../../../actions/metamask')
+        .then((module) => dispatch(module.getCurrentAccount()));
     }
   };
 

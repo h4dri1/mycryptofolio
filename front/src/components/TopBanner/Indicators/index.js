@@ -12,18 +12,6 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import { useEffect } from 'react';
 import { getIndicators } from '../../../actions/indicators';
 
-// const useStyles = makeStyles((theme) => ({
-//   indicator: {
-//     display: 'flex',
-//     ,
-
-//     alignItems: 'center',
-//     [theme.breakpoints.up('md')]: {
-//       margin: '0 2em',
-//     },
-//   },
-// }));
-
 const Indicators = ({ data }) => {
   const dispatch = useDispatch();
   const refCurrency = useSelector((state) => state.cryptos.cryptoList.selectedCurrency);

@@ -1,20 +1,49 @@
 import { Select, MenuItem, FormControl } from '@mui/material';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getConnectAccount, getCurrentAccount } from '../../../actions/metamask';
 
 export default function ConnectWallet(props) {
-    const { wallet, wallets } = props;
+  const { wallet, wallets } = props;
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    dispatch(getCurrentAccount([event.target.value]));
+    import('../../../actions/metamask')
+      .then((module) => dispatch(module.getCurrentAccount([event.target.value])));
   };
 
   const onClick = () => {
     if (wallet.walletAddress === 'Wallet') {
-      dispatch(getConnectAccount());
+      import('../../../actions/metamask')
+        .then((module) => dispatch(module.getConnectAccount()));
     }
   };
+
+  const changeAccount = (accounts, change) => {
+    import('../../../actions/metamask')
+      .then((module) => dispatch(module.getCurrentAccount(accounts, change)));
+  };
+
+  const changeNetwork = () => {
+    dispatch(module.getCurrentAccount());
+  };
+
+  useEffect(() => {
+    if (wallet.walletAddress !== 'Wallet') {
+      // eslint-disable-next-line no-undef
+      ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length > 0) {
+          const change = true;
+          changeAccount(accounts, change);
+        }
+      });
+      // eslint-disable-next-line no-undef
+      ethereum.on('chainChanged', (networkId) => {
+        if (networkId.length > 0) {
+          changeNetwork(networkId);
+        }
+      });
+    }
+  }, []);
 
   return (
     <FormControl size="small">

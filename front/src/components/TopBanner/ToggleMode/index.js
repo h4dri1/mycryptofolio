@@ -2,7 +2,6 @@ import {
   styled, FormGroup, FormControlLabel, Switch,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleDarkMode } from 'src/actions/settings';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -56,13 +55,18 @@ export default function ToggleMode() {
 
   const { darkMode } = useSelector((state) => state.settings);
 
+  const handleChange = () => {
+    import('../../../actions/settings')
+      .then((actions) => dispatch(actions.toggleDarkMode()));
+  };
+
   return (
     <FormGroup>
       <FormControlLabel
         control={<MaterialUISwitch sx={{ mr: -2 }} />}
         label=""
         checked={darkMode}
-        onChange={() => dispatch(toggleDarkMode())}
+        onChange={handleChange}
       />
     </FormGroup>
   );

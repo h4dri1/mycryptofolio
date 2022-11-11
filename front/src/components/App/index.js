@@ -39,36 +39,10 @@ const App = () => {
   const theme = Theme();
   // COLOR PALETTE for LIGHT & DARK modes
 
-  const changeAccount = (accounts, change) => {
-    dispatch(getCurrentAccount(accounts, change));
-  };
-
-  const changeNetwork = () => {
-    dispatch(getCurrentAccount());
-  };
-
   useEffect(() => {
-    async function asyncCheck() {
-      if (localStorage.getItem('refreshToken')) {
-        dispatch(checkToken());
-      }
-      if (walletAddress !== 'Wallet') {
-        // eslint-disable-next-line no-undef
-        ethereum.on('accountsChanged', (accounts) => {
-          if (accounts.length > 0) {
-            const change = true;
-            changeAccount(accounts, change);
-          }
-        });
-        // eslint-disable-next-line no-undef
-        ethereum.on('chainChanged', (networkId) => {
-          if (networkId.length > 0) {
-            changeNetwork(networkId);
-          }
-        });
-      }
+    if (localStorage.getItem('refreshToken')) {
+      dispatch(checkToken());
     }
-    asyncCheck();
   }, []);
 
   return (
