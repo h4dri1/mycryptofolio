@@ -108,7 +108,6 @@ CryptoArray.defaultProps = {
 
 export default function TopFlop({ pixelRatio }) {
   const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
-  console.log('rendering TopFlop');
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2 }}>
       <Container sx={{

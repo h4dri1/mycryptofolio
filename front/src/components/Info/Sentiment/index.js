@@ -72,7 +72,6 @@ GaugeChartComponent.propTypes = {
 
 export default function Sentiment() {
   const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
-  console.log('rendering sentiment')
   const value = fearAndGreed.data !== undefined ? (fearAndGreed.data[0].value) / 100 : 0;
   const classification = fearAndGreed.data !== undefined
     ? (fearAndGreed.data[0].value_classification) : 0;

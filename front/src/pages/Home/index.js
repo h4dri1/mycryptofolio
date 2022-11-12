@@ -10,7 +10,6 @@ import { toggleLoginModal } from '../../actions/settings';
 import { getCryptoTrend, getFearGreedIndex, getNFTList, getCryptoList } from '../../actions/cryptos';
 
 export default function Home({ displayLogin }) {
-  console.log('page')
   const dispatch = useDispatch();
 
   useEffect(() => {

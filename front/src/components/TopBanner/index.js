@@ -16,14 +16,14 @@ import ConnectWallet from './ConnectWallet';
 const Indicators = lazy(() => import('./Indicators'));
 const Color = lazy(() => import('./Color'));
 
-function TopBanner() {
+export default function TopBanner() {
   const data = useSelector((state) => state.indicators);
   const hide500 = useMediaQuery('(max-width:600px)');
 
   const wallet = useSelector((state) => state.wallet);
   const wallets = JSON.parse(localStorage.getItem('wallets'));
 
-  const onClick = async () => {
+  const onClick = () => {
     import('../../services/switchNetwork')
       .then((module) => module.default(wallet));
   };
@@ -71,5 +71,3 @@ function TopBanner() {
     </AppBar>
   );
 }
-
-export default TopBanner;

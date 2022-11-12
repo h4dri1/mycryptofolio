@@ -23,7 +23,6 @@ const gridStyle = (props) => ({
 });
 
 export default function Info() {
-  console.log('parent')
   const pixelRatio = window.devicePixelRatio;
 
   return (

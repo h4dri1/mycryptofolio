@@ -106,7 +106,6 @@ NFTArray.defaultProps = {
 
 export default function TopNFT() {
   const nfts = useSelector((state) => state.nft.NFTList.list);
-  console.log('rendering TopNFT');
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2 }}>
       <Container sx={{
