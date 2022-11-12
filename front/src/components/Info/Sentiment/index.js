@@ -7,6 +7,7 @@ import {
   Container,
   Skeleton,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 function Loading() {
   return (
@@ -69,11 +70,13 @@ GaugeChartComponent.propTypes = {
   classification: PropTypes.string.isRequired,
 };
 
-export default function Sentiment({ fearAndGreed }) {
+export default function Sentiment() {
+  const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
+  console.log('rendering sentiment')
   const value = fearAndGreed.data !== undefined ? (fearAndGreed.data[0].value) / 100 : 0;
   const classification = fearAndGreed.data !== undefined
     ? (fearAndGreed.data[0].value_classification) : 0;
-    
+
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2 }}>
       <Container sx={{
@@ -99,10 +102,3 @@ export default function Sentiment({ fearAndGreed }) {
     </Container>
   );
 }
-
-Sentiment.propTypes = {
-  fearAndGreed: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]).isRequired,
-};

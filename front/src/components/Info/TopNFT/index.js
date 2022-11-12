@@ -15,6 +15,7 @@ import {
   Avatar,
   Skeleton,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 function Loading(props) {
   const {
@@ -103,7 +104,9 @@ NFTArray.defaultProps = {
   nfts: [],
 };
 
-export default function TopNFT({ nfts }) {
+export default function TopNFT() {
+  const nfts = useSelector((state) => state.nft.NFTList.list);
+  console.log('rendering TopNFT');
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2 }}>
       <Container sx={{
@@ -130,7 +133,3 @@ export default function TopNFT({ nfts }) {
     </Container>
   );
 }
-
-TopNFT.propTypes = {
-  nfts: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

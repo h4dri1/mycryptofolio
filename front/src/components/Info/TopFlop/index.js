@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import {
   Typography,
@@ -105,8 +106,9 @@ CryptoArray.defaultProps = {
   cryptos: [],
 };
 
-export default function TopFlop({ pixelRatio, cryptos }) {
-
+export default function TopFlop({ pixelRatio }) {
+  const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
+  console.log('rendering TopFlop');
   return (
     <Container disableGutters sx={{ borderRadius: '10px', height: 'auto', marginBottom: 2 }}>
       <Container sx={{
@@ -135,8 +137,4 @@ export default function TopFlop({ pixelRatio, cryptos }) {
 
 TopFlop.propTypes = {
   pixelRatio: PropTypes.number.isRequired,
-  cryptos: PropTypes.oneOfType([
-    PropTypes.objectOf(PropTypes.any),
-    PropTypes.arrayOf(PropTypes.any),
-  ]).isRequired,
 };

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getCryptoList } from '../../actions/cryptos';
 import MainContainer from './mainContainer';
+import { fetchFavoriteCryptos } from '../../actions/favorite';
 
 const TutoPage = lazy(() => import('./tutoPage'));
 
@@ -69,6 +70,12 @@ export default function CryptoList({ favoritePage, showTutorial }) {
     sortArray(cryptos, key, orderDirection);
     setOrderDirection(orderDirection === 'asc' ? 'desc' : 'asc');
   };
+
+  useEffect(() => {
+    if (logged) {
+      dispatch(fetchFavoriteCryptos());
+    }
+  }, [logged]);
 
   useEffect(() => {
     dispatch(getCryptoList());

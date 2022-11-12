@@ -23,11 +23,8 @@ const gridStyle = (props) => ({
 });
 
 export default function Info() {
+  console.log('parent')
   const pixelRatio = window.devicePixelRatio;
-
-  const nfts = useSelector((state) => state.nft.NFTList.list);
-  const { list: cryptos } = useSelector((state) => state.cryptos.cryptoTrend);
-  const { list: fearAndGreed } = useSelector((state) => state.cryptos.FearAndGreed);
 
   return (
     <Box sx={{ minHeight: '80vh' }}>
@@ -38,7 +35,7 @@ export default function Info() {
           xs={12}
           md={pixelRatio > 1 ? 3 : 2.5}
         >
-          <TopFlop cryptos={cryptos} pixelRatio={pixelRatio} />
+          <TopFlop pixelRatio={pixelRatio} />
         </Grid>
         <Grid
           sx={gridStyle({ xs: '0px 10px 10px 10px', md: '0px 14px 0px 14px' }).gridItem}
@@ -46,7 +43,7 @@ export default function Info() {
           xs={12}
           md={pixelRatio > 1 ? 3 : 2.5}
         >
-          <Sentiment fearAndGreed={fearAndGreed} />
+          <Sentiment />
         </Grid>
         <Grid
           sx={gridStyle({ xs: '0px 10px 10px 10px', md: '0px 0px 0px 0px' }).gridItem}
@@ -54,7 +51,7 @@ export default function Info() {
           xs={12}
           md={pixelRatio > 1 ? 3 : 2.5}
         >
-          <TopNFT pixelRatio={pixelRatio} nfts={nfts} />
+          <TopNFT pixelRatio={pixelRatio} />
         </Grid>
         <CryptoList />
       </Grid>
