@@ -3,13 +3,11 @@
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy, useEffect } from 'react';
 
-import { getCurrentAccount } from '../../actions/metamask';
 import AlertMsg from '../common/AlertMessage';
-import { checkToken } from '../../actions/user';
 
 import Loading from '../Loading';
 import Home from '../../pages/Home';
@@ -34,14 +32,13 @@ const App = () => {
   const dispatch = useDispatch();
   // DARK MODE
 
-  const { walletAddress } = useSelector((state) => state.wallet);
-
   const theme = Theme();
   // COLOR PALETTE for LIGHT & DARK modes
 
   useEffect(() => {
     if (localStorage.getItem('refreshToken')) {
-      dispatch(checkToken());
+      import('../../actions/user')
+        .then((module) => dispatch(module.checkToken()));
     }
   }, []);
 
