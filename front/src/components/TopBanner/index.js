@@ -11,7 +11,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import RefCurrency from './RefCurrency';
 import ToggleMode from './ToggleMode';
 
-import ConnectWallet from './ConnectWallet';
+import ConnectWallet from './nexConnectWallet';
 
 const Indicators = lazy(() => import('./Indicators'));
 const Color = lazy(() => import('./Color'));
