@@ -16,6 +16,7 @@ const wallet = (store) => (next) => async (action) => {
   const state = store.getState();
 
   const { walletAddress, walletNetwork, walletBalance } = state.wallet;
+  const selectedWallet = localStorage.getItem('wallet');
 
   switch (action.type) {
     case GET_WALLET_ENS:
@@ -23,20 +24,9 @@ const wallet = (store) => (next) => async (action) => {
         axios({
           method: 'get',
           baseURL,
-          url: `/ens/${walletAddress}`,
+          url: `/ens/${selectedWallet}`,
         })
           .then(async (res) => {
-            const wallets = JSON.parse(localStorage.getItem('wallets'));
-            const wallet = wallets.find((w) => w.address === walletAddress);
-            if (!wallet.name) {
-              const newWallets = wallets.map((w) => {
-                if (w.address === walletAddress) {
-                  w.name = res.data.name;
-                }
-                return w;
-              });
-              localStorage.setItem('wallets', JSON.stringify(newWallets));
-            }
             localStorage.setItem('walletENS', res.data.name);
             await store.dispatch(updateWalletENS(res.data.name));
           }).catch((err) => {
@@ -73,6 +63,7 @@ const wallet = (store) => (next) => async (action) => {
           console.log(err);
         });
       next(action);
+      break;
     case GET_WALLET_HISTORY:
       axios({
         method: 'get',

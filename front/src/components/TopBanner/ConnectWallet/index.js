@@ -2,6 +2,7 @@ import { Select, MenuItem, FormControl } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+
 export default function ConnectWallet(props) {
   const { wallet, wallets } = props;
   const dispatch = useDispatch();

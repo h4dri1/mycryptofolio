@@ -2,6 +2,7 @@ import Logo from 'src/components/Navbar/Logo';
 import MyAccount from 'src/components/Navbar/MyAccount';
 import SearchCrypto from 'src/components/Navbar/SearchBar/SearchCrypto';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+
 import {
   useRef, useState, useEffect,
 } from 'react';
