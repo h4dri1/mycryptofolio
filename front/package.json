@@ -52,7 +52,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@emotion/react": "^11.8.2",
+    "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.8.1",
     "@metamask/detect-provider": "^2.0.0",
     "@mui/icons-material": "^5.5.1",
