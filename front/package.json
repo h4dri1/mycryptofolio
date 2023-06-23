@@ -82,7 +82,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "redux": "^4.1.2",
-    "yarn-audit-fix": "^9.3.1"
+    "yarn-audit-fix": "^9.3.7"
   },
   "resolutions": {
     "json5": "^2.2.1",
