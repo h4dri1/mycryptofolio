@@ -57,9 +57,9 @@
     "@metamask/detect-provider": "^2.0.0",
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.74",
-    "@mui/material": "^5.5.2",
+    "@mui/material": "^7.0.0",
     "@mui/styles": "^5.5.1",
-    "@mui/x-date-pickers": "^5.0.3",
+    "@mui/x-date-pickers": "^8.0.0",
     "axios": "^0.25.0",
     "chart.js": "^3.7.1",
     "d3-color": "^3.1.0",
@@ -79,9 +79,9 @@
     "react-identicons": "^1.2.5",
     "react-jazzicon": "^1.0.4",
     "react-meta-tags": "^1.0.1",
-    "react-redux": "^7.2.6",
+    "react-redux": "^9.0.0",
     "react-router-dom": "^6.2.2",
-    "redux": "^4.1.2",
+    "redux": "^5.0.0",
     "yarn-audit-fix": "^9.3.1"
   },
   "resolutions": {
